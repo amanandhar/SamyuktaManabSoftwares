@@ -1,13 +1,18 @@
-﻿using System;
+﻿using GrocerySupplyManagementApp.Services;
+using System;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DashboardForm : Form
     {
-        public DashboardForm()
+        private readonly IMemberService _memberService;
+
+        public DashboardForm(IMemberService memberService)
         {
             InitializeComponent();
+
+            _memberService = memberService;
         }
 
         #region Load
@@ -18,7 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichBoxDateInAd.SelectionAlignment = HorizontalAlignment.Center;
             RichBoxDateInBs.Text = "Date in BS: " + DateTime.Today.ToString("MM/dd/yyyy");
             RichBoxDateInBs.SelectionAlignment = HorizontalAlignment.Center;
-            
+
             RichBoxUsername.Text = "User Name: Bhai Raja Manandhar";
             RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
             RichBoxFiscalYear.Text = "Fiscal Year: 2077/78";
@@ -49,7 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnMemberMgmt_Click(object sender, EventArgs e)
         {
-            MemberForm memberForm = new MemberForm();
+            MemberForm memberForm = new MemberForm(_memberService, this);
             memberForm.Show();
         }
 
@@ -104,6 +109,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ExpenseMgmtForm expenseMgmtForm = new ExpenseMgmtForm();
             expenseMgmtForm.Show();
-                    }
+        }
     }
 }
