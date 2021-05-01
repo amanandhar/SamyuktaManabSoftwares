@@ -39,20 +39,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.BtnDeleteItemImage = new System.Windows.Forms.Button();
+            this.BtnItemSearch = new System.Windows.Forms.Button();
+            this.BtnAddItemImage = new System.Windows.Forms.Button();
+            this.TextBoxSalesPrice = new System.Windows.Forms.TextBox();
+            this.TextBoxPurchasePrice = new System.Windows.Forms.TextBox();
+            this.TextBoxItemName = new System.Windows.Forms.TextBox();
+            this.TextBoxItemBrand = new System.Windows.Forms.TextBox();
+            this.ComboItemUnit = new System.Windows.Forms.ComboBox();
+            this.TextBoxItemCode = new System.Windows.Forms.TextBox();
+            this.BtnUpdate = new System.Windows.Forms.Button();
+            this.BtnEdit = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.BtnClearAll = new System.Windows.Forms.Button();
+            this.BtnDelete = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -162,15 +162,15 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button9);
-            this.groupBox2.Controls.Add(this.button8);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.textBox6);
-            this.groupBox2.Controls.Add(this.textBox5);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.BtnDeleteItemImage);
+            this.groupBox2.Controls.Add(this.BtnItemSearch);
+            this.groupBox2.Controls.Add(this.BtnAddItemImage);
+            this.groupBox2.Controls.Add(this.TextBoxSalesPrice);
+            this.groupBox2.Controls.Add(this.TextBoxPurchasePrice);
+            this.groupBox2.Controls.Add(this.TextBoxItemName);
+            this.groupBox2.Controls.Add(this.TextBoxItemBrand);
+            this.groupBox2.Controls.Add(this.ComboItemUnit);
+            this.groupBox2.Controls.Add(this.TextBoxItemCode);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
@@ -183,77 +183,77 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
-            // button9
+            // BtnDeleteItemImage
             // 
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.ForeColor = System.Drawing.Color.Red;
-            this.button9.Location = new System.Drawing.Point(580, 25);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(180, 40);
-            this.button9.TabIndex = 22;
-            this.button9.Text = "Delete Image";
-            this.button9.UseVisualStyleBackColor = true;
+            this.BtnDeleteItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDeleteItemImage.ForeColor = System.Drawing.Color.Red;
+            this.BtnDeleteItemImage.Location = new System.Drawing.Point(580, 25);
+            this.BtnDeleteItemImage.Name = "BtnDeleteItemImage";
+            this.BtnDeleteItemImage.Size = new System.Drawing.Size(180, 40);
+            this.BtnDeleteItemImage.TabIndex = 22;
+            this.BtnDeleteItemImage.Text = "Delete Image";
+            this.BtnDeleteItemImage.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // BtnItemSearch
             // 
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.Color.Red;
-            this.button8.Location = new System.Drawing.Point(142, 25);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(180, 40);
-            this.button8.TabIndex = 21;
-            this.button8.Text = "Item Search";
-            this.button8.UseVisualStyleBackColor = true;
+            this.BtnItemSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnItemSearch.ForeColor = System.Drawing.Color.Red;
+            this.BtnItemSearch.Location = new System.Drawing.Point(142, 25);
+            this.BtnItemSearch.Name = "BtnItemSearch";
+            this.BtnItemSearch.Size = new System.Drawing.Size(180, 40);
+            this.BtnItemSearch.TabIndex = 21;
+            this.BtnItemSearch.Text = "Item Search";
+            this.BtnItemSearch.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // BtnAddItemImage
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(362, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 40);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Add Item Image";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnAddItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddItemImage.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnAddItemImage.Location = new System.Drawing.Point(362, 25);
+            this.BtnAddItemImage.Name = "BtnAddItemImage";
+            this.BtnAddItemImage.Size = new System.Drawing.Size(180, 40);
+            this.BtnAddItemImage.TabIndex = 0;
+            this.BtnAddItemImage.Text = "Add Item Image";
+            this.BtnAddItemImage.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // TextBoxSalesPrice
             // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(527, 379);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(240, 31);
-            this.textBox4.TabIndex = 20;
+            this.TextBoxSalesPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.TextBoxSalesPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxSalesPrice.Location = new System.Drawing.Point(527, 379);
+            this.TextBoxSalesPrice.Name = "TextBoxSalesPrice";
+            this.TextBoxSalesPrice.Size = new System.Drawing.Size(240, 31);
+            this.TextBoxSalesPrice.TabIndex = 20;
             // 
-            // textBox3
+            // TextBoxPurchasePrice
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(155, 378);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(240, 31);
-            this.textBox3.TabIndex = 19;
+            this.TextBoxPurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxPurchasePrice.Location = new System.Drawing.Point(155, 378);
+            this.TextBoxPurchasePrice.Name = "TextBoxPurchasePrice";
+            this.TextBoxPurchasePrice.Size = new System.Drawing.Size(240, 31);
+            this.TextBoxPurchasePrice.TabIndex = 19;
             // 
-            // textBox6
+            // TextBoxItemName
             // 
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(528, 103);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(240, 31);
-            this.textBox6.TabIndex = 18;
+            this.TextBoxItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxItemName.Location = new System.Drawing.Point(528, 103);
+            this.TextBoxItemName.Name = "TextBoxItemName";
+            this.TextBoxItemName.Size = new System.Drawing.Size(240, 31);
+            this.TextBoxItemName.TabIndex = 18;
             // 
-            // textBox5
+            // TextBoxItemBrand
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(155, 238);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(240, 31);
-            this.textBox5.TabIndex = 17;
+            this.TextBoxItemBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxItemBrand.Location = new System.Drawing.Point(155, 238);
+            this.TextBoxItemBrand.Name = "TextBoxItemBrand";
+            this.TextBoxItemBrand.Size = new System.Drawing.Size(240, 31);
+            this.TextBoxItemBrand.TabIndex = 17;
             // 
-            // comboBox1
+            // ComboItemUnit
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboItemUnit.FormattingEnabled = true;
+            this.ComboItemUnit.Items.AddRange(new object[] {
             "Kg",
             "Ltr",
             "Pkt",
@@ -264,76 +264,76 @@ namespace GrocerySupplyManagementApp.Forms
             "500 Kg",
             "500 ML",
             "Grms"});
-            this.comboBox1.Location = new System.Drawing.Point(526, 238);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(240, 33);
-            this.comboBox1.TabIndex = 16;
+            this.ComboItemUnit.Location = new System.Drawing.Point(526, 238);
+            this.ComboItemUnit.Name = "ComboItemUnit";
+            this.ComboItemUnit.Size = new System.Drawing.Size(240, 33);
+            this.ComboItemUnit.TabIndex = 16;
             // 
-            // textBox2
+            // TextBoxItemCode
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(155, 104);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(240, 31);
-            this.textBox2.TabIndex = 9;
+            this.TextBoxItemCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.TextBoxItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxItemCode.Location = new System.Drawing.Point(155, 104);
+            this.TextBoxItemCode.Name = "TextBoxItemCode";
+            this.TextBoxItemCode.Size = new System.Drawing.Size(240, 31);
+            this.TextBoxItemCode.TabIndex = 9;
             // 
-            // button3
+            // BtnUpdate
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button3.Location = new System.Drawing.Point(14, 60);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(155, 90);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Update";
-            this.button3.UseVisualStyleBackColor = true;
+            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnUpdate.Location = new System.Drawing.Point(14, 60);
+            this.BtnUpdate.Name = "BtnUpdate";
+            this.BtnUpdate.Size = new System.Drawing.Size(155, 90);
+            this.BtnUpdate.TabIndex = 2;
+            this.BtnUpdate.Text = "Update";
+            this.BtnUpdate.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // BtnEdit
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Red;
-            this.button4.Location = new System.Drawing.Point(14, 17);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(155, 40);
-            this.button4.TabIndex = 21;
-            this.button4.Text = "Edit";
-            this.button4.UseVisualStyleBackColor = true;
+            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEdit.ForeColor = System.Drawing.Color.Red;
+            this.BtnEdit.Location = new System.Drawing.Point(14, 17);
+            this.BtnEdit.Name = "BtnEdit";
+            this.BtnEdit.Size = new System.Drawing.Size(155, 40);
+            this.BtnEdit.TabIndex = 21;
+            this.BtnEdit.Text = "Edit";
+            this.BtnEdit.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button7);
-            this.groupBox3.Controls.Add(this.button6);
-            this.groupBox3.Controls.Add(this.button4);
-            this.groupBox3.Controls.Add(this.button3);
+            this.groupBox3.Controls.Add(this.BtnClearAll);
+            this.groupBox3.Controls.Add(this.BtnDelete);
+            this.groupBox3.Controls.Add(this.BtnEdit);
+            this.groupBox3.Controls.Add(this.BtnUpdate);
             this.groupBox3.Location = new System.Drawing.Point(836, 271);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(185, 250);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             // 
-            // button7
+            // BtnClearAll
             // 
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button7.Location = new System.Drawing.Point(14, 153);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(155, 40);
-            this.button7.TabIndex = 24;
-            this.button7.Text = "Clear All";
-            this.button7.UseVisualStyleBackColor = true;
+            this.BtnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnClearAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.BtnClearAll.Location = new System.Drawing.Point(14, 153);
+            this.BtnClearAll.Name = "BtnClearAll";
+            this.BtnClearAll.Size = new System.Drawing.Size(155, 40);
+            this.BtnClearAll.TabIndex = 24;
+            this.BtnClearAll.Text = "Clear All";
+            this.BtnClearAll.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // BtnDelete
             // 
-            this.button6.BackColor = System.Drawing.SystemColors.Control;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.Red;
-            this.button6.Location = new System.Drawing.Point(14, 196);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(155, 43);
-            this.button6.TabIndex = 23;
-            this.button6.Text = "Delete";
-            this.button6.UseVisualStyleBackColor = false;
+            this.BtnDelete.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDelete.ForeColor = System.Drawing.Color.Red;
+            this.BtnDelete.Location = new System.Drawing.Point(14, 196);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(155, 43);
+            this.BtnDelete.TabIndex = 23;
+            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.UseVisualStyleBackColor = false;
             // 
             // ItemForm
             // 
@@ -368,20 +368,20 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox TextBoxSalesPrice;
+        private System.Windows.Forms.TextBox TextBoxPurchasePrice;
+        private System.Windows.Forms.TextBox TextBoxItemName;
+        private System.Windows.Forms.TextBox TextBoxItemBrand;
+        private System.Windows.Forms.ComboBox ComboItemUnit;
+        private System.Windows.Forms.TextBox TextBoxItemCode;
+        private System.Windows.Forms.Button BtnAddItemImage;
+        private System.Windows.Forms.Button BtnUpdate;
+        private System.Windows.Forms.Button BtnEdit;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button BtnClearAll;
+        private System.Windows.Forms.Button BtnItemSearch;
+        private System.Windows.Forms.Button BtnDelete;
+        private System.Windows.Forms.Button BtnDeleteItemImage;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

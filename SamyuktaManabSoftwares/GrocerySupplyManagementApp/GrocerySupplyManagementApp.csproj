@@ -61,7 +61,11 @@
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client\System.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,6 +74,12 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DsSales.Designer.cs">
@@ -77,6 +87,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DsSales.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DTOs\Item.cs" />
+    <Compile Include="DTOs\Member.cs" />
+    <Compile Include="DTOs\Purchase.cs" />
+    <Compile Include="DTOs\Supplier.cs" />
     <Compile Include="Forms\BalanceSheetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +108,12 @@
     </Compile>
     <Compile Include="Forms\ExpenseForm.Designer.cs">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberListForm.Designer.cs">
+      <DependentUpon>MemberListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SalesReportForm.cs">
       <SubType>Form</SubType>
@@ -211,11 +231,27 @@
     <Compile Include="Forms\TransactionForm.Designer.cs">
       <DependentUpon>TransactionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IItemRepository.cs" />
+    <Compile Include="Repositories\IMemberRepository.cs" />
+    <Compile Include="Repositories\IPurchaseRepository.cs" />
+    <Compile Include="Repositories\ISupplierRepository.cs" />
+    <Compile Include="Repositories\MSSqlItemRepository.cs" />
+    <Compile Include="Repositories\MSSqlMemberRepository.cs" />
+    <Compile Include="Repositories\MSSqlPurchaseRepository.cs" />
+    <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="SampleSalesDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SampleSalesDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Services\IItemService.cs" />
+    <Compile Include="Services\IMemberService.cs" />
+    <Compile Include="Services\IPurchaseService.cs" />
+    <Compile Include="Services\ISupplierService.cs" />
+    <Compile Include="Services\ItemService.cs" />
+    <Compile Include="Services\MemberService.cs" />
+    <Compile Include="Services\PurchaseService.cs" />
+    <Compile Include="Services\SupplierService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="Forms\BalanceSheetForm.resx">
       <DependentUpon>BalanceSheetForm.cs</DependentUpon>
@@ -225,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExpenseForm.resx">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemberListForm.resx">
+      <DependentUpon>MemberListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesReportForm.resx">
       <DependentUpon>SalesReportForm.cs</DependentUpon>
@@ -334,6 +373,7 @@
     <Content Include="Data\SampleSalesDB.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Scripts\Table_Member_Create_Sql_Script.sql" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
