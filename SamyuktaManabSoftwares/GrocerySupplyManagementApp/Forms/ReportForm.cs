@@ -35,7 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void button6_Click(object sender, EventArgs e)
         {
-            PfofitLossForm pfofitLossForm = new PfofitLossForm();
+            ProfitLossForm pfofitLossForm = new ProfitLossForm();
             pfofitLossForm.Show();
            
         }

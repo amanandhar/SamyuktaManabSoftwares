@@ -36,9 +36,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             var supplier = new Supplier
                             {
-                                Id = Convert.ToInt64(reader["Id"].ToString()),
-                                SupplierId = reader["SupplierId"].ToString(),
                                 Name = reader["Name"].ToString(),
+                                Owner = reader["Owner"].ToString(),
                                 Address = reader["Address"].ToString(),
                                 ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString()),
                                 Email = reader["Email"].ToString()
@@ -58,14 +57,14 @@ namespace GrocerySupplyManagementApp.Repositories
         }
 
         /// <summary>
-        /// Returns a supplier with matching supplier id
+        /// Returns a supplier with matching supplier name
         /// </summary>
-        /// <param name="supplierId"></param>
+        /// <param name="name"></param>
         /// <returns>Supplier</returns>
-        public Supplier GetSupplier(string supplierId)
+        public Supplier GetSupplier(string name)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Supplier WHERE SupplierId = @SupplierId";
+            var query = @"SELECT * FROM Supplier WHERE Name = @Name";
             var supplier = new Supplier();
             try
             {
@@ -73,16 +72,18 @@ namespace GrocerySupplyManagementApp.Repositories
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        command.Parameters.AddWithValue("@Name", name);
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            supplier.Id = Convert.ToInt64(reader["Id"].ToString());
-                            supplier.SupplierId = reader["SupplierId"].ToString();
-                            supplier.Name = reader["Name"].ToString();
-                            supplier.Address = reader["Address"].ToString();
-                            supplier.ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString());
-                            supplier.Email = reader["Email"].ToString();
+                            while (reader.Read())
+                            {
+                                supplier.Name = reader["Name"].ToString();
+                                supplier.Owner = reader["Owner"].ToString();
+                                supplier.Address = reader["Address"].ToString();
+                                supplier.ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString());
+                                supplier.Email = reader["Email"].ToString();
+                            }
                         }
                     }
                 }
@@ -105,11 +106,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO Supplier " +
                             "(" +
-                                "SupplierId, Name, Address, ContactNumber, Email " +
+                                "Name, Owner, Address, ContactNumber, Email " +
                             ") " +
                             "VALUES " +
                             "(" +
-                                "@SupplierId, @Name, @Address, @ContactNumber, @Email " +
+                                "@Name, @Owner, @Address, @ContactNumber, @Email " +
                             ")";
             try
             {
@@ -118,8 +119,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierId", supplier.SupplierId);
                         command.Parameters.AddWithValue("@Name", supplier.Name);
+                        command.Parameters.AddWithValue("@Owner", supplier.Owner);
                         command.Parameters.AddWithValue("@Address", supplier.Address);
                         command.Parameters.AddWithValue("@ContactNumber", supplier.ContactNumber);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
@@ -137,22 +138,22 @@ namespace GrocerySupplyManagementApp.Repositories
         }
 
         /// <summary>
-        /// Update supplier with supplier id
+        /// Update supplier with supplier name
         /// </summary>
-        /// <param name="supplierId"></param>
+        /// <param name="name"></param>
         /// <param name="supplier"></param>
         /// <returns>Supplier</returns>
-        public Supplier UpdateSupplier(string supplierId, Supplier supplier)
+        public Supplier UpdateSupplier(string name, Supplier supplier)
         {
             string connectionString = GetConnectionString();
             string query = "UPDATE Supplier SET " +
-                    "SupplierId = @SupplierId, " +
                     "Name = @Name, " +
+                    "Owner = @Owner, " +
                     "Address = @Address, " +
                     "ContactNumber = @ContactNumber, " +
                     "Email = @Email " +
                     "WHERE " +
-                    "SupplierId = @SupplierId";
+                    "Name = @Name";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -160,8 +161,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierId", supplierId);
-                        command.Parameters.AddWithValue("@Name", supplier.Name);
+                        command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@Owner", supplier.Owner);
                         command.Parameters.AddWithValue("@Address", supplier.Address);
                         command.Parameters.AddWithValue("@ContactNumber", supplier.ContactNumber);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
@@ -179,16 +180,16 @@ namespace GrocerySupplyManagementApp.Repositories
         }
 
         /// <summary>
-        /// Delete supplier with supplier id
+        /// Delete supplier with supplier name
         /// </summary>
-        /// <param name="supplierId"></param>
+        /// <param name="name"></param>
         /// <returns>bool</returns>
-        public bool DeleteSupplier(string supplierId)
+        public bool DeleteSupplier(string name)
         {
             string connectionString = GetConnectionString();
             string query = "DELETE FROM Supplier " +
                     "WHERE " +
-                    "SupplierId = @SupplierId";
+                    "Name = @Name";
             bool result = false;
 
             try
@@ -198,7 +199,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierId", supplierId);
+                        command.Parameters.AddWithValue("@Name", name);
                         command.ExecuteNonQuery();
                         result = true;
                     }

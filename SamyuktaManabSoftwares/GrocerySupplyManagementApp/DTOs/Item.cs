@@ -2,13 +2,11 @@
 {
     public class Item
     {
-        public long Id { get; set; }
-        public long ItemId { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
         public string Brand { get; set; }
-        public int Unit { get; set; }
-        public decimal CostPrice { get; set; }
-        public decimal SellPrice { get; set; }
+        public string BillNo { get; set; }
+        public int Quantity { get; set; }
+        public string Unit { get; set; }
+        public double PurchasePrice { get; set; }
     }
 }

@@ -150,6 +150,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadMembers()
         {
+            return;
+            /*
             try
             {
                 DataGridMemberList.DataSource = _memberService.GetMembers();
@@ -171,6 +173,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
+            */
         }
 
         public void PopulateMember(string memberId)
