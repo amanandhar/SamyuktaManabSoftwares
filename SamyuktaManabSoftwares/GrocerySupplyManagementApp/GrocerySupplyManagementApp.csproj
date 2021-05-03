@@ -163,11 +163,11 @@
     <Compile Include="Forms\MemberForm.Designer.cs">
       <DependentUpon>MemberForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PfofitLossForm.cs">
+    <Compile Include="Forms\ProfitLossForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PfofitLossForm.Designer.cs">
-      <DependentUpon>PfofitLossForm.cs</DependentUpon>
+    <Compile Include="Forms\ProfitLossForm.Designer.cs">
+      <DependentUpon>ProfitLossForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PosForm.cs">
       <SubType>Form</SubType>
@@ -198,6 +198,12 @@
     </Compile>
     <Compile Include="Forms\StockForm.Designer.cs">
       <DependentUpon>StockForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SupplierListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SupplierListForm.Designer.cs">
+      <DependentUpon>SupplierListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TaxSetupForm.cs">
       <SubType>Form</SubType>
@@ -289,8 +295,8 @@
     <EmbeddedResource Include="Forms\MemberForm.resx">
       <DependentUpon>MemberForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PfofitLossForm.resx">
-      <DependentUpon>PfofitLossForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ProfitLossForm.resx">
+      <DependentUpon>ProfitLossForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PosForm.resx">
       <DependentUpon>PosForm.cs</DependentUpon>
@@ -306,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SupplierListForm.resx">
+      <DependentUpon>SupplierListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TaxSetupForm.resx">
       <DependentUpon>TaxSetupForm.cs</DependentUpon>
@@ -333,6 +342,10 @@
       <DependentUpon>TransactionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\SalesReport.rdlc" />
+    <None Include=".Designer.gitignore" />
+    <None Include=".gitignore">
+      <SubType>Form</SubType>
+    </None>
     <None Include="app.config" />
     <None Include="Data\DsSales.xsc">
       <DependentUpon>DsSales.xsd</DependentUpon>
@@ -373,7 +386,10 @@
     <Content Include="Data\SampleSalesDB.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Scripts\Table_Item_Create_Sql_Script.sql" />
     <Content Include="Data\Scripts\Table_Member_Create_Sql_Script.sql" />
+    <Content Include="Data\Scripts\Table_Purchase_Create_Sql_Script.sql" />
+    <Content Include="Data\Scripts\Table_Supplier_Create_Sql_Script.sql" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -36,14 +36,12 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             var item = new Item
                             {
-                                Id = Convert.ToInt64(reader["Id"].ToString()),
-                                ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                Code = reader["Code"].ToString(),
                                 Name = reader["Name"].ToString(),
                                 Brand = reader["Address"].ToString(),
-                                Unit = Convert.ToInt32(reader["Unit"].ToString()),
-                                CostPrice = Convert.ToDecimal(reader["CostPrice"].ToString()),
-                                SellPrice = Convert.ToDecimal(reader["SellPrice"].ToString())
+                                BillNo = reader["BillNo"].ToString(),
+                                PurchasePrice = Convert.ToDouble(reader["PurchasePrice"].ToString()),
+                                Unit = reader["Unit"].ToString(),
+                                Quantity = Convert.ToInt32(reader["Quantity"].ToString())
                             };
 
                             items.Add(item);
@@ -79,14 +77,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         while (reader.Read())
                         {
-                            item.Id = Convert.ToInt64(reader["Id"].ToString());
-                            item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                            item.Code = reader["Code"].ToString();
                             item.Name = reader["Name"].ToString();
                             item.Brand = reader["Brand"].ToString();
-                            item.Unit = Convert.ToInt32(reader["Unit"].ToString());
-                            item.CostPrice = Convert.ToDecimal(reader["CostPrice"].ToString());
-                            item.SellPrice = Convert.ToDecimal(reader["SellPrice"].ToString());
+                            item.BillNo = reader["BillNo"].ToString();
+                            item.PurchasePrice = Convert.ToDouble(reader["PurchasePrice"].ToString());
+                            item.Unit = reader["Unit"].ToString();
+                            item.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
                         }
                     }
                 }
@@ -122,13 +118,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ItemId", item.ItemId);
-                        command.Parameters.AddWithValue("@Code", item.Code);
+
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
-                        command.Parameters.AddWithValue("@CostPrice", item.CostPrice);
-                        command.Parameters.AddWithValue("@SellPrice", item.SellPrice);
+
 
                         command.ExecuteNonQuery();
                     }
@@ -168,13 +162,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ItemId", item.ItemId);
-                        command.Parameters.AddWithValue("@Code", item.Code);
+
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
-                        command.Parameters.AddWithValue("@CostPrice", item.CostPrice);
-                        command.Parameters.AddWithValue("@SellPrice", item.SellPrice);
+
 
                         command.ExecuteNonQuery();
                     }

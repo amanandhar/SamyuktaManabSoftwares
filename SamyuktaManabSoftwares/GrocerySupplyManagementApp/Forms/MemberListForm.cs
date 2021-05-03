@@ -1,13 +1,8 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Services;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -19,9 +14,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         public MemberListForm(IMemberService memberService, MemberForm memberForm)
         {
+            InitializeComponent();
+
             _memberService = memberService;
             _memberForm = memberForm;
-            InitializeComponent();
         }
 
         private void MemberListForm_Load(object sender, EventArgs e)

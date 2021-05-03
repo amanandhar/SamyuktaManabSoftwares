@@ -18,15 +18,25 @@ namespace GrocerySupplyManagementApp
             var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DashboardForm(container.Resolve<IMemberService>()));
+            Application.Run(new DashboardForm(
+                container.Resolve<IMemberService>(),
+                container.Resolve<ISupplierService>(),
+                container.Resolve<IItemService>()
+                ));
             //Application.Run(new SalesReportForm());
         }
 
         private static IUnityContainer BuildUnityContainer()
         {
             var container = new UnityContainer();
+
             container.RegisterType<IMemberService, MemberService>();
+            container.RegisterType<ISupplierService, SupplierService>();
+            container.RegisterType<IItemService, ItemService>();
+
             container.RegisterType<IMemberRepository, MSSqlMemberRepository>();
+            container.RegisterType<ISupplierRepository, MSSqlSupplierRepository>();
+            container.RegisterType<IItemRepository, MSSqlItemRepository>();
 
             return container;
         }

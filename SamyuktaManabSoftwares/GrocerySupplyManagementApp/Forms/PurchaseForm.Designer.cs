@@ -36,7 +36,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemName = new System.Windows.Forms.RichTextBox();
             this.RichBrandName = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.TextBoxPurchsePrice = new System.Windows.Forms.TextBox();
+            this.TextBoxPurchasePrice = new System.Windows.Forms.TextBox();
             this.TextBoxTotalAmount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ComboUnit = new System.Windows.Forms.ComboBox();
@@ -50,10 +50,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnAddItem = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DataGridPurchaseList = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseList)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -88,7 +88,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox7.Size = new System.Drawing.Size(1055, 29);
             this.textBox7.TabIndex = 53;
             this.textBox7.Text = "                                             Purchase\r\n Details";
-            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // label6
             // 
@@ -123,7 +122,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.TextBoxPurchsePrice);
+            this.groupBox1.Controls.Add(this.TextBoxPurchasePrice);
             this.groupBox1.Controls.Add(this.TextBoxTotalAmount);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.ComboUnit);
@@ -144,19 +143,19 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(650, 140);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // TextBoxPurchsePrice
+            // TextBoxPurchasePrice
             // 
-            this.TextBoxPurchsePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxPurchsePrice.Location = new System.Drawing.Point(462, 94);
-            this.TextBoxPurchsePrice.Name = "TextBoxPurchsePrice";
-            this.TextBoxPurchsePrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TextBoxPurchsePrice.Size = new System.Drawing.Size(168, 29);
-            this.TextBoxPurchsePrice.TabIndex = 24;
+            this.TextBoxPurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxPurchasePrice.Location = new System.Drawing.Point(462, 94);
+            this.TextBoxPurchasePrice.Name = "TextBoxPurchasePrice";
+            this.TextBoxPurchasePrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TextBoxPurchasePrice.Size = new System.Drawing.Size(168, 29);
+            this.TextBoxPurchasePrice.TabIndex = 24;
             // 
             // TextBoxTotalAmount
             // 
+            this.TextBoxTotalAmount.Enabled = false;
             this.TextBoxTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxTotalAmount.Location = new System.Drawing.Point(120, 93);
             this.TextBoxTotalAmount.Name = "TextBoxTotalAmount";
@@ -256,6 +255,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.TabIndex = 56;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // BtnSave
             // 
@@ -267,6 +267,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.TabIndex = 57;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnClear
             // 
@@ -278,6 +279,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.TabIndex = 58;
             this.BtnClear.Text = "Clear";
             this.BtnClear.UseVisualStyleBackColor = true;
+            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // groupBox2
             // 
@@ -301,31 +303,33 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddItem.TabIndex = 59;
             this.BtnAddItem.Text = "Add Item";
             this.BtnAddItem.UseVisualStyleBackColor = true;
+            this.BtnAddItem.Click += new System.EventHandler(this.BtnAddItem_Click);
             // 
-            // dataGridView1
+            // DataGridPurchaseList
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 186);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(650, 282);
-            this.dataGridView1.TabIndex = 60;
+            this.DataGridPurchaseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridPurchaseList.Location = new System.Drawing.Point(16, 186);
+            this.DataGridPurchaseList.Name = "DataGridPurchaseList";
+            this.DataGridPurchaseList.Size = new System.Drawing.Size(650, 282);
+            this.DataGridPurchaseList.TabIndex = 60;
             // 
             // PurchaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 549);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DataGridPurchaseList);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.groupBox1);
             this.Name = "PurchaseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PurchaseForm";
+            this.Load += new System.EventHandler(this.PurchaseForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -350,9 +354,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox ComboUnit;
         private System.Windows.Forms.Button BtnAddItem;
-        private System.Windows.Forms.TextBox TextBoxPurchsePrice;
+        private System.Windows.Forms.TextBox TextBoxPurchasePrice;
         private System.Windows.Forms.TextBox TextBoxTotalAmount;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DataGridPurchaseList;
     }
 }
