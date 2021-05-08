@@ -1,4 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
+﻿using GrocerySupplyManagementApp.Entities;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Repositories

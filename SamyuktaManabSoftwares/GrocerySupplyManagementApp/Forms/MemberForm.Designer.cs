@@ -54,17 +54,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.RichAccountNumber = new System.Windows.Forms.RichTextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.BtnRepaySave = new System.Windows.Forms.Button();
             this.ComboBank = new System.Windows.Forms.ComboBox();
             this.ComboRepayType = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.BtnShowMember = new System.Windows.Forms.Button();
-            this.RichInvoiceNumber = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.RichContactNumber = new System.Windows.Forms.RichTextBox();
             this.RichAddress = new System.Windows.Forms.RichTextBox();
@@ -279,7 +277,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(244, 133);
+            this.label8.Location = new System.Drawing.Point(244, 134);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(46, 20);
             this.label8.TabIndex = 15;
@@ -351,11 +349,10 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.RichAmount);
             this.groupBox1.Controls.Add(this.RichAccountNumber);
             this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.RichAmount);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.BtnRepaySave);
             this.groupBox1.Controls.Add(this.ComboBank);
             this.groupBox1.Controls.Add(this.ComboRepayType);
@@ -363,7 +360,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.BtnShowMember);
             this.groupBox1.Controls.Add(this.RichEmail);
-            this.groupBox1.Controls.Add(this.RichInvoiceNumber);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
@@ -381,6 +377,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(1002, 177);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
+            // 
+            // RichAmount
+            // 
+            this.RichAmount.Location = new System.Drawing.Point(557, 128);
+            this.RichAmount.Name = "RichAmount";
+            this.RichAmount.Size = new System.Drawing.Size(257, 35);
+            this.RichAmount.TabIndex = 25;
+            this.RichAmount.Text = "";
             // 
             // RichAccountNumber
             // 
@@ -403,37 +407,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label14.TabIndex = 23;
             this.label14.Text = "A/C No";
             // 
-            // RichAmount
-            // 
-            this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichAmount.Location = new System.Drawing.Point(658, 128);
-            this.RichAmount.Name = "RichAmount";
-            this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichAmount.Size = new System.Drawing.Size(156, 35);
-            this.RichAmount.TabIndex = 22;
-            this.RichAmount.Text = "";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(587, 134);
+            this.label6.Location = new System.Drawing.Point(436, 134);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 20);
+            this.label6.Size = new System.Drawing.Size(115, 20);
             this.label6.TabIndex = 21;
-            this.label6.Text = "Amount";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label13.Location = new System.Drawing.Point(436, 134);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(83, 20);
-            this.label13.TabIndex = 20;
-            this.label13.Text = "Invoice No";
+            this.label6.Text = "Repay Amount";
             // 
             // BtnRepaySave
             // 
@@ -448,16 +431,16 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboBank
             // 
-            this.ComboBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBank.FormattingEnabled = true;
-            this.ComboBank.Location = new System.Drawing.Point(297, 129);
+            this.ComboBank.Location = new System.Drawing.Point(297, 130);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(118, 28);
             this.ComboBank.TabIndex = 19;
             // 
             // ComboRepayType
             // 
-            this.ComboRepayType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboRepayType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboRepayType.FormattingEnabled = true;
             this.ComboRepayType.Items.AddRange(new object[] {
             "Cash",
@@ -489,16 +472,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowMember.Text = "C";
             this.BtnShowMember.UseVisualStyleBackColor = true;
             this.BtnShowMember.Click += new System.EventHandler(this.BtnShowMember_Click);
-            // 
-            // RichInvoiceNumber
-            // 
-            this.RichInvoiceNumber.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichInvoiceNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichInvoiceNumber.Location = new System.Drawing.Point(526, 129);
-            this.RichInvoiceNumber.Name = "RichInvoiceNumber";
-            this.RichInvoiceNumber.Size = new System.Drawing.Size(60, 35);
-            this.RichInvoiceNumber.TabIndex = 17;
-            this.RichInvoiceNumber.Text = "";
             // 
             // label1
             // 
@@ -643,15 +616,13 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox richTextBox5;
         private System.Windows.Forms.RichTextBox RichBalance;
         private System.Windows.Forms.Button BtnRepaySave;
-        private System.Windows.Forms.RichTextBox RichInvoiceNumber;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.RichTextBox RichAmount;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox ComboBank;
         private System.Windows.Forms.ComboBox ComboRepayType;
         private System.Windows.Forms.RichTextBox RichAccountNumber;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DataGridView DataGridMemberList;
+        private System.Windows.Forms.RichTextBox RichAmount;
     }
 }

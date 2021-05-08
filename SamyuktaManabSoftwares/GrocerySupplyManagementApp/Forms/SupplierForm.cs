@@ -1,6 +1,9 @@
-﻿using GrocerySupplyManagementApp.DTOs;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -9,13 +12,15 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly ISupplierService _supplierService;
         private readonly IItemService _itemService;
+        private readonly ISupplierTransactionService _supplierTransactionService;
 
-        public SupplierForm(ISupplierService supplierService, IItemService itemService)
+        public SupplierForm(ISupplierService supplierService, IItemService itemService, ISupplierTransactionService supplierTransactionService)
         {
             InitializeComponent();
 
             _supplierService = supplierService;
             _itemService = itemService;
+            _supplierTransactionService = supplierTransactionService;
         }
 
         #region Form Load Events
@@ -23,14 +28,14 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ClearAllFields();
             EnableFields(false);
-            LoadSuppliers();
+            //LoadSupplierTransaction();
         }
         #endregion
 
         #region Button Events
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
-            PurchaseForm purchaseForm = new PurchaseForm(_itemService, this);
+            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService, _supplierTransactionService);
             purchaseForm.Show();
         }
 
@@ -46,7 +51,6 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(true);
         }
         
-
         private void BtnSave_Click(object sender, System.EventArgs e)
         {
             try
@@ -64,7 +68,6 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadSuppliers();
                 }
             }
             catch (Exception ex)
@@ -96,7 +99,6 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadSuppliers();
                 }
             }
             catch (Exception ex)
@@ -114,7 +116,6 @@ namespace GrocerySupplyManagementApp.Forms
             if (result == DialogResult.OK)
             {
                 ClearAllFields();
-                LoadSuppliers();
             }
         }
 
@@ -139,9 +140,22 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmail.Clear();
         }
 
-        private void LoadSuppliers()
+        private void LoadSupplierTransaction()
         {
-            
+            List<DTOs.SupplierTransaction> supplierTransactions = _supplierTransactionService.GetSupplierTransactions(RichSupplierName.Text).ToList();
+
+            List<DTOs.SupplierTransaction> supplierTransactionsView = supplierTransactions.Select(x => new DTOs.SupplierTransaction
+            {
+                Date = x.Date,
+                Particulars = x.Particulars,
+                Debit = x.Debit,
+                Credit = x.Credit,
+                Balance = x.Balance
+            }).ToList();
+
+            var bindingList = new BindingList<DTOs.SupplierTransaction>(supplierTransactionsView);
+            var source = new BindingSource(bindingList, null);
+            DataGridSupplierTransaction.DataSource = source;
         }
 
         public void PopulateSupplier(string supplierName)
@@ -154,8 +168,95 @@ namespace GrocerySupplyManagementApp.Forms
             RichContactNumber.Text = supplier.ContactNumber.ToString();
             RichEmail.Text = supplier.Email;
 
+            BtnPurchase.Enabled = true;
+
             EnableFields(false);
+
+            LoadSupplierTransaction();
+        }
+
+        public void PopulateItemsPurchaseDetails(string billNo, decimal purchaseAmount)
+        {
+            TextBoxBillNo.Text = billNo;
+            RichPurchaseAmount.Text = purchaseAmount.ToString();
+            RichBalance.Text = purchaseAmount.ToString();
+            if (purchaseAmount > 0)
+            {
+                TextBoxDebitCredit.Text = "DR";
+            }
+            else
+            {
+                TextBoxDebitCredit.Text = "CR";
+            }
+
+            LoadSupplierTransaction();
+        }
+
+        public string GetSupplierName()
+        {
+            return RichSupplierName.Text;
         }
         #endregion
+
+        private void BtnPaymentSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
+                {
+                    SupplierName = RichSupplierName.Text,
+                    Status = "Repayment",
+                    BillNo = TextBoxBillNo.Text,
+                    RepaymentType = ComboPaymentType.Text,
+                    Bank = ComboBank.Text,
+                    Credit = Convert.ToDecimal(RichAmount.Text),
+                    Date = DateTime.Now
+                });
+                DialogResult result = MessageBox.Show(ComboPaymentType.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ComboPaymentType.Text = string.Empty;
+                    ComboBank.Text = string.Empty;
+                    RichAmount.Clear();
+                    LoadSupplierTransaction();
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        private void DataGridSupplierTransaction_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridSupplierTransaction.Columns["Date"].HeaderText = "Date";
+            DataGridSupplierTransaction.Columns["Date"].Width = 250;
+            DataGridSupplierTransaction.Columns["Date"].DisplayIndex = 0;
+
+            DataGridSupplierTransaction.Columns["Particulars"].HeaderText = "Particulars";
+            DataGridSupplierTransaction.Columns["Particulars"].Width = 150;
+            DataGridSupplierTransaction.Columns["Particulars"].DisplayIndex = 1;
+
+            DataGridSupplierTransaction.Columns["Debit"].HeaderText = "Debit";
+            DataGridSupplierTransaction.Columns["Debit"].Width = 100;
+            DataGridSupplierTransaction.Columns["Debit"].DisplayIndex = 2;
+
+            DataGridSupplierTransaction.Columns["Credit"].HeaderText = "Credit";
+            DataGridSupplierTransaction.Columns["Credit"].Width = 100;
+            DataGridSupplierTransaction.Columns["Credit"].DisplayIndex = 3;
+
+            DataGridSupplierTransaction.Columns["Balance"].HeaderText = "Balance";
+            //DataGridSupplierTransaction.Columns["Balance"].Width = 100;
+            DataGridSupplierTransaction.Columns["Balance"].DisplayIndex = 4;
+
+            DataGridSupplierTransaction.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+   
+
+            foreach (DataGridViewRow row in DataGridSupplierTransaction.Rows)
+            {
+                DataGridSupplierTransaction.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridSupplierTransaction.RowHeadersWidth = 50;
+            }
+        }
     }
 }

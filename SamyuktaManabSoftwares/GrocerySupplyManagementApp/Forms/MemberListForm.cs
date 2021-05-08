@@ -1,4 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services;
 using System;
 using System.ComponentModel;

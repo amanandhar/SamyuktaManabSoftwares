@@ -4,9 +4,9 @@
     {
         public string Name { get; set; }
         public string Brand { get; set; }
-        public string BillNo { get; set; }
-        public int Quantity { get; set; }
         public string Unit { get; set; }
-        public double PurchasePrice { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public string BillNo { get; set; }
     }
 }

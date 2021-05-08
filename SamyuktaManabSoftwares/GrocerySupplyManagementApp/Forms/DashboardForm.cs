@@ -9,14 +9,17 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IMemberService _memberService;
         private readonly ISupplierService _supplierService;
         private readonly IItemService _itemService;
+        private readonly ISupplierTransactionService _supplierTransactionService;
 
-        public DashboardForm(IMemberService memberService, ISupplierService supplierService, IItemService itemService)
+        public DashboardForm(IMemberService memberService, ISupplierService supplierService, IItemService itemService,
+            ISupplierTransactionService supplierTransactionService)
         {
             InitializeComponent();
 
             _memberService = memberService;
             _supplierService = supplierService;
             _itemService = itemService;
+            _supplierTransactionService = supplierTransactionService;
         }
 
         #region Load
@@ -64,7 +67,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
         {
-            SupplierForm supplierForm = new SupplierForm(_supplierService, _itemService);
+            SupplierForm supplierForm = new SupplierForm(_supplierService, _itemService, _supplierTransactionService);
             supplierForm.Show();
         }
 

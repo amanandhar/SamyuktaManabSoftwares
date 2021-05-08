@@ -1,4 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
+﻿using GrocerySupplyManagementApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,7 +9,6 @@ namespace GrocerySupplyManagementApp.Repositories
     public class MSSqlSupplierRepository : ISupplierRepository
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
-
         public MSSqlSupplierRepository()
         {
 

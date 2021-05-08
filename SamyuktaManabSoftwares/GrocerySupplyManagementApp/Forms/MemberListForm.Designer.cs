@@ -49,6 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(519, 450);
             this.Controls.Add(this.DataGridMemberList);
             this.Name = "MemberListForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Member List Form";
             this.Load += new System.EventHandler(this.MemberListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).EndInit();

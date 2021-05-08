@@ -1,4 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
+﻿using GrocerySupplyManagementApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -23,7 +23,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Item";
+            var query = @"SELECT SupplierName, Code, Name, Brand, Unit, Quantity, PurchasePrice, PurchaseDate, BillNo, SellPrice FROM Item";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -36,12 +36,16 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             var item = new Item
                             {
+                                SupplierName = reader["SupplierName"].ToString(),
+                                Code = reader["Code"].ToString(),
                                 Name = reader["Name"].ToString(),
-                                Brand = reader["Address"].ToString(),
-                                BillNo = reader["BillNo"].ToString(),
-                                PurchasePrice = Convert.ToDouble(reader["PurchasePrice"].ToString()),
+                                Brand = reader["Brand"].ToString(),
                                 Unit = reader["Unit"].ToString(),
-                                Quantity = Convert.ToInt32(reader["Quantity"].ToString())
+                                Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
+                                PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
+                                PurchaseDate = Convert.ToDateTime(reader["PurchasePrice"].ToString()),
+                                BillNo = reader["BillNo"].ToString(),
+                                SellPrice = Convert.ToDecimal(reader["SellPrice"].ToString())
                             };
 
                             items.Add(item);
@@ -65,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Item GetItem(string itemId)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Item WHERE ItemId = @ItemId";
+            var query = @"SELECT SupplierName, Code, Name, Brand, Unit, Quantity, PurchasePrice, PurchaseDate, BillNo, SellPrice FROM Item WHERE ItemId = @ItemId";
             var item = new Item();
             try
             {
@@ -77,12 +81,16 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         while (reader.Read())
                         {
+                            item.SupplierName = reader["SupplierName"].ToString();
+                            item.Code = reader["Code"].ToString();
                             item.Name = reader["Name"].ToString();
                             item.Brand = reader["Brand"].ToString();
-                            item.BillNo = reader["BillNo"].ToString();
-                            item.PurchasePrice = Convert.ToDouble(reader["PurchasePrice"].ToString());
                             item.Unit = reader["Unit"].ToString();
-                            item.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
+                            item.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
+                            item.PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString());
+                            item.PurchaseDate = Convert.ToDateTime(reader["PurchasePrice"].ToString());
+                            item.BillNo = reader["BillNo"].ToString();
+                            item.SellPrice = Convert.ToDecimal(reader["SellPrice"].ToString());
                         }
                     }
                 }
@@ -105,11 +113,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO Item " +
                             "(" +
-                                "ItemId, Code, Name, Brand, Unit, CostPrice, SellPrice " +
+                                "SupplierName, Code, Name, Brand, Unit, Quantity, PurchasePrice, PurchaseDate, BillNo, SellPrice " +
                             ") " +
                             "VALUES " +
                             "(" +
-                                "@ItemId, @Code, @Name, @Brand, @Unit, @CostPrice, @SellPrice " +
+                                "@SupplierName, @Code, @Name, @Brand, @Unit, @Quantity, @PurchasePrice, @PurchaseDate, @BillNo, @SellPrice " +
                             ")";
             try
             {
@@ -118,12 +126,16 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-
+                        command.Parameters.AddWithValue("@SupplierName", item.SupplierName);
+                        command.Parameters.AddWithValue("@Code", ((object)item.Code) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
-
-
+                        command.Parameters.AddWithValue("@Quantity", item.Quantity);
+                        command.Parameters.AddWithValue("@PurchasePrice", item.PurchasePrice);
+                        command.Parameters.AddWithValue("@PurchaseDate", item.PurchaseDate);
+                        command.Parameters.AddWithValue("@BillNo", item.BillNo);
+                        command.Parameters.AddWithValue("@SellPrice", ((object)item.SellPrice) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }
                 }
@@ -137,24 +149,27 @@ namespace GrocerySupplyManagementApp.Repositories
         }
 
         /// <summary>
-        /// Update item with item id
+        /// Update item with item code
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="code"></param>
         /// <param name="item"></param>
         /// <returns>Item</returns>
-        public Item UpdateItem(string itemId, Item item)
+        public Item UpdateItem(string code, Item item)
         {
             string connectionString = GetConnectionString();
             string query = "UPDATE Item SET " +
-                    "ItemId = @ItemId, " +
+                    "SupplierName = @SupplierName," +
                     "Code = @Code, " +
                     "Name = @Name, " +
                     "Brand = @Brand, " +
                     "Unit = @Unit, " +
-                    "CostPrice = @CostPrice, " +
-                    "SellPrice = @SellPrice " +
+                    "Quantity = @Quantity, " +
+                    "PurchasePrice = @PurchasePrice, " +
+                    "PurchaseDate = @PurchaseDate, " +
+                    "BillNo = @BillNo, " +
+                    "SellPrice = @SellPrice, " +
                     "WHERE " +
-                    "ItemId = @ItemId";
+                    "Code = @Code";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -162,11 +177,16 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-
+                        command.Parameters.AddWithValue("@SupplierName", item.SupplierName);
+                        command.Parameters.AddWithValue("@Code", code);
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
-
+                        command.Parameters.AddWithValue("@Quantity", item.Quantity);
+                        command.Parameters.AddWithValue("@PurchasePrice", item.PurchasePrice);
+                        command.Parameters.AddWithValue("@PurchaseDate", item.PurchaseDate);
+                        command.Parameters.AddWithValue("@BillNo", item.BillNo);
+                        command.Parameters.AddWithValue("@SellPrice", item.SellPrice);
 
                         command.ExecuteNonQuery();
                     }
@@ -181,16 +201,16 @@ namespace GrocerySupplyManagementApp.Repositories
         }
 
         /// <summary>
-        /// Delete item with item id
+        /// Delete item with item code
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="code"></param>
         /// <returns>bool</returns>
-        public bool DeleteItem(string itemId)
+        public bool DeleteItem(string code)
         {
             string connectionString = GetConnectionString();
             string query = "DELETE FROM Item " +
                     "WHERE " +
-                    "ItemId = @ItemId";
+                    "Code = @Code";
             bool result = false;
 
             try
@@ -200,7 +220,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ItemId", itemId);
+                        command.Parameters.AddWithValue("@Code", code);
                         command.ExecuteNonQuery();
                         result = true;
                     }

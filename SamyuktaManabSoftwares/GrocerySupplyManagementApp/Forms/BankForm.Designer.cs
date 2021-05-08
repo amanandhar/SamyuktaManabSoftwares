@@ -31,6 +31,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button9 = new System.Windows.Forms.Button();
             this.richTextBox9 = new System.Windows.Forms.RichTextBox();
             this.richTextBox5 = new System.Windows.Forms.RichTextBox();
@@ -61,8 +63,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -102,6 +102,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(1006, 145);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label11.Location = new System.Drawing.Point(9, 61);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(199, 20);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Deposit and Withdrawal";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Deposit",
+            "Withdrawal"});
+            this.comboBox1.Location = new System.Drawing.Point(213, 58);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(168, 28);
+            this.comboBox1.TabIndex = 22;
             // 
             // button9
             // 
@@ -203,7 +226,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.Red;
-            this.button4.Location = new System.Drawing.Point(385, 16);
+            this.button4.Location = new System.Drawing.Point(473, 15);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(40, 35);
             this.button4.TabIndex = 6;
@@ -214,9 +237,9 @@ namespace GrocerySupplyManagementApp.Forms
             // richTextBox6
             // 
             this.richTextBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox6.Location = new System.Drawing.Point(525, 16);
+            this.richTextBox6.Location = new System.Drawing.Point(576, 16);
             this.richTextBox6.Name = "richTextBox6";
-            this.richTextBox6.Size = new System.Drawing.Size(197, 35);
+            this.richTextBox6.Size = new System.Drawing.Size(150, 35);
             this.richTextBox6.TabIndex = 10;
             this.richTextBox6.Text = "";
             // 
@@ -225,11 +248,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(429, 22);
+            this.label6.Location = new System.Drawing.Point(514, 22);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 20);
+            this.label6.Size = new System.Drawing.Size(59, 20);
             this.label6.TabIndex = 8;
-            this.label6.Text = "Account No";
+            this.label6.Text = "A/C No";
             // 
             // label5
             // 
@@ -247,7 +270,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(102, 16);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(280, 35);
+            this.richTextBox1.Size = new System.Drawing.Size(370, 35);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
@@ -415,29 +438,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10.Size = new System.Drawing.Size(44, 20);
             this.label10.TabIndex = 11;
             this.label10.Text = "Total";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Deposit",
-            "Withdrawal"});
-            this.comboBox1.Location = new System.Drawing.Point(213, 58);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(168, 28);
-            this.comboBox1.TabIndex = 22;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label11.Location = new System.Drawing.Point(9, 61);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(199, 20);
-            this.label11.TabIndex = 23;
-            this.label11.Text = "Deposit and Withdrawal";
             // 
             // BankForm
             // 

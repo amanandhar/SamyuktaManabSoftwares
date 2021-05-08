@@ -1,4 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services;
 using System;
 using System.Windows.Forms;
@@ -144,7 +144,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichContactNumber.Clear();
             RichEmail.Clear();
             RichBalance.Clear();
-            RichInvoiceNumber.Clear();
             RichAmount.Clear();
         }
 

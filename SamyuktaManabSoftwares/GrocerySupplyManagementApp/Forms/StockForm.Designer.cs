@@ -45,6 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -164,17 +165,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.button1.Location = new System.Drawing.Point(13, 16);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 85);
+            this.button1.Size = new System.Drawing.Size(135, 40);
             this.button1.TabIndex = 12;
-            this.button1.Text = "Show Stock";
+            this.button1.Text = " Show ";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(856, 31);
+            this.groupBox1.Location = new System.Drawing.Point(852, 31);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(157, 110);
+            this.groupBox1.Size = new System.Drawing.Size(161, 110);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             // 
@@ -217,6 +219,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.dataGridView1.Size = new System.Drawing.Size(988, 386);
             this.dataGridView1.TabIndex = 17;
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Red;
+            this.button2.Location = new System.Drawing.Point(13, 60);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(135, 40);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Delete";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // StockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,5 +269,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button2;
     }
 }

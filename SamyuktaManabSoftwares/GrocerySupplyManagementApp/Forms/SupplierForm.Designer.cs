@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7 = new System.Windows.Forms.Label();
             this.BtnPurchase = new System.Windows.Forms.Button();
             this.BtnPaymentSave = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.TextBoxDebitCredit = new System.Windows.Forms.TextBox();
             this.RichBalance = new System.Windows.Forms.RichTextBox();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -72,11 +72,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4 = new System.Windows.Forms.Label();
             this.RichPurchaseAmount = new System.Windows.Forms.RichTextBox();
             this.RichAddress = new System.Windows.Forms.RichTextBox();
-            this.richTextBox8 = new System.Windows.Forms.RichTextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.DataGridSupplierTransaction = new System.Windows.Forms.DataGridView();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridSupplierTransaction)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnDelete
@@ -231,8 +232,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBank.ForeColor = System.Drawing.SystemColors.Desktop;
             this.ComboBank.FormattingEnabled = true;
-            this.ComboBank.Items.AddRange(new object[] {
-            "Samyukta"});
             this.ComboBank.Location = new System.Drawing.Point(264, 135);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(110, 28);
@@ -268,7 +267,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPaymentType.FormattingEnabled = true;
             this.ComboPaymentType.Items.AddRange(new object[] {
             "Cash",
-            "Credit",
             "Cheque"});
             this.ComboPaymentType.Location = new System.Drawing.Point(120, 135);
             this.ComboPaymentType.Name = "ComboPaymentType";
@@ -425,7 +423,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.BtnPurchase);
             this.groupBox1.Controls.Add(this.BtnPaymentSave);
-            this.groupBox1.Controls.Add(this.textBox5);
+            this.groupBox1.Controls.Add(this.TextBoxDebitCredit);
             this.groupBox1.Controls.Add(this.RichBalance);
             this.groupBox1.Controls.Add(this.RichAmount);
             this.groupBox1.Controls.Add(this.label5);
@@ -475,6 +473,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnPurchase
             // 
+            this.BtnPurchase.Enabled = false;
             this.BtnPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnPurchase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.BtnPurchase.Location = new System.Drawing.Point(853, 14);
@@ -495,15 +494,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnPaymentSave.TabIndex = 36;
             this.BtnPaymentSave.Text = "Payment Save";
             this.BtnPaymentSave.UseVisualStyleBackColor = true;
+            this.BtnPaymentSave.Click += new System.EventHandler(this.BtnPaymentSave_Click);
             // 
-            // textBox5
+            // TextBoxDebitCredit
             // 
-            this.textBox5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(785, 133);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(50, 29);
-            this.textBox5.TabIndex = 35;
+            this.TextBoxDebitCredit.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TextBoxDebitCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxDebitCredit.Location = new System.Drawing.Point(785, 133);
+            this.TextBoxDebitCredit.Name = "TextBoxDebitCredit";
+            this.TextBoxDebitCredit.Size = new System.Drawing.Size(50, 29);
+            this.TextBoxDebitCredit.TabIndex = 35;
             // 
             // RichBalance
             // 
@@ -580,16 +580,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAddress.TabIndex = 1;
             this.RichAddress.Text = "";
             // 
-            // richTextBox8
-            // 
-            this.richTextBox8.BackColor = System.Drawing.Color.White;
-            this.richTextBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox8.Location = new System.Drawing.Point(17, 224);
-            this.richTextBox8.Name = "richTextBox8";
-            this.richTextBox8.Size = new System.Drawing.Size(827, 264);
-            this.richTextBox8.TabIndex = 39;
-            this.richTextBox8.Text = "";
-            // 
             // textBox8
             // 
             this.textBox8.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -610,14 +600,23 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.TabIndex = 41;
             this.label8.Text = "Date ";
             // 
+            // DataGridSupplierTransaction
+            // 
+            this.DataGridSupplierTransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridSupplierTransaction.Location = new System.Drawing.Point(16, 229);
+            this.DataGridSupplierTransaction.Name = "DataGridSupplierTransaction";
+            this.DataGridSupplierTransaction.Size = new System.Drawing.Size(835, 250);
+            this.DataGridSupplierTransaction.TabIndex = 42;
+            this.DataGridSupplierTransaction.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSupplierTransaction_DataBindingComplete);
+            // 
             // SupplierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 549);
+            this.Controls.Add(this.DataGridSupplierTransaction);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.richTextBox8);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox7);
@@ -636,6 +635,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridSupplierTransaction)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -675,11 +675,10 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox RichAddress;
-        private System.Windows.Forms.RichTextBox richTextBox8;
         private System.Windows.Forms.RichTextBox RichPurchaseAmount;
         private System.Windows.Forms.Button BtnPurchase;
         private System.Windows.Forms.Button BtnPaymentSave;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox TextBoxDebitCredit;
         private System.Windows.Forms.RichTextBox RichBalance;
         private System.Windows.Forms.RichTextBox RichAmount;
         private System.Windows.Forms.Label label5;
@@ -689,5 +688,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridView DataGridSupplierTransaction;
     }
 }

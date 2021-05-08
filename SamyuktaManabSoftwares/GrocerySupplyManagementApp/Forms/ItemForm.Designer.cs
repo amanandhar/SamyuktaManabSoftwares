@@ -191,7 +191,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteItemImage.Name = "BtnDeleteItemImage";
             this.BtnDeleteItemImage.Size = new System.Drawing.Size(180, 40);
             this.BtnDeleteItemImage.TabIndex = 22;
-            this.BtnDeleteItemImage.Text = "Delete Image";
+            this.BtnDeleteItemImage.Text = "Item Search";
             this.BtnDeleteItemImage.UseVisualStyleBackColor = true;
             // 
             // BtnItemSearch
@@ -202,7 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnItemSearch.Name = "BtnItemSearch";
             this.BtnItemSearch.Size = new System.Drawing.Size(180, 40);
             this.BtnItemSearch.TabIndex = 21;
-            this.BtnItemSearch.Text = "Item Search";
+            this.BtnItemSearch.Text = "Delete Image";
             this.BtnItemSearch.UseVisualStyleBackColor = true;
             // 
             // BtnAddItemImage
@@ -218,7 +218,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // TextBoxSalesPrice
             // 
-            this.TextBoxSalesPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.TextBoxSalesPrice.BackColor = System.Drawing.Color.White;
             this.TextBoxSalesPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxSalesPrice.Location = new System.Drawing.Point(527, 379);
             this.TextBoxSalesPrice.Name = "TextBoxSalesPrice";
@@ -271,7 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // TextBoxItemCode
             // 
-            this.TextBoxItemCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.TextBoxItemCode.BackColor = System.Drawing.Color.White;
             this.TextBoxItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxItemCode.Location = new System.Drawing.Point(155, 104);
             this.TextBoxItemCode.Name = "TextBoxItemCode";
