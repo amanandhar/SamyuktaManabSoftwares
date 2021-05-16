@@ -73,13 +73,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnItemMgmt_Click(object sender, EventArgs e)
         {
-            ItemForm itemForm = new ItemForm();
+            ItemForm itemForm = new ItemForm(_itemService, this);
             itemForm.Show();
         }
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm();
+            StockForm stockForm = new StockForm(_itemService);
             stockForm.Show();
         }
 

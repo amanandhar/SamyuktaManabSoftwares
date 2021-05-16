@@ -139,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichAccountNumber.Clear();
             RichName.Clear();
             RichAddress.Clear();
-            ComboRepayType.SelectedIndex = 0;
+            ComboRepayType.Text = string.Empty;
             //ComboBank.SelectedIndex = 0;
             RichContactNumber.Clear();
             RichEmail.Clear();

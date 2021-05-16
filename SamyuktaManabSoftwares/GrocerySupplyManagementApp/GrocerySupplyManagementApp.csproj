@@ -88,6 +88,7 @@
       <DependentUpon>DsSales.xsd</DependentUpon>
     </Compile>
     <Compile Include="DTOs\Item.cs" />
+    <Compile Include="DTOs\StockFilter.cs" />
     <Compile Include="DTOs\SupplierTransaction.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Member.cs" />
@@ -111,6 +112,12 @@
     </Compile>
     <Compile Include="Forms\ExpenseForm.Designer.cs">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ItemListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ItemListForm.Designer.cs">
+      <DependentUpon>ItemListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MemberListForm.cs">
       <SubType>Form</SubType>
@@ -265,6 +272,7 @@
     <Compile Include="Services\PurchaseService.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\SupplierTransactionService.cs" />
+    <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="Forms\BalanceSheetForm.resx">
       <DependentUpon>BalanceSheetForm.cs</DependentUpon>
@@ -274,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExpenseForm.resx">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ItemListForm.resx">
+      <DependentUpon>ItemListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemberListForm.resx">
       <DependentUpon>MemberListForm.cs</DependentUpon>

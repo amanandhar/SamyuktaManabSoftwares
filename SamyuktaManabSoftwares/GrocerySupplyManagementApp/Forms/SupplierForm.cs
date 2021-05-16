@@ -142,6 +142,21 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadSupplierTransaction()
         {
+            var balance = _supplierTransactionService.GetBalance(RichSupplierName.Text);
+            RichBalance.Text = balance.ToString();
+            if (balance > 0)
+            {
+                TextBoxDebitCredit.Text = "DR";
+            }
+            else if(balance < 0)
+            {
+                TextBoxDebitCredit.Text = "CR";
+            }
+            else
+            {
+                TextBoxDebitCredit.Text = "-";
+            }
+
             List<DTOs.SupplierTransaction> supplierTransactions = _supplierTransactionService.GetSupplierTransactions(RichSupplierName.Text).ToList();
 
             List<DTOs.SupplierTransaction> supplierTransactionsView = supplierTransactions.Select(x => new DTOs.SupplierTransaction
@@ -179,16 +194,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TextBoxBillNo.Text = billNo;
             RichPurchaseAmount.Text = purchaseAmount.ToString();
-            RichBalance.Text = purchaseAmount.ToString();
-            if (purchaseAmount > 0)
-            {
-                TextBoxDebitCredit.Text = "DR";
-            }
-            else
-            {
-                TextBoxDebitCredit.Text = "CR";
-            }
-
             LoadSupplierTransaction();
         }
 
@@ -223,7 +228,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
-
+                throw ex;
             }
         }
 

@@ -6,7 +6,10 @@ namespace GrocerySupplyManagementApp.Services
     public interface IItemService
     {
         IEnumerable<Item> GetItems();
-        Item GetItem(string itemId);
+        IEnumerable<Item> GetItems(DTOs.StockFilter filter);
+        int GetTotalItemCount(DTOs.StockFilter filter);
+        IEnumerable<string> GetAllItemNames();
+        Item GetItem(string itemName);
         Item AddItem(Item item);
         Item UpdateItem(string itemId, Item item);
         bool DeleteItem(string itemId);

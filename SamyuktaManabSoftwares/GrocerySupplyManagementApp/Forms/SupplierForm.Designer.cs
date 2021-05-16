@@ -499,6 +499,7 @@ namespace GrocerySupplyManagementApp.Forms
             // TextBoxDebitCredit
             // 
             this.TextBoxDebitCredit.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TextBoxDebitCredit.Enabled = false;
             this.TextBoxDebitCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxDebitCredit.Location = new System.Drawing.Point(785, 133);
             this.TextBoxDebitCredit.Name = "TextBoxDebitCredit";

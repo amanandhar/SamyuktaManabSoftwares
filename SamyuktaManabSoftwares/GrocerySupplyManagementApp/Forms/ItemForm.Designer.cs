@@ -37,24 +37,23 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PicBoxItemImage = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtnDeleteItemImage = new System.Windows.Forms.Button();
-            this.BtnItemSearch = new System.Windows.Forms.Button();
-            this.BtnAddItemImage = new System.Windows.Forms.Button();
             this.TextBoxSalesPrice = new System.Windows.Forms.TextBox();
             this.TextBoxPurchasePrice = new System.Windows.Forms.TextBox();
             this.TextBoxItemName = new System.Windows.Forms.TextBox();
             this.TextBoxItemBrand = new System.Windows.Forms.TextBox();
             this.ComboItemUnit = new System.Windows.Forms.ComboBox();
             this.TextBoxItemCode = new System.Windows.Forms.TextBox();
+            this.BtnItemSearch = new System.Windows.Forms.Button();
+            this.BtnDeleteItemImage = new System.Windows.Forms.Button();
+            this.BtnAddItemImage = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
             this.BtnEdit = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.BtnClearAll = new System.Windows.Forms.Button();
-            this.BtnDelete = new System.Windows.Forms.Button();
+            this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -145,26 +144,24 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.PicBoxItemImage);
             this.groupBox1.Location = new System.Drawing.Point(836, 42);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(185, 223);
+            this.groupBox1.Size = new System.Drawing.Size(185, 207);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             // 
-            // pictureBox1
+            // PicBoxItemImage
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(14, 25);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(155, 183);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.PicBoxItemImage.Location = new System.Drawing.Point(14, 25);
+            this.PicBoxItemImage.Name = "PicBoxItemImage";
+            this.PicBoxItemImage.Size = new System.Drawing.Size(155, 166);
+            this.PicBoxItemImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PicBoxItemImage.TabIndex = 0;
+            this.PicBoxItemImage.TabStop = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.BtnDeleteItemImage);
-            this.groupBox2.Controls.Add(this.BtnItemSearch);
-            this.groupBox2.Controls.Add(this.BtnAddItemImage);
             this.groupBox2.Controls.Add(this.TextBoxSalesPrice);
             this.groupBox2.Controls.Add(this.TextBoxPurchasePrice);
             this.groupBox2.Controls.Add(this.TextBoxItemName);
@@ -183,42 +180,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
-            // BtnDeleteItemImage
-            // 
-            this.BtnDeleteItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteItemImage.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteItemImage.Location = new System.Drawing.Point(580, 25);
-            this.BtnDeleteItemImage.Name = "BtnDeleteItemImage";
-            this.BtnDeleteItemImage.Size = new System.Drawing.Size(180, 40);
-            this.BtnDeleteItemImage.TabIndex = 22;
-            this.BtnDeleteItemImage.Text = "Item Search";
-            this.BtnDeleteItemImage.UseVisualStyleBackColor = true;
-            // 
-            // BtnItemSearch
-            // 
-            this.BtnItemSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnItemSearch.ForeColor = System.Drawing.Color.Red;
-            this.BtnItemSearch.Location = new System.Drawing.Point(142, 25);
-            this.BtnItemSearch.Name = "BtnItemSearch";
-            this.BtnItemSearch.Size = new System.Drawing.Size(180, 40);
-            this.BtnItemSearch.TabIndex = 21;
-            this.BtnItemSearch.Text = "Delete Image";
-            this.BtnItemSearch.UseVisualStyleBackColor = true;
-            // 
-            // BtnAddItemImage
-            // 
-            this.BtnAddItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddItemImage.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnAddItemImage.Location = new System.Drawing.Point(362, 25);
-            this.BtnAddItemImage.Name = "BtnAddItemImage";
-            this.BtnAddItemImage.Size = new System.Drawing.Size(180, 40);
-            this.BtnAddItemImage.TabIndex = 0;
-            this.BtnAddItemImage.Text = "Add Item Image";
-            this.BtnAddItemImage.UseVisualStyleBackColor = true;
-            // 
             // TextBoxSalesPrice
             // 
             this.TextBoxSalesPrice.BackColor = System.Drawing.Color.White;
+            this.TextBoxSalesPrice.Enabled = false;
             this.TextBoxSalesPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxSalesPrice.Location = new System.Drawing.Point(527, 379);
             this.TextBoxSalesPrice.Name = "TextBoxSalesPrice";
@@ -227,6 +192,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // TextBoxPurchasePrice
             // 
+            this.TextBoxPurchasePrice.Enabled = false;
             this.TextBoxPurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxPurchasePrice.Location = new System.Drawing.Point(155, 378);
             this.TextBoxPurchasePrice.Name = "TextBoxPurchasePrice";
@@ -235,6 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // TextBoxItemName
             // 
+            this.TextBoxItemName.Enabled = false;
             this.TextBoxItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxItemName.Location = new System.Drawing.Point(528, 103);
             this.TextBoxItemName.Name = "TextBoxItemName";
@@ -243,6 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // TextBoxItemBrand
             // 
+            this.TextBoxItemBrand.Enabled = false;
             this.TextBoxItemBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxItemBrand.Location = new System.Drawing.Point(155, 238);
             this.TextBoxItemBrand.Name = "TextBoxItemBrand";
@@ -251,6 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboItemUnit
             // 
+            this.ComboItemUnit.Enabled = false;
             this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboItemUnit.FormattingEnabled = true;
             this.ComboItemUnit.Items.AddRange(new object[] {
@@ -272,68 +241,89 @@ namespace GrocerySupplyManagementApp.Forms
             // TextBoxItemCode
             // 
             this.TextBoxItemCode.BackColor = System.Drawing.Color.White;
+            this.TextBoxItemCode.Enabled = false;
             this.TextBoxItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxItemCode.Location = new System.Drawing.Point(155, 104);
             this.TextBoxItemCode.Name = "TextBoxItemCode";
             this.TextBoxItemCode.Size = new System.Drawing.Size(240, 31);
             this.TextBoxItemCode.TabIndex = 9;
             // 
+            // BtnItemSearch
+            // 
+            this.BtnItemSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnItemSearch.ForeColor = System.Drawing.Color.Red;
+            this.BtnItemSearch.Location = new System.Drawing.Point(14, 4);
+            this.BtnItemSearch.Name = "BtnItemSearch";
+            this.BtnItemSearch.Size = new System.Drawing.Size(155, 40);
+            this.BtnItemSearch.TabIndex = 22;
+            this.BtnItemSearch.Text = "Item Search";
+            this.BtnItemSearch.UseVisualStyleBackColor = true;
+            this.BtnItemSearch.Click += new System.EventHandler(this.BtnItemSearch_Click);
+            // 
+            // BtnDeleteItemImage
+            // 
+            this.BtnDeleteItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDeleteItemImage.ForeColor = System.Drawing.Color.Red;
+            this.BtnDeleteItemImage.Location = new System.Drawing.Point(14, 212);
+            this.BtnDeleteItemImage.Name = "BtnDeleteItemImage";
+            this.BtnDeleteItemImage.Size = new System.Drawing.Size(155, 40);
+            this.BtnDeleteItemImage.TabIndex = 21;
+            this.BtnDeleteItemImage.Text = "Delete Image";
+            this.BtnDeleteItemImage.UseVisualStyleBackColor = true;
+            this.BtnDeleteItemImage.Click += new System.EventHandler(this.BtnDeleteItemImage_Click);
+            // 
+            // BtnAddItemImage
+            // 
+            this.BtnAddItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddItemImage.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnAddItemImage.Location = new System.Drawing.Point(14, 162);
+            this.BtnAddItemImage.Name = "BtnAddItemImage";
+            this.BtnAddItemImage.Size = new System.Drawing.Size(155, 40);
+            this.BtnAddItemImage.TabIndex = 0;
+            this.BtnAddItemImage.Text = "Add Item Image";
+            this.BtnAddItemImage.UseVisualStyleBackColor = true;
+            this.BtnAddItemImage.Click += new System.EventHandler(this.BtnAddItemImage_Click);
+            // 
             // BtnUpdate
             // 
-            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnUpdate.Location = new System.Drawing.Point(14, 60);
+            this.BtnUpdate.Location = new System.Drawing.Point(14, 105);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(155, 90);
+            this.BtnUpdate.Size = new System.Drawing.Size(155, 43);
             this.BtnUpdate.TabIndex = 2;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.UseVisualStyleBackColor = true;
+            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // BtnEdit
             // 
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.Red;
-            this.BtnEdit.Location = new System.Drawing.Point(14, 17);
+            this.BtnEdit.Location = new System.Drawing.Point(14, 56);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(155, 40);
             this.BtnEdit.TabIndex = 21;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.UseVisualStyleBackColor = true;
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.BtnClearAll);
-            this.groupBox3.Controls.Add(this.BtnDelete);
+            this.groupBox3.Controls.Add(this.BtnItemSearch);
             this.groupBox3.Controls.Add(this.BtnEdit);
+            this.groupBox3.Controls.Add(this.BtnDeleteItemImage);
             this.groupBox3.Controls.Add(this.BtnUpdate);
-            this.groupBox3.Location = new System.Drawing.Point(836, 271);
+            this.groupBox3.Controls.Add(this.BtnAddItemImage);
+            this.groupBox3.Location = new System.Drawing.Point(836, 255);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(185, 250);
+            this.groupBox3.Size = new System.Drawing.Size(185, 266);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             // 
-            // BtnClearAll
+            // OpenItemImageDialog
             // 
-            this.BtnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnClearAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BtnClearAll.Location = new System.Drawing.Point(14, 153);
-            this.BtnClearAll.Name = "BtnClearAll";
-            this.BtnClearAll.Size = new System.Drawing.Size(155, 40);
-            this.BtnClearAll.TabIndex = 24;
-            this.BtnClearAll.Text = "Clear All";
-            this.BtnClearAll.UseVisualStyleBackColor = true;
-            // 
-            // BtnDelete
-            // 
-            this.BtnDelete.BackColor = System.Drawing.SystemColors.Control;
-            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDelete.ForeColor = System.Drawing.Color.Red;
-            this.BtnDelete.Location = new System.Drawing.Point(14, 196);
-            this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(155, 43);
-            this.BtnDelete.TabIndex = 23;
-            this.BtnDelete.Text = "Delete";
-            this.BtnDelete.UseVisualStyleBackColor = false;
+            this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
             // 
             // ItemForm
             // 
@@ -347,8 +337,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.Name = "ItemForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ItemForm";
+            this.Load += new System.EventHandler(this.ItemForm_Load);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -378,10 +369,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnUpdate;
         private System.Windows.Forms.Button BtnEdit;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button BtnClearAll;
-        private System.Windows.Forms.Button BtnItemSearch;
-        private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.Button BtnDeleteItemImage;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button BtnItemSearch;
+        private System.Windows.Forms.PictureBox PicBoxItemImage;
+        private System.Windows.Forms.OpenFileDialog OpenItemImageDialog;
     }
 }

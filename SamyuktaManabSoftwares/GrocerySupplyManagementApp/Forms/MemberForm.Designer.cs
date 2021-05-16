@@ -380,8 +380,10 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // RichAmount
             // 
+            this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichAmount.Location = new System.Drawing.Point(557, 128);
             this.RichAmount.Name = "RichAmount";
+            this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichAmount.Size = new System.Drawing.Size(257, 35);
             this.RichAmount.TabIndex = 25;
             this.RichAmount.Text = "";

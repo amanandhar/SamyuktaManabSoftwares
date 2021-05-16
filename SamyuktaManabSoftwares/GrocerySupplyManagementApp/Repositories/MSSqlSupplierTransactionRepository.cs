@@ -50,7 +50,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Particulars = reader["Particulars"].ToString(),
                                     Debit = Convert.ToDecimal(reader.IsDBNull(2) ? "0" : reader["Debit"].ToString()),
                                     Credit = Convert.ToDecimal(reader.IsDBNull(3) ? "0" : reader["Credit"].ToString()),
-                                    Balance = Convert.ToDecimal(reader.IsDBNull(4) ? "0" : reader["Balance"].ToString() ?? "0"),
+                                    Balance = Convert.ToDecimal(reader.IsDBNull(4) ? "0" : reader["Balance"].ToString()),
                                 };
 
                                 SupplierTransactions.Add(SupplierTransaction);
@@ -65,6 +65,36 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return SupplierTransactions;
+        }
+
+        /// <summary>
+        /// Returns balance
+        /// </summary>
+        /// <param name="supplierName"></param>
+        /// <returns>balance</returns>
+        public decimal GetBalance(string supplierName)
+        {
+            var balance = 0.0m;
+            string connectionString = GetConnectionString();
+            var query = @"SELECT ISNUll(SUM(ISNULL(DEBIT,0) - ISNULL(Credit,0)),0) FROM [dbo].[SupplierTransaction] WHERE SupplierName = @SupplierName";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@SupplierName", supplierName);
+                        balance = Convert.ToDecimal(command.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return balance;
         }
 
         /// <summary>

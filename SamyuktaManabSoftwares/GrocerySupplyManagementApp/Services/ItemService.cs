@@ -18,9 +18,39 @@ namespace GrocerySupplyManagementApp.Services
             return _itemRepository.GetItems();
         }
 
-        public Item GetItem(string itemId)
+        public IEnumerable<Item> GetItems(DTOs.StockFilter filter)
         {
-            return _itemRepository.GetItem(itemId);
+            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            {
+                filter.DateFrom = null;
+                filter.DateTo = null;
+            }
+
+            return _itemRepository.GetItems(filter);
+        }
+
+        public int GetTotalItemCount(DTOs.StockFilter filter)
+        {
+            if(filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            {
+                filter.DateFrom = null;
+                filter.DateTo = null;
+            }
+            else
+            {
+                filter.DateTo += " 23:59:59.999";
+            }
+            return _itemRepository.GetTotalItemCount(filter);
+        }
+
+        public IEnumerable<string> GetAllItemNames()
+        {
+            return _itemRepository.GetAllItemNames();
+        }
+
+        public Item GetItem(string itemName)
+        {
+            return _itemRepository.GetItem(itemName);
         }
 
         public Item AddItem(Item item)

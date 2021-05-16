@@ -22,6 +22,11 @@ namespace GrocerySupplyManagementApp.Services
             return _supplierTransactionRepository.GetSupplierTransactions(supplierName);
         }
 
+        public decimal GetBalance(string supplierName)
+        {
+            return _supplierTransactionRepository.GetBalance(supplierName);
+        }
+
         public SupplierTransaction GetSupplierTransaction(string supplierName)
         {
             return _supplierTransactionRepository.GetSupplierTransaction(supplierName);

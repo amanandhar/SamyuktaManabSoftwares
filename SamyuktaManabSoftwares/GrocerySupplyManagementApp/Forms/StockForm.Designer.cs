@@ -31,24 +31,24 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.ComboFilter = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.TextBoxTotalStock = new System.Windows.Forms.TextBox();
+            this.TextBoxDate = new System.Windows.Forms.TextBox();
+            this.BtnShow = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnDelete = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
+            this.MaskTextBoxDateTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskTextBoxDateFrom = new System.Windows.Forms.MaskedTextBox();
+            this.DataGridStockList = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridStockList)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -74,22 +74,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 2;
             this.label1.Text = "Filter by Item Name";
             // 
-            // comboBox1
+            // ComboFilter
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(292, 68);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(220, 28);
-            this.comboBox1.TabIndex = 3;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(619, 19);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(170, 29);
-            this.textBox2.TabIndex = 4;
+            this.ComboFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboFilter.FormattingEnabled = true;
+            this.ComboFilter.Location = new System.Drawing.Point(292, 68);
+            this.ComboFilter.Name = "ComboFilter";
+            this.ComboFilter.Size = new System.Drawing.Size(220, 28);
+            this.ComboFilter.TabIndex = 3;
             // 
             // label2
             // 
@@ -135,50 +127,56 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.TabIndex = 8;
             this.label5.Text = "Date";
             // 
-            // textBox3
+            // TextBoxTotalStock
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(619, 68);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(170, 29);
-            this.textBox3.TabIndex = 9;
+            this.TextBoxTotalStock.Enabled = false;
+            this.TextBoxTotalStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxTotalStock.Location = new System.Drawing.Point(619, 68);
+            this.TextBoxTotalStock.Name = "TextBoxTotalStock";
+            this.TextBoxTotalStock.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TextBoxTotalStock.Size = new System.Drawing.Size(170, 29);
+            this.TextBoxTotalStock.TabIndex = 9;
             // 
-            // textBox4
+            // TextBoxDate
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(66, 19);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(170, 29);
-            this.textBox4.TabIndex = 10;
+            this.TextBoxDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxDate.Location = new System.Drawing.Point(66, 19);
+            this.TextBoxDate.Name = "TextBoxDate";
+            this.TextBoxDate.Size = new System.Drawing.Size(170, 29);
+            this.TextBoxDate.TabIndex = 10;
             // 
-            // textBox5
+            // BtnShow
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(333, 19);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(170, 29);
-            this.textBox5.TabIndex = 11;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(13, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 40);
-            this.button1.TabIndex = 12;
-            this.button1.Text = " Show ";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.Location = new System.Drawing.Point(13, 16);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(135, 40);
+            this.BtnShow.TabIndex = 12;
+            this.BtnShow.Text = " Show ";
+            this.BtnShow.UseVisualStyleBackColor = true;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.BtnDelete);
+            this.groupBox1.Controls.Add(this.BtnShow);
             this.groupBox1.Location = new System.Drawing.Point(852, 31);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(161, 110);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
+            // 
+            // BtnDelete
+            // 
+            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDelete.ForeColor = System.Drawing.Color.Red;
+            this.BtnDelete.Location = new System.Drawing.Point(13, 60);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(135, 40);
+            this.BtnDelete.TabIndex = 13;
+            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
@@ -194,58 +192,68 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.MaskTextBoxDateTo);
+            this.groupBox2.Controls.Add(this.MaskTextBoxDateFrom);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.TextBoxTotalStock);
+            this.groupBox2.Controls.Add(this.TextBoxDate);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.textBox5);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.ComboFilter);
             this.groupBox2.Location = new System.Drawing.Point(25, 34);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(811, 111);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             // 
-            // dataGridView1
+            // MaskTextBoxDateTo
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 151);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(988, 386);
-            this.dataGridView1.TabIndex = 17;
+            this.MaskTextBoxDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskTextBoxDateTo.Location = new System.Drawing.Point(619, 19);
+            this.MaskTextBoxDateTo.Mask = "0000-00-00";
+            this.MaskTextBoxDateTo.Name = "MaskTextBoxDateTo";
+            this.MaskTextBoxDateTo.Size = new System.Drawing.Size(170, 29);
+            this.MaskTextBoxDateTo.TabIndex = 17;
             // 
-            // button2
+            // MaskTextBoxDateFrom
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.Red;
-            this.button2.Location = new System.Drawing.Point(13, 60);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(135, 40);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Delete";
-            this.button2.UseVisualStyleBackColor = true;
+            this.MaskTextBoxDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskTextBoxDateFrom.Location = new System.Drawing.Point(333, 19);
+            this.MaskTextBoxDateFrom.Mask = "0000-00-00";
+            this.MaskTextBoxDateFrom.Name = "MaskTextBoxDateFrom";
+            this.MaskTextBoxDateFrom.Size = new System.Drawing.Size(179, 29);
+            this.MaskTextBoxDateFrom.TabIndex = 16;
+            this.MaskTextBoxDateFrom.ValidatingType = typeof(System.DateTime);
+            // 
+            // DataGridStockList
+            // 
+            this.DataGridStockList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridStockList.Location = new System.Drawing.Point(25, 151);
+            this.DataGridStockList.Name = "DataGridStockList";
+            this.DataGridStockList.Size = new System.Drawing.Size(988, 386);
+            this.DataGridStockList.TabIndex = 17;
+            this.DataGridStockList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockList_DataBindingComplete);
             // 
             // StockForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 549);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DataGridStockList);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
             this.Name = "StockForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StockForm";
+            this.Load += new System.EventHandler(this.StockForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridStockList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,20 +263,20 @@ namespace GrocerySupplyManagementApp.Forms
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox ComboFilter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox TextBoxTotalStock;
+        private System.Windows.Forms.TextBox TextBoxDate;
+        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView DataGridStockList;
+        private System.Windows.Forms.Button BtnDelete;
+        private System.Windows.Forms.MaskedTextBox MaskTextBoxDateTo;
+        private System.Windows.Forms.MaskedTextBox MaskTextBoxDateFrom;
     }
 }
