@@ -41,7 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnDelete = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.CheckBoxAllStock = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.MaskTextBoxDateTo = new System.Windows.Forms.MaskedTextBox();
             this.MaskTextBoxDateFrom = new System.Windows.Forms.MaskedTextBox();
@@ -82,6 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboFilter.Name = "ComboFilter";
             this.ComboFilter.Size = new System.Drawing.Size(220, 28);
             this.ComboFilter.TabIndex = 3;
+            this.ComboFilter.SelectedIndexChanged += new System.EventHandler(this.ComboFilter_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -147,6 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShow
             // 
+            this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.Location = new System.Drawing.Point(13, 16);
@@ -169,6 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnDelete
             // 
+            this.BtnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.Red;
             this.BtnDelete.Location = new System.Drawing.Point(13, 60);
@@ -177,25 +180,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.TabIndex = 13;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
-            // checkBox1
+            // CheckBoxAllStock
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox1.Location = new System.Drawing.Point(20, 71);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(99, 24);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "All Stock";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.CheckBoxAllStock.AutoSize = true;
+            this.CheckBoxAllStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBoxAllStock.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.CheckBoxAllStock.Location = new System.Drawing.Point(20, 71);
+            this.CheckBoxAllStock.Name = "CheckBoxAllStock";
+            this.CheckBoxAllStock.Size = new System.Drawing.Size(99, 24);
+            this.CheckBoxAllStock.TabIndex = 15;
+            this.CheckBoxAllStock.Text = "All Stock";
+            this.CheckBoxAllStock.UseVisualStyleBackColor = true;
+            this.CheckBoxAllStock.CheckedChanged += new System.EventHandler(this.CheckBoxAllStock_CheckedChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.MaskTextBoxDateTo);
             this.groupBox2.Controls.Add(this.MaskTextBoxDateFrom);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.CheckBoxAllStock);
             this.groupBox2.Controls.Add(this.TextBoxTotalStock);
             this.groupBox2.Controls.Add(this.TextBoxDate);
             this.groupBox2.Controls.Add(this.label3);
@@ -272,7 +277,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TextBoxDate;
         private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox CheckBoxAllStock;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView DataGridStockList;
         private System.Windows.Forms.Button BtnDelete;

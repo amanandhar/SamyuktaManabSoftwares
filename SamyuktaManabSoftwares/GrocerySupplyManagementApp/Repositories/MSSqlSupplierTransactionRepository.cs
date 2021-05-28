@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
@@ -21,15 +18,15 @@ namespace GrocerySupplyManagementApp.Repositories
         /// Returns list of SupplierTransactions
         /// </summary>
         /// <returns>List of SupplierTransactions</returns>
-        public IEnumerable<DTOs.SupplierTransaction> GetSupplierTransactions(string supplierName)
+        public IEnumerable<DTOs.SupplierTransactionView> GetSupplierTransactions(string supplierName)
         {
-            var SupplierTransactions = new List<DTOs.SupplierTransaction>();
+            var SupplierTransactions = new List<DTOs.SupplierTransactionView>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT Date, CASE WHEN Status = 'Purchase' THEN BillNo ELSE RepaymentType END AS Particulars, " + 
+            var query = @"SELECT Id, Date, CASE WHEN Status = 'Purchase' THEN BillNo ELSE RepaymentType END AS Particulars, " + 
                 "Debit, Credit, " +
                 "(SELECT SUM(ISNULL(b.DEBIT,0) - ISNULL(b.Credit,0)) " +
                 "FROM [dbo].[SupplierTransaction] b " +
-                "WHERE b.Date <= a.Date) as Balance " +
+                "WHERE b.Date <= a.Date AND SupplierName = @SupplierName) as Balance " +
                 "FROM [dbo].[SupplierTransaction] a " +
                 "WHERE SupplierName = @SupplierName";
             try
@@ -44,13 +41,14 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var SupplierTransaction = new DTOs.SupplierTransaction
+                                var SupplierTransaction = new DTOs.SupplierTransactionView
                                 {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString()),
                                     Particulars = reader["Particulars"].ToString(),
-                                    Debit = Convert.ToDecimal(reader.IsDBNull(2) ? "0" : reader["Debit"].ToString()),
-                                    Credit = Convert.ToDecimal(reader.IsDBNull(3) ? "0" : reader["Credit"].ToString()),
-                                    Balance = Convert.ToDecimal(reader.IsDBNull(4) ? "0" : reader["Balance"].ToString()),
+                                    Debit = Convert.ToDecimal(reader.IsDBNull(3) ? "0" : reader["Debit"].ToString()),
+                                    Credit = Convert.ToDecimal(reader.IsDBNull(4) ? "0" : reader["Credit"].ToString()),
+                                    Balance = Convert.ToDecimal(reader.IsDBNull(5) ? "0" : reader["Balance"].ToString()),
                                 };
 
                                 SupplierTransactions.Add(SupplierTransaction);
@@ -233,16 +231,16 @@ namespace GrocerySupplyManagementApp.Repositories
         }
 
         /// <summary>
-        /// Delete SupplierTransaction with supplier name
+        /// Delete SupplierTransaction with supplier transaction id
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="supplierTransactionId"></param>
         /// <returns>bool</returns>
-        public bool DeleteSupplierTransaction(string supplierName)
+        public bool DeleteSupplierTransaction(long supplierTransactionId)
         {
             string connectionString = GetConnectionString();
             string query = "DELETE FROM SupplierTransaction " +
                     "WHERE " +
-                    "SupplierName = @SupplierName";
+                    "Id = @Id";
             bool result = false;
 
             try
@@ -252,7 +250,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierName", supplierName);
+                        command.Parameters.AddWithValue("@Id", supplierTransactionId);
                         command.ExecuteNonQuery();
                         result = true;
                     }

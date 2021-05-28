@@ -5,11 +5,11 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public interface ISupplierTransactionRepository
     {
-        IEnumerable<DTOs.SupplierTransaction> GetSupplierTransactions(string supplierName);
+        IEnumerable<DTOs.SupplierTransactionView> GetSupplierTransactions(string supplierName);
         decimal GetBalance(string supplierName);
         SupplierTransaction GetSupplierTransaction(string supplierTransactionId);
         SupplierTransaction AddSupplierTransaction(SupplierTransaction supplierTransaction);
         SupplierTransaction UpdateSupplierTransaction(string supplierTransactionId, SupplierTransaction supplierTransaction);
-        bool DeleteSupplierTransaction(string supplierTransactionId);
+        bool DeleteSupplierTransaction(long supplierTransactionId);
     }
 }

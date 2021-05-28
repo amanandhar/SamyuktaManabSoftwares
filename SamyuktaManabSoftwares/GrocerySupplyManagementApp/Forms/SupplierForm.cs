@@ -12,14 +12,16 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly ISupplierService _supplierService;
         private readonly IItemService _itemService;
+        private readonly IItemTransactionService _itemTransactionService;
         private readonly ISupplierTransactionService _supplierTransactionService;
 
-        public SupplierForm(ISupplierService supplierService, IItemService itemService, ISupplierTransactionService supplierTransactionService)
+        public SupplierForm(ISupplierService supplierService, IItemService itemService, IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService)
         {
             InitializeComponent();
 
             _supplierService = supplierService;
             _itemService = itemService;
+            _itemTransactionService = itemTransactionService;
             _supplierTransactionService = supplierTransactionService;
         }
 
@@ -28,15 +30,30 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ClearAllFields();
             EnableFields(false);
-            //LoadSupplierTransaction();
         }
         #endregion
 
         #region Button Events
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
-            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService, _supplierTransactionService);
+            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService, _itemTransactionService, _supplierTransactionService);
             purchaseForm.Show();
+        }
+
+        private void BtnShowPurchase_Click(object sender, EventArgs e)
+        {
+            if(DataGridSupplierTransaction.SelectedRows.Count == 1)
+            {
+                var particulars = DataGridSupplierTransaction.SelectedCells[2].Value.ToString();
+
+                if(particulars.ToLower() != "cash" && particulars.ToLower() != "cheque")
+                {
+                    var supplierName = RichSupplierName.Text;
+                    var billNo = particulars;
+                    PurchaseForm purchaseForm = new PurchaseForm(_itemService, _itemTransactionService, supplierName, billNo);
+                    purchaseForm.Show();
+                }
+            }
         }
 
         private void BtnShowSupplier_Click(object sender, System.EventArgs e)
@@ -119,6 +136,66 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnPaymentSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
+                {
+                    SupplierName = RichSupplierName.Text,
+                    Status = "Repayment",
+                    BillNo = TextBoxBillNo.Text,
+                    RepaymentType = ComboPaymentType.Text,
+                    Bank = ComboBank.Text,
+                    Credit = Convert.ToDecimal(RichAmount.Text),
+                    Date = DateTime.Now
+                });
+                DialogResult result = MessageBox.Show(ComboPaymentType.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ComboPaymentType.Text = string.Empty;
+                    ComboBank.Text = string.Empty;
+                    RichAmount.Clear();
+                    LoadSupplierTransaction();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridSupplierTransaction.SelectedRows.Count == 1)
+                {
+                    var supplierName = RichSupplierName.Text;
+                    var id = Convert.ToInt64(DataGridSupplierTransaction.SelectedCells[0].Value.ToString());
+                    var particulars = DataGridSupplierTransaction.SelectedCells[2].Value.ToString();
+                    if (particulars.ToLower() != "cash" && particulars.ToLower() != "cheque")
+                    {
+                        if (_supplierTransactionService.DeleteSupplierTransaction(id))
+                        {
+                            _itemTransactionService.DeleteItemBySupplierAndBill(supplierName, particulars);
+                            LoadSupplierTransaction();
+                        }
+                    }
+
+                    if (particulars.ToLower() == "cash" || particulars.ToLower() == "cheque")
+                    {
+                        _supplierTransactionService.DeleteSupplierTransaction(id);
+                        LoadSupplierTransaction();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
 
         #region Helper Methods
@@ -154,13 +231,14 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                TextBoxDebitCredit.Text = "-";
+                TextBoxDebitCredit.Text = "NA";
             }
 
-            List<DTOs.SupplierTransaction> supplierTransactions = _supplierTransactionService.GetSupplierTransactions(RichSupplierName.Text).ToList();
+            List<DTOs.SupplierTransactionView> supplierTransactions = _supplierTransactionService.GetSupplierTransactions(RichSupplierName.Text).ToList();
 
-            List<DTOs.SupplierTransaction> supplierTransactionsView = supplierTransactions.Select(x => new DTOs.SupplierTransaction
+            List<DTOs.SupplierTransactionView> supplierTransactionsView = supplierTransactions.Select(x => new DTOs.SupplierTransactionView
             {
+                Id = x.Id,
                 Date = x.Date,
                 Particulars = x.Particulars,
                 Debit = x.Debit,
@@ -168,7 +246,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Balance = x.Balance
             }).ToList();
 
-            var bindingList = new BindingList<DTOs.SupplierTransaction>(supplierTransactionsView);
+            var bindingList = new BindingList<DTOs.SupplierTransactionView>(supplierTransactionsView);
             var source = new BindingSource(bindingList, null);
             DataGridSupplierTransaction.DataSource = source;
         }
@@ -184,6 +262,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmail.Text = supplier.Email;
 
             BtnPurchase.Enabled = true;
+            BtnShowPurchase.Enabled = true;
 
             EnableFields(false);
 
@@ -203,65 +282,37 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        private void BtnPaymentSave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
-                {
-                    SupplierName = RichSupplierName.Text,
-                    Status = "Repayment",
-                    BillNo = TextBoxBillNo.Text,
-                    RepaymentType = ComboPaymentType.Text,
-                    Bank = ComboBank.Text,
-                    Credit = Convert.ToDecimal(RichAmount.Text),
-                    Date = DateTime.Now
-                });
-                DialogResult result = MessageBox.Show(ComboPaymentType.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ComboPaymentType.Text = string.Empty;
-                    ComboBank.Text = string.Empty;
-                    RichAmount.Clear();
-                    LoadSupplierTransaction();
-                }
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-
+        #region DataGrid Events
         private void DataGridSupplierTransaction_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            DataGridSupplierTransaction.Columns["Id"].Visible = false;
+
             DataGridSupplierTransaction.Columns["Date"].HeaderText = "Date";
             DataGridSupplierTransaction.Columns["Date"].Width = 250;
-            DataGridSupplierTransaction.Columns["Date"].DisplayIndex = 0;
+            DataGridSupplierTransaction.Columns["Date"].DisplayIndex = 1;
 
             DataGridSupplierTransaction.Columns["Particulars"].HeaderText = "Particulars";
             DataGridSupplierTransaction.Columns["Particulars"].Width = 150;
-            DataGridSupplierTransaction.Columns["Particulars"].DisplayIndex = 1;
+            DataGridSupplierTransaction.Columns["Particulars"].DisplayIndex = 2;
 
             DataGridSupplierTransaction.Columns["Debit"].HeaderText = "Debit";
             DataGridSupplierTransaction.Columns["Debit"].Width = 100;
-            DataGridSupplierTransaction.Columns["Debit"].DisplayIndex = 2;
+            DataGridSupplierTransaction.Columns["Debit"].DisplayIndex = 3;
 
             DataGridSupplierTransaction.Columns["Credit"].HeaderText = "Credit";
             DataGridSupplierTransaction.Columns["Credit"].Width = 100;
-            DataGridSupplierTransaction.Columns["Credit"].DisplayIndex = 3;
+            DataGridSupplierTransaction.Columns["Credit"].DisplayIndex = 4;
 
             DataGridSupplierTransaction.Columns["Balance"].HeaderText = "Balance";
-            //DataGridSupplierTransaction.Columns["Balance"].Width = 100;
-            DataGridSupplierTransaction.Columns["Balance"].DisplayIndex = 4;
-
+            DataGridSupplierTransaction.Columns["Balance"].DisplayIndex = 5;
             DataGridSupplierTransaction.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-   
-
+  
             foreach (DataGridViewRow row in DataGridSupplierTransaction.Rows)
             {
                 DataGridSupplierTransaction.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridSupplierTransaction.RowHeadersWidth = 50;
             }
         }
+        #endregion
     }
 }

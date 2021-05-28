@@ -12,16 +12,27 @@ namespace GrocerySupplyManagementApp.Forms
     {
         public SupplierForm _supplierForm;
         private readonly IItemService _itemService;
+        private readonly IItemTransactionService _itemTransactionService;
         private readonly ISupplierTransactionService _supplierTransactionService;
-        private List<DTOs.Item> _items = new List<DTOs.Item>();
+        private List<DTOs.ItemView> _items = new List<DTOs.ItemView>();
         
-        public PurchaseForm(SupplierForm supplierForm, IItemService itemService, ISupplierTransactionService supplierTransactionService)
+        public PurchaseForm(SupplierForm supplierForm, IItemService itemService, IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService)
         {
             InitializeComponent();
             
             _supplierForm = supplierForm;
             _itemService = itemService;
+            _itemTransactionService = itemTransactionService;
             _supplierTransactionService = supplierTransactionService;
+        }
+
+        public PurchaseForm(IItemService itemService, IItemTransactionService itemTransactionService, string supplierName, string billNo)
+        {
+            InitializeComponent();
+
+            _itemService = itemService;
+            _itemTransactionService = itemTransactionService;
+            LoadForm(supplierName, billNo);
         }
 
         #region Form Load Events
@@ -37,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var item = new DTOs.Item
+                var item = new DTOs.ItemView
                 {
                     Name = RichItemName.Text,
                     Brand = RichItemBrand.Text,
@@ -62,12 +73,22 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             DateTime dateTime = DateTime.Now;
-            
-            List<Item> items = _items.Select(item => new Item { 
-                SupplierName = _supplierForm.GetSupplierName(),
-                Code = null,
+
+            List<Item> items = _items.Select(item => new Item
+            {
                 Name = item.Name,
                 Brand = item.Brand,
+                Code = null
+            }).ToList();
+
+            items.ForEach(item =>
+            {
+                _itemService.AddItem(item);
+            });
+            
+            List<ItemTransaction> itemTransactions = _items.Select(item => new ItemTransaction { 
+                SupplierName = _supplierForm.GetSupplierName(),
+                ItemId = _itemService.GetItemId(item.Name, item.Brand),
                 Unit = item.Unit,
                 Quantity = item.Quantity,
                 PurchasePrice = item.PurchasePrice,
@@ -75,9 +96,10 @@ namespace GrocerySupplyManagementApp.Forms
                 BillNo = item.BillNo,
                 SellPrice = null    
             }).ToList();
-            items.ForEach(item =>
+
+            itemTransactions.ForEach(itemTransaction =>
             {
-               _itemService.AddItem(item);
+               _itemTransactionService.AddItem(itemTransaction);
             });
 
             _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
@@ -88,14 +110,15 @@ namespace GrocerySupplyManagementApp.Forms
                 Debit = Convert.ToDecimal(TextBoxTotalAmount.Text),
                 Date = dateTime
             });
+
             _supplierForm.PopulateItemsPurchaseDetails(RichBillNo.Text, Convert.ToDecimal(TextBoxTotalAmount.Text));
             this.Close();
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            Item selectedItem = (Item)DataGridPurchaseList.CurrentRow.DataBoundItem;
-            _items = _items.Where(x => x.Name != selectedItem.Name).ToList();
+            ItemTransaction selectedItem = (ItemTransaction)DataGridPurchaseList.CurrentRow.DataBoundItem;
+            //_items = _items.Where(x => x.Name != selectedItem.Name).ToList();
             TextBoxTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
             LoadItems(_items);
         }
@@ -120,9 +143,9 @@ namespace GrocerySupplyManagementApp.Forms
             RichPurchasePrice.Clear();
         }
 
-        private void LoadItems(List<DTOs.Item> items)
+        private void LoadItems(List<DTOs.ItemView> items)
         {
-            var bindingList = new BindingList<DTOs.Item>(items);
+            var bindingList = new BindingList<DTOs.ItemView>(items);
             var source = new BindingSource(bindingList, null);
             if(!DataGridPurchaseList.Columns.Contains("Total"))
             {
@@ -132,8 +155,31 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.DataSource = source;
         }
 
+        private void LoadForm(string supplierName, string billNo)
+        {
+            var items = _itemTransactionService.GetItemsBySupplierAndBill(supplierName, billNo).Select(item => new DTOs.ItemView
+            {
+                Name = _itemService.GetItem(item.ItemId).Name,
+                Brand = _itemService.GetItem(item.ItemId).Brand,
+                Unit = item.Unit,
+                Quantity = item.Quantity,
+                PurchasePrice = item.PurchasePrice,
+                BillNo = item.BillNo
+            }).ToList();
+
+            LoadItems(items);
+            TextBoxTotalAmount.Text = _itemTransactionService.GetTotalAmountBySupplierAndBill(supplierName, billNo).ToString();
+            RichBillNo.Text = billNo;
+
+            BtnDelete.Enabled = false;
+            BtnClear.Enabled = false;
+            BtnSave.Enabled = false;
+            BtnAddItem.Enabled = false;
+        }
+
         #endregion
 
+        #region DataGrid Events
         private void DataGridPurchaseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridPurchaseList.Columns["BillNo"].Visible = false;
@@ -184,5 +230,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             //DataGridPurchaseList.Rows[e.RowIndex].Cells["SNo"].Value = (e.RowIndex + 1).ToString();
         }
+
+        #endregion
     }
 }

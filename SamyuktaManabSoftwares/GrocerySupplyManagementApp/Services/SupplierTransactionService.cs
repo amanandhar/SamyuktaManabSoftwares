@@ -1,10 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -17,7 +13,7 @@ namespace GrocerySupplyManagementApp.Services
             _supplierTransactionRepository = supplierTransactionRepository;
         }
 
-        public IEnumerable<DTOs.SupplierTransaction> GetSupplierTransactions(string supplierName)
+        public IEnumerable<DTOs.SupplierTransactionView> GetSupplierTransactions(string supplierName)
         {
             return _supplierTransactionRepository.GetSupplierTransactions(supplierName);
         }
@@ -42,7 +38,7 @@ namespace GrocerySupplyManagementApp.Services
             return _supplierTransactionRepository.UpdateSupplierTransaction(supplierTransactionId, supplierTransaction);
         }
 
-        public bool DeleteSupplierTransaction(string supplierTransactionId)
+        public bool DeleteSupplierTransaction(long supplierTransactionId)
         {
             return _supplierTransactionRepository.DeleteSupplierTransaction(supplierTransactionId);
         }

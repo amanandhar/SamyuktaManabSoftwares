@@ -29,20 +29,22 @@ namespace GrocerySupplyManagementApp.Repositories
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            var supplier = new Supplier
+                            while (reader.Read())
                             {
-                                Name = reader["Name"].ToString(),
-                                Owner = reader["Owner"].ToString(),
-                                Address = reader["Address"].ToString(),
-                                ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString()),
-                                Email = reader["Email"].ToString()
-                            };
+                                var supplier = new Supplier
+                                {
+                                    Name = reader["Name"].ToString(),
+                                    Owner = reader["Owner"].ToString(),
+                                    Address = reader["Address"].ToString(),
+                                    ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString()),
+                                    Email = reader["Email"].ToString()
+                                };
 
-                            suppliers.Add(supplier);
+                                suppliers.Add(supplier);
+                            }
                         }
                     }
                 }

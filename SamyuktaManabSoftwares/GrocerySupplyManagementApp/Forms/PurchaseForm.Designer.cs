@@ -158,23 +158,23 @@ namespace GrocerySupplyManagementApp.Forms
             // TextBoxTotalAmount
             // 
             this.TextBoxTotalAmount.Enabled = false;
-            this.TextBoxTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxTotalAmount.Location = new System.Drawing.Point(462, 93);
+            this.TextBoxTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxTotalAmount.Location = new System.Drawing.Point(476, 94);
             this.TextBoxTotalAmount.Name = "TextBoxTotalAmount";
             this.TextBoxTotalAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TextBoxTotalAmount.Size = new System.Drawing.Size(167, 30);
+            this.TextBoxTotalAmount.Size = new System.Drawing.Size(153, 31);
             this.TextBoxTotalAmount.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label1.Location = new System.Drawing.Point(342, 61);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 20);
+            this.label1.Size = new System.Drawing.Size(128, 20);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Price";
+            this.label1.Text = "Price and Rate";
             // 
             // ComboUnit
             // 
@@ -209,9 +209,10 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichPurchasePrice.BackColor = System.Drawing.Color.White;
             this.RichPurchasePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichPurchasePrice.Location = new System.Drawing.Point(462, 55);
+            this.RichPurchasePrice.Location = new System.Drawing.Point(476, 56);
             this.RichPurchasePrice.Name = "RichPurchasePrice";
-            this.RichPurchasePrice.Size = new System.Drawing.Size(167, 35);
+            this.RichPurchasePrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichPurchasePrice.Size = new System.Drawing.Size(153, 32);
             this.RichPurchasePrice.TabIndex = 5;
             this.RichPurchasePrice.Text = "";
             // 
@@ -220,7 +221,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label7.Location = new System.Drawing.Point(341, 98);
+            this.label7.Location = new System.Drawing.Point(341, 99);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 20);
             this.label7.TabIndex = 16;
@@ -232,7 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichQuantity.Location = new System.Drawing.Point(416, 17);
             this.RichQuantity.Name = "RichQuantity";
-            this.RichQuantity.Size = new System.Drawing.Size(65, 35);
+            this.RichQuantity.Size = new System.Drawing.Size(65, 32);
             this.RichQuantity.TabIndex = 3;
             this.RichQuantity.Text = "";
             // 

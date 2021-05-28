@@ -54,6 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.RichAccountNumber = new System.Windows.Forms.RichTextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -349,6 +350,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.RichAmount);
             this.groupBox1.Controls.Add(this.RichAccountNumber);
             this.groupBox1.Controls.Add(this.label14);
@@ -377,6 +379,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(1002, 177);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Red;
+            this.button1.Location = new System.Drawing.Point(840, 99);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 60);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Repay Remove";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // RichAmount
             // 
@@ -426,10 +439,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRepaySave.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnRepaySave.Location = new System.Drawing.Point(840, 17);
             this.BtnRepaySave.Name = "BtnRepaySave";
-            this.BtnRepaySave.Size = new System.Drawing.Size(150, 140);
+            this.BtnRepaySave.Size = new System.Drawing.Size(150, 80);
             this.BtnRepaySave.TabIndex = 18;
             this.BtnRepaySave.Text = "Repay Save";
             this.BtnRepaySave.UseVisualStyleBackColor = true;
+            this.BtnRepaySave.Click += new System.EventHandler(this.BtnRepaySave_Click);
             // 
             // ComboBank
             // 
@@ -626,5 +640,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DataGridView DataGridMemberList;
         private System.Windows.Forms.RichTextBox RichAmount;
+        private System.Windows.Forms.Button button1;
     }
 }

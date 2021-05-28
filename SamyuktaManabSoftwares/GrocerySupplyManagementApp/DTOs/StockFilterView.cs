@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrocerySupplyManagementApp.DTOs
 {
-    public class StockFilter
+    public class StockFilterView
     {
         public string ItemName { get; set; }
         public string DateFrom { get; set; }

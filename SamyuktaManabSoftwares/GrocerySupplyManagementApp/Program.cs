@@ -22,7 +22,10 @@ namespace GrocerySupplyManagementApp
                 container.Resolve<IMemberService>(),
                 container.Resolve<ISupplierService>(),
                 container.Resolve<IItemService>(),
-                container.Resolve<ISupplierTransactionService>()
+                container.Resolve<IItemTransactionService>(),
+                container.Resolve<ISupplierTransactionService>(),
+                container.Resolve<IFiscalYearDetailService>(),
+                container.Resolve<ITaxDetailService>()
                 ));
             //Application.Run(new SalesReportForm());
         }
@@ -34,12 +37,18 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IMemberService, MemberService>();
             container.RegisterType<ISupplierService, SupplierService>();
             container.RegisterType<IItemService, ItemService>();
+            container.RegisterType<IItemTransactionService, ItemTransactionService>();
             container.RegisterType<ISupplierTransactionService, SupplierTransactionService>();
+            container.RegisterType<IFiscalYearDetailService, FiscalYearDetailService>();
+            container.RegisterType<ITaxDetailService, TaxDetailService>();
 
             container.RegisterType<IMemberRepository, MSSqlMemberRepository>();
             container.RegisterType<ISupplierRepository, MSSqlSupplierRepository>();
             container.RegisterType<IItemRepository, MSSqlItemRepository>();
+            container.RegisterType<IItemTransactionRepository, MSSqlItemTransactionRepository>();
             container.RegisterType<ISupplierTransactionRepository, MSSqlSupplierTransactionRepository>();
+            container.RegisterType<IFiscalYearDetailRepository, MSSqlFiscalYearDetailRepository>();
+            container.RegisterType<ITaxDetailRepository, MSSqlTaxDetailRepository>();
 
             return container;
         }

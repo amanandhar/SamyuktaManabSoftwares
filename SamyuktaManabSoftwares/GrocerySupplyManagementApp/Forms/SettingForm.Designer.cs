@@ -104,7 +104,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.btnFiscalYearForm.Name = "btnFiscalYearForm";
             this.btnFiscalYearForm.Size = new System.Drawing.Size(250, 225);
             this.btnFiscalYearForm.TabIndex = 22;
-            this.btnFiscalYearForm.Text = "Fiscal Year";
+            this.btnFiscalYearForm.Text = "Invoice No. Starting Date And Fiscal Year Set-up";
             this.btnFiscalYearForm.UseVisualStyleBackColor = true;
             this.btnFiscalYearForm.Click += new System.EventHandler(this.btnFiscalYearDateVat_Click);
             // 
@@ -127,7 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.btnVatTaxSetup.Name = "btnVatTaxSetup";
             this.btnVatTaxSetup.Size = new System.Drawing.Size(250, 225);
             this.btnVatTaxSetup.TabIndex = 24;
-            this.btnVatTaxSetup.Text = "Vat / Tax / Charge  Setup";
+            this.btnVatTaxSetup.Text = "Vat and Charge  Setup";
             this.btnVatTaxSetup.UseVisualStyleBackColor = true;
             this.btnVatTaxSetup.Click += new System.EventHandler(this.btnVatTaxSetup_Click);
             // 

@@ -30,21 +30,23 @@ namespace GrocerySupplyManagementApp.Repositories
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            var member = new Member
+                            while (reader.Read())
                             {
-                                MemberId = reader["MemberId"].ToString(),
-                                Name = reader["Name"].ToString(),
-                                Address = reader["Address"].ToString(),
-                                ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString()),
-                                Email = reader["Email"].ToString(),
-                                AccountNumber = reader["AccountNumber"].ToString()
-                            };
+                                var member = new Member
+                                {
+                                    MemberId = reader["MemberId"].ToString(),
+                                    Name = reader["Name"].ToString(),
+                                    Address = reader["Address"].ToString(),
+                                    ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString()),
+                                    Email = reader["Email"].ToString(),
+                                    AccountNumber = reader["AccountNumber"].ToString()
+                                };
 
-                            members.Add(member);
+                                members.Add(member);
+                            }
                         }
                     }
                 }

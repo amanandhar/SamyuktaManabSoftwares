@@ -9,17 +9,24 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IMemberService _memberService;
         private readonly ISupplierService _supplierService;
         private readonly IItemService _itemService;
+        private readonly IItemTransactionService _itemTransactionService;
         private readonly ISupplierTransactionService _supplierTransactionService;
+        private readonly IFiscalYearDetailService _fiscalYearDetailService;
+        private readonly ITaxDetailService _taxDetailService;
 
         public DashboardForm(IMemberService memberService, ISupplierService supplierService, IItemService itemService,
-            ISupplierTransactionService supplierTransactionService)
+            IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService, 
+            IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService)
         {
             InitializeComponent();
 
             _memberService = memberService;
             _supplierService = supplierService;
             _itemService = itemService;
+            _itemTransactionService = itemTransactionService;
             _supplierTransactionService = supplierTransactionService;
+            _fiscalYearDetailService = fiscalYearDetailService;
+            _taxDetailService = taxDetailService;
         }
 
         #region Load
@@ -33,7 +40,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             RichBoxUsername.Text = "User Name: Bhai Raja Manandhar";
             RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
-            RichBoxFiscalYear.Text = "Fiscal Year: 2077/78";
+            RichBoxFiscalYear.Text = "Fiscal Year: " + _fiscalYearDetailService.GetFiscalYearDetail().FiscalYear;
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
         }
         #endregion
@@ -49,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Menu Buttons
         private void BtnPosMgmt_Click(object sender, EventArgs e)
         {
-            PosForm posForm = new PosForm();
+            PosForm posForm = new PosForm(_memberService, _itemService, _itemTransactionService, _fiscalYearDetailService, _taxDetailService);
             posForm.Show();
         }
 
@@ -67,25 +74,25 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
         {
-            SupplierForm supplierForm = new SupplierForm(_supplierService, _itemService, _supplierTransactionService);
+            SupplierForm supplierForm = new SupplierForm(_supplierService, _itemService, _itemTransactionService, _supplierTransactionService);
             supplierForm.Show();
         }
 
         private void BtnItemMgmt_Click(object sender, EventArgs e)
         {
-            ItemForm itemForm = new ItemForm(_itemService, this);
+            ItemForm itemForm = new ItemForm(_itemService, _itemTransactionService, this);
             itemForm.Show();
         }
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm(_itemService);
+            StockForm stockForm = new StockForm(_itemService, _itemTransactionService);
             stockForm.Show();
         }
 
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
-            SettingForm settingForm = new SettingForm();
+            SettingForm settingForm = new SettingForm(_fiscalYearDetailService, _taxDetailService);
             settingForm.Show();
         }
 
@@ -100,9 +107,6 @@ namespace GrocerySupplyManagementApp.Forms
             StaffForm staffForm = new StaffForm();
             staffForm.Show();
         }
-
-
-
 
         #endregion
 

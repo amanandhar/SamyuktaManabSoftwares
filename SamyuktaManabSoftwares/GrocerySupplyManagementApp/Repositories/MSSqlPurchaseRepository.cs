@@ -30,22 +30,24 @@ namespace GrocerySupplyManagementApp.Repositories
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            var purchase = new Purchase
+                            while (reader.Read())
                             {
-                                Id = Convert.ToInt64(reader["Id"].ToString()),
-                                PurchaseId = Convert.ToInt64(reader["PurchaseId"].ToString()),
-                                ItemName = reader["ItemName"].ToString(),
-                                BrandName = reader["BrandName"].ToString(),
-                                Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
-                                TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
-                                BillNo = reader["BillNo"].ToString()
-                            };
+                                var purchase = new Purchase
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    PurchaseId = Convert.ToInt64(reader["PurchaseId"].ToString()),
+                                    ItemName = reader["ItemName"].ToString(),
+                                    BrandName = reader["BrandName"].ToString(),
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    BillNo = reader["BillNo"].ToString()
+                                };
 
-                            purchases.Add(purchase);
+                                purchases.Add(purchase);
+                            }
                         }
                     }
                 }
@@ -74,17 +76,19 @@ namespace GrocerySupplyManagementApp.Repositories
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            purchase.Id = Convert.ToInt64(reader["Id"].ToString());
-                            purchase.PurchaseId = Convert.ToInt64(reader["PurchaseId"].ToString());
-                            purchase.ItemName = reader["ItemName"].ToString();
-                            purchase.BrandName = reader["BrandName"].ToString();
-                            purchase.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
-                            purchase.TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString());
-                            purchase.BillNo = reader["BillNo"].ToString();
+                            while (reader.Read())
+                            {
+                                purchase.Id = Convert.ToInt64(reader["Id"].ToString());
+                                purchase.PurchaseId = Convert.ToInt64(reader["PurchaseId"].ToString());
+                                purchase.ItemName = reader["ItemName"].ToString();
+                                purchase.BrandName = reader["BrandName"].ToString();
+                                purchase.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
+                                purchase.TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString());
+                                purchase.BillNo = reader["BillNo"].ToString();
+                            }
                         }
                     }
                 }

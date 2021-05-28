@@ -13,44 +13,19 @@ namespace GrocerySupplyManagementApp.Services
             _itemRepository = itemRepository;
         }
 
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<Item> GetItems(bool showEmptyItemCode)
         {
-            return _itemRepository.GetItems();
+            return _itemRepository.GetItems(showEmptyItemCode);
         }
 
-        public IEnumerable<Item> GetItems(DTOs.StockFilter filter)
+        public Item GetItem(long id)
         {
-            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
-            {
-                filter.DateFrom = null;
-                filter.DateTo = null;
-            }
-
-            return _itemRepository.GetItems(filter);
+            return _itemRepository.GetItem(id);
         }
 
-        public int GetTotalItemCount(DTOs.StockFilter filter)
+        public long GetItemId(string name, string brand)
         {
-            if(filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
-            {
-                filter.DateFrom = null;
-                filter.DateTo = null;
-            }
-            else
-            {
-                filter.DateTo += " 23:59:59.999";
-            }
-            return _itemRepository.GetTotalItemCount(filter);
-        }
-
-        public IEnumerable<string> GetAllItemNames()
-        {
-            return _itemRepository.GetAllItemNames();
-        }
-
-        public Item GetItem(string itemName)
-        {
-            return _itemRepository.GetItem(itemName);
+            return _itemRepository.GetItemId(name, brand);
         }
 
         public Item AddItem(Item item)
@@ -58,14 +33,14 @@ namespace GrocerySupplyManagementApp.Services
             return _itemRepository.AddItem(item);
         }
 
-        public Item UpdateItem(string itemId, Item item)
+        public Item UpdateItem(long id, Item item)
         {
-            return _itemRepository.UpdateItem(itemId, item);
+            return _itemRepository.UpdateItem(id, item);
         }
 
-        public bool DeleteItem(string itemId)
+        public bool DeleteItem(long id)
         {
-            return _itemRepository.DeleteItem(itemId);
+            return _itemRepository.DeleteItem(id);
         }
     }
 }

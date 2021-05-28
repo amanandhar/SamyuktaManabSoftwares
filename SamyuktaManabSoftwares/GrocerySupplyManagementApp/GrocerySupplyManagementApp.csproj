@@ -87,14 +87,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DsSales.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DTOs\Item.cs" />
-    <Compile Include="DTOs\StockFilter.cs" />
-    <Compile Include="DTOs\SupplierTransaction.cs" />
+    <Compile Include="DTOs\ItemView.cs" />
+    <Compile Include="DTOs\ItemTransactionView.cs" />
+    <Compile Include="DTOs\StockFilterView.cs" />
+    <Compile Include="DTOs\SupplierTransactionView.cs" />
+    <Compile Include="Entities\FiscalYearDetail.cs" />
     <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\ItemTransaction.cs" />
+    <Compile Include="Entities\ItemTransactionGrid.cs" />
     <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\PosTransaction.cs" />
     <Compile Include="Entities\Purchase.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\SupplierTransaction.cs" />
+    <Compile Include="Entities\TaxDetail.cs" />
     <Compile Include="Forms\BalanceSheetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,8 @@
     <Compile Include="Forms\ExpenseForm.Designer.cs">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Interfaces\IItemListForm.cs" />
+    <Compile Include="Forms\Interfaces\IMemberListForm.cs" />
     <Compile Include="Forms\ItemListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,11 +145,11 @@
     <Compile Include="Forms\SetPasswordForm.Designer.cs">
       <DependentUpon>SetPasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CompanyEnfoForm.cs">
+    <Compile Include="Forms\CompanyInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CompanyEnfoForm.Designer.cs">
-      <DependentUpon>CompanyEnfoForm.cs</DependentUpon>
+    <Compile Include="Forms\CompanyInfoForm.Designer.cs">
+      <DependentUpon>CompanyInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DashboardForm.cs">
       <SubType>Form</SubType>
@@ -247,31 +255,45 @@
     <Compile Include="Forms\TransactionForm.Designer.cs">
       <DependentUpon>TransactionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IItemTransactionRepository.cs" />
+    <Compile Include="Repositories\ITaxDetailRepository.cs" />
+    <Compile Include="Repositories\MSSqlFiscalYearDetailRepository.cs" />
+    <Compile Include="Repositories\IFiscalYearDetailRepository.cs" />
     <Compile Include="Repositories\IItemRepository.cs" />
     <Compile Include="Repositories\IMemberRepository.cs" />
     <Compile Include="Repositories\IPurchaseRepository.cs" />
     <Compile Include="Repositories\ISupplierRepository.cs" />
     <Compile Include="Repositories\ISupplierTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
+    <Compile Include="Repositories\MSSqlItemTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchaseRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlTaxDetailRepository.cs" />
     <Compile Include="SampleSalesDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SampleSalesDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Services\FiscalYearDetailService.cs" />
     <Compile Include="Services\IItemService.cs" />
+    <Compile Include="Services\IItemTransactionService.cs" />
     <Compile Include="Services\IMemberService.cs" />
+    <Compile Include="Services\IFiscalYearDetailService.cs" />
+    <Compile Include="Services\IPosTransactionService.cs" />
     <Compile Include="Services\IPurchaseService.cs" />
     <Compile Include="Services\ISupplierService.cs" />
     <Compile Include="Services\ISupplierTransactionService.cs" />
+    <Compile Include="Services\ITaxDetailService.cs" />
     <Compile Include="Services\ItemService.cs" />
+    <Compile Include="Services\ItemTransactionService.cs" />
     <Compile Include="Services\MemberService.cs" />
+    <Compile Include="Services\PosTransactionService.cs" />
     <Compile Include="Services\PurchaseService.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\SupplierTransactionService.cs" />
+    <Compile Include="Services\TaxDetailService.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="Forms\BalanceSheetForm.resx">
@@ -295,8 +317,8 @@
     <EmbeddedResource Include="Forms\SetPasswordForm.resx">
       <DependentUpon>SetPasswordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CompanyEnfoForm.resx">
-      <DependentUpon>CompanyEnfoForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CompanyInfoForm.resx">
+      <DependentUpon>CompanyInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DashboardForm.resx">
       <DependentUpon>DashboardForm.cs</DependentUpon>

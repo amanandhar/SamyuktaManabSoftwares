@@ -1,11 +1,12 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using System;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class MemberForm : Form
+    public partial class MemberForm : Form, IMemberListForm
     {
         private readonly IMemberService _memberService;
         public DashboardForm _dashboard;
@@ -189,5 +190,10 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(false);
         }
         #endregion
+
+        private void BtnRepaySave_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

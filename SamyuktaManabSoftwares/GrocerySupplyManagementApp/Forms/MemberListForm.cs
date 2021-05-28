@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using System;
 using System.ComponentModel;
@@ -10,14 +11,14 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberListForm : Form
     {
         private readonly IMemberService _memberService;
-        public MemberForm _memberForm;
+        public IMemberListForm _memberListForm;
 
-        public MemberListForm(IMemberService memberService, MemberForm memberForm)
+        public MemberListForm(IMemberService memberService, IMemberListForm memberListForm)
         {
             InitializeComponent();
 
             _memberService = memberService;
-            _memberForm = memberForm;
+            _memberListForm = memberListForm;
         }
 
         private void MemberListForm_Load(object sender, EventArgs e)
@@ -54,7 +55,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (dgv.CurrentRow.Selected)
             {
                 string memberId = dgv.CurrentRow.Cells[0].Value.ToString();
-                _memberForm.PopulateMember(memberId);
+                _memberListForm.PopulateMember(memberId);
                 this.Close();
             }
         }

@@ -5,13 +5,11 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public interface IItemRepository
     {
-        IEnumerable<Item> GetItems();
-        IEnumerable<Item> GetItems(DTOs.StockFilter filter);
-        int GetTotalItemCount(DTOs.StockFilter filter);
-        IEnumerable<string> GetAllItemNames();
-        Item GetItem(string itemName);
+        IEnumerable<Item> GetItems(bool showEmptyItemCode);
+        Item GetItem(long Id);
+        long GetItemId(string name, string brand);
         Item AddItem(Item item);
-        Item UpdateItem(string itemId, Item item);
-        bool DeleteItem(string itemId);
+        Item UpdateItem(long id, Item item);
+        bool DeleteItem(long id);
     }
 }

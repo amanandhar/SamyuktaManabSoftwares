@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using GrocerySupplyManagementApp.Shared;
 using System;
@@ -9,30 +10,36 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class ItemForm : Form
+    public partial class ItemForm : Form, IItemListForm
     {
         private readonly IItemService _itemService;
+        private readonly IItemTransactionService _itemTransactionService;
         public DashboardForm _dashboard;
         private string _documentsDirectory;
         private const string ITEM_IMAGE_FOLDER = "Items";
         private string _uploadedImagePath = string.Empty;
-        public ItemForm(IItemService itemService, DashboardForm dashboardForm)
+        private long selectedItemId = 0;
+
+        public ItemForm(IItemService itemService, IItemTransactionService itemTransactionService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
             _itemService = itemService;
+            _itemTransactionService = itemTransactionService;
             _dashboard = dashboardForm;
         }
 
+        #region Form Load Event
         private void ItemForm_Load(object sender, EventArgs e)
         {
             _documentsDirectory = ConfigurationManager.AppSettings["DocumentsDirectory"].ToString();
         }
+        #endregion
 
         #region Button Click Events
         private void BtnItemSearch_Click(object sender, EventArgs e)
         {
-            ItemListForm itemListForm = new ItemListForm(_itemService, this);
+            ItemListForm itemListForm = new ItemListForm(_itemService, _itemTransactionService, this, true);
             itemListForm.Show();
         }
 
@@ -46,17 +53,25 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var itemName = TextBoxItemName.Text;
+
                 var item = new Item
                 {
-                    Code = TextBoxItemCode.Text,
+                    Id = selectedItemId,
                     Name = TextBoxItemName.Text,
                     Brand = TextBoxItemBrand.Text,
+                    Code = TextBoxItemCode.Text,
+                };
+
+                var itemTrasaction = new ItemTransaction
+                { 
+                    ItemId = selectedItemId,
                     Unit = ComboItemUnit.Text,
                     PurchasePrice = Convert.ToDecimal(string.IsNullOrWhiteSpace(TextBoxPurchasePrice.Text) ? "0" : TextBoxPurchasePrice.Text),
                     SellPrice = Convert.ToDecimal(string.IsNullOrWhiteSpace(TextBoxSalesPrice.Text) ? "0" : TextBoxSalesPrice.Text),
                 };
 
-                _itemService.UpdateItem(itemName, item);
+                _itemService.UpdateItem(selectedItemId, item);
+                _itemTransactionService.UpdateItem(itemTrasaction);
 
                 DialogResult result = MessageBox.Show(itemName + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -74,6 +89,32 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnClearAll_Click(object sender, EventArgs e)
         {
             ClearAllFields();
+        }
+
+        private void BtnAddItemImage_Click(object sender, EventArgs e)
+        {
+            OpenItemImageDialog.InitialDirectory = _documentsDirectory;
+            OpenItemImageDialog.Filter = "All files |*.*";
+            OpenItemImageDialog.ShowDialog();
+        }
+
+        private void BtnDeleteItemImage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var fileName = TextBoxItemCode.Text + "-" + TextBoxItemName.Text + "-" + TextBoxItemName.Text + ".jpg";
+                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
+                if (File.Exists(filePath))
+                {
+                    PicBoxItemImage.Image = null;
+                    File.Delete(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         #endregion
@@ -99,47 +140,39 @@ namespace GrocerySupplyManagementApp.Forms
             TextBoxSalesPrice.Clear() ;
         }
 
-        public void PopulateItem(string itemName)
-        {
-            var item = _itemService.GetItem(itemName);
-
-            TextBoxItemCode.Text = item.Code;
-            TextBoxItemName.Text = item.Name;
-            TextBoxItemBrand.Text = item.Brand;
-            ComboItemUnit.Text = item.Unit.ToString();
-            TextBoxPurchasePrice.Text = item.PurchasePrice.ToString();
-            TextBoxSalesPrice.Text = item.SellPrice.ToString();
-
-            EnableFields(false);
-        }
-        #endregion
-
-        private void BtnAddItemImage_Click(object sender, EventArgs e)
-        {
-            OpenItemImageDialog.InitialDirectory = _documentsDirectory;
-            OpenItemImageDialog.Filter = "All files |*.*";
-            OpenItemImageDialog.ShowDialog();
-        }
-
-        private void BtnDeleteItemImage_Click(object sender, EventArgs e)
+        public void PopulateItem(long itemId)
         {
             try
             {
+                selectedItemId = itemId;
+                var itemTransaction = _itemTransactionService.GetItem(itemId);
+                var item = _itemService.GetItem(itemId);
+                TextBoxItemCode.Text = item.Code;
+                TextBoxItemName.Text = item.Name;
+                TextBoxItemBrand.Text = item.Brand;
+                
+                ComboItemUnit.Text = itemTransaction.Unit.ToString();
+                TextBoxPurchasePrice.Text = itemTransaction.PurchasePrice.ToString();
+                TextBoxSalesPrice.Text = itemTransaction.SellPrice.ToString();
+
                 var fileName = TextBoxItemCode.Text + "-" + TextBoxItemName.Text + "-" + TextBoxItemName.Text + ".jpg";
                 var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
                 if (File.Exists(filePath))
                 {
-                    PicBoxItemImage.Image = null;
-                    File.Delete(filePath);
+                    //PicBoxItemImage.Image = filePath;
+                    PicBoxItemImage.ImageLocation = filePath;
                 }
+
+                EnableFields(false);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
-            
         }
+        #endregion
 
+        #region OpenFileDialog Events
         private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
@@ -164,5 +197,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+        #endregion
     }
 }

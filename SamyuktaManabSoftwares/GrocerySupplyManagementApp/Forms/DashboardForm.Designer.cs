@@ -51,10 +51,10 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.BtnStaffMgmt = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnExpenseMgmt = new System.Windows.Forms.Button();
             this.btnBankingMgmt = new System.Windows.Forms.Button();
             this.Timer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -63,6 +63,7 @@
             // BtnStockMgmt
             // 
             this.BtnStockMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnStockMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnStockMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnStockMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnStockMgmt.Location = new System.Drawing.Point(17, 253);
@@ -76,6 +77,7 @@
             // BtnReportsMgmt
             // 
             this.BtnReportsMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnReportsMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnReportsMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnReportsMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnReportsMgmt.Location = new System.Drawing.Point(16, 442);
@@ -89,6 +91,7 @@
             // BtnSettingMgmt
             // 
             this.BtnSettingMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSettingMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSettingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSettingMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnSettingMgmt.Location = new System.Drawing.Point(16, 394);
@@ -102,6 +105,7 @@
             // BtnItemMgmt
             // 
             this.BtnItemMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnItemMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnItemMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnItemMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnItemMgmt.Location = new System.Drawing.Point(17, 206);
@@ -115,6 +119,7 @@
             // BtnSupplierMgmt
             // 
             this.BtnSupplierMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSupplierMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSupplierMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSupplierMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnSupplierMgmt.Location = new System.Drawing.Point(17, 157);
@@ -128,6 +133,7 @@
             // BtnMemberMgmt
             // 
             this.BtnMemberMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnMemberMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnMemberMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnMemberMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnMemberMgmt.Location = new System.Drawing.Point(17, 111);
@@ -141,6 +147,7 @@
             // BtnTransactionMgmt
             // 
             this.BtnTransactionMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnTransactionMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnTransactionMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnTransactionMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnTransactionMgmt.Location = new System.Drawing.Point(17, 66);
@@ -154,6 +161,7 @@
             // BtnPosMgmt
             // 
             this.BtnPosMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnPosMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnPosMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnPosMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnPosMgmt.Location = new System.Drawing.Point(17, 20);
@@ -300,6 +308,7 @@
             // BtnStaffMgmt
             // 
             this.BtnStaffMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnStaffMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnStaffMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnStaffMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnStaffMgmt.Location = new System.Drawing.Point(17, 491);
@@ -331,9 +340,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(17, 540);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(241, 37);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "End of the Day";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // btnExpenseMgmt
             // 
             this.btnExpenseMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnExpenseMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExpenseMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExpenseMgmt.ForeColor = System.Drawing.Color.White;
             this.btnExpenseMgmt.Location = new System.Drawing.Point(17, 299);
@@ -347,6 +370,7 @@
             // btnBankingMgmt
             // 
             this.btnBankingMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnBankingMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBankingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBankingMgmt.ForeColor = System.Drawing.Color.White;
             this.btnBankingMgmt.Location = new System.Drawing.Point(17, 346);
@@ -362,18 +386,6 @@
             this.Timer.Enabled = true;
             this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(17, 540);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(241, 37);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "End of the Day";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // DashboardForm
             // 
