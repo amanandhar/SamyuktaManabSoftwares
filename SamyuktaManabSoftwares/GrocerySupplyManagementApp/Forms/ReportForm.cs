@@ -40,9 +40,16 @@ namespace GrocerySupplyManagementApp.Forms
            
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void BtnDailyIncomeReport_Click(object sender, EventArgs e)
         {
+            IncomeDetailForm incomeDetailForm = new IncomeDetailForm();
+            incomeDetailForm.Show();
+        }
 
+        private void BtnDailyExpenseReport_Click(object sender, EventArgs e)
+        {
+            ExpenseForm expenseForm = new ExpenseForm();
+            expenseForm.Show();
         }
     }
 }

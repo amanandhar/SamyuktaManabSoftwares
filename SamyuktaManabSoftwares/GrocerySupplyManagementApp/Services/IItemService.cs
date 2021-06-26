@@ -6,9 +6,12 @@ namespace GrocerySupplyManagementApp.Services
     public interface IItemService
     {
         IEnumerable<Item> GetItems(bool showEmptyItemCode);
-        Item GetItem(long id);
+        IEnumerable<Item> GetItems();
+        Item GetItem(long itemId);
+        Item GetItem(string code);
         long GetItemId(string name, string brand);
         Item AddItem(Item item);
+        Item UpdateItem(string code, Item item);
         Item UpdateItem(long id, Item item);
         bool DeleteItem(long id);
     }

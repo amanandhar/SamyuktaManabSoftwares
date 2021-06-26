@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
             if(fiscalYearDetail != null)
             {
                 RichInvoiceNo.Text = fiscalYearDetail.InvoiceNo;
+                RichBillNo.Text = fiscalYearDetail.BillNo;
                 RichCompanyStartingDate.Text = fiscalYearDetail.StartingDate.ToString();
                 RichFiscalYear.Text = fiscalYearDetail.FiscalYear;
             }           
@@ -33,6 +34,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnEdit_Click(object sender, EventArgs e)
         {
             EnableFields(true);
+            RichInvoiceNo.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -42,6 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var fiscalYearDetail = new FiscalYearDetail
                 {
                     InvoiceNo = RichInvoiceNo.Text,
+                    BillNo = RichBillNo.Text,
                     StartingDate = Convert.ToDateTime(RichCompanyStartingDate.Text),
                     FiscalYear = RichFiscalYear.Text
                 };
@@ -66,6 +69,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void EnableFields(bool option)
         {
             RichInvoiceNo.Enabled = option;
+            RichBillNo.Enabled = option;
             RichCompanyStartingDate.Enabled = option;
             RichFiscalYear.Enabled = option;
         }

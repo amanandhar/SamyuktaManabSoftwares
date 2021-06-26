@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
 
         }
+
         public IEnumerable<Item> GetItems(bool showEmptyItemCode)
         {
             var items = new List<Item>();
@@ -23,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " WHERE Code != ''";
             }
-            query += " ORDER BY Name, Brand";
+            query += " ORDER BY Id";
 
             try
             {
@@ -58,14 +59,12 @@ namespace GrocerySupplyManagementApp.Repositories
             return items;
         }
 
-        public Item GetItem(long id)
+        public IEnumerable<Item> GetItems()
         {
-            var item = new Item();
+            var items = new List<Item>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Name, Brand, Code" +
-                " FROM Item" +
-                " WHERE 1=1" +
-                " AND Id=@Id";
+            var query = @"SELECT Id, Name, Brand, Code FROM Item ORDER BY Id";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -73,7 +72,86 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var item = new Item
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Name = reader["Name"].ToString(),
+                                    Brand = reader["Brand"].ToString(),
+                                    Code = reader.IsDBNull(3) ? string.Empty : reader["Code"].ToString()
+                                };
+
+                                items.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return items;
+        }
+
+        public Item GetItem(string code)
+        {
+            var item = new Item();
+            string connectionString = GetConnectionString();
+            var query = @"SELECT Id, Name, Brand, Code" +
+                " FROM Item" +
+                " WHERE 1=1" +
+                " AND Code=@Code";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Code", code);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                item.Id = Convert.ToInt64(reader["Id"].ToString());
+                                item.Name = reader["Name"].ToString();
+                                item.Brand = reader["Brand"].ToString();
+                                item.Code = reader.IsDBNull(3) ? string.Empty : reader["Code"].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
+
+        public Item GetItem(long itemId)
+        {
+            var item = new Item();
+            string connectionString = GetConnectionString();
+            var query = @"SELECT Id, Name, Brand, Code" +
+                " FROM Item" +
+                " WHERE 1=1" +
+                " AND Id=@Id ORDER BY Code";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", itemId);
        
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -114,7 +192,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Name", name);
                         command.Parameters.AddWithValue("@Brand", brand);
-                        id = Convert.ToInt64(command.ExecuteScalar());
+
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            id = Convert.ToInt64(result);
+                        }
                     }
                 }
             }
@@ -148,6 +231,38 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Code", ((object)item.Code) ?? DBNull.Value);
 
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
+
+        public Item UpdateItem(string code, Item item)
+        {
+            string connectionString = GetConnectionString();
+            string query = "UPDATE Item SET " +
+                    "Name = @Name, " +
+                    "Brand = @Brand " +
+                    "WHERE " +
+                    "Code = @Code";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Name", item.Name);
+                        command.Parameters.AddWithValue("@Brand", item.Brand);
+                        command.Parameters.AddWithValue("@Code", code);
+                        
                         command.ExecuteNonQuery();
                     }
                 }

@@ -22,13 +22,15 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var SupplierTransactions = new List<DTOs.SupplierTransactionView>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Date, CASE WHEN Status = 'Purchase' THEN BillNo ELSE RepaymentType END AS Particulars, " + 
+            var query = @"SELECT Id, Date, Status AS Particulars, " +
+                "CASE WHEN Status = 'Purchase' THEN BillNo ELSE Bank END AS BillNoBank, " + 
                 "Debit, Credit, " +
                 "(SELECT SUM(ISNULL(b.DEBIT,0) - ISNULL(b.Credit,0)) " +
                 "FROM [dbo].[SupplierTransaction] b " +
                 "WHERE b.Date <= a.Date AND SupplierName = @SupplierName) as Balance " +
                 "FROM [dbo].[SupplierTransaction] a " +
                 "WHERE SupplierName = @SupplierName";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -46,9 +48,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString()),
                                     Particulars = reader["Particulars"].ToString(),
-                                    Debit = Convert.ToDecimal(reader.IsDBNull(3) ? "0" : reader["Debit"].ToString()),
-                                    Credit = Convert.ToDecimal(reader.IsDBNull(4) ? "0" : reader["Credit"].ToString()),
-                                    Balance = Convert.ToDecimal(reader.IsDBNull(5) ? "0" : reader["Balance"].ToString()),
+                                    BillNoBank = reader["BillNoBank"].ToString(),
+                                    Debit = Convert.ToDecimal(reader.IsDBNull(4) ? "0" : reader["Debit"].ToString()),
+                                    Credit = Convert.ToDecimal(reader.IsDBNull(5) ? "0" : reader["Credit"].ToString()),
+                                    Balance = Convert.ToDecimal(reader.IsDBNull(6) ? "0" : reader["Balance"].ToString()),
                                 };
 
                                 SupplierTransactions.Add(SupplierTransaction);
@@ -83,7 +86,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@SupplierName", supplierName);
-                        balance = Convert.ToDecimal(command.ExecuteScalar());
+
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            balance = Convert.ToDecimal(result);
+                        }
                     }
                 }
             }
@@ -103,7 +111,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public SupplierTransaction GetSupplierTransaction(string supplierName)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT SupplierName, Status, BillNo, RepaymentType, Bank, Debit, Credit, Date FROM SupplierTransaction WHERE SupplierName = @SupplierName";
+            var query = @"SELECT SupplierName, Status, BillNo, PaymentType, Bank, Debit, Credit, Date FROM SupplierTransaction WHERE SupplierName = @SupplierName";
             var SupplierTransaction = new SupplierTransaction();
             try
             {
@@ -120,7 +128,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 SupplierTransaction.SupplierName = reader["SupplierName"].ToString();
                                 SupplierTransaction.Status = reader["Status"].ToString();
                                 SupplierTransaction.BillNo = reader["BillNo"].ToString();
-                                SupplierTransaction.RepaymentType = reader["RepaymentType"].ToString();
+                                SupplierTransaction.PaymentType = reader["PaymentType"].ToString();
                                 SupplierTransaction.Bank = reader["Bank"].ToString();
                                 SupplierTransaction.Debit = Convert.ToDecimal(reader["Debit"].ToString());
                                 SupplierTransaction.Credit = Convert.ToDecimal(reader["Credit"].ToString());
@@ -148,11 +156,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO SupplierTransaction " +
                             "(" +
-                                "SupplierName, Status, BillNo, RepaymentType, Bank, Debit, Credit, Date " +
+                                "SupplierName, Status, BillNo, PaymentType, Bank, Debit, Credit, Date " +
                             ") " +
                             "VALUES " +
                             "(" +
-                                "@SupplierName, @Status, @BillNo, @RepaymentType, @Bank, @Debit, @Credit, @Date " +
+                                "@SupplierName, @Status, @BillNo, @PaymentType, @Bank, @Debit, @Credit, @Date " +
                             ")";
             try
             {
@@ -164,7 +172,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@SupplierName", SupplierTransaction.SupplierName);
                         command.Parameters.AddWithValue("@Status", SupplierTransaction.Status);
                         command.Parameters.AddWithValue("@BillNo", ((object)SupplierTransaction.BillNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@RepaymentType", ((object)SupplierTransaction.RepaymentType) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@PaymentType", ((object)SupplierTransaction.PaymentType) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Bank", ((object)SupplierTransaction.Bank) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Debit", ((object)SupplierTransaction.Debit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Credit", ((object)SupplierTransaction.Credit) ?? DBNull.Value);
@@ -195,7 +203,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SupplierName = @SupplierName, " +
                     "Status = @Status, " +
                     "BillNo = @BillNo, " +
-                    "RepaymentType = @RepaymentType, " +
+                    "PaymentType = @PaymentType, " +
                     "Bank = @Bank, " +
                     "Debit = @Debit, " +
                     "Credit = @Credit, " +
@@ -212,7 +220,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@SupplierName", supplierName);
                         command.Parameters.AddWithValue("@Status", SupplierTransaction.Status);
                         command.Parameters.AddWithValue("@BillNo", SupplierTransaction.BillNo);
-                        command.Parameters.AddWithValue("@RepaymentType", SupplierTransaction.RepaymentType);
+                        command.Parameters.AddWithValue("@PaymentType", SupplierTransaction.PaymentType);
                         command.Parameters.AddWithValue("@Bank", SupplierTransaction.Bank);
                         command.Parameters.AddWithValue("@Debit", SupplierTransaction.Debit);
                         command.Parameters.AddWithValue("@Credit", SupplierTransaction.Credit);

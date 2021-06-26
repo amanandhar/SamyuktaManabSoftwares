@@ -5,16 +5,21 @@ namespace GrocerySupplyManagementApp.Services
 {
     public interface IItemTransactionService
     {
-        IEnumerable<ItemTransaction> GetItems(bool showEmptyItemCode);
-        IEnumerable<ItemTransactionGrid> GetItems(DTOs.StockFilterView filter);
-        IEnumerable<ItemTransaction> GetItemsBySupplierAndBill(string supplierName, string billNo);
+        IEnumerable<ItemPurchase> GetItems(bool showEmptyItemCode);
+        IEnumerable<ItemPurchaseGrid> GetItems(DTOs.StockFilterView filter);
+        IEnumerable<ItemPurchase> GetItemsBySupplierAndBill(string supplierName, string billNo);
         decimal GetTotalAmountBySupplierAndBill(string supplierName, string billNo);
-        int GetTotalItemCount(DTOs.StockFilterView filter);
+        decimal GetTotalItemCount(DTOs.StockFilterView filter);
+        decimal GetTotalItemCount(string code);
+        decimal GetTotalItemAmount(DTOs.StockFilterView filter);
         IEnumerable<string> GetAllItemNames();
-        ItemTransaction GetItem(long itemId);
-        ItemTransaction AddItem(ItemTransaction item);
-        ItemTransaction UpdateItem(ItemTransaction item);
+        IEnumerable<string> GetAllItemCodes();
+        ItemPurchase GetItem(long itemId);
+        long GetItemId(string supplierName, string billNo);
+        string GetBillNo();
+        ItemPurchase AddItem(ItemPurchase item);
+        ItemPurchase UpdateItem(ItemPurchase item);
         bool DeleteItem(string name, string brand);
-        bool DeleteItemBySupplierAndBill(string supplierName, string billNo);
+        bool DeleteItemTransactionBySupplierAndBill(string supplierName, string billNo);
     }
 }

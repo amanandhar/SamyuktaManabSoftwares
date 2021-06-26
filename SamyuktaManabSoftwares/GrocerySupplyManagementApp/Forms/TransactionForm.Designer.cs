@@ -30,255 +30,351 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.label5 = new System.Windows.Forms.Label();
-            this.richTextBox5 = new System.Windows.Forms.RichTextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.GroupFilter = new System.Windows.Forms.GroupBox();
+            this.ComboUsers = new System.Windows.Forms.ComboBox();
+            this.ComboInvoice = new System.Windows.Forms.ComboBox();
+            this.RadioInvoice = new System.Windows.Forms.RadioButton();
+            this.TxtTotal = new System.Windows.Forms.TextBox();
+            this.ComboSalesItem = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.RadioSalesItem = new System.Windows.Forms.RadioButton();
+            this.RadioUsers = new System.Windows.Forms.RadioButton();
+            this.RadioPaymentIn = new System.Windows.Forms.RadioButton();
+            this.RadioPaymentOut = new System.Windows.Forms.RadioButton();
+            this.ComboPaymentOut = new System.Windows.Forms.ComboBox();
+            this.ComboPaymentIn = new System.Windows.Forms.ComboBox();
+            this.GroupSale = new System.Windows.Forms.GroupBox();
+            this.RadioAll = new System.Windows.Forms.RadioButton();
+            this.RadioCashSale = new System.Windows.Forms.RadioButton();
+            this.RadioCreditSale = new System.Windows.Forms.RadioButton();
+            this.MaskDate = new System.Windows.Forms.MaskedTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnDeleteTransaction = new System.Windows.Forms.Button();
+            this.BtnShowTransaction = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.DataGridTransactionList = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
+            this.GroupFilter.SuspendLayout();
+            this.GroupSale.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridTransactionList)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.radioButton4);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.richTextBox5);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.richTextBox4);
-            this.groupBox1.Controls.Add(this.richTextBox3);
-            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.GroupFilter);
+            this.groupBox1.Controls.Add(this.GroupSale);
+            this.groupBox1.Controls.Add(this.MaskDate);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(21, 35);
+            this.groupBox1.Location = new System.Drawing.Point(14, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(800, 130);
+            this.groupBox1.Size = new System.Drawing.Size(830, 140);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // radioButton4
+            // GroupFilter
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.radioButton4.Location = new System.Drawing.Point(114, 80);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(75, 24);
-            this.radioButton4.TabIndex = 14;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Credit";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.GroupFilter.Controls.Add(this.ComboUsers);
+            this.GroupFilter.Controls.Add(this.ComboInvoice);
+            this.GroupFilter.Controls.Add(this.RadioInvoice);
+            this.GroupFilter.Controls.Add(this.TxtTotal);
+            this.GroupFilter.Controls.Add(this.ComboSalesItem);
+            this.GroupFilter.Controls.Add(this.label3);
+            this.GroupFilter.Controls.Add(this.RadioSalesItem);
+            this.GroupFilter.Controls.Add(this.RadioUsers);
+            this.GroupFilter.Controls.Add(this.RadioPaymentIn);
+            this.GroupFilter.Controls.Add(this.RadioPaymentOut);
+            this.GroupFilter.Controls.Add(this.ComboPaymentOut);
+            this.GroupFilter.Controls.Add(this.ComboPaymentIn);
+            this.GroupFilter.Location = new System.Drawing.Point(209, 8);
+            this.GroupFilter.Name = "GroupFilter";
+            this.GroupFilter.Size = new System.Drawing.Size(605, 125);
+            this.GroupFilter.TabIndex = 5;
+            this.GroupFilter.TabStop = false;
             // 
-            // radioButton2
+            // ComboUsers
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.radioButton2.Location = new System.Drawing.Point(21, 80);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(68, 24);
-            this.radioButton2.TabIndex = 13;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Cash";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.ComboUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboUsers.FormattingEnabled = true;
+            this.ComboUsers.Location = new System.Drawing.Point(427, 16);
+            this.ComboUsers.Name = "ComboUsers";
+            this.ComboUsers.Size = new System.Drawing.Size(160, 26);
+            this.ComboUsers.TabIndex = 37;
             // 
-            // label5
+            // ComboInvoice
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(152, 81);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(166, 20);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "          Total Amount";
+            this.ComboInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboInvoice.FormattingEnabled = true;
+            this.ComboInvoice.Location = new System.Drawing.Point(427, 53);
+            this.ComboInvoice.Name = "ComboInvoice";
+            this.ComboInvoice.Size = new System.Drawing.Size(160, 26);
+            this.ComboInvoice.TabIndex = 36;
             // 
-            // richTextBox5
+            // RadioInvoice
             // 
-            this.richTextBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox5.Location = new System.Drawing.Point(335, 76);
-            this.richTextBox5.Name = "richTextBox5";
-            this.richTextBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox5.Size = new System.Drawing.Size(184, 30);
-            this.richTextBox5.TabIndex = 11;
-            this.richTextBox5.Text = "";
+            this.RadioInvoice.AutoSize = true;
+            this.RadioInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioInvoice.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioInvoice.Location = new System.Drawing.Point(336, 55);
+            this.RadioInvoice.Name = "RadioInvoice";
+            this.RadioInvoice.Size = new System.Drawing.Size(93, 22);
+            this.RadioInvoice.TabIndex = 35;
+            this.RadioInvoice.TabStop = true;
+            this.RadioInvoice.Text = "By Invoice";
+            this.RadioInvoice.UseVisualStyleBackColor = true;
+            this.RadioInvoice.CheckedChanged += new System.EventHandler(this.RadioInvoice_CheckedChanged);
             // 
-            // comboBox1
+            // TxtTotal
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(642, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(142, 32);
-            this.comboBox1.TabIndex = 10;
+            this.TxtTotal.Enabled = false;
+            this.TxtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTotal.Location = new System.Drawing.Point(427, 88);
+            this.TxtTotal.Name = "TxtTotal";
+            this.TxtTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtTotal.Size = new System.Drawing.Size(160, 29);
+            this.TxtTotal.TabIndex = 28;
             // 
-            // label4
+            // ComboSalesItem
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(570, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 20);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "User by ";
-            // 
-            // richTextBox4
-            // 
-            this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox4.Location = new System.Drawing.Point(108, 20);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(150, 33);
-            this.richTextBox4.TabIndex = 8;
-            this.richTextBox4.Text = "";
-            // 
-            // richTextBox3
-            // 
-            this.richTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox3.Location = new System.Drawing.Point(333, 21);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(150, 30);
-            this.richTextBox3.TabIndex = 7;
-            this.richTextBox3.Text = "";
+            this.ComboSalesItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboSalesItem.FormattingEnabled = true;
+            this.ComboSalesItem.Location = new System.Drawing.Point(149, 90);
+            this.ComboSalesItem.Name = "ComboSalesItem";
+            this.ComboSalesItem.Size = new System.Drawing.Size(150, 26);
+            this.ComboSalesItem.TabIndex = 31;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(262, 25);
+            this.label3.Location = new System.Drawing.Point(305, 91);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 20);
+            this.label3.Size = new System.Drawing.Size(122, 24);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Date To";
+            this.label3.Text = "Total Amount";
+            // 
+            // RadioSalesItem
+            // 
+            this.RadioSalesItem.AutoSize = true;
+            this.RadioSalesItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioSalesItem.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioSalesItem.Location = new System.Drawing.Point(15, 92);
+            this.RadioSalesItem.Name = "RadioSalesItem";
+            this.RadioSalesItem.Size = new System.Drawing.Size(120, 22);
+            this.RadioSalesItem.TabIndex = 32;
+            this.RadioSalesItem.TabStop = true;
+            this.RadioSalesItem.Text = "By Sales Item ";
+            this.RadioSalesItem.UseVisualStyleBackColor = true;
+            this.RadioSalesItem.CheckedChanged += new System.EventHandler(this.RadioSalesItem_CheckedChanged);
+            // 
+            // RadioUsers
+            // 
+            this.RadioUsers.AutoSize = true;
+            this.RadioUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioUsers.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioUsers.Location = new System.Drawing.Point(336, 18);
+            this.RadioUsers.Name = "RadioUsers";
+            this.RadioUsers.Size = new System.Drawing.Size(87, 22);
+            this.RadioUsers.TabIndex = 19;
+            this.RadioUsers.Text = "By Users";
+            this.RadioUsers.UseVisualStyleBackColor = true;
+            // 
+            // RadioPaymentIn
+            // 
+            this.RadioPaymentIn.AutoSize = true;
+            this.RadioPaymentIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioPaymentIn.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioPaymentIn.Location = new System.Drawing.Point(15, 19);
+            this.RadioPaymentIn.Name = "RadioPaymentIn";
+            this.RadioPaymentIn.Size = new System.Drawing.Size(120, 22);
+            this.RadioPaymentIn.TabIndex = 14;
+            this.RadioPaymentIn.Text = "By Payment In";
+            this.RadioPaymentIn.UseVisualStyleBackColor = true;
+            // 
+            // RadioPaymentOut
+            // 
+            this.RadioPaymentOut.AutoSize = true;
+            this.RadioPaymentOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioPaymentOut.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioPaymentOut.Location = new System.Drawing.Point(15, 55);
+            this.RadioPaymentOut.Name = "RadioPaymentOut";
+            this.RadioPaymentOut.Size = new System.Drawing.Size(133, 22);
+            this.RadioPaymentOut.TabIndex = 18;
+            this.RadioPaymentOut.Text = "By Payment Out";
+            this.RadioPaymentOut.UseVisualStyleBackColor = true;
+            // 
+            // ComboPaymentOut
+            // 
+            this.ComboPaymentOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboPaymentOut.FormattingEnabled = true;
+            this.ComboPaymentOut.Items.AddRange(new object[] {
+            "Cash",
+            "Cheque"});
+            this.ComboPaymentOut.Location = new System.Drawing.Point(149, 53);
+            this.ComboPaymentOut.Name = "ComboPaymentOut";
+            this.ComboPaymentOut.Size = new System.Drawing.Size(150, 26);
+            this.ComboPaymentOut.TabIndex = 22;
+            // 
+            // ComboPaymentIn
+            // 
+            this.ComboPaymentIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboPaymentIn.FormattingEnabled = true;
+            this.ComboPaymentIn.Items.AddRange(new object[] {
+            "Cash",
+            "Cheque"});
+            this.ComboPaymentIn.Location = new System.Drawing.Point(149, 17);
+            this.ComboPaymentIn.Name = "ComboPaymentIn";
+            this.ComboPaymentIn.Size = new System.Drawing.Size(150, 26);
+            this.ComboPaymentIn.TabIndex = 23;
+            // 
+            // GroupSale
+            // 
+            this.GroupSale.Controls.Add(this.RadioAll);
+            this.GroupSale.Controls.Add(this.RadioCashSale);
+            this.GroupSale.Controls.Add(this.RadioCreditSale);
+            this.GroupSale.Location = new System.Drawing.Point(16, 38);
+            this.GroupSale.Name = "GroupSale";
+            this.GroupSale.Size = new System.Drawing.Size(180, 95);
+            this.GroupSale.TabIndex = 30;
+            this.GroupSale.TabStop = false;
+            // 
+            // RadioAll
+            // 
+            this.RadioAll.AutoSize = true;
+            this.RadioAll.Checked = true;
+            this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioAll.Location = new System.Drawing.Point(10, 11);
+            this.RadioAll.Name = "RadioAll";
+            this.RadioAll.Size = new System.Drawing.Size(41, 22);
+            this.RadioAll.TabIndex = 2;
+            this.RadioAll.TabStop = true;
+            this.RadioAll.Text = "All";
+            this.RadioAll.UseVisualStyleBackColor = true;
+            // 
+            // RadioCashSale
+            // 
+            this.RadioCashSale.AutoSize = true;
+            this.RadioCashSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioCashSale.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioCashSale.Location = new System.Drawing.Point(10, 37);
+            this.RadioCashSale.Name = "RadioCashSale";
+            this.RadioCashSale.Size = new System.Drawing.Size(94, 22);
+            this.RadioCashSale.TabIndex = 3;
+            this.RadioCashSale.Text = "Cash Sale";
+            this.RadioCashSale.UseVisualStyleBackColor = true;
+            // 
+            // RadioCreditSale
+            // 
+            this.RadioCreditSale.AutoSize = true;
+            this.RadioCreditSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioCreditSale.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioCreditSale.Location = new System.Drawing.Point(10, 65);
+            this.RadioCreditSale.Name = "RadioCreditSale";
+            this.RadioCreditSale.Size = new System.Drawing.Size(98, 22);
+            this.RadioCreditSale.TabIndex = 4;
+            this.RadioCreditSale.Text = "Credit Sale";
+            this.RadioCreditSale.UseVisualStyleBackColor = true;
+            // 
+            // MaskDate
+            // 
+            this.MaskDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDate.Location = new System.Drawing.Point(66, 12);
+            this.MaskDate.Mask = "   0000-00-00";
+            this.MaskDate.Name = "MaskDate";
+            this.MaskDate.Size = new System.Drawing.Size(130, 26);
+            this.MaskDate.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(19, 25);
+            this.label2.Location = new System.Drawing.Point(18, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 20);
+            this.label2.Size = new System.Drawing.Size(43, 18);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Date From";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(21, 179);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(997, 350);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            this.label2.Text = "Date ";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Location = new System.Drawing.Point(833, 35);
+            this.groupBox2.Controls.Add(this.BtnDeleteTransaction);
+            this.groupBox2.Controls.Add(this.BtnShowTransaction);
+            this.groupBox2.Location = new System.Drawing.Point(860, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(185, 130);
+            this.groupBox2.Size = new System.Drawing.Size(165, 140);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
-            // button2
+            // BtnDeleteTransaction
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.Red;
-            this.button2.Location = new System.Drawing.Point(8, 69);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(170, 55);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Delete Transaction";
-            this.button2.UseVisualStyleBackColor = true;
+            this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Red;
+            this.BtnDeleteTransaction.Location = new System.Drawing.Point(12, 73);
+            this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
+            this.BtnDeleteTransaction.Size = new System.Drawing.Size(140, 55);
+            this.BtnDeleteTransaction.TabIndex = 1;
+            this.BtnDeleteTransaction.Text = "Delete Transaction";
+            this.BtnDeleteTransaction.UseVisualStyleBackColor = true;
+            this.BtnDeleteTransaction.Click += new System.EventHandler(this.BtnDeleteTransaction_Click);
             // 
-            // button1
+            // BtnShowTransaction
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1.Location = new System.Drawing.Point(8, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 55);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Show Transaction";
-            this.button1.UseVisualStyleBackColor = false;
+            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.Location = new System.Drawing.Point(12, 16);
+            this.BtnShowTransaction.Name = "BtnShowTransaction";
+            this.BtnShowTransaction.Size = new System.Drawing.Size(140, 55);
+            this.BtnShowTransaction.TabIndex = 0;
+            this.BtnShowTransaction.Text = "Show Transaction";
+            this.BtnShowTransaction.UseVisualStyleBackColor = false;
+            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.SystemColors.Control;
             this.textBox1.Location = new System.Drawing.Point(0, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1038, 29);
+            this.textBox1.Size = new System.Drawing.Size(1045, 26);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "                                                                  Daily Sales\r\n T" +
-    "ransaction";
+            this.textBox1.Text = "                                                                                 " +
+    "      Daily Sales\r\n Transaction";
             // 
-            // label1
+            // DataGridTransactionList
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(530, 79);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Invoice No.";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(632, 73);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(152, 29);
-            this.textBox2.TabIndex = 16;
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.Red;
-            this.button3.Location = new System.Drawing.Point(489, 18);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 35);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Show";
-            this.button3.UseVisualStyleBackColor = true;
+            this.DataGridTransactionList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridTransactionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 180);
+            this.DataGridTransactionList.Name = "DataGridTransactionList";
+            this.DataGridTransactionList.Size = new System.Drawing.Size(1010, 345);
+            this.DataGridTransactionList.TabIndex = 4;
+            this.DataGridTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridTransactionList_DataBindingComplete);
             // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 549);
+            this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.Controls.Add(this.DataGridTransactionList);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.Name = "TransactionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TransactionForm";
             this.Load += new System.EventHandler(this.TransactionForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.GroupFilter.ResumeLayout(false);
+            this.GroupFilter.PerformLayout();
+            this.GroupSale.ResumeLayout(false);
+            this.GroupSale.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridTransactionList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,23 +383,29 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox richTextBox4;
-        private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnDeleteTransaction;
+        private System.Windows.Forms.Button BtnShowTransaction;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.RichTextBox richTextBox5;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.RadioButton RadioPaymentIn;
+        private System.Windows.Forms.RadioButton RadioCashSale;
+        private System.Windows.Forms.RadioButton RadioCreditSale;
+        private System.Windows.Forms.RadioButton RadioAll;
+        private System.Windows.Forms.ComboBox ComboPaymentIn;
+        private System.Windows.Forms.ComboBox ComboPaymentOut;
+        private System.Windows.Forms.RadioButton RadioUsers;
+        private System.Windows.Forms.RadioButton RadioPaymentOut;
+        private System.Windows.Forms.TextBox TxtTotal;
+        private System.Windows.Forms.MaskedTextBox MaskDate;
+        private System.Windows.Forms.DataGridView DataGridTransactionList;
+        private System.Windows.Forms.RadioButton RadioSalesItem;
+        private System.Windows.Forms.ComboBox ComboSalesItem;
+        private System.Windows.Forms.GroupBox GroupSale;
+        private System.Windows.Forms.RadioButton RadioInvoice;
+        private System.Windows.Forms.GroupBox GroupFilter;
+        private System.Windows.Forms.ComboBox ComboInvoice;
+        private System.Windows.Forms.ComboBox ComboUsers;
     }
 }

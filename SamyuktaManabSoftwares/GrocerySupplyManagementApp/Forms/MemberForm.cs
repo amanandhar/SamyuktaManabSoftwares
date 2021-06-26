@@ -1,7 +1,11 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -9,13 +13,20 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberForm : Form, IMemberListForm
     {
         private readonly IMemberService _memberService;
+        private readonly IPosInvoiceService _posInvoiceService;
+        private readonly IPosTransactionService _posTransactionService;
+        private readonly IBankDetailService _bankDetailService;
         public DashboardForm _dashboard;
 
-        public MemberForm(IMemberService memberService, DashboardForm dashboardForm)
+        public MemberForm(IMemberService memberService, IPosInvoiceService posInvoiceService, 
+            IPosTransactionService posTransactionService, IBankDetailService bankDetailService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
             _memberService = memberService;
+            _posInvoiceService = posInvoiceService;
+            _posTransactionService = posTransactionService;
+            _bankDetailService = bankDetailService;
             _dashboard = dashboardForm;
         }
 
@@ -24,14 +35,14 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ClearAllFields();
             EnableFields(false);
-            LoadMembers();
+            LoadMemberInvoices();
         }
         #endregion
 
         #region Button Events
         private void BtnShowMember_Click(object sender, EventArgs e)
         {
-            MemberListForm memberListForm = new MemberListForm(_memberService, this);
+            MemberListForm memberListForm = new MemberListForm(_memberService, _posInvoiceService, this);
             memberListForm.Show();
         }
 
@@ -61,7 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadMembers();
+                    LoadMemberInvoices();
                 }
             }
             catch (Exception ex)
@@ -94,7 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadMembers();
+                    LoadMemberInvoices();
                 }
             }
             catch (Exception ex)
@@ -112,7 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (result == DialogResult.OK)
             {
                 ClearAllFields();
-                LoadMembers();
+                LoadMemberInvoices();
             }
         }
 
@@ -121,6 +132,59 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
         }
 
+        private void BtnRepaySave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnShowSales_Click(object sender, EventArgs e)
+        {
+
+            if (DataGridMemberTransactionList.SelectedRows.Count == 1)
+            {
+                var invoiceNo = DataGridMemberTransactionList.SelectedCells[1].Value.ToString();
+                PosForm posForm = new PosForm(_memberService, _posInvoiceService, _posTransactionService, invoiceNo);
+                posForm.Show();
+            }
+        }
+
+        #endregion
+
+        #region Data Grid Event
+        private void DataGridMemberTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridMemberTransactionList.Columns["Id"].Visible = false;
+
+            DataGridMemberTransactionList.Columns["InvoiceDate"].HeaderText = "Date";
+            DataGridMemberTransactionList.Columns["InvoiceDate"].Width = 100;
+            DataGridMemberTransactionList.Columns["InvoiceDate"].DisplayIndex = 1;
+
+            DataGridMemberTransactionList.Columns["PaymentType"].HeaderText = "Particulars";
+            DataGridMemberTransactionList.Columns["PaymentType"].Width = 100;
+            DataGridMemberTransactionList.Columns["PaymentType"].DisplayIndex = 2;
+
+            DataGridMemberTransactionList.Columns["InvoiceNo"].HeaderText = "Invoice No/Bank";
+            DataGridMemberTransactionList.Columns["InvoiceNo"].Width = 150;
+            DataGridMemberTransactionList.Columns["InvoiceNo"].DisplayIndex = 3;
+
+            DataGridMemberTransactionList.Columns["TotalAmount"].HeaderText = "Credit";
+            DataGridMemberTransactionList.Columns["TotalAmount"].Width = 100;
+            DataGridMemberTransactionList.Columns["TotalAmount"].DisplayIndex = 4;
+
+            DataGridMemberTransactionList.Columns["ReceivedAmount"].HeaderText = "Debit";
+            DataGridMemberTransactionList.Columns["ReceivedAmount"].Width = 100;
+            DataGridMemberTransactionList.Columns["ReceivedAmount"].DisplayIndex = 5;
+
+            DataGridMemberTransactionList.Columns["Balance"].HeaderText = "Balance";
+            DataGridMemberTransactionList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridMemberTransactionList.Columns["Balance"].DisplayIndex = 6;
+
+            foreach (DataGridViewRow row in DataGridMemberTransactionList.Rows)
+            {
+                DataGridMemberTransactionList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridMemberTransactionList.RowHeadersWidth = 50;
+            }
+        }
         #endregion
 
         #region Helper Methods
@@ -140,40 +204,30 @@ namespace GrocerySupplyManagementApp.Forms
             RichAccountNumber.Clear();
             RichName.Clear();
             RichAddress.Clear();
-            ComboRepayType.Text = string.Empty;
-            //ComboBank.SelectedIndex = 0;
-            RichContactNumber.Clear();
             RichEmail.Clear();
             RichBalance.Clear();
-            RichAmount.Clear();
         }
 
-        private void LoadMembers()
+        private void LoadMemberInvoices()
         {
-            return;
-            /*
-            try
+            var memberId = RichMemberId.Text;
+            List<PosInvoice> posInvoices = _posInvoiceService.GetPosInvoicesByMemberId(memberId).ToList();
+            List<MemberTransactionView> memberTransactionViews = posInvoices.Select(posInvoice => new MemberTransactionView
             {
-                DataGridMemberList.DataSource = _memberService.GetMembers();
-                DataGridMemberList.Columns[0].Visible = false;
-                DataGridMemberList.Columns[1].HeaderText = "Member Id";
-                DataGridMemberList.Columns[1].Width = 80;
-                DataGridMemberList.Columns[2].HeaderText = "Name";
-                DataGridMemberList.Columns[2].Width = 150;
-                DataGridMemberList.Columns[3].HeaderText = "Address";
-                DataGridMemberList.Columns[3].Width = 150;
-                DataGridMemberList.Columns[4].HeaderText = "Contact Number";
-                DataGridMemberList.Columns[4].Width = 125;
-                DataGridMemberList.Columns[5].HeaderText = "Email";
-                DataGridMemberList.Columns[5].Width = 150;
-                DataGridMemberList.Columns[6].HeaderText = "Account Number";
-                DataGridMemberList.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            */
+                Id = posInvoice.Id,
+                InvoiceNo = posInvoice.InvoiceNo,
+                InvoiceDate = posInvoice.InvoiceDate,
+                PaymentType = posInvoice.PaymentType != "Payment" ? "Sales" : "Payment",
+                TotalAmount = posInvoice.TotalAmount,
+                ReceivedAmount = posInvoice.ReceivedAmount,
+                Balance = posInvoice.Balance
+            }).ToList();
+
+            RichBalance.Text = memberTransactionViews.Sum(x => x.Balance).ToString();
+            TxtBalanceStatus.Text = memberTransactionViews.Sum(x => x.Balance) == 0.0m ? "Clear" : "Due";
+            var bindingList = new BindingList<MemberTransactionView>(memberTransactionViews);
+            var source = new BindingSource(bindingList, null);
+            DataGridMemberTransactionList.DataSource = source;
         }
 
         public void PopulateMember(string memberId)
@@ -187,13 +241,43 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmail.Text = member.Email;
             RichAccountNumber.Text = member.AccountNumber;
 
+            ComboPayment.Enabled = true;
+
             EnableFields(false);
+
+            LoadMemberInvoices();
         }
+
         #endregion
 
-        private void BtnRepaySave_Click(object sender, EventArgs e)
+        private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
         {
+            var selectedPayment = ComboPayment.Text;
+            if(!string.IsNullOrWhiteSpace(selectedPayment))
+            {
+                if(selectedPayment.ToLower() == "cheque")
+                {
+                    ComboBank.Enabled = true;
+                    ComboBank.Focus();
+                    RichAmount.Enabled = true;
 
+                    var bankDetails = _bankDetailService.GetBankDetails().ToList();
+                    if(bankDetails.Count > 0)
+                    {
+                        bankDetails.ForEach(x =>
+                        {
+                            ComboBank.Items.Add(x.Name);
+                        });
+                    }
+                }
+                else
+                {
+                    ComboBank.Text = string.Empty;
+                    ComboBank.Enabled = false;
+                    RichAmount.Enabled = true;
+                    RichAmount.Focus();
+                }
+            }
         }
     }
 }

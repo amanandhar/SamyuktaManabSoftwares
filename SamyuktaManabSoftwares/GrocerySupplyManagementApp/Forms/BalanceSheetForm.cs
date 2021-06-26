@@ -15,5 +15,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             InitializeComponent();
         }
+
+        private void BalanceSheetForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

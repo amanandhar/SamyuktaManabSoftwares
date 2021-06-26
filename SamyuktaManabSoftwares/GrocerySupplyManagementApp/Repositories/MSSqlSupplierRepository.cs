@@ -9,6 +9,8 @@ namespace GrocerySupplyManagementApp.Repositories
     public class MSSqlSupplierRepository : ISupplierRepository
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private const string TABLE_NAME = "Supplier";
+
         public MSSqlSupplierRepository()
         {
 
@@ -22,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var suppliers = new List<Supplier>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Supplier";
+            var query = @"SELECT * FROM " + TABLE_NAME;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -65,7 +67,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Supplier GetSupplier(string name)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Supplier WHERE Name = @Name";
+            var query = @"SELECT * FROM " + TABLE_NAME + " WHERE Name = @Name";
             var supplier = new Supplier();
             try
             {
@@ -105,7 +107,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Supplier AddSupplier(Supplier supplier)
         {
             string connectionString = GetConnectionString();
-            string query = "INSERT INTO Supplier " +
+            string query = "INSERT INTO " + TABLE_NAME + " " +
                             "(" +
                                 "Name, Owner, Address, ContactNumber, Email " +
                             ") " +
@@ -147,7 +149,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Supplier UpdateSupplier(string name, Supplier supplier)
         {
             string connectionString = GetConnectionString();
-            string query = "UPDATE Supplier SET " +
+            string query = "UPDATE " + TABLE_NAME + " SET " +
                     "Name = @Name, " +
                     "Owner = @Owner, " +
                     "Address = @Address, " +
@@ -188,7 +190,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteSupplier(string name)
         {
             string connectionString = GetConnectionString();
-            string query = "DELETE FROM Supplier " +
+            string query = "DELETE FROM " + TABLE_NAME + " " +
                     "WHERE " +
                     "Name = @Name";
             bool result = false;

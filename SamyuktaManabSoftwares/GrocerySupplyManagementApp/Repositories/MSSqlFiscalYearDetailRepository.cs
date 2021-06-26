@@ -1,23 +1,20 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlFiscalYearDetailRepository: IFiscalYearDetailRepository
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private const string TABLE_NAME = "FiscalYearDetail";
 
         public FiscalYearDetail GetFiscalYearDetail()
         {
             var fiscalYearDetail = new FiscalYearDetail();
             string connectionString = GetConnectionString();
-            var query = @"SELECT InvoiceNo, StartingDate, FiscalYear FROM FiscalYearDetail";
+            var query = @"SELECT InvoiceNo, BillNo, StartingDate, FiscalYear FROM " + TABLE_NAME;
 
             try
             {
@@ -30,7 +27,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                fiscalYearDetail.InvoiceNo = reader.IsDBNull(0) ? string.Empty : reader["InvoiceNO"].ToString();
+                                fiscalYearDetail.InvoiceNo = reader.IsDBNull(0) ? string.Empty : reader["InvoiceNo"].ToString();
+                                fiscalYearDetail.BillNo = reader.IsDBNull(0) ? string.Empty : reader["BillNo"].ToString();
                                 fiscalYearDetail.StartingDate = reader.IsDBNull(1) ? DateTime.Today : Convert.ToDateTime(reader["StartingDate"].ToString());
                                 fiscalYearDetail.FiscalYear = reader.IsDBNull(2) ? string.Empty : reader["FiscalYear"].ToString();
                             }
@@ -52,7 +50,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             if(truncate)
             {
-                string truncateQuery = @"TRUNCATE TABLE FiscalYearDetail";
+                string truncateQuery = @"TRUNCATE TABLE " + TABLE_NAME;
 
                 try
                 {
@@ -72,13 +70,13 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
             }
-            string query = "INSERT INTO FiscalYearDetail " +
+            string query = "INSERT INTO " + TABLE_NAME + " " +
                             "(" +
-                                "InvoiceNo, StartingDate, FiscalYear " +
+                                "InvoiceNo, BillNo, StartingDate, FiscalYear " +
                             ") " +
                             "VALUES " +
                             "(" +
-                                "@InvoiceNo, @StartingDate, @FiscalYear " +
+                                "@InvoiceNo, @BillNo, @StartingDate, @FiscalYear " +
                             ")";
             try
             {
@@ -88,6 +86,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)fiscalYearDetail.InvoiceNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@BillNo", ((object)fiscalYearDetail.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYearDetail.StartingDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@FiscalYear", ((object)fiscalYearDetail.FiscalYear) ?? DBNull.Value);
                         command.ExecuteNonQuery();
@@ -107,9 +106,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var result = false;
             string connectionString = GetConnectionString();
-            string query = "UPDATE FiscalYearDetail " +
+            string query = "UPDATE " + TABLE_NAME + " " +
                             "SET " +
-                            "InvoiceNo = @InvoiceNo, StartingDate = @StartingDate, FiscalYear = @FiscalYear";
+                            "InvoiceNo = @InvoiceNo, BillNo = @BillNo, StartingDate = @StartingDate, FiscalYear = @FiscalYear";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -118,6 +117,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)fiscalYearDetail.InvoiceNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@BillNo", ((object)fiscalYearDetail.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYearDetail.StartingDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@FiscalYear", ((object)fiscalYearDetail.FiscalYear) ?? DBNull.Value);
                         command.ExecuteNonQuery();

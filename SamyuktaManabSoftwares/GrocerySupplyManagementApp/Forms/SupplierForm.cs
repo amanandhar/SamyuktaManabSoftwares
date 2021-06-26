@@ -14,8 +14,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
         private readonly ISupplierTransactionService _supplierTransactionService;
+        private readonly IBankDetailService _bankDetailService;
 
-        public SupplierForm(ISupplierService supplierService, IItemService itemService, IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService)
+        public SupplierForm(ISupplierService supplierService, IItemService itemService, 
+            IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService,
+            IBankDetailService bankDetailService)
         {
             InitializeComponent();
 
@@ -23,6 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
             _supplierTransactionService = supplierTransactionService;
+            _bankDetailService = bankDetailService;
         }
 
         #region Form Load Events
@@ -143,9 +147,9 @@ namespace GrocerySupplyManagementApp.Forms
                 _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
                 {
                     SupplierName = RichSupplierName.Text,
-                    Status = "Repayment",
+                    Status = "Payment",
                     BillNo = TextBoxBillNo.Text,
-                    RepaymentType = ComboPaymentType.Text,
+                    PaymentType = ComboPaymentType.Text,
                     Bank = ComboBank.Text,
                     Credit = Convert.ToDecimal(RichAmount.Text),
                     Date = DateTime.Now
@@ -178,7 +182,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         if (_supplierTransactionService.DeleteSupplierTransaction(id))
                         {
-                            _itemTransactionService.DeleteItemBySupplierAndBill(supplierName, particulars);
+                            _itemTransactionService.DeleteItemTransactionBySupplierAndBill(supplierName, particulars);
                             LoadSupplierTransaction();
                         }
                     }
@@ -241,6 +245,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Id = x.Id,
                 Date = x.Date,
                 Particulars = x.Particulars,
+                BillNoBank = x.BillNoBank,
                 Debit = x.Debit,
                 Credit = x.Credit,
                 Balance = x.Balance
@@ -288,23 +293,28 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierTransaction.Columns["Id"].Visible = false;
 
             DataGridSupplierTransaction.Columns["Date"].HeaderText = "Date";
-            DataGridSupplierTransaction.Columns["Date"].Width = 250;
+            DataGridSupplierTransaction.Columns["Date"].Width = 100;
             DataGridSupplierTransaction.Columns["Date"].DisplayIndex = 1;
+            DataGridSupplierTransaction.Columns["Date"].DefaultCellStyle.Format = "yyyy-MM-dd";
 
             DataGridSupplierTransaction.Columns["Particulars"].HeaderText = "Particulars";
             DataGridSupplierTransaction.Columns["Particulars"].Width = 150;
             DataGridSupplierTransaction.Columns["Particulars"].DisplayIndex = 2;
 
+            DataGridSupplierTransaction.Columns["BillNoBank"].HeaderText = "Bill No/Bank";
+            DataGridSupplierTransaction.Columns["BillNoBank"].Width = 150;
+            DataGridSupplierTransaction.Columns["BillNoBank"].DisplayIndex = 3;
+
             DataGridSupplierTransaction.Columns["Debit"].HeaderText = "Debit";
             DataGridSupplierTransaction.Columns["Debit"].Width = 100;
-            DataGridSupplierTransaction.Columns["Debit"].DisplayIndex = 3;
+            DataGridSupplierTransaction.Columns["Debit"].DisplayIndex = 4;
 
             DataGridSupplierTransaction.Columns["Credit"].HeaderText = "Credit";
             DataGridSupplierTransaction.Columns["Credit"].Width = 100;
-            DataGridSupplierTransaction.Columns["Credit"].DisplayIndex = 4;
+            DataGridSupplierTransaction.Columns["Credit"].DisplayIndex = 5;
 
             DataGridSupplierTransaction.Columns["Balance"].HeaderText = "Balance";
-            DataGridSupplierTransaction.Columns["Balance"].DisplayIndex = 5;
+            DataGridSupplierTransaction.Columns["Balance"].DisplayIndex = 6;
             DataGridSupplierTransaction.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
   
             foreach (DataGridViewRow row in DataGridSupplierTransaction.Rows)
@@ -313,6 +323,30 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSupplierTransaction.RowHeadersWidth = 50;
             }
         }
+
         #endregion
+
+        private void ComboPaymentType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selectedPayment = ComboPaymentType.Text;
+            if(selectedPayment.ToLower().Equals("cheque"))
+            {
+                var bankDetails = _bankDetailService.GetBankDetails().ToList();
+                bankDetails.OrderBy(x => x.Name).ToList().ForEach(x =>
+                {
+                    ComboBank.Items.Add(x.Name);
+                });
+                
+                ComboBank.Enabled = true;
+                RichAmount.Enabled = true;
+                ComboBank.Focus();
+            }
+            else
+            {
+                ComboBank.Enabled = false;
+                RichAmount.Enabled = true;
+                RichAmount.Focus();
+            }
+        }
     }
 }

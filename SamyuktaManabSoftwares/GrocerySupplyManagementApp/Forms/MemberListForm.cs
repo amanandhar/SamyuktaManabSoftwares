@@ -11,13 +11,15 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberListForm : Form
     {
         private readonly IMemberService _memberService;
+        private readonly IPosInvoiceService _posInvoiceService;
         public IMemberListForm _memberListForm;
 
-        public MemberListForm(IMemberService memberService, IMemberListForm memberListForm)
+        public MemberListForm(IMemberService memberService, IPosInvoiceService posInvoiceService, IMemberListForm memberListForm)
         {
             InitializeComponent();
 
             _memberService = memberService;
+            _posInvoiceService = posInvoiceService;
             _memberListForm = memberListForm;
         }
 
@@ -25,24 +27,37 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var members = _memberService.GetMembers();
 
+            members.ToList().ForEach(x => x.Balance = _posInvoiceService.GetTotalBalance(x.MemberId));
+
             var bindingList = new BindingList<Member>(members.ToList());
             var source = new BindingSource(bindingList, null);
 
             DataGridMemberList.AutoGenerateColumns = false;
 
             //Set Columns Count
-            DataGridMemberList.ColumnCount = 2;
+            DataGridMemberList.ColumnCount = 4;
 
             //Add Columns
             DataGridMemberList.Columns[0].Name = "MemberId";
             DataGridMemberList.Columns[0].HeaderText = "Member Id";
             DataGridMemberList.Columns[0].DataPropertyName = "MemberId";
-            DataGridMemberList.Columns[0].Width = 100;
+            DataGridMemberList.Columns[0].Width = 90;
 
-            DataGridMemberList.Columns[1].Name = "Name";
-            DataGridMemberList.Columns[1].HeaderText = "Name";
-            DataGridMemberList.Columns[1].DataPropertyName = "Name";
-            DataGridMemberList.Columns[1].Width = 250;
+            DataGridMemberList.Columns[1].Name = "AccountNumber";
+            DataGridMemberList.Columns[1].HeaderText = "Account No";
+            DataGridMemberList.Columns[1].DataPropertyName = "AccountNumber";
+            DataGridMemberList.Columns[1].Width = 90;
+
+            DataGridMemberList.Columns[2].Name = "Name";
+            DataGridMemberList.Columns[2].HeaderText = "Name";
+            DataGridMemberList.Columns[2].DataPropertyName = "Name";
+            DataGridMemberList.Columns[2].Width = 180;
+
+            DataGridMemberList.Columns[3].Name = "Balance";
+            DataGridMemberList.Columns[3].HeaderText = "Balance";
+            DataGridMemberList.Columns[3].DataPropertyName = "Balance";
+            DataGridMemberList.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridMemberList.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             DataGridMemberList.DataSource = source;
         }

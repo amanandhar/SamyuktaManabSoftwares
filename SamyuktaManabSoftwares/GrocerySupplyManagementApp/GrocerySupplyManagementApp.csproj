@@ -87,20 +87,36 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DsSales.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DTOs\BankTransactionView.cs" />
+    <Compile Include="DTOs\MemberTransactionView.cs" />
     <Compile Include="DTOs\ItemView.cs" />
     <Compile Include="DTOs\ItemTransactionView.cs" />
     <Compile Include="DTOs\StockFilterView.cs" />
     <Compile Include="DTOs\SupplierTransactionView.cs" />
+    <Compile Include="DTOs\TransactionFilter.cs" />
+    <Compile Include="Entities\BankDetail.cs" />
+    <Compile Include="Entities\BankTransaction.cs" />
     <Compile Include="Entities\FiscalYearDetail.cs" />
     <Compile Include="Entities\Item.cs" />
-    <Compile Include="Entities\ItemTransaction.cs" />
-    <Compile Include="Entities\ItemTransactionGrid.cs" />
+    <Compile Include="Entities\PreparedItem.cs" />
+    <Compile Include="Entities\ItemPurchase.cs" />
+    <Compile Include="Entities\ItemPurchaseGrid.cs" />
     <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\PosInvoice.cs" />
     <Compile Include="Entities\PosTransaction.cs" />
+    <Compile Include="Entities\PosTransactionGrid.cs" />
+    <Compile Include="Entities\PreparedItemGrid.cs" />
     <Compile Include="Entities\Purchase.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\SupplierTransaction.cs" />
     <Compile Include="Entities\TaxDetail.cs" />
+    <Compile Include="Entities\TransactionGrid.cs" />
+    <Compile Include="Forms\AddNewCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddNewCodeForm.Designer.cs">
+      <DependentUpon>AddNewCodeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BalanceSheetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,11 +129,49 @@
     <Compile Include="Forms\BankForm.Designer.cs">
       <DependentUpon>BankForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\BankListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BankListForm.Designer.cs">
+      <DependentUpon>BankListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BankTransferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BankTransferForm.Designer.cs">
+      <DependentUpon>BankTransferForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Interfaces\IBankListForm.cs" />
+    <Compile Include="Forms\Interfaces\IPreparedItemListForm.cs" />
+    <Compile Include="Forms\PreparedItemListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PreparedItemListForm.Designer.cs">
+      <DependentUpon>PreparedItemListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ShareMemberForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ShareMemberForm.Designer.cs">
+      <DependentUpon>ShareMemberForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SummaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SummaryForm.Designer.cs">
+      <DependentUpon>SummaryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ExpenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ExpenseForm.Designer.cs">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StockAdjustmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StockAdjustmentForm.Designer.cs">
+      <DependentUpon>StockAdjustmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Interfaces\IItemListForm.cs" />
     <Compile Include="Forms\Interfaces\IMemberListForm.cs" />
@@ -133,11 +187,23 @@
     <Compile Include="Forms\MemberListForm.Designer.cs">
       <DependentUpon>MemberListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SalesReportForm.cs">
+    <Compile Include="Forms\LoanForm1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SalesReportForm.Designer.cs">
-      <DependentUpon>SalesReportForm.cs</DependentUpon>
+    <Compile Include="Forms\LoanForm1.Designer.cs">
+      <DependentUpon>LoanForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IncomeDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IncomeDetailForm.Designer.cs">
+      <DependentUpon>IncomeDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InvoiceReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvoiceReportForm.Designer.cs">
+      <DependentUpon>InvoiceReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SetPasswordForm.cs">
       <SubType>Form</SubType>
@@ -217,6 +283,12 @@
     <Compile Include="Forms\StockForm.Designer.cs">
       <DependentUpon>StockForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SalesReturnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SalesReturnForm.Designer.cs">
+      <DependentUpon>SalesReturnForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SupplierListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,8 +327,16 @@
     <Compile Include="Forms\TransactionForm.Designer.cs">
       <DependentUpon>TransactionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\IItemTransactionRepository.cs" />
+    <Compile Include="Repositories\IBankDetailRepository.cs" />
+    <Compile Include="Repositories\IBankTransactionRepository.cs" />
+    <Compile Include="Repositories\IPreparedItemRepository.cs" />
+    <Compile Include="Repositories\IItemPurchaseRepository.cs" />
+    <Compile Include="Repositories\IPosInvoiceRepository.cs" />
+    <Compile Include="Repositories\IPosTransactionRepository.cs" />
     <Compile Include="Repositories\ITaxDetailRepository.cs" />
+    <Compile Include="Repositories\ITransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlBankDetailRepository.cs" />
+    <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlFiscalYearDetailRepository.cs" />
     <Compile Include="Repositories\IFiscalYearDetailRepository.cs" />
     <Compile Include="Repositories\IItemRepository.cs" />
@@ -265,42 +345,77 @@
     <Compile Include="Repositories\ISupplierRepository.cs" />
     <Compile Include="Repositories\ISupplierTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
-    <Compile Include="Repositories\MSSqlItemTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlItemPurchaseRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
+    <Compile Include="Repositories\MSSqlPosInvoiceRepository.cs" />
+    <Compile Include="Repositories\MSSqlPosTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlPreparedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchaseRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlTaxDetailRepository.cs" />
+    <Compile Include="Repositories\MSSqlTransactionRepository.cs" />
     <Compile Include="SampleSalesDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SampleSalesDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Services\BankDetailService.cs" />
+    <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\FiscalYearDetailService.cs" />
+    <Compile Include="Services\IBankDetailService.cs" />
+    <Compile Include="Services\IBankTransactionService.cs" />
     <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IItemTransactionService.cs" />
     <Compile Include="Services\IMemberService.cs" />
     <Compile Include="Services\IFiscalYearDetailService.cs" />
+    <Compile Include="Services\IPosInvoiceService.cs" />
     <Compile Include="Services\IPosTransactionService.cs" />
+    <Compile Include="Services\IPreparedItemService.cs" />
     <Compile Include="Services\IPurchaseService.cs" />
     <Compile Include="Services\ISupplierService.cs" />
     <Compile Include="Services\ISupplierTransactionService.cs" />
     <Compile Include="Services\ITaxDetailService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ItemTransactionService.cs" />
+    <Compile Include="Services\ITransactionService.cs" />
     <Compile Include="Services\MemberService.cs" />
+    <Compile Include="Services\PosInvoiceService.cs" />
     <Compile Include="Services\PosTransactionService.cs" />
+    <Compile Include="Services\PreparedItemService.cs" />
     <Compile Include="Services\PurchaseService.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\SupplierTransactionService.cs" />
     <Compile Include="Services\TaxDetailService.cs" />
+    <Compile Include="Services\TransactionService.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="Forms\AddNewCodeForm.resx">
+      <DependentUpon>AddNewCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BalanceSheetForm.resx">
       <DependentUpon>BalanceSheetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BankForm.resx">
       <DependentUpon>BankForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BankListForm.resx">
+      <DependentUpon>BankListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BankTransferForm.resx">
+      <DependentUpon>BankTransferForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PreparedItemListForm.resx">
+      <DependentUpon>PreparedItemListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ShareMemberForm.resx">
+      <DependentUpon>ShareMemberForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StockAdjustmentForm.resx">
+      <DependentUpon>StockAdjustmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SummaryForm.resx">
+      <DependentUpon>SummaryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExpenseForm.resx">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
@@ -311,8 +426,14 @@
     <EmbeddedResource Include="Forms\MemberListForm.resx">
       <DependentUpon>MemberListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SalesReportForm.resx">
-      <DependentUpon>SalesReportForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\LoanForm1.resx">
+      <DependentUpon>LoanForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IncomeDetailForm.resx">
+      <DependentUpon>IncomeDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvoiceReportForm.resx">
+      <DependentUpon>InvoiceReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SetPasswordForm.resx">
       <DependentUpon>SetPasswordForm.cs</DependentUpon>
@@ -352,6 +473,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SalesReturnForm.resx">
+      <DependentUpon>SalesReturnForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SupplierListForm.resx">
       <DependentUpon>SupplierListForm.cs</DependentUpon>

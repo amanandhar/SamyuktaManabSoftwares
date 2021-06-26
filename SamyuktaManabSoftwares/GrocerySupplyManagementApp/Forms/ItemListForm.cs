@@ -11,16 +11,14 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ItemListForm : Form
     {
         private readonly IItemService _itemService;
-        private readonly IItemTransactionService _itemTransactionService;
         public IItemListForm _itemListForm;
         public bool _showEmptyItemCode;
 
-        public ItemListForm(IItemService itemService, IItemTransactionService itemTransactionService, IItemListForm itemListForm, bool showEmptyItemCode)
+        public ItemListForm(IItemService itemService, IItemListForm itemListForm, bool showEmptyItemCode)
         {
             InitializeComponent();
 
             _itemService = itemService;
-            _itemTransactionService = itemTransactionService;
             _itemListForm = itemListForm;
             _showEmptyItemCode = showEmptyItemCode;
         }
@@ -56,14 +54,23 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Id"].Visible = false;
 
             //Add Columns
-            DataGridItemList.Columns["Name"].Name = "Name";
-            DataGridItemList.Columns["Name"].Width = 150;
+            DataGridItemList.Columns["Code"].HeaderText = "Code";
+            DataGridItemList.Columns["Code"].Width = 100;
+            DataGridItemList.Columns["Code"].DisplayIndex = 0;
 
-            DataGridItemList.Columns["Brand"].Name = "Brand";
-            DataGridItemList.Columns["Brand"].Width = 150;
+            DataGridItemList.Columns["Name"].HeaderText = "Name";
+            DataGridItemList.Columns["Name"].Width = 200;
+            DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
-            DataGridItemList.Columns["Code"].Name = "Code";
-            DataGridItemList.Columns["Code"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridItemList.Columns["Brand"].HeaderText = "Brand";
+            DataGridItemList.Columns["Brand"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridItemList.Columns["Brand"].DisplayIndex = 2;
+
+            foreach (DataGridViewRow row in DataGridItemList.Rows)
+            {
+                DataGridItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridItemList.RowHeadersWidth = 50;
+            }
         }
     }
 }

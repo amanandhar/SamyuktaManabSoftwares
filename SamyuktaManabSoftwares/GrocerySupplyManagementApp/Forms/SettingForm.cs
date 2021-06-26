@@ -8,13 +8,15 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly ITaxDetailService _taxDetailService;
+        private readonly IItemService _itemService;
 
-        public SettingForm(IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService)
+        public SettingForm(IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService, IItemService itemService)
         {
             InitializeComponent();
 
             _fiscalYearDetailService = fiscalYearDetailService;
             _taxDetailService = taxDetailService;
+            _itemService = itemService;
         }
 
         private void btnUserSetup_Click(object sender, EventArgs e)
@@ -46,6 +48,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TaxSetupForm taxSetupForm = new TaxSetupForm(_taxDetailService);
             taxSetupForm.Show();
+        }
+
+        private void BtnAddNewCode_Click(object sender, EventArgs e)
+        {
+            AddNewCodeForm addNewCodeForm = new AddNewCodeForm(_itemService);
+            addNewCodeForm.Show();
         }
     }
 }

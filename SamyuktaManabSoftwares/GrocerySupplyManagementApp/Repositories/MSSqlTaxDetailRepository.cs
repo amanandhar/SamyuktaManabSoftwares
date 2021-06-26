@@ -8,12 +8,13 @@ namespace GrocerySupplyManagementApp.Repositories
     public class MSSqlTaxDetailRepository : ITaxDetailRepository
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private const string TABLE_NAME = "TaxDetail";
 
         public TaxDetail GetTaxDetail()
         {
             var TaxDetail = new TaxDetail();
             string connectionString = GetConnectionString();
-            var query = @"SELECT Discount, Vat, DeliveryCharge FROM TaxDetail";
+            var query = @"SELECT Discount, Vat, DeliveryCharge FROM " + TABLE_NAME;
 
             try
             {
@@ -48,7 +49,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             if (truncate)
             {
-                string truncateQuery = @"TRUNCATE TABLE TaxDetail";
+                string truncateQuery = @"TRUNCATE TABLE " + TABLE_NAME;
 
                 try
                 {
@@ -68,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
             }
-            string query = "INSERT INTO TaxDetail " +
+            string query = "INSERT INTO " + TABLE_NAME + " " +
                             "(" +
                                 "Discount, Vat, DeliveryCharge " +
                             ") " +
@@ -103,7 +104,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var result = false;
             string connectionString = GetConnectionString();
-            string query = "UPDATE TaxDetail " +
+            string query = "UPDATE " + TABLE_NAME + " " +
                             "SET " +
                             "Discount = @Discount, Vat = @DeliveryCharge, DeliveryCharge = @DeliveryCharge";
             try

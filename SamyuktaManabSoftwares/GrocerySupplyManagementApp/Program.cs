@@ -25,7 +25,13 @@ namespace GrocerySupplyManagementApp
                 container.Resolve<IItemTransactionService>(),
                 container.Resolve<ISupplierTransactionService>(),
                 container.Resolve<IFiscalYearDetailService>(),
-                container.Resolve<ITaxDetailService>()
+                container.Resolve<ITaxDetailService>(),
+                container.Resolve<IPosInvoiceService>(),
+                container.Resolve<IPosTransactionService>(),
+                container.Resolve<ITransactionService>(),
+                container.Resolve<IPreparedItemService>(),
+                container.Resolve<IBankDetailService>(),
+                container.Resolve<IBankTransactionService>()
                 ));
             //Application.Run(new SalesReportForm());
         }
@@ -41,14 +47,26 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<ISupplierTransactionService, SupplierTransactionService>();
             container.RegisterType<IFiscalYearDetailService, FiscalYearDetailService>();
             container.RegisterType<ITaxDetailService, TaxDetailService>();
+            container.RegisterType<IPosInvoiceService, PosInvoiceService>();
+            container.RegisterType<IPosTransactionService, PosTransactionService>();
+            container.RegisterType<ITransactionService, TransactionService>();
+            container.RegisterType<IPreparedItemService, PreparedItemService>();
+            container.RegisterType<IBankDetailService, BankDetailService>();
+            container.RegisterType<IBankTransactionService, BankTransactionService>();
 
             container.RegisterType<IMemberRepository, MSSqlMemberRepository>();
             container.RegisterType<ISupplierRepository, MSSqlSupplierRepository>();
             container.RegisterType<IItemRepository, MSSqlItemRepository>();
-            container.RegisterType<IItemTransactionRepository, MSSqlItemTransactionRepository>();
+            container.RegisterType<IItemPurchaseRepository, MSSqlItemPurchaseRepository>();
             container.RegisterType<ISupplierTransactionRepository, MSSqlSupplierTransactionRepository>();
             container.RegisterType<IFiscalYearDetailRepository, MSSqlFiscalYearDetailRepository>();
             container.RegisterType<ITaxDetailRepository, MSSqlTaxDetailRepository>();
+            container.RegisterType<IPosInvoiceRepository, MSSqlPosInvoiceRepository>();
+            container.RegisterType<IPosTransactionRepository, MSSqlPosTransactionRepository>();
+            container.RegisterType<ITransactionRepository, MSSqlTransactionRepository>();
+            container.RegisterType<IPreparedItemRepository, MSSqlPreparedItemRepository>();
+            container.RegisterType<IBankDetailRepository, MSSqlBankDetailRepository>();
+            container.RegisterType<IBankTransactionRepository, MSSqlBankTransactionRepository>();
 
             return container;
         }

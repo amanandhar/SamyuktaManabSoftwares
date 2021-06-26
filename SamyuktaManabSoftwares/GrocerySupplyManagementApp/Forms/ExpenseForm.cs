@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class ExpenseMgmtForm : Form
+    public partial class ExpenseForm : Form
     {
-        public ExpenseMgmtForm()
+        public ExpenseForm()
         {
             InitializeComponent();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

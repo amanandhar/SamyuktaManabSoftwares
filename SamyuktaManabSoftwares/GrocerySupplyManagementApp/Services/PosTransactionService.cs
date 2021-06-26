@@ -1,17 +1,36 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrocerySupplyManagementApp.Services
 {
     public class PosTransactionService : IPosTransactionService
     {
+        private readonly IPosTransactionRepository _posTransactionRepository;
+
+        public PosTransactionService(IPosTransactionRepository posTransactionRepository)
+        {
+            _posTransactionRepository = posTransactionRepository;
+        }
+
+        public IEnumerable<PosTransaction> GetPosTransactions()
+        {
+            return _posTransactionRepository.GetPosTransactions();
+        }
+
+        public PosTransaction GetPosTransaction(long posTransactionId)
+        {
+            return _posTransactionRepository.GetPosTransaction(posTransactionId);
+        }
+
         public PosTransaction AddPosTransaction(PosTransaction posTransaction)
         {
-            throw new NotImplementedException();
+            return _posTransactionRepository.AddPosTransaction(posTransaction);
+        }
+        public PosTransaction UpdatePosTransaction(long posTransactionId, PosTransaction posTransaction)
+        {
+            return _posTransactionRepository.UpdatePosTransaction(posTransactionId, posTransaction);
         }
 
         public bool DeleteSupplierTransaction(long posTransactionId)
@@ -19,19 +38,9 @@ namespace GrocerySupplyManagementApp.Services
             throw new NotImplementedException();
         }
 
-        public PosTransaction GetPosTransaction(string posTransactionId)
+        public IEnumerable<PosTransactionGrid> GetPosTransactionGrid(string invoiceNo)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<PosTransaction> GetPosTransactions()
-        {
-            throw new NotImplementedException();
-        }
-
-        public PosTransaction UpdatePosTransaction(string posTransactionId, PosTransaction posTransaction)
-        {
-            throw new NotImplementedException();
+            return _posTransactionRepository.GetPosTransactionGrid(invoiceNo);
         }
     }
 }

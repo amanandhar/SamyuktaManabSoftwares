@@ -9,6 +9,7 @@ namespace GrocerySupplyManagementApp.Repositories
     public class MSSqlPurchaseRepository : IPurchaseRepository
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private const string TABLE_NAME = "Purchase";
 
         public MSSqlPurchaseRepository()
         {
@@ -23,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var purchases = new List<Purchase>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Purchase";
+            var query = @"SELECT * FROM " + TABLE_NAME;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -68,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Purchase GetPurchase(string purchaseId)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Purchase WHERE PurchaseId = @PurchaseId";
+            var query = @"SELECT * FROM " + TABLE_NAME + " WHERE PurchaseId = @PurchaseId";
             var purchase = new Purchase();
             try
             {
@@ -109,7 +110,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Purchase AddPurchase(Purchase purchase)
         {
             string connectionString = GetConnectionString();
-            string query = "INSERT INTO Purchase " +
+            string query = "INSERT INTO " + TABLE_NAME + " " +
                             "(" +
                                 "PurchaseId, ItemName, BrandName, Quantity, TotalAmount, BillNo " +
                             ") " +
@@ -151,7 +152,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Purchase UpdatePurchase(string purchaseId, Purchase purchase)
         {
             string connectionString = GetConnectionString();
-            string query = "UPDATE Purchase SET " +
+            string query = "UPDATE " + TABLE_NAME + " SET " +
                     "PurchaseId = @PurchaseId, " +
                     "ItemName = @ItemName, " +
                     "BrandName = @BrandName, " +
@@ -193,7 +194,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeletePurchase(string purchaseId)
         {
             string connectionString = GetConnectionString();
-            string query = "DELETE FROM Purchase " +
+            string query = "DELETE FROM " + TABLE_NAME + " " +
                     "WHERE " +
                     "PurchaseId = @PurchaseId";
             bool result = false;

@@ -9,6 +9,7 @@ namespace GrocerySupplyManagementApp.Repositories
     public class MSSqlMemberRepository : IMemberRepository
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private const string TABLE_NAME = "Member";
 
         public MSSqlMemberRepository()
         {
@@ -23,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var members = new List<Member>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Member";
+            var query = @"SELECT * FROM " + TABLE_NAME;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -67,7 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Member GetMember(string memberId)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM Member WHERE MemberId = @MemberId";
+            var query = @"SELECT * FROM " + TABLE_NAME + " WHERE MemberId = @MemberId";
             var member = new Member();
             try
             {
@@ -108,7 +109,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Member AddMember(Member member)
         {
             string connectionString = GetConnectionString();
-            string query = "INSERT INTO Member " +
+            string query = "INSERT INTO " + TABLE_NAME + " " +
                             "(" +
                                 "Id, MemberId, Name, Address, ContactNumber, Email, AccountNumber " +
                             ") " +
@@ -152,7 +153,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public Member UpdateMember(string memberId, Member member)
         {
             string connectionString = GetConnectionString();
-            string query = "UPDATE Member SET " +
+            string query = "UPDATE " + TABLE_NAME + " SET " +
                     "MemberId = @MemberId, " +
                     "Name = @Name, " +
                     "Address = @Address, " +
@@ -195,7 +196,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteMember(string memberId)
         {
             string connectionString = GetConnectionString();
-            string query = "DELETE FROM Member " +
+            string query = "DELETE FROM " + TABLE_NAME + " " +
                     "WHERE " +
                     "MemberId = @MemberId";
             bool result = false;
@@ -228,7 +229,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public int GetLastMemberId()
         {
             string connectionString = GetConnectionString();
-            string query = "SELECT TOP 1 Id FROM Member ORDER BY Id DESC";
+            string query = "SELECT TOP 1 Id FROM " + TABLE_NAME + " ORDER BY Id DESC";
             int id = 0;
 
             try
@@ -238,7 +239,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        id = Convert.ToInt32(command.ExecuteScalar());
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            id = Convert.ToInt32(result);
+                        }
                     }
                 }
             }

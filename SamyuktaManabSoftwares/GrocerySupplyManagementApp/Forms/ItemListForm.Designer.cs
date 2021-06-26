@@ -51,7 +51,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.DataGridItemList);
             this.Name = "ItemListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Item List Form";
             this.Load += new System.EventHandler(this.ItemListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridItemList)).EndInit();
             this.ResumeLayout(false);

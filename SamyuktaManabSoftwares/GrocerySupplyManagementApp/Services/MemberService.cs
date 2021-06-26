@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
 {
-    class MemberService : IMemberService
+    public class MemberService : IMemberService
     {
         private readonly IMemberRepository _memberRepository;
 
