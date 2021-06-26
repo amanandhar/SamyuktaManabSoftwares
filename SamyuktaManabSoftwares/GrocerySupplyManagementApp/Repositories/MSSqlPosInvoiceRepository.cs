@@ -234,7 +234,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public string GetLastInvoiceNo()
         {
             string connectionString = GetConnectionString();
-            string query = "SELECT TOP 1 [InvoiceNo] FROM " + TABLE_NAME + " ORDER BY Id DESC";
+            string query = "SELECT TOP 1 [InvoiceNo] FROM " + TABLE_NAME + " WHERE [InvoiceNo] LIKE 'IN%' ORDER BY Id DESC";
             string invoiceNo = string.Empty;
             try
             {
@@ -262,7 +262,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetTotalBalance(string memberId)
         {
             string connectionString = GetConnectionString();
-            string query = "SELECT SUM([Balance]) FROM " + TABLE_NAME + " WHERE MemberId = @MemberId ";
+            string query = "SELECT SUM([TotalAmount]) - SUM([ReceivedAmount]) FROM " + TABLE_NAME + " WHERE MemberId = @MemberId ";
             decimal balance = 0.0m;
             try
             {

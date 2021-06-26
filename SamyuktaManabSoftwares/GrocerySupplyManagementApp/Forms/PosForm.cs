@@ -307,7 +307,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichAccNo.Text = member.AccountNumber;
 
                 List<PosInvoice> posInvoices = _posInvoiceService.GetPosInvoicesByMemberId(memberId).ToList();
-                TxtBalance.Text = posInvoices.Sum(x => x.Balance).ToString();
+                TxtBalance.Text = _posInvoiceService.GetTotalBalance(memberId).ToString();
                 TxtBalanceStatus.Text = posInvoices.Sum(x => x.Balance) == 0.0m ? "Clear" : "Due";
 
                 RichPayment.Enabled = true;
