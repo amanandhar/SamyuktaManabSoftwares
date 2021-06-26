@@ -23,12 +23,15 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IItemService _itemService;
         private long selectedItemId = 0;
+
+        #region Constructor
         public AddNewCodeForm(IItemService itemService)
         {
             InitializeComponent();
 
             _itemService = itemService;
         }
+        #endregion
 
         #region Form Load Events
         private void AddNewCodeForm_Load(object sender, EventArgs e)

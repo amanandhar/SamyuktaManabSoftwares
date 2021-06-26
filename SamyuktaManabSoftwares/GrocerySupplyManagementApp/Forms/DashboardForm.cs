@@ -20,6 +20,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
 
+        #region Constructor
         public DashboardForm(IMemberService memberService, ISupplierService supplierService, IItemService itemService,
             IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService, 
             IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService,
@@ -43,8 +44,9 @@ namespace GrocerySupplyManagementApp.Forms
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
         }
+        #endregion
 
-        #region Load
+        #region Form Load Load
         private void DashboardForm_Load(object sender, EventArgs e)
         {
 
@@ -71,8 +73,14 @@ namespace GrocerySupplyManagementApp.Forms
         #region Menu Buttons
         private void BtnPosMgmt_Click(object sender, EventArgs e)
         {
-            PosForm posForm = new PosForm(_memberService, _itemService, _fiscalYearDetailService, _taxDetailService, _posInvoiceService, _posTransactionService, _transactionService, _preparedItemService, _bankDetailService);
+            PosForm posForm = new PosForm(_memberService, _itemService, _fiscalYearDetailService, _taxDetailService, _posInvoiceService, _posTransactionService, _transactionService, _preparedItemService, _bankDetailService, _bankTransactionService);
             posForm.Show();
+        }
+
+        private void BtnSummaryMgmt_Click(object sender, EventArgs e)
+        {
+            SummaryForm summaryForm = new SummaryForm(_transactionService, _fiscalYearDetailService);
+            summaryForm.Show();
         }
 
         private void BtnMemberMgmt_Click(object sender, EventArgs e)
@@ -99,6 +107,18 @@ namespace GrocerySupplyManagementApp.Forms
             stockForm.Show();
         }
 
+        private void BtnIncomeExpenseMgmt_Click(object sender, EventArgs e)
+        {
+            ExpenseForm expenseMgmtForm = new ExpenseForm();
+            expenseMgmtForm.Show();
+        }
+
+        private void BtnBankingMgmt_Click(object sender, EventArgs e)
+        {
+            BankForm bankForm = new BankForm(_bankDetailService, _bankTransactionService);
+            bankForm.Show();
+        }
+
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
             SettingForm settingForm = new SettingForm(_fiscalYearDetailService, _taxDetailService, _itemService);
@@ -115,24 +135,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             StaffForm staffForm = new StaffForm();
             staffForm.Show();
-        }
-
-        private void btnExpenseMgmt_Click(object sender, EventArgs e)
-        {
-            ExpenseForm expenseMgmtForm = new ExpenseForm();
-            expenseMgmtForm.Show();
-        }
-
-        private void BtnSummaryMgmt_Click(object sender, EventArgs e)
-        {
-            SummaryForm summaryForm = new SummaryForm(_transactionService, _fiscalYearDetailService);
-            summaryForm.Show();
-        }
-
-        private void BtnBankingMgmt_Click(object sender, EventArgs e)
-        {
-            BankForm bankForm = new BankForm(_bankDetailService, _bankTransactionService);
-            bankForm.Show();
         }
         #endregion
     }

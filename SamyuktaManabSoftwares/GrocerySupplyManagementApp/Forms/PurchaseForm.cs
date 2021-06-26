@@ -109,7 +109,7 @@ namespace GrocerySupplyManagementApp.Forms
             _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
             {
                 SupplierName = _supplierForm.GetSupplierName(),
-                Status = "Purchase",
+                Action = "Purchase",
                 BillNo = RichBillNo.Text,
                 Debit = Convert.ToDecimal(TextBoxTotalAmount.Text),
                 Date = dateTime

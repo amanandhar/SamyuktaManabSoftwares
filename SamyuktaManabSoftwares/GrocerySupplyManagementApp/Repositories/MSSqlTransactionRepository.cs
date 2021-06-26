@@ -14,32 +14,37 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var transactionGrids = new List<TransactionGrid>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT [InvoiceDate], [MemberId], [PaymentType], pi.[InvoiceNo], [ItemCode], [ItemName], " +
-                " [ItemBrand], [Unit], [Quantity], [Price] AS [ItemPrice], CASE WHEN (pi.[InvoiceNo] LIKE 'IN%') " + 
-                " THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2))" +
-                " ELSE pi.[ReceivedAmount] END  AS [Amount] " + 
-                " FROM [PosInvoice] pi LEFT JOIN [PosTransaction] pt " +
-                " ON pi.InvoiceNo = pt.InvoiceNo WHERE 1=1";
+            var query = @"SELECT " + 
+                "[InvoiceDate], [MemberId], [PaymentMethod], " +
+                "CASE WHEN (pi.[InvoiceNo] LIKE 'IN%') THEN pi.[InvoiceNo] ELSE pi.[PaymentType] END AS [InvoiceNo], " +
+                "[ItemCode], [ItemName], [ItemBrand], [Unit], [Quantity], [Price] AS [ItemPrice], " +
+                "CASE WHEN (pi.[InvoiceNo] LIKE 'IN%') " + 
+                "THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2))" +
+                "ELSE pi.[ReceivedAmount] END  AS [Amount] " + 
+                "FROM [PosInvoice] pi LEFT JOIN [PosTransaction] pt " +
+                "ON pi.InvoiceNo = pt.InvoiceNo " +
+                "WHERE 1=1 ";
+
             if (transactionFilter.Date != null)
             {
-                query += " AND pi.[InvoiceDate] = '" + transactionFilter.Date + "' " ;
+                query += "AND pi.[InvoiceDate] = '" + transactionFilter.Date + "' " ;
             }
 
             if (transactionFilter.Sale != null)
             {
-                query += " AND pi.[PaymentType] = '" + transactionFilter.Sale + "' ";
+                query += "AND pi.[PaymentMethod] = '" + transactionFilter.Sale + "' ";
             }
 
             if (transactionFilter.ItemCode != null)
             {
-                query += " AND [ItemCode] = '" + transactionFilter.ItemCode + "' ";
+                query += "AND [ItemCode] = '" + transactionFilter.ItemCode + "' ";
             }
             else if (transactionFilter.InvoiceNo != null)
             {
-                query += " AND pi.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+                query += "AND pi.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
             }
 
-            query += " ORDER BY [DATE]";
+            query += "ORDER BY [DATE] ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -55,7 +60,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
                                     MemberId = reader.IsDBNull(1) ? string.Empty : reader["MemberId"].ToString(),
-                                    Descriptions = reader.IsDBNull(2) ? string.Empty : reader["PaymentType"].ToString(),
+                                    Particulars = reader.IsDBNull(2) ? string.Empty : reader["PaymentMethod"].ToString(),
                                     InvoiceNo = reader.IsDBNull(3) ? string.Empty : reader["InvoiceNo"].ToString(),
                                     ItemCode = reader.IsDBNull(4) ? string.Empty : reader["ItemCode"].ToString(),
                                     ItemName = reader.IsDBNull(5) ? string.Empty : reader["ItemName"].ToString(),
@@ -84,9 +89,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal total = 0.0m;
             string connectionString = GetConnectionString();
-            var query = @"SELECT SUM(CAST(([Quantity] * [Price]) AS DECIMAL(18,2))) AS [TOTAL] " +
-                " FROM [PosInvoice] pi INNER JOIN [PosTransaction] pt " +
-                " ON pi.InvoiceNo = pt.InvoiceNo WHERE 1=1";
+            var query = @"SELECT " +
+                "SUM(CAST(([Quantity] * [Price]) AS DECIMAL(18,2))) AS [TOTAL] " +
+                "FROM [PosInvoice] pi " +
+                "INNER JOIN [PosTransaction] pt " +
+                "ON pi.InvoiceNo = pt.InvoiceNo " +
+                "WHERE 1=1";
             if (transactionFilter.Date != null)
             {
                 query += " AND pi.[InvoiceDate] = '" + transactionFilter.Date + "' ";
@@ -94,7 +102,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (transactionFilter.Sale != null)
             {
-                query += " AND pi.[PaymentType] = '" + transactionFilter.Sale + "' ";
+                query += " AND pi.[PaymentMethod] = '" + transactionFilter.Sale + "' ";
             }
 
             if (transactionFilter.ItemCode != null)
@@ -133,10 +141,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var memberIds = new List<string>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT DISTINCT [MemberId] " +
-                " FROM [PosInvoice] " +
-                " WHERE 1=1 " + 
-                " ORDER BY [MemberId]";
+            var query = @"SELECT " +
+                "DISTINCT [MemberId] " +
+                "FROM [PosInvoice] " +
+                "WHERE 1=1 " + 
+                "ORDER BY [MemberId]";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -167,10 +176,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var itemCodes = new List<string>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT DISTINCT [ItemCode] " +
-                " FROM [PosTransaction] " +
-                " WHERE 1=1 " +
-                " ORDER BY [ItemCode]";
+            var query = @"SELECT " +
+                "DISTINCT [ItemCode] " +
+                "FROM [PosTransaction] " +
+                "WHERE 1=1 " +
+                "ORDER BY [ItemCode]";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -202,10 +212,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var invoices = new List<string>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT DISTINCT [InvoiceNo] " +
-                " FROM [PosInvoice] " +
-                " WHERE 1=1 " +
-                " ORDER BY [InvoiceNo]";
+            var query = @"SELECT " +
+                "DISTINCT [InvoiceNo] " +
+                "FROM [PosInvoice] " +
+                "WHERE 1=1 " +
+                "AND [InvoiceNo] LIKE 'IN%' " +
+                "ORDER BY [InvoiceNo]";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -237,10 +249,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string connectionString = GetConnectionString();
             bool result = false;
-            string query = "" +
-                "DELETE FROM PosInvoice WHERE InvoiceNo = @InvoiceNo; " +
-                " " +
-                "DELETE FROM PosTransaction WHERE InvoiceNo = @InvoiceNo; ";
+            string query = @"DELETE " +
+                "FROM PosInvoice " +
+                "WHERE InvoiceNo = @InvoiceNo; " +
+                "DELETE " +
+                "FROM PosTransaction " +
+                "WHERE InvoiceNo = @InvoiceNo; ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -265,8 +279,15 @@ namespace GrocerySupplyManagementApp.Repositories
 
         private string GetConnectionString()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
+                return connectionString;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

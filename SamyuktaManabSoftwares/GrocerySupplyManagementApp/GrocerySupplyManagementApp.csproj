@@ -88,6 +88,7 @@
       <DependentUpon>DsSales.xsd</DependentUpon>
     </Compile>
     <Compile Include="DTOs\BankTransactionView.cs" />
+    <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\MemberTransactionView.cs" />
     <Compile Include="DTOs\ItemView.cs" />
     <Compile Include="DTOs\ItemTransactionView.cs" />
@@ -106,7 +107,6 @@
     <Compile Include="Entities\PosTransaction.cs" />
     <Compile Include="Entities\PosTransactionGrid.cs" />
     <Compile Include="Entities\PreparedItemGrid.cs" />
-    <Compile Include="Entities\Purchase.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\SupplierTransaction.cs" />
     <Compile Include="Entities\TaxDetail.cs" />
@@ -341,7 +341,6 @@
     <Compile Include="Repositories\IFiscalYearDetailRepository.cs" />
     <Compile Include="Repositories\IItemRepository.cs" />
     <Compile Include="Repositories\IMemberRepository.cs" />
-    <Compile Include="Repositories\IPurchaseRepository.cs" />
     <Compile Include="Repositories\ISupplierRepository.cs" />
     <Compile Include="Repositories\ISupplierTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
@@ -350,7 +349,6 @@
     <Compile Include="Repositories\MSSqlPosInvoiceRepository.cs" />
     <Compile Include="Repositories\MSSqlPosTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlPreparedItemRepository.cs" />
-    <Compile Include="Repositories\MSSqlPurchaseRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlTaxDetailRepository.cs" />
@@ -372,7 +370,6 @@
     <Compile Include="Services\IPosInvoiceService.cs" />
     <Compile Include="Services\IPosTransactionService.cs" />
     <Compile Include="Services\IPreparedItemService.cs" />
-    <Compile Include="Services\IPurchaseService.cs" />
     <Compile Include="Services\ISupplierService.cs" />
     <Compile Include="Services\ISupplierTransactionService.cs" />
     <Compile Include="Services\ITaxDetailService.cs" />
@@ -383,11 +380,11 @@
     <Compile Include="Services\PosInvoiceService.cs" />
     <Compile Include="Services\PosTransactionService.cs" />
     <Compile Include="Services\PreparedItemService.cs" />
-    <Compile Include="Services\PurchaseService.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\SupplierTransactionService.cs" />
     <Compile Include="Services\TaxDetailService.cs" />
     <Compile Include="Services\TransactionService.cs" />
+    <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="Forms\AddNewCodeForm.resx">

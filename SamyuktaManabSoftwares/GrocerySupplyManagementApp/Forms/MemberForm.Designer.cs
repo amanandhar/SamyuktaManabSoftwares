@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.comboBox1.Location = new System.Drawing.Point(424, 500);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(120, 28);
-            this.comboBox1.TabIndex = 19;
+            this.comboBox1.TabIndex = 22;
             // 
             // groupBox3
             // 
@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddMember.Location = new System.Drawing.Point(5, 13);
             this.BtnAddMember.Name = "BtnAddMember";
             this.BtnAddMember.Size = new System.Drawing.Size(130, 35);
-            this.BtnAddMember.TabIndex = 2;
+            this.BtnAddMember.TabIndex = 14;
             this.BtnAddMember.Text = "Add Member";
             this.BtnAddMember.UseVisualStyleBackColor = true;
             this.BtnAddMember.Click += new System.EventHandler(this.BtnAddMember_Click);
@@ -131,7 +131,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Location = new System.Drawing.Point(5, 198);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(130, 35);
-            this.BtnDelete.TabIndex = 11;
+            this.BtnDelete.TabIndex = 19;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.UseVisualStyleBackColor = true;
             this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClearAll.Location = new System.Drawing.Point(5, 161);
             this.BtnClearAll.Name = "BtnClearAll";
             this.BtnClearAll.Size = new System.Drawing.Size(130, 35);
-            this.BtnClearAll.TabIndex = 3;
+            this.BtnClearAll.TabIndex = 18;
             this.BtnClearAll.Text = "Clear All";
             this.BtnClearAll.UseVisualStyleBackColor = true;
             this.BtnClearAll.Click += new System.EventHandler(this.BtnClearAll_Click);
@@ -155,7 +155,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(5, 50);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(130, 35);
-            this.BtnSave.TabIndex = 9;
+            this.BtnSave.TabIndex = 15;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
@@ -167,7 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Location = new System.Drawing.Point(5, 87);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(130, 35);
-            this.BtnEdit.TabIndex = 10;
+            this.BtnEdit.TabIndex = 16;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.UseVisualStyleBackColor = true;
             this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
@@ -179,7 +179,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.Location = new System.Drawing.Point(5, 124);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(130, 35);
-            this.BtnUpdate.TabIndex = 2;
+            this.BtnUpdate.TabIndex = 17;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.UseVisualStyleBackColor = true;
             this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
@@ -203,7 +203,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.Location = new System.Drawing.Point(732, 488);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(118, 44);
-            this.BtnShowTransaction.TabIndex = 1;
+            this.BtnShowTransaction.TabIndex = 24;
             this.BtnShowTransaction.Text = "Show Transaction";
             this.BtnShowTransaction.UseVisualStyleBackColor = true;
             // 
@@ -276,7 +276,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TextBoxTotal.Name = "TextBoxTotal";
             this.TextBoxTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TextBoxTotal.Size = new System.Drawing.Size(130, 27);
-            this.TextBoxTotal.TabIndex = 31;
+            this.TextBoxTotal.TabIndex = 23;
             // 
             // textBox2
             // 
@@ -296,7 +296,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichEmail.Location = new System.Drawing.Point(541, 45);
             this.RichEmail.Name = "RichEmail";
             this.RichEmail.Size = new System.Drawing.Size(290, 30);
-            this.RichEmail.TabIndex = 13;
+            this.RichEmail.TabIndex = 8;
             this.RichEmail.Text = "";
             // 
             // label7
@@ -407,7 +407,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPayment.Location = new System.Drawing.Point(116, 109);
             this.ComboPayment.Name = "ComboPayment";
             this.ComboPayment.Size = new System.Drawing.Size(80, 28);
-            this.ComboPayment.TabIndex = 30;
+            this.ComboPayment.TabIndex = 5;
             this.ComboPayment.SelectedValueChanged += new System.EventHandler(this.ComboPayment_SelectedValueChanged);
             // 
             // RichAmount
@@ -416,7 +416,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Location = new System.Drawing.Point(541, 108);
             this.RichAmount.Name = "RichAmount";
             this.RichAmount.Size = new System.Drawing.Size(189, 30);
-            this.RichAmount.TabIndex = 29;
+            this.RichAmount.TabIndex = 11;
             this.RichAmount.Text = "";
             // 
             // label8
@@ -438,7 +438,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Location = new System.Drawing.Point(244, 109);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(210, 28);
-            this.ComboBank.TabIndex = 27;
+            this.ComboBank.TabIndex = 6;
             // 
             // label6
             // 
@@ -458,7 +458,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBalanceStatus.Location = new System.Drawing.Point(679, 77);
             this.TxtBalanceStatus.Name = "TxtBalanceStatus";
             this.TxtBalanceStatus.Size = new System.Drawing.Size(50, 27);
-            this.TxtBalanceStatus.TabIndex = 25;
+            this.TxtBalanceStatus.TabIndex = 10;
             // 
             // RichAccountNumber
             // 
@@ -467,7 +467,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAccountNumber.Location = new System.Drawing.Point(250, 14);
             this.RichAccountNumber.Name = "RichAccountNumber";
             this.RichAccountNumber.Size = new System.Drawing.Size(118, 30);
-            this.RichAccountNumber.TabIndex = 24;
+            this.RichAccountNumber.TabIndex = 2;
             this.RichAccountNumber.Text = "";
             // 
             // label14
@@ -510,7 +510,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichContactNumber.Location = new System.Drawing.Point(541, 14);
             this.RichContactNumber.Name = "RichContactNumber";
             this.RichContactNumber.Size = new System.Drawing.Size(290, 30);
-            this.RichContactNumber.TabIndex = 0;
+            this.RichContactNumber.TabIndex = 7;
             this.RichContactNumber.Text = "";
             // 
             // RichAddress
@@ -519,7 +519,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAddress.Location = new System.Drawing.Point(116, 76);
             this.RichAddress.Name = "RichAddress";
             this.RichAddress.Size = new System.Drawing.Size(339, 30);
-            this.RichAddress.TabIndex = 1;
+            this.RichAddress.TabIndex = 4;
             this.RichAddress.Text = "";
             // 
             // RichName
@@ -528,7 +528,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichName.Location = new System.Drawing.Point(116, 45);
             this.RichName.Name = "RichName";
             this.RichName.Size = new System.Drawing.Size(294, 30);
-            this.RichName.TabIndex = 2;
+            this.RichName.TabIndex = 3;
             this.RichName.Text = "";
             // 
             // RichMemberId
@@ -538,7 +538,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichMemberId.MaxLength = 5;
             this.RichMemberId.Name = "RichMemberId";
             this.RichMemberId.Size = new System.Drawing.Size(78, 30);
-            this.RichMemberId.TabIndex = 3;
+            this.RichMemberId.TabIndex = 1;
             this.RichMemberId.Text = "";
             // 
             // RichBalance
@@ -550,7 +550,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBalance.Name = "RichBalance";
             this.RichBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichBalance.Size = new System.Drawing.Size(134, 30);
-            this.RichBalance.TabIndex = 5;
+            this.RichBalance.TabIndex = 9;
             this.RichBalance.Text = "";
             // 
             // DataGridMemberTransactionList
@@ -578,7 +578,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.button1.Location = new System.Drawing.Point(896, 183);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 25);
-            this.button1.TabIndex = 34;
+            this.button1.TabIndex = 12;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             // 
@@ -589,7 +589,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.button2.Location = new System.Drawing.Point(955, 183);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 25);
-            this.button2.TabIndex = 35;
+            this.button2.TabIndex = 13;
             this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
             // 

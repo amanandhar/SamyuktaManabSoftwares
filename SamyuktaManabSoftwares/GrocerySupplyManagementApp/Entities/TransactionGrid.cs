@@ -6,7 +6,7 @@ namespace GrocerySupplyManagementApp.Entities
     {
         public DateTime InvoiceDate { get; set; }
         public string MemberId { get; set; }
-        public string Descriptions { get; set; }
+        public string Particulars { get; set; }
         public string InvoiceNo { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }

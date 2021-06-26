@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
@@ -6,7 +7,8 @@ namespace GrocerySupplyManagementApp.Services
     public interface IPosInvoiceService
     {
         IEnumerable<PosInvoice> GetPosInvoices();
-        IEnumerable<PosInvoice> GetPosInvoicesByMemberId(string memberId);
+        IEnumerable<PosInvoice> GetPosInvoices(string memberId);
+        IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId);
         PosInvoice GetPosInvoice(long posInvoiceId);
         PosInvoice GetPosInvoice(string invoiceNo);
         PosInvoice AddPosInvoice(PosInvoice posInvoice);
@@ -14,5 +16,6 @@ namespace GrocerySupplyManagementApp.Services
         bool DeleteSupplierInvoice(long posInvoiceId);
         string GetInvoiceNo();
         decimal GetTotalBalance(string memberId);
+        decimal GetCashInHand();
     }
 }

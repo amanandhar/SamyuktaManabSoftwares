@@ -16,6 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISupplierTransactionService _supplierTransactionService;
         private readonly IBankDetailService _bankDetailService;
 
+        #region Constructor
         public SupplierForm(ISupplierService supplierService, IItemService itemService, 
             IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService,
             IBankDetailService bankDetailService)
@@ -28,6 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
             _supplierTransactionService = supplierTransactionService;
             _bankDetailService = bankDetailService;
         }
+
+        #endregion
 
         #region Form Load Events
         private void SupplierForm_Load(object sender, EventArgs e)
@@ -147,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
                 {
                     SupplierName = RichSupplierName.Text,
-                    Status = "Payment",
+                    Action = "Payment",
                     BillNo = TextBoxBillNo.Text,
                     PaymentType = ComboPaymentType.Text,
                     Bank = ComboBank.Text,
@@ -326,6 +329,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Combo Events
+
         private void ComboPaymentType_SelectedValueChanged(object sender, EventArgs e)
         {
             var selectedPayment = ComboPaymentType.Text;
@@ -348,5 +353,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichAmount.Focus();
             }
         }
+
+        #endregion
     }
 }

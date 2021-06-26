@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,14 @@ namespace GrocerySupplyManagementApp.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PosInvoice> GetPosInvoicesByMemberId(string memberId)
+        public IEnumerable<PosInvoice> GetPosInvoices(string memberId)
         {
-            return _posInvoiceRepository.GetPosInvoicesByMemberId(memberId);
+            return _posInvoiceRepository.GetPosInvoices(memberId);
+        }
+
+        public IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId)
+        {
+            return _posInvoiceRepository.GetMemberTransactions(memberId);
         }
 
         public PosInvoice GetPosInvoice(long posInvoiceId)
@@ -89,6 +95,11 @@ namespace GrocerySupplyManagementApp.Services
         public decimal GetTotalBalance(string memberId)
         {
             return _posInvoiceRepository.GetTotalBalance(memberId);
+        }
+
+        public decimal GetCashInHand()
+        {
+            return _posInvoiceRepository.GetCashInHand();
         }
     }
 }

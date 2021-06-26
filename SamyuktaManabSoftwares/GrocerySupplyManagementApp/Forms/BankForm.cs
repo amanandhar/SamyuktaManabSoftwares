@@ -16,6 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankTransactionService _bankTransactionService;
         private long selectedBankId = 0;
 
+        #region Enum
         private enum Action {
             Add,
             Save,
@@ -25,7 +26,9 @@ namespace GrocerySupplyManagementApp.Forms
             Populate,
             None
         }
+        #endregion 
 
+        #region Constructor
         public BankForm(IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
@@ -33,11 +36,14 @@ namespace GrocerySupplyManagementApp.Forms
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
         }
+        #endregion
 
+        #region Form Load
         private void BankForm_Load(object sender, EventArgs e)
         {
 
         }
+        #endregion 
 
         #region Button Click Events
         private void BtnAddBank_Click(object sender, EventArgs e)
@@ -116,6 +122,57 @@ namespace GrocerySupplyManagementApp.Forms
         {
             BankListForm bankListForm = new BankListForm(_bankDetailService, this);
             bankListForm.Show();
+        }
+
+        private void BtnSaveTransaction_Click(object sender, EventArgs e)
+        {
+            var bankTransaction = new BankTransaction
+            {
+                BankId = selectedBankId,
+                Action = ComboAction.Text.ToLower() == "deposit" ? '1' : '0',
+                Debit = ComboAction.Text.ToLower() == "deposit" ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
+                Credit = ComboAction.Text.ToLower() == "deposit" ? 0.0m : Convert.ToDecimal(RichAmount.Text),
+                Narration = RichNarration.Text,
+                Date = DateTime.Now
+            };
+
+            _bankTransactionService.AddBankTransaction(bankTransaction);
+
+            DialogResult result = MessageBox.Show(ComboAction.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+            if (result == DialogResult.OK)
+            {
+                var bankBalance = _bankTransactionService.GetBankBalance(selectedBankId);
+                TxtBalance.Text = bankBalance.ToString();
+
+                ComboAction.Text = string.Empty;
+                RichAmount.Clear();
+                RichNarration.Clear();
+
+                EnableFields(Action.Save, true);
+                LoadBankTransaction();
+            }
+        }
+
+        private void BtnDeleteBank_Click(object sender, EventArgs e)
+        {
+            List<BankTransaction> bankTransactions = _bankTransactionService.GetBankTransactions(selectedBankId).ToList();
+            if (bankTransactions.Count > 0)
+            {
+                MessageBox.Show(RichBankName.Text + " can't be deleted. Please delete its transactions first.", "Error", MessageBoxButtons.OK);
+            }
+            else
+            {
+                _bankDetailService.DeleteBankDetail(selectedBankId);
+                _bankTransactionService.DeleteBankTransaction(selectedBankId);
+
+                DialogResult result = MessageBox.Show(RichBankName.Text + " is deleted successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    EnableFields(Action.None, false);
+                    LoadBankTransaction();
+                }
+            }
         }
         #endregion
 
@@ -242,55 +299,5 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        private void BtnSaveTransaction_Click(object sender, EventArgs e)
-        {
-            var bankTransaction = new BankTransaction
-            {
-                BankId = selectedBankId,
-                Action = ComboAction.Text.ToLower() == "deposit" ? '1' : '0',
-                Debit = ComboAction.Text.ToLower() == "deposit" ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
-                Credit = ComboAction.Text.ToLower() == "deposit" ? 0.0m : Convert.ToDecimal(RichAmount.Text),
-                Narration = RichNarration.Text,
-                Date = DateTime.Now
-            };
-
-            _bankTransactionService.AddBankTransaction(bankTransaction);
-
-            DialogResult result = MessageBox.Show(ComboAction.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-            if (result == DialogResult.OK)
-            {
-                var bankBalance = _bankTransactionService.GetBankBalance(selectedBankId);
-                TxtBalance.Text = bankBalance.ToString();
-
-                ComboAction.Text = string.Empty;
-                RichAmount.Clear();
-                RichNarration.Clear();
-
-                EnableFields(Action.Save, true);
-                LoadBankTransaction();
-            }
-        }
-
-        private void BtnDeleteBank_Click(object sender, EventArgs e)
-        {
-            List<BankTransaction> bankTransactions = _bankTransactionService.GetBankTransactions(selectedBankId).ToList();
-            if(bankTransactions.Count > 0)
-            {
-                MessageBox.Show(RichBankName.Text + " can't be deleted. Please delete its transactions first.", "Error", MessageBoxButtons.OK);
-            }
-            else
-            {
-                _bankDetailService.DeleteBankDetail(selectedBankId);
-                _bankTransactionService.DeleteBankTransaction(selectedBankId);
-
-                DialogResult result = MessageBox.Show(RichBankName.Text + " is deleted successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields(Action.None, false);
-                    LoadBankTransaction();
-                }
-            }
-        }
     }
 }

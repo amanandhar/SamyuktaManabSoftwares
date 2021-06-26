@@ -10,10 +10,6 @@ namespace GrocerySupplyManagementApp.Repositories
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
         private const string TABLE_NAME = "ItemPurchase";
-        public MSSqlItemPurchaseRepository()
-        {
-
-        }
 
         /// <summary>
         /// Returns list of items
@@ -72,7 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<ItemPurchaseGrid>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT PurchaseDate, BillNo, Code, Name, Brand, Unit, Quantity, PurchasePrice, CAST((Quantity * PurchasePrice) AS DECIMAL(18,2)) AS 'Total'" +
+            var query = @"SELECT Date, BillNo, Code, Name, Brand, Unit, Quantity, Price, CAST((Quantity * Price) AS DECIMAL(18,2)) AS 'Total'" +
                 " FROM ItemPurchase it INNER JOIN Item i ON it.ItemId = i.Id" +
                 " WHERE 1=1";
 
@@ -83,10 +79,10 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += " AND PurchaseDate BETWEEN @DateFrom AND @DateTo";
+                query += " AND Date BETWEEN @DateFrom AND @DateTo";
             }
 
-            query += " ORDER BY PurchaseDate DESC ";
+            query += " ORDER BY Date DESC ";
 
             try
             {
@@ -105,7 +101,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var itemPurchase = new ItemPurchaseGrid
                                 {
-                                    PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"].ToString()).ToString("yyyy-MM-dd"),
+                                    PurchaseDate = Convert.ToDateTime(reader["Date"].ToString()).ToString("yyyy-MM-dd"),
                                     BillNo = reader["BillNo"].ToString(),
                                     Description = "Purchase",
                                     Code = reader["Code"].ToString(),
@@ -113,7 +109,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Brand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
+                                    PurchasePrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString())
                                 };
 
@@ -141,8 +137,8 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<ItemPurchase>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT SupplierName, ItemId, Unit, Quantity, PurchasePrice, PurchaseDate, BillNo" +
-                " FROM ItemPurchase WHERE SupplierName = @SupplierName AND BillNo = @BillNo ORDER BY PurchaseDate";
+            var query = @"SELECT SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo" +
+                " FROM ItemPurchase WHERE SupplierName = @SupplierName AND BillNo = @BillNo ORDER BY Date";
 
             try
             {
@@ -163,8 +159,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
-                                    PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"].ToString()),
+                                    PurchasePrice = Convert.ToDecimal(reader["Price"].ToString()),
+                                    PurchaseDate = Convert.ToDateTime(reader["Date"].ToString()),
                                     BillNo = reader["BillNo"].ToString()
                                 };
 
@@ -192,7 +188,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             string connectionString = GetConnectionString();
-            var query = @"SELECT Sum(Quantity * PurchasePrice) AS 'TotalPurchasePrice' " +
+            var query = @"SELECT Sum(Quantity * Price) AS 'TotalPrice' " +
                 " FROM " + TABLE_NAME + 
                 " WHERE 1=1" +
                 " AND SupplierName = @SupplierName" +
@@ -244,7 +240,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += " AND PurchaseDate BETWEEN @DateFrom AND @DateTo";
+                query += " AND Date BETWEEN @DateFrom AND @DateTo";
             }
 
             try
@@ -316,7 +312,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             string connectionString = GetConnectionString();
-            var query = @"SELECT Sum(CAST((Quantity * PurchasePrice) AS DECIMAL(18,2))) AS 'Total' " +
+            var query = @"SELECT Sum(CAST((Quantity * Price) AS DECIMAL(18,2))) AS 'Total' " +
                 " FROM " + TABLE_NAME + " it INNER JOIN Item i ON it.ItemId = i.Id" +
                 " WHERE 1=1";
 
@@ -327,7 +323,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += " AND PurchaseDate BETWEEN @DateFrom AND @DateTo";
+                query += " AND Date BETWEEN @DateFrom AND @DateTo";
             }
 
             try
@@ -437,7 +433,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public ItemPurchase GetItem(long itemId)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT SupplierName, ItemId, Unit, Quantity, PurchasePrice, PurchaseDate, BillNo " +
+            var query = @"SELECT SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo " +
                 "FROM " + TABLE_NAME + " WHERE ItemId = @ItemId";
             var item = new ItemPurchase();
             try
@@ -457,8 +453,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 item.Unit = reader["Unit"].ToString();
                                 item.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
-                                item.PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString());
-                                item.PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"].ToString());
+                                item.PurchasePrice = Convert.ToDecimal(reader["Price"].ToString());
+                                item.PurchaseDate = Convert.ToDateTime(reader["Date"].ToString());
                                 item.BillNo = reader["BillNo"].ToString();
                             }
                         }
@@ -553,11 +549,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO " + TABLE_NAME +
                             "(" +
-                                "SupplierName, ItemId, Unit, Quantity, PurchasePrice, PurchaseDate, BillNo " +
+                                "SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo " +
                             ") " +
                             "VALUES " +
                             "(" +
-                                "@SupplierName, @ItemId, @Unit, @Quantity, @PurchasePrice, @PurchaseDate, @BillNo " +
+                                "@SupplierName, @ItemId, @Unit, @Quantity, @Price, @Date, @BillNo " +
                             ")";
             try
             {
@@ -570,8 +566,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ItemId", item.ItemId);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
                         command.Parameters.AddWithValue("@Quantity", item.Quantity);
-                        command.Parameters.AddWithValue("@PurchasePrice", item.PurchasePrice);
-                        command.Parameters.AddWithValue("@PurchaseDate", item.PurchaseDate);
+                        command.Parameters.AddWithValue("@Price", item.PurchasePrice);
+                        command.Parameters.AddWithValue("@Date", item.PurchaseDate);
                         command.Parameters.AddWithValue("@BillNo", item.BillNo);
   
                         command.ExecuteNonQuery();
@@ -597,7 +593,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "UPDATE " + TABLE_NAME + " SET " +
                     "Unit = @Unit, " +
-                    "PurchasePrice = @PurchasePrice " +
+                    "Price = @Price " +
                     "WHERE " +
                     "ItemId = @ItemId";
 
@@ -610,7 +606,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@ItemId", item.ItemId);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
-                        command.Parameters.AddWithValue("@PurchasePrice", item.PurchasePrice);
+                        command.Parameters.AddWithValue("@Price", item.PurchasePrice);
                        
 
                         command.ExecuteNonQuery();

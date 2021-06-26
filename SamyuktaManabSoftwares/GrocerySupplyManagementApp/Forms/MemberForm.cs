@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -159,9 +160,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberTransactionList.Columns["InvoiceDate"].Width = 100;
             DataGridMemberTransactionList.Columns["InvoiceDate"].DisplayIndex = 1;
 
-            DataGridMemberTransactionList.Columns["PaymentType"].HeaderText = "Particulars";
-            DataGridMemberTransactionList.Columns["PaymentType"].Width = 100;
-            DataGridMemberTransactionList.Columns["PaymentType"].DisplayIndex = 2;
+            DataGridMemberTransactionList.Columns["Action"].HeaderText = "Particulars";
+            DataGridMemberTransactionList.Columns["Action"].Width = 100;
+            DataGridMemberTransactionList.Columns["Action"].DisplayIndex = 2;
 
             DataGridMemberTransactionList.Columns["InvoiceNo"].HeaderText = "Invoice No/Bank";
             DataGridMemberTransactionList.Columns["InvoiceNo"].Width = 150;
@@ -204,6 +205,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichAccountNumber.Clear();
             RichName.Clear();
             RichAddress.Clear();
+            RichContactNumber.Clear();
             RichEmail.Clear();
             RichBalance.Clear();
         }
@@ -211,20 +213,12 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadMemberInvoices()
         {
             var memberId = RichMemberId.Text;
-            List<PosInvoice> posInvoices = _posInvoiceService.GetPosInvoicesByMemberId(memberId).ToList();
-            List<MemberTransactionView> memberTransactionViews = posInvoices.Select(posInvoice => new MemberTransactionView
-            {
-                Id = posInvoice.Id,
-                InvoiceNo = posInvoice.InvoiceNo,
-                InvoiceDate = posInvoice.InvoiceDate,
-                PaymentType = posInvoice.PaymentType != "Payment" ? "Sales" : "Payment",
-                TotalAmount = posInvoice.TotalAmount,
-                ReceivedAmount = posInvoice.ReceivedAmount,
-                Balance = posInvoice.Balance
-            }).ToList();
 
-            RichBalance.Text = memberTransactionViews.Sum(x => x.Balance).ToString();
-            TxtBalanceStatus.Text = memberTransactionViews.Sum(x => x.Balance) == 0.0m ? "Clear" : "Due";
+            List<MemberTransactionView> memberTransactionViews = _posInvoiceService.GetMemberTransactions(memberId).ToList();
+
+            RichBalance.Text = _posInvoiceService.GetTotalBalance(memberId).ToString();
+            TxtBalanceStatus.Text = Convert.ToDecimal(RichBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
+
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViews);
             var source = new BindingSource(bindingList, null);
             DataGridMemberTransactionList.DataSource = source;

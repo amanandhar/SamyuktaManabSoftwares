@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ITransactionService _transactionService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
 
+        #region Constructor
         public TransactionForm(ITransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService)
         {
             InitializeComponent();
@@ -21,6 +22,7 @@ namespace GrocerySupplyManagementApp.Forms
             _transactionService = transactionService;
             _fiscalYearDetailService = fiscalYearDetailService;
         }
+        #endregion
 
         #region Form Load Event
         private void TransactionForm_Load(object sender, EventArgs e)
@@ -100,9 +102,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["MemberId"].Width = 100;
             DataGridTransactionList.Columns["MemberId"].DisplayIndex = 1;
 
-            DataGridTransactionList.Columns["Descriptions"].HeaderText = "Descriptions";
-            DataGridTransactionList.Columns["Descriptions"].Width = 80;
-            DataGridTransactionList.Columns["Descriptions"].DisplayIndex = 2;
+            DataGridTransactionList.Columns["Particulars"].HeaderText = "Particulars";
+            DataGridTransactionList.Columns["Particulars"].Width = 80;
+            DataGridTransactionList.Columns["Particulars"].DisplayIndex = 2;
 
             DataGridTransactionList.Columns["InvoiceNo"].HeaderText = "Invoice No";
             DataGridTransactionList.Columns["InvoiceNo"].Width = 90;

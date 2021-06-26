@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +21,15 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ITransactionService _transactionService;
         private readonly IPreparedItemService _preparedItemService;
         private readonly IBankDetailService _bankDetailService;
+        private readonly IBankTransactionService _bankTransactionService;
         private List<PosTransactionGrid> _posTransactionGrids = new List<PosTransactionGrid>();
 
+        #region Constructor
         public PosForm(IMemberService memberService, IItemService itemService, 
             IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService, 
             IPosInvoiceService posInvoiceService, IPosTransactionService posTransactionService, 
-            ITransactionService transactionService, IPreparedItemService preparedItemService, IBankDetailService bankDetailService)
+            ITransactionService transactionService, IPreparedItemService preparedItemService, 
+            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
 
@@ -38,6 +42,7 @@ namespace GrocerySupplyManagementApp.Forms
             _transactionService = transactionService;
             _preparedItemService = preparedItemService;
             _bankDetailService = bankDetailService;
+            _bankTransactionService = bankTransactionService;
         }
 
         public PosForm(IMemberService memberService, IPosInvoiceService posInvoiceService, IPosTransactionService posTransactionService, string invoiceNo)
@@ -52,6 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
             LoadItems(_posTransactionGrids);
             LoadPosDetails(invoiceNo);
         }
+        #endregion
 
         #region Form Load
         private void PosForm_Load(object sender, EventArgs e)
@@ -129,7 +135,9 @@ namespace GrocerySupplyManagementApp.Forms
                     InvoiceNo = RichInvoiceNo.Text.Trim(),
                     InvoiceDate = Convert.ToDateTime(RichInvoiceDate.Text.Trim()),
                     MemberId = RichMemberId.Text.Trim(),
-                    PaymentType = RadioBtnCredit.Checked ? "Credit" : "Cash",
+                    Action = Constants.SALES,
+                    PaymentType = "",
+                    PaymentMethod = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                     SubTotal = Convert.ToDecimal(RichSubTotal.Text.Trim()),
                     DiscountPercent = Convert.ToDecimal(RichTextDiscountPercent.Text.Trim()),
                     Discount = Convert.ToDecimal(RichTextDiscount.Text.Trim()),
@@ -139,7 +147,6 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = Convert.ToDecimal(RichTextDeliveryCharge.Text.Trim()),
                     TotalAmount = Convert.ToDecimal(RichGrandTotal.Text.Trim()),
                     ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.0m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
-                    Balance = Convert.ToDecimal(RichBalanceAmount.Text.Trim()),
                     Date = DateTime.Now
                 };
 
@@ -181,7 +188,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnPaymentIn_Click(object sender, EventArgs e)
         {
-            BtnShowMember.Enabled = true;
+            RichPayment.Enabled = true;
+            BtnSavePayment.Enabled = true;
+            RichPayment.Focus();
         }
 
         private void BtnRemoveItem_Click(object sender, EventArgs e)
@@ -208,10 +217,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var posInvoice = new PosInvoice
             {
-                InvoiceNo = "Cash",
+                InvoiceNo = string.Empty,
                 InvoiceDate = Convert.ToDateTime(RichInvoiceDate.Text),
                 MemberId = RichMemberId.Text,
-                PaymentType = "Payment In",
+                Action = Constants.PAYMENT,
+                PaymentType = Constants.PAYMENT_IN,
+                PaymentMethod = Constants.CASH,
                 SubTotal = 0.0m,
                 DiscountPercent = 0.0m,
                 Discount = 0.0m,
@@ -221,7 +232,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DeliveryCharge = 0.0m,
                 TotalAmount = 0.0m,
                 ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
-                Balance = 0.0m,
                 Date = DateTime.Now
             };
 
@@ -240,6 +250,11 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnBankTransfer_Click(object sender, EventArgs e)
+        {
+            BankTransferForm bankTransferForm = new BankTransferForm(_bankDetailService, _bankTransactionService, _posInvoiceService);
+            bankTransferForm.Show();
+        }
         #endregion
 
         #region Helper Methods
@@ -306,13 +321,11 @@ namespace GrocerySupplyManagementApp.Forms
                 RichContactNo.Text = member.ContactNumber.ToString();
                 RichAccNo.Text = member.AccountNumber;
 
-                List<PosInvoice> posInvoices = _posInvoiceService.GetPosInvoicesByMemberId(memberId).ToList();
+                List<PosInvoice> posInvoices = _posInvoiceService.GetPosInvoices(memberId).ToList();
                 TxtBalance.Text = _posInvoiceService.GetTotalBalance(memberId).ToString();
-                TxtBalanceStatus.Text = posInvoices.Sum(x => x.Balance) == 0.0m ? "Clear" : "Due";
+                TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
 
-                RichPayment.Enabled = true;
-                BtnSavePayment.Enabled = true;
-                RichPayment.Focus();
+                BtnPaymentIn.Enabled = true;
             }
             catch(Exception ex)
             {
@@ -397,7 +410,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + Convert.ToDecimal(posInvoice.DeliveryCharge.ToString()), 2).ToString();
             RichGrandTotal.Text = posInvoice.TotalAmount.ToString();
             RichReceivedAmount.Text = posInvoice.ReceivedAmount.ToString();
-            RichBalanceAmount.Text = posInvoice.Balance.ToString();
         }
 
         #endregion
@@ -485,11 +497,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        private void BtnBankTransfer_Click(object sender, EventArgs e)
-        {
-            BankTransferForm bankTransferForm = new BankTransferForm(_bankDetailService);
-            bankTransferForm.Show();
-        }
+        #region Combobox Event
 
         private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -498,6 +506,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichPayment.Focus();
         }
 
-        
+        #endregion
     }
 }

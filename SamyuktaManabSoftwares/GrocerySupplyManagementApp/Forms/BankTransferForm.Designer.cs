@@ -68,6 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.TabIndex = 2;
             this.BtnClear.Text = "Clear";
             this.BtnClear.UseVisualStyleBackColor = true;
+            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // BtnSave
             // 
@@ -79,6 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.TabIndex = 1;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // label4
             // 

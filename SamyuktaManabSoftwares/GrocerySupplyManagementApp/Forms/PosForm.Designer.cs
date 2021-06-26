@@ -724,6 +724,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnPaymentIn
             // 
+            this.BtnPaymentIn.Enabled = false;
             this.BtnPaymentIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnPaymentIn.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnPaymentIn.Location = new System.Drawing.Point(6, 64);

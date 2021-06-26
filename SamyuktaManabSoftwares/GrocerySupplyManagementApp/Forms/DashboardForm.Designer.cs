@@ -369,7 +369,7 @@
             this.BtnIncomeExpenseMgmt.TabIndex = 11;
             this.BtnIncomeExpenseMgmt.Text = "Daily Expense Management";
             this.BtnIncomeExpenseMgmt.UseVisualStyleBackColor = false;
-            this.BtnIncomeExpenseMgmt.Click += new System.EventHandler(this.btnExpenseMgmt_Click);
+            this.BtnIncomeExpenseMgmt.Click += new System.EventHandler(this.BtnIncomeExpenseMgmt_Click);
             // 
             // BtnBankingMgmt
             // 

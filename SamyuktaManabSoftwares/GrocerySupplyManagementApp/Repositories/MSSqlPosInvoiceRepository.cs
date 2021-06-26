@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,16 +12,15 @@ namespace GrocerySupplyManagementApp.Repositories
         private const string DB_CONNECTION_STRING = "DBConnectionString";
         private const string TABLE_NAME = "PosInvoice";
         
-        public MSSqlPosInvoiceRepository()
-        {
-
-        }
-
         public IEnumerable<PosInvoice> GetPosInvoices()
         {
             var posInvoices = new List<PosInvoice>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME + " ORDER BY Id";
+            var query = @"SELECT " +
+                "[Id], [InvoiceNo], [InvoiceDate], [MemberId], [Action], [PaymentType] , [PaymentMethod], " +
+                "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge] " +
+                "[TotalAmount], [ReceivedAmount], [Date] " +
+                "FROM " + TABLE_NAME + " ORDER BY Id";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -38,7 +38,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
                                     MemberId = reader["MemberId"].ToString(),
+                                    Action = reader["Action"].ToString(),
                                     PaymentType = reader["PaymentType"].ToString(),
+                                    PaymentMethod = reader["PaymentMethod"].ToString(),
                                     SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
                                     DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
                                     Discount = Convert.ToDecimal(reader["Discount"].ToString()),
@@ -48,10 +50,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
                                     TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
-                                    Balance = Convert.ToDecimal(reader["Balance"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString())
                                 };
-
 
                                 posInvoices.Add(posInvoice);
                             }
@@ -67,11 +67,17 @@ namespace GrocerySupplyManagementApp.Repositories
             return posInvoices;
         }
 
-        public IEnumerable<PosInvoice> GetPosInvoicesByMemberId(string memberId)
+        public IEnumerable<PosInvoice> GetPosInvoices(string memberId)
         {
             var posInvoices = new List<PosInvoice>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME + " WHERE MemberId = @MemberId ORDER BY Id";
+            var query = @"SELECT " +
+                "[Id], [InvoiceNo], [InvoiceDate], [MemberId], [Action], [PaymentType] , [PaymentMethod], " +
+                "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
+                "[DeliveryCharge], [TotalAmount], [ReceivedAmount], [Date] " +
+                "FROM " + TABLE_NAME + " " + 
+                "WHERE MemberId = @MemberId " +
+                "ORDER BY Id";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -91,7 +97,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
                                     MemberId = reader["MemberId"].ToString(),
+                                    Action = reader["Action"].ToString(),
                                     PaymentType = reader["PaymentType"].ToString(),
+                                    PaymentMethod = reader["PaymentMethod"].ToString(),
                                     SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
                                     DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
                                     Discount = Convert.ToDecimal(reader["Discount"].ToString()),
@@ -101,10 +109,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
                                     TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
-                                    Balance = Convert.ToDecimal(reader["Balance"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString())
                                 };
-                                    
+
                                 posInvoices.Add(posInvoice);
                             }
                         }
@@ -119,6 +126,56 @@ namespace GrocerySupplyManagementApp.Repositories
             return posInvoices;
         }
 
+        public IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId)
+        {
+            var memberTransactionViews = new List<MemberTransactionView>();
+            string connectionString = GetConnectionString();
+            var query = @"SELECT " +
+                "[Id], [InvoiceNo], [InvoiceDate], [Action], " +
+                "[TotalAmount], [ReceivedAmount], " +
+                "(SELECT SUM(ISNULL(b.TotalAmount,0) - ISNULL(b.ReceivedAmount,0)) " +
+                "FROM [dbo].[PosInvoice] b " +
+                "WHERE b.Date <= a.Date AND MemberId = @MemberId) AS Balance " +
+                "FROM " + TABLE_NAME + " a " +
+                "WHERE MemberId = @MemberId ORDER BY Id";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@MemberId", ((object)memberId) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var memberTransactionView = new MemberTransactionView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    InvoiceNo = reader["InvoiceNo"].ToString(),
+                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
+                                    Action = reader["Action"].ToString(),
+                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
+                                    Balance = Convert.ToDecimal(reader["Balance"].ToString())
+                                };
+
+                                memberTransactionViews.Add(memberTransactionView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return memberTransactionViews;
+        }
+
         public PosInvoice GetPosInvoice(long posInvoiceId)
         {
             throw new NotImplementedException();
@@ -128,7 +185,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var posInvoice = new PosInvoice();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME + " WHERE InvoiceNo = @InvoiceNo";
+            var query = @"SELECT " +
+                "[Id], [InvoiceNo], [InvoiceDate], [MemberId], [Action], [PaymentType] , [PaymentMethod], " +
+                "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge], " +
+                "[TotalAmount], [ReceivedAmount], [Date] " +
+                "FROM " + TABLE_NAME + " " + 
+                "WHERE InvoiceNo = @InvoiceNo";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -146,7 +208,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                 posInvoice.InvoiceNo = reader["InvoiceNo"].ToString();
                                 posInvoice.InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString());
                                 posInvoice.MemberId = reader["MemberId"].ToString();
+                                posInvoice.Action = reader["Action"].ToString();
                                 posInvoice.PaymentType = reader["PaymentType"].ToString();
+                                posInvoice.PaymentMethod = reader["PaymentMethod"].ToString();
                                 posInvoice.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
                                 posInvoice.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
                                 posInvoice.Discount = Convert.ToDecimal(reader["Discount"].ToString());
@@ -156,7 +220,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                 posInvoice.DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString());
                                 posInvoice.TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString());
                                 posInvoice.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                posInvoice.Balance = Convert.ToDecimal(reader["Balance"].ToString());
                                 posInvoice.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
@@ -174,18 +237,18 @@ namespace GrocerySupplyManagementApp.Repositories
         public PosInvoice AddPosInvoice(PosInvoice posInvoice)
         {
             string connectionString = GetConnectionString();
-            string query = "INSERT INTO " + TABLE_NAME +
-                            " (" +
-                                " [InvoiceNo], [InvoiceDate], [MemberId], [PaymentType], [SubTotal], " + 
-                                " [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
-                                " [DeliveryCharge], [TotalAmount], [ReceivedAmount], [Balance], [Date] " +
-                            " ) " +
-                            " VALUES" +
-                            " (" +
-                                " @InvoiceNo, @InvoiceDate, @MemberId, @PaymentType, @SubTotal, " +
-                                " @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
-                                " @DeliveryCharge, @TotalAmount, @ReceivedAmount, @Balance, @Date " +
-                            " )";
+            string query = "INSERT INTO " + TABLE_NAME + " " +
+                            "(" +
+                                "[InvoiceNo], [InvoiceDate], [MemberId], [Action], [PaymentType], [PaymentMethod], [SubTotal], " + 
+                                "[DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
+                                "[DeliveryCharge], [TotalAmount], [ReceivedAmount], [Date] " +
+                            ") " +
+                            "VALUES " +
+                            "( " +
+                                "@InvoiceNo, @InvoiceDate, @MemberId, @Action, @PaymentType, @PaymentMethod, @SubTotal, " +
+                                "@DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
+                                "@DeliveryCharge, @TotalAmount, @ReceivedAmount, @Date " +
+                            ")";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -196,7 +259,9 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@InvoiceNo", posInvoice.InvoiceNo);
                         command.Parameters.AddWithValue("@InvoiceDate", posInvoice.InvoiceDate);
                         command.Parameters.AddWithValue("@MemberId", posInvoice.MemberId);
+                        command.Parameters.AddWithValue("@Action", posInvoice.Action);
                         command.Parameters.AddWithValue("@PaymentType", posInvoice.PaymentType);
+                        command.Parameters.AddWithValue("@PaymentMethod", posInvoice.PaymentMethod);
                         command.Parameters.AddWithValue("@SubTotal", posInvoice.SubTotal);
                         command.Parameters.AddWithValue("@DiscountPercent", posInvoice.DiscountPercent);
                         command.Parameters.AddWithValue("@Discount", posInvoice.Discount);
@@ -206,7 +271,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@DeliveryCharge", posInvoice.DeliveryCharge);
                         command.Parameters.AddWithValue("@TotalAmount", posInvoice.TotalAmount);
                         command.Parameters.AddWithValue("@ReceivedAmount", ((object)posInvoice.ReceivedAmount) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Balance", posInvoice.Balance);
                         command.Parameters.AddWithValue("@Date", posInvoice.Date);
 
                         command.ExecuteNonQuery();
@@ -234,7 +298,11 @@ namespace GrocerySupplyManagementApp.Repositories
         public string GetLastInvoiceNo()
         {
             string connectionString = GetConnectionString();
-            string query = "SELECT TOP 1 [InvoiceNo] FROM " + TABLE_NAME + " WHERE [InvoiceNo] LIKE 'IN%' ORDER BY Id DESC";
+            string query = "SELECT " +
+                "TOP 1 [InvoiceNo] " + 
+                "FROM " + TABLE_NAME + " " +
+                "WHERE [InvoiceNo] LIKE 'IN%' " +
+                "ORDER BY Id DESC";
             string invoiceNo = string.Empty;
             try
             {
@@ -262,7 +330,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetTotalBalance(string memberId)
         {
             string connectionString = GetConnectionString();
-            string query = "SELECT SUM([TotalAmount]) - SUM([ReceivedAmount]) FROM " + TABLE_NAME + " WHERE MemberId = @MemberId ";
+            string query = "SELECT " +
+                "SUM([TotalAmount]) - SUM([ReceivedAmount]) " +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE MemberId = @MemberId ";
             decimal balance = 0.0m;
             try
             {
@@ -288,10 +359,51 @@ namespace GrocerySupplyManagementApp.Repositories
             return balance;
         }
 
+        public decimal GetCashInHand()
+        {
+            string connectionString = GetConnectionString();
+            string query = "SELECT " +
+                "SUM([ReceivedAmount]) " +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE 1=1 " +
+                "AND PaymentMethod = 'Cash' " +
+                "AND (PaymentType = 'Payment In' OR PaymentType = '')";
+            decimal cashInHand = 0.0m;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            cashInHand = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return cashInHand;
+        }
+
         private string GetConnectionString()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
+                return connectionString;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

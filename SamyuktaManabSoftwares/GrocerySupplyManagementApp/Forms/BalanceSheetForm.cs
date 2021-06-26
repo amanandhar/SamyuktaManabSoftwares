@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BalanceSheetForm : Form
     {
+        #region Constructor
         public BalanceSheetForm()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Form Load
         private void BalanceSheetForm_Load(object sender, EventArgs e)
         {
 
         }
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Repositories
@@ -7,7 +8,9 @@ namespace GrocerySupplyManagementApp.Repositories
     {
         IEnumerable<PosInvoice> GetPosInvoices();
 
-        IEnumerable<PosInvoice> GetPosInvoicesByMemberId(string memberId);
+        IEnumerable<PosInvoice> GetPosInvoices(string memberId);
+
+        IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId);
 
         PosInvoice GetPosInvoice(long posInvoiceId);
 
@@ -22,5 +25,7 @@ namespace GrocerySupplyManagementApp.Repositories
         string GetLastInvoiceNo();
 
         decimal GetTotalBalance(string memberId);
+
+        decimal GetCashInHand();
     }
 }

@@ -9,10 +9,6 @@ namespace GrocerySupplyManagementApp.Repositories
     public class MSSqlSupplierTransactionRepository : ISupplierTransactionRepository
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
-        public MSSqlSupplierTransactionRepository()
-        {
-
-        }
 
         /// <summary>
         /// Returns list of SupplierTransactions
@@ -22,12 +18,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var SupplierTransactions = new List<DTOs.SupplierTransactionView>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Date, Status AS Particulars, " +
-                "CASE WHEN Status = 'Purchase' THEN BillNo ELSE Bank END AS BillNoBank, " + 
+            var query = @"SELECT " +
+                "Id, Date, Action AS Particulars, " +
+                "CASE WHEN Action = 'Purchase' THEN BillNo ELSE Bank END AS BillNoBank, " +
                 "Debit, Credit, " +
                 "(SELECT SUM(ISNULL(b.DEBIT,0) - ISNULL(b.Credit,0)) " +
                 "FROM [dbo].[SupplierTransaction] b " +
-                "WHERE b.Date <= a.Date AND SupplierName = @SupplierName) as Balance " +
+                "WHERE b.Date <= a.Date AND SupplierName = @SupplierName) AS Balance " +
                 "FROM [dbo].[SupplierTransaction] a " +
                 "WHERE SupplierName = @SupplierName";
 
@@ -111,7 +108,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public SupplierTransaction GetSupplierTransaction(string supplierName)
         {
             string connectionString = GetConnectionString();
-            var query = @"SELECT SupplierName, Status, BillNo, PaymentType, Bank, Debit, Credit, Date FROM SupplierTransaction WHERE SupplierName = @SupplierName";
+            var query = @"SELECT Id, SupplierName, Action, BillNo, PaymentType, PaymentMethod, Bank, Debit, Credit, Date FROM SupplierTransaction WHERE SupplierName = @SupplierName";
             var SupplierTransaction = new SupplierTransaction();
             try
             {
@@ -125,10 +122,12 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
+                                SupplierTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
                                 SupplierTransaction.SupplierName = reader["SupplierName"].ToString();
-                                SupplierTransaction.Status = reader["Status"].ToString();
                                 SupplierTransaction.BillNo = reader["BillNo"].ToString();
+                                SupplierTransaction.Action = reader["Action"].ToString();
                                 SupplierTransaction.PaymentType = reader["PaymentType"].ToString();
+                                SupplierTransaction.PaymentMethod = reader["PaymentMethod"].ToString();
                                 SupplierTransaction.Bank = reader["Bank"].ToString();
                                 SupplierTransaction.Debit = Convert.ToDecimal(reader["Debit"].ToString());
                                 SupplierTransaction.Credit = Convert.ToDecimal(reader["Credit"].ToString());
@@ -156,11 +155,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO SupplierTransaction " +
                             "(" +
-                                "SupplierName, Status, BillNo, PaymentType, Bank, Debit, Credit, Date " +
+                                "SupplierName, BillNo, Action, PaymentType, PaymentMethod, Bank, Debit, Credit, Date " +
                             ") " +
                             "VALUES " +
                             "(" +
-                                "@SupplierName, @Status, @BillNo, @PaymentType, @Bank, @Debit, @Credit, @Date " +
+                                "@SupplierName, @BillNo, @Action, @PaymentType, PaymentMethod, @Bank, @Debit, @Credit, @Date " +
                             ")";
             try
             {
@@ -170,9 +169,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@SupplierName", SupplierTransaction.SupplierName);
-                        command.Parameters.AddWithValue("@Status", SupplierTransaction.Status);
                         command.Parameters.AddWithValue("@BillNo", ((object)SupplierTransaction.BillNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", SupplierTransaction.Action);
                         command.Parameters.AddWithValue("@PaymentType", ((object)SupplierTransaction.PaymentType) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@PaymentMethod", ((object)SupplierTransaction.PaymentMethod) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Bank", ((object)SupplierTransaction.Bank) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Debit", ((object)SupplierTransaction.Debit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Credit", ((object)SupplierTransaction.Credit) ?? DBNull.Value);
@@ -201,9 +201,10 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "UPDATE SupplierTransaction SET " +
                     "SupplierName = @SupplierName, " +
-                    "Status = @Status, " +
                     "BillNo = @BillNo, " +
+                    "Action = @Action, " +
                     "PaymentType = @PaymentType, " +
+                    "PaymentMethod = @PaymentMethod, " +
                     "Bank = @Bank, " +
                     "Debit = @Debit, " +
                     "Credit = @Credit, " +
@@ -218,9 +219,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@SupplierName", supplierName);
-                        command.Parameters.AddWithValue("@Status", SupplierTransaction.Status);
                         command.Parameters.AddWithValue("@BillNo", SupplierTransaction.BillNo);
+                        command.Parameters.AddWithValue("@Action", SupplierTransaction.Action);
                         command.Parameters.AddWithValue("@PaymentType", SupplierTransaction.PaymentType);
+                        command.Parameters.AddWithValue("@PaymentMethod", SupplierTransaction.PaymentMethod);
                         command.Parameters.AddWithValue("@Bank", SupplierTransaction.Bank);
                         command.Parameters.AddWithValue("@Debit", SupplierTransaction.Debit);
                         command.Parameters.AddWithValue("@Credit", SupplierTransaction.Credit);
@@ -274,8 +276,15 @@ namespace GrocerySupplyManagementApp.Repositories
 
         private string GetConnectionString()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
+                return connectionString;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -10,11 +10,6 @@ namespace GrocerySupplyManagementApp.Repositories
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
         private const string TABLE_NAME = "PosTransaction";
-
-        public MSSqlPosTransactionRepository()
-        {
-
-        }
         
         public IEnumerable<PosTransaction> GetPosTransactions()
         {
