@@ -26,8 +26,8 @@ namespace GrocerySupplyManagementApp
                 container.Resolve<ISupplierTransactionService>(),
                 container.Resolve<IFiscalYearDetailService>(),
                 container.Resolve<ITaxDetailService>(),
-                container.Resolve<IPosInvoiceService>(),
                 container.Resolve<IPosTransactionService>(),
+                container.Resolve<IPosSoldItemService>(),
                 container.Resolve<ITransactionService>(),
                 container.Resolve<IPreparedItemService>(),
                 container.Resolve<IBankDetailService>(),
@@ -47,8 +47,8 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<ISupplierTransactionService, SupplierTransactionService>();
             container.RegisterType<IFiscalYearDetailService, FiscalYearDetailService>();
             container.RegisterType<ITaxDetailService, TaxDetailService>();
-            container.RegisterType<IPosInvoiceService, PosInvoiceService>();
             container.RegisterType<IPosTransactionService, PosTransactionService>();
+            container.RegisterType<IPosSoldItemService, PosSoldItemService>();
             container.RegisterType<ITransactionService, TransactionService>();
             container.RegisterType<IPreparedItemService, PreparedItemService>();
             container.RegisterType<IBankDetailService, BankDetailService>();
@@ -61,8 +61,8 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<ISupplierTransactionRepository, MSSqlSupplierTransactionRepository>();
             container.RegisterType<IFiscalYearDetailRepository, MSSqlFiscalYearDetailRepository>();
             container.RegisterType<ITaxDetailRepository, MSSqlTaxDetailRepository>();
-            container.RegisterType<IPosInvoiceRepository, MSSqlPosInvoiceRepository>();
             container.RegisterType<IPosTransactionRepository, MSSqlPosTransactionRepository>();
+            container.RegisterType<IPosSoldItemRepository, MSSqlPosSoldItemRepository>();
             container.RegisterType<ITransactionRepository, MSSqlTransactionRepository>();
             container.RegisterType<IPreparedItemRepository, MSSqlPreparedItemRepository>();
             container.RegisterType<IBankDetailRepository, MSSqlBankDetailRepository>();

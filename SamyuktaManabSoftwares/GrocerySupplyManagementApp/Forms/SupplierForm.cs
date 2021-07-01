@@ -1,5 +1,7 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,11 +17,15 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemTransactionService _itemTransactionService;
         private readonly ISupplierTransactionService _supplierTransactionService;
         private readonly IBankDetailService _bankDetailService;
+        private readonly IBankTransactionService _bankTransactionService;
+        private readonly IPosTransactionService _posTransactionService;
+        private readonly IFiscalYearDetailService _fiscalYearDetailService;
 
         #region Constructor
         public SupplierForm(ISupplierService supplierService, IItemService itemService, 
             IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService,
-            IBankDetailService bankDetailService)
+            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, 
+            IPosTransactionService posTransactionService,IFiscalYearDetailService fiscalYearDetailService)
         {
             InitializeComponent();
 
@@ -28,6 +34,9 @@ namespace GrocerySupplyManagementApp.Forms
             _itemTransactionService = itemTransactionService;
             _supplierTransactionService = supplierTransactionService;
             _bankDetailService = bankDetailService;
+            _bankTransactionService = bankTransactionService;
+            _posTransactionService = posTransactionService;
+            _fiscalYearDetailService = fiscalYearDetailService;
         }
 
         #endregion
@@ -43,7 +52,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Events
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
-            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService, _itemTransactionService, _supplierTransactionService);
+            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService, 
+                _itemTransactionService, _supplierTransactionService,
+                _posTransactionService, _fiscalYearDetailService);
             purchaseForm.Show();
         }
 
@@ -53,7 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var particulars = DataGridSupplierTransaction.SelectedCells[2].Value.ToString();
 
-                if(particulars.ToLower() != "cash" && particulars.ToLower() != "cheque")
+                if(particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
                 {
                     var supplierName = RichSupplierName.Text;
                     var billNo = particulars;
@@ -81,6 +92,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var supplier = _supplierService.AddSupplier(new Supplier
                 {
+                    SupplierId = RichSupplierId.Text,
                     Name = RichSupplierName.Text,
                     Owner = RichOwner.Text,
                     Address = RichAddress.Text,
@@ -112,6 +124,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var supplier = _supplierService.UpdateSupplier(supplierName, new Supplier
                 {
+                    SupplierId = RichSupplierId.Text,
                     Name = RichSupplierName.Text,
                     Owner = RichOwner.Text,
                     Address = RichAddress.Text,
@@ -147,20 +160,50 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
+                var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
+
+                var posTransaction = new PosTransaction
                 {
-                    SupplierName = RichSupplierName.Text,
-                    Action = "Payment",
+                    InvoiceDate = fiscalYearDetail.StartingDate,
                     BillNo = TextBoxBillNo.Text,
-                    PaymentType = ComboPaymentType.Text,
+                    SupplierId = RichSupplierId.Text,
+                    Action = Constants.PAYMENT,
+                    ActionType = ComboPayment.Text,
                     Bank = ComboBank.Text,
-                    Credit = Convert.ToDecimal(RichAmount.Text),
+                    SubTotal = 0.0m,
+                    DiscountPercent = 0.0m,
+                    Discount = 0.0m,
+                    VatPercent = 0.0m,
+                    Vat = 0.0m,
+                    DeliveryChargePercent = 0.0m,
+                    DeliveryCharge = 0.0m,
+                    TotalAmount = 0.0m,
+                    ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                     Date = DateTime.Now
-                });
-                DialogResult result = MessageBox.Show(ComboPaymentType.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
+                };
+
+                _posTransactionService.AddPosTransaction(posTransaction);
+
+                if(ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
+                {
+                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                    var bankTransaction = new BankTransaction
+                    {
+                        BankId = Convert.ToInt64(selectedItem.Id),
+                        Action = '0',
+                        Debit = 0.0m,
+                        Credit = Convert.ToDecimal(RichAmount.Text),
+                        Narration = RichSupplierId.Text + " - " + RichSupplierName.Text,
+                        Date = DateTime.Now
+                    };
+
+                    _bankTransactionService.AddBankTransaction(bankTransaction);
+                }
+
+                DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    ComboPaymentType.Text = string.Empty;
+                    ComboPayment.Text = string.Empty;
                     ComboBank.Text = string.Empty;
                     RichAmount.Clear();
                     LoadSupplierTransaction();
@@ -181,7 +224,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var supplierName = RichSupplierName.Text;
                     var id = Convert.ToInt64(DataGridSupplierTransaction.SelectedCells[0].Value.ToString());
                     var particulars = DataGridSupplierTransaction.SelectedCells[2].Value.ToString();
-                    if (particulars.ToLower() != "cash" && particulars.ToLower() != "cheque")
+                    if (particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
                     {
                         if (_supplierTransactionService.DeleteSupplierTransaction(id))
                         {
@@ -190,7 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    if (particulars.ToLower() == "cash" || particulars.ToLower() == "cheque")
+                    if (particulars.ToLower() == Constants.CASH.ToLower() || particulars.ToLower() == Constants.CHEQUE.ToLower())
                     {
                         _supplierTransactionService.DeleteSupplierTransaction(id);
                         LoadSupplierTransaction();
@@ -208,6 +251,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void EnableFields(bool option = true)
         {
+            RichSupplierId.Enabled = option;
             RichSupplierName.Enabled = option;
             RichOwner.Enabled = option;
             RichAddress.Enabled = option;
@@ -217,6 +261,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllFields()
         {
+            RichSupplierId.Clear();
             RichSupplierName.Clear();
             RichOwner.Clear();
             RichAddress.Clear();
@@ -226,35 +271,20 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadSupplierTransaction()
         {
-            var balance = _supplierTransactionService.GetBalance(RichSupplierName.Text);
-            RichBalance.Text = balance.ToString();
-            if (balance > 0)
+            var balance = _posTransactionService.GetSupplierTotalBalance(RichSupplierId.Text);
+            RichBalance.Text = Decimal.Negate(balance).ToString();
+            if (balance < 0)
             {
-                TextBoxDebitCredit.Text = "DR";
-            }
-            else if(balance < 0)
-            {
-                TextBoxDebitCredit.Text = "CR";
+                TextBoxDebitCredit.Text = "Due";
             }
             else
             {
-                TextBoxDebitCredit.Text = "NA";
+                TextBoxDebitCredit.Text = "Clear";
             }
 
-            List<DTOs.SupplierTransactionView> supplierTransactions = _supplierTransactionService.GetSupplierTransactions(RichSupplierName.Text).ToList();
+            List<SupplierTransactionView> supplierTransactionViews = _posTransactionService.GetSupplierTransactions(RichSupplierId.Text).ToList();
 
-            List<DTOs.SupplierTransactionView> supplierTransactionsView = supplierTransactions.Select(x => new DTOs.SupplierTransactionView
-            {
-                Id = x.Id,
-                Date = x.Date,
-                Particulars = x.Particulars,
-                BillNoBank = x.BillNoBank,
-                Debit = x.Debit,
-                Credit = x.Credit,
-                Balance = x.Balance
-            }).ToList();
-
-            var bindingList = new BindingList<DTOs.SupplierTransactionView>(supplierTransactionsView);
+            var bindingList = new BindingList<SupplierTransactionView>(supplierTransactionViews);
             var source = new BindingSource(bindingList, null);
             DataGridSupplierTransaction.DataSource = source;
         }
@@ -263,6 +293,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var supplier = _supplierService.GetSupplier(supplierName);
 
+            RichSupplierId.Text = supplier.SupplierId;
             RichSupplierName.Text = supplier.Name;
             RichOwner.Text = supplier.Owner;
             RichAddress.Text = supplier.Address;
@@ -288,6 +319,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             return RichSupplierName.Text;
         }
+
+        public string GetSupplierId()
+        {
+            return RichSupplierId.Text;
+        }
         #endregion
 
         #region DataGrid Events
@@ -295,29 +331,33 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridSupplierTransaction.Columns["Id"].Visible = false;
 
-            DataGridSupplierTransaction.Columns["Date"].HeaderText = "Date";
-            DataGridSupplierTransaction.Columns["Date"].Width = 100;
-            DataGridSupplierTransaction.Columns["Date"].DisplayIndex = 1;
-            DataGridSupplierTransaction.Columns["Date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridSupplierTransaction.Columns["InvoiceDate"].HeaderText = "Date";
+            DataGridSupplierTransaction.Columns["InvoiceDate"].Width = 100;
+            DataGridSupplierTransaction.Columns["InvoiceDate"].DisplayIndex = 1;
+            DataGridSupplierTransaction.Columns["InvoiceDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
 
-            DataGridSupplierTransaction.Columns["Particulars"].HeaderText = "Particulars";
-            DataGridSupplierTransaction.Columns["Particulars"].Width = 150;
-            DataGridSupplierTransaction.Columns["Particulars"].DisplayIndex = 2;
+            DataGridSupplierTransaction.Columns["Action"].HeaderText = "Particulars";
+            DataGridSupplierTransaction.Columns["Action"].Width = 100;
+            DataGridSupplierTransaction.Columns["Action"].DisplayIndex = 2;
 
-            DataGridSupplierTransaction.Columns["BillNoBank"].HeaderText = "Bill No/Bank";
-            DataGridSupplierTransaction.Columns["BillNoBank"].Width = 150;
-            DataGridSupplierTransaction.Columns["BillNoBank"].DisplayIndex = 3;
+            DataGridSupplierTransaction.Columns["ActionType"].HeaderText = "Type";
+            DataGridSupplierTransaction.Columns["ActionType"].Width = 200;
+            DataGridSupplierTransaction.Columns["ActionType"].DisplayIndex = 3;
 
-            DataGridSupplierTransaction.Columns["Debit"].HeaderText = "Debit";
-            DataGridSupplierTransaction.Columns["Debit"].Width = 100;
-            DataGridSupplierTransaction.Columns["Debit"].DisplayIndex = 4;
+            DataGridSupplierTransaction.Columns["BillNo"].HeaderText = "Bill No";
+            DataGridSupplierTransaction.Columns["BillNo"].Width = 100;
+            DataGridSupplierTransaction.Columns["BillNo"].DisplayIndex = 4;
 
-            DataGridSupplierTransaction.Columns["Credit"].HeaderText = "Credit";
-            DataGridSupplierTransaction.Columns["Credit"].Width = 100;
-            DataGridSupplierTransaction.Columns["Credit"].DisplayIndex = 5;
+            DataGridSupplierTransaction.Columns["TotalAmount"].HeaderText = "Debit";
+            DataGridSupplierTransaction.Columns["TotalAmount"].Width = 100;
+            DataGridSupplierTransaction.Columns["TotalAmount"].DisplayIndex = 5;
+
+            DataGridSupplierTransaction.Columns["ReceivedAmount"].HeaderText = "Credit";
+            DataGridSupplierTransaction.Columns["ReceivedAmount"].Width = 100;
+            DataGridSupplierTransaction.Columns["ReceivedAmount"].DisplayIndex = 6;
 
             DataGridSupplierTransaction.Columns["Balance"].HeaderText = "Balance";
-            DataGridSupplierTransaction.Columns["Balance"].DisplayIndex = 6;
+            DataGridSupplierTransaction.Columns["Balance"].DisplayIndex = 7;
             DataGridSupplierTransaction.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
   
             foreach (DataGridViewRow row in DataGridSupplierTransaction.Rows)
@@ -333,25 +373,33 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ComboPaymentType_SelectedValueChanged(object sender, EventArgs e)
         {
-            var selectedPayment = ComboPaymentType.Text;
-            if(selectedPayment.ToLower().Equals("cheque"))
+            var selectedPayment = ComboPayment.Text;
+            if (!string.IsNullOrWhiteSpace(selectedPayment))
             {
-                var bankDetails = _bankDetailService.GetBankDetails().ToList();
-                bankDetails.OrderBy(x => x.Name).ToList().ForEach(x =>
+                if (selectedPayment.ToLower() == Constants.CHEQUE.ToLower())
                 {
-                    ComboBank.Items.Add(x.Name);
-                });
-                
-                ComboBank.Enabled = true;
-                RichAmount.Enabled = true;
-                ComboBank.Focus();
-            }
-            else
-            {
-                ComboBank.Enabled = false;
-                RichAmount.Enabled = true;
-                RichAmount.Focus();
-            }
+                    var bankDetails = _bankDetailService.GetBankDetails().ToList();
+                    if (bankDetails.Count > 0)
+                    {
+                        ComboBank.ValueMember = "Id";
+                        ComboBank.DisplayMember = "Value";
+                        bankDetails.OrderBy(x => x.Name).ToList().ForEach(x =>
+                        {
+                            ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
+                        });
+
+                        ComboBank.Enabled = true;
+                        RichAmount.Enabled = true;
+                        ComboBank.Focus();
+                    } 
+                }
+                else
+                {
+                    ComboBank.Enabled = false;
+                    RichAmount.Enabled = true;
+                    RichAmount.Focus();
+                }
+            }   
         }
 
         #endregion

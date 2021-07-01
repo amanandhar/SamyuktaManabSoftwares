@@ -79,14 +79,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 29);
+            this.textBox1.Size = new System.Drawing.Size(1045, 26);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "                                                               Add \r\nSub Code and" +
-    " Edit Item ";
+            this.textBox1.Text = "                                                                                 " +
+    "  Add \r\nSub Code & Edit Item ";
             // 
             // label1
             // 
@@ -165,15 +165,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.PicBoxItemImage);
             this.groupBox1.Location = new System.Drawing.Point(872, 356);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(155, 160);
+            this.groupBox1.Size = new System.Drawing.Size(155, 165);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             // 
             // PicBoxItemImage
             // 
-            this.PicBoxItemImage.Location = new System.Drawing.Point(9, 12);
+            this.PicBoxItemImage.Location = new System.Drawing.Point(3, 9);
             this.PicBoxItemImage.Name = "PicBoxItemImage";
-            this.PicBoxItemImage.Size = new System.Drawing.Size(140, 140);
+            this.PicBoxItemImage.Size = new System.Drawing.Size(148, 153);
             this.PicBoxItemImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.PicBoxItemImage.TabIndex = 0;
             this.PicBoxItemImage.TabStop = false;
@@ -210,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.ForeColor = System.Drawing.SystemColors.Highlight;
             this.groupBox2.Location = new System.Drawing.Point(16, 38);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(840, 480);
+            this.groupBox2.Size = new System.Drawing.Size(840, 485);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 

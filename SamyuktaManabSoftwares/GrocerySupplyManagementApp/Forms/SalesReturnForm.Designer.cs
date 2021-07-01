@@ -34,8 +34,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,6 +48,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -122,28 +122,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.button4.TabIndex = 18;
             this.button4.Text = "C";
             this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button3.Location = new System.Drawing.Point(5, 47);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 32);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Return";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button2.Location = new System.Drawing.Point(5, 13);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(105, 32);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Add Item";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // textBox11
             // 
@@ -282,16 +260,38 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 0;
             this.label1.Text = "Member ID";
             // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.button3.Location = new System.Drawing.Point(5, 47);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(105, 32);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Return";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.button2.Location = new System.Drawing.Point(5, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(105, 32);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Add Item";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.textBox1.Location = new System.Drawing.Point(0, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(684, 27);
+            this.textBox1.Size = new System.Drawing.Size(684, 26);
             this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "                                               Sales Return";
+            this.textBox1.Text = "                                                         Sales Return";
             // 
             // groupBox2
             // 

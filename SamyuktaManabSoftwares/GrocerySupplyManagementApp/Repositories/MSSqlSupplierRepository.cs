@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var supplier = new Supplier
                                 {
+                                    SupplierId = reader["SupplierId"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Owner = reader["Owner"].ToString(),
                                     Address = reader["Address"].ToString(),
@@ -81,6 +82,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
+                                supplier.SupplierId = reader["SupplierId"].ToString();
                                 supplier.Name = reader["Name"].ToString();
                                 supplier.Owner = reader["Owner"].ToString();
                                 supplier.Address = reader["Address"].ToString();
@@ -108,12 +110,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string connectionString = GetConnectionString();
             string query = "INSERT INTO " + TABLE_NAME + " " +
-                            "(" +
-                                "Name, Owner, Address, ContactNumber, Email " +
+                            "( " +
+                                "SupplierId, Name, Owner, Address, ContactNumber, Email " +
                             ") " +
                             "VALUES " +
-                            "(" +
-                                "@Name, @Owner, @Address, @ContactNumber, @Email " +
+                            "(  " +
+                                "@SupplierId, @Name, @Owner, @Address, @ContactNumber, @Email " +
                             ")";
             try
             {
@@ -122,6 +124,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@SupplierId", supplier.SupplierId);
                         command.Parameters.AddWithValue("@Name", supplier.Name);
                         command.Parameters.AddWithValue("@Owner", supplier.Owner);
                         command.Parameters.AddWithValue("@Address", supplier.Address);
@@ -150,6 +153,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string connectionString = GetConnectionString();
             string query = "UPDATE " + TABLE_NAME + " SET " +
+                    "SupplierId = @SupplierId, " +
                     "Name = @Name, " +
                     "Owner = @Owner, " +
                     "Address = @Address, " +
@@ -164,6 +168,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@SupplierId", supplier.SupplierId);
                         command.Parameters.AddWithValue("@Name", name);
                         command.Parameters.AddWithValue("@Owner", supplier.Owner);
                         command.Parameters.AddWithValue("@Address", supplier.Address);

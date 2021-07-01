@@ -16,18 +16,18 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemService _itemService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly ITaxDetailService _taxDetailService;
-        private readonly IPosInvoiceService _posInvoiceService;
         private readonly IPosTransactionService _posTransactionService;
+        private readonly IPosSoldItemService _posSoldItemService;
         private readonly ITransactionService _transactionService;
         private readonly IPreparedItemService _preparedItemService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
-        private List<PosTransactionGrid> _posTransactionGrids = new List<PosTransactionGrid>();
+        private List<PosSoldItemGrid> _posSoldItemGrids = new List<PosSoldItemGrid>();
 
         #region Constructor
         public PosForm(IMemberService memberService, IItemService itemService, 
             IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService, 
-            IPosInvoiceService posInvoiceService, IPosTransactionService posTransactionService, 
+            IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, 
             ITransactionService transactionService, IPreparedItemService preparedItemService, 
             IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
         {
@@ -37,24 +37,24 @@ namespace GrocerySupplyManagementApp.Forms
             _itemService = itemService;
             _fiscalYearDetailService = fiscalYearDetailService;
             _taxDetailService = taxDetailService;
-            _posInvoiceService = posInvoiceService;
             _posTransactionService = posTransactionService;
+            _posSoldItemService = posSoldItemService;
             _transactionService = transactionService;
             _preparedItemService = preparedItemService;
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
         }
 
-        public PosForm(IMemberService memberService, IPosInvoiceService posInvoiceService, IPosTransactionService posTransactionService, string invoiceNo)
+        public PosForm(IMemberService memberService, IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, string invoiceNo)
         {
             InitializeComponent();
 
             _memberService = memberService;
-            _posInvoiceService = posInvoiceService;
             _posTransactionService = posTransactionService;
+            _posSoldItemService = posSoldItemService;
 
-            _posTransactionGrids = _posTransactionService.GetPosTransactionGrid(invoiceNo).ToList();
-            LoadItems(_posTransactionGrids);
+            _posSoldItemGrids = _posSoldItemService.GetPosSoldItemGrid(invoiceNo).ToList();
+            LoadItems(_posSoldItemGrids);
             LoadPosDetails(invoiceNo);
         }
         #endregion
@@ -62,14 +62,14 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load
         private void PosForm_Load(object sender, EventArgs e)
         {
-            LoadItems(_posTransactionGrids);
+            LoadItems(_posSoldItemGrids);
         }
         #endregion
 
         #region Button Click Events
         private void BtnShowMember_Click(object sender, EventArgs e)
         {
-            MemberListForm memberListForm = new MemberListForm(_memberService, _posInvoiceService, this);
+            MemberListForm memberListForm = new MemberListForm(_memberService, _posTransactionService, this);
             memberListForm.Show();
         }
 
@@ -89,9 +89,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                _posTransactionGrids.Add(new PosTransactionGrid
+                _posSoldItemGrids.Add(new PosSoldItemGrid
                 {
-                    Id = DataGridPosTransactionList.RowCount,
+                    Id = DataGridPosSoldItemList.RowCount,
                     ItemCode = RichItemCode.Text,
                     ItemName = RichItemName.Text,
                     ItemBrand = RichItemBrand.Text,
@@ -102,7 +102,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Date = DateTime.Now
                 });
 
-                LoadItems(_posTransactionGrids);
+                LoadItems(_posSoldItemGrids);
 
                 LoadPosDetails();
 
@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddSale_Click(object sender, EventArgs e)
         {
             var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
-            RichInvoiceNo.Text = _posInvoiceService.GetInvoiceNo();
+            RichInvoiceNo.Text = _posTransactionService.GetInvoiceNo();
             RichInvoiceDate.Text = fiscalYearDetail.StartingDate.ToString("yyyy/MM/dd");
 
             BtnShowMember.Enabled = true;
@@ -130,14 +130,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var posInvoice = new PosInvoice
+                var posTransaction = new PosTransaction
                 {
                     InvoiceNo = RichInvoiceNo.Text.Trim(),
                     InvoiceDate = Convert.ToDateTime(RichInvoiceDate.Text.Trim()),
                     MemberId = RichMemberId.Text.Trim(),
                     Action = Constants.SALES,
-                    PaymentType = "",
-                    PaymentMethod = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
+                    ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                     SubTotal = Convert.ToDecimal(RichSubTotal.Text.Trim()),
                     DiscountPercent = Convert.ToDecimal(RichTextDiscountPercent.Text.Trim()),
                     Discount = Convert.ToDecimal(RichTextDiscount.Text.Trim()),
@@ -150,11 +149,11 @@ namespace GrocerySupplyManagementApp.Forms
                     Date = DateTime.Now
                 };
 
-                _posInvoiceService.AddPosInvoice(posInvoice);
+                _posTransactionService.AddPosTransaction(posTransaction);
 
-                _posTransactionGrids.ForEach(x =>
+                _posSoldItemGrids.ForEach(x =>
                 {
-                    var posTransaction = new PosTransaction
+                    var posSoldItem = new PosSoldItem
                     {
                         InvoiceNo = RichInvoiceNo.Text.Trim(),
                         ItemCode = x.ItemCode,
@@ -164,17 +163,17 @@ namespace GrocerySupplyManagementApp.Forms
                         Price = x.ItemPrice,
                         Quantity = x.Quantity
                     };
-                    _posTransactionService.AddPosTransaction(posTransaction);
+                    _posSoldItemService.AddPosSoldItem(posSoldItem);
                 });
 
-                DialogResult result = MessageBox.Show(posInvoice.InvoiceNo + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(posTransaction.InvoiceNo + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllMemberFields();
                     ClearAllItemFields();
                     ClearAllInvoiceFields();
-                    _posTransactionGrids.Clear();
-                    LoadItems(_posTransactionGrids);
+                    _posSoldItemGrids.Clear();
+                    LoadItems(_posSoldItemGrids);
                     EnableFields(false);
                     RadioBtnCash.Checked = false;
                     RadioBtnCredit.Checked = true;
@@ -197,13 +196,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (DataGridPosTransactionList.SelectedRows.Count == 1)
+                if (DataGridPosSoldItemList.SelectedRows.Count == 1)
                 {
-                    var id = Convert.ToInt64(DataGridPosTransactionList.SelectedCells[0].Value.ToString());
-                    var itemToRemove = _posTransactionGrids.Single(x => x.Id == id);
-                    _posTransactionGrids.Remove(itemToRemove);
+                    var id = Convert.ToInt64(DataGridPosSoldItemList.SelectedCells[0].Value.ToString());
+                    var itemToRemove = _posSoldItemGrids.Single(x => x.Id == id);
+                    _posSoldItemGrids.Remove(itemToRemove);
 
-                    LoadItems(_posTransactionGrids);
+                    LoadItems(_posSoldItemGrids);
                     LoadPosDetails(itemToRemove);
                 }
             }
@@ -215,14 +214,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSavePayment_Click(object sender, EventArgs e)
         {
-            var posInvoice = new PosInvoice
+            var posTransaction = new PosTransaction
             {
-                InvoiceNo = string.Empty,
                 InvoiceDate = Convert.ToDateTime(RichInvoiceDate.Text),
                 MemberId = RichMemberId.Text,
-                Action = Constants.PAYMENT,
-                PaymentType = Constants.PAYMENT_IN,
-                PaymentMethod = Constants.CASH,
+                Action = Constants.RECEIPT,
+                ActionType = Constants.CASH,
                 SubTotal = 0.0m,
                 DiscountPercent = 0.0m,
                 Discount = 0.0m,
@@ -235,15 +232,15 @@ namespace GrocerySupplyManagementApp.Forms
                 Date = DateTime.Now
             };
 
-            _posInvoiceService.AddPosInvoice(posInvoice);
+            _posTransactionService.AddPosTransaction(posTransaction);
             DialogResult result = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK);
             if (result == DialogResult.OK)
             {
                 ClearAllMemberFields();
                 ClearAllItemFields();
                 ClearAllInvoiceFields();
-                _posTransactionGrids.Clear();
-                LoadItems(_posTransactionGrids);
+                _posSoldItemGrids.Clear();
+                LoadItems(_posSoldItemGrids);
                 EnableFields(false);
                 RadioBtnCash.Checked = false;
                 RadioBtnCredit.Checked = true;
@@ -252,9 +249,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnBankTransfer_Click(object sender, EventArgs e)
         {
-            BankTransferForm bankTransferForm = new BankTransferForm(_bankDetailService, _bankTransactionService, _posInvoiceService);
+            BankTransferForm bankTransferForm = new BankTransferForm(_bankDetailService, _bankTransactionService, _posTransactionService);
             bankTransferForm.Show();
         }
+
+        private void BtnAddExpense_Click(object sender, EventArgs e)
+        {
+            ExpenseForm expenseForm = new ExpenseForm();
+            expenseForm.Show();
+        }
+
         #endregion
 
         #region Helper Methods
@@ -321,8 +325,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichContactNo.Text = member.ContactNumber.ToString();
                 RichAccNo.Text = member.AccountNumber;
 
-                List<PosInvoice> posInvoices = _posInvoiceService.GetPosInvoices(memberId).ToList();
-                TxtBalance.Text = _posInvoiceService.GetTotalBalance(memberId).ToString();
+                List<PosTransaction> posTransactions = _posTransactionService.GetPosTransactions(memberId).ToList();
+                TxtBalance.Text = _posTransactionService.GetMemberTotalBalance(memberId).ToString();
                 TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
 
                 BtnPaymentIn.Enabled = true;
@@ -357,14 +361,14 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void LoadItems(List<PosTransactionGrid> posTransactionGrids)
+        private void LoadItems(List<PosSoldItemGrid> posSoldItemGrids)
         {
-            var bindingList = new BindingList<PosTransactionGrid>(posTransactionGrids);
+            var bindingList = new BindingList<PosSoldItemGrid>(posSoldItemGrids);
             var source = new BindingSource(bindingList, null);
-            DataGridPosTransactionList.DataSource = source;
+            DataGridPosSoldItemList.DataSource = source;
         }
 
-        private void LoadPosDetails(PosTransactionGrid posTransactionGrid = null)
+        private void LoadPosDetails(PosSoldItemGrid posSoldItemGrid = null)
         {
             var taxDetail = _taxDetailService.GetTaxDetail();
             RichTextDiscountPercent.Text = taxDetail.Discount.ToString();
@@ -372,14 +376,14 @@ namespace GrocerySupplyManagementApp.Forms
             RichTextDeliveryChargePercent.Text = taxDetail.DeliveryCharge.ToString();
 
             decimal subTotal;
-            if (posTransactionGrid == null)
+            if (posSoldItemGrid == null)
             {
                subTotal = string.IsNullOrWhiteSpace(RichSubTotal.Text) ? 0.0m : Convert.ToDecimal(RichSubTotal.Text);
                 RichSubTotal.Text = Math.Round(subTotal + (Convert.ToDecimal(RichItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2).ToString();
             }
             else
             {
-                subTotal = Convert.ToDecimal(RichSubTotal.Text) - posTransactionGrid.Total;
+                subTotal = Convert.ToDecimal(RichSubTotal.Text) - posSoldItemGrid.Total;
                 RichSubTotal.Text = Math.Round(subTotal, 2).ToString();
 
             }
@@ -396,62 +400,62 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadPosDetails(string invoiceNo)
         {
-            var posInvoice = _posInvoiceService.GetPosInvoice(invoiceNo);
+            var posTransaction = _posTransactionService.GetPosTransaction(invoiceNo);
 
-            RichSubTotal.Text = posInvoice.SubTotal.ToString();
-            RichTextDiscountPercent.Text = posInvoice.DiscountPercent.ToString();
-            RichTextDiscount.Text = posInvoice.Discount.ToString();
-            RichTextDiscountTotal.Text = Math.Round(Convert.ToDecimal(posInvoice.SubTotal.ToString()) - Convert.ToDecimal(posInvoice.Discount.ToString()), 2).ToString();
-            RichTextVatPercent.Text = posInvoice.VatPercent.ToString();
-            RichTextVat.Text = posInvoice.Vat.ToString();
-            RichTextVatTotal.Text = Math.Round(Convert.ToDecimal(RichTextDiscountTotal.Text) + Convert.ToDecimal(posInvoice.Vat.ToString()), 2).ToString();
-            RichTextDeliveryChargePercent.Text = posInvoice.DeliveryChargePercent.ToString();
-            RichTextDeliveryCharge.Text = posInvoice.DeliveryCharge.ToString();
-            RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + Convert.ToDecimal(posInvoice.DeliveryCharge.ToString()), 2).ToString();
-            RichGrandTotal.Text = posInvoice.TotalAmount.ToString();
-            RichReceivedAmount.Text = posInvoice.ReceivedAmount.ToString();
+            RichSubTotal.Text = posTransaction.SubTotal.ToString();
+            RichTextDiscountPercent.Text = posTransaction.DiscountPercent.ToString();
+            RichTextDiscount.Text = posTransaction.Discount.ToString();
+            RichTextDiscountTotal.Text = Math.Round(Convert.ToDecimal(posTransaction.SubTotal.ToString()) - Convert.ToDecimal(posTransaction.Discount.ToString()), 2).ToString();
+            RichTextVatPercent.Text = posTransaction.VatPercent.ToString();
+            RichTextVat.Text = posTransaction.Vat.ToString();
+            RichTextVatTotal.Text = Math.Round(Convert.ToDecimal(RichTextDiscountTotal.Text) + Convert.ToDecimal(posTransaction.Vat.ToString()), 2).ToString();
+            RichTextDeliveryChargePercent.Text = posTransaction.DeliveryChargePercent.ToString();
+            RichTextDeliveryCharge.Text = posTransaction.DeliveryCharge.ToString();
+            RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + Convert.ToDecimal(posTransaction.DeliveryCharge.ToString()), 2).ToString();
+            RichGrandTotal.Text = posTransaction.TotalAmount.ToString();
+            RichReceivedAmount.Text = posTransaction.ReceivedAmount.ToString();
         }
 
         #endregion
 
         #region DataGrid Events
-        private void DataGridPosTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void DataGridPosSoldItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            DataGridPosTransactionList.Columns["Id"].Visible = false;
-            DataGridPosTransactionList.Columns["Date"].Visible = false;
+            DataGridPosSoldItemList.Columns["Id"].Visible = false;
+            DataGridPosSoldItemList.Columns["Date"].Visible = false;
 
-            DataGridPosTransactionList.Columns["ItemCode"].HeaderText = "Code";
-            DataGridPosTransactionList.Columns["ItemCode"].Width = 70;
-            DataGridPosTransactionList.Columns["ItemCode"].DisplayIndex = 1;
+            DataGridPosSoldItemList.Columns["ItemCode"].HeaderText = "Code";
+            DataGridPosSoldItemList.Columns["ItemCode"].Width = 70;
+            DataGridPosSoldItemList.Columns["ItemCode"].DisplayIndex = 1;
 
-            DataGridPosTransactionList.Columns["ItemName"].HeaderText = "Name";
-            DataGridPosTransactionList.Columns["ItemName"].Width = 180;
-            DataGridPosTransactionList.Columns["ItemName"].DisplayIndex = 2;
+            DataGridPosSoldItemList.Columns["ItemName"].HeaderText = "Name";
+            DataGridPosSoldItemList.Columns["ItemName"].Width = 180;
+            DataGridPosSoldItemList.Columns["ItemName"].DisplayIndex = 2;
 
-            DataGridPosTransactionList.Columns["ItemBrand"].HeaderText = "Brand";
-            DataGridPosTransactionList.Columns["ItemBrand"].Width = 180;
-            DataGridPosTransactionList.Columns["ItemBrand"].DisplayIndex = 3;
+            DataGridPosSoldItemList.Columns["ItemBrand"].HeaderText = "Brand";
+            DataGridPosSoldItemList.Columns["ItemBrand"].Width = 180;
+            DataGridPosSoldItemList.Columns["ItemBrand"].DisplayIndex = 3;
 
-            DataGridPosTransactionList.Columns["Unit"].HeaderText = "Unit";
-            DataGridPosTransactionList.Columns["Unit"].Width = 50;
-            DataGridPosTransactionList.Columns["Unit"].DisplayIndex = 4;
+            DataGridPosSoldItemList.Columns["Unit"].HeaderText = "Unit";
+            DataGridPosSoldItemList.Columns["Unit"].Width = 50;
+            DataGridPosSoldItemList.Columns["Unit"].DisplayIndex = 4;
 
-            DataGridPosTransactionList.Columns["ItemPrice"].HeaderText = "Price";
-            DataGridPosTransactionList.Columns["ItemPrice"].Width = 80;
-            DataGridPosTransactionList.Columns["ItemPrice"].DisplayIndex = 5;
+            DataGridPosSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
+            DataGridPosSoldItemList.Columns["ItemPrice"].Width = 80;
+            DataGridPosSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
 
-            DataGridPosTransactionList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridPosTransactionList.Columns["Quantity"].Width = 70;
-            DataGridPosTransactionList.Columns["Quantity"].DisplayIndex = 6;
+            DataGridPosSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
+            DataGridPosSoldItemList.Columns["Quantity"].Width = 70;
+            DataGridPosSoldItemList.Columns["Quantity"].DisplayIndex = 6;
 
-            DataGridPosTransactionList.Columns["Total"].HeaderText = "Total";
-            DataGridPosTransactionList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridPosTransactionList.Columns["Total"].DisplayIndex = 7;
+            DataGridPosSoldItemList.Columns["Total"].HeaderText = "Total";
+            DataGridPosSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridPosSoldItemList.Columns["Total"].DisplayIndex = 7;
 
-            foreach (DataGridViewRow row in DataGridPosTransactionList.Rows)
+            foreach (DataGridViewRow row in DataGridPosSoldItemList.Rows)
             {
-                DataGridPosTransactionList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridPosTransactionList.RowHeadersWidth = 50;
+                DataGridPosSoldItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridPosSoldItemList.RowHeadersWidth = 50;
             }
         }
         #endregion
@@ -507,5 +511,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
     }
 }

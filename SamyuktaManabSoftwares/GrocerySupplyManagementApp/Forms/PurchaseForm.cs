@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using GrocerySupplyManagementApp.Forms.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -15,10 +16,13 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
         private readonly ISupplierTransactionService _supplierTransactionService;
+        private readonly IPosTransactionService _posTransactionService;
+        private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private List<DTOs.ItemView> _items = new List<DTOs.ItemView>();
         
         public PurchaseForm(SupplierForm supplierForm, IItemService itemService, 
-            IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService)
+            IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService, 
+            IPosTransactionService posTransactionService, IFiscalYearDetailService fiscalYearDetailService)
         {
             InitializeComponent();
             
@@ -26,6 +30,8 @@ namespace GrocerySupplyManagementApp.Forms
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
             _supplierTransactionService = supplierTransactionService;
+            _posTransactionService = posTransactionService;
+            _fiscalYearDetailService = fiscalYearDetailService;
         }
 
         public PurchaseForm(IItemService itemService, IItemTransactionService itemTransactionService, string supplierName, string billNo)
@@ -76,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
                 
                 _items.Add(item);
-                TextBoxTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
+                TxtTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
                 ClearAllFields();
                 LoadItems(_items);
                 
@@ -89,40 +95,75 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            DateTime dateTime = DateTime.Now;
-
-            List<ItemPurchase> itemTransactions = _items.Select(item => new ItemPurchase { 
-                SupplierName = _supplierForm.GetSupplierName(),
-                ItemId = _itemService.GetItemId(item.Name, item.Brand),
-                Unit = item.Unit,
-                Quantity = item.Quantity,
-                PurchasePrice = item.PurchasePrice,
-                PurchaseDate = dateTime,
-                BillNo = item.BillNo   
-            }).ToList();
-
-            itemTransactions.ForEach(itemTransaction =>
+            try
             {
-               _itemTransactionService.AddItem(itemTransaction);
-            });
+                DateTime dateTime = DateTime.Now;
 
-            _supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
+                List<ItemPurchase> itemTransactions = _items.Select(item => new ItemPurchase
+                {
+                    SupplierName = _supplierForm.GetSupplierName(),
+                    ItemId = _itemService.GetItemId(item.Name, item.Brand),
+                    Unit = item.Unit,
+                    Quantity = item.Quantity,
+                    PurchasePrice = item.PurchasePrice,
+                    PurchaseDate = dateTime,
+                    BillNo = item.BillNo
+                }).ToList();
+
+                itemTransactions.ForEach(itemTransaction =>
+                {
+                    _itemTransactionService.AddItem(itemTransaction);
+                });
+
+                //_supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
+                //{
+                //    SupplierName = _supplierForm.GetSupplierName(),
+                //    Action = Constants.PURCHASE,
+                //    ActionType = Constants.CREDIT,
+                //    BillNo = RichBillNo.Text,
+                //    Debit = Convert.ToDecimal(TextBoxTotalAmount.Text),
+                //    Date = dateTime
+                //});
+
+                //_supplierForm.PopulateItemsPurchaseDetails(RichBillNo.Text, Convert.ToDecimal(TextBoxTotalAmount.Text));
+
+                var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
+
+                var posTransaction = new PosTransaction
+                {
+                    InvoiceDate = fiscalYearDetail.StartingDate,
+                    BillNo = RichBillNo.Text,
+                    SupplierId = _supplierForm.GetSupplierId(),
+                    Action = Constants.PURCHASE,
+                    ActionType = Constants.CREDIT,
+                    SubTotal = 0.0m,
+                    DiscountPercent = 0.0m,
+                    Discount = 0.0m,
+                    VatPercent = 0.0m,
+                    Vat = 0.0m,
+                    DeliveryChargePercent = 0.0m,
+                    DeliveryCharge = 0.0m,
+                    TotalAmount = Convert.ToDecimal(TxtTotalAmount.Text),
+                    ReceivedAmount = 0.0m,
+                    Date = DateTime.Now
+                };
+
+                _posTransactionService.AddPosTransaction(posTransaction);
+
+                _supplierForm.PopulateItemsPurchaseDetails(posTransaction.BillNo, posTransaction.TotalAmount);
+                this.Close();
+            }
+            catch(Exception ex)
             {
-                SupplierName = _supplierForm.GetSupplierName(),
-                Action = "Purchase",
-                BillNo = RichBillNo.Text,
-                Debit = Convert.ToDecimal(TextBoxTotalAmount.Text),
-                Date = dateTime
-            });
-
-            _supplierForm.PopulateItemsPurchaseDetails(RichBillNo.Text, Convert.ToDecimal(TextBoxTotalAmount.Text));
-            this.Close();
+                throw ex;
+            }
+            
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             ItemPurchase selectedItem = (ItemPurchase)DataGridPurchaseList.CurrentRow.DataBoundItem;
-            TextBoxTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
+            TxtTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
             LoadItems(_items);
         }
 
@@ -181,7 +222,7 @@ namespace GrocerySupplyManagementApp.Forms
             }).ToList();
 
             LoadItems(items);
-            TextBoxTotalAmount.Text = _itemTransactionService.GetTotalAmountBySupplierAndBill(supplierName, billNo).ToString();
+            TxtTotalAmount.Text = _itemTransactionService.GetTotalAmountBySupplierAndBill(supplierName, billNo).ToString();
             RichBillNo.Text = billNo;
 
             BtnDelete.Enabled = false;

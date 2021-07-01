@@ -103,9 +103,9 @@
     <Compile Include="Entities\ItemPurchase.cs" />
     <Compile Include="Entities\ItemPurchaseGrid.cs" />
     <Compile Include="Entities\Member.cs" />
-    <Compile Include="Entities\PosInvoice.cs" />
     <Compile Include="Entities\PosTransaction.cs" />
-    <Compile Include="Entities\PosTransactionGrid.cs" />
+    <Compile Include="Entities\PosSoldItem.cs" />
+    <Compile Include="Entities\PosSoldItemGrid.cs" />
     <Compile Include="Entities\PreparedItemGrid.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\SupplierTransaction.cs" />
@@ -155,11 +155,11 @@
     <Compile Include="Forms\ShareMemberForm.Designer.cs">
       <DependentUpon>ShareMemberForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SummaryForm.cs">
+    <Compile Include="Forms\Daily SummaryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SummaryForm.Designer.cs">
-      <DependentUpon>SummaryForm.cs</DependentUpon>
+    <Compile Include="Forms\Daily SummaryForm.Designer.cs">
+      <DependentUpon>Daily SummaryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ExpenseForm.cs">
       <SubType>Form</SubType>
@@ -271,11 +271,11 @@
     <Compile Include="Forms\SettingForm.Designer.cs">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\StaffForm.cs">
+    <Compile Include="Forms\EmploeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\StaffForm.Designer.cs">
-      <DependentUpon>StaffForm.cs</DependentUpon>
+    <Compile Include="Forms\EmploeeForm.Designer.cs">
+      <DependentUpon>EmploeeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\StockForm.cs">
       <SubType>Form</SubType>
@@ -331,8 +331,8 @@
     <Compile Include="Repositories\IBankTransactionRepository.cs" />
     <Compile Include="Repositories\IPreparedItemRepository.cs" />
     <Compile Include="Repositories\IItemPurchaseRepository.cs" />
-    <Compile Include="Repositories\IPosInvoiceRepository.cs" />
     <Compile Include="Repositories\IPosTransactionRepository.cs" />
+    <Compile Include="Repositories\IPosSoldItemRepository.cs" />
     <Compile Include="Repositories\ITaxDetailRepository.cs" />
     <Compile Include="Repositories\ITransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankDetailRepository.cs" />
@@ -346,8 +346,8 @@
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlItemPurchaseRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
-    <Compile Include="Repositories\MSSqlPosInvoiceRepository.cs" />
     <Compile Include="Repositories\MSSqlPosTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlPosSoldItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPreparedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierTransactionRepository.cs" />
@@ -367,8 +367,8 @@
     <Compile Include="Services\IItemTransactionService.cs" />
     <Compile Include="Services\IMemberService.cs" />
     <Compile Include="Services\IFiscalYearDetailService.cs" />
-    <Compile Include="Services\IPosInvoiceService.cs" />
     <Compile Include="Services\IPosTransactionService.cs" />
+    <Compile Include="Services\IPosSoldItemService.cs" />
     <Compile Include="Services\IPreparedItemService.cs" />
     <Compile Include="Services\ISupplierService.cs" />
     <Compile Include="Services\ISupplierTransactionService.cs" />
@@ -377,8 +377,8 @@
     <Compile Include="Services\ItemTransactionService.cs" />
     <Compile Include="Services\ITransactionService.cs" />
     <Compile Include="Services\MemberService.cs" />
-    <Compile Include="Services\PosInvoiceService.cs" />
     <Compile Include="Services\PosTransactionService.cs" />
+    <Compile Include="Services\PosSoldItemService.cs" />
     <Compile Include="Services\PreparedItemService.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\SupplierTransactionService.cs" />
@@ -411,8 +411,8 @@
     <EmbeddedResource Include="Forms\StockAdjustmentForm.resx">
       <DependentUpon>StockAdjustmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SummaryForm.resx">
-      <DependentUpon>SummaryForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Daily SummaryForm.resx">
+      <DependentUpon>Daily SummaryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExpenseForm.resx">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
@@ -465,8 +465,8 @@
     <EmbeddedResource Include="Forms\SettingForm.resx">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\StaffForm.resx">
-      <DependentUpon>StaffForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\EmploeeForm.resx">
+      <DependentUpon>EmploeeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StockForm.resx">
       <DependentUpon>StockForm.cs</DependentUpon>
@@ -547,11 +547,7 @@
     <Content Include="Data\SampleSalesDB.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Scripts\MasterTables.sql" />
-    <Content Include="Data\Scripts\Table_Item_Create_Sql_Script.sql" />
-    <Content Include="Data\Scripts\Table_Member_Create_Sql_Script.sql" />
-    <Content Include="Data\Scripts\Table_Purchase_Create_Sql_Script.sql" />
-    <Content Include="Data\Scripts\Table_Supplier_Create_Sql_Script.sql" />
+    <Content Include="Data\Scripts\CreateTables.sql" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

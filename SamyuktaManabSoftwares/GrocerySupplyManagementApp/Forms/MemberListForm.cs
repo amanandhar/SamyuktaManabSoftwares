@@ -11,15 +11,15 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberListForm : Form
     {
         private readonly IMemberService _memberService;
-        private readonly IPosInvoiceService _posInvoiceService;
+        private readonly IPosTransactionService _posTransactionService;
         public IMemberListForm _memberListForm;
 
-        public MemberListForm(IMemberService memberService, IPosInvoiceService posInvoiceService, IMemberListForm memberListForm)
+        public MemberListForm(IMemberService memberService, IPosTransactionService posTransactionService, IMemberListForm memberListForm)
         {
             InitializeComponent();
 
             _memberService = memberService;
-            _posInvoiceService = posInvoiceService;
+            _posTransactionService = posTransactionService;
             _memberListForm = memberListForm;
         }
 
@@ -27,7 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var members = _memberService.GetMembers();
 
-            members.ToList().ForEach(x => x.Balance = _posInvoiceService.GetTotalBalance(x.MemberId));
+            members.ToList().ForEach(x => x.Balance = _posTransactionService.GetMemberTotalBalance(x.MemberId));
 
             var bindingList = new BindingList<Member>(members.ToList());
             var source = new BindingSource(bindingList, null);

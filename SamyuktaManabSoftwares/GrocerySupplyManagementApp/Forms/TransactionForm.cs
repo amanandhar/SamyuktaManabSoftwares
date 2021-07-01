@@ -30,6 +30,7 @@ namespace GrocerySupplyManagementApp.Forms
             var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
             MaskDate.Text = fiscalYearDetail.StartingDate.ToString("yyyy/MM/dd");
             MaskDate.Focus();
+            EnableCombos(false);
         }
         #endregion
 
@@ -63,32 +64,119 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Radio Button Event
 
-        private void RadioSalesItem_CheckedChanged(object sender, EventArgs e)
+        private void RadioPurchase_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioSalesItem.Checked)
+            if (RadioPurchase.Checked)
             {
                 ClearCombos();
-                LoadSalesItems();
+                EnableCombos(false);
+                ComboPurchase.Enabled = true;
             }
             else
             {
-                ComboSalesItem.Items.Clear();
+                ComboPurchase.Enabled = false;
             }
         }
 
-        private void RadioInvoice_CheckedChanged(object sender, EventArgs e)
+        private void RadioSales_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioInvoice.Checked)
+            if (RadioSales.Checked)
             {
                 ClearCombos();
-                LoadInvoices();
+                EnableCombos(false);
+                ComboSales.Enabled = true;
             }
             else
             {
-                ComboInvoice.Items.Clear();
+                ComboSales.Enabled = false;
             }
         }
 
+        private void RadioPayment_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioPayment.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboPayment.Enabled = true;
+            }
+            else
+            {
+                ComboPayment.Enabled = false;
+            }
+        }
+
+        private void RadioReceipt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioReceipt.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboReceipt.Enabled = true;
+            }
+            else
+            {
+                ComboReceipt.Enabled = false;
+            }
+        }
+
+        private void RadioExpense_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioExpense.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboExpense.Enabled = true;
+            }
+            else
+            { 
+                ComboExpense.Enabled = false;
+            }
+        }
+
+        private void RadioItemCode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioItemCode.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboItemCode.Enabled = true;
+                LoadItemCodes();
+            }
+            else
+            {
+                ComboItemCode.Enabled = false;
+            }
+        }
+
+        private void RadioInvoiceNo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioInvoiceNo.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboInvoiceNo.Enabled = true;
+                LoadInvoiceNos();
+            }
+            else
+            {
+                ComboInvoiceNo.Enabled = false;
+            }
+        }
+
+        private void RadioUser_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioUser.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboUser.Enabled = true;
+            }
+            else
+            {
+                ComboUser.Enabled = false;
+            }
+        }
         #endregion
 
         #region Data Grid Events
@@ -98,45 +186,41 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["InvoiceDate"].Width = 75;
             DataGridTransactionList.Columns["InvoiceDate"].DisplayIndex = 0;
 
-            DataGridTransactionList.Columns["MemberId"].HeaderText = "Member Id";
-            DataGridTransactionList.Columns["MemberId"].Width = 100;
-            DataGridTransactionList.Columns["MemberId"].DisplayIndex = 1;
+            DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Member/Supplier";
+            DataGridTransactionList.Columns["MemberSupplierId"].Width = 90;
+            DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
 
-            DataGridTransactionList.Columns["Particulars"].HeaderText = "Particulars";
-            DataGridTransactionList.Columns["Particulars"].Width = 80;
-            DataGridTransactionList.Columns["Particulars"].DisplayIndex = 2;
+            DataGridTransactionList.Columns["Action"].HeaderText = "Particulars";
+            DataGridTransactionList.Columns["Action"].Width = 80;
+            DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
 
-            DataGridTransactionList.Columns["InvoiceNo"].HeaderText = "Invoice No";
-            DataGridTransactionList.Columns["InvoiceNo"].Width = 90;
-            DataGridTransactionList.Columns["InvoiceNo"].DisplayIndex = 3;
+            DataGridTransactionList.Columns["ActionType"].HeaderText = "Type";
+            DataGridTransactionList.Columns["ActionType"].Width = 120;
+            DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
-            DataGridTransactionList.Columns["ItemCode"].HeaderText = "Item Code";
-            DataGridTransactionList.Columns["ItemCode"].Width = 80;
-            DataGridTransactionList.Columns["ItemCode"].DisplayIndex = 4;
+            DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
+            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 80;
+            DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 4;
 
-            DataGridTransactionList.Columns["ItemName"].HeaderText = "Item Name";
+            DataGridTransactionList.Columns["ItemCode"].HeaderText = "Code";
+            DataGridTransactionList.Columns["ItemCode"].Width = 70;
+            DataGridTransactionList.Columns["ItemCode"].DisplayIndex = 5;
+
+            DataGridTransactionList.Columns["ItemName"].HeaderText = "Name";
             DataGridTransactionList.Columns["ItemName"].Width = 100;
-            DataGridTransactionList.Columns["ItemName"].DisplayIndex = 5;
-
-            DataGridTransactionList.Columns["ItemBrand"].HeaderText = "Item Brand";
-            DataGridTransactionList.Columns["ItemBrand"].Width = 100;
-            DataGridTransactionList.Columns["ItemBrand"].DisplayIndex = 6;
-
-            DataGridTransactionList.Columns["Unit"].HeaderText = "Unit";
-            DataGridTransactionList.Columns["Unit"].Width = 50;
-            DataGridTransactionList.Columns["Unit"].DisplayIndex = 7;
+            DataGridTransactionList.Columns["ItemName"].DisplayIndex = 6;
 
             DataGridTransactionList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridTransactionList.Columns["Quantity"].Width = 75;
-            DataGridTransactionList.Columns["Quantity"].DisplayIndex = 8;
+            DataGridTransactionList.Columns["Quantity"].Width = 65;
+            DataGridTransactionList.Columns["Quantity"].DisplayIndex = 7;
 
             DataGridTransactionList.Columns["ItemPrice"].HeaderText = "Item Price";
             DataGridTransactionList.Columns["ItemPrice"].Width = 80;
-            DataGridTransactionList.Columns["ItemPrice"].DisplayIndex = 9;
+            DataGridTransactionList.Columns["ItemPrice"].DisplayIndex = 8;
 
             DataGridTransactionList.Columns["Amount"].HeaderText = "Amount";
             DataGridTransactionList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridTransactionList.Columns["Amount"].DisplayIndex = 10;
+            DataGridTransactionList.Columns["Amount"].DisplayIndex = 9;
 
             foreach (DataGridViewRow row in DataGridTransactionList.Rows)
             {
@@ -151,28 +235,43 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearCombos()
         {
-            ComboPaymentIn.Text = string.Empty;
-            ComboPaymentOut.Text = string.Empty;
-            ComboSalesItem.Text = string.Empty;
-            ComboUsers.Text = string.Empty;
-            ComboInvoice.Text = string.Empty;
+            ComboPurchase.Text = string.Empty;
+            ComboSales.Text = string.Empty;
+            ComboPayment.Text = string.Empty;
+            ComboReceipt.Text = string.Empty;
+            ComboExpense.Text = string.Empty;
+            ComboItemCode.Text = string.Empty;
+            ComboUser.Text = string.Empty;
+            ComboInvoiceNo.Text = string.Empty;
         }
 
-        private void LoadSalesItems()
+        private void EnableCombos(bool option)
+        {
+            ComboPurchase.Enabled = option;
+            ComboSales.Enabled = option;
+            ComboPayment.Enabled = option;
+            ComboReceipt.Enabled = option;
+            ComboExpense.Enabled = option;
+            ComboItemCode.Enabled = option;
+            ComboUser.Enabled = option;
+            ComboInvoiceNo.Enabled = option;
+        }
+
+        private void LoadItemCodes()
         {
             var salesItems = _transactionService.GetSalesItems();
             foreach (var salesItem in salesItems)
             {
-                ComboSalesItem.Items.Add(salesItem);
+                ComboItemCode.Items.Add(salesItem);
             }
         }
 
-        private void LoadInvoices()
+        private void LoadInvoiceNos()
         {
             var invoices = _transactionService.GetInvoices();
             foreach (var invoice in invoices)
             {
-                ComboInvoice.Items.Add(invoice);
+                ComboInvoiceNo.Items.Add(invoice);
             }
         }
 
@@ -186,40 +285,51 @@ namespace GrocerySupplyManagementApp.Forms
                 transactionFilter.Date = Convert.ToDateTime(MaskDate.Text).ToString("yyyy-MM-dd");
             }
 
-            var selectedSale = GroupSale.Controls.OfType<RadioButton>()
-                                      .FirstOrDefault(r => r.Checked);
-
-            if (selectedSale.Name.Equals("RadioCashSale"))
-            {
-                transactionFilter.Sale = "Cash";
-            }
-            else if (selectedSale.Name.Equals("RadioCreditSale"))
-            {
-                transactionFilter.Sale = "Credit";
-            }
-
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
-            
-            if(selectedFilter != null && selectedFilter.Checked)
+
+            if (selectedFilter.Name.Equals("RadioPurchase"))
             {
-                if(selectedFilter.Name.Equals("RadioSalesItem"))
-                {
-                    transactionFilter.ItemCode = ComboSalesItem.Text;
-                }
-                else if (selectedFilter.Name.Equals("RadioInvoice"))
-                {
-                    transactionFilter.InvoiceNo = ComboInvoice.Text;
-                }
+                transactionFilter.Purchase = ComboPurchase.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioSales"))
+            {
+                transactionFilter.Sales = ComboSales.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioPayment"))
+            {
+                transactionFilter.Payment = ComboPayment.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioReceipt"))
+            {
+                transactionFilter.Receipt = ComboReceipt.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioItemCode"))
+            {
+                transactionFilter.ItemCode = ComboItemCode.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioUser"))
+            {
+                transactionFilter.User = ComboUser.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
+            {
+                transactionFilter.InvoiceNo = ComboInvoiceNo.Text;
+            }
+            else
+            {
+                transactionFilter.isAll = true;
             }
 
-            TxtTotal.Text = _transactionService.GetSumTransactionGrids(transactionFilter).ToString();
-
             List<TransactionGrid> transactions = (List<TransactionGrid>)_transactionService.GetTransactionGrids(transactionFilter);
+            TxtTotal.Text = transactions.Sum(x => x.Amount).ToString();
+            
             var bindingList = new BindingList<TransactionGrid>(transactions);
             var source = new BindingSource(bindingList, null);
             DataGridTransactionList.DataSource = source;
         }
         #endregion
+
+        
     }
 }

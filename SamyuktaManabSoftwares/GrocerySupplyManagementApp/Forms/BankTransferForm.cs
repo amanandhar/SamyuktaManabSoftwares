@@ -13,16 +13,16 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IPosInvoiceService _posInvoiceService;
+        private readonly IPosTransactionService _posTransactionService;
         private List<BankDetail> _bankDetails = new List<BankDetail>();
 
         #region Constructor
-        public BankTransferForm(IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IPosInvoiceService posInvoiceService)
+        public BankTransferForm(IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IPosTransactionService posTransactionService)
         {
             InitializeComponent();
 
             _bankDetailService = bankDetailService;
-            _posInvoiceService = posInvoiceService;
+            _posTransactionService = posTransactionService;
             _bankTransactionService = bankTransactionService;
         }
         #endregion
@@ -43,9 +43,9 @@ namespace GrocerySupplyManagementApp.Forms
                 var bankTransaction = new BankTransaction
                 {
                     BankId = Convert.ToInt64(selectedItem.Id),
-                    Action = '0',
-                    Debit = 0.0m,
-                    Credit = Convert.ToDecimal(RichDepositAmount.Text),
+                    Action = '1',
+                    Debit = Convert.ToDecimal(RichDepositAmount.Text),
+                    Credit = 0.0m,
                     Narration = RichNarration.Text,
                     Date = DateTime.Now
                 };
@@ -103,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
                 });
 
-                TxtCash.Text = _posInvoiceService.GetCashInHand().ToString();
+                TxtCash.Text = _posTransactionService.GetCashInHand().ToString();
             }
             catch(Exception ex)
             {
@@ -117,7 +117,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 ComboBank.Text = string.Empty;
-                TxtCash.Text = _posInvoiceService.GetCashInHand().ToString();
+                TxtCash.Text = _posTransactionService.GetCashInHand().ToString();
                 TxtAccountNo.Clear();
                 RichDepositAmount.Clear();
                 RichNarration.Clear();

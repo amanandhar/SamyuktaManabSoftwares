@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,34 +15,71 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var transactionGrids = new List<TransactionGrid>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT " + 
-                "[InvoiceDate], [MemberId], [PaymentMethod], " +
-                "CASE WHEN (pi.[InvoiceNo] LIKE 'IN%') THEN pi.[InvoiceNo] ELSE pi.[PaymentType] END AS [InvoiceNo], " +
-                "[ItemCode], [ItemName], [ItemBrand], [Unit], [Quantity], [Price] AS [ItemPrice], " +
-                "CASE WHEN (pi.[InvoiceNo] LIKE 'IN%') " + 
-                "THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2))" +
-                "ELSE pi.[ReceivedAmount] END  AS [Amount] " + 
-                "FROM [PosInvoice] pi LEFT JOIN [PosTransaction] pt " +
-                "ON pi.InvoiceNo = pt.InvoiceNo " +
+            var query = @"SELECT " +
+                "[InvoiceDate], " +
+                "CASE WHEN [MemberId] IS NULL THEN [SupplierId] ELSE [MemberId] END AS [MemberSupplierId], " +
+                "[Action], " +
+                "CASE WHEN [ActionType]='Cheque' THEN ([ActionType] + ' - ' + [Bank]) ELSE [ActionType] END AS [ActionType], " + 
+                "CASE WHEN [MemberId] IS NULL THEN pt.[BillNo] ELSE pt.[InvoiceNo] END AS [InvoiceBillNo], " +
+                "[ItemCode], [ItemName], [Quantity], [Price] AS [ItemPrice], " +
+                "CASE " +
+                "WHEN [Action]='Sales' AND [ActionType]='Credit' THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2)) " +
+                "WHEN [Action]='Sales' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Purchase' AND [ActionType]='Credit' THEN [TotalAmount] " +
+                "WHEN [Action]='Purchase' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Payment' AND [ActionType]='Credit' THEN [TotalAmount] " +
+                "WHEN [Action]='Payment' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Payment' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Receipt' AND [ActionType]='Credit' THEN [TotalAmount] " +
+                "WHEN [Action]='Receipt' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Receipt' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Expense' AND [ActionType]='Credit' THEN [TotalAmount] " +
+                "WHEN [Action]='Expense' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "ELSE pt.[TotalAmount] END  AS [Amount] " +
+                "FROM [PosTransaction] pt LEFT JOIN [PosSoldItem] psi " +
+                "ON pt.InvoiceNo = psi.InvoiceNo " +
                 "WHERE 1=1 ";
 
             if (transactionFilter.Date != null)
             {
-                query += "AND pi.[InvoiceDate] = '" + transactionFilter.Date + "' " ;
+                query += "AND pt.[InvoiceDate] = '" + transactionFilter.Date + "' " ;
             }
 
-            if (transactionFilter.Sale != null)
+            if (transactionFilter.Purchase != null)
             {
-                query += "AND pi.[PaymentMethod] = '" + transactionFilter.Sale + "' ";
+                query += " AND pt.[Action] = '" + Constants.PURCHASE + "' AND pt.[ActionType] = '" + transactionFilter.Purchase + "' ";
             }
-
-            if (transactionFilter.ItemCode != null)
+            else if (transactionFilter.Sales != null)
             {
-                query += "AND [ItemCode] = '" + transactionFilter.ItemCode + "' ";
+                query += " AND pt.[Action] = '" + Constants.SALES + "' AND pt.[ActionType] = '" + transactionFilter.Sales + "' ";
+            }
+            else if (transactionFilter.Payment != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.PAYMENT + "' AND pt.[ActionType] = '" + transactionFilter.Payment + "' ";
+            }
+            else if (transactionFilter.Receipt != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.RECEIPT + "' AND pt.[ActionType] = '" + transactionFilter.Receipt + "' ";
+            }
+            else if (transactionFilter.Expense != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.EXPENSE + "' AND pt.[ActionType] = '" + transactionFilter.Expense + "' ";
+            }
+            else if (transactionFilter.ItemCode != null)
+            {
+                query += " AND [ItemCode] = '" + transactionFilter.ItemCode + "' ";
             }
             else if (transactionFilter.InvoiceNo != null)
             {
-                query += "AND pi.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+                query += " AND pt.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+            }
+            else if (transactionFilter.User != null)
+            {
+                query += " AND 1=2 ";
+            }
+            else
+            {
+                query += " ";
             }
 
             query += "ORDER BY [DATE] ";
@@ -59,16 +97,15 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var transactionGrid = new TransactionGrid
                                 {
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
-                                    MemberId = reader.IsDBNull(1) ? string.Empty : reader["MemberId"].ToString(),
-                                    Particulars = reader.IsDBNull(2) ? string.Empty : reader["PaymentMethod"].ToString(),
-                                    InvoiceNo = reader.IsDBNull(3) ? string.Empty : reader["InvoiceNo"].ToString(),
-                                    ItemCode = reader.IsDBNull(4) ? string.Empty : reader["ItemCode"].ToString(),
-                                    ItemName = reader.IsDBNull(5) ? string.Empty : reader["ItemName"].ToString(),
-                                    ItemBrand = reader.IsDBNull(6) ? string.Empty : reader["ItemBrand"].ToString(),
-                                    Unit = reader.IsDBNull(7) ? string.Empty : reader["Unit"].ToString(),
-                                    Quantity = reader.IsDBNull(8) ? 0.0m : Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    ItemPrice = reader.IsDBNull(9) ? 0.0m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
-                                    Amount = reader.IsDBNull(10) ? 0.0m : Convert.ToDecimal(reader["Amount"].ToString())
+                                    MemberSupplierId = reader.IsDBNull(1) ? string.Empty : reader["MemberSupplierId"].ToString(),
+                                    Action = reader.IsDBNull(2) ? string.Empty : reader["Action"].ToString(),
+                                    ActionType = reader.IsDBNull(3) ? string.Empty : reader["ActionType"].ToString(),
+                                    InvoiceBillNo = reader.IsDBNull(4) ? string.Empty : reader["InvoiceBillNo"].ToString(),
+                                    ItemCode = reader.IsDBNull(5) ? string.Empty : reader["ItemCode"].ToString(),
+                                    ItemName = reader.IsDBNull(6) ? string.Empty : reader["ItemName"].ToString(),
+                                    Quantity = reader.IsDBNull(7) ? 0.0m : Convert.ToDecimal(reader["Quantity"].ToString()),
+                                    ItemPrice = reader.IsDBNull(8) ? 0.0m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
+                                    Amount = reader.IsDBNull(9) ? 0.0m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };
 
                                 transactionGrids.Add(transactionGrid);
@@ -90,28 +127,52 @@ namespace GrocerySupplyManagementApp.Repositories
             decimal total = 0.0m;
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
-                "SUM(CAST(([Quantity] * [Price]) AS DECIMAL(18,2))) AS [TOTAL] " +
-                "FROM [PosInvoice] pi " +
-                "INNER JOIN [PosTransaction] pt " +
-                "ON pi.InvoiceNo = pt.InvoiceNo " +
+                "SUM(pt.[TotalAmount]) - SUM(pt.[ReceivedAmount]) AS [TOTAL] " +
+                "FROM [PosTransaction] pt " +
+                "LEFT JOIN [PosSoldItem] psi " +
+                "ON pt.InvoiceNo = psi.InvoiceNo " +
                 "WHERE 1=1";
+
             if (transactionFilter.Date != null)
             {
-                query += " AND pi.[InvoiceDate] = '" + transactionFilter.Date + "' ";
+                query += " AND pt.[InvoiceDate] = '" + transactionFilter.Date + "' ";
             }
 
-            if (transactionFilter.Sale != null)
+            if (transactionFilter.Purchase != null)
             {
-                query += " AND pi.[PaymentMethod] = '" + transactionFilter.Sale + "' ";
+                query += " AND pt.[Action] = '" + Constants.PURCHASE + "' AND pt.[ActionType] = '" + transactionFilter.Purchase + "' ";
             }
-
-            if (transactionFilter.ItemCode != null)
+            else if (transactionFilter.Sales != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.SALES + "' AND pt.[ActionType] = '" + transactionFilter.Sales + "' ";
+            }
+            else if (transactionFilter.Payment != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.PAYMENT + "' AND pt.[ActionType] = '" + transactionFilter.Payment + "' ";
+            }
+            else if (transactionFilter.Receipt != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.RECEIPT + "' AND pt.[ActionType] = '" + transactionFilter.Receipt + "' ";
+            }
+            else if (transactionFilter.Expense != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.EXPENSE + "' AND pt.[ActionType] = '" + transactionFilter.Expense + "' ";
+            }
+            else if (transactionFilter.ItemCode != null)
             {
                 query += " AND [ItemCode] = '" + transactionFilter.ItemCode + "' ";
             }
             else if (transactionFilter.InvoiceNo != null)
             {
-                query += " AND pi.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+                query += " AND pt.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+            }
+            else if (transactionFilter.User != null)
+            {
+                query += " AND 1=2 ";
+            }
+            else
+            {
+                query += " ";
             }
 
             try
@@ -143,7 +204,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "DISTINCT [MemberId] " +
-                "FROM [PosInvoice] " +
+                "FROM [PosTransaction] " +
                 "WHERE 1=1 " + 
                 "ORDER BY [MemberId]";
             try
@@ -178,7 +239,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "DISTINCT [ItemCode] " +
-                "FROM [PosTransaction] " +
+                "FROM [PosSoldItem] " +
                 "WHERE 1=1 " +
                 "ORDER BY [ItemCode]";
             try
@@ -214,7 +275,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "DISTINCT [InvoiceNo] " +
-                "FROM [PosInvoice] " +
+                "FROM [PosTransaction] " +
                 "WHERE 1=1 " +
                 "AND [InvoiceNo] LIKE 'IN%' " +
                 "ORDER BY [InvoiceNo]";
@@ -250,10 +311,10 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             bool result = false;
             string query = @"DELETE " +
-                "FROM PosInvoice " +
+                "FROM PosTransaction " +
                 "WHERE InvoiceNo = @InvoiceNo; " +
                 "DELETE " +
-                "FROM PosTransaction " +
+                "FROM PosSoldItem " +
                 "WHERE InvoiceNo = @InvoiceNo; ";
             try
             {
