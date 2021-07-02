@@ -17,7 +17,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var posTransactions = new List<PosTransaction>();
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
-                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], [Expense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge], " +
                 "[TotalAmount], [ReceivedAmount], [Date] " +
                 "FROM " + TABLE_NAME + " ORDER BY Id";
@@ -43,6 +43,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
                                     SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
                                     DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
                                     Discount = Convert.ToDecimal(reader["Discount"].ToString()),
@@ -74,7 +75,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var posTransactions = new List<PosTransaction>();
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
-                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], [Expense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
                 "[DeliveryCharge], [TotalAmount], [ReceivedAmount], [Date] " +
                 "FROM " + TABLE_NAME + " " + 
@@ -104,6 +105,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
                                     SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
                                     DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
                                     Discount = Convert.ToDecimal(reader["Discount"].ToString()),
@@ -234,6 +236,73 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplierTransactionViews;
         }
 
+        public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter)
+        {
+            var expenseTransactionViews = new List<ExpenseTransactionView>();
+            string connectionString = GetConnectionString();
+            var query = @"SELECT " +
+                "[Id], [InvoiceDate], [Action], " +
+                "CASE WHEN [ActionType] = 'Cheque' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
+                "[Expense], [TotalAmount], [ReceivedAmount], " +
+                "(SELECT SUM(ISNULL(b.TotalAmount,0) - ISNULL(b.ReceivedAmount,0)) " +
+                "FROM [dbo].[PosTransaction] b " +
+                "WHERE b.Date <= a.Date AND [Action] = 'Expense') AS Balance " +
+                "FROM " + TABLE_NAME + " a " +
+                "WHERE 1=1 " +
+                "AND [Action] = 'Expense' ";
+
+            if(filter != null)
+            {
+                if (filter?.DateFrom != DateTime.MinValue && filter?.DateTo != DateTime.MinValue)
+                {
+                    query += " AND [InvoiceDate] BETWEEN " + filter.DateFrom + " AND " + filter.DateTo + " ";
+                }
+
+                if (filter?.Expense != null)
+                {
+                    query += " AND [Expense] = '" + filter.Expense + "' ";
+                }
+            }
+
+            query += "ORDER BY Id";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    { 
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var expenseTransactionView = new ExpenseTransactionView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
+                                    Action = reader["Action"].ToString(),
+                                    ActionType = reader["ActionType"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
+                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
+                                    Balance = Convert.ToDecimal(reader["Balance"].ToString())
+                                };
+
+                                expenseTransactionViews.Add(expenseTransactionView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return expenseTransactionViews;
+        }
+
         public PosTransaction GetPosTransaction(long posTransactionId)
         {
             throw new NotImplementedException();
@@ -299,14 +368,14 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO " + TABLE_NAME + " " +
                             "(" +
-                                "[InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], [SubTotal], " + 
-                                "[DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
+                                "[InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                                "[Expense], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
                                 "[DeliveryCharge], [TotalAmount], [ReceivedAmount], [Date] " +
                             ") " +
                             "VALUES " +
                             "( " +
-                                "@InvoiceNo, @InvoiceDate, @BillNo, @MemberId, @SupplierId, @Action, @ActionType, @Bank, @SubTotal, " +
-                                "@DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
+                                "@InvoiceNo, @InvoiceDate, @BillNo, @MemberId, @SupplierId, @Action, @ActionType, @Bank, " +
+                                "@Expense, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
                                 "@DeliveryCharge, @TotalAmount, @ReceivedAmount, @Date " +
                             ")";
             try
@@ -324,6 +393,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Action", posTransaction.Action);
                         command.Parameters.AddWithValue("@ActionType", posTransaction.ActionType);
                         command.Parameters.AddWithValue("@Bank", ((object)posTransaction.Bank) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Expense", ((object)posTransaction.Expense) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SubTotal", posTransaction.SubTotal);
                         command.Parameters.AddWithValue("@DiscountPercent", posTransaction.DiscountPercent);
                         command.Parameters.AddWithValue("@Discount", posTransaction.Discount);

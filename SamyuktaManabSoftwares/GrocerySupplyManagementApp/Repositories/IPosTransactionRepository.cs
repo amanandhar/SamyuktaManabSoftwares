@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Repositories
         IEnumerable<PosTransaction> GetPosTransactions(string memberId);
         IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(string supplierId);
+        IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter);
         PosTransaction GetPosTransaction(long posTransactionId);
         PosTransaction GetPosTransaction(string invoiceNo);
         PosTransaction AddPosTransaction(PosTransaction posTransaction);

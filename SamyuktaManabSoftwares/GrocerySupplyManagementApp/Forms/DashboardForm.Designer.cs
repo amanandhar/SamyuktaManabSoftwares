@@ -154,7 +154,7 @@
             this.BtnSummaryMgmt.Name = "BtnSummaryMgmt";
             this.BtnSummaryMgmt.Size = new System.Drawing.Size(240, 37);
             this.BtnSummaryMgmt.TabIndex = 4;
-            this.BtnSummaryMgmt.Text = "DailySummary Management";
+            this.BtnSummaryMgmt.Text = "Daily Summary Managment";
             this.BtnSummaryMgmt.UseVisualStyleBackColor = false;
             this.BtnSummaryMgmt.Click += new System.EventHandler(this.BtnSummaryMgmt_Click);
             // 

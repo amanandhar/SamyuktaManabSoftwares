@@ -89,15 +89,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.comboBox1.AutoCompleteCustomSource.AddRange(new string[] {
             "Deposit,Withdrawl,Purchase"});
             this.comboBox1.BackColor = System.Drawing.Color.White;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.ForeColor = System.Drawing.SystemColors.Desktop;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Sales",
-            "Payment"});
+            "Reciept"});
             this.comboBox1.Location = new System.Drawing.Point(408, 498);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(125, 28);
+            this.comboBox1.Size = new System.Drawing.Size(125, 26);
             this.comboBox1.TabIndex = 22;
             // 
             // groupBox3
@@ -256,28 +256,28 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // TextBoxDateTo
             // 
-            this.TextBoxDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxDateTo.Location = new System.Drawing.Point(276, 498);
             this.TextBoxDateTo.Name = "TextBoxDateTo";
-            this.TextBoxDateTo.Size = new System.Drawing.Size(125, 27);
+            this.TextBoxDateTo.Size = new System.Drawing.Size(125, 26);
             this.TextBoxDateTo.TabIndex = 21;
             // 
             // TxtBoxDateFrom
             // 
-            this.TxtBoxDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxDateFrom.Location = new System.Drawing.Point(112, 496);
             this.TxtBoxDateFrom.Name = "TxtBoxDateFrom";
-            this.TxtBoxDateFrom.Size = new System.Drawing.Size(125, 27);
+            this.TxtBoxDateFrom.Size = new System.Drawing.Size(125, 26);
             this.TxtBoxDateFrom.TabIndex = 20;
             // 
             // TextBoxTotal
             // 
             this.TextBoxTotal.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TextBoxTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxTotal.Location = new System.Drawing.Point(589, 499);
             this.TextBoxTotal.Name = "TextBoxTotal";
             this.TextBoxTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TextBoxTotal.Size = new System.Drawing.Size(130, 27);
+            this.TextBoxTotal.Size = new System.Drawing.Size(130, 26);
             this.TextBoxTotal.TabIndex = 23;
             // 
             // textBox2
@@ -586,7 +586,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridMemberTransactionList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridMemberTransactionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridMemberTransactionList.Location = new System.Drawing.Point(18, 183);
+            this.DataGridMemberTransactionList.Location = new System.Drawing.Point(18, 181);
             this.DataGridMemberTransactionList.Name = "DataGridMemberTransactionList";
             this.DataGridMemberTransactionList.Size = new System.Drawing.Size(858, 300);
             this.DataGridMemberTransactionList.TabIndex = 32;

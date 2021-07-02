@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Entities
         public string Action { get; set; }
         public string ActionType { get; set; }
         public string Bank { get; set; }
+        public string Expense { get; set; }
         public decimal SubTotal { get; set; }
         public decimal DiscountPercent { get; set; }
         public decimal Discount { get; set; }

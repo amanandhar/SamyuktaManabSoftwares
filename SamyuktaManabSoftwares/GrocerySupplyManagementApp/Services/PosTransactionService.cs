@@ -37,6 +37,11 @@ namespace GrocerySupplyManagementApp.Services
             return _posTransactionRepository.GetSupplierTransactions(supplierId);
         }
 
+        public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter)
+        {
+            return _posTransactionRepository.GetExpenseTransactions(filter);
+        }
+
         public PosTransaction GetPosTransaction(long posTransactionId)
         {
             throw new NotImplementedException();

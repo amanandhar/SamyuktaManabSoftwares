@@ -31,33 +31,33 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.TxtTotalAmount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.RadioAll = new System.Windows.Forms.RadioButton();
+            this.ComboFilteredBy = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.BtnRemove = new System.Windows.Forms.Button();
+            this.BtnShow = new System.Windows.Forms.Button();
+            this.ComboBank = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.ComboPayment = new System.Windows.Forms.ComboBox();
+            this.RichAmount = new System.Windows.Forms.RichTextBox();
+            this.ComboExpense = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.Clear = new System.Windows.Forms.Button();
+            this.BtnSaveExpense = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DataGridExpenseList = new System.Windows.Forms.DataGridView();
+            this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridExpenseList)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -74,14 +74,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox5);
+            this.groupBox1.Controls.Add(this.MaskDateTo);
+            this.groupBox1.Controls.Add(this.MaskDateFrom);
+            this.groupBox1.Controls.Add(this.TxtTotalAmount);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.textBox4);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.RadioAll);
+            this.groupBox1.Controls.Add(this.ComboFilteredBy);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(18, 27);
             this.groupBox1.Name = "groupBox1";
@@ -89,14 +89,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
-            // textBox5
+            // TxtTotalAmount
             // 
-            this.textBox5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(167, 86);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(285, 29);
-            this.textBox5.TabIndex = 26;
+            this.TxtTotalAmount.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TxtTotalAmount.Enabled = false;
+            this.TxtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTotalAmount.Location = new System.Drawing.Point(167, 86);
+            this.TxtTotalAmount.Name = "TxtTotalAmount";
+            this.TxtTotalAmount.Size = new System.Drawing.Size(285, 29);
+            this.TxtTotalAmount.TabIndex = 26;
             // 
             // label4
             // 
@@ -109,14 +110,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.TabIndex = 25;
             this.label4.Text = "Total Amount";
             // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(330, 16);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(122, 26);
-            this.textBox4.TabIndex = 6;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -127,14 +120,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.Size = new System.Drawing.Size(31, 20);
             this.label9.TabIndex = 8;
             this.label9.Text = " To";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(167, 16);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(122, 26);
-            this.textBox2.TabIndex = 4;
             // 
             // label3
             // 
@@ -147,24 +132,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.TabIndex = 7;
             this.label3.Text = "Date From";
             // 
-            // radioButton1
+            // RadioAll
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton1.Location = new System.Drawing.Point(15, 17);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 24);
-            this.radioButton1.TabIndex = 19;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "All";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.RadioAll.AutoSize = true;
+            this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioAll.Location = new System.Drawing.Point(15, 17);
+            this.RadioAll.Name = "RadioAll";
+            this.RadioAll.Size = new System.Drawing.Size(47, 24);
+            this.RadioAll.TabIndex = 19;
+            this.RadioAll.TabStop = true;
+            this.RadioAll.Text = "All";
+            this.RadioAll.UseVisualStyleBackColor = true;
+            this.RadioAll.CheckedChanged += new System.EventHandler(this.RadioAll_CheckedChanged);
             // 
-            // comboBox1
+            // ComboFilteredBy
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.ComboFilteredBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboFilteredBy.FormattingEnabled = true;
+            this.ComboFilteredBy.Items.AddRange(new object[] {
             "1. Asset(Computer,Furniture etc.)",
             "2. Office Rent",
             "3. Staff Salary",
@@ -182,10 +168,10 @@ namespace GrocerySupplyManagementApp.Forms
             "15. Loan Fee",
             "16. Miscellaneous",
             "17. Other"});
-            this.comboBox1.Location = new System.Drawing.Point(167, 50);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(285, 28);
-            this.comboBox1.TabIndex = 8;
+            this.ComboFilteredBy.Location = new System.Drawing.Point(167, 50);
+            this.ComboFilteredBy.Name = "ComboFilteredBy";
+            this.ComboFilteredBy.Size = new System.Drawing.Size(285, 28);
+            this.ComboFilteredBy.TabIndex = 8;
             // 
             // label2
             // 
@@ -198,39 +184,41 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.TabIndex = 7;
             this.label2.Text = "Filtered by ";
             // 
-            // button1
+            // BtnRemove
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(8, 85);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 35);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Remove";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRemove.ForeColor = System.Drawing.Color.Red;
+            this.BtnRemove.Location = new System.Drawing.Point(8, 85);
+            this.BtnRemove.Name = "BtnRemove";
+            this.BtnRemove.Size = new System.Drawing.Size(125, 35);
+            this.BtnRemove.TabIndex = 15;
+            this.BtnRemove.Text = "Remove";
+            this.BtnRemove.UseVisualStyleBackColor = true;
+            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
-            // button2
+            // BtnShow
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button2.Location = new System.Drawing.Point(8, 11);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(125, 35);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Show";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.Location = new System.Drawing.Point(8, 11);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(125, 35);
+            this.BtnShow.TabIndex = 16;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.UseVisualStyleBackColor = true;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
-            // comboBox4
+            // ComboBank
             // 
-            this.comboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(82, 87);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(275, 28);
-            this.comboBox4.TabIndex = 24;
+            this.ComboBank.Enabled = false;
+            this.ComboBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBank.FormattingEnabled = true;
+            this.ComboBank.Location = new System.Drawing.Point(82, 87);
+            this.ComboBank.Name = "ComboBank";
+            this.ComboBank.Size = new System.Drawing.Size(275, 28);
+            this.ComboBank.TabIndex = 24;
             // 
             // label1
             // 
@@ -243,33 +231,34 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 23;
             this.label1.Text = "Bank";
             // 
-            // comboBox3
+            // ComboPayment
             // 
-            this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.ComboPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboPayment.FormattingEnabled = true;
+            this.ComboPayment.Items.AddRange(new object[] {
             "Cash",
             "Cheque"});
-            this.comboBox3.Location = new System.Drawing.Point(82, 51);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(90, 28);
-            this.comboBox3.TabIndex = 21;
+            this.ComboPayment.Location = new System.Drawing.Point(82, 51);
+            this.ComboPayment.Name = "ComboPayment";
+            this.ComboPayment.Size = new System.Drawing.Size(90, 28);
+            this.ComboPayment.TabIndex = 21;
+            this.ComboPayment.SelectedValueChanged += new System.EventHandler(this.ComboPayment_SelectedValueChanged);
             // 
-            // richTextBox4
+            // RichAmount
             // 
-            this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox4.Location = new System.Drawing.Point(255, 51);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox4.Size = new System.Drawing.Size(102, 30);
-            this.richTextBox4.TabIndex = 17;
-            this.richTextBox4.Text = "";
+            this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichAmount.Location = new System.Drawing.Point(255, 51);
+            this.RichAmount.Name = "RichAmount";
+            this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichAmount.Size = new System.Drawing.Size(102, 30);
+            this.RichAmount.TabIndex = 17;
+            this.RichAmount.Text = "";
             // 
-            // comboBox2
+            // ComboExpense
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.ComboExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboExpense.FormattingEnabled = true;
+            this.ComboExpense.Items.AddRange(new object[] {
             "1. Asset(Couputer,Furniture etc.)",
             "2. Office Rent ",
             "3. Staff Salary",
@@ -287,10 +276,10 @@ namespace GrocerySupplyManagementApp.Forms
             "15. Loan Fee",
             "16. Miscellaneous",
             "17. Other"});
-            this.comboBox2.Location = new System.Drawing.Point(82, 15);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(275, 28);
-            this.comboBox2.TabIndex = 14;
+            this.ComboExpense.Location = new System.Drawing.Point(82, 15);
+            this.ComboExpense.Name = "ComboExpense";
+            this.ComboExpense.Size = new System.Drawing.Size(275, 28);
+            this.ComboExpense.TabIndex = 14;
             // 
             // label7
             // 
@@ -318,12 +307,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.comboBox2);
+            this.groupBox3.Controls.Add(this.ComboExpense);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.richTextBox4);
-            this.groupBox3.Controls.Add(this.comboBox4);
+            this.groupBox3.Controls.Add(this.RichAmount);
+            this.groupBox3.Controls.Add(this.ComboBank);
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.comboBox3);
+            this.groupBox3.Controls.Add(this.ComboPayment);
             this.groupBox3.Location = new System.Drawing.Point(500, 27);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(372, 125);
@@ -341,43 +330,62 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.TabIndex = 25;
             this.label6.Text = "Payment";
             // 
-            // Clear
+            // BtnSaveExpense
             // 
-            this.Clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Clear.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.Clear.Location = new System.Drawing.Point(8, 48);
-            this.Clear.Name = "Clear";
-            this.Clear.Size = new System.Drawing.Size(125, 35);
-            this.Clear.TabIndex = 25;
-            this.Clear.Text = "Save Expense";
-            this.Clear.UseVisualStyleBackColor = true;
+            this.BtnSaveExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSaveExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSaveExpense.Location = new System.Drawing.Point(8, 48);
+            this.BtnSaveExpense.Name = "BtnSaveExpense";
+            this.BtnSaveExpense.Size = new System.Drawing.Size(125, 35);
+            this.BtnSaveExpense.TabIndex = 25;
+            this.BtnSaveExpense.Text = "Save Expense";
+            this.BtnSaveExpense.UseVisualStyleBackColor = true;
+            this.BtnSaveExpense.Click += new System.EventHandler(this.BtnSaveExpense_Click);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button1);
-            this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Controls.Add(this.Clear);
+            this.groupBox4.Controls.Add(this.BtnRemove);
+            this.groupBox4.Controls.Add(this.BtnShow);
+            this.groupBox4.Controls.Add(this.BtnSaveExpense);
             this.groupBox4.Location = new System.Drawing.Point(882, 27);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(140, 125);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             // 
-            // dataGridView1
+            // DataGridExpenseList
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(14, 169);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1004, 360);
-            this.dataGridView1.TabIndex = 0;
+            this.DataGridExpenseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridExpenseList.Location = new System.Drawing.Point(18, 168);
+            this.DataGridExpenseList.Name = "DataGridExpenseList";
+            this.DataGridExpenseList.Size = new System.Drawing.Size(1004, 369);
+            this.DataGridExpenseList.TabIndex = 27;
+            this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
+            // 
+            // MaskDateFrom
+            // 
+            this.MaskDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDateFrom.Location = new System.Drawing.Point(167, 16);
+            this.MaskDateFrom.Mask = "   0000-00-00";
+            this.MaskDateFrom.Name = "MaskDateFrom";
+            this.MaskDateFrom.Size = new System.Drawing.Size(105, 24);
+            this.MaskDateFrom.TabIndex = 26;
+            // 
+            // MaskDateTo
+            // 
+            this.MaskDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDateTo.Location = new System.Drawing.Point(347, 15);
+            this.MaskDateTo.Mask = "   0000-00-00";
+            this.MaskDateTo.Name = "MaskDateTo";
+            this.MaskDateTo.Size = new System.Drawing.Size(105, 24);
+            this.MaskDateTo.TabIndex = 27;
             // 
             // ExpenseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1044, 549);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DataGridExpenseList);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
@@ -389,7 +397,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridExpenseList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -400,27 +408,27 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboFilteredBy;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.RichTextBox RichAmount;
+        private System.Windows.Forms.Button BtnShow;
+        private System.Windows.Forms.Button BtnRemove;
+        private System.Windows.Forms.ComboBox ComboExpense;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.RadioButton RadioAll;
+        private System.Windows.Forms.ComboBox ComboPayment;
+        private System.Windows.Forms.ComboBox ComboBank;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox TxtTotalAmount;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button Clear;
+        private System.Windows.Forms.Button BtnSaveExpense;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DataGridExpenseList;
+        private System.Windows.Forms.MaskedTextBox MaskDateTo;
+        private System.Windows.Forms.MaskedTextBox MaskDateFrom;
     }
 }

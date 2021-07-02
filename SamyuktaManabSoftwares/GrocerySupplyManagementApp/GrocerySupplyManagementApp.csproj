@@ -89,6 +89,8 @@
     </Compile>
     <Compile Include="DTOs\BankTransactionView.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
+    <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
+    <Compile Include="DTOs\ExpenseTransactionView.cs" />
     <Compile Include="DTOs\MemberTransactionView.cs" />
     <Compile Include="DTOs\ItemView.cs" />
     <Compile Include="DTOs\ItemTransactionView.cs" />
@@ -155,11 +157,11 @@
     <Compile Include="Forms\ShareMemberForm.Designer.cs">
       <DependentUpon>ShareMemberForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Daily SummaryForm.cs">
+    <Compile Include="Forms\DailySummaryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Daily SummaryForm.Designer.cs">
-      <DependentUpon>Daily SummaryForm.cs</DependentUpon>
+    <Compile Include="Forms\DailySummaryForm.Designer.cs">
+      <DependentUpon>DailySummaryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ExpenseForm.cs">
       <SubType>Form</SubType>
@@ -411,8 +413,8 @@
     <EmbeddedResource Include="Forms\StockAdjustmentForm.resx">
       <DependentUpon>StockAdjustmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Daily SummaryForm.resx">
-      <DependentUpon>Daily SummaryForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DailySummaryForm.resx">
+      <DependentUpon>DailySummaryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExpenseForm.resx">
       <DependentUpon>ExpenseForm.cs</DependentUpon>

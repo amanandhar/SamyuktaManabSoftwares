@@ -1,32 +1,28 @@
-﻿using System;
+﻿using GrocerySupplyManagementApp.Services;
+using System;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ReportForm : Form
     {
-        public ReportForm()
+        private readonly IFiscalYearDetailService _fiscalYearDetailService;
+        private readonly IPosTransactionService _posTransactionService;
+        private readonly IBankDetailService _bankDetailService;
+        private readonly IBankTransactionService _bankTransactionService;
+
+        public ReportForm(IFiscalYearDetailService fiscalYearDetailService, IPosTransactionService posTransactionService,
+            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
+
+            _fiscalYearDetailService = fiscalYearDetailService;
+            _posTransactionService = posTransactionService;
+            _bankDetailService = bankDetailService;
+            _bankTransactionService = bankTransactionService;
         }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-           
-           
-           
-        }
-
+         
+        #region Button Click Event
         private void button5_Click(object sender, EventArgs e)
         {
             BalanceSheetForm balanceSheetForm = new BalanceSheetForm();
@@ -48,8 +44,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyExpenseReport_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseForm = new ExpenseForm();
+            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearDetailService, _posTransactionService,
+                _bankDetailService, _bankTransactionService);
             expenseForm.Show();
         }
+
+        #endregion
     }
 }

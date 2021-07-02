@@ -118,7 +118,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnIncomeExpenseMgmt_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseMgmtForm = new ExpenseForm();
+            ExpenseForm expenseMgmtForm = new ExpenseForm(_fiscalYearDetailService, _posTransactionService, 
+                _bankDetailService, _bankTransactionService);
             expenseMgmtForm.Show();
         }
 
@@ -136,7 +137,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
-            ReportForm reportForm = new ReportForm();
+            ReportForm reportForm = new ReportForm(_fiscalYearDetailService, _posTransactionService, 
+                _bankDetailService, _bankTransactionService);
             reportForm.Show();
         }
 
