@@ -64,10 +64,10 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var particulars = DataGridSupplierTransaction.SelectedCells[2].Value.ToString();
 
-                if(particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
+                if (particulars.ToLower() == Constants.PURCHASE.ToLower())
                 {
                     var supplierName = RichSupplierName.Text;
-                    var billNo = particulars;
+                    var billNo = DataGridSupplierTransaction.SelectedCells[4].Value.ToString();
                     PurchaseForm purchaseForm = new PurchaseForm(_itemService, _itemTransactionService, supplierName, billNo);
                     purchaseForm.Show();
                 }
@@ -76,7 +76,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowSupplier_Click(object sender, System.EventArgs e)
         {
-            SupplierListForm supplierListForm = new SupplierListForm(_supplierService, this);
+            SupplierListForm supplierListForm = new SupplierListForm(_supplierService, _posTransactionService, this);
             supplierListForm.Show();
         }
 
@@ -165,7 +165,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var posTransaction = new PosTransaction
                 {
                     InvoiceDate = fiscalYearDetail.StartingDate,
-                    BillNo = TextBoxBillNo.Text,
+                    BillNo = TxtBillNo.Text,
                     SupplierId = RichSupplierId.Text,
                     Action = Constants.PAYMENT,
                     ActionType = ComboPayment.Text,
@@ -310,7 +310,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         public void PopulateItemsPurchaseDetails(string billNo, decimal purchaseAmount)
         {
-            TextBoxBillNo.Text = billNo;
+            TxtBillNo.Text = billNo;
             RichPurchaseAmount.Text = purchaseAmount.ToString();
             LoadSupplierTransaction();
         }

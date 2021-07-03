@@ -415,7 +415,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Location = new System.Drawing.Point(453, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 475);
+            this.groupBox1.Size = new System.Drawing.Size(420, 464);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             // 
@@ -539,7 +539,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(18, 36);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(425, 475);
+            this.groupBox2.Size = new System.Drawing.Size(425, 463);
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
             // 
@@ -658,9 +658,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.button5);
             this.groupBox4.Controls.Add(this.button4);
             this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Location = new System.Drawing.Point(882, 230);
+            this.groupBox4.Location = new System.Drawing.Point(882, 250);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(145, 280);
+            this.groupBox4.Size = new System.Drawing.Size(145, 249);
             this.groupBox4.TabIndex = 34;
             this.groupBox4.TabStop = false;
             // 
@@ -752,7 +752,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.button9.Text = "Add ";
             this.button9.UseVisualStyleBackColor = true;
             // 
-            // StaffForm
+            // EmploeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -764,7 +764,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
-            this.Name = "StaffForm";
+            this.Name = "EmploeeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.StaffForm_Load);
             this.groupBox1.ResumeLayout(false);

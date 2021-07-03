@@ -527,12 +527,24 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string connectionString = GetConnectionString();
             string query = "SELECT " +
-                "SUM([ReceivedAmount]) " +
+                "( " +
+                "SELECT " +
+                "ISNULL(SUM([ReceivedAmount]),0) " +
                 "FROM " + TABLE_NAME + " " +
                 "WHERE 1=1 " +
-                "AND Action IN('Sales', 'Receipt') " +
-                "AND ActionType = 'Cash' ";
-                
+                "AND Action IN ('Sales', 'Receipt') " +
+                "AND ActionType = 'Cash' " +
+                ") " +
+                "- " +
+                "( " +
+                "SELECT " +
+                "ISNULL(SUM([TotalAmount]),0) " +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE 1=1 " +
+                "AND Action IN ('Transfer') " +
+                "AND ActionType = 'Cash' " +
+                ") ";
+
             decimal cashInHand = 0.0m;
 
             try

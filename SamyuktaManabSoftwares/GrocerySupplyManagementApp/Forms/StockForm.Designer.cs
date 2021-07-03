@@ -316,7 +316,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridStockList
             // 
-            this.DataGridStockList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridStockList.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DataGridStockList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridStockList.Location = new System.Drawing.Point(13, 139);
             this.DataGridStockList.Name = "DataGridStockList";
@@ -328,6 +328,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.DataGridStockList);
             this.Controls.Add(this.groupBox2);

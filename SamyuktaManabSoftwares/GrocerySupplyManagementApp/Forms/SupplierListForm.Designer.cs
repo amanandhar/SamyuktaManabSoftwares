@@ -38,7 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSupplierList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridSupplierList.Location = new System.Drawing.Point(12, 12);
             this.DataGridSupplierList.Name = "DataGridSupplierList";
-            this.DataGridSupplierList.Size = new System.Drawing.Size(392, 426);
+            this.DataGridSupplierList.Size = new System.Drawing.Size(510, 437);
             this.DataGridSupplierList.TabIndex = 0;
             this.DataGridSupplierList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSupplierList_CellDoubleClick);
             // 
@@ -46,7 +46,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 450);
+            this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.DataGridSupplierList);
             this.Name = "SupplierListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

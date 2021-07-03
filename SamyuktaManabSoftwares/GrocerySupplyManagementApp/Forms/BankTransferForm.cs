@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,16 +12,18 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BankTransferForm : Form
     {
+        private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IPosTransactionService _posTransactionService;
         private List<BankDetail> _bankDetails = new List<BankDetail>();
 
         #region Constructor
-        public BankTransferForm(IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IPosTransactionService posTransactionService)
+        public BankTransferForm(IFiscalYearDetailService fiscalYearDetailService, IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IPosTransactionService posTransactionService)
         {
             InitializeComponent();
 
+            _fiscalYearDetailService = fiscalYearDetailService;
             _bankDetailService = bankDetailService;
             _posTransactionService = posTransactionService;
             _bankTransactionService = bankTransactionService;
@@ -51,6 +54,28 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
+                var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
+
+                var posTransaction = new PosTransaction
+                {
+                    InvoiceDate = fiscalYearDetail.StartingDate,
+                    Action = Constants.TRANSFER,
+                    ActionType = Constants.CASH,
+                    Bank = ComboBank.Text,
+                    SubTotal = 0.0m,
+                    DiscountPercent = 0.0m,
+                    Discount = 0.0m,
+                    VatPercent = 0.0m,
+                    Vat = 0.0m,
+                    DeliveryChargePercent = 0.0m,
+                    DeliveryCharge = 0.0m,
+                    TotalAmount = Convert.ToDecimal(RichDepositAmount.Text),
+                    ReceivedAmount = 0.0m,
+                    Date = DateTime.Now
+                };
+
+                _posTransactionService.AddPosTransaction(posTransaction);
+
                 DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {

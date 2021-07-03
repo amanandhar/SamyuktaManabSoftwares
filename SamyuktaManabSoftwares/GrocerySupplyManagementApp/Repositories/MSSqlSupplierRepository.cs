@@ -24,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var suppliers = new List<Supplier>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME;
+            var query = @"SELECT * FROM " + TABLE_NAME + " ORDER BY SupplierId";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

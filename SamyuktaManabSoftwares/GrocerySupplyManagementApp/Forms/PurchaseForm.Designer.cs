@@ -368,7 +368,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridPurchaseList
             // 
-            this.DataGridPurchaseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridPurchaseList.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DataGridPurchaseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridPurchaseList.Location = new System.Drawing.Point(16, 166);
             this.DataGridPurchaseList.Name = "DataGridPurchaseList";
@@ -381,6 +381,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.DataGridPurchaseList);
             this.Controls.Add(this.groupBox2);

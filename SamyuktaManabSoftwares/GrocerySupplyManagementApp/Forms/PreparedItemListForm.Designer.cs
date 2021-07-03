@@ -38,18 +38,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridPreparedItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridPreparedItemList.Location = new System.Drawing.Point(12, 12);
             this.DataGridPreparedItemList.Name = "DataGridPreparedItemList";
-            this.DataGridPreparedItemList.Size = new System.Drawing.Size(410, 426);
+            this.DataGridPreparedItemList.Size = new System.Drawing.Size(510, 437);
             this.DataGridPreparedItemList.TabIndex = 0;
             this.DataGridPreparedItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPreparedItemList_CellDoubleClick);
             this.DataGridPreparedItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPreparedItemList_DataBindingComplete);
             // 
-            // PreparedItemList
+            // PreparedItemListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 450);
+            this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.DataGridPreparedItemList);
-            this.Name = "PreparedItemList";
+            this.Name = "PreparedItemListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.PreparedItemList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPreparedItemList)).EndInit();

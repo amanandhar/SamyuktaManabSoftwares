@@ -23,18 +23,20 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE WHEN [MemberId] IS NULL THEN pt.[BillNo] ELSE pt.[InvoiceNo] END AS [InvoiceBillNo], " +
                 "[ItemCode], [ItemName], [Quantity], [Price] AS [ItemPrice], " +
                 "CASE " +
-                "WHEN [Action]='Sales' AND [ActionType]='Credit' THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2)) " +
-                "WHEN [Action]='Sales' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
                 "WHEN [Action]='Purchase' AND [ActionType]='Credit' THEN [TotalAmount] " +
                 "WHEN [Action]='Purchase' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
-                "WHEN [Action]='Payment' AND [ActionType]='Credit' THEN [TotalAmount] " +
-                "WHEN [Action]='Payment' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
-                "WHEN [Action]='Payment' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Sales' AND [ActionType]='Credit' THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2)) " +
+                "WHEN [Action]='Sales' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
                 "WHEN [Action]='Receipt' AND [ActionType]='Credit' THEN [TotalAmount] " +
                 "WHEN [Action]='Receipt' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
                 "WHEN [Action]='Receipt' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Payment' AND [ActionType]='Credit' THEN [TotalAmount] " +
+                "WHEN [Action]='Payment' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Payment' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
                 "WHEN [Action]='Expense' AND [ActionType]='Credit' THEN [TotalAmount] " +
-                "WHEN [Action]='Expense' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Expense' AND [ActionType]='Cash' THEN [TotalAmount] " +
+                "WHEN [Action]='Transfer' AND [ActionType]='Cash' THEN [TotalAmount] " +
+                "WHEN [Action]='Transfer' AND [ActionType]='Cheque' THEN [TotalAmount] " +
                 "ELSE pt.[TotalAmount] END  AS [Amount] " +
                 "FROM [PosTransaction] pt LEFT JOIN [PosSoldItem] psi " +
                 "ON pt.InvoiceNo = psi.InvoiceNo " +
@@ -53,17 +55,21 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " AND pt.[Action] = '" + Constants.SALES + "' AND pt.[ActionType] = '" + transactionFilter.Sales + "' ";
             }
-            else if (transactionFilter.Payment != null)
-            {
-                query += " AND pt.[Action] = '" + Constants.PAYMENT + "' AND pt.[ActionType] = '" + transactionFilter.Payment + "' ";
-            }
             else if (transactionFilter.Receipt != null)
             {
                 query += " AND pt.[Action] = '" + Constants.RECEIPT + "' AND pt.[ActionType] = '" + transactionFilter.Receipt + "' ";
             }
+            else if (transactionFilter.Payment != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.PAYMENT + "' AND pt.[ActionType] = '" + transactionFilter.Payment + "' ";
+            }
             else if (transactionFilter.Expense != null)
             {
                 query += " AND pt.[Action] = '" + Constants.EXPENSE + "' AND pt.[ActionType] = '" + transactionFilter.Expense + "' ";
+            }
+            else if (transactionFilter.BankTransfer != null)
+            {
+                query += " AND pt.[Action] = '" + Constants.TRANSFER + "' AND pt.[ActionType] = '" + transactionFilter.BankTransfer + "' ";
             }
             else if (transactionFilter.ItemCode != null)
             {

@@ -134,6 +134,20 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void RadioBankTransfer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioBankTransfer.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboBankTransfer.Enabled = true;
+            }
+            else
+            {
+                ComboBankTransfer.Enabled = false;
+            }
+        }
+
         private void RadioItemCode_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioItemCode.Checked)
@@ -240,6 +254,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboPayment.Text = string.Empty;
             ComboReceipt.Text = string.Empty;
             ComboExpense.Text = string.Empty;
+            ComboBankTransfer.Text = string.Empty;
             ComboItemCode.Text = string.Empty;
             ComboUser.Text = string.Empty;
             ComboInvoiceNo.Text = string.Empty;
@@ -252,6 +267,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboPayment.Enabled = option;
             ComboReceipt.Enabled = option;
             ComboExpense.Enabled = option;
+            ComboBankTransfer.Enabled = option;
             ComboItemCode.Enabled = option;
             ComboUser.Enabled = option;
             ComboInvoiceNo.Enabled = option;
@@ -296,13 +312,21 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 transactionFilter.Sales = ComboSales.Text;
             }
+            else if (selectedFilter.Name.Equals("RadioReceipt"))
+            {
+                transactionFilter.Receipt = ComboReceipt.Text;
+            }
             else if (selectedFilter.Name.Equals("RadioPayment"))
             {
                 transactionFilter.Payment = ComboPayment.Text;
             }
-            else if (selectedFilter.Name.Equals("RadioReceipt"))
+            else if (selectedFilter.Name.Equals("RadioExpense"))
             {
-                transactionFilter.Receipt = ComboReceipt.Text;
+                transactionFilter.Expense = ComboExpense.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioBankTransfer"))
+            {
+                transactionFilter.BankTransfer = ComboBankTransfer.Text;
             }
             else if (selectedFilter.Name.Equals("RadioItemCode"))
             {
@@ -328,8 +352,8 @@ namespace GrocerySupplyManagementApp.Forms
             var source = new BindingSource(bindingList, null);
             DataGridTransactionList.DataSource = source;
         }
+
         #endregion
 
-        
     }
 }

@@ -9,5 +9,6 @@
         public string Address { get; set; }
         public long ContactNumber { get; set; }
         public string Email { get; set; }
+        public decimal? Balance { get; set; }
     }
 }

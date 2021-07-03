@@ -174,7 +174,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.LightGray;
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox2.Controls.Add(this.RichBoxFiscalYear);
             this.groupBox2.Controls.Add(this.RichBoxTime);
             this.groupBox2.Controls.Add(this.RichBoxUsername);
@@ -189,7 +189,7 @@
             // RichBoxFiscalYear
             // 
             this.RichBoxFiscalYear.Enabled = false;
-            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxFiscalYear.ForeColor = System.Drawing.Color.Black;
             this.RichBoxFiscalYear.Location = new System.Drawing.Point(1073, 6);
             this.RichBoxFiscalYear.Name = "RichBoxFiscalYear";
@@ -200,7 +200,7 @@
             // RichBoxTime
             // 
             this.RichBoxTime.Enabled = false;
-            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxTime.ForeColor = System.Drawing.Color.Black;
             this.RichBoxTime.Location = new System.Drawing.Point(544, 7);
             this.RichBoxTime.Name = "RichBoxTime";
@@ -211,7 +211,7 @@
             // RichBoxUsername
             // 
             this.RichBoxUsername.Enabled = false;
-            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxUsername.ForeColor = System.Drawing.Color.Black;
             this.RichBoxUsername.Location = new System.Drawing.Point(809, 6);
             this.RichBoxUsername.Name = "RichBoxUsername";
@@ -222,7 +222,7 @@
             // RichBoxDateInBs
             // 
             this.RichBoxDateInBs.Enabled = false;
-            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInBs.ForeColor = System.Drawing.Color.Black;
             this.RichBoxDateInBs.Location = new System.Drawing.Point(274, 7);
             this.RichBoxDateInBs.Name = "RichBoxDateInBs";
@@ -233,7 +233,7 @@
             // RichBoxDateInAd
             // 
             this.RichBoxDateInAd.Enabled = false;
-            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInAd.ForeColor = System.Drawing.Color.Black;
             this.RichBoxDateInAd.Location = new System.Drawing.Point(7, 7);
             this.RichBoxDateInAd.Name = "RichBoxDateInAd";
@@ -354,7 +354,7 @@
             this.BtnEndOfDay.Name = "BtnEndOfDay";
             this.BtnEndOfDay.Size = new System.Drawing.Size(240, 37);
             this.BtnEndOfDay.TabIndex = 3;
-            this.BtnEndOfDay.Text = "EOD End of the Day";
+            this.BtnEndOfDay.Text = "EOD Management";
             this.BtnEndOfDay.UseVisualStyleBackColor = false;
             // 
             // BtnIncomeExpenseMgmt

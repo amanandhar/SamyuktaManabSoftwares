@@ -51,7 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             //Add Columns
             DataGridBankDetails.Columns["Name"].HeaderText = "Bank Name";
-            DataGridBankDetails.Columns["Name"].Width = 100;
+            DataGridBankDetails.Columns["Name"].Width = 250;
             DataGridBankDetails.Columns["Name"].DisplayIndex = 0;
 
             DataGridBankDetails.Columns["AccountNo"].HeaderText = "Account No";

@@ -158,7 +158,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox4
             // 
-            this.groupBox4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox4.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox4.Controls.Add(this.linkLabel23);
             this.groupBox4.Controls.Add(this.RichItemSubCode);
             this.groupBox4.Controls.Add(this.RichItemStock);
@@ -453,7 +453,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox5
             // 
-            this.groupBox5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox5.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox5.Controls.Add(this.RichTextVat);
             this.groupBox5.Controls.Add(this.RichTextDeliveryCharge);
             this.groupBox5.Controls.Add(this.RichTextDiscount);
@@ -700,7 +700,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox7
             // 
-            this.groupBox7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox7.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox7.Controls.Add(this.BtnAddExpense);
             this.groupBox7.Controls.Add(this.BtnBankTransfer);
             this.groupBox7.Controls.Add(this.BtnPaymentIn);
@@ -825,7 +825,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.RadioBtnCredit);
@@ -858,7 +858,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBox1);
-            this.groupBox3.Location = new System.Drawing.Point(9, 7);
+            this.groupBox3.Location = new System.Drawing.Point(9, 8);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(150, 150);
             this.groupBox3.TabIndex = 21;
@@ -980,7 +980,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.linkLabel17);
             this.groupBox1.Controls.Add(this.linkLabel14);
             this.groupBox1.Controls.Add(this.linkLabel13);
@@ -1140,7 +1140,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridPosSoldItemList
             // 
-            this.DataGridPosSoldItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridPosSoldItemList.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DataGridPosSoldItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridPosSoldItemList.Location = new System.Drawing.Point(19, 270);
             this.DataGridPosSoldItemList.Name = "DataGridPosSoldItemList";
@@ -1152,6 +1152,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1354, 634);
             this.Controls.Add(this.DataGridPosSoldItemList);
             this.Controls.Add(this.textBox2);

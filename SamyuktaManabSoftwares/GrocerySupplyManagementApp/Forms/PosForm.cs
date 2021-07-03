@@ -249,7 +249,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnBankTransfer_Click(object sender, EventArgs e)
         {
-            BankTransferForm bankTransferForm = new BankTransferForm(_bankDetailService, _bankTransactionService, _posTransactionService);
+            BankTransferForm bankTransferForm = new BankTransferForm(_fiscalYearDetailService, _bankDetailService, _bankTransactionService, _posTransactionService);
             bankTransferForm.Show();
         }
 

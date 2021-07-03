@@ -8,6 +8,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string RECEIPT = "Receipt";
         public const string PAYMENT = "Payment";
         public const string EXPENSE = "Expense";
+        public const string TRANSFER = "Transfer";
 
         // Action Type
         public const string CASH = "Cash";

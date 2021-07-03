@@ -9,6 +9,7 @@
         public string Payment { get; set; }
         public string Receipt { get; set; }
         public string Expense { get; set; }
+        public string BankTransfer { get; set; }
         public string ItemCode { get; set; }
         public string User { get; set; }
         public string InvoiceNo { get; set; }

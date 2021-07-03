@@ -10,13 +10,16 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SupplierListForm : Form
     {
         private readonly ISupplierService _supplierService;
+        private readonly IPosTransactionService _posTransactionService;
+
         public SupplierForm _supplierForm;
 
-        public SupplierListForm(ISupplierService supplierService, SupplierForm supplierForm)
+        public SupplierListForm(ISupplierService supplierService, IPosTransactionService posTransactionService, SupplierForm supplierForm)
         {
             InitializeComponent();
 
             _supplierService = supplierService;
+            _posTransactionService = posTransactionService;
             _supplierForm = supplierForm;
         }
 
@@ -24,24 +27,37 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var suppliers = _supplierService.GetSuppliers();
 
+            suppliers.ToList().ForEach(x => x.Balance = _posTransactionService.GetSupplierTotalBalance(x.SupplierId));
+
             var bindingList = new BindingList<Supplier>(suppliers.ToList());
             var source = new BindingSource(bindingList, null);
 
             DataGridSupplierList.AutoGenerateColumns = false;
 
             //Set Columns Count
-            DataGridSupplierList.ColumnCount = 2;
+            DataGridSupplierList.ColumnCount = 4;
 
             //Add Columns
-            DataGridSupplierList.Columns[0].Name = "SupplierName";
-            DataGridSupplierList.Columns[0].HeaderText = "Name";
-            DataGridSupplierList.Columns[0].DataPropertyName = "Name";
-            DataGridSupplierList.Columns[0].Width = 250;
+            DataGridSupplierList.Columns[0].Name = "SupplierId";
+            DataGridSupplierList.Columns[0].HeaderText = "Id";
+            DataGridSupplierList.Columns[0].DataPropertyName = "SupplierId";
+            DataGridSupplierList.Columns[0].Width = 50;
 
-            DataGridSupplierList.Columns[1].Name = "SupplierOwner";
-            DataGridSupplierList.Columns[1].HeaderText = "Owner";
-            DataGridSupplierList.Columns[1].DataPropertyName = "Owner";
-            DataGridSupplierList.Columns[1].Width = 250;
+            DataGridSupplierList.Columns[1].Name = "Name";
+            DataGridSupplierList.Columns[1].HeaderText = "Name";
+            DataGridSupplierList.Columns[1].DataPropertyName = "Name";
+            DataGridSupplierList.Columns[1].Width = 175;
+
+            DataGridSupplierList.Columns[2].Name = "Owner";
+            DataGridSupplierList.Columns[2].HeaderText = "Owner";
+            DataGridSupplierList.Columns[2].DataPropertyName = "Owner";
+            DataGridSupplierList.Columns[2].Width = 175;
+
+            DataGridSupplierList.Columns[3].Name = "Balance";
+            DataGridSupplierList.Columns[3].HeaderText = "Balance";
+            DataGridSupplierList.Columns[3].DataPropertyName = "Balance";
+            DataGridSupplierList.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridSupplierList.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             DataGridSupplierList.DataSource = source;
         }
@@ -53,7 +69,7 @@ namespace GrocerySupplyManagementApp.Forms
                 return;
             if (dgv.CurrentRow.Selected)
             {
-                string supplierName = dgv.CurrentRow.Cells[0].Value.ToString();
+                string supplierName = dgv.CurrentRow.Cells[1].Value.ToString();
                 _supplierForm.PopulateSupplier(supplierName);
                 this.Close();
             }

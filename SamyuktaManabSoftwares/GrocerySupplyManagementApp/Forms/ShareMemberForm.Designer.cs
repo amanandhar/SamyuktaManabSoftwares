@@ -260,7 +260,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridMemberTransactionList
             // 
-            this.DataGridMemberTransactionList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridMemberTransactionList.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DataGridMemberTransactionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridMemberTransactionList.Location = new System.Drawing.Point(22, 160);
             this.DataGridMemberTransactionList.Name = "DataGridMemberTransactionList";

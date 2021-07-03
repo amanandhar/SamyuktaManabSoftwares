@@ -31,6 +31,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
             this.TxtTotalAmount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -52,8 +54,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveExpense = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.DataGridExpenseList = new System.Windows.Forms.DataGridView();
-            this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
-            this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -88,6 +88,24 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(470, 125);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
+            // 
+            // MaskDateTo
+            // 
+            this.MaskDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDateTo.Location = new System.Drawing.Point(347, 15);
+            this.MaskDateTo.Mask = "   0000-00-00";
+            this.MaskDateTo.Name = "MaskDateTo";
+            this.MaskDateTo.Size = new System.Drawing.Size(105, 24);
+            this.MaskDateTo.TabIndex = 27;
+            // 
+            // MaskDateFrom
+            // 
+            this.MaskDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDateFrom.Location = new System.Drawing.Point(167, 16);
+            this.MaskDateFrom.Mask = "   0000-00-00";
+            this.MaskDateFrom.Name = "MaskDateFrom";
+            this.MaskDateFrom.Size = new System.Drawing.Size(105, 24);
+            this.MaskDateFrom.TabIndex = 26;
             // 
             // TxtTotalAmount
             // 
@@ -189,7 +207,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRemove.ForeColor = System.Drawing.Color.Red;
-            this.BtnRemove.Location = new System.Drawing.Point(8, 85);
+            this.BtnRemove.Location = new System.Drawing.Point(50, 97);
             this.BtnRemove.Name = "BtnRemove";
             this.BtnRemove.Size = new System.Drawing.Size(125, 35);
             this.BtnRemove.TabIndex = 15;
@@ -355,35 +373,19 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridExpenseList
             // 
+            this.DataGridExpenseList.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DataGridExpenseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridExpenseList.Location = new System.Drawing.Point(18, 168);
+            this.DataGridExpenseList.Location = new System.Drawing.Point(18, 165);
             this.DataGridExpenseList.Name = "DataGridExpenseList";
             this.DataGridExpenseList.Size = new System.Drawing.Size(1004, 369);
             this.DataGridExpenseList.TabIndex = 27;
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
             // 
-            // MaskDateFrom
-            // 
-            this.MaskDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateFrom.Location = new System.Drawing.Point(167, 16);
-            this.MaskDateFrom.Mask = "   0000-00-00";
-            this.MaskDateFrom.Name = "MaskDateFrom";
-            this.MaskDateFrom.Size = new System.Drawing.Size(105, 24);
-            this.MaskDateFrom.TabIndex = 26;
-            // 
-            // MaskDateTo
-            // 
-            this.MaskDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateTo.Location = new System.Drawing.Point(347, 15);
-            this.MaskDateTo.Mask = "   0000-00-00";
-            this.MaskDateTo.Name = "MaskDateTo";
-            this.MaskDateTo.Size = new System.Drawing.Size(105, 24);
-            this.MaskDateTo.TabIndex = 27;
-            // 
             // ExpenseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.DataGridExpenseList);
             this.Controls.Add(this.groupBox4);

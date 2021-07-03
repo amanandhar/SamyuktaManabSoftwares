@@ -59,7 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridItemList.Columns["Name"].HeaderText = "Name";
-            DataGridItemList.Columns["Name"].Width = 200;
+            DataGridItemList.Columns["Name"].Width = 250;
             DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
             DataGridItemList.Columns["Brand"].HeaderText = "Brand";
