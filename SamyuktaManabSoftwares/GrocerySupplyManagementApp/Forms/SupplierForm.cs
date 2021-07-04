@@ -308,10 +308,9 @@ namespace GrocerySupplyManagementApp.Forms
             LoadSupplierTransaction();
         }
 
-        public void PopulateItemsPurchaseDetails(string billNo, decimal purchaseAmount)
+        public void PopulateItemsPurchaseDetails(string billNo)
         {
             TxtBillNo.Text = billNo;
-            RichPurchaseAmount.Text = purchaseAmount.ToString();
             LoadSupplierTransaction();
         }
 

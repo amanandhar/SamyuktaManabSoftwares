@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Name, Brand, Code FROM Item ORDER BY Id";
+            var query = @"SELECT Id, Name, Brand, Code FROM Item ORDER BY Code";
 
             try
             {

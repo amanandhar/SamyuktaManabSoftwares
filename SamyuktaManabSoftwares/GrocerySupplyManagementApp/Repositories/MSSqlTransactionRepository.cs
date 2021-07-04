@@ -26,7 +26,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHEN [Action]='Purchase' AND [ActionType]='Credit' THEN [TotalAmount] " +
                 "WHEN [Action]='Purchase' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
                 "WHEN [Action]='Sales' AND [ActionType]='Credit' THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2)) " +
-                "WHEN [Action]='Sales' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
+                "WHEN [Action]='Sales' AND [ActionType]='Cash' THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2)) " +
                 "WHEN [Action]='Receipt' AND [ActionType]='Credit' THEN [TotalAmount] " +
                 "WHEN [Action]='Receipt' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
                 "WHEN [Action]='Receipt' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
@@ -104,15 +104,15 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
-                                    MemberSupplierId = reader.IsDBNull(1) ? string.Empty : reader["MemberSupplierId"].ToString(),
-                                    Action = reader.IsDBNull(2) ? string.Empty : reader["Action"].ToString(),
-                                    ActionType = reader.IsDBNull(3) ? string.Empty : reader["ActionType"].ToString(),
-                                    InvoiceBillNo = reader.IsDBNull(4) ? string.Empty : reader["InvoiceBillNo"].ToString(),
-                                    ItemCode = reader.IsDBNull(5) ? string.Empty : reader["ItemCode"].ToString(),
-                                    ItemName = reader.IsDBNull(6) ? string.Empty : reader["ItemName"].ToString(),
-                                    Quantity = reader.IsDBNull(7) ? 0.0m : Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    ItemPrice = reader.IsDBNull(8) ? 0.0m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
-                                    Amount = reader.IsDBNull(9) ? 0.0m : Convert.ToDecimal(reader["Amount"].ToString())
+                                    MemberSupplierId = reader.IsDBNull(2) ? string.Empty : reader["MemberSupplierId"].ToString(),
+                                    Action = reader.IsDBNull(3) ? string.Empty : reader["Action"].ToString(),
+                                    ActionType = reader.IsDBNull(4) ? string.Empty : reader["ActionType"].ToString(),
+                                    InvoiceBillNo = reader.IsDBNull(5) ? string.Empty : reader["InvoiceBillNo"].ToString(),
+                                    ItemCode = reader.IsDBNull(6) ? string.Empty : reader["ItemCode"].ToString(),
+                                    ItemName = reader.IsDBNull(7) ? string.Empty : reader["ItemName"].ToString(),
+                                    Quantity = reader.IsDBNull(8) ? 0.0m : Convert.ToDecimal(reader["Quantity"].ToString()),
+                                    ItemPrice = reader.IsDBNull(9) ? 0.0m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
+                                    Amount = reader.IsDBNull(10) ? 0.0m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };
 
                                 transactionGrids.Add(transactionGrid);
@@ -319,10 +319,8 @@ namespace GrocerySupplyManagementApp.Repositories
             bool result = false;
             string query = @"DELETE " +
                 "FROM PosTransaction " +
-                "WHERE Id = @Id; " +
-                "DELETE " +
-                "FROM PosSoldItem " +
-                "WHERE InvoiceNo = @InvoiceNo; ";
+                "WHERE Id = @Id; ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

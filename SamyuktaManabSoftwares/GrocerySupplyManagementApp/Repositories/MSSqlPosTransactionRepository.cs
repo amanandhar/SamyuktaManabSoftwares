@@ -642,7 +642,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string connectionString = GetConnectionString();
             string query;
-            if (action?.ToLower() == Constants.SALES.ToLower())
+            if (action?.ToLower() == Constants.SALES.ToLower() 
+                || action?.ToLower() == Constants.EXPENSE.ToLower()
+                || action?.ToLower() == Constants.TRANSFER.ToLower())
             {
                 query = "SELECT " +
                 "SUM([TotalAmount])" +

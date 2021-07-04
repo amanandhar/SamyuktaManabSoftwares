@@ -68,10 +68,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TextBoxDebitCredit = new System.Windows.Forms.TextBox();
             this.RichBalance = new System.Windows.Forms.RichTextBox();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.RichEmail = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.RichPurchaseAmount = new System.Windows.Forms.RichTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.RichAddress = new System.Windows.Forms.RichTextBox();
             this.DataGridSupplierTransaction = new System.Windows.Forms.DataGridView();
@@ -421,10 +419,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.TextBoxDebitCredit);
             this.groupBox1.Controls.Add(this.RichBalance);
             this.groupBox1.Controls.Add(this.RichAmount);
-            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.RichEmail);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.RichPurchaseAmount);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.ComboBank);
             this.groupBox1.Controls.Add(this.label15);
@@ -547,17 +543,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.TabIndex = 33;
             this.RichAmount.Text = "";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(563, 81);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(136, 20);
-            this.label5.TabIndex = 32;
-            this.label5.Text = "Purchase Amount";
-            // 
             // RichEmail
             // 
             this.RichEmail.BackColor = System.Drawing.Color.White;
@@ -578,17 +563,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.Size = new System.Drawing.Size(69, 20);
             this.label4.TabIndex = 30;
             this.label4.Text = "Email ID";
-            // 
-            // RichPurchaseAmount
-            // 
-            this.RichPurchaseAmount.BackColor = System.Drawing.Color.White;
-            this.RichPurchaseAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichPurchaseAmount.Location = new System.Drawing.Point(701, 76);
-            this.RichPurchaseAmount.Name = "RichPurchaseAmount";
-            this.RichPurchaseAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichPurchaseAmount.Size = new System.Drawing.Size(152, 30);
-            this.RichPurchaseAmount.TabIndex = 29;
-            this.RichPurchaseAmount.Text = "";
             // 
             // label12
             // 
@@ -695,13 +669,11 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox RichAddress;
-        private System.Windows.Forms.RichTextBox RichPurchaseAmount;
         private System.Windows.Forms.Button BtnPurchase;
         private System.Windows.Forms.Button BtnPaymentSave;
         private System.Windows.Forms.TextBox TextBoxDebitCredit;
         private System.Windows.Forms.RichTextBox RichBalance;
         private System.Windows.Forms.RichTextBox RichAmount;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RichTextBox RichEmail;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TxtBillNo;

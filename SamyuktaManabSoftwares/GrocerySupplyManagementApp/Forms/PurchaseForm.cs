@@ -150,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _posTransactionService.AddPosTransaction(posTransaction);
 
-                _supplierForm.PopulateItemsPurchaseDetails(posTransaction.BillNo, posTransaction.TotalAmount);
+                _supplierForm.PopulateItemsPurchaseDetails(posTransaction.BillNo);
                 this.Close();
             }
             catch(Exception ex)
