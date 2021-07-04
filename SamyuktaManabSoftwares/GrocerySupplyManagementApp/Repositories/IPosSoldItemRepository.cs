@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Repositories
         PosSoldItem AddPosSoldItem(PosSoldItem posSoldItem);
         PosSoldItem UpdatePosSoldItem(long posITransactionId, PosSoldItem posSoldItem);
         bool DeletePosSoldItem(long posSoldItemId, PosSoldItem posSoldItem);
+        bool DeletePosSoldItem(string invoiceNo);
         IEnumerable<PosSoldItemGrid> GetPosSoldItemGrid(string invoiceNo);
     }
 }

@@ -83,7 +83,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSummaryMgmt_Click(object sender, EventArgs e)
         {
-            SummaryForm summaryForm = new SummaryForm(_transactionService, _fiscalYearDetailService);
+            SummaryForm summaryForm = new SummaryForm(_transactionService, _fiscalYearDetailService, 
+                _posSoldItemService, _posTransactionService,
+                _bankTransactionService);
             summaryForm.Show();
         }
 

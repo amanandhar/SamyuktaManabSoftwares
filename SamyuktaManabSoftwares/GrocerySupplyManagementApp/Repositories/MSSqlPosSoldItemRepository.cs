@@ -105,7 +105,35 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             throw new System.NotImplementedException();
         }
-        
+
+        public bool DeletePosSoldItem(string invoiceNo)
+        {
+            string connectionString = GetConnectionString();
+            bool result = false;
+            string query = @"DELETE " +
+                "FROM PosSoldItem " +
+                "WHERE InvoiceNo = @InvoiceNo; ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@InvoiceNo", invoiceNo);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
         public IEnumerable<PosSoldItemGrid> GetPosSoldItemGrid(string invoiceNo)
         {
             var posSoldItemGrids = new List<PosSoldItemGrid>();

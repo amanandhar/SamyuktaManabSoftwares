@@ -102,9 +102,9 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DataGridBankDetails.SelectedRows.Count == 1)
                 {
-                    var bankTransactionId = Convert.ToInt64(DataGridBankDetails.SelectedCells[0].Value.ToString());
+                    var id = Convert.ToInt64(DataGridBankDetails.SelectedCells[0].Value.ToString());
 
-                    _bankTransactionService.DeleteBankTransaction(bankTransactionId);
+                    _bankTransactionService.DeleteBankTransaction(id);
 
                     var bankBalance = _bankTransactionService.GetBankBalance(selectedBankId);
                     TxtBalance.Text = bankBalance.ToString();
@@ -126,30 +126,37 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSaveTransaction_Click(object sender, EventArgs e)
         {
-            var bankTransaction = new BankTransaction
+            try
             {
-                BankId = selectedBankId,
-                Action = ComboAction.Text.ToLower() == "deposit" ? '1' : '0',
-                Debit = ComboAction.Text.ToLower() == "deposit" ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
-                Credit = ComboAction.Text.ToLower() == "deposit" ? 0.0m : Convert.ToDecimal(RichAmount.Text),
-                Narration = RichNarration.Text,
-                Date = DateTime.Now
-            };
+                var bankTransaction = new BankTransaction
+                {
+                    BankId = selectedBankId,
+                    Action = ComboAction.Text.ToLower() == "deposit" ? '1' : '0',
+                    Debit = ComboAction.Text.ToLower() == "deposit" ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
+                    Credit = ComboAction.Text.ToLower() == "deposit" ? 0.0m : Convert.ToDecimal(RichAmount.Text),
+                    Narration = RichNarration.Text,
+                    Date = DateTime.Now
+                };
 
-            _bankTransactionService.AddBankTransaction(bankTransaction);
+                _bankTransactionService.AddBankTransaction(bankTransaction);
 
-            DialogResult result = MessageBox.Show(ComboAction.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-            if (result == DialogResult.OK)
+                DialogResult result = MessageBox.Show(ComboAction.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    var bankBalance = _bankTransactionService.GetBankBalance(selectedBankId);
+                    TxtBalance.Text = bankBalance.ToString();
+
+                    ComboAction.Text = string.Empty;
+                    RichAmount.Clear();
+                    RichNarration.Clear();
+
+                    EnableFields(Action.Save, true);
+                    LoadBankTransaction();
+                }
+            }
+            catch(Exception ex)
             {
-                var bankBalance = _bankTransactionService.GetBankBalance(selectedBankId);
-                TxtBalance.Text = bankBalance.ToString();
-
-                ComboAction.Text = string.Empty;
-                RichAmount.Clear();
-                RichNarration.Clear();
-
-                EnableFields(Action.Save, true);
-                LoadBankTransaction();
+                throw ex;
             }
         }
 
@@ -298,6 +305,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
     }
 }

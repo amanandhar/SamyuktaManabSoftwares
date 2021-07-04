@@ -285,7 +285,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankTransaction;
         }
 
-        public bool DeleteBankTransaction(long bankId)
+        public bool DeleteBankTransaction(long id)
         {
             bool result = false;
             string connectionString = GetConnectionString();
@@ -297,7 +297,32 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Id", ((object)bankId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public bool DeleteBankTransactionByTransactionId(long transactionId)
+        {
+            bool result = false;
+            string connectionString = GetConnectionString();
+            string query = "DELETE FROM " + TABLE_NAME + " WHERE [TransactionId] = @TransactionId";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@TransactionId", ((object)transactionId) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }
                 }

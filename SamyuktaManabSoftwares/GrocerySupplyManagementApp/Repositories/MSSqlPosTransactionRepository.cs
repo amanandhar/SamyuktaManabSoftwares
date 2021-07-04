@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -362,6 +363,73 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return posTransaction;
         }
+        
+        public PosTransaction GetLastPosTransaction(string option)
+        {
+            var posTransaction = new PosTransaction();
+            string connectionString = GetConnectionString();
+            var query = @"SELECT " +
+                "TOP 1 " +
+                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge], " +
+                "[TotalAmount], [ReceivedAmount], [Date] " +
+                "FROM " + TABLE_NAME + " ";
+            if(!string.IsNullOrWhiteSpace(option))
+            {
+                if(option.StartsWith("IN"))
+                {
+                    query += "WHERE ([InvoiceNo] IS NOT NULL AND DATALENGTH([InvoiceNo]) > 0) ";
+                }
+                else if(option.StartsWith("BN"))
+                {
+                    query += "WHERE ([BillNo] IS NOT NULL AND DATALENGTH([BillNo]) > 0) ";
+                }
+            }
+            
+            query += "ORDER BY [Id] DESC";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                posTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
+                                posTransaction.InvoiceNo = reader["InvoiceNo"].ToString();
+                                posTransaction.InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString());
+                                posTransaction.BillNo = reader["BillNo"].ToString();
+                                posTransaction.MemberId = reader["MemberId"].ToString();
+                                posTransaction.SupplierId = reader["SupplierId"].ToString();
+                                posTransaction.Action = reader["Action"].ToString();
+                                posTransaction.ActionType = reader["ActionType"].ToString();
+                                posTransaction.Bank = reader["Bank"].ToString();
+                                posTransaction.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
+                                posTransaction.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
+                                posTransaction.Discount = Convert.ToDecimal(reader["Discount"].ToString());
+                                posTransaction.VatPercent = Convert.ToDecimal(reader["VatPercent"].ToString());
+                                posTransaction.Vat = Convert.ToDecimal(reader["Vat"].ToString());
+                                posTransaction.DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString());
+                                posTransaction.DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString());
+                                posTransaction.TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString());
+                                posTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
+                                posTransaction.Date = Convert.ToDateTime(reader["Date"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return posTransaction;
+        }
 
         public PosTransaction AddPosTransaction(PosTransaction posTransaction)
         {
@@ -568,6 +636,55 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return cashInHand;
+        }
+
+        public decimal GetTotalBalance(string action, string actionType)
+        {
+            string connectionString = GetConnectionString();
+            string query;
+            if (action?.ToLower() == Constants.SALES.ToLower())
+            {
+                query = "SELECT " +
+                "SUM([TotalAmount])" +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE 1=1 " +
+                "AND Action = @Action " +
+                "AND ActionType = @ActionType ";
+            }
+            else
+            {
+                query = "SELECT " +
+                    "SUM([ReceivedAmount])" +
+                    "FROM " + TABLE_NAME + " " +
+                    "WHERE 1=1 " +
+                    "AND Action = @Action " +
+                    "AND ActionType = @ActionType ";
+            }
+
+            decimal balance = 0.0m;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Action", ((object)action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ActionType", ((object)actionType) ?? DBNull.Value);
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            balance = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return balance;
         }
 
         private string GetConnectionString()

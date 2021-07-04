@@ -16,7 +16,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var transactionGrids = new List<TransactionGrid>();
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
-                "[InvoiceDate], " +
+                "pt.[Id], [InvoiceDate], " +
                 "CASE WHEN [MemberId] IS NULL THEN [SupplierId] ELSE [MemberId] END AS [MemberSupplierId], " +
                 "[Action], " +
                 "CASE WHEN [ActionType]='Cheque' THEN ([ActionType] + ' - ' + [Bank]) ELSE [ActionType] END AS [ActionType], " + 
@@ -102,6 +102,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var transactionGrid = new TransactionGrid
                                 {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
                                     MemberSupplierId = reader.IsDBNull(1) ? string.Empty : reader["MemberSupplierId"].ToString(),
                                     Action = reader.IsDBNull(2) ? string.Empty : reader["Action"].ToString(),
@@ -312,13 +313,13 @@ namespace GrocerySupplyManagementApp.Repositories
             return invoices;
         }
 
-        public bool DeleteTransactionGrids(string invoiceNo)
+        public bool DeleteTransactionGrids(long id)
         {
             string connectionString = GetConnectionString();
             bool result = false;
             string query = @"DELETE " +
                 "FROM PosTransaction " +
-                "WHERE InvoiceNo = @InvoiceNo; " +
+                "WHERE Id = @Id; " +
                 "DELETE " +
                 "FROM PosSoldItem " +
                 "WHERE InvoiceNo = @InvoiceNo; ";
@@ -329,7 +330,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@InvoiceNo", invoiceNo);
+                        command.Parameters.AddWithValue("@Id", id);
                         command.ExecuteNonQuery();
                         result = true;
                     }

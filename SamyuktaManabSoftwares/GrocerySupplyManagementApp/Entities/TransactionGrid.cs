@@ -4,6 +4,7 @@ namespace GrocerySupplyManagementApp.Entities
 {
     public class TransactionGrid
     {
+        public long Id { get; set; }
         public DateTime InvoiceDate { get; set; }
         public string MemberSupplierId { get; set; }
         public string Action { get; set; }

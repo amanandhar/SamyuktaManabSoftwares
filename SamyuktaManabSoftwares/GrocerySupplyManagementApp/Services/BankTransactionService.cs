@@ -52,5 +52,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _bankTransactionRepository.DeleteBankTransaction(bankId);
         }
+
+        public bool DeleteBankTransactionByTransactionId(long transactionId)
+        {
+            return _bankTransactionRepository.DeleteBankTransactionByTransactionId(transactionId);
+        }
     }
 }

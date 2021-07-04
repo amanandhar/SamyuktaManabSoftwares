@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Services
         PosSoldItem AddPosSoldItem(PosSoldItem posSoldItem);
         PosSoldItem UpdatePosSoldItem(long posSoldItemId, PosSoldItem posSoldItem);
         bool DeleteSupplierTransaction(long posSoldItemId);
+        bool DeletePosSoldItem(string invoiceNo);
         IEnumerable<PosSoldItemGrid> GetPosSoldItemGrid(string invoiceNo);
     }
 }

@@ -39,9 +39,9 @@ namespace GrocerySupplyManagementApp.Services
             return _transactionRepository.GetInvoices();
         }
 
-        public bool DeleteTransactionGrids(string invoiceNo)
+        public bool DeleteTransactionGrids(long id)
         {
-            return _transactionRepository.DeleteTransactionGrids(invoiceNo);
+            return _transactionRepository.DeleteTransactionGrids(id);
         }
     }
 }

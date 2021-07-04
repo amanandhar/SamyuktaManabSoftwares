@@ -42,20 +42,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                var bankTransaction = new BankTransaction
-                {
-                    BankId = Convert.ToInt64(selectedItem.Id),
-                    Action = '1',
-                    Debit = Convert.ToDecimal(RichDepositAmount.Text),
-                    Credit = 0.0m,
-                    Narration = RichNarration.Text,
-                    Date = DateTime.Now
-                };
-
-                _bankTransactionService.AddBankTransaction(bankTransaction);
                 var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
-
                 var posTransaction = new PosTransaction
                 {
                     InvoiceDate = fiscalYearDetail.StartingDate,
@@ -73,9 +60,23 @@ namespace GrocerySupplyManagementApp.Forms
                     ReceivedAmount = 0.0m,
                     Date = DateTime.Now
                 };
-
                 _posTransactionService.AddPosTransaction(posTransaction);
 
+                var lastPosTransaction = _posTransactionService.GetLastPosTransaction(string.Empty);
+
+                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                var bankTransaction = new BankTransaction
+                {
+                    BankId = Convert.ToInt64(selectedItem.Id),
+                    TransactionId = lastPosTransaction.Id,
+                    Action = '1',
+                    Debit = Convert.ToDecimal(RichDepositAmount.Text),
+                    Credit = 0.0m,
+                    Narration = RichNarration.Text,
+                    Date = DateTime.Now
+                };
+                _bankTransactionService.AddBankTransaction(bankTransaction);
+                
                 DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {

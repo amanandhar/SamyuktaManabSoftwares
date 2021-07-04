@@ -161,7 +161,6 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
-
                 var posTransaction = new PosTransaction
                 {
                     InvoiceDate = fiscalYearDetail.StartingDate,
@@ -181,22 +180,23 @@ namespace GrocerySupplyManagementApp.Forms
                     ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                     Date = DateTime.Now
                 };
-
                 _posTransactionService.AddPosTransaction(posTransaction);
 
                 if(ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                 {
+                    var lastPosTransaction = _posTransactionService.GetLastPosTransaction(string.Empty);
+
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
                         BankId = Convert.ToInt64(selectedItem.Id),
+                        TransactionId = lastPosTransaction.Id,
                         Action = '0',
                         Debit = 0.0m,
                         Credit = Convert.ToDecimal(RichAmount.Text),
                         Narration = RichSupplierId.Text + " - " + RichSupplierName.Text,
                         Date = DateTime.Now
                     };
-
                     _bankTransactionService.AddBankTransaction(bankTransaction);
                 }
 

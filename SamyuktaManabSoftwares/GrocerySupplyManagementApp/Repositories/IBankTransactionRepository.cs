@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Repositories
         decimal GetBankBalance(long bankId);
         BankTransaction AddBankTransaction(BankTransaction bankTransaction);
         BankTransaction UpdateBankTransaction(long bankTransactionId, BankTransaction bankTransaction);
-        bool DeleteBankTransaction(long bankTransactionId);
+        bool DeleteBankTransaction(long id);
+        bool DeleteBankTransactionByTransactionId(long transactionId);
     }
 }

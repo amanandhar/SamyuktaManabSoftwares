@@ -52,6 +52,11 @@ namespace GrocerySupplyManagementApp.Services
             return _posTransactionRepository.GetPosTransaction(invoiceNo);
         }
 
+        public PosTransaction GetLastPosTransaction(string option)
+        {
+            return _posTransactionRepository.GetLastPosTransaction(option);
+        }
+
         public PosTransaction AddPosTransaction(PosTransaction posTransaction)
         {
             return _posTransactionRepository.AddPosTransaction(posTransaction);
@@ -115,6 +120,11 @@ namespace GrocerySupplyManagementApp.Services
         public decimal GetCashInHand()
         {
             return _posTransactionRepository.GetCashInHand();
+        }
+
+        public decimal GetTotalBalance(string action, string actionType)
+        {
+            return _posTransactionRepository.GetTotalBalance(action, actionType);
         }
     }
 }

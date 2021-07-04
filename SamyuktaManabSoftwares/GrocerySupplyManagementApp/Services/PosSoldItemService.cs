@@ -38,6 +38,11 @@ namespace GrocerySupplyManagementApp.Services
             throw new NotImplementedException();
         }
 
+        public bool DeletePosSoldItem(string invoiceNo)
+        {
+            return _posSoldItemRepository.DeletePosSoldItem(invoiceNo);
+        }
+
         public IEnumerable<PosSoldItemGrid> GetPosSoldItemGrid(string invoiceNo)
         {
             return _posSoldItemRepository.GetPosSoldItemGrid(invoiceNo);

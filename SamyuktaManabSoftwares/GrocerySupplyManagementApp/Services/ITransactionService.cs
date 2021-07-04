@@ -11,6 +11,6 @@ namespace GrocerySupplyManagementApp.Services
         IEnumerable<string> GetMemberIds();
         IEnumerable<string> GetSalesItems();
         IEnumerable<string> GetInvoices();
-        bool DeleteTransactionGrids(string invoiceNo);
+        bool DeleteTransactionGrids(long id);
     }
 }

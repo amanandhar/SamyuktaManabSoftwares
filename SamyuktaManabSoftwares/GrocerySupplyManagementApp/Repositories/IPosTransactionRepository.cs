@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Repositories
         IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter);
         PosTransaction GetPosTransaction(long posTransactionId);
         PosTransaction GetPosTransaction(string invoiceNo);
+        PosTransaction GetLastPosTransaction(string option);
         PosTransaction AddPosTransaction(PosTransaction posTransaction);
         PosTransaction UpdatePosTransaction(long posTransactionId, PosTransaction posTransaction);
         bool DeletePosTransaction(long posTransactionId, PosTransaction posTransaction);
@@ -20,5 +21,6 @@ namespace GrocerySupplyManagementApp.Repositories
         decimal GetMemberTotalBalance(string memberId);
         decimal GetSupplierTotalBalance(string supplierId);
         decimal GetCashInHand();
+        decimal GetTotalBalance(string action, string actionType);
     }
 }
