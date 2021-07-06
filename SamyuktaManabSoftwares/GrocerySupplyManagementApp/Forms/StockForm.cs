@@ -162,7 +162,7 @@ namespace GrocerySupplyManagementApp.Forms
                 filter.DateTo = MaskDateTo.Text;
             }
 
-            TxtPurchase.Text = _itemTransactionService.GetTotalItemCount(filter).ToString();
+            TxtPurchase.Text = _itemTransactionService.GetTotalPurchaseItemCount(filter).ToString();
             TxtSales.Text = "0";
             TxtTotalStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
             TxtTotalValue.Text = _itemTransactionService.GetTotalItemAmount(filter).ToString();

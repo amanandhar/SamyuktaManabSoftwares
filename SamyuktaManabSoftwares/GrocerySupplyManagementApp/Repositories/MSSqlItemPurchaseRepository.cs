@@ -225,7 +225,7 @@ namespace GrocerySupplyManagementApp.Repositories
         /// </summary>
         /// <param name="filter"></param>
         /// <returns>Total Count</returns>
-        public decimal GetTotalItemCount(DTOs.StockFilterView filter)
+        public decimal GetTotalPurchaseItemCount(DTOs.StockFilterView filter)
         {
             decimal totalCount = 0.0m;
             string connectionString = GetConnectionString();
@@ -241,6 +241,51 @@ namespace GrocerySupplyManagementApp.Repositories
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
                 query += " AND Date BETWEEN @DateFrom AND @DateTo";
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Code", ((object)filter.ItemCode) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)filter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)filter.DateTo) ?? DBNull.Value);
+
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            totalCount = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return totalCount;
+        }
+
+        public decimal GetTotalSalesItemCount(DTOs.StockFilterView filter)
+        {
+            decimal totalCount = 0.0m;
+            string connectionString = GetConnectionString();
+            var query = @"SELECT Sum(Quantity) AS 'Quantity' " +
+                " FROM PosSoldItem psi INNER JOIN PosTransaction pt ON psi.InvoiceNo = i.InvoiceNo" +
+                " WHERE 1=1";
+
+            if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
+            {
+                query += " AND psi.ItemCode = @Code";
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
+            {
+                query += " AND pt.InvoiceDate BETWEEN @DateFrom AND @DateTo";
             }
 
             try
@@ -595,6 +640,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "Unit = @Unit, " +
                     "Price = @Price " +
                     "WHERE " +
+                    "1 = 1 " +
                     "ItemId = @ItemId";
 
             try
@@ -630,9 +676,12 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteItem(string name, string brand)
         {
             string connectionString = GetConnectionString();
-            string query = "DELETE FROM " + TABLE_NAME +
-                    " WHERE" +
-                    " Name = @Name AND Brand=@Brand";
+            string query = "DELETE FROM " + 
+                    " " + TABLE_NAME + " " +
+                    "WHERE " +
+                    "1=1 " +
+                    "AND Name = @Name " +
+                    "AND Brand=@Brand";
             bool result = false;
 
             try
@@ -663,13 +712,14 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <param name="supplierName"></param>
         /// <param name="billNo"></param>
         /// <returns>bool</returns>
-        public bool DeleteItemTransactionBySupplierAndBill(string supplierName, string billNo)
+        public bool DeleteItemTransaction(string billNo)
         {
             string connectionString = GetConnectionString();
-            string query = "DELETE FROM " + TABLE_NAME + 
-                    " WHERE 1=1" +
-                    " AND SupplierName = @SupplierName" +
-                    " AND BillNo = @BillNo";
+            string query = "DELETE " +
+                    "FROM " + 
+                    " " + TABLE_NAME + " " + 
+                    "WHERE 1=1 " +
+                    "AND BillNo = @BillNo";
             bool result = false;
 
             try
@@ -679,7 +729,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierName", supplierName);
                         command.Parameters.AddWithValue("@BillNo", billNo);
                         command.ExecuteNonQuery();
                         result = true;

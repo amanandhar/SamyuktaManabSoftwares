@@ -77,7 +77,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _fiscalYearDetailService, _taxDetailService, 
                 _posTransactionService, _posSoldItemService, 
                 _transactionService, _preparedItemService, 
-                _bankDetailService, _bankTransactionService);
+                _bankDetailService, _bankTransactionService,
+                _itemTransactionService);
             posForm.Show();
         }
 
@@ -85,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             SummaryForm summaryForm = new SummaryForm(_transactionService, _fiscalYearDetailService, 
                 _posSoldItemService, _posTransactionService,
-                _bankTransactionService);
+                _bankTransactionService, _itemTransactionService);
             summaryForm.Show();
         }
 

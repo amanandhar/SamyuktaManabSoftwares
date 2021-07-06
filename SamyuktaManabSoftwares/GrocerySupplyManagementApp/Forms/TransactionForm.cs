@@ -16,11 +16,12 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPosSoldItemService _posSoldItemService;
         private readonly IPosTransactionService _posTransactionService;
         private readonly IBankTransactionService _bankTransactionService;
+        private readonly IItemTransactionService _itemTransactionService;
 
         #region Constructor
         public TransactionForm(ITransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
             IPosSoldItemService posSoldItemService, IPosTransactionService posTransactionService,
-            IBankTransactionService bankTransactionService)
+            IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
 
@@ -29,7 +30,8 @@ namespace GrocerySupplyManagementApp.Forms
             _posSoldItemService = posSoldItemService;
             _posTransactionService = posTransactionService;
             _bankTransactionService = bankTransactionService;
-    }
+            _itemTransactionService = itemTransactionService;
+        }
         #endregion
 
         #region Form Load Event
@@ -59,9 +61,10 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var posTransaction = _posTransactionService.GetLastPosTransaction("BN");
                     {
-                        if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
+                        if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
                         {
                             _transactionService.DeleteTransactionGrids(id);
+                            _itemTransactionService.DeleteItemTransaction(billInvoiceNo);
                             _bankTransactionService.DeleteBankTransactionByTransactionId(id);
                         }
                         else
@@ -83,6 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         _transactionService.DeleteTransactionGrids(id);
                         _posSoldItemService.DeletePosSoldItem(billInvoiceNo);
+                        _bankTransactionService.DeleteBankTransactionByTransactionId(id);
                     }
                     else
                     {
@@ -97,6 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
                 else
                 {
                     _transactionService.DeleteTransactionGrids(id);
+                    _bankTransactionService.DeleteBankTransactionByTransactionId(id);
                 }
                 
 

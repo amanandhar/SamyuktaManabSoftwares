@@ -609,7 +609,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ISNULL(SUM([TotalAmount]),0) " +
                 "FROM " + TABLE_NAME + " " +
                 "WHERE 1=1 " +
-                "AND Action IN ('Transfer') " +
+                "AND Action IN ('Transfer', 'Expense') " +
                 "AND ActionType = 'Cash' " +
                 ") ";
 

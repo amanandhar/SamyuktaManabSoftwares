@@ -16,7 +16,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var bankTransactions = new List<BankTransaction>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT [Id], [BankId], [Action], [Debit], [Credit], [Narration], [Date] FROM " + TABLE_NAME;
+            var query = @"SELECT " +
+                "[Id], [BankId], [TransactionId], [Action], " +
+                "[Debit], [Credit], [Narration], [Date] " +
+                "FROM " + TABLE_NAME;
 
             try
             {
@@ -33,11 +36,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
-                                    Action = reader.IsDBNull(2) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(3) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(3) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Narration = reader.IsDBNull(4) ? string.Empty : reader["Narration"].ToString(),
-                                    Date = reader.IsDBNull(5) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString()),
+                                    TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
+                                    Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString(),
+                                    Date = reader.IsDBNull(7) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString()),
                                 };
 
                                 bankTransactions.Add(bankTransaction);
@@ -58,7 +62,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var bankTransactions = new List<BankTransaction>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT [Id], [BankId], [Action], [Debit], [Credit], [Narration], [Date] FROM " + TABLE_NAME + " WHERE [BankId] = @BankId";
+            var query = @"SELECT " +
+                "[Id], [BankId], [TransactionId], [Action], " + 
+                "[Debit], [Credit], [Narration], [Date] " + 
+                "FROM " + 
+                " " + TABLE_NAME + " " +
+                "WHERE [BankId] = @BankId";
 
             try
             {
@@ -76,11 +85,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
-                                    Action = reader.IsDBNull(2) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(3) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(3) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Narration = reader.IsDBNull(4) ? string.Empty : reader["Narration"].ToString(),
-                                    Date = reader.IsDBNull(5) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString()),
+                                    TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
+                                    Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString(),
+                                    Date = reader.IsDBNull(7) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString()),
                                 };
 
                                 bankTransactions.Add(bankTransaction);
@@ -150,7 +160,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var bankTransaction = new BankTransaction();
             string connectionString = GetConnectionString();
-            var query = @"SELECT [Id], [BankId], [Action], [Debit], [Credit], [Narration], [Date] FROM " + TABLE_NAME + " WHERE Id = @Id";
+            var query = @"SELECT " +
+                "[Id], [BankId], [TransactionId], [Action], " +
+                "[Debit], [Credit], [Narration], [Date] " + 
+                "FROM " + 
+                " " + TABLE_NAME + " " +
+                "WHERE Id = @Id";
 
             try
             {
@@ -166,11 +181,12 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 bankTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
                                 bankTransaction.BankId = Convert.ToInt64(reader["BankId"].ToString());
-                                bankTransaction.Action = reader.IsDBNull(2) ? '1' : Convert.ToChar(reader["Action"].ToString());
-                                bankTransaction.Debit = reader.IsDBNull(3) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString());
-                                bankTransaction.Credit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString());
-                                bankTransaction.Narration = reader.IsDBNull(5) ? string.Empty : reader["Narration"].ToString();
-                                bankTransaction.Date = reader.IsDBNull(6) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString());
+                                bankTransaction.TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString());
+                                bankTransaction.Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString());
+                                bankTransaction.Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString());
+                                bankTransaction.Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString());
+                                bankTransaction.Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString();
+                                bankTransaction.Date = reader.IsDBNull(7) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
                     }
@@ -221,11 +237,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO " + TABLE_NAME + " " +
                             "(" +
-                                "[BankId], [Action], [Debit], [Credit], [Narration], [Date] " +
+                                "[BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [Date] " +
                             ") " +
                             "VALUES " +
                             "(" +
-                                "@BankId, @Action, @Debit, @Credit, @Narration, @Date " +
+                                "@BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @Date " +
                             ")";
             try
             {
@@ -235,6 +251,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
@@ -257,7 +274,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "UPDATE " + TABLE_NAME + " " +
                             " SET " +
-                            " [BankId] = @BankId, [Action] = @Action, [Debit] = @Debit, [Credit] = @Credit, [Narration] = @Narration, [Date] = @Date " +
+                            " [BankId] = @BankId, [TransactionId] = @TransactionId, [Action] = @Action, [Debit] = @Debit, [Credit] = @Credit, [Narration] = @Narration, [Date] = @Date " +
                             " WHERE [Id] = @Id";
             try
             {
@@ -268,6 +285,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Id", ((object)bankId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);

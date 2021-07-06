@@ -67,7 +67,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Size = new System.Drawing.Size(1045, 26);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "                                                                                 " +
-    "      Stock Summery Report";
+    "      Stock Summary Report";
             // 
             // label1
             // 

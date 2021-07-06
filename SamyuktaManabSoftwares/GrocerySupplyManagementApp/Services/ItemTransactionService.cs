@@ -43,7 +43,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalAmountBySupplierAndBill(supplierName, billNo);
         }
 
-        public decimal GetTotalItemCount(DTOs.StockFilterView filter)
+        public decimal GetTotalPurchaseItemCount(DTOs.StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -55,7 +55,22 @@ namespace GrocerySupplyManagementApp.Services
                 filter.DateTo += " 23:59:59.999";
             }
 
-            return _itemTransactionRepository.GetTotalItemCount(filter);
+            return _itemTransactionRepository.GetTotalPurchaseItemCount(filter);
+        }
+
+        public decimal GetTotalSalesItemCount(DTOs.StockFilterView filter)
+        {
+            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            {
+                filter.DateFrom = null;
+                filter.DateTo = null;
+            }
+            else if (!string.IsNullOrWhiteSpace(filter.DateTo))
+            {
+                filter.DateTo += " 23:59:59.999";
+            }
+
+            return _itemTransactionRepository.GetTotalSalesItemCount(filter);
         }
 
         public decimal GetTotalItemCount(string code)
@@ -149,9 +164,9 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.DeleteItem(name, brand);
         }
 
-        public bool DeleteItemTransactionBySupplierAndBill(string supplierName, string billNo)
+        public bool DeleteItemTransaction(string billNo)
         {
-            return _itemTransactionRepository.DeleteItemTransactionBySupplierAndBill(supplierName, billNo);
+            return _itemTransactionRepository.DeleteItemTransaction(billNo);
         }
     }
 }

@@ -70,7 +70,7 @@
             this.BtnStockMgmt.Name = "BtnStockMgmt";
             this.BtnStockMgmt.Size = new System.Drawing.Size(240, 37);
             this.BtnStockMgmt.TabIndex = 11;
-            this.BtnStockMgmt.Text = "Stock Summery Management";
+            this.BtnStockMgmt.Text = "Stock Summary Management";
             this.BtnStockMgmt.UseVisualStyleBackColor = false;
             this.BtnStockMgmt.Click += new System.EventHandler(this.BtnStockMgmt_Click);
             // 

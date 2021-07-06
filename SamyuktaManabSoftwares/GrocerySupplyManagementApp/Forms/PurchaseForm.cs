@@ -115,18 +115,6 @@ namespace GrocerySupplyManagementApp.Forms
                     _itemTransactionService.AddItem(itemTransaction);
                 });
 
-                //_supplierTransactionService.AddSupplierTransaction(new SupplierTransaction
-                //{
-                //    SupplierName = _supplierForm.GetSupplierName(),
-                //    Action = Constants.PURCHASE,
-                //    ActionType = Constants.CREDIT,
-                //    BillNo = RichBillNo.Text,
-                //    Debit = Convert.ToDecimal(TextBoxTotalAmount.Text),
-                //    Date = dateTime
-                //});
-
-                //_supplierForm.PopulateItemsPurchaseDetails(RichBillNo.Text, Convert.ToDecimal(TextBoxTotalAmount.Text));
-
                 var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
 
                 var posTransaction = new PosTransaction

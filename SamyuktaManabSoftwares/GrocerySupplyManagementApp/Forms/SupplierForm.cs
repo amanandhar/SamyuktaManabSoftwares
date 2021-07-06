@@ -228,7 +228,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         if (_supplierTransactionService.DeleteSupplierTransaction(id))
                         {
-                            _itemTransactionService.DeleteItemTransactionBySupplierAndBill(supplierName, particulars);
+                            _itemTransactionService.DeleteItemTransaction(particulars);
                             LoadSupplierTransaction();
                         }
                     }

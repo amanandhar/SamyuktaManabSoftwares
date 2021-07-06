@@ -14,10 +14,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPosSoldItemService _posSoldItemService;
         private readonly IPosTransactionService _posTransactionService;
         private readonly IBankTransactionService _bankTransactionService;
+        private readonly IItemTransactionService _itemTransactionService;
 
         public SummaryForm(ITransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
             IPosSoldItemService posSoldItemService, IPosTransactionService posTransactionService,
-            IBankTransactionService bankTransactionService)
+            IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
 
@@ -26,13 +27,14 @@ namespace GrocerySupplyManagementApp.Forms
             _posSoldItemService = posSoldItemService;
             _posTransactionService = posTransactionService;
             _bankTransactionService = bankTransactionService;
+            _itemTransactionService = itemTransactionService;
         }
 
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
             TransactionForm transactionForm = new TransactionForm(_transactionService, _fiscalYearDetailService, 
                 _posSoldItemService, _posTransactionService,
-                _bankTransactionService);
+                _bankTransactionService, _itemTransactionService);
             transactionForm.Show();
         }
 

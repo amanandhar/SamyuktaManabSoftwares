@@ -22,6 +22,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPreparedItemService _preparedItemService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
+        private readonly IItemTransactionService _itemTransactionService;
         private List<PosSoldItemGrid> _posSoldItemGrids = new List<PosSoldItemGrid>();
 
         #region Constructor
@@ -29,7 +30,8 @@ namespace GrocerySupplyManagementApp.Forms
             IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService, 
             IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, 
             ITransactionService transactionService, IPreparedItemService preparedItemService, 
-            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
+            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService,
+            IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
 
@@ -43,6 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             _preparedItemService = preparedItemService;
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
+            _itemTransactionService = itemTransactionService;
         }
 
         public PosForm(IMemberService memberService, IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, string invoiceNo)
@@ -83,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TransactionForm transactionForm = new TransactionForm(_transactionService, _fiscalYearDetailService, 
                 _posSoldItemService, _posTransactionService,
-                _bankTransactionService);
+                _bankTransactionService, _itemTransactionService);
             transactionForm.Show();
         }
 

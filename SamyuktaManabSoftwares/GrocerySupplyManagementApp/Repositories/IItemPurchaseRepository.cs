@@ -13,7 +13,8 @@ namespace GrocerySupplyManagementApp.Repositories
         IEnumerable<ItemPurchaseGrid> GetItems(DTOs.StockFilterView filter);
         IEnumerable<ItemPurchase> GetItemsBySupplierAndBill(string supplierName, string billNo);
         decimal GetTotalAmountBySupplierAndBill(string supplierName, string billNo);
-        decimal GetTotalItemCount(DTOs.StockFilterView filter);
+        decimal GetTotalPurchaseItemCount(DTOs.StockFilterView filter);
+        decimal GetTotalSalesItemCount(DTOs.StockFilterView filter);
         decimal GetTotalItemCount(string code);
         decimal GetTotalItemAmount(DTOs.StockFilterView filter);
         IEnumerable<string> GetAllItemNames();
@@ -24,6 +25,6 @@ namespace GrocerySupplyManagementApp.Repositories
         ItemPurchase AddItem(ItemPurchase item);
         ItemPurchase UpdateItem(ItemPurchase item);
         bool DeleteItem(string name, string brand);
-        bool DeleteItemTransactionBySupplierAndBill(string supplierName, string billNo);
+        bool DeleteItemTransaction(string billNo);
     }
 }
