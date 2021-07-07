@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Services;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -163,13 +164,13 @@ namespace GrocerySupplyManagementApp.Forms
             }
 
             TxtPurchase.Text = _itemTransactionService.GetTotalPurchaseItemCount(filter).ToString();
-            TxtSales.Text = "0";
+            TxtSales.Text = _itemTransactionService.GetTotalSalesItemCount(filter).ToString();
             TxtTotalStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
-            TxtTotalValue.Text = _itemTransactionService.GetTotalItemAmount(filter).ToString();
+            TxtTotalValue.Text = (_itemTransactionService.GetTotalPurchaseItemAmount(filter) - _itemTransactionService.GetTotalSalesItemAmount(filter)).ToString();
 
-            List<Entities.ItemPurchaseGrid> items = _itemTransactionService.GetItems(filter).ToList();
+            List<StockView> items = _itemTransactionService.GetStockView(filter).ToList();
 
-            var bindingList = new BindingList<Entities.ItemPurchaseGrid>(items);
+            var bindingList = new BindingList<StockView>(items);
             var source = new BindingSource(bindingList, null);
             DataGridStockList.DataSource = source;
         }

@@ -91,6 +91,7 @@
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\ExpenseTransactionView.cs" />
+    <Compile Include="DTOs\StockView.cs" />
     <Compile Include="DTOs\MemberTransactionView.cs" />
     <Compile Include="DTOs\ItemView.cs" />
     <Compile Include="DTOs\ItemTransactionView.cs" />
@@ -103,7 +104,6 @@
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\PreparedItem.cs" />
     <Compile Include="Entities\ItemPurchase.cs" />
-    <Compile Include="Entities\ItemPurchaseGrid.cs" />
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Entities\PosTransaction.cs" />
     <Compile Include="Entities\PosSoldItem.cs" />

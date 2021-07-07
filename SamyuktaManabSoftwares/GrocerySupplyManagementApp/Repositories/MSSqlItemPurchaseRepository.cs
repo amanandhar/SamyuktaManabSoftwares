@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,13 +20,16 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<ItemPurchase>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT ItemId, Unit, Sum(Quantity) AS 'Quantity' FROM " + TABLE_NAME;
+            var query = @"SELECT " +
+                "ItemId, Unit, Sum(Quantity) AS 'Quantity' " +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE 1=1 ";
             if (!showEmptyItemCode)
             {
-                query += " WHERE Code != ''";
+                query += "AND Code != '' ";
             }
 
-            query += " GROUP BY ItemId, Unit";
+            query += "GROUP BY ItemId, Unit";
 
             try
             {
@@ -64,25 +68,31 @@ namespace GrocerySupplyManagementApp.Repositories
         /// </summary>
         /// <param name="filter"></param>
         /// <returns>Items</returns>
-        public IEnumerable<ItemPurchaseGrid> GetItems(DTOs.StockFilterView filter)
+        public IEnumerable<StockView> GetStockView(StockFilterView filter)
         {
-            var items = new List<ItemPurchaseGrid>();
+            var items = new List<StockView>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT Date, BillNo, Code, Name, Brand, Unit, Quantity, Price, CAST((Quantity * Price) AS DECIMAL(18,2)) AS 'Total'" +
-                " FROM ItemPurchase it INNER JOIN Item i ON it.ItemId = i.Id" +
-                " WHERE 1=1";
+            var query = @"SELECT " +
+                "Date, BillNo, Code, Name, Brand, Unit, Quantity, Price, CAST((Quantity * Price) AS DECIMAL(18,2)) AS 'Total' " +
+                "FROM " +
+                "ItemPurchase it " +
+                "INNER JOIN " +
+                "Item i " +
+                "ON " +
+                "it.ItemId = i.Id " +
+                "WHERE 1=1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += " AND Code = @Code";
+                query += "AND Code = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += " AND Date BETWEEN @DateFrom AND @DateTo";
+                query += "AND Date BETWEEN @DateFrom AND @DateTo ";
             }
 
-            query += " ORDER BY Date DESC ";
+            query += "ORDER BY Date DESC ";
 
             try
             {
@@ -99,7 +109,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var itemPurchase = new ItemPurchaseGrid
+                                var item = new StockView
                                 {
                                     PurchaseDate = Convert.ToDateTime(reader["Date"].ToString()).ToString("yyyy-MM-dd"),
                                     BillNo = reader["BillNo"].ToString(),
@@ -113,7 +123,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Total = Convert.ToDecimal(reader["Total"].ToString())
                                 };
 
-                                items.Add(itemPurchase);
+                                items.Add(item);
                             }
                         }
                     }
@@ -137,8 +147,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<ItemPurchase>();
             string connectionString = GetConnectionString();
-            var query = @"SELECT SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo" +
-                " FROM ItemPurchase WHERE SupplierName = @SupplierName AND BillNo = @BillNo ORDER BY Date";
+            var query = @"SELECT " +
+                "SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo " +
+                "FROM ItemPurchase " +
+                "WHERE 1 = 1 + " +
+                "AND SupplierName = @SupplierName " +
+                "AND BillNo = @BillNo " +
+                "ORDER BY Date";
 
             try
             {
@@ -188,11 +203,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             string connectionString = GetConnectionString();
-            var query = @"SELECT Sum(Quantity * Price) AS 'TotalPrice' " +
-                " FROM " + TABLE_NAME + 
-                " WHERE 1=1" +
-                " AND SupplierName = @SupplierName" +
-                " AND BillNo = @BillNo";
+            var query = @"SELECT " +
+                "SUM(Quantity * Price) AS 'TotalPrice' " +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE 1=1 " +
+                "AND SupplierName = @SupplierName " +
+                "AND BillNo = @BillNo ";
 
             try
             {
@@ -225,22 +241,26 @@ namespace GrocerySupplyManagementApp.Repositories
         /// </summary>
         /// <param name="filter"></param>
         /// <returns>Total Count</returns>
-        public decimal GetTotalPurchaseItemCount(DTOs.StockFilterView filter)
+        public decimal GetTotalPurchaseItemCount(StockFilterView filter)
         {
             decimal totalCount = 0.0m;
             string connectionString = GetConnectionString();
-            var query = @"SELECT Sum(Quantity) AS 'Quantity' " +
-                " FROM " + TABLE_NAME + " it INNER JOIN Item i ON it.ItemId = i.Id" +
-                " WHERE 1=1";
+            var query = @"SELECT " +
+                "SUM(Quantity) AS 'Quantity' " +
+                "FROM " + TABLE_NAME + " it " +
+                "INNER JOIN Item i " +
+                "ON " +
+                "it.ItemId = i.Id " +
+                "WHERE 1=1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += " AND Code = @Code";
+                query += "AND Code = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += " AND Date BETWEEN @DateFrom AND @DateTo";
+                query += "AND Date BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -270,22 +290,27 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
-        public decimal GetTotalSalesItemCount(DTOs.StockFilterView filter)
+        public decimal GetTotalSalesItemCount(StockFilterView filter)
         {
             decimal totalCount = 0.0m;
             string connectionString = GetConnectionString();
-            var query = @"SELECT Sum(Quantity) AS 'Quantity' " +
-                " FROM PosSoldItem psi INNER JOIN PosTransaction pt ON psi.InvoiceNo = i.InvoiceNo" +
-                " WHERE 1=1";
+            var query = @"SELECT " +
+                "SUM(psi.Quantity) AS 'Quantity' " +
+                "FROM PosSoldItem psi " +
+                "INNER JOIN " +
+                "PosTransaction pt " +
+                "ON " +
+                "psi.InvoiceNo = pt.InvoiceNo " +
+                "WHERE 1=1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += " AND psi.ItemCode = @Code";
+                query += "AND psi.ItemCode = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += " AND pt.InvoiceDate BETWEEN @DateFrom AND @DateTo";
+                query += "AND pt.InvoiceDate BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -353,7 +378,7 @@ namespace GrocerySupplyManagementApp.Repositories
         /// </summary>
         /// <param name="filter"></param>
         /// <returns>Total Amount</returns>
-        public decimal GetTotalItemAmount(DTOs.StockFilterView filter)
+        public decimal GetTotalPurchaseItemAmount(StockFilterView filter)
         {
             decimal totalAmount = 0.0m;
             string connectionString = GetConnectionString();
@@ -369,6 +394,56 @@ namespace GrocerySupplyManagementApp.Repositories
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
                 query += " AND Date BETWEEN @DateFrom AND @DateTo";
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Code", ((object)filter.ItemCode) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)filter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)filter.DateTo) ?? DBNull.Value);
+
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            totalAmount = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return totalAmount;
+        }
+
+        public decimal GetTotalSalesItemAmount(StockFilterView filter)
+        {
+            decimal totalAmount = 0.0m;
+            string connectionString = GetConnectionString();
+            var query = @"SELECT " + 
+                "SUM(CAST((psi.Quantity * psi.Price) AS DECIMAL(18,2))) AS 'Total' " +
+                "FROM PosSoldItem psi " +
+                "INNER JOIN " +
+                "PosTransaction pt " +
+                "ON " +
+                "psi.InvoiceNo = pt.InvoiceNo " +
+                "WHERE 1=1 ";
+
+            if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
+            {
+                query += "AND psi.ItemCode = @Code ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
+            {
+                query += "AND pt.InvoiceDate BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -524,11 +599,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             int itemId = 0;
             string connectionString = GetConnectionString();
-            var query = @"SELECT ItemId" +
-                " FROM " + TABLE_NAME + 
-                " WHERE 1=1" +
-                " AND SupplierName = @SupplierName" +
-                " AND BillNo = @BillNo";
+            var query = @"SELECT " +
+                "ItemId " +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE 1=1 " +
+                "AND SupplierName = @SupplierName " +
+                "AND BillNo = @BillNo ";
 
             try
             {

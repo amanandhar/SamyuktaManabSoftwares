@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetItems(showEmptyItemCode);
         }
 
-        public IEnumerable<ItemPurchaseGrid> GetItems(DTOs.StockFilterView filter)
+        public IEnumerable<StockView> GetStockView(StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -30,7 +31,7 @@ namespace GrocerySupplyManagementApp.Services
                 filter.DateTo = null;
             }
 
-            return _itemTransactionRepository.GetItems(filter);
+            return _itemTransactionRepository.GetStockView(filter);
         }
 
         public IEnumerable<ItemPurchase> GetItemsBySupplierAndBill(string supplierName, string billNo)
@@ -79,7 +80,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalItemCount(code);
         }
 
-        public decimal GetTotalItemAmount(DTOs.StockFilterView filter)
+        public decimal GetTotalPurchaseItemAmount(DTOs.StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -91,7 +92,22 @@ namespace GrocerySupplyManagementApp.Services
                 filter.DateTo += " 23:59:59.999";
             }
 
-            return _itemTransactionRepository.GetTotalItemAmount(filter);
+            return _itemTransactionRepository.GetTotalPurchaseItemAmount(filter);
+        }
+
+        public decimal GetTotalSalesItemAmount(DTOs.StockFilterView filter)
+        {
+            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            {
+                filter.DateFrom = null;
+                filter.DateTo = null;
+            }
+            else if (!string.IsNullOrWhiteSpace(filter.DateTo) && !filter.DateTo.Contains("23:59:59.999"))
+            {
+                filter.DateTo += " 23:59:59.999";
+            }
+
+            return _itemTransactionRepository.GetTotalSalesItemAmount(filter);
         }
 
         public IEnumerable<string> GetAllItemNames()

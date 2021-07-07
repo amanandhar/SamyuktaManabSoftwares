@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GrocerySupplyManagementApp.Entities
+﻿namespace GrocerySupplyManagementApp.DTOs
 {
-    public class ItemPurchaseGrid
+    public class StockView
     {
         public string SupplierName { get; set; }
         public string PurchaseDate { get; set; }
