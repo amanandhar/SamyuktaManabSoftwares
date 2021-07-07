@@ -10,11 +10,6 @@ namespace GrocerySupplyManagementApp.Repositories
     {
         private const string DB_CONNECTION_STRING = "DBConnectionString";
         private const string TABLE_NAME = "PreparedItem";
-        
-        public MSSqlPreparedItemRepository()
-        {
-
-        }
 
         public IEnumerable<PreparedItem> GetPreparedItems()
         {
@@ -40,7 +35,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Unit = reader["Unit"].ToString(),
                                     Stock = Convert.ToInt64(reader["Stock"].ToString()),
                                     PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
-                                    OldPurchasePrice = Convert.ToDecimal(reader["OldPurchasePrice"].ToString()),
+                                    CurrentPurchasePrice = Convert.ToDecimal(reader["CurrentPurchasePrice"].ToString()),
                                     Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString()),
@@ -86,7 +81,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 preparedItem.Unit = reader["Unit"].ToString();
                                 preparedItem.Stock = Convert.ToInt64(reader["Stock"].ToString());
                                 preparedItem.PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString());
-                                preparedItem.OldPurchasePrice = reader.IsDBNull(6) ? 0.0m : Convert.ToDecimal(reader["OldPurchasePrice"].ToString());
+                                preparedItem.CurrentPurchasePrice = reader.IsDBNull(6) ? 0.0m : Convert.ToDecimal(reader["CurrentPurchasePrice"].ToString());
                                 preparedItem.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
                                 preparedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 preparedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
@@ -152,12 +147,12 @@ namespace GrocerySupplyManagementApp.Repositories
             string connectionString = GetConnectionString();
             string query = "INSERT INTO " + TABLE_NAME +
                             " (" +
-                                " [ItemId], [ItemSubCode], [Unit], [Stock], [PurchasePrice], [OldPurchasePrice], " +
+                                " [ItemId], [ItemSubCode], [Unit], [Stock], [PurchasePrice], [CurrentPurchasePrice], " +
                                 " [Quantity], [Price], [ProfitPercent], [ProfitAmount], [SalesPrice], [SalesPricePerUnit] " +
                             " ) " +
                             " VALUES" +
                             " (" +
-                                " @ItemId, @ItemSubCode, @Unit, @Stock, @PurchasePrice, @OldPurchasePrice, " +
+                                " @ItemId, @ItemSubCode, @Unit, @Stock, @PurchasePrice, @CurrentPurchasePrice, " +
                                 " @Quantity, @Price, @ProfitPercent, @ProfitAmount, @SalesPrice, @SalesPricePerUnit " +
                             " )";
             try
@@ -172,7 +167,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Unit", preparedItem.Unit);
                         command.Parameters.AddWithValue("@Stock", preparedItem.Stock);
                         command.Parameters.AddWithValue("@PurchasePrice", preparedItem.PurchasePrice);
-                        command.Parameters.AddWithValue("@OldPurchasePrice", ((object)preparedItem?.OldPurchasePrice) ?? DBNull.Value );
+                        command.Parameters.AddWithValue("@CurrentPurchasePrice", ((object)preparedItem?.CurrentPurchasePrice) ?? DBNull.Value );
                         command.Parameters.AddWithValue("@Quantity", preparedItem.Quantity);
                         command.Parameters.AddWithValue("@Price", preparedItem.Price);
                         command.Parameters.AddWithValue("@ProfitPercent", preparedItem.ProfitPercent);
@@ -201,7 +196,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "Unit = @Unit, " +
                     "Stock = @Stock, " +
                     "PurchasePrice = @PurchasePrice, " +
-                    "OldPurchasePrice = @OldPurchasePrice, " +
+                    "CurrentPurchasePrice = @CurrentPurchasePrice, " +
                     "Quantity = @Quantity, " +
                     "Price = @Price, " +
                     "ProfitPercent = @ProfitPercent, " +
@@ -223,7 +218,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Unit", preparedItem.Unit);
                         command.Parameters.AddWithValue("@Stock", preparedItem.Stock);
                         command.Parameters.AddWithValue("@PurchasePrice", preparedItem.PurchasePrice);
-                        command.Parameters.AddWithValue("@OldPurchasePrice", ((object)preparedItem?.OldPurchasePrice) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@CurrentPurchasePrice", ((object)preparedItem?.CurrentPurchasePrice) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Quantity", preparedItem.Quantity);
                         command.Parameters.AddWithValue("@Price", preparedItem.Price);
                         command.Parameters.AddWithValue("@ProfitPercent", preparedItem.ProfitPercent);

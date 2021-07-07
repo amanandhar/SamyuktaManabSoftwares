@@ -31,7 +31,8 @@ namespace GrocerySupplyManagementApp
                 container.Resolve<ITransactionService>(),
                 container.Resolve<IPreparedItemService>(),
                 container.Resolve<IBankDetailService>(),
-                container.Resolve<IBankTransactionService>()
+                container.Resolve<IBankTransactionService>(),
+                container.Resolve<IIncomeDetailService>()
                 ));
             //Application.Run(new SalesReportForm());
         }
@@ -53,6 +54,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IPreparedItemService, PreparedItemService>();
             container.RegisterType<IBankDetailService, BankDetailService>();
             container.RegisterType<IBankTransactionService, BankTransactionService>();
+            container.RegisterType<IIncomeDetailService, IncomeDetailService>();
 
             container.RegisterType<IMemberRepository, MSSqlMemberRepository>();
             container.RegisterType<ISupplierRepository, MSSqlSupplierRepository>();
@@ -67,6 +69,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IPreparedItemRepository, MSSqlPreparedItemRepository>();
             container.RegisterType<IBankDetailRepository, MSSqlBankDetailRepository>();
             container.RegisterType<IBankTransactionRepository, MSSqlBankTransactionRepository>();
+            container.RegisterType<IIncomeDetailRepository, MSSqlIncomeDetailRepository>();
 
             return container;
         }

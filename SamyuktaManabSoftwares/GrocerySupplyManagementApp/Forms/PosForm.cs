@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using GrocerySupplyManagementApp.Shared;
@@ -355,9 +356,12 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Text = item.Name;
                 RichItemBrand.Text = item.Brand;
                 RichItemPrice.Text = preparedItem.SalesPricePerUnit.ToString();
-                RichItemStock.Text = preparedItem.Stock.ToString();
+                StockFilterView filter = new StockFilterView
+                {
+                    ItemCode = item.Code
+                };
+                RichItemStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
                 RichItemUnit.Text = preparedItem.Unit.ToString();
-
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }

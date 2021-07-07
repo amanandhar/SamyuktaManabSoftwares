@@ -1,60 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GrocerySupplyManagementApp.Services;
+using System;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class IncomeDetailForm : Form
     {
-        public IncomeDetailForm()
+        private readonly IIncomeDetailService _incomeDetailService;
+
+        #region Constructor
+        public IncomeDetailForm(IIncomeDetailService incomeDetailService)
         {
             InitializeComponent();
-        }
 
-        private void PaymentOutForm_Load(object sender, EventArgs e)
+            _incomeDetailService = incomeDetailService;
+        }
+        #endregion
+
+        #region Form Load Event
+        private void IncomeDetailForm_Load(object sender, EventArgs e)
         {
 
         }
+        #endregion
 
-        private void label3_Click(object sender, EventArgs e)
+        #region Button Click Event
+        private void BtnShow_Click(object sender, EventArgs e)
+        {
+            var income = ComboAddIncome.Text;
+            if(income.Equals("1. Sales Profit"))
+            {
+                _incomeDetailService.GetIncomeDetails();
+            }
+        }
+        #endregion
+
+        #region DataGrid Event 
+        private void DataGridIncomeView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
 
         }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
+        #endregion
     }
 }

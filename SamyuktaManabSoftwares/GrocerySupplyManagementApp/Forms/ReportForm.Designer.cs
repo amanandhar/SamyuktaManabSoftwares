@@ -31,8 +31,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnBalanceSheetForm = new System.Windows.Forms.Button();
-            this.btnPfofitLossForm = new System.Windows.Forms.Button();
+            this.BtnBalanceSheetForm = new System.Windows.Forms.Button();
+            this.BtnProfitLossForm = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.BtnDailyExpenseReport = new System.Windows.Forms.Button();
             this.BtnDailyIncomeReport = new System.Windows.Forms.Button();
@@ -64,29 +64,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Text = "                                                                                 " +
     "          Report Selection";
             // 
-            // btnBalanceSheetForm
+            // BtnBalanceSheetForm
             // 
-            this.btnBalanceSheetForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBalanceSheetForm.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnBalanceSheetForm.Location = new System.Drawing.Point(394, 217);
-            this.btnBalanceSheetForm.Name = "btnBalanceSheetForm";
-            this.btnBalanceSheetForm.Size = new System.Drawing.Size(250, 125);
-            this.btnBalanceSheetForm.TabIndex = 14;
-            this.btnBalanceSheetForm.Text = "Balance - Sheet ";
-            this.btnBalanceSheetForm.UseVisualStyleBackColor = true;
-            this.btnBalanceSheetForm.Click += new System.EventHandler(this.button5_Click);
+            this.BtnBalanceSheetForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnBalanceSheetForm.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnBalanceSheetForm.Location = new System.Drawing.Point(394, 217);
+            this.BtnBalanceSheetForm.Name = "BtnBalanceSheetForm";
+            this.BtnBalanceSheetForm.Size = new System.Drawing.Size(250, 125);
+            this.BtnBalanceSheetForm.TabIndex = 14;
+            this.BtnBalanceSheetForm.Text = "Balance - Sheet ";
+            this.BtnBalanceSheetForm.UseVisualStyleBackColor = true;
+            this.BtnBalanceSheetForm.Click += new System.EventHandler(this.BtnBalanceSheetForm_Click);
             // 
-            // btnPfofitLossForm
+            // BtnProfitLossForm
             // 
-            this.btnPfofitLossForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPfofitLossForm.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnPfofitLossForm.Location = new System.Drawing.Point(394, 51);
-            this.btnPfofitLossForm.Name = "btnPfofitLossForm";
-            this.btnPfofitLossForm.Size = new System.Drawing.Size(250, 125);
-            this.btnPfofitLossForm.TabIndex = 15;
-            this.btnPfofitLossForm.Text = "Pfofit And Loss ";
-            this.btnPfofitLossForm.UseVisualStyleBackColor = true;
-            this.btnPfofitLossForm.Click += new System.EventHandler(this.button6_Click);
+            this.BtnProfitLossForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnProfitLossForm.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnProfitLossForm.Location = new System.Drawing.Point(394, 51);
+            this.BtnProfitLossForm.Name = "BtnProfitLossForm";
+            this.BtnProfitLossForm.Size = new System.Drawing.Size(250, 125);
+            this.BtnProfitLossForm.TabIndex = 15;
+            this.BtnProfitLossForm.Text = "Profit And Loss ";
+            this.BtnProfitLossForm.UseVisualStyleBackColor = true;
+            this.BtnProfitLossForm.Click += new System.EventHandler(this.BtnProfitLossForm_Click);
             // 
             // button9
             // 
@@ -166,8 +166,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.BtnDailyIncomeReport);
             this.Controls.Add(this.BtnDailyExpenseReport);
             this.Controls.Add(this.button9);
-            this.Controls.Add(this.btnPfofitLossForm);
-            this.Controls.Add(this.btnBalanceSheetForm);
+            this.Controls.Add(this.BtnProfitLossForm);
+            this.Controls.Add(this.BtnBalanceSheetForm);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Name = "ReportForm";
@@ -180,8 +180,8 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnBalanceSheetForm;
-        private System.Windows.Forms.Button btnPfofitLossForm;
+        private System.Windows.Forms.Button BtnBalanceSheetForm;
+        private System.Windows.Forms.Button BtnProfitLossForm;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button BtnDailyExpenseReport;
         private System.Windows.Forms.Button BtnDailyIncomeReport;

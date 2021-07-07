@@ -73,13 +73,26 @@ namespace GrocerySupplyManagementApp.Repositories
             var items = new List<StockView>();
             string connectionString = GetConnectionString();
             var query = @"SELECT " +
-                "Date, BillNo, Code, Name, Brand, Unit, Quantity, Price, CAST((Quantity * Price) AS DECIMAL(18,2)) AS 'Total' " +
+                "it.[Date] AS 'Date', it.[BillNo] AS 'BillInvoiceNo', 'Purchase' AS 'Description', i.[Code] AS 'Code', " +
+                "i.[Name] AS 'Name', i.[Brand] AS 'Brand', it.[Unit] AS 'Unit', " +
+                "it.[Quantity] AS 'Quantity', it.[Price] AS 'Price', CAST((it.[Quantity] * it.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " +
                 "ItemPurchase it " +
                 "INNER JOIN " +
                 "Item i " +
                 "ON " +
                 "it.ItemId = i.Id " +
+                "WHERE 1=1 " +
+                "UNION " +
+                "SELECT " +
+                "pt.[InvoiceDate] AS 'Date', pt.[InvoiceNo] 'BillInvoiceNo', 'Sales' AS 'Description', psi.[ItemCode] AS 'Code', " +
+                "psi.[ItemName] AS 'Name', psi.[ItemBrand] AS 'Brand', psi.[Unit] AS 'Unit', " +
+                "psi.[Quantity] AS 'Quantity', psi.[Price] AS 'Price', CAST((psi.[Quantity] * psi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
+                "FROM PosSoldItem psi " +
+                "INNER JOIN " +
+                "PosTransaction pt " +
+                "ON " +
+                "psi.InvoiceNo = pt.InvoiceNo " +
                 "WHERE 1=1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
@@ -111,15 +124,15 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var item = new StockView
                                 {
-                                    PurchaseDate = Convert.ToDateTime(reader["Date"].ToString()).ToString("yyyy-MM-dd"),
-                                    BillNo = reader["BillNo"].ToString(),
-                                    Description = "Purchase",
+                                    Date = Convert.ToDateTime(reader["Date"].ToString()).ToString("yyyy-MM-dd"),
+                                    BillInvoiceNo = reader["BillInvoiceNo"].ToString(),
+                                    Description = reader["Description"].ToString(),
                                     Code = reader["Code"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    PurchasePrice = Convert.ToDecimal(reader["Price"].ToString()),
+                                    Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString())
                                 };
 

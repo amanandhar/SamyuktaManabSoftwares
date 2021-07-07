@@ -19,6 +19,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPreparedItemService _preparedItemService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
+        private readonly IIncomeDetailService _incomeDetailService;
 
         #region Constructor
         public DashboardForm(IMemberService memberService, ISupplierService supplierService, IItemService itemService,
@@ -26,7 +27,8 @@ namespace GrocerySupplyManagementApp.Forms
             IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService,
             IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, 
             ITransactionService transactionService, IPreparedItemService preparedItemService,
-            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
+            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService,
+            IIncomeDetailService incomeDetailService)
         {
             InitializeComponent();
 
@@ -43,6 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             _preparedItemService = preparedItemService;
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
+            _incomeDetailService = incomeDetailService;
         }
         #endregion
 
@@ -141,7 +144,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
             ReportForm reportForm = new ReportForm(_fiscalYearDetailService, _posTransactionService, 
-                _bankDetailService, _bankTransactionService);
+                _bankDetailService, _bankTransactionService,
+                _incomeDetailService);
             reportForm.Show();
         }
 

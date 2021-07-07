@@ -282,7 +282,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridBankDetails.Columns["Description"].DisplayIndex = 1;
 
             DataGridBankDetails.Columns["Narration"].HeaderText = "Narration";
-            DataGridBankDetails.Columns["Narration"].Width = 200;
+            DataGridBankDetails.Columns["Narration"].Width = 260;
             DataGridBankDetails.Columns["Narration"].DisplayIndex = 2;
 
             DataGridBankDetails.Columns["Debit"].HeaderText = "Debit";

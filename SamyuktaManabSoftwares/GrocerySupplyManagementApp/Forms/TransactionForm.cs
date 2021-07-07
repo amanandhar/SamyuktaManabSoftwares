@@ -268,7 +268,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
 
             DataGridTransactionList.Columns["ActionType"].HeaderText = "Type";
-            DataGridTransactionList.Columns["ActionType"].Width = 120;
+            DataGridTransactionList.Columns["ActionType"].Width = 180;
             DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
             DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
@@ -280,7 +280,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["ItemCode"].DisplayIndex = 5;
 
             DataGridTransactionList.Columns["ItemName"].HeaderText = "Name";
-            DataGridTransactionList.Columns["ItemName"].Width = 100;
+            DataGridTransactionList.Columns["ItemName"].Width = 150;
             DataGridTransactionList.Columns["ItemName"].DisplayIndex = 6;
 
             DataGridTransactionList.Columns["Quantity"].HeaderText = "Quantity";

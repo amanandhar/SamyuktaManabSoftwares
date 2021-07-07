@@ -98,28 +98,28 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridStockList.Columns["SupplierName"].Visible = false;
 
-            DataGridStockList.Columns["PurchaseDate"].HeaderText = "Date";
-            DataGridStockList.Columns["PurchaseDate"].Width = 80;
-            DataGridStockList.Columns["PurchaseDate"].DisplayIndex = 0;
+            DataGridStockList.Columns["Date"].HeaderText = "Date";
+            DataGridStockList.Columns["Date"].Width = 80;
+            DataGridStockList.Columns["Date"].DisplayIndex = 0;
 
-            DataGridStockList.Columns["BillNo"].HeaderText = "Bill No";
-            DataGridStockList.Columns["BillNo"].Width = 80;
-            DataGridStockList.Columns["BillNo"].DisplayIndex = 1;
+            DataGridStockList.Columns["BillInvoiceNo"].HeaderText = "Bill/Invoice No";
+            DataGridStockList.Columns["BillInvoiceNo"].Width = 100;
+            DataGridStockList.Columns["BillInvoiceNo"].DisplayIndex = 1;
 
             DataGridStockList.Columns["Description"].HeaderText = "Description";
             DataGridStockList.Columns["Description"].Width = 80;
             DataGridStockList.Columns["Description"].DisplayIndex = 2;
 
             DataGridStockList.Columns["Code"].HeaderText = "Code";
-            DataGridStockList.Columns["Code"].Width = 80;
+            DataGridStockList.Columns["Code"].Width = 60;
             DataGridStockList.Columns["Code"].DisplayIndex = 3;
 
             DataGridStockList.Columns["Name"].HeaderText = "Name";
-            DataGridStockList.Columns["Name"].Width = 150;
+            DataGridStockList.Columns["Name"].Width = 160;
             DataGridStockList.Columns["Name"].DisplayIndex = 4;
 
             DataGridStockList.Columns["Brand"].HeaderText = "Brand";
-            DataGridStockList.Columns["Brand"].Width = 150;
+            DataGridStockList.Columns["Brand"].Width = 160;
             DataGridStockList.Columns["Brand"].DisplayIndex = 5;
 
             DataGridStockList.Columns["Unit"].HeaderText = "Unit";
@@ -130,9 +130,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["Quantity"].Width = 80;
             DataGridStockList.Columns["Quantity"].DisplayIndex = 7;
 
-            DataGridStockList.Columns["PurchasePrice"].HeaderText = "Price";
-            DataGridStockList.Columns["PurchasePrice"].Width = 100;
-            DataGridStockList.Columns["PurchasePrice"].DisplayIndex = 8;
+            DataGridStockList.Columns["Price"].HeaderText = "Price";
+            DataGridStockList.Columns["Price"].Width = 80;
+            DataGridStockList.Columns["Price"].DisplayIndex = 8;
 
             DataGridStockList.Columns["Total"].HeaderText = "Total";
             DataGridStockList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -154,7 +154,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadItems()
         {
 
-            DTOs.StockFilterView filter = new DTOs.StockFilterView();
+            StockFilterView filter = new StockFilterView();
 
             if (!CheckAllTransactions.Checked)
             {

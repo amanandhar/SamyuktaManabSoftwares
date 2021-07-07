@@ -91,6 +91,7 @@
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\ExpenseTransactionView.cs" />
+    <Compile Include="DTOs\IncomeDetailView.cs" />
     <Compile Include="DTOs\StockView.cs" />
     <Compile Include="DTOs\MemberTransactionView.cs" />
     <Compile Include="DTOs\ItemView.cs" />
@@ -331,6 +332,7 @@
     </Compile>
     <Compile Include="Repositories\IBankDetailRepository.cs" />
     <Compile Include="Repositories\IBankTransactionRepository.cs" />
+    <Compile Include="Repositories\IIncomeDetailRepository.cs" />
     <Compile Include="Repositories\IPreparedItemRepository.cs" />
     <Compile Include="Repositories\IItemPurchaseRepository.cs" />
     <Compile Include="Repositories\IPosTransactionRepository.cs" />
@@ -345,6 +347,7 @@
     <Compile Include="Repositories\IMemberRepository.cs" />
     <Compile Include="Repositories\ISupplierRepository.cs" />
     <Compile Include="Repositories\ISupplierTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlIncomeDetailRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlItemPurchaseRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
@@ -365,10 +368,12 @@
     <Compile Include="Services\FiscalYearDetailService.cs" />
     <Compile Include="Services\IBankDetailService.cs" />
     <Compile Include="Services\IBankTransactionService.cs" />
+    <Compile Include="Services\IIncomeDetailService.cs" />
     <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IItemTransactionService.cs" />
     <Compile Include="Services\IMemberService.cs" />
     <Compile Include="Services\IFiscalYearDetailService.cs" />
+    <Compile Include="Services\IncomeDetailService.cs" />
     <Compile Include="Services\IPosTransactionService.cs" />
     <Compile Include="Services\IPosSoldItemService.cs" />
     <Compile Include="Services\IPreparedItemService.cs" />

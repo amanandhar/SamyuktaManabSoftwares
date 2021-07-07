@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using GrocerySupplyManagementApp.Shared;
@@ -49,6 +50,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
+            TxtCurrentPurchasePrice.Enabled = true;
             TxtQuantity.Enabled = true;
             TxtProfitPercent.Enabled = true;
 
@@ -66,7 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Unit = ComboItemUnit.Text,
                     Stock = Convert.ToInt64(TxtTotalStock.Text),
                     PurchasePrice = Convert.ToDecimal(TxtNewPurchasePrice.Text),
-                    OldPurchasePrice = null, //Convert.ToDecimal(TxtOldPurchasePrice.Text),
+                    CurrentPurchasePrice = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
                     Price = Convert.ToDecimal(TxtTotalPrice.Text),
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
@@ -148,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemBrand.Clear();
             ComboItemUnit.Text = string.Empty;
             TxtTotalStock.Clear();
-            TxtOldPurchasePrice.Clear();
+            TxtCurrentPurchasePrice.Clear();
             TxtNewPurchasePrice.Clear();
             TxtQuantity.Clear();
             TxtTotalPrice.Clear();
@@ -170,7 +172,13 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemBrand.Text = item.Brand;
                 
                 ComboItemUnit.Text = itemTransaction.Unit.ToString();
-                TxtTotalStock.Text = _itemTransactionService.GetTotalItemCount(item.Code).ToString();
+
+                StockFilterView filter = new StockFilterView
+                {
+                    ItemCode = item.Code
+                };
+                TxtTotalStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
+
                 TxtNewPurchasePrice.Text = itemTransaction.PurchasePrice.ToString();
 
                 var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
@@ -203,8 +211,12 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemBrand.Text = item.Brand;
 
                 ComboItemUnit.Text = preparedItem.Unit;
-                TxtTotalStock.Text = preparedItem.Stock.ToString();
-                TxtOldPurchasePrice.Text = preparedItem.OldPurchasePrice.ToString();
+                StockFilterView filter = new StockFilterView
+                {
+                    ItemCode = item.Code
+                };
+                TxtTotalStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
+                TxtCurrentPurchasePrice.Text = preparedItem.CurrentPurchasePrice.ToString();
                 TxtNewPurchasePrice.Text = preparedItem.PurchasePrice.ToString();
                 TxtQuantity.Text = preparedItem.Quantity.ToString();
                 TxtTotalPrice.Text = preparedItem.Price.ToString();
@@ -260,6 +272,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddNew_Click(object sender, EventArgs e)
         {
             TxtItemSubCode.Enabled = true;
+            TxtCurrentPurchasePrice.Enabled = true;
             TxtQuantity.Enabled = true;
             TxtProfitPercent.Enabled = true;
 
@@ -321,7 +334,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Unit = ComboItemUnit.Text,
                     Stock = Convert.ToInt64(TxtTotalStock.Text),
                     PurchasePrice = Convert.ToDecimal(TxtNewPurchasePrice.Text),
-                    OldPurchasePrice = null, //Convert.ToDecimal(TxtOldPurchasePrice.Text),
+                    CurrentPurchasePrice = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
                     Price = Convert.ToDecimal(TxtTotalPrice.Text),
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
@@ -349,6 +362,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             PreparedItemListForm preparedItemListForm = new PreparedItemListForm(_preparedItemService, this);
             preparedItemListForm.Show();
+        }
+
+        private void TxtNewPurchasePrice_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
