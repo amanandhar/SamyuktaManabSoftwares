@@ -117,7 +117,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
 
-                var posTransaction = new PosTransaction
+                var posTransaction = new UserTransaction
                 {
                     InvoiceDate = fiscalYearDetail.StartingDate,
                     BillNo = RichBillNo.Text,

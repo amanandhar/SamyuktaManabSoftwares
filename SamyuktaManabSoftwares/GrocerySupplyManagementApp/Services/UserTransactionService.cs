@@ -18,12 +18,12 @@ namespace GrocerySupplyManagementApp.Services
             _fiscalYearDetailRepository = fiscalYearDetailRepository;
         }
 
-        public IEnumerable<PosTransaction> GetPosTransactions()
+        public IEnumerable<UserTransaction> GetPosTransactions()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PosTransaction> GetPosTransactions(string memberId)
+        public IEnumerable<UserTransaction> GetPosTransactions(string memberId)
         {
             return _posTransactionRepository.GetPosTransactions(memberId);
         }
@@ -43,27 +43,27 @@ namespace GrocerySupplyManagementApp.Services
             return _posTransactionRepository.GetExpenseTransactions(filter);
         }
 
-        public PosTransaction GetPosTransaction(long posTransactionId)
+        public UserTransaction GetPosTransaction(long posTransactionId)
         {
             throw new NotImplementedException();
         }
         
-        public PosTransaction GetPosTransaction(string invoiceNo)
+        public UserTransaction GetPosTransaction(string invoiceNo)
         {
             return _posTransactionRepository.GetPosTransaction(invoiceNo);
         }
 
-        public PosTransaction GetLastPosTransaction(string option)
+        public UserTransaction GetLastPosTransaction(string option)
         {
             return _posTransactionRepository.GetLastPosTransaction(option);
         }
 
-        public PosTransaction AddPosTransaction(PosTransaction posTransaction)
+        public UserTransaction AddPosTransaction(UserTransaction posTransaction)
         {
             return _posTransactionRepository.AddPosTransaction(posTransaction);
         }
 
-        public PosTransaction UpdatePosTransaction(long posTransactionId, PosTransaction posTransaction)
+        public UserTransaction UpdatePosTransaction(long posTransactionId, UserTransaction posTransaction)
         {
             throw new NotImplementedException();
         }

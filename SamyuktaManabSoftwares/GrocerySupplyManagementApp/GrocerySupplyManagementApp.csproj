@@ -109,10 +109,9 @@
     <Compile Include="Entities\CodedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
-    <Compile Include="Entities\PosTransaction.cs" />
+    <Compile Include="Entities\UserTransaction.cs" />
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
-    <Compile Include="Entities\SupplierTransaction.cs" />
     <Compile Include="Entities\TaxDetail.cs" />
     <Compile Include="Forms\AddNewCodeForm.cs">
       <SubType>Form</SubType>
@@ -354,7 +353,6 @@
     <Compile Include="Repositories\MSSqlSoldItemRepository.cs" />
     <Compile Include="Repositories\MSSqlCodedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
-    <Compile Include="Repositories\MSSqlSupplierTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlTaxDetailRepository.cs" />
     <Compile Include="Repositories\MSSqlDailyTransactionRepository.cs" />
     <Compile Include="SampleSalesDBDataSet.Designer.cs">

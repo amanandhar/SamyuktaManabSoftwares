@@ -17,9 +17,9 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<PosTransaction> GetPosTransactions()
+        public IEnumerable<UserTransaction> GetPosTransactions()
         {
-            var posTransactions = new List<PosTransaction>();
+            var posTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], " +
                 "[SupplierId], [Action], [ActionType], [Bank], [Expense], " +
@@ -40,7 +40,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var posTransaction = new PosTransaction
+                                var posTransaction = new UserTransaction
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
@@ -78,9 +78,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return posTransactions;
         }
 
-        public IEnumerable<PosTransaction> GetPosTransactions(string memberId)
+        public IEnumerable<UserTransaction> GetPosTransactions(string memberId)
         {
-            var posTransactions = new List<PosTransaction>();
+            var posTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], " +
                 "[SupplierId], [Action], [ActionType], [Bank], [Expense], " +
@@ -105,7 +105,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var posTransaction = new PosTransaction
+                                var posTransaction = new UserTransaction
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
@@ -316,14 +316,14 @@ namespace GrocerySupplyManagementApp.Repositories
             return expenseTransactionViews;
         }
 
-        public PosTransaction GetPosTransaction(long posTransactionId)
+        public UserTransaction GetPosTransaction(long posTransactionId)
         {
             throw new NotImplementedException();
         }
 
-        public PosTransaction GetPosTransaction(string invoiceNo)
+        public UserTransaction GetPosTransaction(string invoiceNo)
         {
-            var posTransaction = new PosTransaction();
+            var posTransaction = new UserTransaction();
             var query = @"SELECT " +
                 "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge], " +
@@ -377,9 +377,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return posTransaction;
         }
         
-        public PosTransaction GetLastPosTransaction(string option)
+        public UserTransaction GetLastPosTransaction(string option)
         {
-            var posTransaction = new PosTransaction();
+            var posTransaction = new UserTransaction();
             var query = @"SELECT " +
                 "TOP 1 " +
                 "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
@@ -444,7 +444,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return posTransaction;
         }
 
-        public PosTransaction AddPosTransaction(PosTransaction posTransaction)
+        public UserTransaction AddPosTransaction(UserTransaction posTransaction)
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
@@ -497,12 +497,12 @@ namespace GrocerySupplyManagementApp.Repositories
             return posTransaction;
         }
 
-        public PosTransaction UpdatePosTransaction(long posTransactionId, PosTransaction posTransaction)
+        public UserTransaction UpdatePosTransaction(long posTransactionId, UserTransaction posTransaction)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeletePosTransaction(long posTransactionId, PosTransaction posTransaction)
+        public bool DeletePosTransaction(long posTransactionId, UserTransaction posTransaction)
         {
             throw new NotImplementedException();
         }

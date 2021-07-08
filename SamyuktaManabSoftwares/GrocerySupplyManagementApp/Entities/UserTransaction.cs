@@ -2,7 +2,7 @@
 
 namespace GrocerySupplyManagementApp.Entities
 {
-    public class PosTransaction
+    public class UserTransaction
     {
         public long Id { get; set; }
         public string InvoiceNo { get; set; }

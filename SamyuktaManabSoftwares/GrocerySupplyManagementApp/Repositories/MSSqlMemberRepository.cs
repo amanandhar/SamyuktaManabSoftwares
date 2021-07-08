@@ -16,10 +16,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        /// <summary>
-        /// Returns list of members
-        /// </summary>
-        /// <returns>List of Members</returns>
         public IEnumerable<Member> GetMembers()
         {
             var members = new List<Member>();
@@ -61,11 +57,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return members;
         }
 
-        /// <summary>
-        /// Returns a member with matching member id
-        /// </summary>
-        /// <param name="memberId"></param>
-        /// <returns>Member</returns>
         public Member GetMember(string memberId)
         {
             var query = @"SELECT " + 
@@ -105,11 +96,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return member;
         }
 
-        /// <summary>
-        /// Add a new member
-        /// </summary>
-        /// <param name="member"></param>
-        /// <returns>Member</returns>
         public Member AddMember(Member member)
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
@@ -147,12 +133,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return member;
         }
 
-        /// <summary>
-        /// Update member with member id
-        /// </summary>
-        /// <param name="memberId"></param>
-        /// <param name="member"></param>
-        /// <returns>Member</returns>
         public Member UpdateMember(string memberId, Member member)
         {
             string query = @"UPDATE " + Constants.TABLE_MEMBER + " " +
@@ -191,11 +171,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return member;
         }
 
-        /// <summary>
-        /// Delete member with member id
-        /// </summary>
-        /// <param name="memberId"></param>
-        /// <returns>bool</returns>
         public bool DeleteMember(string memberId)
         {
             string query = @"DELETE FROM " + Constants.TABLE_MEMBER + " " +
@@ -224,10 +199,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        /// <summary>
-        /// Get Last Member Id
-        /// </summary>
-        /// <returns>Id</returns>
         public int GetLastMemberId()
         {
             int id = 0;

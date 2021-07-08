@@ -17,10 +17,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        /// <summary>
-        /// Returns list of items
-        /// </summary>
-        /// <returns>List of Items</returns>
         public IEnumerable<PurchasedItem> GetItems(bool showEmptyItemCode)
         {
             var items = new List<PurchasedItem>();
@@ -68,11 +64,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return items;
         }
 
-        /// <summary>
-        /// Get items with matching filter
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns>Items</returns>
         public IEnumerable<StockView> GetStockView(StockFilterView filter)
         {
             var items = new List<StockView>();
@@ -151,12 +142,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return items;
         }
 
-        /// <summary>
-        /// Returns items with matching supplier name and bill no
-        /// </summary>
-        /// <param name="supplierName"></param>
-        /// <param name="billNo"></param>
-        /// <returns>Items</returns>
         public IEnumerable<PurchasedItem> GetItemsBySupplierAndBill(string supplierName, string billNo)
         {
             var items = new List<PurchasedItem>();
@@ -206,12 +191,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return items;
         }
 
-        /// <summary>
-        /// Returns total amount by supplier name and bill number
-        /// </summary>
-        /// <param name="supplierName"></param>
-        /// <param name="billNo"></param>
-        /// <returns>decimal</returns>
         public decimal GetTotalAmountBySupplierAndBill(string supplierName, string billNo)
         {
             decimal totalAmount = 0.0m;
@@ -248,11 +227,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalAmount;
         }
 
-        /// <summary>
-        /// Get total count of matching filter
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns>Total Count</returns>
         public decimal GetTotalPurchaseItemCount(StockFilterView filter)
         {
             decimal totalCount = 0.0m;
@@ -383,11 +357,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
-        /// <summary>
-        /// Get total amount of matching filter
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns>Total Amount</returns>
         public decimal GetTotalPurchaseItemAmount(StockFilterView filter)
         {
             decimal totalAmount = 0.0m;
@@ -482,10 +451,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalAmount;
         }
 
-        /// <summary>
-        /// Get list of available item names
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<string> GetAllItemNames()
         {
             var itemNames = new List<string>();
@@ -520,10 +485,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return itemNames;
         }
 
-        /// <summary>
-        /// Get list of available item codes
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<string> GetAllItemCodes()
         {
             var itemCodes = new List<string>();
@@ -560,11 +521,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return itemCodes;
         }
 
-        /// <summary>
-        /// Returns a item with matching item name and brand
-        /// </summary>
-        /// <param name="itemName"></param>
-        /// <returns>Item</returns>
         public PurchasedItem GetItem(long itemId)
         {
             var item = new PurchasedItem();
@@ -607,12 +563,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return item;
         }
 
-        /// <summary>
-        ///  Returns item id with matching supplier name and bill no
-        /// </summary>
-        /// <param name="supplierName"></param>
-        /// <param name="billNo"></param>
-        /// <returns>itemId</returns>
         public long GetItemId(string supplierName, string billNo)
         {
             int itemId = 0;
@@ -680,11 +630,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return billNo;
         }
 
-        /// <summary>
-        /// Add a new item
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns>Item</returns>
         public PurchasedItem AddItem(PurchasedItem item)
         {
             string query = @"INSERT INTO " + Constants.TABLE_PURCHASED_ITEM + " " +
@@ -722,12 +667,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return item;
         }
 
-        /// <summary>
-        /// Update item with item code
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="name"></param>
-        /// <returns>Item</returns>
         public PurchasedItem UpdateItem(PurchasedItem item)
         {
             string query = @"UPDATE " + Constants.TABLE_PURCHASED_ITEM + " " +
@@ -761,12 +700,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return item;
         }
 
-        /// <summary>
-        /// Delete item with matching name and brand
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="brand"></param>
-        /// <returns>bool</returns>
         public bool DeleteItem(string name, string brand)
         {
             bool result = false;
@@ -798,12 +731,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        /// <summary>
-        /// Delete item transaction with matching supplier name and bill number
-        /// </summary>
-        /// <param name="supplierName"></param>
-        /// <param name="billNo"></param>
-        /// <returns>bool</returns>
         public bool DeleteItemTransaction(string billNo)
         {
             bool result = false;

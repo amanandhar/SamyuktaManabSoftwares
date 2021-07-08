@@ -136,7 +136,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var posTransaction = new PosTransaction
+                var posTransaction = new UserTransaction
                 {
                     InvoiceNo = RichInvoiceNo.Text.Trim(),
                     InvoiceDate = Convert.ToDateTime(RichInvoiceDate.Text.Trim()),
@@ -220,7 +220,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSavePayment_Click(object sender, EventArgs e)
         {
-            var posTransaction = new PosTransaction
+            var posTransaction = new UserTransaction
             {
                 InvoiceDate = Convert.ToDateTime(RichInvoiceDate.Text),
                 MemberId = RichMemberId.Text,
@@ -332,7 +332,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichContactNo.Text = member.ContactNumber.ToString();
                 RichAccNo.Text = member.AccountNumber;
 
-                List<PosTransaction> posTransactions = _posTransactionService.GetPosTransactions(memberId).ToList();
+                List<UserTransaction> posTransactions = _posTransactionService.GetPosTransactions(memberId).ToList();
                 TxtBalance.Text = _posTransactionService.GetMemberTotalBalance(memberId).ToString();
                 TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
 

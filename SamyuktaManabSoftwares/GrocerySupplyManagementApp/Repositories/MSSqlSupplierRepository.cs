@@ -16,10 +16,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        /// <summary>
-        /// Returns list of suppliers
-        /// </summary>
-        /// <returns>List of Suppliers</returns>
         public IEnumerable<Supplier> GetSuppliers()
         {
             var suppliers = new List<Supplier>();
@@ -62,11 +58,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return suppliers;
         }
 
-        /// <summary>
-        /// Returns a supplier with matching supplier name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns>Supplier</returns>
         public Supplier GetSupplier(string name)
         {
             var query = @"SELECT " +
@@ -106,11 +97,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
-        /// <summary>
-        /// Add a new supplier
-        /// </summary>
-        /// <param name="supplier"></param>
-        /// <returns>Supplier</returns>
         public Supplier AddSupplier(Supplier supplier)
         {
             string query = @"INSERT INTO " + Constants.TABLE_SUPPLIER + " " +
@@ -148,12 +134,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
-        /// <summary>
-        /// Update supplier with supplier name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="supplier"></param>
-        /// <returns>Supplier</returns>
         public Supplier UpdateSupplier(string name, Supplier supplier)
         {
             string query = @"UPDATE " + Constants.TABLE_SUPPLIER + " " +
@@ -193,11 +173,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
-        /// <summary>
-        /// Delete supplier with supplier name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns>bool</returns>
         public bool DeleteSupplier(string name)
         {
             string query = @"DELETE " +

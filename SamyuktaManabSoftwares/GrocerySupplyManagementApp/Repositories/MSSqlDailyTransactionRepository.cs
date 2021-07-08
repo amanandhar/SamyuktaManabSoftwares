@@ -242,6 +242,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return memberIds;
         }
+
         public IEnumerable<string> GetSalesItems()
         {
             var itemCodes = new List<string>();
