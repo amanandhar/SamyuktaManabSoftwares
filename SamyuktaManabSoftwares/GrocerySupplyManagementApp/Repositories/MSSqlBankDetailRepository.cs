@@ -1,21 +1,27 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlBankDetailRepository : IBankDetailRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
-        private const string TABLE_NAME = "BankDetail";
+        private readonly string connectionString;
+
+        public MSSqlBankDetailRepository()
+        {
+            connectionString = UtilityService.GetConnectionString();
+        }
 
         public IEnumerable<BankDetail> GetBankDetails()
         {
             var bankDetails = new List<BankDetail>();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT [Id], [Name], [AccountNo], [Date] FROM " + TABLE_NAME;
+            var query = @"SELECT " +
+                "[Id], [Name], [AccountNo], [Date] " +
+                "FROM " + Constants.TABLE_BANK_DETAIL;
 
             try
             {
@@ -53,8 +59,11 @@ namespace GrocerySupplyManagementApp.Repositories
         public BankDetail GetBankDetail(long bankId)
         {
             var bankDetail = new BankDetail();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT [Id], [Name], [AccountNo], [Date] FROM " + TABLE_NAME + " WHERE Id = @Id";
+            var query = @"SELECT " +
+                "[Id], [Name], [AccountNo], [Date] " +
+                "FROM " + Constants.TABLE_BANK_DETAIL + " " +
+                "WHERE 1 = 1 " +
+                "AND Id = @Id";
 
             try
             {
@@ -87,15 +96,15 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public BankDetail AddBankDetail(BankDetail bankDetail)
         {
-            string connectionString = GetConnectionString();
-            string query = "INSERT INTO " + TABLE_NAME + " " +
-                            "(" +
-                                "[Name], [AccountNo], [Date] " +
-                            ") " +
-                            "VALUES " +
-                            "(" +
-                                "@Name, @AccountNo, @Date " +
-                            ")";
+            string query = @"INSERT INTO " + 
+                    " " + Constants.TABLE_BANK_DETAIL + " " +
+                    "( " +
+                        "[Name], [AccountNo], [Date] " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@Name, @AccountNo, @Date " +
+                    ") ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -120,11 +129,11 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public BankDetail UpdateBankDetail(long bankId, BankDetail bankDetail)
         {
-            string connectionString = GetConnectionString();
-            string query = "UPDATE " + TABLE_NAME + " " +
-                            " SET " + 
-                            " [Name] = @Name, [AccountNo] = @AccountNo " +
-                            " WHERE [Id] = @Id";
+            string query = @"UPDATE " + Constants.TABLE_BANK_DETAIL + " " +
+                    "SET " + 
+                    "[Name] = @Name, [AccountNo] = @AccountNo " +
+                    "WHERE 1 = 1 " + 
+                    "AND [Id] = @Id";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -150,8 +159,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteBankDetail(long bankId)
         {
             bool result = false;
-            string connectionString = GetConnectionString();
-            string query = "DELETE FROM " + TABLE_NAME + " WHERE [Id] = @Id";
+            string query = @"DELETE " + 
+                    "FROM " + Constants.TABLE_BANK_DETAIL + " " +
+                    "WHERE 1 = 1 " +
+                    "[Id] = @Id";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -170,12 +181,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
         }
     }
 }

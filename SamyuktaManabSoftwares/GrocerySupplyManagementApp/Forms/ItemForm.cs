@@ -1,7 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Configuration;
@@ -15,7 +15,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
-        private readonly IPreparedItemService _preparedItemService;
+        private readonly ICodedItemService _preparedItemService;
         public DashboardForm _dashboard;
         private string _documentsDirectory;
         private const string ITEM_IMAGE_FOLDER = "Items";
@@ -23,8 +23,9 @@ namespace GrocerySupplyManagementApp.Forms
         private long selectedItemId = 0;
         private long selectedPreparedItemId = 0;
 
+        #region Constructor
         public ItemForm(IItemService itemService, IItemTransactionService itemTransactionService, 
-            IPreparedItemService preparedItemService, DashboardForm dashboardForm)
+            ICodedItemService preparedItemService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
@@ -33,6 +34,7 @@ namespace GrocerySupplyManagementApp.Forms
             _preparedItemService = preparedItemService;
             _dashboard = dashboardForm;
         }
+        #endregion
 
         #region Form Load Event
         private void ItemForm_Load(object sender, EventArgs e)
@@ -61,7 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var preparedItem = new PreparedItem
+                var preparedItem = new CodedItem
                 {
                     ItemId = selectedPreparedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
@@ -123,6 +125,56 @@ namespace GrocerySupplyManagementApp.Forms
 
         }
 
+        private void BtnAddNew_Click(object sender, EventArgs e)
+        {
+            TxtItemSubCode.Enabled = true;
+            TxtCurrentPurchasePrice.Enabled = true;
+            TxtQuantity.Enabled = true;
+            TxtProfitPercent.Enabled = true;
+
+            TxtItemSubCode.Focus();
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var preparedItem = new CodedItem
+                {
+                    ItemId = selectedItemId,
+                    ItemSubCode = TxtItemSubCode.Text,
+                    Unit = ComboItemUnit.Text,
+                    Stock = Convert.ToInt64(TxtTotalStock.Text),
+                    PurchasePrice = Convert.ToDecimal(TxtNewPurchasePrice.Text),
+                    CurrentPurchasePrice = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
+                    Quantity = Convert.ToInt64(TxtQuantity.Text),
+                    Price = Convert.ToDecimal(TxtTotalPrice.Text),
+                    ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
+                    ProfitAmount = Convert.ToDecimal(TxtProfitAmount.Text),
+                    SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
+                    SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text)
+                };
+
+                _preparedItemService.AddPreparedItem(preparedItem);
+
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    EnableFields(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnShowPreparedItem_Click(object sender, EventArgs e)
+        {
+            PreparedItemListForm preparedItemListForm = new PreparedItemListForm(_preparedItemService, this);
+            preparedItemListForm.Show();
+        }
         #endregion
 
         #region Helper Methods
@@ -269,16 +321,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        private void BtnAddNew_Click(object sender, EventArgs e)
-        {
-            TxtItemSubCode.Enabled = true;
-            TxtCurrentPurchasePrice.Enabled = true;
-            TxtQuantity.Enabled = true;
-            TxtProfitPercent.Enabled = true;
-
-            TxtItemSubCode.Focus();
-        }
-
+        #region Textbox Events
         private void TxtQuantity_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -322,51 +365,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtSalesPricePerUnit.Text = string.Empty;
             }
         }
-
-        private void BtnSave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var preparedItem = new PreparedItem
-                {
-                    ItemId = selectedItemId,
-                    ItemSubCode = TxtItemSubCode.Text,
-                    Unit = ComboItemUnit.Text,
-                    Stock = Convert.ToInt64(TxtTotalStock.Text),
-                    PurchasePrice = Convert.ToDecimal(TxtNewPurchasePrice.Text),
-                    CurrentPurchasePrice = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
-                    Quantity = Convert.ToInt64(TxtQuantity.Text),
-                    Price = Convert.ToDecimal(TxtTotalPrice.Text),
-                    ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
-                    ProfitAmount = Convert.ToDecimal(TxtProfitAmount.Text),
-                    SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
-                    SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text)
-                };
-
-                _preparedItemService.AddPreparedItem(preparedItem);
-
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields(false);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnShowPreparedItem_Click(object sender, EventArgs e)
-        {
-            PreparedItemListForm preparedItemListForm = new PreparedItemListForm(_preparedItemService, this);
-            preparedItemListForm.Show();
-        }
-
-        private void TxtNewPurchasePrice_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        #endregion
+       
     }
 }

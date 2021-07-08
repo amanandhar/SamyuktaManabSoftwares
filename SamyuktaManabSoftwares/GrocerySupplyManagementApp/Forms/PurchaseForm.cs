@@ -1,12 +1,12 @@
-﻿using GrocerySupplyManagementApp.Services;
-using System;
-using System.Windows.Forms;
-using GrocerySupplyManagementApp.Entities;
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -15,21 +15,20 @@ namespace GrocerySupplyManagementApp.Forms
         public SupplierForm _supplierForm;
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
-        private readonly ISupplierTransactionService _supplierTransactionService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly IUserTransactionService _posTransactionService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private List<DTOs.ItemView> _items = new List<DTOs.ItemView>();
-        
+
+        #region Constructor
         public PurchaseForm(SupplierForm supplierForm, IItemService itemService, 
-            IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService, 
-            IPosTransactionService posTransactionService, IFiscalYearDetailService fiscalYearDetailService)
+            IItemTransactionService itemTransactionService, IUserTransactionService posTransactionService, 
+            IFiscalYearDetailService fiscalYearDetailService)
         {
             InitializeComponent();
             
             _supplierForm = supplierForm;
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
-            _supplierTransactionService = supplierTransactionService;
             _posTransactionService = posTransactionService;
             _fiscalYearDetailService = fiscalYearDetailService;
         }
@@ -42,8 +41,9 @@ namespace GrocerySupplyManagementApp.Forms
             _itemTransactionService = itemTransactionService;
             LoadForm(supplierName, billNo);
         }
+        #endregion
 
-        #region Form Load Events
+        #region Form Load Event
         private void PurchaseForm_Load(object sender, EventArgs e)
         {
             ClearAllFields();
@@ -99,7 +99,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DateTime dateTime = DateTime.Now;
 
-                List<ItemPurchase> itemTransactions = _items.Select(item => new ItemPurchase
+                List<PurchasedItem> itemTransactions = _items.Select(item => new PurchasedItem
                 {
                     SupplierName = _supplierForm.GetSupplierName(),
                     ItemId = _itemService.GetItemId(item.Name, item.Brand),
@@ -150,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            ItemPurchase selectedItem = (ItemPurchase)DataGridPurchaseList.CurrentRow.DataBoundItem;
+            PurchasedItem selectedItem = (PurchasedItem)DataGridPurchaseList.CurrentRow.DataBoundItem;
             TxtTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
             LoadItems(_items);
         }

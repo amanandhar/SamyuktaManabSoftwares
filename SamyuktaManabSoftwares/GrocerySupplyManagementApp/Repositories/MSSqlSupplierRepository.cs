@@ -1,19 +1,19 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlSupplierRepository : ISupplierRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
-        private const string TABLE_NAME = "Supplier";
+        private readonly string connectionString;
 
         public MSSqlSupplierRepository()
         {
-
+            connectionString = UtilityService.GetConnectionString();
         }
 
         /// <summary>
@@ -23,8 +23,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<Supplier> GetSuppliers()
         {
             var suppliers = new List<Supplier>();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME + " ORDER BY SupplierId";
+            var query = @"SELECT " +
+                "* " +
+                "FROM " + Constants.TABLE_SUPPLIER + " " +
+                "ORDER BY SupplierId ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -67,8 +69,11 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>Supplier</returns>
         public Supplier GetSupplier(string name)
         {
-            string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME + " WHERE Name = @Name";
+            var query = @"SELECT " +
+                "* " +
+                "FROM " + Constants.TABLE_SUPPLIER + " " +
+                "WHERE 1 = 1 " +
+                "AND Name = @Name ";
             var supplier = new Supplier();
             try
             {
@@ -108,15 +113,15 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>Supplier</returns>
         public Supplier AddSupplier(Supplier supplier)
         {
-            string connectionString = GetConnectionString();
-            string query = "INSERT INTO " + TABLE_NAME + " " +
-                            "( " +
-                                "SupplierId, Name, Owner, Address, ContactNumber, Email " +
-                            ") " +
-                            "VALUES " +
-                            "(  " +
-                                "@SupplierId, @Name, @Owner, @Address, @ContactNumber, @Email " +
-                            ")";
+            string query = @"INSERT INTO " + Constants.TABLE_SUPPLIER + " " +
+                    "( " +
+                        "SupplierId, Name, Owner, Address, ContactNumber, Email " +
+                    ") " +
+                    "VALUES " +
+                    "(  " +
+                        "@SupplierId, @Name, @Owner, @Address, @ContactNumber, @Email " +
+                    ")";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -151,16 +156,17 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>Supplier</returns>
         public Supplier UpdateSupplier(string name, Supplier supplier)
         {
-            string connectionString = GetConnectionString();
-            string query = "UPDATE " + TABLE_NAME + " SET " +
-                    "SupplierId = @SupplierId, " +
-                    "Name = @Name, " +
-                    "Owner = @Owner, " +
-                    "Address = @Address, " +
-                    "ContactNumber = @ContactNumber, " +
-                    "Email = @Email " +
-                    "WHERE " +
-                    "Name = @Name";
+            string query = @"UPDATE " + Constants.TABLE_SUPPLIER + " " +
+                "SET " +
+                "SupplierId = @SupplierId, " +
+                "Name = @Name, " +
+                "Owner = @Owner, " +
+                "Address = @Address, " +
+                "ContactNumber = @ContactNumber, " +
+                "Email = @Email " +
+                "WHERE 1 = 1 " +
+                "AND Name = @Name ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -194,10 +200,10 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>bool</returns>
         public bool DeleteSupplier(string name)
         {
-            string connectionString = GetConnectionString();
-            string query = "DELETE FROM " + TABLE_NAME + " " +
-                    "WHERE " +
-                    "Name = @Name";
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_SUPPLIER + " " +
+                "WHERE 1 = 1 " +
+                "AND Name = @Name ";
             bool result = false;
 
             try
@@ -219,12 +225,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
         }
     }
 }

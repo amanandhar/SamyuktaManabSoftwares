@@ -1,5 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Windows.Forms;
 
@@ -9,12 +9,14 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
 
+        #region Constructor
         public FiscalYearForm(IFiscalYearDetailService fiscalYearDetailService)
         {
             InitializeComponent();
 
             _fiscalYearDetailService = fiscalYearDetailService;
         }
+        #endregion
 
         #region Form Load Event
         private void FiscalYearForm_Load(object sender, EventArgs e)

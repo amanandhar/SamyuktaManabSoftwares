@@ -1,6 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +12,8 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IBankDetailService _bankDetailService;
         private IBankListForm _bankListForm;
+
+        #region Constructor
         public BankListForm(IBankDetailService bankDetailService, IBankListForm bankListForm)
         {
             InitializeComponent();
@@ -19,7 +21,9 @@ namespace GrocerySupplyManagementApp.Forms
             _bankDetailService = bankDetailService;
             _bankListForm = bankListForm;
         }
+        #endregion
 
+        #region Form Load Event
         private void BankListForm_Load(object sender, EventArgs e)
         {
             var bankDetails = _bankDetailService.GetBankDetails();
@@ -28,7 +32,9 @@ namespace GrocerySupplyManagementApp.Forms
             var source = new BindingSource(bindingList, null);
             DataGridBankDetails.DataSource = source;
         }
+        #endregion
 
+        #region Data Grid Event
         private void DataGridBankDetails_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
@@ -66,5 +72,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridBankDetails.RowHeadersWidth = 50;
             }
         }
+        #endregion
     }
 }

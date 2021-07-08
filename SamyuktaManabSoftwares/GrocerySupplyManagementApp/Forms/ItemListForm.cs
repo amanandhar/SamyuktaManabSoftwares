@@ -1,6 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Forms
         public IItemListForm _itemListForm;
         public bool _showEmptyItemCode;
 
+        #region Constructor
         public ItemListForm(IItemService itemService, IItemListForm itemListForm, bool showEmptyItemCode)
         {
             InitializeComponent();
@@ -22,7 +23,9 @@ namespace GrocerySupplyManagementApp.Forms
             _itemListForm = itemListForm;
             _showEmptyItemCode = showEmptyItemCode;
         }
+        #endregion
 
+        #region Form Load Event
         private void ItemListForm_Load(object sender, EventArgs e)
         {
             var items = _itemService.GetItems(_showEmptyItemCode);
@@ -31,7 +34,9 @@ namespace GrocerySupplyManagementApp.Forms
             var source = new BindingSource(bindingList, null);
             DataGridItemList.DataSource = source;
         }
+        #endregion
 
+        #region Data Grid Event
         private void DataGridItemList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
@@ -72,5 +77,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridItemList.RowHeadersWidth = 50;
             }
         }
+        #endregion
     }
 }

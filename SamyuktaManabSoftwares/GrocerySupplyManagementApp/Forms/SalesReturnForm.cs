@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SalesReturnForm : Form
     {
+        #region Constructor
         public SalesReturnForm()
         {
             InitializeComponent();
         }
+        #endregion
+
+        #region Form Load Event
+        private void SalesReturnForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

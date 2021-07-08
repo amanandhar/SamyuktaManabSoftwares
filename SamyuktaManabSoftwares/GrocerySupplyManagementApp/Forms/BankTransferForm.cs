@@ -1,6 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
@@ -15,11 +15,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly IUserTransactionService _posTransactionService;
         private List<BankDetail> _bankDetails = new List<BankDetail>();
 
         #region Constructor
-        public BankTransferForm(IFiscalYearDetailService fiscalYearDetailService, IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IPosTransactionService posTransactionService)
+        public BankTransferForm(IFiscalYearDetailService fiscalYearDetailService, IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IUserTransactionService posTransactionService)
         {
             InitializeComponent();
 

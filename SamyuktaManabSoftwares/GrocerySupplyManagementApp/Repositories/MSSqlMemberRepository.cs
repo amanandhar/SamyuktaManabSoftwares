@@ -1,19 +1,19 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlMemberRepository : IMemberRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
-        private const string TABLE_NAME = "Member";
+        private readonly string connectionString;
 
         public MSSqlMemberRepository()
         {
-
+            connectionString = UtilityService.GetConnectionString();
         }
 
         /// <summary>
@@ -23,8 +23,9 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<Member> GetMembers()
         {
             var members = new List<Member>();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME;
+            var query = @"SELECT " + 
+                "* " +
+                "FROM " + Constants.TABLE_MEMBER;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -67,8 +68,11 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>Member</returns>
         public Member GetMember(string memberId)
         {
-            string connectionString = GetConnectionString();
-            var query = @"SELECT * FROM " + TABLE_NAME + " WHERE MemberId = @MemberId";
+            var query = @"SELECT " + 
+                "* " +
+                "FROM " + Constants.TABLE_MEMBER + " " +
+                "WHERE 1 = 1 " +
+                "AND MemberId = @MemberId ";
             var member = new Member();
             try
             {
@@ -108,15 +112,14 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>Member</returns>
         public Member AddMember(Member member)
         {
-            string connectionString = GetConnectionString();
-            string query = "INSERT INTO " + TABLE_NAME + " " +
-                            "(" +
-                                "Id, MemberId, Name, Address, ContactNumber, Email, AccountNumber " +
-                            ") " +
-                            "VALUES " +
-                            "(" +
-                                "@Id, @MemberId, @Name, @Address, @ContactNumber, @Email, @AccountNumber " +
-                            ")";
+            string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
+                    "( " +
+                        "Id, MemberId, Name, Address, ContactNumber, Email, AccountNumber " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@Id, @MemberId, @Name, @Address, @ContactNumber, @Email, @AccountNumber " +
+                    ") ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -152,16 +155,16 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>Member</returns>
         public Member UpdateMember(string memberId, Member member)
         {
-            string connectionString = GetConnectionString();
-            string query = "UPDATE " + TABLE_NAME + " SET " +
-                    "MemberId = @MemberId, " +
-                    "Name = @Name, " +
-                    "Address = @Address, " +
-                    "ContactNumber = @ContactNumber, " +
-                    "Email = @Email, " +
-                    "AccountNumber = @AccountNumber " +
-                    "WHERE " +
-                    "MemberId = @MemberId";
+            string query = @"UPDATE " + Constants.TABLE_MEMBER + " " +
+                "SET " +
+                "MemberId = @MemberId, " +
+                "Name = @Name, " +
+                "Address = @Address, " +
+                "ContactNumber = @ContactNumber, " +
+                "Email = @Email, " +
+                "AccountNumber = @AccountNumber " +
+                "WHERE 1 = 1 " +
+                "AND MemberId = @MemberId ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -195,10 +198,9 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>bool</returns>
         public bool DeleteMember(string memberId)
         {
-            string connectionString = GetConnectionString();
-            string query = "DELETE FROM " + TABLE_NAME + " " +
-                    "WHERE " +
-                    "MemberId = @MemberId";
+            string query = @"DELETE FROM " + Constants.TABLE_MEMBER + " " +
+                    "WHERE 1 = 1 " +
+                    "AND MemberId = @MemberId ";
             bool result = false;
 
             try
@@ -228,9 +230,11 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>Id</returns>
         public int GetLastMemberId()
         {
-            string connectionString = GetConnectionString();
-            string query = "SELECT TOP 1 Id FROM " + TABLE_NAME + " ORDER BY Id DESC";
             int id = 0;
+            string query = @"SELECT " +
+                "TOP 1 Id " +
+                "FROM " + Constants.TABLE_MEMBER + " " + 
+                "ORDER BY Id DESC ";
 
             try
             {
@@ -253,12 +257,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return id;
-        }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
         }
     }
 }

@@ -5,7 +5,6 @@ namespace GrocerySupplyManagementApp.Entities
     public class SupplierTransaction
     {
         public long Id { get; set; }
-
         public string SupplierName { get; set; }
         public string BillNo { get; set; }
         public string Action { get; set; }

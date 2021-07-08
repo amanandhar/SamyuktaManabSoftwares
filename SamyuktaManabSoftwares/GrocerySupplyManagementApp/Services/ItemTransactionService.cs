@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Repositories;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -8,17 +9,17 @@ namespace GrocerySupplyManagementApp.Services
 {
     public class ItemTransactionService : IItemTransactionService
     {
-        private readonly IItemPurchaseRepository _itemTransactionRepository;
+        private readonly IPurchasedItemRepository _itemTransactionRepository;
         private readonly IFiscalYearDetailRepository _fiscalYearDetailRepository;
 
-        public ItemTransactionService(IItemPurchaseRepository itemTransactionRepository,
+        public ItemTransactionService(IPurchasedItemRepository itemTransactionRepository,
             IFiscalYearDetailRepository fiscalYearDetailRepository)
         {
             _itemTransactionRepository = itemTransactionRepository;
             _fiscalYearDetailRepository = fiscalYearDetailRepository;
         }
 
-        public IEnumerable<ItemPurchase> GetItems(bool showEmptyItemCode)
+        public IEnumerable<PurchasedItem> GetItems(bool showEmptyItemCode)
         {
             return _itemTransactionRepository.GetItems(showEmptyItemCode);
         }
@@ -34,7 +35,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetStockView(filter);
         }
 
-        public IEnumerable<ItemPurchase> GetItemsBySupplierAndBill(string supplierName, string billNo)
+        public IEnumerable<PurchasedItem> GetItemsBySupplierAndBill(string supplierName, string billNo)
         {
             return _itemTransactionRepository.GetItemsBySupplierAndBill(supplierName, billNo);
         }
@@ -120,7 +121,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetAllItemCodes();
         }
 
-        public ItemPurchase GetItem(long itemId)
+        public PurchasedItem GetItem(long itemId)
         {
             return _itemTransactionRepository.GetItem(itemId);
         }
@@ -165,12 +166,12 @@ namespace GrocerySupplyManagementApp.Services
             return billNo;
         }
 
-        public ItemPurchase AddItem(ItemPurchase item)
+        public PurchasedItem AddItem(PurchasedItem item)
         {
             return _itemTransactionRepository.AddItem(item);
         }
 
-        public ItemPurchase UpdateItem(ItemPurchase item)
+        public PurchasedItem UpdateItem(PurchasedItem item)
         {
             return _itemTransactionRepository.UpdateItem(item);
         }

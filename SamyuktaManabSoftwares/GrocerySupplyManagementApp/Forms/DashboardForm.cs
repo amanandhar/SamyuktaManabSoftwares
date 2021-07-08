@@ -1,4 +1,4 @@
-﻿using GrocerySupplyManagementApp.Services;
+﻿using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Windows.Forms;
 
@@ -10,23 +10,22 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISupplierService _supplierService;
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
-        private readonly ISupplierTransactionService _supplierTransactionService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly ITaxDetailService _taxDetailService;
-        private readonly IPosTransactionService _posTransactionService;
-        private readonly IPosSoldItemService _posSoldItemService;
-        private readonly ITransactionService _transactionService;
-        private readonly IPreparedItemService _preparedItemService;
+        private readonly IUserTransactionService _posTransactionService;
+        private readonly ISoldItemService _posSoldItemService;
+        private readonly IDailyTransactionService _transactionService;
+        private readonly ICodedItemService _preparedItemService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IIncomeDetailService _incomeDetailService;
 
         #region Constructor
         public DashboardForm(IMemberService memberService, ISupplierService supplierService, IItemService itemService,
-            IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService, 
+            IItemTransactionService itemTransactionService, 
             IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService,
-            IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, 
-            ITransactionService transactionService, IPreparedItemService preparedItemService,
+            IUserTransactionService posTransactionService, ISoldItemService posSoldItemService, 
+            IDailyTransactionService transactionService, ICodedItemService preparedItemService,
             IBankDetailService bankDetailService, IBankTransactionService bankTransactionService,
             IIncomeDetailService incomeDetailService)
         {
@@ -36,7 +35,6 @@ namespace GrocerySupplyManagementApp.Forms
             _supplierService = supplierService;
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
-            _supplierTransactionService = supplierTransactionService;
             _fiscalYearDetailService = fiscalYearDetailService;
             _taxDetailService = taxDetailService;
             _posTransactionService = posTransactionService;
@@ -49,7 +47,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Form Load Load
+        #region Form Load Event
         private void DashboardForm_Load(object sender, EventArgs e)
         {
 
@@ -104,8 +102,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
         {
             SupplierForm supplierForm = new SupplierForm(_supplierService, _itemService, 
-                _itemTransactionService, _supplierTransactionService, 
-                _bankDetailService, _bankTransactionService, _posTransactionService, _fiscalYearDetailService);
+                _itemTransactionService, _bankDetailService, 
+                _bankTransactionService, _posTransactionService, 
+                _fiscalYearDetailService);
             supplierForm.Show();
         }
 
@@ -151,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStaffMgmt_Click(object sender, EventArgs e)
         {
-            EmploeeForm staffForm = new EmploeeForm();
+            EmployeeForm staffForm = new EmployeeForm();
             staffForm.Show();
         }
         #endregion

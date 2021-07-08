@@ -1,6 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
@@ -15,24 +15,22 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISupplierService _supplierService;
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
-        private readonly ISupplierTransactionService _supplierTransactionService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly IUserTransactionService _posTransactionService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
 
         #region Constructor
         public SupplierForm(ISupplierService supplierService, IItemService itemService, 
-            IItemTransactionService itemTransactionService, ISupplierTransactionService supplierTransactionService,
+            IItemTransactionService itemTransactionService, 
             IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, 
-            IPosTransactionService posTransactionService,IFiscalYearDetailService fiscalYearDetailService)
+            IUserTransactionService posTransactionService,IFiscalYearDetailService fiscalYearDetailService)
         {
             InitializeComponent();
 
             _supplierService = supplierService;
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
-            _supplierTransactionService = supplierTransactionService;
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
             _posTransactionService = posTransactionService;
@@ -41,7 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        #region Form Load Events
+        #region Form Load Event
         private void SupplierForm_Load(object sender, EventArgs e)
         {
             ClearAllFields();
@@ -52,9 +50,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Events
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
-            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService, 
-                _itemTransactionService, _supplierTransactionService,
-                _posTransactionService, _fiscalYearDetailService);
+            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService,
+                _itemTransactionService, _posTransactionService, 
+                _fiscalYearDetailService);
             purchaseForm.Show();
         }
 
@@ -226,16 +224,13 @@ namespace GrocerySupplyManagementApp.Forms
                     var particulars = DataGridSupplierTransaction.SelectedCells[2].Value.ToString();
                     if (particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
                     {
-                        if (_supplierTransactionService.DeleteSupplierTransaction(id))
-                        {
-                            _itemTransactionService.DeleteItemTransaction(particulars);
-                            LoadSupplierTransaction();
-                        }
+                        _itemTransactionService.DeleteItemTransaction(particulars);
+                        LoadSupplierTransaction();
+    
                     }
 
                     if (particulars.ToLower() == Constants.CASH.ToLower() || particulars.ToLower() == Constants.CHEQUE.ToLower())
                     {
-                        _supplierTransactionService.DeleteSupplierTransaction(id);
                         LoadSupplierTransaction();
                     }
                 }

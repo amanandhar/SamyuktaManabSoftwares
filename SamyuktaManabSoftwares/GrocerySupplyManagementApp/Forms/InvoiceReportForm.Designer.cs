@@ -66,15 +66,15 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.tbl_FullSalesTableAdapter.ClearBeforeFill = true;
             // 
-            // SalesReportForm
+            // InvoiceReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.reportViewer1);
-            this.Name = "SalesReportForm";
+            this.Name = "InvoiceReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.SalesReportForm_Load);
+            this.Load += new System.EventHandler(this.InvoiceReportForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tblFullSalesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sampleSalesDBDataSet)).EndInit();
             this.ResumeLayout(false);

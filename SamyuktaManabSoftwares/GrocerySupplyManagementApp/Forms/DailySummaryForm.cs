@@ -1,23 +1,22 @@
-﻿using GrocerySupplyManagementApp.Services;
+﻿using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
-
-
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SummaryForm : Form
     {
-        private readonly ITransactionService _transactionService;
+        private readonly IDailyTransactionService _transactionService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly IPosSoldItemService _posSoldItemService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly ISoldItemService _posSoldItemService;
+        private readonly IUserTransactionService _posTransactionService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemTransactionService _itemTransactionService;
 
-        public SummaryForm(ITransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
-            IPosSoldItemService posSoldItemService, IPosTransactionService posTransactionService,
+        #region Constructor
+        public SummaryForm(IDailyTransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
+            ISoldItemService posSoldItemService, IUserTransactionService posTransactionService,
             IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
@@ -29,7 +28,16 @@ namespace GrocerySupplyManagementApp.Forms
             _bankTransactionService = bankTransactionService;
             _itemTransactionService = itemTransactionService;
         }
+        #endregion
 
+        #region Form Load Event
+        private void SummaryForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Button Click Event
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
             TransactionForm transactionForm = new TransactionForm(_transactionService, _fiscalYearDetailService, 
@@ -55,5 +63,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichBalanceCash.Text = (Convert.ToDecimal(RichSalesCash.Text) + Convert.ToDecimal(RichReceiptCash.Text) - Convert.ToDecimal(RichPaymentCash.Text)).ToString();
             RichBalanceCredit.Text = (Convert.ToDecimal(RichOpeningBalanceCredit.Text) + Convert.ToDecimal(RichSalesCredit.Text)).ToString();
         }
+        #endregion
     }
 }

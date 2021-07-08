@@ -1,6 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,16 +10,16 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class TransactionForm : Form
     {
-        private readonly ITransactionService _transactionService;
+        private readonly IDailyTransactionService _transactionService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly IPosSoldItemService _posSoldItemService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly ISoldItemService _posSoldItemService;
+        private readonly IUserTransactionService _posTransactionService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemTransactionService _itemTransactionService;
 
         #region Constructor
-        public TransactionForm(ITransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
-            IPosSoldItemService posSoldItemService, IPosTransactionService posTransactionService,
+        public TransactionForm(IDailyTransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
+            ISoldItemService posSoldItemService, IUserTransactionService posTransactionService,
             IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
@@ -404,10 +403,10 @@ namespace GrocerySupplyManagementApp.Forms
                 transactionFilter.isAll = true;
             }
 
-            List<TransactionGrid> transactions = (List<TransactionGrid>)_transactionService.GetTransactionGrids(transactionFilter);
+            List<TransactionView> transactions = _transactionService.GetTransactionGrids(transactionFilter).ToList();
             TxtTotal.Text = transactions.Sum(x => x.Amount).ToString();
             
-            var bindingList = new BindingList<TransactionGrid>(transactions);
+            var bindingList = new BindingList<TransactionView>(transactions);
             var source = new BindingSource(bindingList, null);
             DataGridTransactionList.DataSource = source;
         }

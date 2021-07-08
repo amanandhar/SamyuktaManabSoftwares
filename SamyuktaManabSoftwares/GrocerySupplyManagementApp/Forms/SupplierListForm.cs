@@ -1,5 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -10,11 +10,12 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SupplierListForm : Form
     {
         private readonly ISupplierService _supplierService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly IUserTransactionService _posTransactionService;
 
         public SupplierForm _supplierForm;
 
-        public SupplierListForm(ISupplierService supplierService, IPosTransactionService posTransactionService, SupplierForm supplierForm)
+        #region Constructor
+        public SupplierListForm(ISupplierService supplierService, IUserTransactionService posTransactionService, SupplierForm supplierForm)
         {
             InitializeComponent();
 
@@ -22,7 +23,9 @@ namespace GrocerySupplyManagementApp.Forms
             _posTransactionService = posTransactionService;
             _supplierForm = supplierForm;
         }
+        #endregion
 
+        #region Form Load Event
         private void SupplierListForm_Load(object sender, EventArgs e)
         {
             var suppliers = _supplierService.GetSuppliers();
@@ -61,7 +64,9 @@ namespace GrocerySupplyManagementApp.Forms
 
             DataGridSupplierList.DataSource = source;
         }
+        #endregion
 
+        #region Data Grid Event
         private void DataGridSupplierList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
@@ -74,5 +79,6 @@ namespace GrocerySupplyManagementApp.Forms
                 this.Close();
             }
         }
+        #endregion
     }
 }

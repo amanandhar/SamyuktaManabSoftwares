@@ -436,6 +436,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "SummaryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.SummaryForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);

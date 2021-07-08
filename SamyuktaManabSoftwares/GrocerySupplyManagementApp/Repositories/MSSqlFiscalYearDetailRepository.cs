@@ -1,20 +1,26 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlFiscalYearDetailRepository: IFiscalYearDetailRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
-        private const string TABLE_NAME = "FiscalYearDetail";
+        private readonly string connectionString;
+
+        public MSSqlFiscalYearDetailRepository()
+        {
+            connectionString = UtilityService.GetConnectionString();
+        }
 
         public FiscalYearDetail GetFiscalYearDetail()
         {
             var fiscalYearDetail = new FiscalYearDetail();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT InvoiceNo, BillNo, StartingDate, FiscalYear FROM " + TABLE_NAME;
+            var query = @"SELECT " + 
+                "InvoiceNo, BillNo, StartingDate, FiscalYear " +
+                "FROM " + Constants.TABLE_FISCAL_YEAR_DETAIL;
 
             try
             {
@@ -47,10 +53,9 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool AddFiscalYearDetail(FiscalYearDetail fiscalYearDetail, bool truncate = false)
         {
             var result = false;
-            string connectionString = GetConnectionString();
             if(truncate)
             {
-                string truncateQuery = @"TRUNCATE TABLE " + TABLE_NAME;
+                string truncateQuery = @"TRUNCATE TABLE " + Constants.TABLE_FISCAL_YEAR_DETAIL;
 
                 try
                 {
@@ -70,14 +75,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
             }
-            string query = "INSERT INTO " + TABLE_NAME + " " +
-                            "(" +
-                                "InvoiceNo, BillNo, StartingDate, FiscalYear " +
-                            ") " +
-                            "VALUES " +
-                            "(" +
-                                "@InvoiceNo, @BillNo, @StartingDate, @FiscalYear " +
-                            ")";
+            string query = @"INSERT INTO " + Constants.TABLE_FISCAL_YEAR_DETAIL + " " +
+                    "(" +
+                        "InvoiceNo, BillNo, StartingDate, FiscalYear " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@InvoiceNo, @BillNo, @StartingDate, @FiscalYear " +
+                    ") ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -105,10 +110,11 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool UpdateFiscalYearDetail(FiscalYearDetail fiscalYearDetail)
         {
             var result = false;
-            string connectionString = GetConnectionString();
-            string query = "UPDATE " + TABLE_NAME + " " +
-                            "SET " +
-                            "InvoiceNo = @InvoiceNo, BillNo = @BillNo, StartingDate = @StartingDate, FiscalYear = @FiscalYear";
+            string query = @"UPDATE " + Constants.TABLE_FISCAL_YEAR_DETAIL + " " +
+                    "SET " +
+                    "InvoiceNo = @InvoiceNo, BillNo = @BillNo, " +
+                    "StartingDate = @StartingDate, " +
+                    "FiscalYear = @FiscalYear ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -131,12 +137,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
         }
     }
 }

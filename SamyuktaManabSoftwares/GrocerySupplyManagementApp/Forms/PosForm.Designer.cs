@@ -140,7 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2.Size = new System.Drawing.Size(1356, 31);
             this.textBox2.TabIndex = 23;
             this.textBox2.Text = "                                                                      Welcome to " +
-    "Point of Sales Dashbroard";
+    "Point of Sales Dashboard";
             // 
             // RichItemQuantity
             // 

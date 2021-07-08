@@ -1,25 +1,29 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlBankTransactionRepository : IBankTransactionRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
-        private const string TABLE_NAME = "BankTransaction";
+        private readonly string connectionString;
+
+        public MSSqlBankTransactionRepository()
+        {
+            connectionString = UtilityService.GetConnectionString();
+        }
 
         public IEnumerable<BankTransaction> GetBankTransactions()
         {
             var bankTransactions = new List<BankTransaction>();
-            string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "[Id], [BankId], [TransactionId], [Action], " +
                 "[Debit], [Credit], [Narration], [Date] " +
-                "FROM " + TABLE_NAME;
+                "FROM " + Constants.TABLE_BANK_TRANSACTION;
 
             try
             {
@@ -61,13 +65,12 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<BankTransaction> GetBankTransactions(long bankId)
         {
             var bankTransactions = new List<BankTransaction>();
-            string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "[Id], [BankId], [TransactionId], [Action], " + 
                 "[Debit], [Credit], [Narration], [Date] " + 
-                "FROM " + 
-                " " + TABLE_NAME + " " +
-                "WHERE [BankId] = @BankId";
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [BankId] = @BankId ";
 
             try
             {
@@ -110,14 +113,16 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<BankTransactionView> GetBankTransactionViews(long bankId)
         {
             var bankTransactionViews = new List<BankTransactionView>();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Date, CASE WHEN Action = '1' THEN 'Deposit' ELSE 'Withdrawl' END AS Description, Narration, " +
-               "Debit, Credit, " +
-               "(SELECT SUM(ISNULL(b.DEBIT,0) - ISNULL(b.Credit,0)) " +
-               "FROM [dbo].[BankTransaction] b " +
-               "WHERE b.Date <= a.Date AND BankId = @BankId) as Balance " +
-               "FROM [dbo].[BankTransaction] a " +
-               "WHERE BankId = @BankId";
+            var query = @"SELECT " +
+                "Id, Date, " +
+                "CASE WHEN Action = '1' THEN 'Deposit' ELSE 'Withdrawl' END AS Description, Narration, " +
+                "Debit, Credit, " +
+                "(SELECT SUM(ISNULL(b.DEBIT, 0) - ISNULL(b.Credit, 0)) " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " b " +
+                "WHERE b.Date <= a.Date AND BankId = @BankId) as 'Balance' " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " a " +
+                "WHERE 1 = 1 " +
+                "AND BankId = @BankId ";
 
             try
             {
@@ -159,13 +164,12 @@ namespace GrocerySupplyManagementApp.Repositories
         public BankTransaction GetBankTransaction(long bankId)
         {
             var bankTransaction = new BankTransaction();
-            string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "[Id], [BankId], [TransactionId], [Action], " +
                 "[Debit], [Credit], [Narration], [Date] " + 
-                "FROM " + 
-                " " + TABLE_NAME + " " +
-                "WHERE Id = @Id";
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND Id = @Id ";
 
             try
             {
@@ -203,8 +207,11 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetBankBalance(long bankId)
         {
             decimal bankBalance = 0.0m;
-            string connectionString = GetConnectionString();
-            var query = @"SELECT ISNUll(SUM(ISNULL(DEBIT,0) - ISNULL(Credit,0)),0) FROM " + TABLE_NAME + " WHERE [BankId] = @BankId";
+            var query = @"SELECT " +
+                "ISNUll(SUM(ISNULL(DEBIT, 0) - ISNULL(Credit, 0)), 0) " + 
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [BankId] = @BankId ";
 
             try
             {
@@ -234,15 +241,14 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public BankTransaction AddBankTransaction(BankTransaction bankTransaction)
         {
-            string connectionString = GetConnectionString();
-            string query = "INSERT INTO " + TABLE_NAME + " " +
-                            "(" +
-                                "[BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [Date] " +
-                            ") " +
-                            "VALUES " +
-                            "(" +
-                                "@BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @Date " +
-                            ")";
+            string query = @"INSERT INTO " +  Constants.TABLE_BANK_TRANSACTION  + " " +
+                    "( " +
+                        "[BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [Date] " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @Date " +
+                    ") ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -271,11 +277,15 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public BankTransaction UpdateBankTransaction(long bankId, BankTransaction bankTransaction)
         {
-            string connectionString = GetConnectionString();
-            string query = "UPDATE " + TABLE_NAME + " " +
-                            " SET " +
-                            " [BankId] = @BankId, [TransactionId] = @TransactionId, [Action] = @Action, [Debit] = @Debit, [Credit] = @Credit, [Narration] = @Narration, [Date] = @Date " +
-                            " WHERE [Id] = @Id";
+
+            string query = @"UPDATE " + Constants.TABLE_BANK_TRANSACTION + " " +
+                    "SET " +
+                    "[BankId] = @BankId, [TransactionId] = @TransactionId, " +
+                    "[Action] = @Action, [Debit] = @Debit, " + 
+                    "[Credit] = @Credit, [Narration] = @Narration, " +
+                    "[Date] = @Date " +
+                    "WHERE 1 = 1 " + 
+                    "AND [Id] = @Id ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -306,8 +316,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteBankTransaction(long id)
         {
             bool result = false;
-            string connectionString = GetConnectionString();
-            string query = "DELETE FROM " + TABLE_NAME + " WHERE [Id] = @Id";
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [Id] = @Id ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -331,8 +343,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteBankTransactionByTransactionId(long transactionId)
         {
             bool result = false;
-            string connectionString = GetConnectionString();
-            string query = "DELETE FROM " + TABLE_NAME + " WHERE [TransactionId] = @TransactionId";
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [TransactionId] = @TransactionId ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -352,12 +366,5 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return result;
         }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
-        }
-
     }
 }

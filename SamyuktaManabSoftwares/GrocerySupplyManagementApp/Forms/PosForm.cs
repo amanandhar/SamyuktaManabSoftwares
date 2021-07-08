@@ -1,7 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
@@ -17,20 +17,20 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemService _itemService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly ITaxDetailService _taxDetailService;
-        private readonly IPosTransactionService _posTransactionService;
-        private readonly IPosSoldItemService _posSoldItemService;
-        private readonly ITransactionService _transactionService;
-        private readonly IPreparedItemService _preparedItemService;
+        private readonly IUserTransactionService _posTransactionService;
+        private readonly ISoldItemService _posSoldItemService;
+        private readonly IDailyTransactionService _transactionService;
+        private readonly ICodedItemService _preparedItemService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemTransactionService _itemTransactionService;
-        private List<PosSoldItemGrid> _posSoldItemGrids = new List<PosSoldItemGrid>();
+        private List<SoldItemView> _posSoldItemGrids = new List<SoldItemView>();
 
         #region Constructor
         public PosForm(IMemberService memberService, IItemService itemService, 
             IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService, 
-            IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, 
-            ITransactionService transactionService, IPreparedItemService preparedItemService, 
+            IUserTransactionService posTransactionService, ISoldItemService posSoldItemService, 
+            IDailyTransactionService transactionService, ICodedItemService preparedItemService, 
             IBankDetailService bankDetailService, IBankTransactionService bankTransactionService,
             IItemTransactionService itemTransactionService)
         {
@@ -49,7 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             _itemTransactionService = itemTransactionService;
         }
 
-        public PosForm(IMemberService memberService, IPosTransactionService posTransactionService, IPosSoldItemService posSoldItemService, string invoiceNo)
+        public PosForm(IMemberService memberService, IUserTransactionService posTransactionService, ISoldItemService posSoldItemService, string invoiceNo)
         {
             InitializeComponent();
 
@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Form Load
+        #region Form Load Event
         private void PosForm_Load(object sender, EventArgs e)
         {
             LoadItems(_posSoldItemGrids);
@@ -95,7 +95,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                _posSoldItemGrids.Add(new PosSoldItemGrid
+                _posSoldItemGrids.Add(new SoldItemView
                 {
                     Id = DataGridPosSoldItemList.RowCount,
                     ItemCode = RichItemCode.Text,
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _posSoldItemGrids.ForEach(x =>
                 {
-                    var posSoldItem = new PosSoldItem
+                    var posSoldItem = new SoldItem
                     {
                         InvoiceNo = RichInvoiceNo.Text.Trim(),
                         ItemCode = x.ItemCode,
@@ -371,14 +371,14 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void LoadItems(List<PosSoldItemGrid> posSoldItemGrids)
+        private void LoadItems(List<SoldItemView> posSoldItemGrids)
         {
-            var bindingList = new BindingList<PosSoldItemGrid>(posSoldItemGrids);
+            var bindingList = new BindingList<SoldItemView>(posSoldItemGrids);
             var source = new BindingSource(bindingList, null);
             DataGridPosSoldItemList.DataSource = source;
         }
 
-        private void LoadPosDetails(PosSoldItemGrid posSoldItemGrid = null)
+        private void LoadPosDetails(SoldItemView posSoldItemGrid = null)
         {
             var taxDetail = _taxDetailService.GetTaxDetail();
             RichTextDiscountPercent.Text = taxDetail.Discount.ToString();

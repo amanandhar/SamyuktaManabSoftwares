@@ -398,7 +398,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtNewPurchasePrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtNewPurchasePrice.Size = new System.Drawing.Size(189, 29);
             this.TxtNewPurchasePrice.TabIndex = 19;
-            this.TxtNewPurchasePrice.TextChanged += new System.EventHandler(this.TxtNewPurchasePrice_TextChanged);
             // 
             // TxtItemName
             // 

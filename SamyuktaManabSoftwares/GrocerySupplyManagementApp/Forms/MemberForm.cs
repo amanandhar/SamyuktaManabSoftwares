@@ -1,7 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
@@ -14,15 +14,16 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberForm : Form, IMemberListForm
     {
         private readonly IMemberService _memberService;
-        private readonly IPosTransactionService _posTransactionService;
-        private readonly IPosSoldItemService _posSoldItemService;
+        private readonly IUserTransactionService _posTransactionService;
+        private readonly ISoldItemService _posSoldItemService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         public DashboardForm _dashboard;
 
-        public MemberForm(IMemberService memberService, IPosTransactionService posTransactionService, 
-            IPosSoldItemService posSoldItemService, IBankDetailService bankDetailService, 
+        #region Constructor
+        public MemberForm(IMemberService memberService, IUserTransactionService posTransactionService, 
+            ISoldItemService posSoldItemService, IBankDetailService bankDetailService, 
             IBankTransactionService bankTransactionService, IFiscalYearDetailService fiscalYearDetailService,
             DashboardForm dashboardForm)
         {
@@ -36,6 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
             _fiscalYearDetailService = fiscalYearDetailService;
             _dashboard = dashboardForm;
         }
+        #endregion
 
         #region Load Event
         private void MemberForm_Load(object sender, System.EventArgs e)

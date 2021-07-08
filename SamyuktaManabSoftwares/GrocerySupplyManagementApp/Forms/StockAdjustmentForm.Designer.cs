@@ -299,6 +299,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.textBox9);
             this.Name = "StockAdjustmentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.StockAdjustmentForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

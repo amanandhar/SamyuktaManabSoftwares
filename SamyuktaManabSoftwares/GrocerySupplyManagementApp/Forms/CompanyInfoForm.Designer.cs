@@ -131,7 +131,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Company ID";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // richTextBox3
             // 
@@ -195,7 +194,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.Size = new System.Drawing.Size(122, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "Company Name";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -207,7 +205,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.Size = new System.Drawing.Size(93, 20);
             this.label5.TabIndex = 8;
             this.label5.Text = "Contact No.";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -219,7 +216,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.Size = new System.Drawing.Size(68, 20);
             this.label6.TabIndex = 9;
             this.label6.Text = "Address";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -231,7 +227,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.Size = new System.Drawing.Size(69, 20);
             this.label7.TabIndex = 10;
             this.label7.Text = "Email ID";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 
@@ -243,7 +238,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.Size = new System.Drawing.Size(67, 20);
             this.label8.TabIndex = 11;
             this.label8.Text = "Website";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label9
             // 
@@ -279,8 +273,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Size = new System.Drawing.Size(653, 330);
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Company Enfo";
-            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
+            this.groupBox4.Text = "Company Info";
             // 
             // label10
             // 
@@ -365,7 +358,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(687, 26);
             this.textBox1.TabIndex = 14;
-            this.textBox1.Text = "                                                  Company Enformation";
+            this.textBox1.Text = "                                                  Company Information";
             // 
             // CompanyInfoForm
             // 
@@ -379,7 +372,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox1);
             this.Name = "CompanyInfoForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.CompanyEnfoForm_Load);
+            this.Load += new System.EventHandler(this.CompanyInfoForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);

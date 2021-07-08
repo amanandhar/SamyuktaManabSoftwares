@@ -1,6 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
@@ -13,12 +13,12 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ExpenseForm : Form
     {
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly IUserTransactionService _posTransactionService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
 
         #region Constructor
-        public ExpenseForm(IFiscalYearDetailService fiscalYearDetailService, IPosTransactionService posTransactionService,
+        public ExpenseForm(IFiscalYearDetailService fiscalYearDetailService, IUserTransactionService posTransactionService,
             IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
@@ -27,6 +27,13 @@ namespace GrocerySupplyManagementApp.Forms
             _posTransactionService = posTransactionService;
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
+        }
+        #endregion
+
+        #region Form Load Event
+        private void ExpenseForm_Load(object sender, EventArgs e)
+        {
+
         }
         #endregion
 
@@ -214,5 +221,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboFilteredBy.Text = string.Empty;
         }
         #endregion
+
     }
 }

@@ -172,6 +172,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.textBox1);
             this.Name = "ReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.ReportForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1,20 +1,26 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlTaxDetailRepository : ITaxDetailRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
-        private const string TABLE_NAME = "TaxDetail";
+        private readonly string connectionString;
+
+        public MSSqlTaxDetailRepository()
+        {
+            connectionString = UtilityService.GetConnectionString();
+        }
 
         public TaxDetail GetTaxDetail()
         {
             var TaxDetail = new TaxDetail();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT Discount, Vat, DeliveryCharge FROM " + TABLE_NAME;
+            var query = @"SELECT " +
+                "Discount, Vat, DeliveryCharge " +
+                "FROM " + Constants.TABLE_TAX_DETAIL;
 
             try
             {
@@ -46,10 +52,9 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool AddTaxDetail(TaxDetail TaxDetail, bool truncate = false)
         {
             var result = false;
-            string connectionString = GetConnectionString();
             if (truncate)
             {
-                string truncateQuery = @"TRUNCATE TABLE " + TABLE_NAME;
+                string truncateQuery = @"TRUNCATE TABLE " + Constants.TABLE_TAX_DETAIL;
 
                 try
                 {
@@ -69,14 +74,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
             }
-            string query = "INSERT INTO " + TABLE_NAME + " " +
-                            "(" +
-                                "Discount, Vat, DeliveryCharge " +
-                            ") " +
-                            "VALUES " +
-                            "(" +
-                                "@Discount, @Vat, @DeliveryCharge " +
-                            ")";
+            string query = @"INSERT INTO " + Constants.TABLE_TAX_DETAIL + " " +
+                    "( " +
+                        "Discount, Vat, DeliveryCharge " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@Discount, @Vat, @DeliveryCharge " +
+                    ") ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -103,10 +108,9 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool UpdateTaxDetail(TaxDetail TaxDetail)
         {
             var result = false;
-            string connectionString = GetConnectionString();
-            string query = "UPDATE " + TABLE_NAME + " " +
-                            "SET " +
-                            "Discount = @Discount, Vat = @DeliveryCharge, DeliveryCharge = @DeliveryCharge";
+            string query = @"UPDATE " + Constants.TABLE_TAX_DETAIL + " " +
+                    "SET " +
+                    "Discount = @Discount, Vat = @DeliveryCharge, DeliveryCharge = @DeliveryCharge ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -128,12 +132,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
         }
     }
 }

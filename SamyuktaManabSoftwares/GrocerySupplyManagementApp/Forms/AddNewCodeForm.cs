@@ -1,6 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
+    #region Enum
     enum Action
     {
         None = 0,
@@ -18,6 +19,7 @@ namespace GrocerySupplyManagementApp.Forms
         Edit,
         Update
     }
+    #endregion
 
     public partial class AddNewCodeForm : Form, IItemListForm
     {
@@ -33,13 +35,12 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Form Load Events
+        #region Form Load Event
         private void AddNewCodeForm_Load(object sender, EventArgs e)
         {
             EnableFields(Action.None);
             LoadItems();
         }
-
         #endregion
 
         #region Button Events
@@ -110,10 +111,35 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Data Grid Events
+        private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridItemList.Columns["Id"].Visible = false;
+
+            DataGridItemList.Columns["Code"].HeaderText = "Code";
+            DataGridItemList.Columns["Code"].Width = 100;
+            DataGridItemList.Columns["Code"].DisplayIndex = 0;
+
+            DataGridItemList.Columns["Name"].HeaderText = "Name";
+            DataGridItemList.Columns["Name"].Width = 250;
+            DataGridItemList.Columns["Name"].DisplayIndex = 1;
+
+            DataGridItemList.Columns["Brand"].HeaderText = "Brand";
+            DataGridItemList.Columns["Brand"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridItemList.Columns["Brand"].DisplayIndex = 2;
+
+            foreach (DataGridViewRow row in DataGridItemList.Rows)
+            {
+                DataGridItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridItemList.RowHeadersWidth = 50;
+            }
+        }
+        #endregion
+
         #region Helper Events
         private void EnableFields(Action action)
         {
-            if(action == Action.Show)
+            if (action == Action.Show)
             {
                 RichItemCode.Enabled = false;
                 RichItemName.Enabled = false;
@@ -123,7 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = true;
                 BtnUpdate.Enabled = false;
             }
-            else if(action == Action.Add)
+            else if (action == Action.Add)
             {
                 RichItemCode.Enabled = true;
                 RichItemName.Enabled = true;
@@ -133,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
             }
-            else if(action == Action.Edit)
+            else if (action == Action.Edit)
             {
                 RichItemCode.Enabled = true;
                 RichItemName.Enabled = true;
@@ -185,31 +211,6 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 throw ex;
-            }
-        }
-        #endregion
-
-        #region DataGrid Events
-        private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            DataGridItemList.Columns["Id"].Visible = false;
-
-            DataGridItemList.Columns["Code"].HeaderText = "Code";
-            DataGridItemList.Columns["Code"].Width = 100;
-            DataGridItemList.Columns["Code"].DisplayIndex = 0;
-
-            DataGridItemList.Columns["Name"].HeaderText = "Name";
-            DataGridItemList.Columns["Name"].Width = 250;
-            DataGridItemList.Columns["Name"].DisplayIndex = 1;
-
-            DataGridItemList.Columns["Brand"].HeaderText = "Brand";
-            DataGridItemList.Columns["Brand"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridItemList.Columns["Brand"].DisplayIndex = 2;
-
-            foreach (DataGridViewRow row in DataGridItemList.Rows)
-            {
-                DataGridItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridItemList.RowHeadersWidth = 50;
             }
         }
         #endregion

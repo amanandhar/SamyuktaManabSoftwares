@@ -1,14 +1,19 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
-    public class MSSqlSupplierTransactionRepository : ISupplierTransactionRepository
+    public class MSSqlSupplierTransactionRepository 
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private readonly string connectionString;
+
+        public MSSqlSupplierTransactionRepository()
+        {
+            connectionString = UtilityService.GetConnectionString();
+        }
 
         /// <summary>
         /// Returns list of SupplierTransactions
@@ -17,7 +22,6 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<DTOs.SupplierTransactionView> GetSupplierTransactions(string supplierName)
         {
             var SupplierTransactions = new List<DTOs.SupplierTransactionView>();
-            string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "Id, Date, Action AS Particulars, " +
                 "CASE WHEN Action = 'Payment' THEN Bank ELSE BillNo END AS BillNoBank, " +
@@ -73,7 +77,6 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetBalance(string supplierName)
         {
             var balance = 0.0m;
-            string connectionString = GetConnectionString();
             var query = @"SELECT ISNUll(SUM(ISNULL(DEBIT,0) - ISNULL(Credit,0)),0) FROM [dbo].[SupplierTransaction] WHERE SupplierName = @SupplierName";
             try
             {
@@ -107,7 +110,6 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>SupplierTransaction</returns>
         public SupplierTransaction GetSupplierTransaction(string supplierName)
         {
-            string connectionString = GetConnectionString();
             var query = @"SELECT " + 
                 "Id, SupplierName, BillNo, Action, ActionType, Bank, Debit, Credit, Date " +
                 "FROM SupplierTransaction " +
@@ -154,7 +156,6 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>SupplierTransaction</returns>
         public SupplierTransaction AddSupplierTransaction(SupplierTransaction SupplierTransaction)
         {
-            string connectionString = GetConnectionString();
             string query = "INSERT INTO SupplierTransaction " +
                             "( " +
                                 "SupplierName, BillNo, Action, ActionType, Bank, Debit, Credit, Date " +
@@ -199,7 +200,6 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>SupplierTransaction</returns>
         public SupplierTransaction UpdateSupplierTransaction(string supplierName, SupplierTransaction SupplierTransaction)
         {
-            string connectionString = GetConnectionString();
             string query = "UPDATE SupplierTransaction SET " +
                     "SupplierName = @SupplierName, " +
                     "BillNo = @BillNo, " +
@@ -246,7 +246,6 @@ namespace GrocerySupplyManagementApp.Repositories
         /// <returns>bool</returns>
         public bool DeleteSupplierTransaction(long supplierTransactionId)
         {
-            string connectionString = GetConnectionString();
             string query = "DELETE FROM SupplierTransaction " +
                     "WHERE " +
                     "Id = @Id";
@@ -271,19 +270,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        private string GetConnectionString()
-        {
-            try
-            {
-                string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-                return connectionString;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
     }
 }

@@ -30,12 +30,12 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnUserSetup = new System.Windows.Forms.Button();
-            this.btnSetPassword = new System.Windows.Forms.Button();
-            this.btnCompanyInfo = new System.Windows.Forms.Button();
-            this.btnFiscalYearForm = new System.Windows.Forms.Button();
+            this.BtnUserSetup = new System.Windows.Forms.Button();
+            this.BtnSetPassword = new System.Windows.Forms.Button();
+            this.BtnCompanyInfo = new System.Windows.Forms.Button();
+            this.BtnFiscalYearForm = new System.Windows.Forms.Button();
             this.BtnAddNewCode = new System.Windows.Forms.Button();
-            this.btnVatTaxSetup = new System.Windows.Forms.Button();
+            this.BtnVatTaxSetup = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -53,53 +53,53 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Text = "                                                                                 " +
     "              All Setting";
             // 
-            // btnUserSetup
+            // BtnUserSetup
             // 
-            this.btnUserSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUserSetup.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnUserSetup.Location = new System.Drawing.Point(65, 215);
-            this.btnUserSetup.Name = "btnUserSetup";
-            this.btnUserSetup.Size = new System.Drawing.Size(250, 125);
-            this.btnUserSetup.TabIndex = 1;
-            this.btnUserSetup.Text = "User Setup";
-            this.btnUserSetup.UseVisualStyleBackColor = true;
-            this.btnUserSetup.Click += new System.EventHandler(this.btnUserSetup_Click);
+            this.BtnUserSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUserSetup.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnUserSetup.Location = new System.Drawing.Point(65, 215);
+            this.BtnUserSetup.Name = "BtnUserSetup";
+            this.BtnUserSetup.Size = new System.Drawing.Size(250, 125);
+            this.BtnUserSetup.TabIndex = 1;
+            this.BtnUserSetup.Text = "User Setup";
+            this.BtnUserSetup.UseVisualStyleBackColor = true;
+            this.BtnUserSetup.Click += new System.EventHandler(this.BtnUserSetup_Click);
             // 
-            // btnSetPassword
+            // BtnSetPassword
             // 
-            this.btnSetPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetPassword.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnSetPassword.Location = new System.Drawing.Point(65, 377);
-            this.btnSetPassword.Name = "btnSetPassword";
-            this.btnSetPassword.Size = new System.Drawing.Size(250, 125);
-            this.btnSetPassword.TabIndex = 18;
-            this.btnSetPassword.Text = "Update Password";
-            this.btnSetPassword.UseVisualStyleBackColor = true;
-            this.btnSetPassword.Click += new System.EventHandler(this.btnSetPassword_Click);
+            this.BtnSetPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSetPassword.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSetPassword.Location = new System.Drawing.Point(65, 377);
+            this.BtnSetPassword.Name = "BtnSetPassword";
+            this.BtnSetPassword.Size = new System.Drawing.Size(250, 125);
+            this.BtnSetPassword.TabIndex = 18;
+            this.BtnSetPassword.Text = "Update Password";
+            this.BtnSetPassword.UseVisualStyleBackColor = true;
+            this.BtnSetPassword.Click += new System.EventHandler(this.BtnSetPassword_Click);
             // 
-            // btnCompanyInfo
+            // BtnCompanyInfo
             // 
-            this.btnCompanyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompanyInfo.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnCompanyInfo.Location = new System.Drawing.Point(65, 56);
-            this.btnCompanyInfo.Name = "btnCompanyInfo";
-            this.btnCompanyInfo.Size = new System.Drawing.Size(250, 125);
-            this.btnCompanyInfo.TabIndex = 19;
-            this.btnCompanyInfo.Text = "Company Information";
-            this.btnCompanyInfo.UseVisualStyleBackColor = true;
-            this.btnCompanyInfo.Click += new System.EventHandler(this.btnCompanyInfo_Click);
+            this.BtnCompanyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCompanyInfo.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnCompanyInfo.Location = new System.Drawing.Point(65, 56);
+            this.BtnCompanyInfo.Name = "BtnCompanyInfo";
+            this.BtnCompanyInfo.Size = new System.Drawing.Size(250, 125);
+            this.BtnCompanyInfo.TabIndex = 19;
+            this.BtnCompanyInfo.Text = "Company Information";
+            this.BtnCompanyInfo.UseVisualStyleBackColor = true;
+            this.BtnCompanyInfo.Click += new System.EventHandler(this.BtnCompanyInfo_Click);
             // 
-            // btnFiscalYearForm
+            // BtnFiscalYearForm
             // 
-            this.btnFiscalYearForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFiscalYearForm.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnFiscalYearForm.Location = new System.Drawing.Point(394, 215);
-            this.btnFiscalYearForm.Name = "btnFiscalYearForm";
-            this.btnFiscalYearForm.Size = new System.Drawing.Size(250, 125);
-            this.btnFiscalYearForm.TabIndex = 22;
-            this.btnFiscalYearForm.Text = "Invoice And  Fiscal Year Set-up";
-            this.btnFiscalYearForm.UseVisualStyleBackColor = true;
-            this.btnFiscalYearForm.Click += new System.EventHandler(this.btnFiscalYearDateVat_Click);
+            this.BtnFiscalYearForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnFiscalYearForm.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnFiscalYearForm.Location = new System.Drawing.Point(394, 215);
+            this.BtnFiscalYearForm.Name = "BtnFiscalYearForm";
+            this.BtnFiscalYearForm.Size = new System.Drawing.Size(250, 125);
+            this.BtnFiscalYearForm.TabIndex = 22;
+            this.BtnFiscalYearForm.Text = "Invoice And  Fiscal Year Set-up";
+            this.BtnFiscalYearForm.UseVisualStyleBackColor = true;
+            this.BtnFiscalYearForm.Click += new System.EventHandler(this.BtnFiscalYearForm_Click);
             // 
             // BtnAddNewCode
             // 
@@ -113,17 +113,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddNewCode.UseVisualStyleBackColor = true;
             this.BtnAddNewCode.Click += new System.EventHandler(this.BtnAddNewCode_Click);
             // 
-            // btnVatTaxSetup
+            // BtnVatTaxSetup
             // 
-            this.btnVatTaxSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVatTaxSetup.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnVatTaxSetup.Location = new System.Drawing.Point(394, 377);
-            this.btnVatTaxSetup.Name = "btnVatTaxSetup";
-            this.btnVatTaxSetup.Size = new System.Drawing.Size(250, 125);
-            this.btnVatTaxSetup.TabIndex = 24;
-            this.btnVatTaxSetup.Text = "Vat and Charge  Setup";
-            this.btnVatTaxSetup.UseVisualStyleBackColor = true;
-            this.btnVatTaxSetup.Click += new System.EventHandler(this.btnVatTaxSetup_Click);
+            this.BtnVatTaxSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVatTaxSetup.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnVatTaxSetup.Location = new System.Drawing.Point(394, 377);
+            this.BtnVatTaxSetup.Name = "BtnVatTaxSetup";
+            this.BtnVatTaxSetup.Size = new System.Drawing.Size(250, 125);
+            this.BtnVatTaxSetup.TabIndex = 24;
+            this.BtnVatTaxSetup.Text = "Vat and Charge  Setup";
+            this.BtnVatTaxSetup.UseVisualStyleBackColor = true;
+            this.BtnVatTaxSetup.Click += new System.EventHandler(this.BtnVatTaxSetup_Click);
             // 
             // button1
             // 
@@ -167,15 +167,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnVatTaxSetup);
+            this.Controls.Add(this.BtnVatTaxSetup);
             this.Controls.Add(this.BtnAddNewCode);
-            this.Controls.Add(this.btnFiscalYearForm);
-            this.Controls.Add(this.btnCompanyInfo);
-            this.Controls.Add(this.btnSetPassword);
-            this.Controls.Add(this.btnUserSetup);
+            this.Controls.Add(this.BtnFiscalYearForm);
+            this.Controls.Add(this.BtnCompanyInfo);
+            this.Controls.Add(this.BtnSetPassword);
+            this.Controls.Add(this.BtnUserSetup);
             this.Controls.Add(this.textBox1);
             this.Name = "SettingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.SettingForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,12 +185,12 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnUserSetup;
-        private System.Windows.Forms.Button btnSetPassword;
-        private System.Windows.Forms.Button btnCompanyInfo;
-        private System.Windows.Forms.Button btnFiscalYearForm;
+        private System.Windows.Forms.Button BtnUserSetup;
+        private System.Windows.Forms.Button BtnSetPassword;
+        private System.Windows.Forms.Button BtnCompanyInfo;
+        private System.Windows.Forms.Button BtnFiscalYearForm;
         private System.Windows.Forms.Button BtnAddNewCode;
-        private System.Windows.Forms.Button btnVatTaxSetup;
+        private System.Windows.Forms.Button BtnVatTaxSetup;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;

@@ -1,5 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Windows.Forms;
 
@@ -9,12 +9,14 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly ITaxDetailService _taxDetailService;
 
+        #region Constructor
         public TaxSetupForm(ITaxDetailService taxDetailService)
         {
             InitializeComponent();
 
             _taxDetailService = taxDetailService;
         }
+        #endregion
 
         #region Form Load Event
         private void TaxSetupForm_Load(object sender, EventArgs e)

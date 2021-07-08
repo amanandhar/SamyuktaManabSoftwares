@@ -1,30 +1,34 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlItemRepository : IItemRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private readonly string connectionString;
 
         public MSSqlItemRepository()
         {
-
+            connectionString = UtilityService.GetConnectionString();
         }
 
         public IEnumerable<Item> GetItems(bool showEmptyItemCode)
         {
             var items = new List<Item>();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Name, Brand, Code FROM Item";
+            var query = @"SELECT " + 
+                "Id, Name, Brand, Code " +
+                "FROM " + Constants.TABLE_ITEM + " ";
+
             if (!showEmptyItemCode)
             {
-                query += " WHERE Code != ''";
+                query += "WHERE Code != '' ";
             }
-            query += " ORDER BY Id";
+
+            query += "ORDER BY Id ";
 
             try
             {
@@ -62,8 +66,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<Item> GetItems()
         {
             var items = new List<Item>();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Name, Brand, Code FROM Item ORDER BY Code";
+            var query = @"SELECT " +
+                "Id, Name, Brand, Code " +
+                "FROM " + Constants.TABLE_ITEM + " " +
+                "ORDER BY Code ";
 
             try
             {
@@ -101,11 +107,12 @@ namespace GrocerySupplyManagementApp.Repositories
         public Item GetItem(string code)
         {
             var item = new Item();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Name, Brand, Code" +
-                " FROM Item" +
-                " WHERE 1=1" +
-                " AND Code=@Code";
+            var query = @"SELECT " +
+                "Id, Name, Brand, Code " +
+                "FROM " + Constants.TABLE_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND Code = @Code ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -139,11 +146,13 @@ namespace GrocerySupplyManagementApp.Repositories
         public Item GetItem(long itemId)
         {
             var item = new Item();
-            string connectionString = GetConnectionString();
-            var query = @"SELECT Id, Name, Brand, Code" +
-                " FROM Item" +
-                " WHERE 1=1" +
-                " AND Id=@Id ORDER BY Code";
+            var query = @"SELECT " +
+                "Id, Name, Brand, Code " +
+                "FROM " + Constants.TABLE_ITEM + " " + 
+                "WHERE 1 = 1 " +
+                "AND Id = @Id " +
+                "ORDER BY Code ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -177,12 +186,12 @@ namespace GrocerySupplyManagementApp.Repositories
         public long GetItemId(string name, string brand)
         {
             long id = 0;
-            string connectionString = GetConnectionString();
-            var query = @"SELECT Id" +
-                " FROM Item" +
-                " WHERE 1=1" +
-                " AND Name=@Name" + 
-                " AND Brand=@Brand";
+            var query = @"SELECT " + 
+                "Id " +
+                "FROM " + Constants.TABLE_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND Name = @Name " + 
+                "AND Brand = @Brand ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -211,15 +220,14 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Item AddItem(Item item)
         {
-            string connectionString = GetConnectionString();
-            string query = "INSERT INTO Item" +
-                            " (" +
-                                " Name, Brand, Code" +
-                            " ) " +
-                            " VALUES" +
-                            " (" +
-                                " @Name, @Brand, @Code" +
-                            " )";
+            string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +
+                    "( " +
+                        "Name, Brand, Code " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@Name, @Brand, @Code " +
+                    ") ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -245,12 +253,12 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Item UpdateItem(string code, Item item)
         {
-            string connectionString = GetConnectionString();
-            string query = "UPDATE Item SET " +
-                    "Name = @Name, " +
-                    "Brand = @Brand " +
-                    "WHERE " +
-                    "Code = @Code";
+            string query = @"UPDATE " + Constants.TABLE_ITEM + " " +
+                "SET " +
+                "Name = @Name, " +
+                "Brand = @Brand " +
+                "WHERE 1 = 1 " +
+                "AND Code = @Code ";
 
             try
             {
@@ -277,13 +285,13 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Item UpdateItem(long id, Item item)
         {
-            string connectionString = GetConnectionString();
-            string query = "UPDATE Item SET " +
-                    "Name = @Name, " +
-                    "Brand = @Brand, " +
-                    "Code = @Code " +
-                    "WHERE " +
-                    "Id = @Id";
+            string query = @"UPDATE " + Constants.TABLE_ITEM + " " +
+                "SET " +
+                "Name = @Name, " +
+                "Brand = @Brand, " +
+                "Code = @Code " +
+                "WHERE 1 = 1 " +
+                "AND Id = @Id ";
 
             try
             {
@@ -312,10 +320,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteItem(long id)
         {
             var result = false;
-            string connectionString = GetConnectionString();
-            string query = "DELETE FROM Item " +
-                    "WHERE " +
-                    "Id = @Id";
+            string query = @"DELETE " +
+                    "FROM " + Constants.TABLE_ITEM + " " +
+                    "WHERE 1 = 1 " +
+                    "AND Id = @Id ";
 
             try
             {
@@ -337,12 +345,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
         }
     }
 }

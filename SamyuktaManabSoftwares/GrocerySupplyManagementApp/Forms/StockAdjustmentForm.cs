@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class StockAdjustmentForm : Form
     {
+        #region Constructor
         public StockAdjustmentForm()
         {
             InitializeComponent();
         }
+        #endregion
+
+        #region Form Load Event
+        private void StockAdjustmentForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

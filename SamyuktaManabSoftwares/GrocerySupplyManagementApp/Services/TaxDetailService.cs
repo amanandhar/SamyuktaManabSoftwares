@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Repositories;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Services.Interfaces;
 
 namespace GrocerySupplyManagementApp.Services
 {

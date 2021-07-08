@@ -1,5 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,16 +10,18 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class StockForm : Form
     {
-
         private readonly IItemTransactionService _itemTransactionService;
+
+        #region Constructor
         public StockForm(IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
 
             _itemTransactionService = itemTransactionService;
         }
+        #endregion
 
-        #region Form Load Events
+        #region Form Load Event
         private void StockForm_Load(object sender, EventArgs e)
         {
 

@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class LoginForm : Form
     {
+        #region Constructor
         public LoginForm()
         {
             InitializeComponent();
         }
+        #endregion
 
-        private void button2_Click(object sender, EventArgs e)
+        #region Form Load Event
+        private void LoginForm_Load(object sender, EventArgs e)
         {
 
         }
+        #endregion
     }
 }

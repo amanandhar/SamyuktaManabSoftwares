@@ -1,36 +1,37 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlIncomeDetailRepository : IIncomeDetailRepository
     {
-        private const string DB_CONNECTION_STRING = "DBConnectionString";
+        private readonly string connectionString;
+
+        public MSSqlIncomeDetailRepository()
+        {
+            connectionString = UtilityService.GetConnectionString();
+        }
+
         public IEnumerable<IncomeDetailView> GetIncomeDetails()
         {
             var incomeDetails = new List<IncomeDetailView>();
-            string connectionString = GetConnectionString();
             var query = @"SELECT " +
                 "pt.[InvoiceDate] AS 'InvoiceDate', psi.[InvoiceNo] AS 'InvoiceNo', " +
                 "i.[Code] AS 'ItemCode', i.[Name] AS 'ItemName', i.[Brand] AS 'ItemBrand', " +
                 "psi.[Quantity] AS 'Quantity', pi.[ProfitAmount] AS 'ProfitAmount', " +
                 "CAST((psi.[Quantity] * pi.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
-                "FROM Item i " +
-                "INNER JOIN " +
-                "PreparedItem pi " +
+                "FROM " + Constants.TABLE_ITEM + " i " +
+                "INNER JOIN " + Constants.TABLE_CODED_ITEM + " pi " +
                 "ON i.Id = pi.ItemId " +
-                "INNER JOIN " +
-                "PosSoldItem psi " +
-                "ON " +
-                "i.Code = psi.ItemCode " +
-                "INNER JOIN " +
-                "PosTransaction pt " +
-                "ON " +
-                "psi.InvoiceNo = pt.InvoiceNo " +
-                "WHERE 1=1 ";
+                "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " psi " +
+                "ON i.Code = psi.ItemCode " +
+                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
+                "ON psi.InvoiceNo = pt.InvoiceNo " +
+                "WHERE 1 = 1 ";
 
             query += "ORDER BY Date DESC ";
 
@@ -53,7 +54,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["ItemName"].ToString(),
                                     ItemBrand = reader["ItemBrand"].ToString(),
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
-                                    ProfitAmount = Convert.ToDecimal(reader["Price"].ToString()),
+                                    ProfitAmount = Convert.ToDecimal(reader["ProfitAmount"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString())
                                 };
 
@@ -69,12 +70,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return incomeDetails;
-        }
-
-        private string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
         }
     }
 }

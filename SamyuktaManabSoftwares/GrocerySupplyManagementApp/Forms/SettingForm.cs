@@ -1,4 +1,4 @@
-﻿using GrocerySupplyManagementApp.Services;
+﻿using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Windows.Forms;
 
@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ITaxDetailService _taxDetailService;
         private readonly IItemService _itemService;
 
+        #region Constructor
         public SettingForm(IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService, IItemService itemService)
         {
             InitializeComponent();
@@ -18,36 +19,20 @@ namespace GrocerySupplyManagementApp.Forms
             _taxDetailService = taxDetailService;
             _itemService = itemService;
         }
+        #endregion
 
-        private void btnUserSetup_Click(object sender, EventArgs e)
+        #region Form Load Event
+        private void SettingForm_Load(object sender, EventArgs e)
         {
-            UserForm userForm = new UserForm();
-            userForm.Show();
-        }
 
-        private void btnSetPassword_Click(object sender, EventArgs e)
-        {
-            SetPasswordForm setPasswordForm = new SetPasswordForm();
-            setPasswordForm.Show();
-           
         }
+        #endregion
 
-        private void btnCompanyInfo_Click(object sender, EventArgs e)
+        #region Button Click Events
+        private void BtnCompanyInfo_Click(object sender, EventArgs e)
         {
             CompanyInfoForm companyEnfoForm = new CompanyInfoForm();
             companyEnfoForm.Show();
-        }
-
-        private void btnFiscalYearDateVat_Click(object sender, EventArgs e)
-        {
-            FiscalYearForm fiscalYearForm = new FiscalYearForm(_fiscalYearDetailService);
-            fiscalYearForm.Show();
-        }
-
-        private void btnVatTaxSetup_Click(object sender, EventArgs e)
-        {
-            TaxSetupForm taxSetupForm = new TaxSetupForm(_taxDetailService);
-            taxSetupForm.Show();
         }
 
         private void BtnAddNewCode_Click(object sender, EventArgs e)
@@ -55,5 +40,30 @@ namespace GrocerySupplyManagementApp.Forms
             AddNewCodeForm addNewCodeForm = new AddNewCodeForm(_itemService);
             addNewCodeForm.Show();
         }
+
+        private void BtnUserSetup_Click(object sender, EventArgs e)
+        {
+            UserForm userForm = new UserForm();
+            userForm.Show();
+        }
+
+        private void BtnFiscalYearForm_Click(object sender, EventArgs e)
+        {
+            FiscalYearForm fiscalYearForm = new FiscalYearForm(_fiscalYearDetailService);
+            fiscalYearForm.Show();
+        }
+
+        private void BtnSetPassword_Click(object sender, EventArgs e)
+        {
+            SetPasswordForm setPasswordForm = new SetPasswordForm();
+            setPasswordForm.Show();
+        }
+
+        private void BtnVatTaxSetup_Click(object sender, EventArgs e)
+        {
+            TaxSetupForm taxSetupForm = new TaxSetupForm(_taxDetailService);
+            taxSetupForm.Show();
+        }
+        #endregion
     }
 }

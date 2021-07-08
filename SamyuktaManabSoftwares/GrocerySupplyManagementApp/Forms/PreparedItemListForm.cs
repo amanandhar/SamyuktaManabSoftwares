@@ -1,6 +1,6 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -10,25 +10,31 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PreparedItemListForm : Form
     {
-        private readonly IPreparedItemService _preparedItemService;
+        private readonly ICodedItemService _preparedItemService;
         public IPreparedItemListForm _preparedItemListForm;
-        public PreparedItemListForm(IPreparedItemService preparedItemService, IPreparedItemListForm preparedItemListForm)
+
+        #region Constructor
+        public PreparedItemListForm(ICodedItemService preparedItemService, IPreparedItemListForm preparedItemListForm)
         {
             InitializeComponent();
 
             _preparedItemService = preparedItemService;
             _preparedItemListForm = preparedItemListForm;
         }
+        #endregion
 
+        #region Form Load Event
         private void PreparedItemList_Load(object sender, EventArgs e)
         {
             var preparedItemsGrid = _preparedItemService.GetPreparedItemGrid();
 
-            var bindingList = new BindingList<PreparedItemGrid>(preparedItemsGrid.ToList());
+            var bindingList = new BindingList<ItemCodedView>(preparedItemsGrid.ToList());
             var source = new BindingSource(bindingList, null);
             DataGridPreparedItemList.DataSource = source;
         }
+        #endregion
 
+        #region Data Grid Event
         private void DataGridPreparedItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             //Set Columns Count
@@ -73,5 +79,6 @@ namespace GrocerySupplyManagementApp.Forms
                 this.Close();
             }
         }
+        #endregion
     }
 }

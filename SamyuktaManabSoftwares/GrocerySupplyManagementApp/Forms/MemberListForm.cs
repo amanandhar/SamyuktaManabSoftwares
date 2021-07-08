@@ -1,6 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
-using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -11,10 +11,11 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberListForm : Form
     {
         private readonly IMemberService _memberService;
-        private readonly IPosTransactionService _posTransactionService;
+        private readonly IUserTransactionService _posTransactionService;
         public IMemberListForm _memberListForm;
 
-        public MemberListForm(IMemberService memberService, IPosTransactionService posTransactionService, IMemberListForm memberListForm)
+        #region Constructor
+        public MemberListForm(IMemberService memberService, IUserTransactionService posTransactionService, IMemberListForm memberListForm)
         {
             InitializeComponent();
 
@@ -22,7 +23,9 @@ namespace GrocerySupplyManagementApp.Forms
             _posTransactionService = posTransactionService;
             _memberListForm = memberListForm;
         }
+        #endregion
 
+        #region Form Load Event
         private void MemberListForm_Load(object sender, EventArgs e)
         {
             var members = _memberService.GetMembers();
@@ -61,7 +64,9 @@ namespace GrocerySupplyManagementApp.Forms
 
             DataGridMemberList.DataSource = source;
         }
+        #endregion
 
+        #region Data Grid Event
         private void DataGridMemberList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
@@ -74,5 +79,6 @@ namespace GrocerySupplyManagementApp.Forms
                 this.Close();
             }
         }
+        #endregion
     }
 }

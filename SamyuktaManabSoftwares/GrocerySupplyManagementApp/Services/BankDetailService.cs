@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Repositories;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
@@ -7,6 +8,7 @@ namespace GrocerySupplyManagementApp.Services
     public class BankDetailService : IBankDetailService
     {
         private readonly IBankDetailRepository _bankDetailRepository;
+
         public BankDetailService(IBankDetailRepository bankDetailRepository)
         {
             _bankDetailRepository = bankDetailRepository;

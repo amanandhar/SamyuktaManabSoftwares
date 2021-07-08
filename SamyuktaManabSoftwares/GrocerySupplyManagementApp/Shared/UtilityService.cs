@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Configuration;
+using System.IO;
 
 namespace GrocerySupplyManagementApp.Shared
 {
@@ -15,6 +16,12 @@ namespace GrocerySupplyManagementApp.Shared
             }
 
             return result;
+        }
+
+        public static string GetConnectionString()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings[Constants.DB_CONNECTION_STRING].ConnectionString;
+            return connectionString;
         }
     }
 }
