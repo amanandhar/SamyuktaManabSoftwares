@@ -28,7 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var bankDetails = _bankDetailService.GetBankDetails();
 
-            var bindingList = new BindingList<BankDetail>(bankDetails.ToList());
+            var bindingList = new BindingList<Bank>(bankDetails.ToList());
             var source = new BindingSource(bindingList, null);
             DataGridBankDetails.DataSource = source;
         }

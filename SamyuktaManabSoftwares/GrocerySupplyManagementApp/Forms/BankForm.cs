@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
         { 
             try 
             {
-                var bankDetail = new BankDetail
+                var bankDetail = new Bank
                 {
                     Name = RichBankName.Text,
                     AccountNo = RichAccountNo.Text,
@@ -85,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdateBank_Click(object sender, EventArgs e)
         {
-            var bankDetail = new BankDetail
+            var bankDetail = new Bank
             {
                 Name = RichBankName.Text,
                 AccountNo = RichAccountNo.Text

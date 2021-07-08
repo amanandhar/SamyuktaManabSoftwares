@@ -16,12 +16,12 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<BankDetail> GetBankDetails()
+        public IEnumerable<Bank> GetBankDetails()
         {
-            var bankDetails = new List<BankDetail>();
+            var bankDetails = new List<Bank>();
             var query = @"SELECT " +
                 "[Id], [Name], [AccountNo], [Date] " +
-                "FROM " + Constants.TABLE_BANK_DETAIL;
+                "FROM " + Constants.TABLE_BANK;
 
             try
             {
@@ -34,7 +34,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var bankDetail = new BankDetail
+                                var bankDetail = new Bank
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Name = reader["Name"].ToString(),
@@ -56,12 +56,12 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankDetails;
         }
 
-        public BankDetail GetBankDetail(long bankId)
+        public Bank GetBankDetail(long bankId)
         {
-            var bankDetail = new BankDetail();
+            var bankDetail = new Bank();
             var query = @"SELECT " +
                 "[Id], [Name], [AccountNo], [Date] " +
-                "FROM " + Constants.TABLE_BANK_DETAIL + " " +
+                "FROM " + Constants.TABLE_BANK + " " +
                 "WHERE 1 = 1 " +
                 "AND Id = @Id";
 
@@ -94,10 +94,10 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankDetail;
         }
 
-        public BankDetail AddBankDetail(BankDetail bankDetail)
+        public Bank AddBankDetail(Bank bankDetail)
         {
             string query = @"INSERT INTO " + 
-                    " " + Constants.TABLE_BANK_DETAIL + " " +
+                    " " + Constants.TABLE_BANK + " " +
                     "( " +
                         "[Name], [AccountNo], [Date] " +
                     ") " +
@@ -127,9 +127,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankDetail;
         }
 
-        public BankDetail UpdateBankDetail(long bankId, BankDetail bankDetail)
+        public Bank UpdateBankDetail(long bankId, Bank bankDetail)
         {
-            string query = @"UPDATE " + Constants.TABLE_BANK_DETAIL + " " +
+            string query = @"UPDATE " + Constants.TABLE_BANK + " " +
                     "SET " + 
                     "[Name] = @Name, [AccountNo] = @AccountNo " +
                     "WHERE 1 = 1 " + 
@@ -160,7 +160,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             bool result = false;
             string query = @"DELETE " + 
-                    "FROM " + Constants.TABLE_BANK_DETAIL + " " +
+                    "FROM " + Constants.TABLE_BANK + " " +
                     "WHERE 1 = 1 " +
                     "[Id] = @Id";
             try

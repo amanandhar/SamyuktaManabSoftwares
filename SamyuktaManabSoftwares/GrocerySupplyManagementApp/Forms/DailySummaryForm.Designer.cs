@@ -385,7 +385,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(1045, 27);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "                                                                     Daily Summer" +
+            this.textBox1.Text = "                                                                     Daily Summar" +
     "y Report";
             // 
             // textBox4
@@ -398,7 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox4.Size = new System.Drawing.Size(1045, 24);
             this.textBox4.TabIndex = 4;
             this.textBox4.Text = "                                                                               Su" +
-    "mmery Report : \r\n2078-02-20";
+    "mmary Report : \r\n2078-02-20";
             // 
             // RichBalanceCredit
             // 

@@ -27,7 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichInvoiceNo.Text = fiscalYearDetail.InvoiceNo;
                 RichBillNo.Text = fiscalYearDetail.BillNo;
                 RichCompanyStartingDate.Text = fiscalYearDetail.StartingDate.ToString();
-                RichFiscalYear.Text = fiscalYearDetail.FiscalYear;
+                RichFiscalYear.Text = fiscalYearDetail.Year;
             }           
         }
         #endregion
@@ -43,16 +43,16 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYearDetail = new FiscalYearDetail
+                var fiscalYear = new FiscalYear
                 {
                     InvoiceNo = RichInvoiceNo.Text,
                     BillNo = RichBillNo.Text,
                     StartingDate = Convert.ToDateTime(RichCompanyStartingDate.Text),
-                    FiscalYear = RichFiscalYear.Text
+                    Year = RichFiscalYear.Text
                 };
 
                 var truncate = true;
-                _fiscalYearDetailService.AddFiscalYearDetail(fiscalYearDetail, truncate);
+                _fiscalYearDetailService.AddFiscalYearDetail(fiscalYear, truncate);
 
                 DialogResult result = MessageBox.Show("Fiscal year detail has been saved successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)

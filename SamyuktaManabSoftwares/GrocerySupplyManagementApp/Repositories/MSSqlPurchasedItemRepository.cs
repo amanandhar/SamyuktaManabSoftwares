@@ -227,9 +227,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalAmount;
         }
 
-        public decimal GetTotalPurchaseItemCount(StockFilterView filter)
+        public long GetTotalPurchaseItemCount(StockFilterView filter)
         {
-            decimal totalCount = 0.0m;
+            long totalCount = 0;
             var query = @"SELECT " +
                 "SUM(Quantity) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " it " +
@@ -261,7 +261,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            totalCount = Convert.ToDecimal(result);
+                            totalCount = Convert.ToInt64(result);
                         }
                     }
                 }
@@ -274,9 +274,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
-        public decimal GetTotalSalesItemCount(StockFilterView filter)
+        public long GetTotalSalesItemCount(StockFilterView filter)
         {
-            decimal totalCount = 0.0m;
+            long totalCount = 0;
             var query = @"SELECT " +
                 "SUM(psi.Quantity) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " psi " +
@@ -308,43 +308,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            totalCount = Convert.ToDecimal(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return totalCount;
-        }
-
-        public decimal GetTotalItemCount(string code)
-        {
-            decimal totalCount = 0.0m;
-            var query = @"SELECT " +
-                "SUM(Quantity) AS 'Quantity' " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " it " + 
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " + 
-                "ON it.ItemId = i.Id " +
-                "WHERE 1 = 1 " +
-                "AND Code = @Code ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Code", ((object)code) ?? DBNull.Value);
-                        
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            totalCount = Convert.ToDecimal(result);
+                            totalCount = Convert.ToInt64(result);
                         }
                     }
                 }

@@ -30,14 +30,14 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
             this.TxtAmount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.ComboFilter = new System.Windows.Forms.ComboBox();
             this.RadioAll = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnShowExpense = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -59,14 +59,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.MaskDateFrom);
+            this.groupBox3.Controls.Add(this.MaskDateTo);
             this.groupBox3.Controls.Add(this.TxtAmount);
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.textBox4);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.ComboFilter);
             this.groupBox3.Controls.Add(this.RadioAll);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.textBox2);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(18, 27);
             this.groupBox3.Name = "groupBox3";
@@ -74,8 +74,28 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
             // 
+            // MaskDateFrom
+            // 
+            this.MaskDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDateFrom.Location = new System.Drawing.Point(168, 19);
+            this.MaskDateFrom.Mask = "   0000-00-00";
+            this.MaskDateFrom.Name = "MaskDateFrom";
+            this.MaskDateFrom.Size = new System.Drawing.Size(125, 24);
+            this.MaskDateFrom.TabIndex = 24;
+            this.MaskDateFrom.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MaskDateFrom_KeyUp);
+            // 
+            // MaskDateTo
+            // 
+            this.MaskDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDateTo.Location = new System.Drawing.Point(375, 21);
+            this.MaskDateTo.Mask = "   0000-00-00";
+            this.MaskDateTo.Name = "MaskDateTo";
+            this.MaskDateTo.Size = new System.Drawing.Size(125, 24);
+            this.MaskDateTo.TabIndex = 23;
+            // 
             // TxtAmount
             // 
+            this.TxtAmount.Enabled = false;
             this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtAmount.Location = new System.Drawing.Point(375, 64);
             this.TxtAmount.Name = "TxtAmount";
@@ -93,14 +113,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 20;
             this.label1.Text = "Amount";
             // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(375, 20);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(125, 26);
-            this.textBox4.TabIndex = 6;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -117,18 +129,21 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboFilter.FormattingEnabled = true;
             this.ComboFilter.Items.AddRange(new object[] {
-            "1. Sales Profit",
-            "2. Suppliers Comission",
-            "3. Delivery Charge",
-            "4. Member Fee"});
+            "Delivery Charge",
+            "Member Fee",
+            "Other Income",
+            "Sales Profit",
+            "Suppliers Comission"});
             this.ComboFilter.Location = new System.Drawing.Point(98, 64);
             this.ComboFilter.Name = "ComboFilter";
             this.ComboFilter.Size = new System.Drawing.Size(195, 28);
             this.ComboFilter.TabIndex = 8;
+            this.ComboFilter.SelectedValueChanged += new System.EventHandler(this.ComboFilter_SelectedValueChanged);
             // 
             // RadioAll
             // 
             this.RadioAll.AutoSize = true;
+            this.RadioAll.Checked = true;
             this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.RadioAll.Location = new System.Drawing.Point(16, 21);
@@ -149,14 +164,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.Size = new System.Drawing.Size(86, 20);
             this.label2.TabIndex = 7;
             this.label2.Text = "Filtered by ";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(168, 20);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(125, 26);
-            this.textBox2.TabIndex = 4;
             // 
             // label3
             // 
@@ -196,10 +203,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboAddIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboAddIncome.FormattingEnabled = true;
             this.ComboAddIncome.Items.AddRange(new object[] {
-            "1. Sales Profit",
-            "2. Suppliers Comission",
-            "3. Delivery Charge",
-            "4. Member Fee"});
+            "Suppliers Commission",
+            "Other Income"});
             this.ComboAddIncome.Location = new System.Drawing.Point(108, 19);
             this.ComboAddIncome.Name = "ComboAddIncome";
             this.ComboAddIncome.Size = new System.Drawing.Size(205, 28);
@@ -249,6 +254,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddIncome.TabIndex = 16;
             this.BtnAddIncome.Text = "Save Income";
             this.BtnAddIncome.UseVisualStyleBackColor = true;
+            this.BtnAddIncome.Click += new System.EventHandler(this.BtnAddIncome_Click);
             // 
             // groupBox1
             // 
@@ -347,14 +353,14 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button BtnShow;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button BtnShowExpense;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox TxtAmount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DataGridIncomeView;
+        private System.Windows.Forms.MaskedTextBox MaskDateFrom;
+        private System.Windows.Forms.MaskedTextBox MaskDateTo;
     }
 }

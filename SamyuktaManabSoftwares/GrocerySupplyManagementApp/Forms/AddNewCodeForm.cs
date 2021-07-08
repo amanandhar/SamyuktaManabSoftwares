@@ -9,22 +9,22 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    #region Enum
-    enum Action
-    {
-        None = 0,
-        Show,
-        Add,
-        Save,
-        Edit,
-        Update
-    }
-    #endregion
-
     public partial class AddNewCodeForm : Form, IItemListForm
     {
         private readonly IItemService _itemService;
         private long selectedItemId = 0;
+
+        #region Enum
+        enum Action
+        {
+            None = 0,
+            Show,
+            Add,
+            Save,
+            Edit,
+            Update
+        }
+        #endregion
 
         #region Constructor
         public AddNewCodeForm(IItemService itemService)

@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalAmountBySupplierAndBill(supplierName, billNo);
         }
 
-        public decimal GetTotalPurchaseItemCount(DTOs.StockFilterView filter)
+        public long GetTotalPurchaseItemCount(DTOs.StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -60,7 +60,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalPurchaseItemCount(filter);
         }
 
-        public decimal GetTotalSalesItemCount(DTOs.StockFilterView filter)
+        public long GetTotalSalesItemCount(DTOs.StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -73,12 +73,6 @@ namespace GrocerySupplyManagementApp.Services
             }
 
             return _itemTransactionRepository.GetTotalSalesItemCount(filter);
-        }
-
-        public decimal GetTotalItemCount(string code)
-        {
-
-            return _itemTransactionRepository.GetTotalItemCount(code);
         }
 
         public decimal GetTotalPurchaseItemAmount(DTOs.StockFilterView filter)

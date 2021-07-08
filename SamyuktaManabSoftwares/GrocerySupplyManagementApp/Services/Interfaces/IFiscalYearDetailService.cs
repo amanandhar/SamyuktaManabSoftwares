@@ -4,8 +4,8 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 {
     public interface IFiscalYearDetailService
     {
-        FiscalYearDetail GetFiscalYearDetail();
-        bool AddFiscalYearDetail(FiscalYearDetail fiscalYearDetail, bool truncate);
-        bool UpdateFiscalYearDetail(FiscalYearDetail fiscalYearDetail);
+        FiscalYear GetFiscalYearDetail();
+        bool AddFiscalYearDetail(FiscalYear fiscalYearDetail, bool truncate);
+        bool UpdateFiscalYearDetail(FiscalYear fiscalYearDetail);
     }
 }

@@ -16,7 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _posTransactionService;
-        private List<BankDetail> _bankDetails = new List<BankDetail>();
+        private List<Bank> _bankDetails = new List<Bank>();
 
         #region Constructor
         public BankTransferForm(IFiscalYearDetailService fiscalYearDetailService, IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IUserTransactionService posTransactionService)

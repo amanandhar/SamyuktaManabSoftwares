@@ -1,6 +1,6 @@
 ﻿namespace GrocerySupplyManagementApp.Entities
 {
-    public class TaxDetail
+    public class Tax
     {
         public decimal Discount { get; set; }
         public decimal Vat { get; set; }

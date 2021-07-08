@@ -41,7 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var taxDetail = new TaxDetail
+                var taxDetail = new Tax
                 {
                     Discount = Convert.ToDecimal(TextBoxDiscount.Text),
                     Vat = Convert.ToDecimal(TextBoxVat.Text),

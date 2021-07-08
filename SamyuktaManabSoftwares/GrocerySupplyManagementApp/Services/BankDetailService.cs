@@ -14,22 +14,22 @@ namespace GrocerySupplyManagementApp.Services
             _bankDetailRepository = bankDetailRepository;
         }
 
-        public IEnumerable<BankDetail> GetBankDetails()
+        public IEnumerable<Bank> GetBankDetails()
         {
             return _bankDetailRepository.GetBankDetails();
         }
 
-        public BankDetail GetBankDetail(long bankId)
+        public Bank GetBankDetail(long bankId)
         {
             return _bankDetailRepository.GetBankDetail(bankId);
         }
 
-        public BankDetail AddBankDetail(BankDetail bankDetail)
+        public Bank AddBankDetail(Bank bankDetail)
         {
             return _bankDetailRepository.AddBankDetail(bankDetail);
         }
 
-        public BankDetail UpdateBankDetail(long bankId, BankDetail bankDetail)
+        public Bank UpdateBankDetail(long bankId, Bank bankDetail)
         {
             return _bankDetailRepository.UpdateBankDetail(bankId, bankDetail);
         }

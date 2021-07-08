@@ -13,17 +13,17 @@ namespace GrocerySupplyManagementApp.Services
             _taxDetailRepository = TaxDetailRepository;
         }
 
-        public TaxDetail GetTaxDetail()
+        public Tax GetTaxDetail()
         {
             return _taxDetailRepository.GetTaxDetail();
         }
 
-        public bool AddTaxDetail(TaxDetail TaxDetail, bool truncate = false)
+        public bool AddTaxDetail(Tax TaxDetail, bool truncate = false)
         {
             return _taxDetailRepository.AddTaxDetail(TaxDetail, truncate);
         }
 
-        public bool UpdateTaxDetail(TaxDetail TaxDetail)
+        public bool UpdateTaxDetail(Tax TaxDetail)
         {
             return _taxDetailRepository.UpdateTaxDetail(TaxDetail);
         }

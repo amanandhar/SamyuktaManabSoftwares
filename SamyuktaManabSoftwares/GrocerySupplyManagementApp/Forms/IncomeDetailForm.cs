@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,19 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class IncomeDetailForm : Form
     {
+        private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly IIncomeDetailService _incomeDetailService;
+        private readonly IIncomeService _incomeService;
 
         #region Constructor
-        public IncomeDetailForm(IIncomeDetailService incomeDetailService)
+        public IncomeDetailForm(IFiscalYearDetailService fiscalYearDetailService, IIncomeDetailService incomeDetailService,
+            IIncomeService incomeService)
         {
             InitializeComponent();
 
+            _fiscalYearDetailService = fiscalYearDetailService;
             _incomeDetailService = incomeDetailService;
+            _incomeService = incomeService;
         }
         #endregion
 
@@ -31,12 +37,55 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            var income = ComboAddIncome.Text;
-            if(income.Equals("1. Sales Profit"))
+            var filter = ComboFilter.Text;
+            if(filter.Equals("Sales Profit"))
             {
                 LoadIncomeDetails();
             }
         }
+
+        private void BtnAddIncome_Click(object sender, EventArgs e)
+        {
+            var income = new Income
+            {
+                EndOfDate = _fiscalYearDetailService.GetFiscalYearDetail().StartingDate,
+                Type = ComboAddIncome.Text,
+                Amount = Convert.ToDecimal(RichAddAmount.Text),
+                Date = DateTime.Now
+            };
+
+            _incomeService.AddIncome(income);
+
+            DialogResult result = MessageBox.Show(ComboAddIncome.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+            if (result == DialogResult.OK)
+            {
+                ClearAllFields();
+                LoadIncomeDetails();
+            }
+        }
+
+        #endregion
+
+        #region Combo Box Event
+        private void ComboFilter_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ComboFilter.Text))
+            {
+                RadioAll.Checked = false;
+            }
+            else
+            {
+                RadioAll.Checked = true;
+            }
+        }
+        #endregion
+
+        #region Mask Textbox Event
+        private void MaskDateFrom_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
         #endregion
 
         #region DataGrid Event 
@@ -86,11 +135,20 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadIncomeDetails()
         {
             List<IncomeDetailView> transactions = _incomeDetailService.GetIncomeDetails().ToList();
+            TxtAmount.Text = transactions.Sum(x => x.Total).ToString();
 
             var bindingList = new BindingList<IncomeDetailView>(transactions);
             var source = new BindingSource(bindingList, null);
             DataGridIncomeView.DataSource = source;
         }
+
+        private void ClearAllFields()
+        {
+            ComboAddIncome.Text = string.Empty;
+            RichAddAmount.Clear();
+        }
         #endregion
+
+        
     }
 }

@@ -15,12 +15,12 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public TaxDetail GetTaxDetail()
+        public Tax GetTaxDetail()
         {
-            var TaxDetail = new TaxDetail();
+            var TaxDetail = new Tax();
             var query = @"SELECT " +
                 "Discount, Vat, DeliveryCharge " +
-                "FROM " + Constants.TABLE_TAX_DETAIL;
+                "FROM " + Constants.TABLE_TAX;
 
             try
             {
@@ -49,12 +49,12 @@ namespace GrocerySupplyManagementApp.Repositories
             return TaxDetail;
         }
 
-        public bool AddTaxDetail(TaxDetail TaxDetail, bool truncate = false)
+        public bool AddTaxDetail(Tax TaxDetail, bool truncate = false)
         {
             var result = false;
             if (truncate)
             {
-                string truncateQuery = @"TRUNCATE TABLE " + Constants.TABLE_TAX_DETAIL;
+                string truncateQuery = @"TRUNCATE TABLE " + Constants.TABLE_TAX;
 
                 try
                 {
@@ -74,7 +74,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
             }
-            string query = @"INSERT INTO " + Constants.TABLE_TAX_DETAIL + " " +
+            string query = @"INSERT INTO " + Constants.TABLE_TAX + " " +
                     "( " +
                         "Discount, Vat, DeliveryCharge " +
                     ") " +
@@ -105,10 +105,10 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        public bool UpdateTaxDetail(TaxDetail TaxDetail)
+        public bool UpdateTaxDetail(Tax TaxDetail)
         {
             var result = false;
-            string query = @"UPDATE " + Constants.TABLE_TAX_DETAIL + " " +
+            string query = @"UPDATE " + Constants.TABLE_TAX + " " +
                     "SET " +
                     "Discount = @Discount, Vat = @DeliveryCharge, DeliveryCharge = @DeliveryCharge ";
             try

@@ -15,12 +15,12 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public FiscalYearDetail GetFiscalYearDetail()
+        public FiscalYear GetFiscalYearDetail()
         {
-            var fiscalYearDetail = new FiscalYearDetail();
+            var fiscalYearDetail = new FiscalYear();
             var query = @"SELECT " + 
-                "InvoiceNo, BillNo, StartingDate, FiscalYear " +
-                "FROM " + Constants.TABLE_FISCAL_YEAR_DETAIL;
+                "InvoiceNo, BillNo, StartingDate, Year " +
+                "FROM " + Constants.TABLE_FISCAL_YEAR;
 
             try
             {
@@ -36,7 +36,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 fiscalYearDetail.InvoiceNo = reader.IsDBNull(0) ? string.Empty : reader["InvoiceNo"].ToString();
                                 fiscalYearDetail.BillNo = reader.IsDBNull(0) ? string.Empty : reader["BillNo"].ToString();
                                 fiscalYearDetail.StartingDate = reader.IsDBNull(1) ? DateTime.Today : Convert.ToDateTime(reader["StartingDate"].ToString());
-                                fiscalYearDetail.FiscalYear = reader.IsDBNull(2) ? string.Empty : reader["FiscalYear"].ToString();
+                                fiscalYearDetail.Year = reader.IsDBNull(2) ? string.Empty : reader["Year"].ToString();
                             }
                         }
                     }
@@ -50,12 +50,12 @@ namespace GrocerySupplyManagementApp.Repositories
             return fiscalYearDetail;
         }
 
-        public bool AddFiscalYearDetail(FiscalYearDetail fiscalYearDetail, bool truncate = false)
+        public bool AddFiscalYearDetail(FiscalYear fiscalYearDetail, bool truncate = false)
         {
             var result = false;
             if(truncate)
             {
-                string truncateQuery = @"TRUNCATE TABLE " + Constants.TABLE_FISCAL_YEAR_DETAIL;
+                string truncateQuery = @"TRUNCATE TABLE " + Constants.TABLE_FISCAL_YEAR;
 
                 try
                 {
@@ -75,13 +75,13 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
             }
-            string query = @"INSERT INTO " + Constants.TABLE_FISCAL_YEAR_DETAIL + " " +
+            string query = @"INSERT INTO " + Constants.TABLE_FISCAL_YEAR + " " +
                     "(" +
-                        "InvoiceNo, BillNo, StartingDate, FiscalYear " +
+                        "InvoiceNo, BillNo, StartingDate, Year " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @BillNo, @StartingDate, @FiscalYear " +
+                        "@InvoiceNo, @BillNo, @StartingDate, @Year " +
                     ") ";
             try
             {
@@ -93,7 +93,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)fiscalYearDetail.InvoiceNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BillNo", ((object)fiscalYearDetail.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYearDetail.StartingDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@FiscalYear", ((object)fiscalYearDetail.FiscalYear) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Year", ((object)fiscalYearDetail.Year) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }
@@ -107,14 +107,14 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        public bool UpdateFiscalYearDetail(FiscalYearDetail fiscalYearDetail)
+        public bool UpdateFiscalYearDetail(FiscalYear fiscalYearDetail)
         {
             var result = false;
-            string query = @"UPDATE " + Constants.TABLE_FISCAL_YEAR_DETAIL + " " +
+            string query = @"UPDATE " + Constants.TABLE_FISCAL_YEAR + " " +
                     "SET " +
                     "InvoiceNo = @InvoiceNo, BillNo = @BillNo, " +
                     "StartingDate = @StartingDate, " +
-                    "FiscalYear = @FiscalYear ";
+                    "Year = @Year ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -125,7 +125,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)fiscalYearDetail.InvoiceNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BillNo", ((object)fiscalYearDetail.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYearDetail.StartingDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@FiscalYear", ((object)fiscalYearDetail.FiscalYear) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Year", ((object)fiscalYearDetail.Year) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }

@@ -102,9 +102,10 @@
     <Compile Include="DTOs\SupplierTransactionView.cs" />
     <Compile Include="DTOs\TransactionFilter.cs" />
     <Compile Include="DTOs\TransactionView.cs" />
-    <Compile Include="Entities\BankDetail.cs" />
+    <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
-    <Compile Include="Entities\FiscalYearDetail.cs" />
+    <Compile Include="Entities\FiscalYear.cs" />
+    <Compile Include="Entities\Income.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\CodedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Entities\UserTransaction.cs" />
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
-    <Compile Include="Entities\TaxDetail.cs" />
+    <Compile Include="Entities\Tax.cs" />
     <Compile Include="Forms\AddNewCodeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -335,6 +336,7 @@
     <Compile Include="Repositories\Interfaces\IDailyTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFiscalYearDetailRepository.cs" />
     <Compile Include="Repositories\Interfaces\IIncomeDetailRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IIncomeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPurchasedItemRepository.cs" />
@@ -346,6 +348,7 @@
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlFiscalYearDetailRepository.cs" />
     <Compile Include="Repositories\MSSqlIncomeDetailRepository.cs" />
+    <Compile Include="Repositories\MSSqlIncomeRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
@@ -364,12 +367,14 @@
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\FiscalYearDetailService.cs" />
     <Compile Include="Services\IncomeDetailService.cs" />
+    <Compile Include="Services\IncomeService.cs" />
     <Compile Include="Services\Interfaces\IBankDetailService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICodedItemService.cs" />
     <Compile Include="Services\Interfaces\IDailyTransactionService.cs" />
     <Compile Include="Services\Interfaces\IFiscalYearDetailService.cs" />
     <Compile Include="Services\Interfaces\IIncomeDetailService.cs" />
+    <Compile Include="Services\Interfaces\IIncomeService.cs" />
     <Compile Include="Services\Interfaces\IItemService.cs" />
     <Compile Include="Services\Interfaces\IItemTransactionService.cs" />
     <Compile Include="Services\Interfaces\IMemberService.cs" />

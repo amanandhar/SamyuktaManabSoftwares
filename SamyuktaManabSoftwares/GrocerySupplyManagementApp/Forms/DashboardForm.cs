@@ -19,6 +19,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IIncomeDetailService _incomeDetailService;
+        private readonly IIncomeService _incomeService;
 
         #region Constructor
         public DashboardForm(IMemberService memberService, ISupplierService supplierService, IItemService itemService,
@@ -27,7 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
             IUserTransactionService posTransactionService, ISoldItemService posSoldItemService, 
             IDailyTransactionService transactionService, ICodedItemService preparedItemService,
             IBankDetailService bankDetailService, IBankTransactionService bankTransactionService,
-            IIncomeDetailService incomeDetailService)
+            IIncomeDetailService incomeDetailService, IIncomeService incomeService)
         {
             InitializeComponent();
 
@@ -44,6 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
             _incomeDetailService = incomeDetailService;
+            _incomeService = incomeService;
         }
         #endregion
 
@@ -58,7 +60,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             RichBoxUsername.Text = "User Name: Bhai Raja Manandhar";
             RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
-            RichBoxFiscalYear.Text = "Fiscal Year: " + _fiscalYearDetailService.GetFiscalYearDetail().FiscalYear;
+            RichBoxFiscalYear.Text = "Fiscal Year: " + _fiscalYearDetailService.GetFiscalYearDetail().Year;
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
         }
         #endregion
@@ -144,7 +146,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ReportForm reportForm = new ReportForm(_fiscalYearDetailService, _posTransactionService, 
                 _bankDetailService, _bankTransactionService,
-                _incomeDetailService);
+                _incomeDetailService, _incomeService);
             reportForm.Show();
         }
 

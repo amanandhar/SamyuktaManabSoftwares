@@ -10,9 +10,8 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<StockView> GetStockView(StockFilterView filter);
         IEnumerable<PurchasedItem> GetItemsBySupplierAndBill(string supplierName, string billNo);
         decimal GetTotalAmountBySupplierAndBill(string supplierName, string billNo);
-        decimal GetTotalPurchaseItemCount(StockFilterView filter);
-        decimal GetTotalSalesItemCount(StockFilterView filter);
-        decimal GetTotalItemCount(string code);
+        long GetTotalPurchaseItemCount(StockFilterView filter);
+        long GetTotalSalesItemCount(StockFilterView filter);
         decimal GetTotalPurchaseItemAmount(StockFilterView filter);
         decimal GetTotalSalesItemAmount(StockFilterView filter);
         IEnumerable<string> GetAllItemNames();

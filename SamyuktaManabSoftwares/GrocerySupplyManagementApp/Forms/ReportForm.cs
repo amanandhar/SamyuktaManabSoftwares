@@ -11,11 +11,12 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IIncomeDetailService _incomeDetailService;
+        private readonly IIncomeService _incomeService;
 
         #region Constructor
         public ReportForm(IFiscalYearDetailService fiscalYearDetailService, IUserTransactionService posTransactionService,
             IBankDetailService bankDetailService, IBankTransactionService bankTransactionService,
-            IIncomeDetailService incomeDetailService)
+            IIncomeDetailService incomeDetailService, IIncomeService incomeService)
         {
             InitializeComponent();
 
@@ -24,6 +25,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
             _incomeDetailService = incomeDetailService;
+            _incomeService = incomeService;
         }
         #endregion
 
@@ -38,13 +40,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnProfitLossForm_Click(object sender, EventArgs e)
         {
-            ProfitLossForm pfofitLossForm = new ProfitLossForm();
-            pfofitLossForm.Show();
+            ProfitLossForm profitLossForm = new ProfitLossForm(_incomeDetailService);
+            profitLossForm.Show();
         }
 
         private void BtnDailyIncomeReport_Click(object sender, EventArgs e)
         {
-            IncomeDetailForm incomeDetailForm = new IncomeDetailForm(_incomeDetailService);
+            IncomeDetailForm incomeDetailForm = new IncomeDetailForm(_fiscalYearDetailService, _incomeDetailService, _incomeService);
             incomeDetailForm.Show();
         }
 

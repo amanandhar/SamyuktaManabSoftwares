@@ -5,10 +5,10 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 {
     public interface IBankDetailService
     {
-        IEnumerable<BankDetail> GetBankDetails();
-        BankDetail GetBankDetail(long bankId);
-        BankDetail AddBankDetail(BankDetail bankDetail);
-        BankDetail UpdateBankDetail(long bankId, BankDetail bankDetail);
+        IEnumerable<Bank> GetBankDetails();
+        Bank GetBankDetail(long bankId);
+        Bank AddBankDetail(Bank bankDetail);
+        Bank UpdateBankDetail(long bankId, Bank bankDetail);
         bool DeleteBankDetail(long bankId);
     }
 }

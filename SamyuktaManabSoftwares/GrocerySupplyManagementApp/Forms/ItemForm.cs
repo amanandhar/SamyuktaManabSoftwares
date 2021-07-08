@@ -229,6 +229,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemCode = item.Code
                 };
+
                 TxtTotalStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
 
                 TxtNewPurchasePrice.Text = itemTransaction.PurchasePrice.ToString();

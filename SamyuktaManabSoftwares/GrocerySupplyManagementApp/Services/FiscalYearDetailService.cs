@@ -13,17 +13,17 @@ namespace GrocerySupplyManagementApp.Services
             _fiscalYearDetailRepository = fiscalYearDetailRepository;
         }
 
-        public FiscalYearDetail GetFiscalYearDetail()
+        public FiscalYear GetFiscalYearDetail()
         {
             return _fiscalYearDetailRepository.GetFiscalYearDetail();
         }
 
-        public bool AddFiscalYearDetail(FiscalYearDetail fiscalYearDetail, bool truncate = false)
+        public bool AddFiscalYearDetail(FiscalYear fiscalYearDetail, bool truncate = false)
         {
             return _fiscalYearDetailRepository.AddFiscalYearDetail(fiscalYearDetail, truncate);
         }
 
-        public bool UpdateFiscalYearDetail(FiscalYearDetail fiscalYearDetail)
+        public bool UpdateFiscalYearDetail(FiscalYear fiscalYearDetail)
         {
             return _fiscalYearDetailRepository.UpdateFiscalYearDetail(fiscalYearDetail);
         }
