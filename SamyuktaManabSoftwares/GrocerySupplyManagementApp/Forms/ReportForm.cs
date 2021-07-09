@@ -40,7 +40,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnProfitLossForm_Click(object sender, EventArgs e)
         {
-            ProfitLossForm profitLossForm = new ProfitLossForm(_incomeDetailService);
+            ProfitLossForm profitLossForm = new ProfitLossForm(_incomeDetailService, _posTransactionService);
             profitLossForm.Show();
         }
 
@@ -61,6 +61,18 @@ namespace GrocerySupplyManagementApp.Forms
             ExpenseForm expenseForm = new ExpenseForm(_fiscalYearDetailService, _posTransactionService,
                 _bankDetailService, _bankTransactionService);
             expenseForm.Show();
+        }
+
+        private void BtnSalesReturn_Click(object sender, EventArgs e)
+        {
+            SalesReturnForm salesReturnForm = new SalesReturnForm();
+            salesReturnForm.Show();
+        }
+
+        private void BtnStockAdjustment_Click(object sender, EventArgs e)
+        {
+            StockAdjustmentForm stockAdjustmentForm = new StockAdjustmentForm();
+            stockAdjustmentForm.Show();
         }
 
         #endregion

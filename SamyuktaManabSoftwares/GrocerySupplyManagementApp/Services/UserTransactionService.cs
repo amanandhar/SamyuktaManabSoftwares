@@ -127,5 +127,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _posTransactionRepository.GetTotalBalance(action, actionType);
         }
+
+        public decimal GetTotalExpense(string expense)
+        {
+            return _posTransactionRepository.GetTotalExpense(expense);
+        }
     }
 }

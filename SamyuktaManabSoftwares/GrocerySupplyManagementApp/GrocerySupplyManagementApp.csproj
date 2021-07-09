@@ -92,6 +92,7 @@
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\ExpenseTransactionView.cs" />
     <Compile Include="DTOs\IncomeDetailView.cs" />
+    <Compile Include="DTOs\IncomeExpenseView.cs" />
     <Compile Include="DTOs\ItemCodedView.cs" />
     <Compile Include="DTOs\SoldItemView.cs" />
     <Compile Include="DTOs\StockView.cs" />

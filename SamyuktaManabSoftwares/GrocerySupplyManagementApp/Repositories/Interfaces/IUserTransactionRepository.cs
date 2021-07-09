@@ -22,5 +22,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         decimal GetSupplierTotalBalance(string supplierId);
         decimal GetCashInHand();
         decimal GetTotalBalance(string action, string actionType);
+        decimal GetTotalExpense(string expense);
     }
 }

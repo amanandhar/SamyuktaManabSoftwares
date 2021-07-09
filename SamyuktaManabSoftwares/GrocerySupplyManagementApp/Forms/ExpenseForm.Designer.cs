@@ -207,7 +207,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRemove.ForeColor = System.Drawing.Color.Red;
-            this.BtnRemove.Location = new System.Drawing.Point(50, 97);
+            this.BtnRemove.Location = new System.Drawing.Point(9, 87);
             this.BtnRemove.Name = "BtnRemove";
             this.BtnRemove.Size = new System.Drawing.Size(125, 35);
             this.BtnRemove.TabIndex = 15;
@@ -277,23 +277,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboExpense.FormattingEnabled = true;
             this.ComboExpense.Items.AddRange(new object[] {
-            "1. Asset(Couputer,Furniture etc.)",
-            "2. Office Rent ",
-            "3. Staff Salary",
-            "4. Staff Allowances",
-            "5. Staff Uniform",
-            "6. Drinking Water",
-            "7. Maintanance",
-            "8. Eletricity",
-            "9. Transportaion",
-            "10. Petrol",
-            "11. Labour Charge",
-            "12. Office Tea",
-            "13. Sales Discount",
-            "14. Loan Interest",
-            "15. Loan Fee",
-            "16. Miscellaneous",
-            "17. Other"});
+            "Asset (Computer, Furniture etc.)",
+            "Electricity",
+            "Fuel & Transportation",
+            "Guest & Hospitality",
+            "Loan Fee & Interest",
+            "Miscellaneous",
+            "Office Rent ",
+            "Repair & Maintenance",
+            "Sales Discount",
+            "Staff  Allowance",
+            "Staff Salary ",
+            "Telephone & Internet"});
             this.ComboExpense.Location = new System.Drawing.Point(82, 15);
             this.ComboExpense.Name = "ComboExpense";
             this.ComboExpense.Size = new System.Drawing.Size(275, 28);

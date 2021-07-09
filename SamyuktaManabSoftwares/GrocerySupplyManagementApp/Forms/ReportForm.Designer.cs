@@ -36,8 +36,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.button9 = new System.Windows.Forms.Button();
             this.BtnDailyExpenseReport = new System.Windows.Forms.Button();
             this.BtnDailyIncomeReport = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.BtnSalesReturn = new System.Windows.Forms.Button();
+            this.BtnStockAdjustment = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -123,27 +123,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailyIncomeReport.UseVisualStyleBackColor = true;
             this.BtnDailyIncomeReport.Click += new System.EventHandler(this.BtnDailyIncomeReport_Click);
             // 
-            // button4
+            // BtnSalesReturn
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button4.Location = new System.Drawing.Point(63, 382);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(250, 125);
-            this.button4.TabIndex = 21;
-            this.button4.Text = "Sales Return";
-            this.button4.UseVisualStyleBackColor = true;
+            this.BtnSalesReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSalesReturn.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSalesReturn.Location = new System.Drawing.Point(63, 382);
+            this.BtnSalesReturn.Name = "BtnSalesReturn";
+            this.BtnSalesReturn.Size = new System.Drawing.Size(250, 125);
+            this.BtnSalesReturn.TabIndex = 21;
+            this.BtnSalesReturn.Text = "Sales Return";
+            this.BtnSalesReturn.UseVisualStyleBackColor = true;
+            this.BtnSalesReturn.Click += new System.EventHandler(this.BtnSalesReturn_Click);
             // 
-            // button5
+            // BtnStockAdjustment
             // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button5.Location = new System.Drawing.Point(394, 382);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(250, 125);
-            this.button5.TabIndex = 22;
-            this.button5.Text = "Stock Adjustment";
-            this.button5.UseVisualStyleBackColor = true;
+            this.BtnStockAdjustment.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnStockAdjustment.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnStockAdjustment.Location = new System.Drawing.Point(394, 382);
+            this.BtnStockAdjustment.Name = "BtnStockAdjustment";
+            this.BtnStockAdjustment.Size = new System.Drawing.Size(250, 125);
+            this.BtnStockAdjustment.TabIndex = 22;
+            this.BtnStockAdjustment.Text = "Stock Adjustment";
+            this.BtnStockAdjustment.UseVisualStyleBackColor = true;
+            this.BtnStockAdjustment.Click += new System.EventHandler(this.BtnStockAdjustment_Click);
             // 
             // button6
             // 
@@ -161,8 +163,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.BtnStockAdjustment);
+            this.Controls.Add(this.BtnSalesReturn);
             this.Controls.Add(this.BtnDailyIncomeReport);
             this.Controls.Add(this.BtnDailyExpenseReport);
             this.Controls.Add(this.button9);
@@ -186,8 +188,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button BtnDailyExpenseReport;
         private System.Windows.Forms.Button BtnDailyIncomeReport;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button BtnSalesReturn;
+        private System.Windows.Forms.Button BtnStockAdjustment;
         private System.Windows.Forms.Button button6;
     }
 }

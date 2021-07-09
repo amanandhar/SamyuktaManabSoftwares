@@ -68,15 +68,31 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<StockView>();
             var query = @"SELECT " +
+                "a.[Date], a.[BillInvoiceNo], a.[Description], a.[Code], a.[Name], " +
+                "a.[Brand], a.[Unit], a.[Quantity], a.[Price], a.[Total]  " +
+                "FROM " +
+                "( " +
+                "SELECT " +
                 "it.[Date] AS 'Date', it.[BillNo] AS 'BillInvoiceNo', 'Purchase' AS 'Description', i.[Code] AS 'Code', " +
                 "i.[Name] AS 'Name', i.[Brand] AS 'Brand', it.[Unit] AS 'Unit', " +
                 "it.[Quantity] AS 'Quantity', it.[Price] AS 'Price', CAST((it.[Quantity] * it.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " it " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON " +
-                "it.ItemId = i.Id " +
-                "WHERE 1 = 1 " +
-                "UNION " +
+                "it.[ItemId] = i.[Id] " +
+                "WHERE 1 = 1 ";
+
+            if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
+            {
+                query += "AND i.[Code] = @Code ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
+            {
+                query += "AND it.[Date] BETWEEN @DateFrom AND @DateTo ";
+            }
+
+            query += "UNION " +
                 "SELECT " +
                 "pt.[InvoiceDate] AS 'Date', pt.[InvoiceNo] 'BillInvoiceNo', 'Sales' AS 'Description', psi.[ItemCode] AS 'Code', " +
                 "psi.[ItemName] AS 'Name', psi.[ItemBrand] AS 'Brand', psi.[Unit] AS 'Unit', " +
@@ -84,20 +100,20 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_SOLD_ITEM + " psi " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
                 "ON " +
-                "psi.InvoiceNo = pt.InvoiceNo " +
+                "psi.[InvoiceNo] = pt.[InvoiceNo] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += "AND Code = @Code ";
+                query += "AND psi.[ItemCode] = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND Date BETWEEN @DateFrom AND @DateTo ";
+                query += "AND pt.[InvoiceDate] BETWEEN @DateFrom AND @DateTo ";
             }
 
-            query += "ORDER BY Date DESC ";
+            query += ") a ORDER BY a.[Date] DESC ";
 
             try
             {

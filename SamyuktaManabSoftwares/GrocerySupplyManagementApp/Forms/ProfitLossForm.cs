@@ -1,5 +1,9 @@
-﻿using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,12 +12,16 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ProfitLossForm : Form
     {
         private readonly IIncomeDetailService _incomeDetailService;
+        private readonly IUserTransactionService _userTransactionService;
+        private decimal _totalIncome = 0.0m;
+        private decimal _totalExpense = 0.0m;
 
         #region Constructor
-        public ProfitLossForm(IIncomeDetailService incomeDetailService)
+        public ProfitLossForm(IIncomeDetailService incomeDetailService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
             _incomeDetailService = incomeDetailService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -27,18 +35,220 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, System.EventArgs e)
         {
-            RichSalesProfit.Text = _incomeDetailService.GetSalesProfit().ToList().Sum(x => x.Total).ToString();
-            RichMembershipFee.Text = _incomeDetailService.GetMemberFee().ToList().Sum(x => x.Total).ToString();
-            RichSupplierCommission.Text = _incomeDetailService.GetSupplilersCommission().ToList().Sum(x => x.Total).ToString();
-            RichDeliveryCharge.Text = _incomeDetailService.GetDeliveryCharge().ToList().Sum(x => x.Total).ToString();
-            RichOtherIncome.Text = _incomeDetailService.GetOtherIncome().ToList().Sum(x => x.Total).ToString();
-            
-            RichTotalAmount.Text = (Convert.ToDecimal(RichSalesProfit.Text) 
-                + Convert.ToDecimal(RichMembershipFee.Text) 
-                + Convert.ToDecimal(RichSupplierCommission.Text) 
-                + Convert.ToDecimal(RichDeliveryCharge.Text) 
-                + Convert.ToDecimal(RichOtherIncome.Text)).ToString();
+            LoadIncome();
+            LoadExpense();
+
+            if (_totalIncome > _totalExpense)
+            {
+                TxtNetIncome.Text = (_totalIncome - _totalExpense).ToString();
+                TxtNetLoss.Text = 0.0m.ToString();
+            }
+            else if (_totalIncome < _totalExpense)
+            {
+                TxtNetIncome.Text = 0.0m.ToString();
+                TxtNetLoss.Text = (_totalExpense - _totalIncome).ToString();
+            }
+            else 
+            {
+                TxtNetIncome.Text = 0.0m.ToString();
+                TxtNetLoss.Text = 0.0m.ToString();
+            }
         }
         #endregion
+
+        #region Data Grid Events
+        private void DataGridIncomeList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridIncomeList.Columns["Name"].HeaderText = "Name";
+            DataGridIncomeList.Columns["Name"].Width = 300;
+            DataGridIncomeList.Columns["Name"].DisplayIndex = 0;
+
+            DataGridIncomeList.Columns["Amount"].HeaderText = "Amount";
+            DataGridIncomeList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridIncomeList.Columns["Amount"].DisplayIndex = 1;
+
+            foreach (DataGridViewRow row in DataGridIncomeList.Rows)
+            {
+                DataGridIncomeList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridIncomeList.RowHeadersWidth = 50;
+            }
+        }
+
+        private void DataGridExpenseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridExpenseList.Columns["Name"].HeaderText = "Name";
+            DataGridExpenseList.Columns["Name"].Width = 300;
+            DataGridExpenseList.Columns["Name"].DisplayIndex = 0;
+
+            DataGridExpenseList.Columns["Amount"].HeaderText = "Amount";
+            DataGridExpenseList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridExpenseList.Columns["Amount"].DisplayIndex = 1;
+
+            foreach (DataGridViewRow row in DataGridExpenseList.Rows)
+            {
+                DataGridExpenseList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridExpenseList.RowHeadersWidth = 50;
+            }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadIncome()
+        {
+            try
+            {
+                var totalDeliveryCharge = _incomeDetailService.GetDeliveryCharge().ToList().Sum(x => x.Total);
+                var totalMemberFee = _incomeDetailService.GetMemberFee().ToList().Sum(x => x.Total);
+                var totalOtherIncome = _incomeDetailService.GetOtherIncome().ToList().Sum(x => x.Total);
+                var totalSalesProfit = _incomeDetailService.GetSalesProfit().ToList().Sum(x => x.Total);
+                var totalSuppliersCommission = _incomeDetailService.GetSupplilersCommission().ToList().Sum(x => x.Total);
+                _totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalSuppliersCommission;
+
+                List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
+                {
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.DELIVERY_CHARGE,
+                        Amount = totalDeliveryCharge
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.MEMBER_FEE,
+                        Amount = totalMemberFee
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.OTHER_INCOME,
+                        Amount = totalOtherIncome
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.SALES_PROFIT,
+                        Amount = totalSalesProfit
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.SUPPLIERS_COMMISSION,
+                        Amount = totalSuppliersCommission
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.TOTAL,
+                        Amount = _totalIncome
+                    }
+                };
+
+                var bindingList = new BindingList<IncomeExpenseView>(incomeExpenseView);
+                var source = new BindingSource(bindingList, null);
+                DataGridIncomeList.DataSource = source;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void LoadExpense()
+        {
+            try
+            {
+                var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
+                var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
+                var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
+                var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);
+                var totalLoanFeeInterest = _userTransactionService.GetTotalExpense(Constants.LOAN_FEE_INTEREST);
+                var totalMiscellaneous = _userTransactionService.GetTotalExpense(Constants.MISCELLANEOUS);
+                var totalOfficeRent = _userTransactionService.GetTotalExpense(Constants.OFFICE_RENT);
+                var totalRepairMaintenance = _userTransactionService.GetTotalExpense(Constants.REPAIR_MAINTENANCE);
+                var totalSalesDiscount = _userTransactionService.GetTotalExpense(Constants.SALES_DISCOUNT);
+                var totalStaffAllowance = _userTransactionService.GetTotalExpense(Constants.STAFF_ALLOWANCE);
+                var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
+                var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
+
+                _totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                    + totalLoanFeeInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
+                    + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
+
+                List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
+                {
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.ASSET,
+                        Amount = totalAsset
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.ELECTRICITY,
+                        Amount = totalElectricity
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.FUEL_TRANSPORTATION,
+                        Amount = totalFuelAndTransportation
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.GUEST_HOSPITALITY,
+                        Amount = totalGuestHospitality
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.LOAN_FEE_INTEREST,
+                        Amount = totalLoanFeeInterest
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.MISCELLANEOUS,
+                        Amount = totalMiscellaneous
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.OFFICE_RENT,
+                        Amount = totalOfficeRent
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.REPAIR_MAINTENANCE,
+                        Amount = totalRepairMaintenance
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.SALES_DISCOUNT,
+                        Amount = totalSalesDiscount
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.STAFF_ALLOWANCE,
+                        Amount = totalStaffAllowance
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.STAFF_SALARY,
+                        Amount = totalStaffSalary
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.TELEPHONE_INTERNET,
+                        Amount = totalTelephoneInternet
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.TOTAL,
+                        Amount = _totalExpense
+                    }
+                };
+
+                var bindingList = new BindingList<IncomeExpenseView>(incomeExpenseView);
+                var source = new BindingSource(bindingList, null);
+                DataGridExpenseList.DataSource = source;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
     }
 }

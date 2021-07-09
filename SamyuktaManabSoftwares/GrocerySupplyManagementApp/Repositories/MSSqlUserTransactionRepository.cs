@@ -698,5 +698,38 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return balance;
         }
+
+        public decimal GetTotalExpense(string expense)
+        {
+            decimal total = 0.0m;
+            string query = @"SELECT " +
+                    "SUM([TotalAmount])" +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE 1 = 1 " +
+                    "AND Action = 'Expense' " +
+                    "AND Expense = @Expense ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Expense", ((object)expense) ?? DBNull.Value);
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            total = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return total;
+        }
     }
 }
