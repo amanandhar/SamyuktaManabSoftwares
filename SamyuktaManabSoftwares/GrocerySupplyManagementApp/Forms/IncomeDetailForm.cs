@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,9 +39,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShow_Click(object sender, EventArgs e)
         {
             var filter = ComboFilter.Text;
-            if(filter.Equals("Sales Profit"))
+            if(string.IsNullOrWhiteSpace(filter))
             {
                 LoadIncomeDetails();
+            }
+            else
+            {
+                LoadIncomeDetails(filter);
             }
         }
 
@@ -132,12 +137,42 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadIncomeDetails()
+        private void LoadIncomeDetails(string type = null)
         {
-            List<IncomeDetailView> transactions = _incomeDetailService.GetIncomeDetails().ToList();
-            TxtAmount.Text = transactions.Sum(x => x.Total).ToString();
+            List<IncomeDetailView> incomeDetails;
 
-            var bindingList = new BindingList<IncomeDetailView>(transactions);
+            if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetDeliveryCharge().ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.MEMBER_FEE.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetMemberFee().ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.OTHER_INCOME.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetOtherIncome().ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetSalesProfit().ToList();
+            }
+            else if(!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.SUPPLIERS_COMMISSION.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetSupplilersCommission().ToList();
+            }
+            else
+            {
+                incomeDetails = _incomeDetailService.GetDeliveryCharge().ToList();
+                incomeDetails.AddRange(_incomeDetailService.GetMemberFee().ToList());
+                incomeDetails.AddRange(_incomeDetailService.GetOtherIncome().ToList());
+                incomeDetails.AddRange(_incomeDetailService.GetSalesProfit().ToList());
+                incomeDetails.AddRange(_incomeDetailService.GetSupplilersCommission().ToList());
+            }
+
+            TxtAmount.Text = (incomeDetails.Sum(x => x.Total)).ToString();
+
+            var bindingList = new BindingList<IncomeDetailView>(incomeDetails);
             var source = new BindingSource(bindingList, null);
             DataGridIncomeView.DataSource = source;
         }
@@ -148,7 +183,5 @@ namespace GrocerySupplyManagementApp.Forms
             RichAddAmount.Clear();
         }
         #endregion
-
-        
     }
 }

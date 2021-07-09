@@ -544,7 +544,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label19.Location = new System.Drawing.Point(23, 111);
+            this.label19.Location = new System.Drawing.Point(8, 111);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(165, 20);
             this.label19.TabIndex = 101;

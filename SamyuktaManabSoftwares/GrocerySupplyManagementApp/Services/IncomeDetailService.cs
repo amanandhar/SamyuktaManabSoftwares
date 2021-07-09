@@ -14,9 +14,29 @@ namespace GrocerySupplyManagementApp.Services
             _incomeDetailRepository = incomeDetailRepository;
         }
 
-        public IEnumerable<IncomeDetailView> GetIncomeDetails()
+        public IEnumerable<IncomeDetailView> GetDeliveryCharge()
         {
-            return _incomeDetailRepository.GetIncomeDetails();
+            return _incomeDetailRepository.GetDeliveryCharge();
+        }
+
+        public IEnumerable<IncomeDetailView> GetMemberFee()
+        {
+            return _incomeDetailRepository.GetMemberFee();
+        }
+
+        public IEnumerable<IncomeDetailView> GetOtherIncome()
+        {
+            return _incomeDetailRepository.GetOtherIncome();
+        }
+
+        public IEnumerable<IncomeDetailView> GetSalesProfit()
+        {
+            return _incomeDetailRepository.GetSalesProfit();
+        }
+
+        public IEnumerable<IncomeDetailView> GetSupplilersCommission()
+        {
+            return _incomeDetailRepository.GetSupplilersCommission();
         }
     }
 }

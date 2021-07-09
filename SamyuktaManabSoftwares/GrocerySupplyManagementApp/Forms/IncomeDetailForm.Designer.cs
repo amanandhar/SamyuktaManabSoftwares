@@ -133,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
             "Member Fee",
             "Other Income",
             "Sales Profit",
-            "Suppliers Comission"});
+            "Suppliers Commission"});
             this.ComboFilter.Location = new System.Drawing.Point(98, 64);
             this.ComboFilter.Name = "ComboFilter";
             this.ComboFilter.Size = new System.Drawing.Size(195, 28);

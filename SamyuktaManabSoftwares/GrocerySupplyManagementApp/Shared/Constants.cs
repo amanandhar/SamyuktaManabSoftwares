@@ -32,5 +32,14 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_SUPPLIER = "Supplier";
         public const string TABLE_TAX = "TaxD";
         public const string TABLE_USER_TRANSACTION = "UserTransaction";
+
+        // Income
+        public const string DELIVERY_CHARGE = "Delivery Charge";
+        public const string MEMBER_FEE = "Member Fee";
+        public const string OTHER_INCOME = "Other Income";
+        public const string SALES_PROFIT = "Sales Profit";
+        public const string SUPPLIERS_COMMISSION = "Suppliers Commission";
+
+
     }
 }
