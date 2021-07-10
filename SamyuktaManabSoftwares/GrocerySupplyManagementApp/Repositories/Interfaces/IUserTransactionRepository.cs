@@ -18,7 +18,9 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         UserTransaction UpdatePosTransaction(long posTransactionId, UserTransaction posTransaction);
         bool DeletePosTransaction(long posTransactionId, UserTransaction posTransaction);
         string GetLastInvoiceNo();
+        decimal GetMemberTotalBalance();
         decimal GetMemberTotalBalance(string memberId);
+        decimal GetSupplierTotalBalance();
         decimal GetSupplierTotalBalance(string supplierId);
         decimal GetCashInHand();
         decimal GetTotalBalance(string action, string actionType);

@@ -146,7 +146,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ReportForm reportForm = new ReportForm(_fiscalYearDetailService, _posTransactionService, 
                 _bankDetailService, _bankTransactionService,
-                _incomeDetailService, _incomeService);
+                _incomeDetailService, _incomeService,
+                _itemTransactionService);
             reportForm.Show();
         }
 

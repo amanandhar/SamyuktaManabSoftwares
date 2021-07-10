@@ -204,6 +204,38 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankTransaction;
         }
 
+        public decimal GetBankBalance()
+        {
+            decimal bankBalance = 0.0m;
+            var query = @"SELECT " +
+                "ISNUll(SUM(ISNULL(DEBIT, 0) - ISNULL(Credit, 0)), 0) " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            bankBalance = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return bankBalance;
+        }
+
         public decimal GetBankBalance(long bankId)
         {
             decimal bankBalance = 0.0m;
@@ -237,6 +269,39 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return bankBalance;
+        }
+
+        public decimal GetBankTotalDeposit()
+        {
+            decimal total = 0.0m;
+            var query = @"SELECT " +
+                "ISNUll(SUM(ISNULL(DEBIT, 0)), 0) " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " + 
+                "AND [Action] = '1'";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            total = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return total;
         }
 
         public BankTransaction AddBankTransaction(BankTransaction bankTransaction)

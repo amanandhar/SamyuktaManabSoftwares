@@ -539,6 +539,38 @@ namespace GrocerySupplyManagementApp.Repositories
             return invoiceNo;
         }
 
+        public decimal GetMemberTotalBalance()
+        {
+            decimal balance = 0.0m;
+            string query = @"SELECT " +
+                "SUM([TotalAmount]) - SUM([ReceivedAmount]) " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [MemberId] IS NOT NULL ";
+           
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            balance = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return balance;
+        }
+
         public decimal GetMemberTotalBalance(string memberId)
         {
             string query = @"SELECT " +
@@ -555,6 +587,38 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@MemberId", ((object)memberId) ?? DBNull.Value);
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            balance = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return balance;
+        }
+
+        public decimal GetSupplierTotalBalance()
+        {
+            decimal balance = 0.0m;
+            string query = @"SELECT " +
+                "SUM([ReceivedAmount]) - SUM([TotalAmount]) " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [SupplierId] IS NOT NULL ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {

@@ -108,9 +108,19 @@ namespace GrocerySupplyManagementApp.Services
             return invoiceNo; 
         }
         
+        public decimal GetMemberTotalBalance()
+        {
+            return _posTransactionRepository.GetMemberTotalBalance();
+        }
+
         public decimal GetMemberTotalBalance(string memberId)
         {
             return _posTransactionRepository.GetMemberTotalBalance(memberId);
+        }
+
+        public decimal GetSupplierTotalBalance()
+        {
+            return _posTransactionRepository.GetSupplierTotalBalance();
         }
 
         public decimal GetSupplierTotalBalance(string supplierId)

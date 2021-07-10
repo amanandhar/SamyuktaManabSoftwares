@@ -10,7 +10,9 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<BankTransaction> GetBankTransactions(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(long bankId);
         BankTransaction GetBankTransaction(long bankTransactionId);
+        decimal GetBankBalance();
         decimal GetBankBalance(long bankId);
+        decimal GetBankTotalDeposit();
         BankTransaction AddBankTransaction(BankTransaction bankTransaction);
         BankTransaction UpdateBankTransaction(long bankTransactionId, BankTransaction bankTransaction);
         bool DeleteBankTransaction(long id);

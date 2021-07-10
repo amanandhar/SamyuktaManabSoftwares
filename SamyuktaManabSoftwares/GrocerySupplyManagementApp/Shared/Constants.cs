@@ -30,7 +30,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_PURCHASED_ITEM = "PurchasedItem";
         public const string TABLE_SOLD_ITEM = "SoldItem";
         public const string TABLE_SUPPLIER = "Supplier";
-        public const string TABLE_TAX = "TaxD";
+        public const string TABLE_TAX = "Tax";
         public const string TABLE_USER_TRANSACTION = "UserTransaction";
 
         // Income
@@ -43,7 +43,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TOTAL = "Total";
 
         // Expense 
-        public const string ASSET = "Asset(Computer, Furniture etc.)";
+        public const string ASSET = "Asset (Computer, Furniture etc.)";
         public const string ELECTRICITY = "Electricity";
         public const string FUEL_TRANSPORTATION = "Fuel & Transportation";
         public const string GUEST_HOSPITALITY = "Guest & Hospitality";

@@ -33,11 +33,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel15 = new System.Windows.Forms.LinkLabel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnShow = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
+            this.RichReceivableAmount = new System.Windows.Forms.RichTextBox();
+            this.RichFixedAsset = new System.Windows.Forms.RichTextBox();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
@@ -48,28 +48,28 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel12 = new System.Windows.Forms.LinkLabel();
             this.linkLabel13 = new System.Windows.Forms.LinkLabel();
             this.linkLabel14 = new System.Windows.Forms.LinkLabel();
-            this.richTextBox5 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox6 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox7 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox10 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox11 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox12 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox13 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox14 = new System.Windows.Forms.RichTextBox();
+            this.RichShareCapital = new System.Windows.Forms.RichTextBox();
+            this.RichCashInHand = new System.Windows.Forms.RichTextBox();
+            this.RichAssetsBalance = new System.Windows.Forms.RichTextBox();
+            this.RichOwnerEquity = new System.Windows.Forms.RichTextBox();
+            this.RichBankAccount = new System.Windows.Forms.RichTextBox();
+            this.RichLoanAmount = new System.Windows.Forms.RichTextBox();
+            this.RichPayableAmount = new System.Windows.Forms.RichTextBox();
+            this.RichNetProfit = new System.Windows.Forms.RichTextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.richTextBox16 = new System.Windows.Forms.RichTextBox();
+            this.RichLiabilitiesBalance = new System.Windows.Forms.RichTextBox();
             this.linkLabel18 = new System.Windows.Forms.LinkLabel();
             this.linkLabel19 = new System.Windows.Forms.LinkLabel();
-            this.richTextBox15 = new System.Windows.Forms.RichTextBox();
             this.linkLabel17 = new System.Windows.Forms.LinkLabel();
-            this.richTextBox9 = new System.Windows.Forms.RichTextBox();
+            this.RichStockValue = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.richTextBox8 = new System.Windows.Forms.RichTextBox();
+            this.RichReport = new System.Windows.Forms.RichTextBox();
+            this.RichNetLoss = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -110,24 +110,25 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.BtnShow);
             this.groupBox3.Location = new System.Drawing.Point(855, 31);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(160, 65);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
-            // button1
+            // BtnShow
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(16, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 40);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Show";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.Location = new System.Drawing.Point(16, 15);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(125, 40);
+            this.BtnShow.TabIndex = 0;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.UseVisualStyleBackColor = true;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // textBox1
             // 
@@ -151,25 +152,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.Size = new System.Drawing.Size(0, 20);
             this.label4.TabIndex = 6;
             // 
-            // richTextBox1
+            // RichReceivableAmount
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(194, 185);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox1.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox1.TabIndex = 10;
-            this.richTextBox1.Text = "";
+            this.RichReceivableAmount.Enabled = false;
+            this.RichReceivableAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichReceivableAmount.Location = new System.Drawing.Point(194, 185);
+            this.RichReceivableAmount.Name = "RichReceivableAmount";
+            this.RichReceivableAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichReceivableAmount.Size = new System.Drawing.Size(250, 35);
+            this.RichReceivableAmount.TabIndex = 10;
+            this.RichReceivableAmount.Text = "";
             // 
-            // richTextBox4
+            // RichFixedAsset
             // 
-            this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox4.Location = new System.Drawing.Point(194, 109);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox4.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox4.TabIndex = 11;
-            this.richTextBox4.Text = "";
+            this.RichFixedAsset.Enabled = false;
+            this.RichFixedAsset.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichFixedAsset.Location = new System.Drawing.Point(194, 109);
+            this.RichFixedAsset.Name = "RichFixedAsset";
+            this.RichFixedAsset.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichFixedAsset.Size = new System.Drawing.Size(250, 35);
+            this.RichFixedAsset.TabIndex = 11;
+            this.RichFixedAsset.Text = "";
             // 
             // linkLabel3
             // 
@@ -301,86 +304,94 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel14.TabStop = true;
             this.linkLabel14.Text = "Cash in Hand";
             // 
-            // richTextBox5
+            // RichShareCapital
             // 
-            this.richTextBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox5.Location = new System.Drawing.Point(156, 33);
-            this.richTextBox5.Name = "richTextBox5";
-            this.richTextBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox5.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox5.TabIndex = 24;
-            this.richTextBox5.Text = "";
+            this.RichShareCapital.Enabled = false;
+            this.RichShareCapital.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichShareCapital.Location = new System.Drawing.Point(156, 33);
+            this.RichShareCapital.Name = "RichShareCapital";
+            this.RichShareCapital.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichShareCapital.Size = new System.Drawing.Size(250, 35);
+            this.RichShareCapital.TabIndex = 24;
+            this.RichShareCapital.Text = "";
             // 
-            // richTextBox6
+            // RichCashInHand
             // 
-            this.richTextBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox6.Location = new System.Drawing.Point(194, 33);
-            this.richTextBox6.Name = "richTextBox6";
-            this.richTextBox6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox6.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox6.TabIndex = 25;
-            this.richTextBox6.Text = "";
+            this.RichCashInHand.Enabled = false;
+            this.RichCashInHand.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichCashInHand.Location = new System.Drawing.Point(194, 33);
+            this.RichCashInHand.Name = "RichCashInHand";
+            this.RichCashInHand.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichCashInHand.Size = new System.Drawing.Size(250, 35);
+            this.RichCashInHand.TabIndex = 25;
+            this.RichCashInHand.Text = "";
             // 
-            // richTextBox7
+            // RichAssetsBalance
             // 
-            this.richTextBox7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.richTextBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox7.Location = new System.Drawing.Point(194, 260);
-            this.richTextBox7.Name = "richTextBox7";
-            this.richTextBox7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox7.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox7.TabIndex = 26;
-            this.richTextBox7.Text = "";
+            this.RichAssetsBalance.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.RichAssetsBalance.Enabled = false;
+            this.RichAssetsBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichAssetsBalance.Location = new System.Drawing.Point(194, 260);
+            this.RichAssetsBalance.Name = "RichAssetsBalance";
+            this.RichAssetsBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichAssetsBalance.Size = new System.Drawing.Size(250, 35);
+            this.RichAssetsBalance.TabIndex = 26;
+            this.RichAssetsBalance.Text = "";
             // 
-            // richTextBox10
+            // RichOwnerEquity
             // 
-            this.richTextBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox10.Location = new System.Drawing.Point(156, 72);
-            this.richTextBox10.Name = "richTextBox10";
-            this.richTextBox10.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox10.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox10.TabIndex = 29;
-            this.richTextBox10.Text = "";
+            this.RichOwnerEquity.Enabled = false;
+            this.RichOwnerEquity.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichOwnerEquity.Location = new System.Drawing.Point(156, 72);
+            this.RichOwnerEquity.Name = "RichOwnerEquity";
+            this.RichOwnerEquity.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichOwnerEquity.Size = new System.Drawing.Size(250, 35);
+            this.RichOwnerEquity.TabIndex = 29;
+            this.RichOwnerEquity.Text = "";
             // 
-            // richTextBox11
+            // RichBankAccount
             // 
-            this.richTextBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox11.Location = new System.Drawing.Point(194, 71);
-            this.richTextBox11.Name = "richTextBox11";
-            this.richTextBox11.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox11.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox11.TabIndex = 30;
-            this.richTextBox11.Text = "";
+            this.RichBankAccount.Enabled = false;
+            this.RichBankAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBankAccount.Location = new System.Drawing.Point(194, 71);
+            this.RichBankAccount.Name = "RichBankAccount";
+            this.RichBankAccount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichBankAccount.Size = new System.Drawing.Size(250, 35);
+            this.RichBankAccount.TabIndex = 30;
+            this.RichBankAccount.Text = "";
             // 
-            // richTextBox12
+            // RichLoanAmount
             // 
-            this.richTextBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox12.Location = new System.Drawing.Point(155, 110);
-            this.richTextBox12.Name = "richTextBox12";
-            this.richTextBox12.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox12.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox12.TabIndex = 31;
-            this.richTextBox12.Text = "";
+            this.RichLoanAmount.Enabled = false;
+            this.RichLoanAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichLoanAmount.Location = new System.Drawing.Point(155, 110);
+            this.RichLoanAmount.Name = "RichLoanAmount";
+            this.RichLoanAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichLoanAmount.Size = new System.Drawing.Size(250, 35);
+            this.RichLoanAmount.TabIndex = 31;
+            this.RichLoanAmount.Text = "";
             // 
-            // richTextBox13
+            // RichPayableAmount
             // 
-            this.richTextBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox13.Location = new System.Drawing.Point(155, 148);
-            this.richTextBox13.Name = "richTextBox13";
-            this.richTextBox13.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox13.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox13.TabIndex = 32;
-            this.richTextBox13.Text = "";
+            this.RichPayableAmount.Enabled = false;
+            this.RichPayableAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichPayableAmount.Location = new System.Drawing.Point(155, 148);
+            this.RichPayableAmount.Name = "RichPayableAmount";
+            this.RichPayableAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichPayableAmount.Size = new System.Drawing.Size(250, 35);
+            this.RichPayableAmount.TabIndex = 32;
+            this.RichPayableAmount.Text = "";
             // 
-            // richTextBox14
+            // RichNetProfit
             // 
-            this.richTextBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox14.Location = new System.Drawing.Point(155, 186);
-            this.richTextBox14.Name = "richTextBox14";
-            this.richTextBox14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox14.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox14.TabIndex = 33;
-            this.richTextBox14.Text = "";
+            this.RichNetProfit.Enabled = false;
+            this.RichNetProfit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichNetProfit.Location = new System.Drawing.Point(155, 186);
+            this.RichNetProfit.Name = "RichNetProfit";
+            this.RichNetProfit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichNetProfit.Size = new System.Drawing.Size(250, 35);
+            this.RichNetProfit.TabIndex = 33;
+            this.RichNetProfit.Text = "";
             // 
             // textBox2
             // 
@@ -425,16 +436,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox3.Size = new System.Drawing.Size(250, 26);
             this.textBox3.TabIndex = 37;
             // 
-            // richTextBox16
+            // RichLiabilitiesBalance
             // 
-            this.richTextBox16.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.richTextBox16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox16.Location = new System.Drawing.Point(155, 262);
-            this.richTextBox16.Name = "richTextBox16";
-            this.richTextBox16.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox16.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox16.TabIndex = 38;
-            this.richTextBox16.Text = "";
+            this.RichLiabilitiesBalance.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.RichLiabilitiesBalance.Enabled = false;
+            this.RichLiabilitiesBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichLiabilitiesBalance.Location = new System.Drawing.Point(155, 262);
+            this.RichLiabilitiesBalance.Name = "RichLiabilitiesBalance";
+            this.RichLiabilitiesBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichLiabilitiesBalance.Size = new System.Drawing.Size(250, 35);
+            this.RichLiabilitiesBalance.TabIndex = 38;
+            this.RichLiabilitiesBalance.Text = "";
             // 
             // linkLabel18
             // 
@@ -462,14 +474,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel19.TabStop = true;
             this.linkLabel19.Text = "Balance";
             // 
-            // richTextBox15
-            // 
-            this.richTextBox15.Location = new System.Drawing.Point(155, 224);
-            this.richTextBox15.Name = "richTextBox15";
-            this.richTextBox15.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox15.TabIndex = 42;
-            this.richTextBox15.Text = "";
-            // 
             // linkLabel17
             // 
             this.linkLabel17.AutoSize = true;
@@ -482,32 +486,33 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel17.TabStop = true;
             this.linkLabel17.Text = "Net Loss";
             // 
-            // richTextBox9
+            // RichStockValue
             // 
-            this.richTextBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox9.Location = new System.Drawing.Point(194, 147);
-            this.richTextBox9.Name = "richTextBox9";
-            this.richTextBox9.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox9.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox9.TabIndex = 28;
-            this.richTextBox9.Text = "";
+            this.RichStockValue.Enabled = false;
+            this.RichStockValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichStockValue.Location = new System.Drawing.Point(194, 147);
+            this.RichStockValue.Name = "RichStockValue";
+            this.RichStockValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichStockValue.Size = new System.Drawing.Size(250, 35);
+            this.RichStockValue.TabIndex = 28;
+            this.RichStockValue.Text = "";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.RichNetLoss);
             this.groupBox2.Controls.Add(this.linkLabel3);
-            this.groupBox2.Controls.Add(this.richTextBox15);
-            this.groupBox2.Controls.Add(this.richTextBox16);
+            this.groupBox2.Controls.Add(this.RichLiabilitiesBalance);
             this.groupBox2.Controls.Add(this.linkLabel17);
             this.groupBox2.Controls.Add(this.linkLabel4);
             this.groupBox2.Controls.Add(this.linkLabel5);
             this.groupBox2.Controls.Add(this.linkLabel6);
             this.groupBox2.Controls.Add(this.linkLabel18);
             this.groupBox2.Controls.Add(this.linkLabel8);
-            this.groupBox2.Controls.Add(this.richTextBox5);
-            this.groupBox2.Controls.Add(this.richTextBox14);
-            this.groupBox2.Controls.Add(this.richTextBox10);
-            this.groupBox2.Controls.Add(this.richTextBox13);
-            this.groupBox2.Controls.Add(this.richTextBox12);
+            this.groupBox2.Controls.Add(this.RichShareCapital);
+            this.groupBox2.Controls.Add(this.RichNetProfit);
+            this.groupBox2.Controls.Add(this.RichOwnerEquity);
+            this.groupBox2.Controls.Add(this.RichPayableAmount);
+            this.groupBox2.Controls.Add(this.RichLoanAmount);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.groupBox2.Location = new System.Drawing.Point(21, 137);
@@ -520,19 +525,19 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.linkLabel1);
-            this.groupBox4.Controls.Add(this.richTextBox8);
+            this.groupBox4.Controls.Add(this.RichReport);
             this.groupBox4.Controls.Add(this.linkLabel14);
             this.groupBox4.Controls.Add(this.linkLabel9);
             this.groupBox4.Controls.Add(this.linkLabel19);
             this.groupBox4.Controls.Add(this.linkLabel10);
-            this.groupBox4.Controls.Add(this.richTextBox7);
-            this.groupBox4.Controls.Add(this.richTextBox9);
+            this.groupBox4.Controls.Add(this.RichAssetsBalance);
+            this.groupBox4.Controls.Add(this.RichStockValue);
             this.groupBox4.Controls.Add(this.linkLabel12);
             this.groupBox4.Controls.Add(this.linkLabel13);
-            this.groupBox4.Controls.Add(this.richTextBox11);
-            this.groupBox4.Controls.Add(this.richTextBox6);
-            this.groupBox4.Controls.Add(this.richTextBox4);
-            this.groupBox4.Controls.Add(this.richTextBox1);
+            this.groupBox4.Controls.Add(this.RichBankAccount);
+            this.groupBox4.Controls.Add(this.RichCashInHand);
+            this.groupBox4.Controls.Add(this.RichFixedAsset);
+            this.groupBox4.Controls.Add(this.RichReceivableAmount);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.groupBox4.Location = new System.Drawing.Point(512, 137);
@@ -555,15 +560,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Report";
             // 
-            // richTextBox8
+            // RichReport
             // 
-            this.richTextBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox8.Location = new System.Drawing.Point(194, 222);
-            this.richTextBox8.Name = "richTextBox8";
-            this.richTextBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox8.Size = new System.Drawing.Size(250, 35);
-            this.richTextBox8.TabIndex = 42;
-            this.richTextBox8.Text = "";
+            this.RichReport.Enabled = false;
+            this.RichReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichReport.Location = new System.Drawing.Point(194, 222);
+            this.RichReport.Name = "RichReport";
+            this.RichReport.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichReport.Size = new System.Drawing.Size(250, 35);
+            this.RichReport.TabIndex = 42;
+            this.RichReport.Text = "";
+            // 
+            // RichNetLoss
+            // 
+            this.RichNetLoss.Enabled = false;
+            this.RichNetLoss.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichNetLoss.Location = new System.Drawing.Point(155, 224);
+            this.RichNetLoss.Name = "RichNetLoss";
+            this.RichNetLoss.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichNetLoss.Size = new System.Drawing.Size(250, 35);
+            this.RichNetLoss.TabIndex = 44;
+            this.RichNetLoss.Text = "";
             // 
             // BalanceSheetForm
             // 
@@ -601,11 +618,11 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.RichTextBox richTextBox4;
+        private System.Windows.Forms.RichTextBox RichReceivableAmount;
+        private System.Windows.Forms.RichTextBox RichFixedAsset;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel4;
         private System.Windows.Forms.LinkLabel linkLabel5;
@@ -616,28 +633,28 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.LinkLabel linkLabel12;
         private System.Windows.Forms.LinkLabel linkLabel13;
         private System.Windows.Forms.LinkLabel linkLabel14;
-        private System.Windows.Forms.RichTextBox richTextBox5;
-        private System.Windows.Forms.RichTextBox richTextBox6;
-        private System.Windows.Forms.RichTextBox richTextBox7;
-        private System.Windows.Forms.RichTextBox richTextBox10;
-        private System.Windows.Forms.RichTextBox richTextBox11;
-        private System.Windows.Forms.RichTextBox richTextBox12;
-        private System.Windows.Forms.RichTextBox richTextBox13;
-        private System.Windows.Forms.RichTextBox richTextBox14;
+        private System.Windows.Forms.RichTextBox RichShareCapital;
+        private System.Windows.Forms.RichTextBox RichCashInHand;
+        private System.Windows.Forms.RichTextBox RichAssetsBalance;
+        private System.Windows.Forms.RichTextBox RichOwnerEquity;
+        private System.Windows.Forms.RichTextBox RichBankAccount;
+        private System.Windows.Forms.RichTextBox RichLoanAmount;
+        private System.Windows.Forms.RichTextBox RichPayableAmount;
+        private System.Windows.Forms.RichTextBox RichNetProfit;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.LinkLabel linkLabel15;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.RichTextBox richTextBox16;
+        private System.Windows.Forms.RichTextBox RichLiabilitiesBalance;
         private System.Windows.Forms.LinkLabel linkLabel18;
         private System.Windows.Forms.LinkLabel linkLabel19;
-        private System.Windows.Forms.RichTextBox richTextBox15;
         private System.Windows.Forms.LinkLabel linkLabel17;
-        private System.Windows.Forms.RichTextBox richTextBox9;
+        private System.Windows.Forms.RichTextBox RichStockValue;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.RichTextBox richTextBox8;
+        private System.Windows.Forms.RichTextBox RichReport;
+        private System.Windows.Forms.RichTextBox RichNetLoss;
     }
 }
