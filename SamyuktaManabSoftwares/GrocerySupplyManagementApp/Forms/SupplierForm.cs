@@ -117,10 +117,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdate_Click(object sender, System.EventArgs e)
         {
-            var supplierName = RichSupplierName.Text;
+            var supplierId = RichSupplierId.Text;
             try
             {
-                var supplier = _supplierService.UpdateSupplier(supplierName, new Supplier
+                var supplier = _supplierService.UpdateSupplier(supplierId, new Supplier
                 {
                     SupplierId = RichSupplierId.Text,
                     Name = RichSupplierName.Text,
@@ -130,10 +130,11 @@ namespace GrocerySupplyManagementApp.Forms
                     Email = RichEmail.Text
                 }); 
 
-                DialogResult result = MessageBox.Show(supplierName + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(RichSupplierName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
+                    DataGridSupplierTransaction.DataSource = null;
                 }
             }
             catch (Exception ex)
@@ -151,6 +152,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (result == DialogResult.OK)
             {
                 ClearAllFields();
+                DataGridSupplierTransaction.DataSource = null;
             }
         }
 

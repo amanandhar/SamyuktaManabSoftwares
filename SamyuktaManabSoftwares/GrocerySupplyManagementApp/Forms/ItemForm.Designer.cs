@@ -244,6 +244,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCurrentPurchasePrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtCurrentPurchasePrice.Size = new System.Drawing.Size(184, 29);
             this.TxtCurrentPurchasePrice.TabIndex = 40;
+            this.TxtCurrentPurchasePrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCurrentPurchasePrice_KeyPress);
+            this.TxtCurrentPurchasePrice.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtCurrentPurchasePrice_KeyUp);
             // 
             // label12
             // 

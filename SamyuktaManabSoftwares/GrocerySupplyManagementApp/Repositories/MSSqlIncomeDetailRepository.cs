@@ -114,11 +114,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[EndOfDate], [Type], [Amount] " +
-                "FROM " + Constants.TABLE_INCOME + " " +
+                "[InvoiceDate], [IncomeExpense], [ReceivedAmount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND Type = '" + Constants.OTHER_INCOME + "' " +
-                "ORDER BY [Id]";
+                "AND [Action] = '" + Constants.RECEIPT + "' " +
+                "AND [IncomeExpense] = '" + Constants.OTHER_INCOME + "' ";
 
             try
             {
@@ -133,14 +133,14 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var incomeDetail = new IncomeDetailView
                                 {
-                                    InvoiceDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
-                                    InvoiceNo = reader["Type"].ToString(),
+                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()).ToString("yyyy-MM-dd"),
+                                    InvoiceNo = reader["IncomeExpense"].ToString(),
                                     ItemCode = string.Empty,
                                     ItemName = string.Empty,
                                     ItemBrand = string.Empty,
                                     Quantity = 0,
                                     ProfitAmount = 0.0m,
-                                    Total = Convert.ToDecimal(reader["Amount"].ToString())
+                                    Total = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
 
                                 incomeDetails.Add(incomeDetail);

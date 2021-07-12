@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var posTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], " +
-                "[SupplierId], [Action], [ActionType], [Bank], [Expense], " +
+                "[SupplierId], [Action], [ActionType], [Bank], [IncomeExpense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], " + 
                 "[Vat], [DeliveryChargePercent], [DeliveryCharge], " +
                 "[TotalAmount], [ReceivedAmount], [Date] " +
@@ -51,7 +51,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
-                                    Expense = reader["Expense"].ToString(),
+                                    IncomeExpense = reader["IncomeExpense"].ToString(),
                                     SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
                                     DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
                                     Discount = Convert.ToDecimal(reader["Discount"].ToString()),
@@ -83,7 +83,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var posTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], " +
-                "[SupplierId], [Action], [ActionType], [Bank], [Expense], " +
+                "[SupplierId], [Action], [ActionType], [Bank], [IncomeExpense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], " + 
                 "[Vat], [DeliveryChargePercent], [DeliveryCharge], " +
                 "[TotalAmount], [ReceivedAmount], [Date] " +
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
-                                    Expense = reader["Expense"].ToString(),
+                                    IncomeExpense = reader["IncomeExpense"].ToString(),
                                     SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
                                     DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
                                     Discount = Convert.ToDecimal(reader["Discount"].ToString()),
@@ -256,7 +256,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [InvoiceDate], [Action], " +
                 "CASE WHEN [ActionType] = 'Cheque' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[Expense], [TotalAmount], [ReceivedAmount], " +
+                "[IncomeExpense], [TotalAmount], [ReceivedAmount], " +
                 "(SELECT SUM(ISNULL(b.TotalAmount, 0) - ISNULL(b.ReceivedAmount, 0)) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
                 "WHERE b.Date <= a.Date AND [Action] = 'Expense') AS Balance " +
@@ -273,7 +273,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
                 if (filter?.Expense != null)
                 {
-                    query += " AND [Expense] = '" + filter.Expense + "' ";
+                    query += " AND [IncomeExpense] = '" + filter.Expense + "' ";
                 }
             }
 
@@ -296,7 +296,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
-                                    Expense = reader["Expense"].ToString(),
+                                    Expense = reader["IncomeExpense"].ToString(),
                                     TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     Balance = Convert.ToDecimal(reader["Balance"].ToString())
@@ -449,13 +449,13 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
                         "[InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
-                        "[Expense], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
+                        "[IncomeExpense], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
                         "[DeliveryCharge], [TotalAmount], [ReceivedAmount], [Date] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@InvoiceNo, @InvoiceDate, @BillNo, @MemberId, @SupplierId, @Action, @ActionType, @Bank, " +
-                        "@Expense, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
+                        "@IncomeExpense, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
                         "@DeliveryCharge, @TotalAmount, @ReceivedAmount, @Date " +
                     ") ";
             try
@@ -473,7 +473,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Action", posTransaction.Action);
                         command.Parameters.AddWithValue("@ActionType", posTransaction.ActionType);
                         command.Parameters.AddWithValue("@Bank", ((object)posTransaction.Bank) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Expense", ((object)posTransaction.Expense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)posTransaction.IncomeExpense) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SubTotal", posTransaction.SubTotal);
                         command.Parameters.AddWithValue("@DiscountPercent", posTransaction.DiscountPercent);
                         command.Parameters.AddWithValue("@Discount", posTransaction.Discount);
@@ -771,7 +771,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND Action = 'Expense' " +
-                    "AND Expense = @Expense ";
+                    "AND IncomeExpense = @Expense ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

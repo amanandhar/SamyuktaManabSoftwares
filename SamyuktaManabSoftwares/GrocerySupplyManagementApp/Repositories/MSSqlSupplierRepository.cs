@@ -134,7 +134,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
-        public Supplier UpdateSupplier(string name, Supplier supplier)
+        public Supplier UpdateSupplier(string id, Supplier supplier)
         {
             string query = @"UPDATE " + Constants.TABLE_SUPPLIER + " " +
                 "SET " +
@@ -145,7 +145,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ContactNumber = @ContactNumber, " +
                 "Email = @Email " +
                 "WHERE 1 = 1 " +
-                "AND Name = @Name ";
+                "AND SupplierId = @SupplierId ";
 
             try
             {
@@ -154,8 +154,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierId", supplier.SupplierId);
-                        command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@SupplierId", id);
+                        command.Parameters.AddWithValue("@Name", supplier.Name);
                         command.Parameters.AddWithValue("@Owner", supplier.Owner);
                         command.Parameters.AddWithValue("@Address", supplier.Address);
                         command.Parameters.AddWithValue("@ContactNumber", supplier.ContactNumber);

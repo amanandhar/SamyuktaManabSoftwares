@@ -61,9 +61,9 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(702, 504);
+            this.textBox3.Location = new System.Drawing.Point(702, 502);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(256, 24);
+            this.textBox3.Size = new System.Drawing.Size(240, 24);
             this.textBox3.TabIndex = 71;
             // 
             // label1
@@ -71,7 +71,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(628, 508);
+            this.label1.Location = new System.Drawing.Point(628, 506);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 16);
             this.label1.TabIndex = 70;
@@ -81,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button3.Location = new System.Drawing.Point(499, 505);
+            this.button3.Location = new System.Drawing.Point(499, 503);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(122, 23);
             this.button3.TabIndex = 69;
@@ -105,7 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.richTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox3.Location = new System.Drawing.Point(184, 20);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(177, 30);
+            this.richTextBox3.Size = new System.Drawing.Size(160, 30);
             this.richTextBox3.TabIndex = 6;
             this.richTextBox3.Text = "";
             // 
@@ -213,7 +213,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtNetLoss.Location = new System.Drawing.Point(702, 460);
             this.TxtNetLoss.Name = "TxtNetLoss";
             this.TxtNetLoss.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtNetLoss.Size = new System.Drawing.Size(255, 29);
+            this.TxtNetLoss.Size = new System.Drawing.Size(240, 29);
             this.TxtNetLoss.TabIndex = 72;
             // 
             // TxtNetIncome
@@ -223,7 +223,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtNetIncome.Location = new System.Drawing.Point(201, 460);
             this.TxtNetIncome.Name = "TxtNetIncome";
             this.TxtNetIncome.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtNetIncome.Size = new System.Drawing.Size(253, 29);
+            this.TxtNetIncome.Size = new System.Drawing.Size(240, 29);
             this.TxtNetIncome.TabIndex = 75;
             // 
             // groupBox2

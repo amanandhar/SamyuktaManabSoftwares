@@ -15,16 +15,18 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly IIncomeDetailService _incomeDetailService;
         private readonly IIncomeService _incomeService;
+        private readonly IUserTransactionService _userTransactionService;
 
         #region Constructor
         public IncomeDetailForm(IFiscalYearDetailService fiscalYearDetailService, IIncomeDetailService incomeDetailService,
-            IIncomeService incomeService)
+            IIncomeService incomeService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
             _fiscalYearDetailService = fiscalYearDetailService;
             _incomeDetailService = incomeDetailService;
             _incomeService = incomeService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -51,15 +53,36 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddIncome_Click(object sender, EventArgs e)
         {
-            var income = new Income
+            //var income = new Income
+            //{
+            //    EndOfDate = _fiscalYearDetailService.GetFiscalYearDetail().StartingDate,
+            //    Type = ComboAddIncome.Text,
+            //    Amount = Convert.ToDecimal(RichAddAmount.Text),
+            //    Date = DateTime.Now
+            //};
+
+            //_incomeService.AddIncome(income);
+
+            var posTransaction = new UserTransaction
             {
-                EndOfDate = _fiscalYearDetailService.GetFiscalYearDetail().StartingDate,
-                Type = ComboAddIncome.Text,
-                Amount = Convert.ToDecimal(RichAddAmount.Text),
+
+                InvoiceDate = _fiscalYearDetailService.GetFiscalYearDetail().StartingDate,
+                Action = Constants.RECEIPT,
+                ActionType = Constants.CASH,
+                IncomeExpense = ComboAddIncome.Text,
+                SubTotal = 0.0m,
+                DiscountPercent = 0.0m,
+                Discount = 0.0m,
+                VatPercent = 0.0m,
+                Vat = 0.0m,
+                DeliveryChargePercent = 0.0m,
+                DeliveryCharge = 0.0m,
+                TotalAmount = 0.0m,
+                ReceivedAmount = Convert.ToDecimal(RichAddAmount.Text),
                 Date = DateTime.Now
             };
 
-            _incomeService.AddIncome(income);
+            _userTransactionService.AddPosTransaction(posTransaction);
 
             DialogResult result = MessageBox.Show(ComboAddIncome.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
             if (result == DialogResult.OK)

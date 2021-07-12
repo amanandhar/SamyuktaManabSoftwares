@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Action = Constants.EXPENSE,
                     ActionType = ComboPayment.Text,
                     Bank = ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower() ? ComboBank.Text : null,
-                    Expense = ComboExpense.Text,
+                    IncomeExpense = ComboExpense.Text,
                     SubTotal = 0.0m,
                     DiscountPercent = 0.0m,
                     Discount = 0.0m,

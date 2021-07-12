@@ -45,7 +45,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalSuppliersCommission = _incomeDetailService.GetSupplilersCommission().ToList().Sum(x => x.Total);
                 var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalSuppliersCommission;
 
-                var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
                 var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);
@@ -57,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalStaffAllowance = _userTransactionService.GetTotalExpense(Constants.STAFF_ALLOWANCE);
                 var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
                 var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
-                var totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                var totalExpense = totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanFeeInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
                     + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 
@@ -66,19 +65,17 @@ namespace GrocerySupplyManagementApp.Forms
                 var shareCapital = 0.0m;
                 var ownerEquity = _bankTransactionService.GetBankTotalDeposit();
                 var loadAmount = 0.0m;
-                var payableAmount = decimal.Negate(_userTransactionService.GetSupplierTotalBalance());
+                var payableAmount = Math.Abs(_userTransactionService.GetSupplierTotalBalance());
                 var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.0m;
-                var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.0m;
                 var libilitiesBalance = shareCapital + ownerEquity + loadAmount
-                    + payableAmount + netProfit + netLoss;
+                    + payableAmount + netProfit;
 
-                var cashInHand = decimal.Negate(_userTransactionService.GetCashInHand());
+                var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
                 var bankAccount = _bankTransactionService.GetBankBalance();
-                var fixedAsset = totalAsset;
                 var stockValue = _itemTransactionService.GetTotalPurchaseItemAmount(filter) - _itemTransactionService.GetTotalSalesItemAmount(filter);
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance();
-                var report = 0.0m;
-                var assetsBalance = cashInHand + bankAccount + fixedAsset + stockValue + receivableAmount + report;
+                var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.0m;
+                var assetsBalance = cashInHand + bankAccount + stockValue + receivableAmount + netLoss;
 
                 RichShareCapital.Text = shareCapital.ToString();
                 RichOwnerEquity.Text = ownerEquity.ToString();
@@ -90,12 +87,9 @@ namespace GrocerySupplyManagementApp.Forms
 
                 RichCashInHand.Text = cashInHand.ToString();
                 RichBankAccount.Text = bankAccount.ToString();
-                RichFixedAsset.Text = fixedAsset.ToString();
                 RichStockValue.Text = stockValue.ToString();
                 RichReceivableAmount.Text = receivableAmount.ToString();
-                RichReport.Text = report.ToString();
                 RichAssetsBalance.Text = assetsBalance.ToString();
-
             }
             catch(Exception ex)
             {
@@ -111,15 +105,13 @@ namespace GrocerySupplyManagementApp.Forms
             RichLoanAmount.Clear();
             RichPayableAmount.Clear();
             RichNetProfit.Clear();
-            RichNetLoss.Clear();
             RichLiabilitiesBalance.Clear();
 
             RichCashInHand.Clear();
             RichBankAccount.Clear();
-            RichFixedAsset.Clear();
             RichStockValue.Clear();
             RichReceivableAmount.Clear();
-            RichReport.Clear();
+            RichNetLoss.Clear();
             RichAssetsBalance.Clear();
         }
         #endregion

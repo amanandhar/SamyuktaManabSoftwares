@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtQuantity.Enabled = true;
             TxtProfitPercent.Enabled = true;
 
-            TxtQuantity.Focus();
+            TxtCurrentPurchasePrice.Focus();
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -323,6 +323,45 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Textbox Events
+
+        private void TxtCurrentPurchasePrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtCurrentPurchasePrice_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TxtCurrentPurchasePrice.Text))
+            {
+                if(!string.IsNullOrWhiteSpace(TxtQuantity.Text))
+                {
+                    TxtTotalPrice.Text = (Convert.ToDecimal(TxtCurrentPurchasePrice.Text) * Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
+                    if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text))
+                    {
+                        TxtProfitAmount.Text = (Convert.ToDecimal(TxtTotalPrice.Text) * (Convert.ToDecimal(TxtProfitPercent.Text) / 100)).ToString("0.00");
+                        TxtSalesPrice.Text = (Convert.ToDecimal(TxtTotalPrice.Text) + Convert.ToDecimal(TxtProfitAmount.Text)).ToString("0.00");
+                        TxtSalesPricePerUnit.Text = (Convert.ToDecimal(TxtSalesPrice.Text) / Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
+                    }
+                    else
+                    {
+                        TxtProfitAmount.Text = string.Empty;
+                        TxtSalesPrice.Text = string.Empty;
+                        TxtSalesPricePerUnit.Text = string.Empty;
+                    }
+                }
+            }
+            else
+            {
+                TxtTotalPrice.Text = string.Empty;
+                TxtProfitAmount.Text = string.Empty;
+                TxtSalesPrice.Text = string.Empty;
+                TxtSalesPricePerUnit.Text = string.Empty;
+            }
+        }
+
         private void TxtQuantity_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -335,11 +374,26 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if(!string.IsNullOrWhiteSpace(TxtQuantity.Text))
             {
-                TxtTotalPrice.Text = (Convert.ToDecimal(TxtNewPurchasePrice.Text) * Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
+                TxtTotalPrice.Text = (Convert.ToDecimal(TxtCurrentPurchasePrice.Text) * Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
+                if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text))
+                {
+                    TxtProfitAmount.Text = (Convert.ToDecimal(TxtTotalPrice.Text) * (Convert.ToDecimal(TxtProfitPercent.Text) / 100)).ToString("0.00");
+                    TxtSalesPrice.Text = (Convert.ToDecimal(TxtTotalPrice.Text) + Convert.ToDecimal(TxtProfitAmount.Text)).ToString("0.00");
+                    TxtSalesPricePerUnit.Text = (Convert.ToDecimal(TxtSalesPrice.Text) / Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
+                }
+                else
+                {
+                    TxtProfitAmount.Text = string.Empty;
+                    TxtSalesPrice.Text = string.Empty;
+                    TxtSalesPricePerUnit.Text = string.Empty;
+                }
             }
             else
             {
                 TxtTotalPrice.Text = string.Empty;
+                TxtProfitAmount.Text = string.Empty;
+                TxtSalesPrice.Text = string.Empty;
+                TxtSalesPricePerUnit.Text = string.Empty;
             }
         }
 
@@ -367,6 +421,5 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
-       
     }
 }

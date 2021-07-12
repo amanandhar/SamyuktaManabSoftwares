@@ -21,9 +21,13 @@ namespace GrocerySupplyManagementApp.Repositories
             var transactionGrids = new List<TransactionView>();
             var query = @"SELECT " +
                 "pt.[Id], [InvoiceDate], " +
-                "CASE WHEN [MemberId] IS NULL THEN [SupplierId] ELSE [MemberId] END AS [MemberSupplierId], " +
+                "CASE " + 
+                "WHEN [MemberId] IS NULL THEN [SupplierId] ELSE [MemberId] END AS [MemberSupplierId], " +
                 "[Action], " +
-                "CASE WHEN [ActionType]='Cheque' THEN ([ActionType] + ' - ' + [Bank]) ELSE [ActionType] END AS [ActionType], " + 
+                "CASE " + 
+                "WHEN [ActionType]='Cheque' THEN ([ActionType] + ' - ' + [Bank]) " +
+                "WHEN [Action] in ('Receipt', 'Expense') THEN ([ActionType] + ' - ' + [IncomeExpense]) " +
+                "ELSE [ActionType] END AS [ActionType], " + 
                 "CASE WHEN [MemberId] IS NULL THEN pt.[BillNo] ELSE pt.[InvoiceNo] END AS [InvoiceBillNo], " +
                 "[ItemCode], [ItemName], [Quantity], [Price] AS [ItemPrice], " +
                 "CASE " +

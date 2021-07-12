@@ -96,11 +96,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SELECT " +
                 "pt.[InvoiceDate] AS 'Date', pt.[InvoiceNo] 'BillInvoiceNo', 'Sales' AS 'Description', psi.[ItemCode] AS 'Code', " +
                 "psi.[ItemName] AS 'Name', psi.[ItemBrand] AS 'Brand', psi.[Unit] AS 'Unit', " +
-                "psi.[Quantity] AS 'Quantity', psi.[Price] AS 'Price', CAST((psi.[Quantity] * psi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
+                "psi.[Quantity] AS 'Quantity', pi.[Price] AS 'Price', CAST((psi.[Quantity] * pi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " psi " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON psi.[ItemCode] = i.[Code] " +
+                "INNER JOIN " + Constants.TABLE_PURCHASED_ITEM + " pi " +
+                "ON i.[Id] = pi.[ItemId] " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
-                "ON " +
-                "psi.[InvoiceNo] = pt.[InvoiceNo] " +
+                "ON psi.[InvoiceNo] = pt.[InvoiceNo] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
@@ -388,10 +391,14 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " + 
-                "SUM(CAST((psi.Quantity * psi.Price) AS DECIMAL(18,2))) AS 'Total' " +
+                "SUM(CAST((psi.[Quantity] * pi.[Price]) AS DECIMAL(18,2))) AS 'Total' " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " psi " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON psi.[ItemCode] = i.[Code] " +
+                "INNER JOIN " + Constants.TABLE_PURCHASED_ITEM + " pi " +
+                "ON i.[Id] = pi.[ItemId] " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
-                "ON psi.InvoiceNo = pt.InvoiceNo " +
+                "ON psi.[InvoiceNo] = pt.[InvoiceNo] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
