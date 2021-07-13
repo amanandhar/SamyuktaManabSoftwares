@@ -45,9 +45,9 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetBankBalance(bankId);
         }
 
-        public decimal GetBankTotalDeposit()
+        public decimal GetBankTotalDeposit(string incomeType)
         {
-            return _bankTransactionRepository.GetBankTotalDeposit();
+            return _bankTransactionRepository.GetBankTotalDeposit(incomeType);
         }
 
         public BankTransaction AddBankTransaction(BankTransaction bankTransaction)

@@ -134,7 +134,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Action = ComboAction.Text.ToLower() == "deposit" ? '1' : '0',
                     Debit = ComboAction.Text.ToLower() == "deposit" ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
                     Credit = ComboAction.Text.ToLower() == "deposit" ? 0.0m : Convert.ToDecimal(RichAmount.Text),
-                    Narration = RichNarration.Text,
+                    Narration = ComboType.Text,
                     Date = DateTime.Now
                 };
 
@@ -148,7 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     ComboAction.Text = string.Empty;
                     RichAmount.Clear();
-                    RichNarration.Clear();
+                    ComboType.Text = string.Empty;
 
                     EnableFields(Action.Save, true);
                     LoadBankTransaction();
@@ -221,19 +221,19 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboAction.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
-                RichNarration.Enabled = option;
+                ComboType.Enabled = option;
             }
             else if (action == Action.Save)
             {
                 ComboAction.Enabled = option;
                 RichAmount.Enabled = option;
-                RichNarration.Enabled = option;
+                ComboType.Enabled = option;
             }
             else if(action == Action.Populate)
             {
                 ComboAction.Enabled = option;
                 RichAmount.Enabled = option;
-                RichNarration.Enabled = option;
+                ComboType.Enabled = option;
             }
             else
             {
@@ -242,18 +242,18 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboAction.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
-                RichNarration.Enabled = option;
+                ComboType.Enabled = option;
             }
         }
 
         private void ClearAllFields()
         {
-            RichBankName.Text = string.Empty;
-            RichAccountNo.Text = string.Empty;
+            RichBankName.Clear();
+            RichAccountNo.Clear();
             ComboAction.Text = string.Empty;
-            RichAmount.Text = string.Empty;
-            TxtBalance.Text = string.Empty;
-            RichNarration.Text = string.Empty;
+            RichAmount.Clear();
+            TxtBalance.Clear();
+            ComboType.Text = string.Empty;
         }
 
         private void LoadBankTransaction()

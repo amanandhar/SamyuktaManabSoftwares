@@ -42,8 +42,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalMemberFee = _incomeDetailService.GetMemberFee().ToList().Sum(x => x.Total);
                 var totalOtherIncome = _incomeDetailService.GetOtherIncome().ToList().Sum(x => x.Total);
                 var totalSalesProfit = _incomeDetailService.GetSalesProfit().ToList().Sum(x => x.Total);
-                var totalSuppliersCommission = _incomeDetailService.GetSupplilersCommission().ToList().Sum(x => x.Total);
-                var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalSuppliersCommission;
+                var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
@@ -62,8 +61,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 StockFilterView filter = new StockFilterView();
 
-                var shareCapital = 0.0m;
-                var ownerEquity = _bankTransactionService.GetBankTotalDeposit();
+                var shareCapital = _bankTransactionService.GetBankTotalDeposit(Constants.SHARE_CAPITAL);
+                var ownerEquity = _bankTransactionService.GetBankTotalDeposit(Constants.OWNER_EQUITY);
                 var loadAmount = 0.0m;
                 var payableAmount = Math.Abs(_userTransactionService.GetSupplierTotalBalance());
                 var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.0m;

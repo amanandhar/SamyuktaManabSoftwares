@@ -114,7 +114,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[InvoiceDate], [IncomeExpense], [ReceivedAmount] " +
+                "[InvoiceDate], [Bank], [IncomeExpense], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [Action] = '" + Constants.RECEIPT + "' " +
@@ -136,7 +136,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()).ToString("yyyy-MM-dd"),
                                     InvoiceNo = reader["IncomeExpense"].ToString(),
                                     ItemCode = string.Empty,
-                                    ItemName = string.Empty,
+                                    ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
                                     Quantity = 0,
                                     ProfitAmount = 0.0m,
@@ -212,53 +212,5 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return incomeDetails;
         }
-
-        public IEnumerable<IncomeDetailView> GetSupplilersCommission()
-        {
-            var incomeDetails = new List<IncomeDetailView>();
-            var query = @"SELECT " +
-                "[EndOfDate], [Type], [Amount] " +
-                "FROM " + Constants.TABLE_INCOME + " " +
-                "WHERE 1 = 1 " +
-                "AND Type = '" + Constants.SUPPLIERS_COMMISSION + "' " +
-                "ORDER BY [Id]";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var incomeDetail = new IncomeDetailView
-                                {
-                                    InvoiceDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
-                                    InvoiceNo = reader["Type"].ToString(),
-                                    ItemCode = string.Empty,
-                                    ItemName = string.Empty,
-                                    ItemBrand = string.Empty,
-                                    Quantity = 0,
-                                    ProfitAmount = 0.0m,
-                                    Total = Convert.ToDecimal(reader["Amount"].ToString())
-                                };
-
-                                incomeDetails.Add(incomeDetail);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return incomeDetails;
-        }
-
     }
 }

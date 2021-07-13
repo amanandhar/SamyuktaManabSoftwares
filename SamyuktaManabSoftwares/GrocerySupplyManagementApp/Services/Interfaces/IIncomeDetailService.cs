@@ -9,6 +9,5 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         IEnumerable<IncomeDetailView> GetMemberFee();
         IEnumerable<IncomeDetailView> GetOtherIncome();
         IEnumerable<IncomeDetailView> GetSalesProfit();
-        IEnumerable<IncomeDetailView> GetSupplilersCommission();
     }
 }

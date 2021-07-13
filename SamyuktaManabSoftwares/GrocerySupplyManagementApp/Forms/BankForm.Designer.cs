@@ -33,11 +33,9 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.ComboType = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.TxtBalance = new System.Windows.Forms.TextBox();
-            this.RichNarration = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.ComboAction = new System.Windows.Forms.ComboBox();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
@@ -88,11 +86,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.ComboType);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.TxtBalance);
-            this.groupBox1.Controls.Add(this.RichNarration);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.ComboAction);
             this.groupBox1.Controls.Add(this.RichAmount);
@@ -103,66 +99,45 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.RichBankName);
-            this.groupBox1.Location = new System.Drawing.Point(17, 27);
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(865, 110);
+            this.groupBox1.Size = new System.Drawing.Size(870, 89);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
-            // comboBox2
+            // ComboType
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.ComboType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboType.FormattingEnabled = true;
+            this.ComboType.Items.AddRange(new object[] {
             "Share Capital",
             "Owner Equity"});
-            this.comboBox2.Location = new System.Drawing.Point(117, 47);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(216, 28);
-            this.comboBox2.TabIndex = 30;
+            this.ComboType.Location = new System.Drawing.Point(104, 50);
+            this.ComboType.Name = "ComboType";
+            this.ComboType.Size = new System.Drawing.Size(230, 28);
+            this.ComboType.TabIndex = 30;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(11, 50);
+            this.label7.Location = new System.Drawing.Point(55, 55);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(102, 20);
+            this.label7.Size = new System.Drawing.Size(43, 20);
             this.label7.TabIndex = 29;
-            this.label7.Text = "Deposit Type";
+            this.label7.Text = "Type";
             // 
             // TxtBalance
             // 
             this.TxtBalance.BackColor = System.Drawing.Color.WhiteSmoke;
             this.TxtBalance.Enabled = false;
             this.TxtBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBalance.Location = new System.Drawing.Point(700, 46);
+            this.TxtBalance.Location = new System.Drawing.Point(737, 50);
             this.TxtBalance.Name = "TxtBalance";
             this.TxtBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtBalance.Size = new System.Drawing.Size(147, 29);
+            this.TxtBalance.Size = new System.Drawing.Size(110, 29);
             this.TxtBalance.TabIndex = 28;
-            // 
-            // RichNarration
-            // 
-            this.RichNarration.Enabled = false;
-            this.RichNarration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichNarration.Location = new System.Drawing.Point(104, 76);
-            this.RichNarration.Name = "RichNarration";
-            this.RichNarration.Size = new System.Drawing.Size(744, 30);
-            this.RichNarration.TabIndex = 26;
-            this.RichNarration.Text = "";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(11, 82);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 20);
-            this.label4.TabIndex = 25;
-            this.label4.Text = "Narration";
             // 
             // label11
             // 
@@ -193,7 +168,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.BackColor = System.Drawing.Color.White;
             this.RichAmount.Enabled = false;
             this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichAmount.Location = new System.Drawing.Point(449, 45);
+            this.RichAmount.Location = new System.Drawing.Point(449, 49);
             this.RichAmount.Name = "RichAmount";
             this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichAmount.Size = new System.Drawing.Size(136, 30);
@@ -205,7 +180,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(378, 49);
+            this.label1.Location = new System.Drawing.Point(376, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 20);
             this.label1.TabIndex = 18;
@@ -216,7 +191,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(607, 49);
+            this.label8.Location = new System.Drawing.Point(657, 55);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 20);
             this.label8.TabIndex = 14;
@@ -239,9 +214,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichAccountNo.Enabled = false;
             this.RichAccountNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichAccountNo.Location = new System.Drawing.Point(450, 15);
+            this.RichAccountNo.Location = new System.Drawing.Point(449, 15);
             this.RichAccountNo.Name = "RichAccountNo";
-            this.RichAccountNo.Size = new System.Drawing.Size(135, 30);
+            this.RichAccountNo.Size = new System.Drawing.Size(136, 30);
             this.RichAccountNo.TabIndex = 10;
             this.RichAccountNo.Text = "";
             // 
@@ -250,7 +225,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(390, 19);
+            this.label6.Location = new System.Drawing.Point(385, 20);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 20);
             this.label6.TabIndex = 8;
@@ -469,9 +444,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridBankDetails.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridBankDetails.Location = new System.Drawing.Point(17, 149);
+            this.DataGridBankDetails.Location = new System.Drawing.Point(12, 122);
             this.DataGridBankDetails.Name = "DataGridBankDetails";
-            this.DataGridBankDetails.Size = new System.Drawing.Size(863, 327);
+            this.DataGridBankDetails.Size = new System.Drawing.Size(870, 354);
             this.DataGridBankDetails.TabIndex = 0;
             this.DataGridBankDetails.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
             // 
@@ -568,8 +543,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox ComboAction;
         private System.Windows.Forms.Button BtnSaveTransaction;
-        private System.Windows.Forms.RichTextBox RichNarration;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TxtBalance;
         private System.Windows.Forms.Button BtnDeleteTransaction;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -578,7 +551,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnShowTransaction;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox ComboType;
         private System.Windows.Forms.Label label7;
     }
 }

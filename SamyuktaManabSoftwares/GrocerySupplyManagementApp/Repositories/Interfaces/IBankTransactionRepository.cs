@@ -12,7 +12,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         BankTransaction GetBankTransaction(long bankTransactionId);
         decimal GetBankBalance();
         decimal GetBankBalance(long bankId);
-        decimal GetBankTotalDeposit();
+        decimal GetBankTotalDeposit(string incomeType);
         BankTransaction AddBankTransaction(BankTransaction bankTransaction);
         BankTransaction UpdateBankTransaction(long bankTransactionId, BankTransaction bankTransaction);
         bool DeleteBankTransaction(long id);

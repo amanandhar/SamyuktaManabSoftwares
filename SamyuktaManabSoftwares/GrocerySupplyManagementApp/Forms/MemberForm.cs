@@ -180,7 +180,6 @@ namespace GrocerySupplyManagementApp.Forms
                 if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
                 {
                     var lastPosTransaction = _posTransactionService.GetLastPosTransaction(string.Empty);
-
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {

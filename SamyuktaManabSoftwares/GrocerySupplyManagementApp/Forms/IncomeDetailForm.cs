@@ -14,26 +14,29 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
         private readonly IIncomeDetailService _incomeDetailService;
-        private readonly IIncomeService _incomeService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IBankDetailService _bankDetailService;
+        private readonly IBankTransactionService _bankTransactionService;
 
         #region Constructor
         public IncomeDetailForm(IFiscalYearDetailService fiscalYearDetailService, IIncomeDetailService incomeDetailService,
-            IIncomeService incomeService, IUserTransactionService userTransactionService)
+            IUserTransactionService userTransactionService, IBankDetailService bankDetailService,
+            IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
 
             _fiscalYearDetailService = fiscalYearDetailService;
             _incomeDetailService = incomeDetailService;
-            _incomeService = incomeService;
             _userTransactionService = userTransactionService;
+            _bankDetailService = bankDetailService;
+            _bankTransactionService = bankTransactionService;
         }
         #endregion
 
         #region Form Load Event
         private void IncomeDetailForm_Load(object sender, EventArgs e)
         {
-
+            LoadBankDetails();
         }
         #endregion
 
@@ -53,22 +56,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddIncome_Click(object sender, EventArgs e)
         {
-            //var income = new Income
-            //{
-            //    EndOfDate = _fiscalYearDetailService.GetFiscalYearDetail().StartingDate,
-            //    Type = ComboAddIncome.Text,
-            //    Amount = Convert.ToDecimal(RichAddAmount.Text),
-            //    Date = DateTime.Now
-            //};
-
-            //_incomeService.AddIncome(income);
-
             var posTransaction = new UserTransaction
             {
-
                 InvoiceDate = _fiscalYearDetailService.GetFiscalYearDetail().StartingDate,
                 Action = Constants.RECEIPT,
                 ActionType = Constants.CASH,
+                Bank = ComboBank.Text,
                 IncomeExpense = ComboAddIncome.Text,
                 SubTotal = 0.0m,
                 DiscountPercent = 0.0m,
@@ -82,7 +75,23 @@ namespace GrocerySupplyManagementApp.Forms
                 Date = DateTime.Now
             };
 
-            _userTransactionService.AddPosTransaction(posTransaction);
+            if(_userTransactionService.AddPosTransaction(posTransaction) != null)
+            {
+                var lastPosTransaction = _userTransactionService.GetLastPosTransaction(string.Empty);
+                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                var bankTransaction = new BankTransaction
+                {
+                    BankId = Convert.ToInt64(selectedItem.Id),
+                    TransactionId = lastPosTransaction.Id,
+                    Action = '1',
+                    Debit = Convert.ToDecimal(RichAddAmount.Text),
+                    Credit = 0.0m,
+                    Narration = ComboAddIncome.Text,
+                    Date = DateTime.Now
+                };
+
+                _bankTransactionService.AddBankTransaction(bankTransaction);
+            }
 
             DialogResult result = MessageBox.Show(ComboAddIncome.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
             if (result == DialogResult.OK)
@@ -124,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeView.Columns["InvoiceDate"].DisplayIndex = 0;
 
             DataGridIncomeView.Columns["InvoiceNo"].HeaderText = "Invoice No";
-            DataGridIncomeView.Columns["InvoiceNo"].Width = 90;
+            DataGridIncomeView.Columns["InvoiceNo"].Width = 100;
             DataGridIncomeView.Columns["InvoiceNo"].DisplayIndex = 1;
 
             DataGridIncomeView.Columns["ItemCode"].HeaderText = "Code";
@@ -144,7 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeView.Columns["Quantity"].DisplayIndex = 5;
 
             DataGridIncomeView.Columns["ProfitAmount"].HeaderText = "Profit";
-            DataGridIncomeView.Columns["ProfitAmount"].Width = 100;
+            DataGridIncomeView.Columns["ProfitAmount"].Width = 90;
             DataGridIncomeView.Columns["ProfitAmount"].DisplayIndex = 6;
 
             DataGridIncomeView.Columns["Total"].HeaderText = "Total";
@@ -180,17 +189,12 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 incomeDetails = _incomeDetailService.GetSalesProfit().ToList();
             }
-            else if(!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.SUPPLIERS_COMMISSION.ToLower()))
-            {
-                incomeDetails = _incomeDetailService.GetSupplilersCommission().ToList();
-            }
             else
             {
                 incomeDetails = _incomeDetailService.GetDeliveryCharge().ToList();
                 incomeDetails.AddRange(_incomeDetailService.GetMemberFee().ToList());
                 incomeDetails.AddRange(_incomeDetailService.GetOtherIncome().ToList());
                 incomeDetails.AddRange(_incomeDetailService.GetSalesProfit().ToList());
-                incomeDetails.AddRange(_incomeDetailService.GetSupplilersCommission().ToList());
             }
 
             TxtAmount.Text = (incomeDetails.Sum(x => x.Total)).ToString();
@@ -204,6 +208,22 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ComboAddIncome.Text = string.Empty;
             RichAddAmount.Clear();
+            ComboBank.Text = string.Empty;
+        }
+
+        private void LoadBankDetails()
+        {
+            var bankDetails = _bankDetailService.GetBankDetails().ToList();
+            if (bankDetails.Count > 0)
+            {
+                ComboBank.ValueMember = "Id";
+                ComboBank.DisplayMember = "Value";
+
+                bankDetails.OrderBy(x => x.Name).ToList().ForEach(x =>
+                {
+                    ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
+                });
+            }
         }
         #endregion
     }

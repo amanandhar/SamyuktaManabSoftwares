@@ -21,13 +21,13 @@ namespace GrocerySupplyManagementApp.Repositories
             var transactionGrids = new List<TransactionView>();
             var query = @"SELECT " +
                 "pt.[Id], [InvoiceDate], " +
-                "CASE " + 
+                "CASE " +
                 "WHEN [MemberId] IS NULL THEN [SupplierId] ELSE [MemberId] END AS [MemberSupplierId], " +
                 "[Action], " +
-                "CASE " + 
+                "CASE " +
                 "WHEN [ActionType]='Cheque' THEN ([ActionType] + ' - ' + [Bank]) " +
                 "WHEN [Action] in ('Receipt', 'Expense') THEN ([ActionType] + ' - ' + [IncomeExpense]) " +
-                "ELSE [ActionType] END AS [ActionType], " + 
+                "ELSE [ActionType] END AS [ActionType], " +
                 "CASE WHEN [MemberId] IS NULL THEN pt.[BillNo] ELSE pt.[InvoiceNo] END AS [InvoiceBillNo], " +
                 "[ItemCode], [ItemName], [Quantity], [Price] AS [ItemPrice], " +
                 "CASE " +
@@ -48,7 +48,17 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ELSE pt.[TotalAmount] END  AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " pt LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " psi " +
                 "ON pt.InvoiceNo = psi.InvoiceNo " +
-                "WHERE 1 = 1 ";
+                "WHERE 1 = 1 " +
+                "AND NOT " + 
+                "( " +
+                "[Action] = '" + Constants.RECEIPT + "' " +
+                "AND [IncomeExpense] " +
+                "IN " +
+                "(' " +
+                Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" +
+                Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT +
+                "') " +
+                ") ";
 
             if (transactionFilter.Date != null)
             {
@@ -89,7 +99,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             else if (transactionFilter.User != null)
             {
-                query += " AND 1=2 ";
+                query += " AND 1 = 2 ";
             }
             else
             {

@@ -33,10 +33,5 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _incomeDetailRepository.GetSalesProfit();
         }
-
-        public IEnumerable<IncomeDetailView> GetSupplilersCommission()
-        {
-            return _incomeDetailRepository.GetSupplilersCommission();
-        }
     }
 }

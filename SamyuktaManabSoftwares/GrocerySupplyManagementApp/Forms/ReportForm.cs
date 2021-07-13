@@ -50,7 +50,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDailyIncomeReport_Click(object sender, EventArgs e)
         {
             IncomeDetailForm incomeDetailForm = new IncomeDetailForm(_fiscalYearDetailService, _incomeDetailService, 
-                _incomeService, _posTransactionService);
+                _posTransactionService, _bankDetailService,
+                _bankTransactionService);
             incomeDetailForm.Show();
         }
 

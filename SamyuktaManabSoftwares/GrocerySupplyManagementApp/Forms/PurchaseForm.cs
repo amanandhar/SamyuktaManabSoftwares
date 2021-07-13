@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
@@ -69,8 +70,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var item = new DTOs.ItemView
+                var item = new ItemView
                 {
+                    Id = _items.Count + 1,
                     Date = DateTime.Now.ToString("yyyy-MM-dd"),
                     BillNo = RichBillNo.Text,
                     Code = RichItemCode.Text,
@@ -150,9 +152,21 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            PurchasedItem selectedItem = (PurchasedItem)DataGridPurchaseList.CurrentRow.DataBoundItem;
-            TxtTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
-            LoadItems(_items);
+            try
+            {
+                if (DataGridPurchaseList.SelectedRows.Count == 1)
+                {
+                    var id = Convert.ToInt64(DataGridPurchaseList.SelectedCells[1].Value.ToString());
+                    var itemToRemove = _items.Single(x => x.Id == id);
+                    _items.Remove(itemToRemove);
+                    TxtTotalAmount.Text = _items.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
+                    LoadItems(_items);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void BtnClear_Click(object sender, EventArgs e)
@@ -183,9 +197,9 @@ namespace GrocerySupplyManagementApp.Forms
             RichPurchasePrice.Clear();
         }
 
-        private void LoadItems(List<DTOs.ItemView> items)
+        private void LoadItems(List<ItemView> items)
         {
-            var bindingList = new BindingList<DTOs.ItemView>(items);
+            var bindingList = new BindingList<ItemView>(items);
             var source = new BindingSource(bindingList, null);
             if(!DataGridPurchaseList.Columns.Contains("Total"))
             {
@@ -239,40 +253,43 @@ namespace GrocerySupplyManagementApp.Forms
         #region DataGrid Events
         private void DataGridPurchaseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            DataGridPurchaseList.Columns["Id"].Visible = false;
+            DataGridPurchaseList.Columns["Id"].DisplayIndex = 0;
+
             DataGridPurchaseList.Columns["Date"].HeaderText = "Date";
             DataGridPurchaseList.Columns["Date"].Width = 80;
-            DataGridPurchaseList.Columns["Date"].DisplayIndex = 0;
+            DataGridPurchaseList.Columns["Date"].DisplayIndex = 1;
 
             DataGridPurchaseList.Columns["BillNo"].HeaderText = "Bill No";
             DataGridPurchaseList.Columns["BillNo"].Width = 80;
-            DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
+            DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 2;
 
             DataGridPurchaseList.Columns["Code"].HeaderText = "Item Code";
             DataGridPurchaseList.Columns["Code"].Width = 80;
-            DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
+            DataGridPurchaseList.Columns["Code"].DisplayIndex = 3;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
             DataGridPurchaseList.Columns["Name"].Width = 150;
-            DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
+            DataGridPurchaseList.Columns["Name"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Brand"].HeaderText = "Item Brand";
             DataGridPurchaseList.Columns["Brand"].Width = 150;
-            DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
+            DataGridPurchaseList.Columns["Brand"].DisplayIndex = 5;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
             DataGridPurchaseList.Columns["Unit"].Width = 80;
-            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 5;
+            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 6;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
             DataGridPurchaseList.Columns["Quantity"].Width = 80;
-            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 6;
+            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 7;
 
             DataGridPurchaseList.Columns["PurchasePrice"].HeaderText = "Price";
             DataGridPurchaseList.Columns["PurchasePrice"].Width = 100;
-            DataGridPurchaseList.Columns["PurchasePrice"].DisplayIndex = 7;
+            DataGridPurchaseList.Columns["PurchasePrice"].DisplayIndex = 8;
 
             DataGridPurchaseList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridPurchaseList.Columns["Total"].DisplayIndex = 8;
+            DataGridPurchaseList.Columns["Total"].DisplayIndex = 9;
 
             foreach (DataGridViewRow row in DataGridPurchaseList.Rows)
             {

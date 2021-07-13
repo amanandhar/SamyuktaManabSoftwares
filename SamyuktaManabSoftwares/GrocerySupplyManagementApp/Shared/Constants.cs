@@ -40,8 +40,8 @@ namespace GrocerySupplyManagementApp.Shared
         public const string SALES_PROFIT = "Sales Profit";
         public const string SUPPLIERS_COMMISSION = "Suppliers Commission";
 
-        public const string TOTAL = "Total";
-        public const string TELEPHONE_INTERNET = "Telephone & Internet";
+        public const string SHARE_CAPITAL = "Share Capital";
+        public const string OWNER_EQUITY = "Owner Equity";
 
         // Expense 
         public const string ASSET = "Asset (Computer, Furniture etc.)";
@@ -55,5 +55,8 @@ namespace GrocerySupplyManagementApp.Shared
         public const string SALES_DISCOUNT = "Sales Discount";
         public const string STAFF_ALLOWANCE = "Staff Allowance";
         public const string STAFF_SALARY = "Staff Salary";
+        public const string TELEPHONE_INTERNET = "Telephone & Internet";
+
+        public const string TOTAL = "Total";
     }
 }

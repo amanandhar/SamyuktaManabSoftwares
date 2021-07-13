@@ -271,23 +271,24 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankBalance;
         }
 
-        public decimal GetBankTotalDeposit()
+        public decimal GetBankTotalDeposit(string incomeType)
         {
             decimal total = 0.0m;
             var query = @"SELECT " +
                 "ISNUll(SUM(ISNULL(DEBIT, 0)), 0) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                "WHERE 1 = 1 " + 
-                "AND [Action] = '1'";
+                "WHERE 1 = 1 " +
+                "AND [Action] = '1' " +
+                "AND [Narration] = @IncomeType ";
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@IncomeType", ((object)incomeType) ?? DBNull.Value);
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {

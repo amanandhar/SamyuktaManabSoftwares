@@ -101,8 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalMemberFee = _incomeDetailService.GetMemberFee().ToList().Sum(x => x.Total);
                 var totalOtherIncome = _incomeDetailService.GetOtherIncome().ToList().Sum(x => x.Total);
                 var totalSalesProfit = _incomeDetailService.GetSalesProfit().ToList().Sum(x => x.Total);
-                var totalSuppliersCommission = _incomeDetailService.GetSupplilersCommission().ToList().Sum(x => x.Total);
-                _totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalSuppliersCommission;
+                _totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
                 {
@@ -128,11 +127,6 @@ namespace GrocerySupplyManagementApp.Forms
                     },
                     new IncomeExpenseView
                     {
-                        Name = Constants.SUPPLIERS_COMMISSION,
-                        Amount = totalSuppliersCommission
-                    },
-                    new IncomeExpenseView
-                    {
                         Name = Constants.TOTAL,
                         Amount = _totalIncome
                     }
@@ -153,6 +147,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
+                var totalDeliveryCharge = _userTransactionService.GetTotalExpense(Constants.DELIVERY_CHARGE);
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
                 var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);
@@ -165,7 +160,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
                 var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
 
-                _totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                _totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanFeeInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
                     + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 
@@ -175,6 +170,11 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Name = Constants.ASSET,
                         Amount = totalAsset
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.DELIVERY_CHARGE,
+                        Amount = totalDeliveryCharge
                     },
                     new IncomeExpenseView
                     {

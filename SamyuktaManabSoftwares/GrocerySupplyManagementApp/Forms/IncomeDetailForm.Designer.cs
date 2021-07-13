@@ -33,7 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ComboBank = new System.Windows.Forms.ComboBox();
             this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
             this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.ComboBank);
             this.groupBox3.Controls.Add(this.MaskDateFrom);
             this.groupBox3.Controls.Add(this.MaskDateTo);
             this.groupBox3.Controls.Add(this.label5);
@@ -92,14 +92,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.TabIndex = 18;
             this.label4.Text = "Bank Name";
             // 
-            // comboBox1
+            // ComboBank
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(594, 60);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(250, 28);
-            this.comboBox1.TabIndex = 19;
+            this.ComboBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBank.FormattingEnabled = true;
+            this.ComboBank.Location = new System.Drawing.Point(594, 60);
+            this.ComboBank.Name = "ComboBank";
+            this.ComboBank.Size = new System.Drawing.Size(250, 28);
+            this.ComboBank.TabIndex = 19;
             // 
             // MaskDateFrom
             // 
@@ -379,7 +379,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.MaskedTextBox MaskDateFrom;
         private System.Windows.Forms.MaskedTextBox MaskDateTo;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboBank;
         private System.Windows.Forms.Label label4;
     }
 }

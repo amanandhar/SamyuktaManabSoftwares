@@ -4,6 +4,7 @@ namespace GrocerySupplyManagementApp.DTOs
 {
     public class ItemView
     {
+        public long Id { get; set; }
         public string Date { get; set; }
         public string BillNo { get; set; }
         public string Code { get; set; }
