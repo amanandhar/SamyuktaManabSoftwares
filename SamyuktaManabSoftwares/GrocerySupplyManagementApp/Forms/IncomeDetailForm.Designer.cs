@@ -260,6 +260,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemove.TabIndex = 15;
             this.BtnRemove.Text = "Remove";
             this.BtnRemove.UseVisualStyleBackColor = true;
+            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // BtnAddIncome
             // 

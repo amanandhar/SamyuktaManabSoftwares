@@ -502,9 +502,32 @@ namespace GrocerySupplyManagementApp.Repositories
             throw new NotImplementedException();
         }
 
-        public bool DeletePosTransaction(long posTransactionId, UserTransaction posTransaction)
+        public bool DeletePosTransaction(long id)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [Id] = @Id ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
         }
 
         public string GetLastInvoiceNo()

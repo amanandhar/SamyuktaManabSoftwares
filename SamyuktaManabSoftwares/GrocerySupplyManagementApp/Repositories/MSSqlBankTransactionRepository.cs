@@ -422,6 +422,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@TransactionId", ((object)transactionId) ?? DBNull.Value);
                         command.ExecuteNonQuery();
+                        result = true;
                     }
                 }
             }

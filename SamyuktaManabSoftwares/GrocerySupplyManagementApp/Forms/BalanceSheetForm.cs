@@ -44,6 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalSalesProfit = _incomeDetailService.GetSalesProfit().ToList().Sum(x => x.Total);
                 var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
+                var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
                 var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);
@@ -55,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalStaffAllowance = _userTransactionService.GetTotalExpense(Constants.STAFF_ALLOWANCE);
                 var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
                 var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
-                var totalExpense = totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                var totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanFeeInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
                     + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 

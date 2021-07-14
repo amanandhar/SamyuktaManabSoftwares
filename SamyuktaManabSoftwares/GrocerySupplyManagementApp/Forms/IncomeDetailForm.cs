@@ -56,11 +56,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddIncome_Click(object sender, EventArgs e)
         {
-            var posTransaction = new UserTransaction
+            var userTransaction = new UserTransaction
             {
                 InvoiceDate = _fiscalYearDetailService.GetFiscalYearDetail().StartingDate,
                 Action = Constants.RECEIPT,
-                ActionType = Constants.CASH,
+                ActionType = Constants.CHEQUE,
                 Bank = ComboBank.Text,
                 IncomeExpense = ComboAddIncome.Text,
                 SubTotal = 0.0m,
@@ -75,7 +75,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Date = DateTime.Now
             };
 
-            if(_userTransactionService.AddPosTransaction(posTransaction) != null)
+            if(_userTransactionService.AddPosTransaction(userTransaction) != null)
             {
                 var lastPosTransaction = _userTransactionService.GetLastPosTransaction(string.Empty);
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
@@ -98,6 +98,33 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ClearAllFields();
                 LoadIncomeDetails();
+            }
+        }
+
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridIncomeView.SelectedRows.Count == 1)
+                {
+                    var id = Convert.ToInt64(DataGridIncomeView.SelectedCells[0].Value.ToString());
+                    if(_userTransactionService.DeletePosTransaction(id))
+                    {
+                        if(_bankTransactionService.DeleteBankTransactionByTransactionId(id))
+                        {
+                            DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            if (result == DialogResult.OK)
+                            {
+                                ClearAllFields();
+                                LoadIncomeDetails();
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -128,37 +155,40 @@ namespace GrocerySupplyManagementApp.Forms
         #region DataGrid Event 
         private void DataGridIncomeView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            DataGridIncomeView.Columns["Id"].Visible = false;
+            DataGridIncomeView.Columns["Id"].DisplayIndex = 0;
+
             DataGridIncomeView.Columns["InvoiceDate"].HeaderText = "Date";
             DataGridIncomeView.Columns["InvoiceDate"].Width = 75;
-            DataGridIncomeView.Columns["InvoiceDate"].DisplayIndex = 0;
+            DataGridIncomeView.Columns["InvoiceDate"].DisplayIndex = 1;
 
             DataGridIncomeView.Columns["InvoiceNo"].HeaderText = "Invoice No";
             DataGridIncomeView.Columns["InvoiceNo"].Width = 100;
-            DataGridIncomeView.Columns["InvoiceNo"].DisplayIndex = 1;
+            DataGridIncomeView.Columns["InvoiceNo"].DisplayIndex = 2;
 
             DataGridIncomeView.Columns["ItemCode"].HeaderText = "Code";
             DataGridIncomeView.Columns["ItemCode"].Width = 80;
-            DataGridIncomeView.Columns["ItemCode"].DisplayIndex = 2;
+            DataGridIncomeView.Columns["ItemCode"].DisplayIndex = 3;
 
             DataGridIncomeView.Columns["ItemName"].HeaderText = "Name";
             DataGridIncomeView.Columns["ItemName"].Width = 200;
-            DataGridIncomeView.Columns["ItemName"].DisplayIndex = 3;
+            DataGridIncomeView.Columns["ItemName"].DisplayIndex = 4;
 
             DataGridIncomeView.Columns["ItemBrand"].HeaderText = "Brand";
             DataGridIncomeView.Columns["ItemBrand"].Width = 200;
-            DataGridIncomeView.Columns["ItemBrand"].DisplayIndex = 4;
+            DataGridIncomeView.Columns["ItemBrand"].DisplayIndex = 5;
 
             DataGridIncomeView.Columns["Quantity"].HeaderText = "Quantity";
             DataGridIncomeView.Columns["Quantity"].Width = 80;
-            DataGridIncomeView.Columns["Quantity"].DisplayIndex = 5;
+            DataGridIncomeView.Columns["Quantity"].DisplayIndex = 6;
 
             DataGridIncomeView.Columns["ProfitAmount"].HeaderText = "Profit";
             DataGridIncomeView.Columns["ProfitAmount"].Width = 90;
-            DataGridIncomeView.Columns["ProfitAmount"].DisplayIndex = 6;
+            DataGridIncomeView.Columns["ProfitAmount"].DisplayIndex = 7;
 
             DataGridIncomeView.Columns["Total"].HeaderText = "Total";
             DataGridIncomeView.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridIncomeView.Columns["Total"].DisplayIndex = 7;
+            DataGridIncomeView.Columns["Total"].DisplayIndex = 8;
 
             foreach (DataGridViewRow row in DataGridIncomeView.Rows)
             {

@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace GrocerySupplyManagementApp.DTOs
+﻿namespace GrocerySupplyManagementApp.DTOs
 {
     public class IncomeDetailView
     {
+        public long Id { get; set; }
         public string InvoiceDate { get; set; }
         public string InvoiceNo { get; set; }
         public string ItemCode { get; set; }

@@ -13,7 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ExpenseForm : Form
     {
         private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly IUserTransactionService _posTransactionService;
+        private readonly IUserTransactionService _userTransactionService;
         private readonly IBankDetailService _bankDetailService;
         private readonly IBankTransactionService _bankTransactionService;
 
@@ -24,7 +24,7 @@ namespace GrocerySupplyManagementApp.Forms
             InitializeComponent();
 
             _fiscalYearDetailService = fiscalYearDetailService;
-            _posTransactionService = posTransactionService;
+            _userTransactionService = posTransactionService;
             _bankDetailService = bankDetailService;
             _bankTransactionService = bankTransactionService;
         }
@@ -73,11 +73,11 @@ namespace GrocerySupplyManagementApp.Forms
                     ReceivedAmount = 0.0m,
                     Date = DateTime.Now
                 };
-                _posTransactionService.AddPosTransaction(posTransaction);
+                _userTransactionService.AddPosTransaction(posTransaction);
 
                 if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                 {
-                    var lastPosTransaction = _posTransactionService.GetLastPosTransaction(string.Empty);
+                    var lastPosTransaction = _userTransactionService.GetLastPosTransaction(string.Empty);
 
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
@@ -97,10 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show(ComboPayment.Text + " has been saved successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    ComboExpense.Text = string.Empty;
-                    ComboPayment.Text = string.Empty;
-                    RichAmount.Clear();
-                    ComboBank.Text = string.Empty;
+                    ClearAllFields();
                     LoadExpenseTransaction();
                 }
             }
@@ -112,16 +109,46 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnRemove_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (DataGridExpenseList.SelectedRows.Count == 1)
+                {
+                    var id = Convert.ToInt64(DataGridExpenseList.SelectedCells[0].Value.ToString());
+                    if (_userTransactionService.DeletePosTransaction(id))
+                    {
+                        if (_bankTransactionService.DeleteBankTransactionByTransactionId(id))
+                        {
+                            DialogResult result = MessageBox.Show("Expense has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            if (result == DialogResult.OK)
+                            {
+                                ClearAllFields();
+                                LoadExpenseTransaction();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
         #region Helper Methods
+        private void ClearAllFields()
+        {
+            ComboExpense.Text = string.Empty;
+            ComboPayment.Text = string.Empty;
+            RichAmount.Clear();
+            ComboBank.Text = string.Empty;
+        }
+
         private void LoadExpenseTransaction(ExpenseTransactionFilter expenseTransaction = null)
         {
             try
             {
-                List<ExpenseTransactionView> expenseTransactionViews = _posTransactionService.GetExpenseTransactions(expenseTransaction).ToList();
+                List<ExpenseTransactionView> expenseTransactionViews = _userTransactionService.GetExpenseTransactions(expenseTransaction).ToList();
 
                 TxtTotalAmount.Text = expenseTransactionViews.Sum(x => x.Balance).ToString();
 

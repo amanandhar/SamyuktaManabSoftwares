@@ -68,6 +68,11 @@ namespace GrocerySupplyManagementApp.Services
             throw new NotImplementedException();
         }
 
+        public bool DeletePosTransaction(long id)
+        {
+            return _posTransactionRepository.DeletePosTransaction(id);
+        }
+
         public bool DeleteSupplierInvoice(long posTransactionId)
         {
             throw new NotImplementedException();

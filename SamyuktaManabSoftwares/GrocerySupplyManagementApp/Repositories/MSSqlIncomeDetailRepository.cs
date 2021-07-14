@@ -39,6 +39,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var incomeDetail = new IncomeDetailView
                                 {
+                                    Id = 0,
                                     InvoiceDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
                                     InvoiceNo = reader["Type"].ToString(),
                                     ItemCode = string.Empty,
@@ -86,6 +87,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var incomeDetail = new IncomeDetailView
                                 {
+                                    Id = 0,
                                     InvoiceDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
                                     InvoiceNo = reader["Type"].ToString(),
                                     ItemCode = string.Empty,
@@ -114,7 +116,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[InvoiceDate], [Bank], [IncomeExpense], [ReceivedAmount] " +
+                "[Id], [InvoiceDate], [Bank], [IncomeExpense], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [Action] = '" + Constants.RECEIPT + "' " +
@@ -133,6 +135,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var incomeDetail = new IncomeDetailView
                                 {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()).ToString("yyyy-MM-dd"),
                                     InvoiceNo = reader["IncomeExpense"].ToString(),
                                     ItemCode = string.Empty,
@@ -161,7 +164,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "pt.[InvoiceDate] AS 'InvoiceDate', psi.[InvoiceNo] AS 'InvoiceNo', " +
+                "pt.[Id] AS 'Id', pt.[InvoiceDate] AS 'InvoiceDate', psi.[InvoiceNo] AS 'InvoiceNo', " +
                 "i.[Code] AS 'ItemCode', i.[Name] AS 'ItemName', i.[Brand] AS 'ItemBrand', " +
                 "psi.[Quantity] AS 'Quantity', pi.[ProfitAmount] AS 'ProfitAmount', " +
                 "CAST((psi.[Quantity] * pi.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
@@ -189,6 +192,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var incomeDetail = new IncomeDetailView
                                 {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
                                     InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()).ToString("yyyy-MM-dd"),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
