@@ -152,7 +152,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichReceivableAmount.Enabled = false;
             this.RichReceivableAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichReceivableAmount.Location = new System.Drawing.Point(193, 157);
+            this.RichReceivableAmount.Location = new System.Drawing.Point(194, 148);
             this.RichReceivableAmount.Name = "RichReceivableAmount";
             this.RichReceivableAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichReceivableAmount.Size = new System.Drawing.Size(250, 35);
@@ -243,7 +243,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel10.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.linkLabel10.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel10.Location = new System.Drawing.Point(43, 163);
+            this.linkLabel10.Location = new System.Drawing.Point(43, 154);
             this.linkLabel10.Name = "linkLabel10";
             this.linkLabel10.Size = new System.Drawing.Size(147, 20);
             this.linkLabel10.TabIndex = 19;
@@ -303,7 +303,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAssetsBalance.BackColor = System.Drawing.Color.WhiteSmoke;
             this.RichAssetsBalance.Enabled = false;
             this.RichAssetsBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichAssetsBalance.Location = new System.Drawing.Point(193, 242);
+            this.RichAssetsBalance.Location = new System.Drawing.Point(193, 227);
             this.RichAssetsBalance.Name = "RichAssetsBalance";
             this.RichAssetsBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichAssetsBalance.Size = new System.Drawing.Size(250, 35);
@@ -325,7 +325,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichBankAccount.Enabled = false;
             this.RichBankAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBankAccount.Location = new System.Drawing.Point(194, 71);
+            this.RichBankAccount.Location = new System.Drawing.Point(194, 72);
             this.RichBankAccount.Name = "RichBankAccount";
             this.RichBankAccount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichBankAccount.Size = new System.Drawing.Size(250, 35);
@@ -439,7 +439,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel19.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.linkLabel19.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel19.Location = new System.Drawing.Point(116, 248);
+            this.linkLabel19.Location = new System.Drawing.Point(115, 233);
             this.linkLabel19.Name = "linkLabel19";
             this.linkLabel19.Size = new System.Drawing.Size(74, 20);
             this.linkLabel19.TabIndex = 41;
@@ -451,7 +451,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel17.AutoSize = true;
             this.linkLabel17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel17.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel17.Location = new System.Drawing.Point(105, 207);
+            this.linkLabel17.Location = new System.Drawing.Point(115, 192);
             this.linkLabel17.Name = "linkLabel17";
             this.linkLabel17.Size = new System.Drawing.Size(72, 20);
             this.linkLabel17.TabIndex = 43;
@@ -462,7 +462,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichStockValue.Enabled = false;
             this.RichStockValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichStockValue.Location = new System.Drawing.Point(193, 116);
+            this.RichStockValue.Location = new System.Drawing.Point(194, 110);
             this.RichStockValue.Name = "RichStockValue";
             this.RichStockValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichStockValue.Size = new System.Drawing.Size(250, 35);
@@ -496,7 +496,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichNetLoss.Enabled = false;
             this.RichNetLoss.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichNetLoss.Location = new System.Drawing.Point(194, 201);
+            this.RichNetLoss.Location = new System.Drawing.Point(193, 186);
             this.RichNetLoss.Name = "RichNetLoss";
             this.RichNetLoss.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichNetLoss.Size = new System.Drawing.Size(250, 35);

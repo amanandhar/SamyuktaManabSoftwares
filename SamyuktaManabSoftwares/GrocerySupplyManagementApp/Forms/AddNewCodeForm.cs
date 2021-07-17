@@ -43,7 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Button Events
+        #region Button Event
         private void BtnShowCode_Click(object sender, EventArgs e)
         {
             ItemListForm itemListForm = new ItemListForm(_itemService, this, true);
@@ -55,6 +55,7 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(Action.Add);
             RichItemCode.Focus();
         }
+
         private void BtnSave_Click(object sender, EventArgs e)
         {
             var item = new Item
@@ -111,7 +112,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        #region Data Grid Events
+        #region Data Grid Event
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridItemList.Columns["Id"].Visible = false;
@@ -132,11 +133,12 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DataGridItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridItemList.RowHeadersWidth = 50;
+                DataGridItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
         #endregion
 
-        #region Helper Events
+        #region Helper Methods
         private void EnableFields(Action action)
         {
             if (action == Action.Show)

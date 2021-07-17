@@ -1,7 +1,7 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -10,13 +10,13 @@ namespace GrocerySupplyManagementApp.Services
     public class ItemTransactionService : IItemTransactionService
     {
         private readonly IPurchasedItemRepository _itemTransactionRepository;
-        private readonly IFiscalYearDetailRepository _fiscalYearDetailRepository;
+        private readonly IFiscalYearRepository _fiscalYearRepository;
 
         public ItemTransactionService(IPurchasedItemRepository itemTransactionRepository,
-            IFiscalYearDetailRepository fiscalYearDetailRepository)
+            IFiscalYearRepository fiscalYearRepository)
         {
             _itemTransactionRepository = itemTransactionRepository;
-            _fiscalYearDetailRepository = fiscalYearDetailRepository;
+            _fiscalYearRepository = fiscalYearRepository;
         }
 
         public IEnumerable<PurchasedItem> GetItems(bool showEmptyItemCode)
@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalAmountBySupplierAndBill(supplierName, billNo);
         }
 
-        public long GetTotalPurchaseItemCount(DTOs.StockFilterView filter)
+        public long GetTotalPurchaseItemCount(StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -60,7 +60,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalPurchaseItemCount(filter);
         }
 
-        public long GetTotalSalesItemCount(DTOs.StockFilterView filter)
+        public long GetTotalSalesItemCount(StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -75,7 +75,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalSalesItemCount(filter);
         }
 
-        public decimal GetTotalPurchaseItemAmount(DTOs.StockFilterView filter)
+        public decimal GetTotalPurchaseItemAmount(StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -90,7 +90,7 @@ namespace GrocerySupplyManagementApp.Services
             return _itemTransactionRepository.GetTotalPurchaseItemAmount(filter);
         }
 
-        public decimal GetTotalSalesItemAmount(DTOs.StockFilterView filter)
+        public decimal GetTotalSalesItemAmount(StockFilterView filter)
         {
             if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
             {
@@ -133,8 +133,8 @@ namespace GrocerySupplyManagementApp.Services
                 var lastBillNo = _itemTransactionRepository.GetLastBillNo();
                 if (string.IsNullOrWhiteSpace(lastBillNo))
                 {
-                    var fiscalYearDetail = _fiscalYearDetailRepository.GetFiscalYearDetail();
-                    billNo = fiscalYearDetail.BillNo;
+                    var fiscalYear = _fiscalYearRepository.GetFiscalYear();
+                    billNo = fiscalYear.BillNo;
                 }
                 else
                 {

@@ -19,16 +19,16 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<Item> GetItems(bool showEmptyItemCode)
         {
             var items = new List<Item>();
-            var query = @"SELECT " + 
-                "Id, Name, Brand, Code " +
+            var query = @"SELECT " +
+                "[Id], [Name], [Brand], [Code] " +
                 "FROM " + Constants.TABLE_ITEM + " ";
 
             if (!showEmptyItemCode)
             {
-                query += "WHERE Code != '' ";
+                query += "WHERE [Code] != '' ";
             }
 
-            query += "ORDER BY Id ";
+            query += "ORDER BY [Id] ";
 
             try
             {
@@ -67,9 +67,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             var query = @"SELECT " +
-                "Id, Name, Brand, Code " +
+                "[Id], [Name], [Brand], [Code] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
-                "ORDER BY Code ";
+                "ORDER BY [Code] ";
 
             try
             {
@@ -108,10 +108,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "Id, Name, Brand, Code " +
+                "[Id], [Name], [Brand], [Code] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND Code = @Code ";
+                "AND [Code] = @Code ";
 
             try
             {
@@ -147,11 +147,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "Id, Name, Brand, Code " +
+                "[Id], [Name], [Brand], [Code] " +
                 "FROM " + Constants.TABLE_ITEM + " " + 
                 "WHERE 1 = 1 " +
-                "AND Id = @Id " +
-                "ORDER BY Code ";
+                "AND [Id] = @Id " +
+                "ORDER BY [Code] ";
 
             try
             {
@@ -187,11 +187,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             long id = 0;
             var query = @"SELECT " + 
-                "Id " +
+                "[Id] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND Name = @Name " + 
-                "AND Brand = @Brand ";
+                "AND [Name] = @Name " + 
+                "AND [Brand] = @Brand ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -222,7 +222,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +
                     "( " +
-                        "Name, Brand, Code " +
+                        "[Name], [Brand], [Code] " +
                     ") " +
                     "VALUES " +
                     "( " +
@@ -255,10 +255,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_ITEM + " " +
                 "SET " +
-                "Name = @Name, " +
-                "Brand = @Brand " +
+                "[Name] = @Name, " +
+                "[Brand] = @Brand " +
                 "WHERE 1 = 1 " +
-                "AND Code = @Code ";
+                "AND [Code] = @Code ";
 
             try
             {
@@ -287,11 +287,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_ITEM + " " +
                 "SET " +
-                "Name = @Name, " +
-                "Brand = @Brand, " +
-                "Code = @Code " +
+                "[Name] = @Name, " +
+                "[Brand] = @Brand, " +
+                "[Code] = @Code " +
                 "WHERE 1 = 1 " +
-                "AND Id = @Id ";
+                "AND [Id] = @Id ";
 
             try
             {
@@ -323,7 +323,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                     "FROM " + Constants.TABLE_ITEM + " " +
                     "WHERE 1 = 1 " +
-                    "AND Id = @Id ";
+                    "AND [Id] = @Id ";
 
             try
             {

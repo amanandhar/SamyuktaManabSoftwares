@@ -74,7 +74,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichName = new System.Windows.Forms.RichTextBox();
             this.RichMemberId = new System.Windows.Forms.RichTextBox();
             this.RichBalance = new System.Windows.Forms.RichTextBox();
-            this.DataGridMemberTransactionList = new System.Windows.Forms.DataGridView();
+            this.DataGridMemberList = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -83,7 +83,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberTransactionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -575,9 +575,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBalance.TabIndex = 9;
             this.RichBalance.Text = "";
             // 
-            // DataGridMemberTransactionList
+            // DataGridMemberList
             // 
-            this.DataGridMemberTransactionList.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataGridMemberList.BackgroundColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -585,8 +585,8 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridMemberTransactionList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridMemberTransactionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridMemberList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridMemberList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -594,9 +594,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridMemberTransactionList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridMemberTransactionList.Location = new System.Drawing.Point(18, 181);
-            this.DataGridMemberTransactionList.Name = "DataGridMemberTransactionList";
+            this.DataGridMemberList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridMemberList.Location = new System.Drawing.Point(18, 181);
+            this.DataGridMemberList.Name = "DataGridMemberList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -604,10 +604,10 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridMemberTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridMemberTransactionList.Size = new System.Drawing.Size(858, 300);
-            this.DataGridMemberTransactionList.TabIndex = 32;
-            this.DataGridMemberTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberTransactionList_DataBindingComplete);
+            this.DataGridMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DataGridMemberList.Size = new System.Drawing.Size(858, 300);
+            this.DataGridMemberList.TabIndex = 32;
+            this.DataGridMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberTransactionList_DataBindingComplete);
             // 
             // pictureBox1
             // 
@@ -679,7 +679,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.DataGridMemberTransactionList);
+            this.Controls.Add(this.DataGridMemberList);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.textBox1);
@@ -697,7 +697,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberTransactionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -741,7 +741,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichBalance;
         private System.Windows.Forms.RichTextBox RichAccountNumber;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.DataGridView DataGridMemberTransactionList;
+        private System.Windows.Forms.DataGridView DataGridMemberList;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;

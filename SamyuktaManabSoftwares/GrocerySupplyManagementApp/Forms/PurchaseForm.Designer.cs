@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBillNo = new System.Windows.Forms.RichTextBox();
             this.RichItemName = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnAddBonus = new System.Windows.Forms.Button();
             this.BtnShowItem = new System.Windows.Forms.Button();
             this.BtnAddNew = new System.Windows.Forms.Button();
             this.RichItemCode = new System.Windows.Forms.RichTextBox();
@@ -57,7 +58,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnAddItem = new System.Windows.Forms.Button();
             this.DataGridPurchaseList = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseList)).BeginInit();
@@ -132,7 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.BtnAddBonus);
             this.groupBox1.Controls.Add(this.BtnShowItem);
             this.groupBox1.Controls.Add(this.BtnAddNew);
             this.groupBox1.Controls.Add(this.RichItemCode);
@@ -158,6 +158,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(790, 120);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
+            // 
+            // BtnAddBonus
+            // 
+            this.BtnAddBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddBonus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.BtnAddBonus.Location = new System.Drawing.Point(669, 14);
+            this.BtnAddBonus.Name = "BtnAddBonus";
+            this.BtnAddBonus.Size = new System.Drawing.Size(105, 35);
+            this.BtnAddBonus.TabIndex = 62;
+            this.BtnAddBonus.Text = "Add Bonus";
+            this.BtnAddBonus.UseVisualStyleBackColor = true;
             // 
             // BtnShowItem
             // 
@@ -395,18 +406,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridPurchaseList.Size = new System.Drawing.Size(1007, 360);
             this.DataGridPurchaseList.TabIndex = 60;
             this.DataGridPurchaseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseList_DataBindingComplete);
-            this.DataGridPurchaseList.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridPurchaseList_RowPostPaint);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.button1.Location = new System.Drawing.Point(669, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 35);
-            this.button1.TabIndex = 62;
-            this.button1.Text = "Add Bonus";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // PurchaseForm
             // 
@@ -457,6 +456,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichItemCode;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button BtnShowItem;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnAddBonus;
     }
 }

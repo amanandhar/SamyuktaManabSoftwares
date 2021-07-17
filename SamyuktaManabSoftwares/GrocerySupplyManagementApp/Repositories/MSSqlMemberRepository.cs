@@ -19,8 +19,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<Member> GetMembers()
         {
             var members = new List<Member>();
-            var query = @"SELECT " + 
-                "* " +
+            var query = @"SELECT " +
+                "[Id], [Counter], [MemberId], [Name], " +
+                "[Address], [ContactNo], [Email], [AccountNo], " +
+                "[Date] " +
                 "FROM " + Constants.TABLE_MEMBER;
             try
             {
@@ -35,12 +37,15 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var member = new Member
                                 {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Counter = Convert.ToInt64(reader["Counter"].ToString()),
                                     MemberId = reader["MemberId"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Address = reader["Address"].ToString(),
-                                    ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString()),
+                                    ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
                                     Email = reader["Email"].ToString(),
-                                    AccountNumber = reader["AccountNumber"].ToString()
+                                    AccountNo = reader["AccountNo"].ToString(),
+                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
                                 };
 
                                 members.Add(member);
@@ -59,11 +64,13 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Member GetMember(string memberId)
         {
-            var query = @"SELECT " + 
-                "* " +
+            var query = @"SELECT " +
+                "[Id], [Counter], [MemberId], [Name], " +
+                "[Address], [ContactNo], [Email], [AccountNo], " +
+                "[Date] " +
                 "FROM " + Constants.TABLE_MEMBER + " " +
                 "WHERE 1 = 1 " +
-                "AND MemberId = @MemberId ";
+                "AND [MemberId] = @MemberId ";
             var member = new Member();
             try
             {
@@ -77,12 +84,15 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
+                                member.Id = Convert.ToInt64(reader["Id"].ToString());
+                                member.Counter = Convert.ToInt64(reader["Counter"].ToString());
                                 member.MemberId = reader["MemberId"].ToString();
                                 member.Name = reader["Name"].ToString();
                                 member.Address = reader["Address"].ToString();
-                                member.ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString());
+                                member.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
                                 member.Email = reader["Email"].ToString();
-                                member.AccountNumber = reader["AccountNumber"].ToString();
+                                member.AccountNo = reader["AccountNo"].ToString();
+                                member.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
                     }
@@ -100,11 +110,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
                     "( " +
-                        "Id, MemberId, Name, Address, ContactNumber, Email, AccountNumber " +
+                        "[Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [Date] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Id, @MemberId, @Name, @Address, @ContactNumber, @Email, @AccountNumber " +
+                        "@Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @Date " +
                     ") ";
             try
             {
@@ -113,13 +123,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Id", member.Id);
+                        command.Parameters.AddWithValue("@Counter", member.Counter);
                         command.Parameters.AddWithValue("@MemberId", member.MemberId);
                         command.Parameters.AddWithValue("@Name", member.Name);
                         command.Parameters.AddWithValue("@Address", member.Address);
-                        command.Parameters.AddWithValue("@ContactNumber", member.ContactNumber);
+                        command.Parameters.AddWithValue("@ContactNo", member.ContactNo);
                         command.Parameters.AddWithValue("@Email", member.Email);
-                        command.Parameters.AddWithValue("@AccountNumber", member.AccountNumber);
+                        command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
+                        command.Parameters.AddWithValue("@Date", member.Date);
 
                         command.ExecuteNonQuery();
                     }
@@ -137,14 +148,15 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_MEMBER + " " +
                 "SET " +
-                "MemberId = @MemberId, " +
-                "Name = @Name, " +
-                "Address = @Address, " +
-                "ContactNumber = @ContactNumber, " +
-                "Email = @Email, " +
-                "AccountNumber = @AccountNumber " +
+                "[Counter] = @Counter, " +
+                "[MemberId] = @MemberId, " +
+                "[Name] = @Name, " +
+                "[Address] = @Address, " +
+                "[ContactNo] = @ContactNo, " +
+                "[Email] = @Email, " +
+                "[AccountNo] = @AccountNo " +
                 "WHERE 1 = 1 " +
-                "AND MemberId = @MemberId ";
+                "AND [MemberId] = @MemberId ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -152,12 +164,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@Counter", member.Counter);
                         command.Parameters.AddWithValue("@MemberId", memberId);
                         command.Parameters.AddWithValue("@Name", member.Name);
                         command.Parameters.AddWithValue("@Address", member.Address);
-                        command.Parameters.AddWithValue("@ContactNumber", member.ContactNumber);
+                        command.Parameters.AddWithValue("@ContactNumber", member.ContactNo);
                         command.Parameters.AddWithValue("@Email", member.Email);
-                        command.Parameters.AddWithValue("@AccountNumber", member.AccountNumber);
+                        command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
 
                         command.ExecuteNonQuery();
                     }
@@ -175,7 +188,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"DELETE FROM " + Constants.TABLE_MEMBER + " " +
                     "WHERE 1 = 1 " +
-                    "AND MemberId = @MemberId ";
+                    "AND [MemberId] = @MemberId ";
             bool result = false;
 
             try
@@ -203,9 +216,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             int id = 0;
             string query = @"SELECT " +
-                "TOP 1 Id " +
+                "TOP 1 [Counter] " +
                 "FROM " + Constants.TABLE_MEMBER + " " + 
-                "ORDER BY Id DESC ";
+                "ORDER BY [Counter] DESC ";
 
             try
             {

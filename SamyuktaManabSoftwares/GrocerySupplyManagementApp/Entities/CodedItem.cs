@@ -6,7 +6,6 @@
         public long ItemId { get; set; }
         public string ItemSubCode { get; set; }
         public string Unit { get; set; }
-        public long Stock { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal? CurrentPurchasePrice { get; set; }
         public long Quantity { get; set; }

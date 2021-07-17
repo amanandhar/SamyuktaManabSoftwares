@@ -65,11 +65,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.DataGridLoanList = new System.Windows.Forms.DataGridView();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridLoanList)).BeginInit();
             this.SuspendLayout();
             // 
             // button6
@@ -476,20 +477,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.richTextBox3.TabIndex = 29;
             this.richTextBox3.Text = "";
             // 
-            // groupBox5
+            // DataGridLoanList
             // 
-            this.groupBox5.Location = new System.Drawing.Point(18, 182);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(840, 295);
-            this.groupBox5.TabIndex = 30;
-            this.groupBox5.TabStop = false;
+            this.DataGridLoanList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridLoanList.Location = new System.Drawing.Point(18, 181);
+            this.DataGridLoanList.Name = "DataGridLoanList";
+            this.DataGridLoanList.Size = new System.Drawing.Size(844, 312);
+            this.DataGridLoanList.TabIndex = 30;
             // 
             // LoanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1044, 549);
-            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.DataGridLoanList);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.textBox4);
@@ -511,6 +512,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridLoanList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -554,6 +556,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RichTextBox richTextBox3;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.DataGridView DataGridLoanList;
     }
 }

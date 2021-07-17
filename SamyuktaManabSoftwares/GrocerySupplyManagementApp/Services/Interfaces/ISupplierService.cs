@@ -10,5 +10,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         Supplier AddSupplier(Supplier supplier);
         Supplier UpdateSupplier(string supplierId, Supplier supplier);
         bool DeleteSupplier(string supplierId);
+        string GetNewSupplierId();
     }
 }

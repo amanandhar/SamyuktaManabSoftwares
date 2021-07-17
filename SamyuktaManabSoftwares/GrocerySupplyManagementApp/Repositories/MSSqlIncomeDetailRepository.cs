@@ -1,6 +1,6 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Repositories.Interfaces;
+﻿using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -20,11 +20,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[EndOfDate], [Type], [Amount] " +
-                "FROM " + Constants.TABLE_INCOME + " " +
+                "[Id], [EndOfDate], [Bank], [IncomeExpense], [ReceivedAmount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND Type = '" + Constants.DELIVERY_CHARGE + "' " +
-                "ORDER BY [Id]";
+                "AND [Action] = '" + Constants.RECEIPT + "' " +
+                "AND [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' ";
 
             try
             {
@@ -39,15 +39,15 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var incomeDetail = new IncomeDetailView
                                 {
-                                    Id = 0,
-                                    InvoiceDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
-                                    InvoiceNo = reader["Type"].ToString(),
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
+                                    InvoiceNo = reader["IncomeExpense"].ToString(),
                                     ItemCode = string.Empty,
-                                    ItemName = string.Empty,
+                                    ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
                                     Quantity = 0,
                                     ProfitAmount = 0.0m,
-                                    Total = Convert.ToDecimal(reader["Amount"].ToString())
+                                    Total = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
 
                                 incomeDetails.Add(incomeDetail);
@@ -68,11 +68,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[EndOfDate], [Type], [Amount] " +
-                "FROM " + Constants.TABLE_INCOME + " " +
+                "[Id], [EndOfDate], [Bank], [IncomeExpense], [ReceivedAmount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND Type = '" + Constants.MEMBER_FEE + "' " +
-                "ORDER BY [Id]";
+                "AND [Action] = '" + Constants.RECEIPT + "' " +
+                "AND [IncomeExpense] = '" + Constants.MEMBER_FEE + "' ";
 
             try
             {
@@ -87,15 +87,15 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var incomeDetail = new IncomeDetailView
                                 {
-                                    Id = 0,
-                                    InvoiceDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
-                                    InvoiceNo = reader["Type"].ToString(),
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
+                                    InvoiceNo = reader["IncomeExpense"].ToString(),
                                     ItemCode = string.Empty,
-                                    ItemName = string.Empty,
+                                    ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
                                     Quantity = 0,
                                     ProfitAmount = 0.0m,
-                                    Total = Convert.ToDecimal(reader["Amount"].ToString())
+                                    Total = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
 
                                 incomeDetails.Add(incomeDetail);
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[Id], [InvoiceDate], [Bank], [IncomeExpense], [ReceivedAmount] " +
+                "[Id], [EndOfDate], [Bank], [IncomeExpense], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [Action] = '" + Constants.RECEIPT + "' " +
@@ -136,7 +136,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var incomeDetail = new IncomeDetailView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()).ToString("yyyy-MM-dd"),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
                                     InvoiceNo = reader["IncomeExpense"].ToString(),
                                     ItemCode = string.Empty,
                                     ItemName = reader["Bank"].ToString(),
@@ -164,20 +164,20 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "pt.[Id] AS 'Id', pt.[InvoiceDate] AS 'InvoiceDate', psi.[InvoiceNo] AS 'InvoiceNo', " +
+                "ut.[Id] AS 'Id', ut.[EndOfDate] AS 'EndOfDate', si.[InvoiceNo] AS 'InvoiceNo', " +
                 "i.[Code] AS 'ItemCode', i.[Name] AS 'ItemName', i.[Brand] AS 'ItemBrand', " +
-                "psi.[Quantity] AS 'Quantity', pi.[ProfitAmount] AS 'ProfitAmount', " +
-                "CAST((psi.[Quantity] * pi.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
+                "si.[Quantity] AS 'Quantity', ci.[ProfitAmount] AS 'ProfitAmount', " +
+                "CAST((si.[Quantity] * ci.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_ITEM + " i " +
-                "INNER JOIN " + Constants.TABLE_CODED_ITEM + " pi " +
-                "ON i.Id = pi.ItemId " +
-                "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " psi " +
-                "ON i.Code = psi.ItemCode " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
-                "ON psi.InvoiceNo = pt.InvoiceNo " +
+                "INNER JOIN " + Constants.TABLE_CODED_ITEM + " ci " +
+                "ON i.[Id] = ci.[ItemId] " +
+                "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
+                "ON i.[Id] = si.[ItemId] " +
+                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
                 "WHERE 1 = 1 ";
 
-            query += "ORDER BY Date DESC ";
+            query += "ORDER BY ut.[Date] DESC ";
 
             try
             {
@@ -193,7 +193,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var incomeDetail = new IncomeDetailView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()).ToString("yyyy-MM-dd"),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()).ToString("yyyy-MM-dd"),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),

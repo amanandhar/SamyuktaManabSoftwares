@@ -7,21 +7,21 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class TaxSetupForm : Form
     {
-        private readonly ITaxDetailService _taxDetailService;
+        private readonly ITaxService _taxService;
 
         #region Constructor
-        public TaxSetupForm(ITaxDetailService taxDetailService)
+        public TaxSetupForm(ITaxService taxService)
         {
             InitializeComponent();
 
-            _taxDetailService = taxDetailService;
+            _taxService = taxService;
         }
         #endregion
 
         #region Form Load Event
         private void TaxSetupForm_Load(object sender, EventArgs e)
         {
-            var taxDetail = _taxDetailService.GetTaxDetail();
+            var taxDetail = _taxService.GetTax();
             if (taxDetail != null)
             {
                 TextBoxDiscount.Text = taxDetail.Discount.ToString();
@@ -41,7 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var taxDetail = new Tax
+                var tax = new Tax
                 {
                     Discount = Convert.ToDecimal(TextBoxDiscount.Text),
                     Vat = Convert.ToDecimal(TextBoxVat.Text),
@@ -49,7 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 var truncate = true;
-                _taxDetailService.AddTaxDetail(taxDetail, truncate);
+                _taxService.AddTax(tax, truncate);
 
                 DialogResult result = MessageBox.Show("Tax detail has been saved successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)

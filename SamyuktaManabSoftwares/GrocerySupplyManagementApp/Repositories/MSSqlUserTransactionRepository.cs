@@ -1,10 +1,11 @@
-﻿using GrocerySupplyManagementApp.DTOs;
+﻿using GrocerySupplyManagementApp.ViewModels;
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using GrocerySupplyManagementApp.DTOs;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
@@ -17,15 +18,15 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<UserTransaction> GetPosTransactions()
+        public IEnumerable<UserTransaction> GetUserTransactions()
         {
-            var posTransactions = new List<UserTransaction>();
+            var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
-                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], " +
+                "[Id], [EndOfDate], [InvoiceNo], [BillNo], [MemberId], " +
                 "[SupplierId], [Action], [ActionType], [Bank], [IncomeExpense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], " + 
                 "[Vat], [DeliveryChargePercent], [DeliveryCharge], " +
-                "[TotalAmount], [ReceivedAmount], [Date] " +
+                "[DueAmount], [ReceivedAmount], [Date] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "ORDER BY Id ";
 
@@ -40,11 +41,11 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var posTransaction = new UserTransaction
+                                var userTransaction = new UserTransaction
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
                                     BillNo = reader["BillNo"].ToString(),
                                     MemberId = reader["MemberId"].ToString(),
                                     SupplierId = reader["SupplierId"].ToString(),
@@ -59,12 +60,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Vat = Convert.ToDecimal(reader["Vat"].ToString()),
                                     DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString()),
                                     DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
-                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString())
                                 };
 
-                                posTransactions.Add(posTransaction);
+                                userTransactions.Add(userTransaction);
                             }
                         }
                     }
@@ -75,18 +76,18 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posTransactions;
+            return userTransactions;
         }
 
-        public IEnumerable<UserTransaction> GetPosTransactions(string memberId)
+        public IEnumerable<UserTransaction> GetUserTransactions(string memberId)
         {
-            var posTransactions = new List<UserTransaction>();
+            var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
-                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], " +
+                "[Id], [EndOfDate], [InvoiceNo], [BillNo], [MemberId], " +
                 "[SupplierId], [Action], [ActionType], [Bank], [IncomeExpense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], " + 
                 "[Vat], [DeliveryChargePercent], [DeliveryCharge], " +
-                "[TotalAmount], [ReceivedAmount], [Date] " +
+                "[DueAmount], [ReceivedAmount], [Date] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " + 
                 "WHERE 1 = 1 " +
                 "AND MemberId = @MemberId " +
@@ -105,11 +106,11 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var posTransaction = new UserTransaction
+                                var userTransaction = new UserTransaction
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
                                     BillNo = reader["BillNo"].ToString(),
                                     MemberId = reader["MemberId"].ToString(),
                                     SupplierId = reader["SupplierId"].ToString(),
@@ -124,12 +125,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Vat = Convert.ToDecimal(reader["Vat"].ToString()),
                                     DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString()),
                                     DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
-                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString())
                                 };
 
-                                posTransactions.Add(posTransaction);
+                                userTransactions.Add(userTransaction);
                             }
                         }
                     }
@@ -140,23 +141,23 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posTransactions;
+            return userTransactions;
         }
 
         public IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId)
         {
             var memberTransactionViews = new List<MemberTransactionView>();
             var query = @"SELECT " +
-                "[Id], [InvoiceDate], [Action], " +
+                "[Id], [EndOfDate], [Action], " +
                 "CASE WHEN [ActionType] = 'Cheque' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[InvoiceNo], [TotalAmount], [ReceivedAmount], " +
-                "(SELECT SUM(ISNULL(b.TotalAmount,0) - ISNULL(b.ReceivedAmount,0)) " +
+                "[InvoiceNo], [DueAmount], [ReceivedAmount], " +
+                "(SELECT SUM(ISNULL(b.[DueAmount],0) - ISNULL(b.[ReceivedAmount],0)) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "WHERE b.Date <= a.Date AND MemberId = @MemberId) AS Balance " +
+                "WHERE b.[Date] <= a.[Date] AND [MemberId] = @MemberId) AS Balance " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
                 "WHERE 1 = 1 " +
-                "AND MemberId = @MemberId " +
-                "ORDER BY Id ";
+                "AND [MemberId] = @MemberId " +
+                "ORDER BY [Id] ";
 
             try
             {
@@ -174,11 +175,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var memberTransactionView = new MemberTransactionView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
-                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     Balance = Convert.ToDecimal(reader["Balance"].ToString())
                                 };
@@ -201,15 +202,15 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var supplierTransactionViews = new List<SupplierTransactionView>();
             var query = @"SELECT " +
-                "[Id], [InvoiceDate], [Action], " +
+                "[Id], [EndOfDate], [Action], " +
                 "CASE WHEN [ActionType] = 'Cheque' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[BillNo], [TotalAmount], [ReceivedAmount], " +
-                "(SELECT SUM(ISNULL(b.TotalAmount,0) - ISNULL(b.ReceivedAmount,0)) " +
+                "[BillNo], [DueAmount], [ReceivedAmount], " +
+                "(SELECT SUM(ISNULL(b.[DueAmount], 0) - ISNULL(b.[ReceivedAmount], 0)) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "WHERE b.Date <= a.Date AND SupplierId = @SupplierId) AS Balance " +
+                "WHERE b.[Date] <= a.[Date] AND [SupplierId] = @SupplierId) AS Balance " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
                 "WHERE 1 = 1 " +
-                "AND SupplierId = @SupplierId " + 
+                "AND [SupplierId] = @SupplierId " + 
                 "ORDER BY Id ";
             try
             {
@@ -227,11 +228,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var supplierTransactionView = new SupplierTransactionView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
-                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     Balance = Convert.ToDecimal(reader["Balance"].ToString())
                                 };
@@ -254,12 +255,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var expenseTransactionViews = new List<ExpenseTransactionView>();
             var query = @"SELECT " +
-                "[Id], [InvoiceDate], [Action], " +
+                "[Id], [EndOfDate], [Action], " +
                 "CASE WHEN [ActionType] = 'Cheque' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[IncomeExpense], [TotalAmount], [ReceivedAmount], " +
-                "(SELECT SUM(ISNULL(b.TotalAmount, 0) - ISNULL(b.ReceivedAmount, 0)) " +
+                "[IncomeExpense], [DueAmount], [ReceivedAmount], " +
+                "(SELECT SUM(ISNULL(b.[DueAmount], 0) - ISNULL(b.[ReceivedAmount], 0)) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "WHERE b.Date <= a.Date AND [Action] = 'Expense') AS Balance " +
+                "WHERE b.[Date] <= a.[Date] AND [Action] = 'Expense') AS Balance " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
                 "WHERE 1 = 1 " +
                 "AND [Action] = 'Expense' ";
@@ -268,7 +269,7 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 if (filter?.DateFrom != DateTime.MinValue && filter?.DateTo != DateTime.MinValue)
                 {
-                    query += " AND [InvoiceDate] BETWEEN " + filter.DateFrom + " AND " + filter.DateTo + " ";
+                    query += " AND [EndOfDate] BETWEEN " + filter.DateFrom + " AND " + filter.DateTo + " ";
                 }
 
                 if (filter?.Expense != null)
@@ -277,7 +278,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
             }
 
-            query += "ORDER BY Id ";
+            query += "ORDER BY [Id] ";
 
             try
             {
@@ -293,11 +294,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var expenseTransactionView = new ExpenseTransactionView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Expense = reader["IncomeExpense"].ToString(),
-                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
+                                    DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     Balance = Convert.ToDecimal(reader["Balance"].ToString())
                                 };
@@ -316,21 +317,21 @@ namespace GrocerySupplyManagementApp.Repositories
             return expenseTransactionViews;
         }
 
-        public UserTransaction GetPosTransaction(long posTransactionId)
+        public UserTransaction GetUserTransaction(long userTransactionId)
         {
             throw new NotImplementedException();
         }
 
-        public UserTransaction GetPosTransaction(string invoiceNo)
+        public UserTransaction GetUserTransaction(string invoiceNo)
         {
-            var posTransaction = new UserTransaction();
+            var userTransaction = new UserTransaction();
             var query = @"SELECT " +
-                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                "[Id], [InvoiceNo], [EndOfDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge], " +
-                "[TotalAmount], [ReceivedAmount], [Date] " +
+                "[DueAmount], [ReceivedAmount], [Date] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND InvoiceNo = @InvoiceNo ";
+                "AND [InvoiceNo] = @InvoiceNo ";
 
             try
             {
@@ -345,25 +346,25 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                posTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
-                                posTransaction.InvoiceNo = reader["InvoiceNo"].ToString();
-                                posTransaction.InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString());
-                                posTransaction.BillNo = reader["BillNo"].ToString();
-                                posTransaction.MemberId = reader["MemberId"].ToString();
-                                posTransaction.SupplierId = reader["SupplierId"].ToString();
-                                posTransaction.Action = reader["Action"].ToString();
-                                posTransaction.ActionType = reader["ActionType"].ToString();
-                                posTransaction.Bank = reader["Bank"].ToString();
-                                posTransaction.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
-                                posTransaction.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
-                                posTransaction.Discount = Convert.ToDecimal(reader["Discount"].ToString());
-                                posTransaction.VatPercent = Convert.ToDecimal(reader["VatPercent"].ToString());
-                                posTransaction.Vat = Convert.ToDecimal(reader["Vat"].ToString());
-                                posTransaction.DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString());
-                                posTransaction.DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString());
-                                posTransaction.TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString());
-                                posTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                posTransaction.Date = Convert.ToDateTime(reader["Date"].ToString());
+                                userTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
+                                userTransaction.EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString());
+                                userTransaction.InvoiceNo = reader["InvoiceNo"].ToString();
+                                userTransaction.BillNo = reader["BillNo"].ToString();
+                                userTransaction.MemberId = reader["MemberId"].ToString();
+                                userTransaction.SupplierId = reader["SupplierId"].ToString();
+                                userTransaction.Action = reader["Action"].ToString();
+                                userTransaction.ActionType = reader["ActionType"].ToString();
+                                userTransaction.Bank = reader["Bank"].ToString();
+                                userTransaction.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
+                                userTransaction.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
+                                userTransaction.Discount = Convert.ToDecimal(reader["Discount"].ToString());
+                                userTransaction.VatPercent = Convert.ToDecimal(reader["VatPercent"].ToString());
+                                userTransaction.Vat = Convert.ToDecimal(reader["Vat"].ToString());
+                                userTransaction.DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString());
+                                userTransaction.DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString());
+                                userTransaction.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
+                                userTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
+                                userTransaction.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
                     }
@@ -374,17 +375,17 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posTransaction;
+            return userTransaction;
         }
         
-        public UserTransaction GetLastPosTransaction(string option)
+        public UserTransaction GetLastUserTransaction(string option)
         {
-            var posTransaction = new UserTransaction();
+            var userTransaction = new UserTransaction();
             var query = @"SELECT " +
                 "TOP 1 " +
-                "[Id], [InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                "[Id], [EndOfDate], [InvoiceNo], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge], " +
-                "[TotalAmount], [ReceivedAmount], [Date] " +
+                "[DueAmount], [ReceivedAmount], [Date] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ";
 
             if(!string.IsNullOrWhiteSpace(option))
@@ -412,25 +413,25 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                posTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
-                                posTransaction.InvoiceNo = reader["InvoiceNo"].ToString();
-                                posTransaction.InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString());
-                                posTransaction.BillNo = reader["BillNo"].ToString();
-                                posTransaction.MemberId = reader["MemberId"].ToString();
-                                posTransaction.SupplierId = reader["SupplierId"].ToString();
-                                posTransaction.Action = reader["Action"].ToString();
-                                posTransaction.ActionType = reader["ActionType"].ToString();
-                                posTransaction.Bank = reader["Bank"].ToString();
-                                posTransaction.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
-                                posTransaction.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
-                                posTransaction.Discount = Convert.ToDecimal(reader["Discount"].ToString());
-                                posTransaction.VatPercent = Convert.ToDecimal(reader["VatPercent"].ToString());
-                                posTransaction.Vat = Convert.ToDecimal(reader["Vat"].ToString());
-                                posTransaction.DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString());
-                                posTransaction.DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString());
-                                posTransaction.TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString());
-                                posTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                posTransaction.Date = Convert.ToDateTime(reader["Date"].ToString());
+                                userTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
+                                userTransaction.EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString());
+                                userTransaction.InvoiceNo = reader["InvoiceNo"].ToString();
+                                userTransaction.BillNo = reader["BillNo"].ToString();
+                                userTransaction.MemberId = reader["MemberId"].ToString();
+                                userTransaction.SupplierId = reader["SupplierId"].ToString();
+                                userTransaction.Action = reader["Action"].ToString();
+                                userTransaction.ActionType = reader["ActionType"].ToString();
+                                userTransaction.Bank = reader["Bank"].ToString();
+                                userTransaction.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
+                                userTransaction.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
+                                userTransaction.Discount = Convert.ToDecimal(reader["Discount"].ToString());
+                                userTransaction.VatPercent = Convert.ToDecimal(reader["VatPercent"].ToString());
+                                userTransaction.Vat = Convert.ToDecimal(reader["Vat"].ToString());
+                                userTransaction.DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString());
+                                userTransaction.DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString());
+                                userTransaction.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
+                                userTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
+                                userTransaction.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
                     }
@@ -441,22 +442,22 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posTransaction;
+            return userTransaction;
         }
 
-        public UserTransaction AddPosTransaction(UserTransaction posTransaction)
+        public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
-                        "[InvoiceNo], [InvoiceDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                        "[InvoiceNo], [EndOfDate], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
                         "[IncomeExpense], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
-                        "[DeliveryCharge], [TotalAmount], [ReceivedAmount], [Date] " +
+                        "[DeliveryCharge], [DueAmount], [ReceivedAmount], [Date] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @InvoiceDate, @BillNo, @MemberId, @SupplierId, @Action, @ActionType, @Bank, " +
+                        "@InvoiceNo, @EndOfDate, @BillNo, @MemberId, @SupplierId, @Action, @ActionType, @Bank, " +
                         "@IncomeExpense, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
-                        "@DeliveryCharge, @TotalAmount, @ReceivedAmount, @Date " +
+                        "@DeliveryCharge, @DueAmount, @ReceivedAmount, @Date " +
                     ") ";
             try
             {
@@ -465,25 +466,25 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@InvoiceNo", ((object)posTransaction.InvoiceNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@InvoiceDate", posTransaction.InvoiceDate);
-                        command.Parameters.AddWithValue("@BillNo", ((object)posTransaction.BillNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@MemberId", ((object)posTransaction.MemberId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@SupplierId", ((object)posTransaction.SupplierId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", posTransaction.Action);
-                        command.Parameters.AddWithValue("@ActionType", posTransaction.ActionType);
-                        command.Parameters.AddWithValue("@Bank", ((object)posTransaction.Bank) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@IncomeExpense", ((object)posTransaction.IncomeExpense) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@SubTotal", posTransaction.SubTotal);
-                        command.Parameters.AddWithValue("@DiscountPercent", posTransaction.DiscountPercent);
-                        command.Parameters.AddWithValue("@Discount", posTransaction.Discount);
-                        command.Parameters.AddWithValue("@VatPercent", posTransaction.VatPercent);
-                        command.Parameters.AddWithValue("@Vat", posTransaction.Vat);
-                        command.Parameters.AddWithValue("@DeliveryChargePercent", posTransaction.DeliveryChargePercent);
-                        command.Parameters.AddWithValue("@DeliveryCharge", posTransaction.DeliveryCharge);
-                        command.Parameters.AddWithValue("@TotalAmount", posTransaction.TotalAmount);
-                        command.Parameters.AddWithValue("@ReceivedAmount", ((object)posTransaction.ReceivedAmount) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Date", posTransaction.Date);
+                        command.Parameters.AddWithValue("@EndOfDate", userTransaction.EndOfDate);
+                        command.Parameters.AddWithValue("@InvoiceNo", ((object)userTransaction.InvoiceNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@BillNo", ((object)userTransaction.BillNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@MemberId", ((object)userTransaction.MemberId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SupplierId", ((object)userTransaction.SupplierId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", userTransaction.Action);
+                        command.Parameters.AddWithValue("@ActionType", userTransaction.ActionType);
+                        command.Parameters.AddWithValue("@Bank", ((object)userTransaction.Bank) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)userTransaction.IncomeExpense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SubTotal", userTransaction.SubTotal);
+                        command.Parameters.AddWithValue("@DiscountPercent", userTransaction.DiscountPercent);
+                        command.Parameters.AddWithValue("@Discount", userTransaction.Discount);
+                        command.Parameters.AddWithValue("@VatPercent", userTransaction.VatPercent);
+                        command.Parameters.AddWithValue("@Vat", userTransaction.Vat);
+                        command.Parameters.AddWithValue("@DeliveryChargePercent", userTransaction.DeliveryChargePercent);
+                        command.Parameters.AddWithValue("@DeliveryCharge", userTransaction.DeliveryCharge);
+                        command.Parameters.AddWithValue("@DueAmount", userTransaction.DueAmount);
+                        command.Parameters.AddWithValue("@ReceivedAmount", ((object)userTransaction.ReceivedAmount) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Date", userTransaction.Date);
 
                         command.ExecuteNonQuery();
                     }
@@ -494,15 +495,15 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posTransaction;
+            return userTransaction;
         }
 
-        public UserTransaction UpdatePosTransaction(long posTransactionId, UserTransaction posTransaction)
+        public UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeletePosTransaction(long id)
+        public bool DeleteUserTransaction(long id)
         {
             bool result = false;
             string query = @"DELETE " +
@@ -537,7 +538,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [InvoiceNo] LIKE 'IN%' " +
-                "ORDER BY Id DESC ";
+                "ORDER BY [Id] DESC ";
             string invoiceNo = string.Empty;
             try
             {
@@ -566,7 +567,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal balance = 0.0m;
             string query = @"SELECT " +
-                "SUM([TotalAmount]) - SUM([ReceivedAmount]) " +
+                "SUM([DueAmount]) - SUM([ReceivedAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] IS NOT NULL ";
@@ -597,10 +598,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetMemberTotalBalance(string memberId)
         {
             string query = @"SELECT " +
-                "SUM([TotalAmount]) - SUM([ReceivedAmount]) " +
+                "SUM([DueAmount]) - SUM([ReceivedAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND MemberId = @MemberId ";
+                "AND [MemberId] = @MemberId ";
             decimal balance = 0.0m;
             try
             {
@@ -630,7 +631,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal balance = 0.0m;
             string query = @"SELECT " +
-                "SUM([ReceivedAmount]) - SUM([TotalAmount]) " +
+                "SUM([ReceivedAmount]) - SUM([DueAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] IS NOT NULL ";
@@ -661,10 +662,10 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetSupplierTotalBalance(string supplierId)
         {
             string query = @"SELECT " +
-                "SUM([ReceivedAmount]) - SUM([TotalAmount]) " +
+                "SUM([ReceivedAmount]) - SUM([DueAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND SupplierId = @SupplierId ";
+                "AND [SupplierId] = @SupplierId ";
             decimal balance = 0.0m;
             try
             {
@@ -698,17 +699,17 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ISNULL(SUM([ReceivedAmount]), 0) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND Action IN ('Sales', 'Receipt') " +
-                "AND ActionType = 'Cash' " +
+                "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') " +
+                "AND [ActionType] = '" + Constants.CASH + "' " +
                 ") " +
                 "- " +
                 "( " +
                 "SELECT " +
-                "ISNULL(SUM([TotalAmount]), 0) " +
+                "ISNULL(SUM([DueAmount]), 0) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND Action IN ('Transfer', 'Expense') " +
-                "AND ActionType = 'Cash' " +
+                "AND [Action] IN ('" + Constants.TRANSFER + "', '" + Constants.EXPENSE + "') " +
+                "AND [ActionType] = '" + Constants.CASH + "' " +
                 ") ";
 
             decimal cashInHand = 0.0m;
@@ -744,11 +745,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 || action?.ToLower() == Constants.TRANSFER.ToLower())
             {
                 query = @"SELECT " +
-                    "SUM([TotalAmount])" +
+                    "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND Action = @Action " +
-                    "AND ActionType = @ActionType ";
+                    "AND [Action] = @Action " +
+                    "AND [ActionType] = @ActionType ";
             }
             else
             {
@@ -756,8 +757,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SUM([ReceivedAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND Action = @Action " +
-                    "AND ActionType = @ActionType ";
+                    "AND [Action] = @Action " +
+                    "AND [ActionType] = @ActionType ";
             }
 
             decimal balance = 0.0m;
@@ -790,11 +791,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal total = 0.0m;
             string query = @"SELECT " +
-                    "SUM([TotalAmount])" +
+                    "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND Action = 'Expense' " +
-                    "AND IncomeExpense = @Expense ";
+                    "AND [Action] = '" + Constants.EXPENSE + "' " +
+                    "AND [IncomeExpense] = @Expense ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

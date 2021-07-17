@@ -8,23 +8,23 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SummaryForm : Form
     {
         private readonly IDailyTransactionService _transactionService;
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly ISoldItemService _posSoldItemService;
-        private readonly IUserTransactionService _posTransactionService;
+        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemTransactionService _itemTransactionService;
 
         #region Constructor
-        public SummaryForm(IDailyTransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
-            ISoldItemService posSoldItemService, IUserTransactionService posTransactionService,
+        public SummaryForm(IDailyTransactionService transactionService, IFiscalYearService fiscalYearService,
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
             IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
 
             _transactionService = transactionService;
-            _fiscalYearDetailService = fiscalYearDetailService;
-            _posSoldItemService = posSoldItemService;
-            _posTransactionService = posTransactionService;
+            _fiscalYearService = fiscalYearService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
             _bankTransactionService = bankTransactionService;
             _itemTransactionService = itemTransactionService;
         }
@@ -40,8 +40,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
-            TransactionForm transactionForm = new TransactionForm(_transactionService, _fiscalYearDetailService, 
-                _posSoldItemService, _posTransactionService,
+            TransactionForm transactionForm = new TransactionForm(_transactionService, _fiscalYearService, 
+                _soldItemService, _userTransactionService,
                 _bankTransactionService, _itemTransactionService);
             transactionForm.Show();
         }
@@ -51,15 +51,15 @@ namespace GrocerySupplyManagementApp.Forms
             decimal defaultValue = 0.0m;
             RichOpeningBalanceCash.Text = defaultValue.ToString();
             RichOpeningBalanceCredit.Text = defaultValue.ToString();
-            RichSalesCash.Text = _posTransactionService.GetTotalBalance(Constants.SALES, Constants.CASH).ToString();
-            RichSalesCredit.Text = _posTransactionService.GetTotalBalance(Constants.SALES, Constants.CREDIT).ToString();
-            RichReceiptCash.Text = _posTransactionService.GetTotalBalance(Constants.RECEIPT, Constants.CASH).ToString();
-            RichReceiptCheque.Text = _posTransactionService.GetTotalBalance(Constants.RECEIPT, Constants.CHEQUE).ToString();
-            RichPaymentCash.Text = (_posTransactionService.GetTotalBalance(Constants.PAYMENT, Constants.CASH) +
-                _posTransactionService.GetTotalBalance(Constants.EXPENSE, Constants.CASH) +
-                _posTransactionService.GetTotalBalance(Constants.TRANSFER, Constants.CASH)).ToString();
-            RichPaymentCheque.Text = (_posTransactionService.GetTotalBalance(Constants.PAYMENT, Constants.CHEQUE) +
-                _posTransactionService.GetTotalBalance(Constants.EXPENSE, Constants.CHEQUE)).ToString();
+            RichSalesCash.Text = _userTransactionService.GetTotalBalance(Constants.SALES, Constants.CASH).ToString();
+            RichSalesCredit.Text = _userTransactionService.GetTotalBalance(Constants.SALES, Constants.CREDIT).ToString();
+            RichReceiptCash.Text = _userTransactionService.GetTotalBalance(Constants.RECEIPT, Constants.CASH).ToString();
+            RichReceiptCheque.Text = _userTransactionService.GetTotalBalance(Constants.RECEIPT, Constants.CHEQUE).ToString();
+            RichPaymentCash.Text = (_userTransactionService.GetTotalBalance(Constants.PAYMENT, Constants.CASH) +
+                _userTransactionService.GetTotalBalance(Constants.EXPENSE, Constants.CASH) +
+                _userTransactionService.GetTotalBalance(Constants.TRANSFER, Constants.CASH)).ToString();
+            RichPaymentCheque.Text = (_userTransactionService.GetTotalBalance(Constants.PAYMENT, Constants.CHEQUE) +
+                _userTransactionService.GetTotalBalance(Constants.EXPENSE, Constants.CHEQUE)).ToString();
             RichBalanceCash.Text = (Convert.ToDecimal(RichSalesCash.Text) + Convert.ToDecimal(RichReceiptCash.Text) - Convert.ToDecimal(RichPaymentCash.Text)).ToString();
             RichBalanceCredit.Text = (Convert.ToDecimal(RichOpeningBalanceCredit.Text) + Convert.ToDecimal(RichSalesCredit.Text)).ToString();
         }

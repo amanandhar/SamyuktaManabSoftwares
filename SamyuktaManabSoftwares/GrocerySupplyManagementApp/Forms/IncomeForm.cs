@@ -1,0 +1,267 @@
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace GrocerySupplyManagementApp.Forms
+{
+    public partial class IncomeForm : Form
+    {
+        private readonly IFiscalYearService _fiscalYearService;
+        private readonly IIncomeDetailService _incomeDetailService;
+        private readonly IUserTransactionService _userTransactionService;
+        private readonly IBankService _bankService;
+        private readonly IBankTransactionService _bankTransactionService;
+
+        #region Constructor
+        public IncomeForm(IFiscalYearService fiscalYearService, IIncomeDetailService incomeDetailService,
+            IUserTransactionService userTransactionService, IBankService bankService,
+            IBankTransactionService bankTransactionService)
+        {
+            InitializeComponent();
+
+            _fiscalYearService = fiscalYearService;
+            _incomeDetailService = incomeDetailService;
+            _userTransactionService = userTransactionService;
+            _bankService = bankService;
+            _bankTransactionService = bankTransactionService;
+        }
+        #endregion
+
+        #region Form Load Event
+        private void IncomeDetailForm_Load(object sender, EventArgs e)
+        {
+            LoadBanks();
+        }
+        #endregion
+
+        #region Button Click Event
+        private void BtnShow_Click(object sender, EventArgs e)
+        {
+            var filter = ComboFilter.Text;
+            if(string.IsNullOrWhiteSpace(filter))
+            {
+                LoadIncomeDetails();
+            }
+            else
+            {
+                LoadIncomeDetails(filter);
+            }
+        }
+
+        private void BtnAddIncome_Click(object sender, EventArgs e)
+        {
+            var userTransaction = new UserTransaction
+            {
+                EndOfDate = _fiscalYearService.GetFiscalYear().StartingDate,
+                Action = Constants.RECEIPT,
+                ActionType = Constants.CHEQUE,
+                Bank = ComboBank.Text,
+                IncomeExpense = ComboAddIncome.Text,
+                SubTotal = 0.0m,
+                DiscountPercent = 0.0m,
+                Discount = 0.0m,
+                VatPercent = 0.0m,
+                Vat = 0.0m,
+                DeliveryChargePercent = 0.0m,
+                DeliveryCharge = 0.0m,
+                DueAmount = 0.0m,
+                ReceivedAmount = Convert.ToDecimal(RichAddAmount.Text),
+                Date = DateTime.Now
+            };
+
+            if(_userTransactionService.AddUserTransaction(userTransaction) != null)
+            {
+                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                var bankTransaction = new BankTransaction
+                {
+                    EndOfDate = _fiscalYearService.GetFiscalYear().StartingDate,
+                    BankId = Convert.ToInt64(selectedItem.Id),
+                    TransactionId = lastUserTransaction.Id,
+                    Action = '1',
+                    Debit = Convert.ToDecimal(RichAddAmount.Text),
+                    Credit = 0.0m,
+                    Narration = ComboAddIncome.Text,
+                    Date = DateTime.Now
+                };
+
+                _bankTransactionService.AddBankTransaction(bankTransaction);
+            }
+
+            DialogResult result = MessageBox.Show(ComboAddIncome.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+            if (result == DialogResult.OK)
+            {
+                ClearAllFields();
+                LoadIncomeDetails();
+            }
+        }
+
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridIncomeList.SelectedRows.Count == 1)
+                {
+                    var selectedRow = DataGridIncomeList.SelectedRows[0];
+                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    if(_userTransactionService.DeleteUserTransaction(id))
+                    {
+                        if(_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
+                        {
+                            DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            if (result == DialogResult.OK)
+                            {
+                                ClearAllFields();
+                                LoadIncomeDetails();
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region Combo Box Event
+        private void ComboFilter_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ComboFilter.Text))
+            {
+                RadioAll.Checked = false;
+            }
+            else
+            {
+                RadioAll.Checked = true;
+            }
+        }
+        #endregion
+
+        #region Mask Textbox Event
+        private void MaskDateFrom_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region DataGrid Event 
+        private void DataGridIncomeView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridIncomeList.Columns["Id"].Visible = false;
+
+            DataGridIncomeList.Columns["EndOfDate"].HeaderText = "Date";
+            DataGridIncomeList.Columns["EndOfDate"].Width = 75;
+            DataGridIncomeList.Columns["EndOfDate"].DisplayIndex = 0;
+            DataGridIncomeList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+
+            DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
+            DataGridIncomeList.Columns["InvoiceNo"].Width = 100;
+            DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 1;
+
+            DataGridIncomeList.Columns["ItemCode"].HeaderText = "Code";
+            DataGridIncomeList.Columns["ItemCode"].Width = 80;
+            DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 2;
+
+            DataGridIncomeList.Columns["ItemName"].HeaderText = "Name";
+            DataGridIncomeList.Columns["ItemName"].Width = 200;
+            DataGridIncomeList.Columns["ItemName"].DisplayIndex = 3;
+
+            DataGridIncomeList.Columns["ItemBrand"].HeaderText = "Brand";
+            DataGridIncomeList.Columns["ItemBrand"].Width = 200;
+            DataGridIncomeList.Columns["ItemBrand"].DisplayIndex = 4;
+
+            DataGridIncomeList.Columns["Quantity"].HeaderText = "Quantity";
+            DataGridIncomeList.Columns["Quantity"].Width = 80;
+            DataGridIncomeList.Columns["Quantity"].DisplayIndex = 5;
+            DataGridIncomeList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridIncomeList.Columns["ProfitAmount"].HeaderText = "Profit";
+            DataGridIncomeList.Columns["ProfitAmount"].Width = 90;
+            DataGridIncomeList.Columns["ProfitAmount"].DisplayIndex = 6;
+            DataGridIncomeList.Columns["ProfitAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridIncomeList.Columns["Total"].HeaderText = "Total";
+            DataGridIncomeList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridIncomeList.Columns["Total"].DisplayIndex = 7;
+            DataGridIncomeList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridIncomeList.Rows)
+            {
+                DataGridIncomeList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridIncomeList.RowHeadersWidth = 50;
+                DataGridIncomeList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadIncomeDetails(string type = null)
+        {
+            List<IncomeDetailView> incomeDetails;
+
+            if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetDeliveryCharge().ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.MEMBER_FEE.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetMemberFee().ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.OTHER_INCOME.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetOtherIncome().ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
+            {
+                incomeDetails = _incomeDetailService.GetSalesProfit().ToList();
+            }
+            else
+            {
+                incomeDetails = _incomeDetailService.GetDeliveryCharge().ToList();
+                incomeDetails.AddRange(_incomeDetailService.GetMemberFee().ToList());
+                incomeDetails.AddRange(_incomeDetailService.GetOtherIncome().ToList());
+                incomeDetails.AddRange(_incomeDetailService.GetSalesProfit().ToList());
+            }
+
+            TxtAmount.Text = (incomeDetails.Sum(x => x.Total)).ToString();
+
+            var bindingList = new BindingList<IncomeDetailView>(incomeDetails);
+            var source = new BindingSource(bindingList, null);
+            DataGridIncomeList.DataSource = source;
+        }
+
+        private void ClearAllFields()
+        {
+            ComboAddIncome.Text = string.Empty;
+            RichAddAmount.Clear();
+            ComboBank.Text = string.Empty;
+        }
+
+        private void LoadBanks()
+        {
+            var banks = _bankService.GetBanks().ToList();
+            if (banks.Count > 0)
+            {
+                ComboBank.ValueMember = "Id";
+                ComboBank.DisplayMember = "Value";
+
+                banks.OrderBy(x => x.Name).ToList().ForEach(x =>
+                {
+                    ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
+                });
+            }
+        }
+        #endregion
+    }
+}

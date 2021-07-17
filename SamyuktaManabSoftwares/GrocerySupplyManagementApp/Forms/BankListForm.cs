@@ -10,15 +10,15 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BankListForm : Form
     {
-        private readonly IBankDetailService _bankDetailService;
+        private readonly IBankService _bankService;
         private IBankListForm _bankListForm;
 
         #region Constructor
-        public BankListForm(IBankDetailService bankDetailService, IBankListForm bankListForm)
+        public BankListForm(IBankService bankService, IBankListForm bankListForm)
         {
             InitializeComponent();
 
-            _bankDetailService = bankDetailService;
+            _bankService = bankService;
             _bankListForm = bankListForm;
         }
         #endregion
@@ -26,11 +26,11 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void BankListForm_Load(object sender, EventArgs e)
         {
-            var bankDetails = _bankDetailService.GetBankDetails();
+            var banks = _bankService.GetBanks();
 
-            var bindingList = new BindingList<Bank>(bankDetails.ToList());
+            var bindingList = new BindingList<Bank>(banks.ToList());
             var source = new BindingSource(bindingList, null);
-            DataGridBankDetails.DataSource = source;
+            DataGridBankList.DataSource = source;
         }
         #endregion
 
@@ -53,23 +53,24 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void DataGridBankDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            DataGridBankDetails.Columns["Id"].Visible = false;
+            DataGridBankList.Columns["Id"].Visible = false;
 
             //Add Columns
-            DataGridBankDetails.Columns["Name"].HeaderText = "Bank Name";
-            DataGridBankDetails.Columns["Name"].Width = 250;
-            DataGridBankDetails.Columns["Name"].DisplayIndex = 0;
+            DataGridBankList.Columns["Name"].HeaderText = "Bank Name";
+            DataGridBankList.Columns["Name"].Width = 250;
+            DataGridBankList.Columns["Name"].DisplayIndex = 0;
 
-            DataGridBankDetails.Columns["AccountNo"].HeaderText = "Account No";
-            DataGridBankDetails.Columns["AccountNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridBankDetails.Columns["AccountNo"].DisplayIndex = 1;
+            DataGridBankList.Columns["AccountNo"].HeaderText = "Account No";
+            DataGridBankList.Columns["AccountNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridBankList.Columns["AccountNo"].DisplayIndex = 1;
 
-            DataGridBankDetails.Columns["Date"].Visible = false;
+            DataGridBankList.Columns["Date"].Visible = false;
 
-            foreach (DataGridViewRow row in DataGridBankDetails.Rows)
+            foreach (DataGridViewRow row in DataGridBankList.Rows)
             {
-                DataGridBankDetails.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridBankDetails.RowHeadersWidth = 50;
+                DataGridBankList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridBankList.RowHeadersWidth = 50;
+                DataGridBankList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
         #endregion

@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -9,71 +10,71 @@ namespace GrocerySupplyManagementApp.Services
 {
     public class UserTransactionService : IUserTransactionService
     {
-        private readonly IUserTransactionRepository _posTransactionRepository;
-        private readonly IFiscalYearDetailRepository _fiscalYearDetailRepository;
+        private readonly IUserTransactionRepository _userTransactionRepository;
+        private readonly IFiscalYearRepository _fiscalYearRepository;
 
-        public UserTransactionService(IUserTransactionRepository posTransactionRepository, IFiscalYearDetailRepository fiscalYearDetailRepository)
+        public UserTransactionService(IUserTransactionRepository userTransactionRepository, IFiscalYearRepository fiscalYearRepository)
         {
-            _posTransactionRepository = posTransactionRepository;
-            _fiscalYearDetailRepository = fiscalYearDetailRepository;
+            _userTransactionRepository = userTransactionRepository;
+            _fiscalYearRepository = fiscalYearRepository;
         }
 
-        public IEnumerable<UserTransaction> GetPosTransactions()
+        public IEnumerable<UserTransaction> GetUserTransactions()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserTransaction> GetPosTransactions(string memberId)
+        public IEnumerable<UserTransaction> GetUserTransactions(string memberId)
         {
-            return _posTransactionRepository.GetPosTransactions(memberId);
+            return _userTransactionRepository.GetUserTransactions(memberId);
         }
 
         public IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId)
         {
-            return _posTransactionRepository.GetMemberTransactions(memberId);
+            return _userTransactionRepository.GetMemberTransactions(memberId);
         }
 
         public IEnumerable<SupplierTransactionView> GetSupplierTransactions(string supplierId)
         {
-            return _posTransactionRepository.GetSupplierTransactions(supplierId);
+            return _userTransactionRepository.GetSupplierTransactions(supplierId);
         }
 
         public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter)
         {
-            return _posTransactionRepository.GetExpenseTransactions(filter);
+            return _userTransactionRepository.GetExpenseTransactions(filter);
         }
 
-        public UserTransaction GetPosTransaction(long posTransactionId)
+        public UserTransaction GetUserTransaction(long userTransactionId)
         {
             throw new NotImplementedException();
         }
         
-        public UserTransaction GetPosTransaction(string invoiceNo)
+        public UserTransaction GetUserTransaction(string invoiceNo)
         {
-            return _posTransactionRepository.GetPosTransaction(invoiceNo);
+            return _userTransactionRepository.GetUserTransaction(invoiceNo);
         }
 
-        public UserTransaction GetLastPosTransaction(string option)
+        public UserTransaction GetLastUserTransaction(string option)
         {
-            return _posTransactionRepository.GetLastPosTransaction(option);
+            return _userTransactionRepository.GetLastUserTransaction(option);
         }
 
-        public UserTransaction AddPosTransaction(UserTransaction posTransaction)
+        public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
-            return _posTransactionRepository.AddPosTransaction(posTransaction);
+            return _userTransactionRepository.AddUserTransaction(userTransaction);
         }
 
-        public UserTransaction UpdatePosTransaction(long posTransactionId, UserTransaction posTransaction)
+        public UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeletePosTransaction(long id)
+        public bool DeleteUserTransaction(long id)
         {
-            return _posTransactionRepository.DeletePosTransaction(id);
+            return _userTransactionRepository.DeleteUserTransaction(id);
         }
 
-        public bool DeleteSupplierInvoice(long posTransactionId)
+        public bool DeleteSupplierInvoice(long userTransactionId)
         {
             throw new NotImplementedException();
         }
@@ -83,11 +84,11 @@ namespace GrocerySupplyManagementApp.Services
             string invoiceNo;
             try
             {
-                var lastInvoiceNo = _posTransactionRepository.GetLastInvoiceNo();
+                var lastInvoiceNo = _userTransactionRepository.GetLastInvoiceNo();
                 if (string.IsNullOrWhiteSpace(lastInvoiceNo))
                 {
-                    var fiscalYearDetail = _fiscalYearDetailRepository.GetFiscalYearDetail();
-                    invoiceNo = fiscalYearDetail.InvoiceNo;
+                    var fiscalYear = _fiscalYearRepository.GetFiscalYear();
+                    invoiceNo = fiscalYear.InvoiceNo;
                 }
                 else
                 {
@@ -115,37 +116,37 @@ namespace GrocerySupplyManagementApp.Services
         
         public decimal GetMemberTotalBalance()
         {
-            return _posTransactionRepository.GetMemberTotalBalance();
+            return _userTransactionRepository.GetMemberTotalBalance();
         }
 
         public decimal GetMemberTotalBalance(string memberId)
         {
-            return _posTransactionRepository.GetMemberTotalBalance(memberId);
+            return _userTransactionRepository.GetMemberTotalBalance(memberId);
         }
 
         public decimal GetSupplierTotalBalance()
         {
-            return _posTransactionRepository.GetSupplierTotalBalance();
+            return _userTransactionRepository.GetSupplierTotalBalance();
         }
 
         public decimal GetSupplierTotalBalance(string supplierId)
         {
-            return _posTransactionRepository.GetSupplierTotalBalance(supplierId);
+            return _userTransactionRepository.GetSupplierTotalBalance(supplierId);
         }
 
         public decimal GetCashInHand()
         {
-            return _posTransactionRepository.GetCashInHand();
+            return _userTransactionRepository.GetCashInHand();
         }
 
         public decimal GetTotalBalance(string action, string actionType)
         {
-            return _posTransactionRepository.GetTotalBalance(action, actionType);
+            return _userTransactionRepository.GetTotalBalance(action, actionType);
         }
 
         public decimal GetTotalExpense(string expense)
         {
-            return _posTransactionRepository.GetTotalExpense(expense);
+            return _userTransactionRepository.GetTotalExpense(expense);
         }
     }
 }

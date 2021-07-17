@@ -1,17 +1,17 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services.Interfaces
 {
     public interface ISoldItemService
     {
-        IEnumerable<SoldItem> GetPosSoldItems();
-        SoldItem GetPosSoldItem(long posSoldItemId);
-        SoldItem AddPosSoldItem(SoldItem posSoldItem);
-        SoldItem UpdatePosSoldItem(long posSoldItemId, SoldItem posSoldItem);
-        bool DeleteSupplierTransaction(long posSoldItemId);
-        bool DeletePosSoldItem(string invoiceNo);
-        IEnumerable<SoldItemView> GetPosSoldItemGrid(string invoiceNo);
+        IEnumerable<SoldItem> GetSoldItems();
+        SoldItem GetSoldItem(long soldItemId);
+        SoldItem AddSoldItem(SoldItem soldItem);
+        SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem);
+        bool DeleteSupplierTransaction(long soldItemId);
+        bool DeleteSoldItem(string invoiceNo);
+        IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo);
     }
 }

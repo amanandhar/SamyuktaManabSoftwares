@@ -5,6 +5,7 @@ namespace GrocerySupplyManagementApp.Entities
     public class BankTransaction
     {
         public long Id { get; set; } 
+        public DateTime EndOfDate { get; set; }
         public long BankId { get; set; }
         public long TransactionId { get; set; }
         public char Action { get; set; }

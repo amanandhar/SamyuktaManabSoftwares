@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBalance = new System.Windows.Forms.TextBox();
             this.linkLabel22 = new System.Windows.Forms.LinkLabel();
             this.RichAccNo = new System.Windows.Forms.RichTextBox();
-            this.DataGridPosSoldItemList = new System.Windows.Forms.DataGridView();
+            this.DataGridSoldItemList = new System.Windows.Forms.DataGridView();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridPosSoldItemList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridSoldItemList)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnTransaction
@@ -1128,9 +1128,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAccNo.TabIndex = 24;
             this.RichAccNo.Text = "";
             // 
-            // DataGridPosSoldItemList
+            // DataGridSoldItemList
             // 
-            this.DataGridPosSoldItemList.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataGridSoldItemList.BackgroundColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1138,8 +1138,8 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridPosSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridPosSoldItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridSoldItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1147,9 +1147,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridPosSoldItemList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridPosSoldItemList.Location = new System.Drawing.Point(19, 263);
-            this.DataGridPosSoldItemList.Name = "DataGridPosSoldItemList";
+            this.DataGridSoldItemList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridSoldItemList.Location = new System.Drawing.Point(19, 263);
+            this.DataGridSoldItemList.Name = "DataGridSoldItemList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1157,10 +1157,10 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridPosSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridPosSoldItemList.Size = new System.Drawing.Size(835, 310);
-            this.DataGridPosSoldItemList.TabIndex = 31;
-            this.DataGridPosSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
+            this.DataGridSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DataGridSoldItemList.Size = new System.Drawing.Size(835, 310);
+            this.DataGridSoldItemList.TabIndex = 31;
+            this.DataGridSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
             // 
             // PosForm
             // 
@@ -1168,7 +1168,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1354, 634);
-            this.Controls.Add(this.DataGridPosSoldItemList);
+            this.Controls.Add(this.DataGridSoldItemList);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox5);
@@ -1190,7 +1190,7 @@ namespace GrocerySupplyManagementApp.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridPosSoldItemList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridSoldItemList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1251,7 +1251,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.LinkLabel linkLabel21;
         private System.Windows.Forms.LinkLabel linkLabel22;
         private System.Windows.Forms.RichTextBox RichAccNo;
-        private System.Windows.Forms.DataGridView DataGridPosSoldItemList;
+        private System.Windows.Forms.DataGridView DataGridSoldItemList;
         private System.Windows.Forms.RichTextBox RichTextDeliveryChargePercent;
         private System.Windows.Forms.RadioButton RadioBtnCredit;
         private System.Windows.Forms.RadioButton RadioBtnCash;

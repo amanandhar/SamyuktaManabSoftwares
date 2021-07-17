@@ -1,14 +1,17 @@
-﻿namespace GrocerySupplyManagementApp.Entities
+﻿using System;
+
+namespace GrocerySupplyManagementApp.Entities
 {
     public class SoldItem
     {
         public long Id { get; set; }
+        public DateTime EndOfDate { get; set; }
+        public string MemberId { get; set; }
         public string InvoiceNo { get; set; }
-        public string ItemCode { get; set; }
-        public string ItemName { get; set; }
-        public string ItemBrand { get; set; }
+        public long ItemId { get; set; }
         public string Unit { get; set; }
+        public long Quantity { get; set; }
         public decimal Price { get; set; }
-        public decimal Quantity { get; set; }
+        public DateTime Date { get; set; }
     }
 }

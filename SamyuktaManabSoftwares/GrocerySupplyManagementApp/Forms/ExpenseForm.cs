@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,20 +13,20 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ExpenseForm : Form
     {
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IBankDetailService _bankDetailService;
+        private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
 
         #region Constructor
-        public ExpenseForm(IFiscalYearDetailService fiscalYearDetailService, IUserTransactionService posTransactionService,
-            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
+        public ExpenseForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService,
+            IBankService bankService, IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
 
-            _fiscalYearDetailService = fiscalYearDetailService;
-            _userTransactionService = posTransactionService;
-            _bankDetailService = bankDetailService;
+            _fiscalYearService = fiscalYearService;
+            _userTransactionService = userTransactionService;
+            _bankService = bankService;
             _bankTransactionService = bankTransactionService;
         }
         #endregion
@@ -37,7 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Button Click
+        #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
             var expenseTransactionFilter = new ExpenseTransactionFilter
@@ -54,10 +55,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
+                var fiscalYearDetail = _fiscalYearService.GetFiscalYear();
                 var posTransaction = new UserTransaction
                 {
-                    InvoiceDate = fiscalYearDetail.StartingDate,
+                    EndOfDate = fiscalYearDetail.StartingDate,
                     Action = Constants.EXPENSE,
                     ActionType = ComboPayment.Text,
                     Bank = ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower() ? ComboBank.Text : null,
@@ -69,21 +70,22 @@ namespace GrocerySupplyManagementApp.Forms
                     Vat = 0.0m,
                     DeliveryChargePercent = 0.0m,
                     DeliveryCharge = 0.0m,
-                    TotalAmount = Convert.ToDecimal(RichAmount.Text),
+                    DueAmount = Convert.ToDecimal(RichAmount.Text),
                     ReceivedAmount = 0.0m,
                     Date = DateTime.Now
                 };
-                _userTransactionService.AddPosTransaction(posTransaction);
+                _userTransactionService.AddUserTransaction(posTransaction);
 
                 if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                 {
-                    var lastPosTransaction = _userTransactionService.GetLastPosTransaction(string.Empty);
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
+                        EndOfDate = fiscalYearDetail.StartingDate,
                         BankId = Convert.ToInt64(selectedItem.Id),
-                        TransactionId = lastPosTransaction.Id,
+                        TransactionId = lastUserTransaction.Id,
                         Action = '0',
                         Debit = 0.0m,
                         Credit = Convert.ToDecimal(RichAmount.Text),
@@ -113,10 +115,11 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DataGridExpenseList.SelectedRows.Count == 1)
                 {
-                    var id = Convert.ToInt64(DataGridExpenseList.SelectedCells[0].Value.ToString());
-                    if (_userTransactionService.DeletePosTransaction(id))
+                    var selectedRow = DataGridExpenseList.SelectedRows[0];
+                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    if (_userTransactionService.DeleteUserTransaction(id))
                     {
-                        if (_bankTransactionService.DeleteBankTransactionByTransactionId(id))
+                        if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
                         {
                             DialogResult result = MessageBox.Show("Expense has been deleted successfully.", "Message", MessageBoxButtons.OK);
                             if (result == DialogResult.OK)
@@ -133,6 +136,95 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+        #endregion
+
+        #region Combo Box Event
+        private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selectedPayment = ComboPayment.Text;
+            if (!string.IsNullOrWhiteSpace(selectedPayment))
+            {
+                if (selectedPayment.ToLower() == Constants.CHEQUE.ToLower())
+                {
+                    var banks = _bankService.GetBanks().ToList();
+                    if (banks.Count > 0)
+                    {
+                        ComboBank.ValueMember = "Id";
+                        ComboBank.DisplayMember = "Value";
+                        banks.OrderBy(x => x.Name).ToList().ForEach(x =>
+                        {
+                            ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
+                        });
+
+                        ComboBank.Enabled = true;
+                        RichAmount.Enabled = true;
+                        ComboBank.Focus();
+                    }
+                }
+                else
+                {
+                    ComboBank.Enabled = false;
+                    RichAmount.Enabled = true;
+                    RichAmount.Focus();
+                }
+            }
+        }
+        #endregion
+
+        #region Radio Button Event
+        private void RadioAll_CheckedChanged(object sender, EventArgs e)
+        {
+            MaskDateFrom.Clear();
+            MaskDateTo.Clear();
+            ComboFilteredBy.Text = string.Empty;
+        }
+        #endregion
+
+        #region Data Grid Event
+        private void DataGridExpenseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridExpenseList.Columns["Id"].Visible = false;
+
+            DataGridExpenseList.Columns["EndOfDate"].HeaderText = "Date";
+            DataGridExpenseList.Columns["EndOfDate"].Width = 100;
+            DataGridExpenseList.Columns["EndOfDate"].DisplayIndex = 0;
+            DataGridExpenseList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+
+            DataGridExpenseList.Columns["Action"].HeaderText = "Description";
+            DataGridExpenseList.Columns["Action"].Width = 100;
+            DataGridExpenseList.Columns["Action"].DisplayIndex = 1;
+
+            DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
+            DataGridExpenseList.Columns["ActionType"].Width = 200;
+            DataGridExpenseList.Columns["ActionType"].DisplayIndex = 2;
+
+            DataGridExpenseList.Columns["Expense"].HeaderText = "Expense";
+            DataGridExpenseList.Columns["Expense"].Width = 100;
+            DataGridExpenseList.Columns["Expense"].DisplayIndex = 3;
+
+            DataGridExpenseList.Columns["DueAmount"].HeaderText = "Debit";
+            DataGridExpenseList.Columns["DueAmount"].Width = 100;
+            DataGridExpenseList.Columns["DueAmount"].DisplayIndex = 4;
+            DataGridExpenseList.Columns["DueAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridExpenseList.Columns["ReceivedAmount"].HeaderText = "Credit";
+            DataGridExpenseList.Columns["ReceivedAmount"].Width = 100;
+            DataGridExpenseList.Columns["ReceivedAmount"].DisplayIndex = 5;
+            DataGridExpenseList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridExpenseList.Columns["Balance"].HeaderText = "Balance";
+            DataGridExpenseList.Columns["Balance"].DisplayIndex = 6;
+            DataGridExpenseList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridExpenseList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridExpenseList.Rows)
+            {
+                DataGridExpenseList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridExpenseList.RowHeadersWidth = 50;
+                DataGridExpenseList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+
         #endregion
 
         #region Helper Methods
@@ -156,98 +248,12 @@ namespace GrocerySupplyManagementApp.Forms
                 var source = new BindingSource(bindingList, null);
                 DataGridExpenseList.DataSource = source;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
         #endregion
-
-        #region Data Grid Events
-        private void DataGridExpenseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            DataGridExpenseList.Columns["Id"].Visible = false;
-
-            DataGridExpenseList.Columns["InvoiceDate"].HeaderText = "Date";
-            DataGridExpenseList.Columns["InvoiceDate"].Width = 100;
-            DataGridExpenseList.Columns["InvoiceDate"].DisplayIndex = 1;
-            DataGridExpenseList.Columns["InvoiceDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
-
-            DataGridExpenseList.Columns["Action"].HeaderText = "Particulars";
-            DataGridExpenseList.Columns["Action"].Width = 100;
-            DataGridExpenseList.Columns["Action"].DisplayIndex = 2;
-
-            DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
-            DataGridExpenseList.Columns["ActionType"].Width = 200;
-            DataGridExpenseList.Columns["ActionType"].DisplayIndex = 3;
-
-            DataGridExpenseList.Columns["Expense"].HeaderText = "Expense";
-            DataGridExpenseList.Columns["Expense"].Width = 100;
-            DataGridExpenseList.Columns["Expense"].DisplayIndex = 4;
-
-            DataGridExpenseList.Columns["TotalAmount"].HeaderText = "Debit";
-            DataGridExpenseList.Columns["TotalAmount"].Width = 100;
-            DataGridExpenseList.Columns["TotalAmount"].DisplayIndex = 5;
-
-            DataGridExpenseList.Columns["ReceivedAmount"].HeaderText = "Credit";
-            DataGridExpenseList.Columns["ReceivedAmount"].Width = 100;
-            DataGridExpenseList.Columns["ReceivedAmount"].DisplayIndex = 6;
-
-            DataGridExpenseList.Columns["Balance"].HeaderText = "Balance";
-            DataGridExpenseList.Columns["Balance"].DisplayIndex = 7;
-            DataGridExpenseList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            foreach (DataGridViewRow row in DataGridExpenseList.Rows)
-            {
-                DataGridExpenseList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridExpenseList.RowHeadersWidth = 50;
-            }
-        }
-
-        #endregion
-
-        #region Combo Box Events
-        private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var selectedPayment = ComboPayment.Text;
-            if (!string.IsNullOrWhiteSpace(selectedPayment))
-            {
-                if (selectedPayment.ToLower() == Constants.CHEQUE.ToLower())
-                {
-                    var bankDetails = _bankDetailService.GetBankDetails().ToList();
-                    if (bankDetails.Count > 0)
-                    {
-                        ComboBank.ValueMember = "Id";
-                        ComboBank.DisplayMember = "Value";
-                        bankDetails.OrderBy(x => x.Name).ToList().ForEach(x =>
-                        {
-                            ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
-                        });
-
-                        ComboBank.Enabled = true;
-                        RichAmount.Enabled = true;
-                        ComboBank.Focus();
-                    }
-                }
-                else
-                {
-                    ComboBank.Enabled = false;
-                    RichAmount.Enabled = true;
-                    RichAmount.Focus();
-                }
-            }
-        }
-        #endregion
-
-        #region Radio Button Events
-        private void RadioAll_CheckedChanged(object sender, EventArgs e)
-        {
-            MaskDateFrom.Clear();
-            MaskDateTo.Clear();
-            ComboFilteredBy.Text = string.Empty;
-        }
-        #endregion
-
     }
 }

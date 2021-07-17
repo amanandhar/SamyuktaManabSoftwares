@@ -7,27 +7,27 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class FiscalYearForm : Form
     {
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
+        private readonly IFiscalYearService _fiscalYearService;
 
         #region Constructor
-        public FiscalYearForm(IFiscalYearDetailService fiscalYearDetailService)
+        public FiscalYearForm(IFiscalYearService fiscalYearService)
         {
             InitializeComponent();
 
-            _fiscalYearDetailService = fiscalYearDetailService;
+            _fiscalYearService = fiscalYearService;
         }
         #endregion
 
         #region Form Load Event
         private void FiscalYearForm_Load(object sender, EventArgs e)
         {
-            var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
-            if(fiscalYearDetail != null)
+            var fiscalYear = _fiscalYearService.GetFiscalYear();
+            if(fiscalYear != null)
             {
-                RichInvoiceNo.Text = fiscalYearDetail.InvoiceNo;
-                RichBillNo.Text = fiscalYearDetail.BillNo;
-                RichCompanyStartingDate.Text = fiscalYearDetail.StartingDate.ToString();
-                RichFiscalYear.Text = fiscalYearDetail.Year;
+                RichInvoiceNo.Text = fiscalYear.InvoiceNo;
+                RichBillNo.Text = fiscalYear.BillNo;
+                RichCompanyStartingDate.Text = fiscalYear.StartingDate.ToString();
+                RichFiscalYear.Text = fiscalYear.Year;
             }           
         }
         #endregion
@@ -52,7 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 var truncate = true;
-                _fiscalYearDetailService.AddFiscalYearDetail(fiscalYear, truncate);
+                _fiscalYearService.AddFiscalYear(fiscalYear, truncate);
 
                 DialogResult result = MessageBox.Show("Fiscal year detail has been saved successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)

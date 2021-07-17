@@ -1,6 +1,6 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Repositories.Interfaces;
+﻿using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services

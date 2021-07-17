@@ -39,15 +39,15 @@ namespace GrocerySupplyManagementApp.Forms
         #region Data Grid Event
         private void DataGridItemList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView dgv = sender as DataGridView;
-            if (dgv == null)
+            if (!(sender is DataGridView dgv))
             {
                 return;
             }
-                
-            if (dgv.CurrentRow.Selected)
+
+            if (dgv.SelectedRows.Count == 1)
             {
-                long itemId = Convert.ToInt64(dgv.CurrentRow.Cells["Id"].Value.ToString());
+                var selectedRow = dgv.SelectedRows[0];
+                long itemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                 _itemListForm.PopulateItem(itemId);
                 this.Close();
             }
@@ -55,10 +55,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            //Set Columns Count
             DataGridItemList.Columns["Id"].Visible = false;
 
-            //Add Columns
             DataGridItemList.Columns["Code"].HeaderText = "Code";
             DataGridItemList.Columns["Code"].Width = 100;
             DataGridItemList.Columns["Code"].DisplayIndex = 0;
@@ -75,6 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DataGridItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridItemList.RowHeadersWidth = 50;
+                DataGridItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
         #endregion

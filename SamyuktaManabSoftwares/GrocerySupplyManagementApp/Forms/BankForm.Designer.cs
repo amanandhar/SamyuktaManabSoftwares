@@ -61,14 +61,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.DataGridBankDetails = new System.Windows.Forms.DataGridView();
+            this.DataGridBankList = new System.Windows.Forms.DataGridView();
             this.BtnShowTransaction = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridBankDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridBankList)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -424,9 +424,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
             // 
-            // DataGridBankDetails
+            // DataGridBankList
             // 
-            this.DataGridBankDetails.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataGridBankList.BackgroundColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -434,8 +434,8 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridBankDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridBankDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridBankList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -443,12 +443,12 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridBankDetails.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridBankDetails.Location = new System.Drawing.Point(12, 122);
-            this.DataGridBankDetails.Name = "DataGridBankDetails";
-            this.DataGridBankDetails.Size = new System.Drawing.Size(870, 354);
-            this.DataGridBankDetails.TabIndex = 0;
-            this.DataGridBankDetails.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
+            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridBankList.Location = new System.Drawing.Point(12, 122);
+            this.DataGridBankList.Name = "DataGridBankList";
+            this.DataGridBankList.Size = new System.Drawing.Size(870, 354);
+            this.DataGridBankList.TabIndex = 0;
+            this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
             // 
             // BtnShowTransaction
             // 
@@ -492,7 +492,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.DataGridBankDetails);
+            this.Controls.Add(this.DataGridBankList);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBox5);
@@ -510,7 +510,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridBankDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridBankList)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -546,7 +546,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtBalance;
         private System.Windows.Forms.Button BtnDeleteTransaction;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.DataGridView DataGridBankDetails;
+        private System.Windows.Forms.DataGridView DataGridBankList;
         private System.Windows.Forms.Button BtnDeleteBank;
         private System.Windows.Forms.Button BtnShowTransaction;
         private System.Windows.Forms.ComboBox comboBox1;

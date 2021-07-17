@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,23 +12,23 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class TransactionForm : Form
     {
         private readonly IDailyTransactionService _transactionService;
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly ISoldItemService _posSoldItemService;
-        private readonly IUserTransactionService _posTransactionService;
+        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemTransactionService _itemTransactionService;
 
         #region Constructor
-        public TransactionForm(IDailyTransactionService transactionService, IFiscalYearDetailService fiscalYearDetailService,
-            ISoldItemService posSoldItemService, IUserTransactionService posTransactionService,
+        public TransactionForm(IDailyTransactionService transactionService, IFiscalYearService fiscalYearService,
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
             IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
 
             _transactionService = transactionService;
-            _fiscalYearDetailService = fiscalYearDetailService;
-            _posSoldItemService = posSoldItemService;
-            _posTransactionService = posTransactionService;
+            _fiscalYearService = fiscalYearService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
             _bankTransactionService = bankTransactionService;
             _itemTransactionService = itemTransactionService;
         }
@@ -36,8 +37,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void TransactionForm_Load(object sender, EventArgs e)
         {
-            var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
-            MaskDate.Text = fiscalYearDetail.StartingDate.ToString("yyyy/MM/dd");
+            var fiscalYear = _fiscalYearService.GetFiscalYear();
+            MaskDate.Text = fiscalYear.StartingDate.ToString("yyyy/MM/dd");
             MaskDate.Focus();
             EnableCombos(false);
         }
@@ -53,22 +54,46 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var id = Convert.ToInt64(DataGridTransactionList.SelectedCells[0].Value.ToString());
-                var billInvoiceNo = DataGridTransactionList.SelectedCells[5].Value.ToString();
-
-                if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith("BN"))
+                if (DataGridTransactionList.SelectedRows.Count == 1)
                 {
-                    var posTransaction = _posTransactionService.GetLastPosTransaction("BN");
+                    var selectedRow = DataGridTransactionList.SelectedRows[0];
+                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
+
+                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith("BN"))
                     {
-                        if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
+                        var posTransaction = _userTransactionService.GetLastUserTransaction("BN");
                         {
-                            _transactionService.DeleteTransactionGrids(id);
-                            _itemTransactionService.DeleteItemTransaction(billInvoiceNo);
-                            _bankTransactionService.DeleteBankTransactionByTransactionId(id);
+                            if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
+                            {
+                                _transactionService.DeleteUserTransaction(id);
+                                _itemTransactionService.DeleteItemTransaction(billInvoiceNo);
+                                _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
+                            }
+                            else
+                            {
+                                DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Message", MessageBoxButtons.OK);
+                                if (billResult == DialogResult.OK)
+                                {
+                                    LoadTransactions();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                    else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith("IN"))
+                    {
+                        var posTransaction = _userTransactionService.GetLastUserTransaction("IN");
+                        if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
+                        {
+                            _transactionService.DeleteUserTransaction(id);
+                            _soldItemService.DeleteSoldItem(billInvoiceNo);
+                            _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                         }
                         else
                         {
-                            DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Message", MessageBoxButtons.OK);
+                            DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Message", MessageBoxButtons.OK);
                             if (billResult == DialogResult.OK)
                             {
                                 LoadTransactions();
@@ -76,38 +101,18 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                         }
                     }
-                }
-                    
-                else if(!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith("IN"))
-                {
-                    var posTransaction = _posTransactionService.GetLastPosTransaction("IN");
-                    if(posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
-                    {
-                        _transactionService.DeleteTransactionGrids(id);
-                        _posSoldItemService.DeletePosSoldItem(billInvoiceNo);
-                        _bankTransactionService.DeleteBankTransactionByTransactionId(id);
-                    }
                     else
                     {
-                        DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Message", MessageBoxButtons.OK);
-                        if (billResult == DialogResult.OK)
-                        {
-                            LoadTransactions();
-                            return;
-                        }
+                        _transactionService.DeleteUserTransaction(id);
+                        _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                     }
-                }
-                else
-                {
-                    _transactionService.DeleteTransactionGrids(id);
-                    _bankTransactionService.DeleteBankTransactionByTransactionId(id);
-                }
-                
 
-                DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    LoadTransactions();
+
+                    DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        LoadTransactions();
+                    }
                 }
             }
             catch (Exception ex)
@@ -249,20 +254,21 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Data Grid Events
+        #region Data Grid Event
         private void DataGridTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridTransactionList.Columns["Id"].Visible = false;
 
-            DataGridTransactionList.Columns["InvoiceDate"].HeaderText = "Date";
-            DataGridTransactionList.Columns["InvoiceDate"].Width = 75;
-            DataGridTransactionList.Columns["InvoiceDate"].DisplayIndex = 0;
+            DataGridTransactionList.Columns["EndOfDate"].HeaderText = "Date";
+            DataGridTransactionList.Columns["EndOfDate"].Width = 75;
+            DataGridTransactionList.Columns["EndOfDate"].DisplayIndex = 0;
+            DataGridTransactionList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
 
             DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Member/Supplier";
             DataGridTransactionList.Columns["MemberSupplierId"].Width = 90;
             DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
 
-            DataGridTransactionList.Columns["Action"].HeaderText = "Particulars";
+            DataGridTransactionList.Columns["Action"].HeaderText = "Description";
             DataGridTransactionList.Columns["Action"].Width = 80;
             DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
 
@@ -285,26 +291,29 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Quantity"].HeaderText = "Quantity";
             DataGridTransactionList.Columns["Quantity"].Width = 65;
             DataGridTransactionList.Columns["Quantity"].DisplayIndex = 7;
+            DataGridTransactionList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridTransactionList.Columns["ItemPrice"].HeaderText = "Item Price";
             DataGridTransactionList.Columns["ItemPrice"].Width = 80;
             DataGridTransactionList.Columns["ItemPrice"].DisplayIndex = 8;
+            DataGridTransactionList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridTransactionList.Columns["Amount"].HeaderText = "Amount";
             DataGridTransactionList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridTransactionList.Columns["Amount"].DisplayIndex = 9;
+            DataGridTransactionList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridTransactionList.Rows)
             {
                 DataGridTransactionList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridTransactionList.RowHeadersWidth = 50;
+                DataGridTransactionList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
 
         #endregion
 
         #region Helper Methods
-
         private void ClearCombos()
         {
             ComboPurchase.Text = string.Empty;
@@ -403,15 +412,14 @@ namespace GrocerySupplyManagementApp.Forms
                 transactionFilter.isAll = true;
             }
 
-            List<TransactionView> transactions = _transactionService.GetTransactionGrids(transactionFilter).ToList();
-            TxtTotal.Text = transactions.Sum(x => x.Amount).ToString();
+            List<TransactionView> transactionViewList = _transactionService.GetTransactionViewList(transactionFilter).ToList();
+            TxtTotal.Text = transactionViewList.Sum(x => x.Amount).ToString();
             
-            var bindingList = new BindingList<TransactionView>(transactions);
+            var bindingList = new BindingList<TransactionView>(transactionViewList);
             var source = new BindingSource(bindingList, null);
             DataGridTransactionList.DataSource = source;
         }
 
         #endregion
-
     }
 }

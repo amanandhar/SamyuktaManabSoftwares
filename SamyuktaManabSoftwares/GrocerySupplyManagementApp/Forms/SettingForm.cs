@@ -6,17 +6,17 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SettingForm : Form
     {
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly ITaxDetailService _taxDetailService;
+        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ITaxService _taxService;
         private readonly IItemService _itemService;
 
         #region Constructor
-        public SettingForm(IFiscalYearDetailService fiscalYearDetailService, ITaxDetailService taxDetailService, IItemService itemService)
+        public SettingForm(IFiscalYearService fiscalYearService, ITaxService taxService, IItemService itemService)
         {
             InitializeComponent();
 
-            _fiscalYearDetailService = fiscalYearDetailService;
-            _taxDetailService = taxDetailService;
+            _fiscalYearService = fiscalYearService;
+            _taxService = taxService;
             _itemService = itemService;
         }
         #endregion
@@ -28,7 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Button Click Events
+        #region Button Click Event
         private void BtnCompanyInfo_Click(object sender, EventArgs e)
         {
             CompanyInfoForm companyEnfoForm = new CompanyInfoForm();
@@ -49,7 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnFiscalYearForm_Click(object sender, EventArgs e)
         {
-            FiscalYearForm fiscalYearForm = new FiscalYearForm(_fiscalYearDetailService);
+            FiscalYearForm fiscalYearForm = new FiscalYearForm(_fiscalYearService);
             fiscalYearForm.Show();
         }
 
@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnVatTaxSetup_Click(object sender, EventArgs e)
         {
-            TaxSetupForm taxSetupForm = new TaxSetupForm(_taxDetailService);
+            TaxSetupForm taxSetupForm = new TaxSetupForm(_taxService);
             taxSetupForm.Show();
         }
         #endregion

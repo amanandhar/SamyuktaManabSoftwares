@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
@@ -20,6 +21,26 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetBankTransactions();
         }
 
+        public BankTransaction GetBankTransaction(long id)
+        {
+            return _bankTransactionRepository.GetBankTransaction(id);
+        }
+
+        public BankTransaction AddBankTransaction(BankTransaction bankTransaction)
+        {
+            return _bankTransactionRepository.AddBankTransaction(bankTransaction);
+        }
+
+        public BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction)
+        {
+            return _bankTransactionRepository.UpdateBankTransaction(id, bankTransaction);
+        }
+
+        public bool DeleteBankTransaction(long id)
+        {
+            return _bankTransactionRepository.DeleteBankTransaction(id);
+        }
+
         public IEnumerable<BankTransaction> GetBankTransactions(long bankId)
         {
             return _bankTransactionRepository.GetBankTransactions(bankId);
@@ -30,44 +51,24 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetBankTransactionViews(bankId);
         }
 
-        public BankTransaction GetBankTransaction(long bankId)
+        public decimal GetTotalBalance()
         {
-            return _bankTransactionRepository.GetBankTransaction(bankId);
+            return _bankTransactionRepository.GetTotalBalance();
         }
 
-        public decimal GetBankBalance()
+        public decimal GetTotalBalance(long bankId)
         {
-            return _bankTransactionRepository.GetBankBalance();
+            return _bankTransactionRepository.GetTotalBalance(bankId);
         }
 
-        public decimal GetBankBalance(long bankId)
+        public decimal GetTotalDeposit(string incomeType)
         {
-            return _bankTransactionRepository.GetBankBalance(bankId);
+            return _bankTransactionRepository.GetTotalDeposit(incomeType);
         }
 
-        public decimal GetBankTotalDeposit(string incomeType)
+        public bool DeleteBankTransactionByUserTransaction(long userTransactionId)
         {
-            return _bankTransactionRepository.GetBankTotalDeposit(incomeType);
-        }
-
-        public BankTransaction AddBankTransaction(BankTransaction bankTransaction)
-        {
-            return _bankTransactionRepository.AddBankTransaction(bankTransaction);
-        }
-
-        public BankTransaction UpdateBankTransaction(long bankId, BankTransaction bankTransaction)
-        {
-            return _bankTransactionRepository.UpdateBankTransaction(bankId, bankTransaction);
-        }
-
-        public bool DeleteBankTransaction(long bankId)
-        {
-            return _bankTransactionRepository.DeleteBankTransaction(bankId);
-        }
-
-        public bool DeleteBankTransactionByTransactionId(long transactionId)
-        {
-            return _bankTransactionRepository.DeleteBankTransactionByTransactionId(transactionId);
+            return _bankTransactionRepository.DeleteBankTransactionByUserTransaction(userTransactionId);
         }
     }
 }

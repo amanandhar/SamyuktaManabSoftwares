@@ -20,9 +20,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var suppliers = new List<Supplier>();
             var query = @"SELECT " +
-                "* " +
+                "[Id], [Counter], [SupplierId], [Name], " +
+                "[Address], [ContactNo], [Email], [Owner], " +
+                "[Date] " +
                 "FROM " + Constants.TABLE_SUPPLIER + " " +
-                "ORDER BY SupplierId ";
+                "ORDER BY [SupplierId] ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -36,12 +38,15 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var supplier = new Supplier
                                 {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Counter = Convert.ToInt64(reader["Counter"].ToString()),
                                     SupplierId = reader["SupplierId"].ToString(),
                                     Name = reader["Name"].ToString(),
-                                    Owner = reader["Owner"].ToString(),
                                     Address = reader["Address"].ToString(),
-                                    ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString()),
-                                    Email = reader["Email"].ToString()
+                                    ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
+                                    Email = reader["Email"].ToString(),
+                                    Owner = reader["Owner"].ToString(),
+                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
                                 };
 
                                 suppliers.Add(supplier);
@@ -58,13 +63,15 @@ namespace GrocerySupplyManagementApp.Repositories
             return suppliers;
         }
 
-        public Supplier GetSupplier(string name)
+        public Supplier GetSupplier(string supplierId)
         {
             var query = @"SELECT " +
-                "* " +
+                "[Id], [Counter], [SupplierId], [Name], " +
+                "[Address], [ContactNo], [Email], [Owner], " +
+                "[Date] " +
                 "FROM " + Constants.TABLE_SUPPLIER + " " +
                 "WHERE 1 = 1 " +
-                "AND Name = @Name ";
+                "AND [SupplierId] = @SupplierId ";
             var supplier = new Supplier();
             try
             {
@@ -73,17 +80,20 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@SupplierId", supplierId);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
+                                supplier.Id = Convert.ToInt64(reader["Id"].ToString());
+                                supplier.Counter = Convert.ToInt64(reader["Counter"].ToString());
                                 supplier.SupplierId = reader["SupplierId"].ToString();
                                 supplier.Name = reader["Name"].ToString();
-                                supplier.Owner = reader["Owner"].ToString();
                                 supplier.Address = reader["Address"].ToString();
-                                supplier.ContactNumber = Convert.ToInt64(reader["ContactNumber"].ToString());
+                                supplier.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
                                 supplier.Email = reader["Email"].ToString();
+                                supplier.Owner = reader["Owner"].ToString();
+                                supplier.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
                     }
@@ -101,11 +111,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SUPPLIER + " " +
                     "( " +
-                        "SupplierId, Name, Owner, Address, ContactNumber, Email " +
+                        "[Counter], [SupplierId], [Name], [Address], [ContactNo], [Email], [Owner], [Date] " +
                     ") " +
                     "VALUES " +
                     "(  " +
-                        "@SupplierId, @Name, @Owner, @Address, @ContactNumber, @Email " +
+                        "@Counter, @SupplierId, @Name, @Address, @ContactNo, @Email, @Owner, @Date " +
                     ")";
 
             try
@@ -115,12 +125,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@Counter", supplier.Counter);
                         command.Parameters.AddWithValue("@SupplierId", supplier.SupplierId);
                         command.Parameters.AddWithValue("@Name", supplier.Name);
-                        command.Parameters.AddWithValue("@Owner", supplier.Owner);
                         command.Parameters.AddWithValue("@Address", supplier.Address);
-                        command.Parameters.AddWithValue("@ContactNumber", supplier.ContactNumber);
+                        command.Parameters.AddWithValue("@ContactNo", supplier.ContactNo);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
+                        command.Parameters.AddWithValue("@Owner", supplier.Owner);
+                        command.Parameters.AddWithValue("@Date", supplier.Date);
 
                         command.ExecuteNonQuery();
                     }
@@ -134,18 +146,18 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
-        public Supplier UpdateSupplier(string id, Supplier supplier)
+        public Supplier UpdateSupplier(string supplierId, Supplier supplier)
         {
             string query = @"UPDATE " + Constants.TABLE_SUPPLIER + " " +
                 "SET " +
-                "SupplierId = @SupplierId, " +
-                "Name = @Name, " +
-                "Owner = @Owner, " +
-                "Address = @Address, " +
-                "ContactNumber = @ContactNumber, " +
-                "Email = @Email " +
+                "[SupplierId] = @SupplierId, " +
+                "[Name] = @Name, " +
+                "[Address] = @Address, " +
+                "[ContactNo] = @ContactNo, " +
+                "[Email] = @Email, " +
+                "[Owner] = @Owner " +
                 "WHERE 1 = 1 " +
-                "AND SupplierId = @SupplierId ";
+                "AND [SupplierId] = @SupplierId ";
 
             try
             {
@@ -154,12 +166,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierId", id);
+                        command.Parameters.AddWithValue("@SupplierId", supplierId);
                         command.Parameters.AddWithValue("@Name", supplier.Name);
-                        command.Parameters.AddWithValue("@Owner", supplier.Owner);
                         command.Parameters.AddWithValue("@Address", supplier.Address);
-                        command.Parameters.AddWithValue("@ContactNumber", supplier.ContactNumber);
+                        command.Parameters.AddWithValue("@ContactNo", supplier.ContactNo);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
+                        command.Parameters.AddWithValue("@Owner", supplier.Owner);
 
                         command.ExecuteNonQuery();
                     }
@@ -178,7 +190,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_SUPPLIER + " " +
                 "WHERE 1 = 1 " +
-                "AND Name = @Name ";
+                "AND [Name] = @Name ";
             bool result = false;
 
             try
@@ -200,6 +212,37 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
+        }
+
+        public int GetLastSupplierId()
+        {
+            int id = 0;
+            string query = @"SELECT " +
+                "TOP 1 [Counter] " +
+                "FROM " + Constants.TABLE_SUPPLIER + " " +
+                "ORDER BY [Counter] DESC ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            id = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return id;
         }
     }
 }

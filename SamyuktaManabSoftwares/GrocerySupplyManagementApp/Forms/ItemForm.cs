@@ -1,8 +1,8 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Configuration;
 using System.Drawing;
@@ -11,17 +11,17 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class ItemForm : Form, IItemListForm, IPreparedItemListForm
+    public partial class ItemForm : Form, IItemListForm, ICodedItemListForm
     {
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
-        private readonly ICodedItemService _preparedItemService;
+        private readonly ICodedItemService _codedItemService;
         public DashboardForm _dashboard;
         private string _documentsDirectory;
         private const string ITEM_IMAGE_FOLDER = "Items";
         private string _uploadedImagePath = string.Empty;
         private long selectedItemId = 0;
-        private long selectedPreparedItemId = 0;
+        private long selectedCodedItemId = 0;
 
         #region Constructor
         public ItemForm(IItemService itemService, IItemTransactionService itemTransactionService, 
@@ -31,7 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
-            _preparedItemService = preparedItemService;
+            _codedItemService = preparedItemService;
             _dashboard = dashboardForm;
         }
         #endregion
@@ -43,7 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Button Click Events
+        #region Button Click Event
         private void BtnItemSearch_Click(object sender, EventArgs e)
         {
             ItemListForm itemListForm = new ItemListForm(_itemService, this, true);
@@ -63,12 +63,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var preparedItem = new CodedItem
+                var codedItem = new CodedItem
                 {
-                    ItemId = selectedPreparedItemId,
+                    ItemId = selectedCodedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
                     Unit = ComboItemUnit.Text,
-                    Stock = Convert.ToInt64(TxtTotalStock.Text),
                     PurchasePrice = Convert.ToDecimal(TxtNewPurchasePrice.Text),
                     CurrentPurchasePrice = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
@@ -79,7 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text)
                 };
 
-                _preparedItemService.UpdatePreparedItem(selectedPreparedItemId, preparedItem);
+                _codedItemService.UpdateCodedItem(selectedCodedItemId, codedItem);
 
                 DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -139,12 +138,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var preparedItem = new CodedItem
+                var codedItem = new CodedItem
                 {
                     ItemId = selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
                     Unit = ComboItemUnit.Text,
-                    Stock = Convert.ToInt64(TxtTotalStock.Text),
                     PurchasePrice = Convert.ToDecimal(TxtNewPurchasePrice.Text),
                     CurrentPurchasePrice = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
@@ -155,7 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text)
                 };
 
-                _preparedItemService.AddPreparedItem(preparedItem);
+                _codedItemService.AddCodedItem(codedItem);
 
                 DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -172,130 +170,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowPreparedItem_Click(object sender, EventArgs e)
         {
-            PreparedItemListForm preparedItemListForm = new PreparedItemListForm(_preparedItemService, this);
+            CodedItemListForm preparedItemListForm = new CodedItemListForm(_codedItemService, this);
             preparedItemListForm.Show();
         }
         #endregion
 
-        #region Helper Methods
-        private void EnableFields(bool option = true)
-        {
-            TxtItemCode.Enabled = option;
-            TxtItemSubCode.Enabled = option;
-            TxtSalesPricePerUnit.Enabled = option;
-            TxtItemName.Enabled = option;
-            TxtItemBrand.Enabled = option;
-            ComboItemUnit.Enabled = option;
-            TxtNewPurchasePrice.Enabled = option;
-            TxtQuantity.Enabled = option;
-            TxtTotalPrice.Enabled = option;
-            TxtProfitPercent.Enabled = option;
-            TxtProfitAmount.Enabled = option;
-            TxtSalesPrice.Enabled = option;
-        }
-
-        private void ClearAllFields()
-        {
-            TxtItemCode.Clear();
-            TxtItemSubCode.Clear();
-            TxtItemName.Clear();
-            TxtItemBrand.Clear();
-            ComboItemUnit.Text = string.Empty;
-            TxtTotalStock.Clear();
-            TxtCurrentPurchasePrice.Clear();
-            TxtNewPurchasePrice.Clear();
-            TxtQuantity.Clear();
-            TxtTotalPrice.Clear();
-            TxtProfitPercent.Clear();
-            TxtProfitAmount.Clear();
-            TxtSalesPrice.Clear() ;
-            TxtSalesPricePerUnit.Clear();
-        }
-
-        public void PopulateItem(long itemId)
-        {
-            try
-            {
-                selectedItemId = itemId;
-                var itemTransaction = _itemTransactionService.GetItem(itemId);
-                var item = _itemService.GetItem(itemId);
-                TxtItemCode.Text = item.Code;
-                TxtItemName.Text = item.Name;
-                TxtItemBrand.Text = item.Brand;
-                
-                ComboItemUnit.Text = itemTransaction.Unit.ToString();
-
-                StockFilterView filter = new StockFilterView
-                {
-                    ItemCode = item.Code
-                };
-
-                TxtTotalStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
-
-                TxtNewPurchasePrice.Text = itemTransaction.PurchasePrice.ToString();
-
-                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
-                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
-                if (File.Exists(filePath))
-                {
-                    //PicBoxItemImage.Image = filePath;
-                    PicBoxItemImage.ImageLocation = filePath;
-                }
-
-                EnableFields(false);
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void PopulatePreparedItem(long preparedItemId)
-        {
-            try
-            {
-                selectedPreparedItemId = preparedItemId;
-                var preparedItem = _preparedItemService.GetPreparedItem(preparedItemId);
-                var item = _itemService.GetItem(preparedItem.ItemId);
-
-                TxtItemCode.Text = item.Code;
-                TxtItemSubCode.Text = preparedItem.ItemSubCode;
-                TxtItemName.Text = item.Name;
-                TxtItemBrand.Text = item.Brand;
-
-                ComboItemUnit.Text = preparedItem.Unit;
-                StockFilterView filter = new StockFilterView
-                {
-                    ItemCode = item.Code
-                };
-                TxtTotalStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
-                TxtCurrentPurchasePrice.Text = preparedItem.CurrentPurchasePrice.ToString();
-                TxtNewPurchasePrice.Text = preparedItem.PurchasePrice.ToString();
-                TxtQuantity.Text = preparedItem.Quantity.ToString();
-                TxtTotalPrice.Text = preparedItem.Price.ToString();
-                TxtProfitPercent.Text = preparedItem.ProfitPercent.ToString();
-                TxtProfitAmount.Text = preparedItem.ProfitAmount.ToString();
-                TxtSalesPrice.Text = preparedItem.SalesPrice.ToString();
-                TxtSalesPricePerUnit.Text = preparedItem.SalesPricePerUnit.ToString();
-
-                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
-                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
-                if (File.Exists(filePath))
-                {
-                    //PicBoxItemImage.Image = filePath;
-                    PicBoxItemImage.ImageLocation = filePath;
-                }
-
-                EnableFields(false);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion
-
-        #region OpenFileDialog Events
+        #region OpenFileDialog Event
         private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
@@ -322,7 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Textbox Events
+        #region Textbox Event
 
         private void TxtCurrentPurchasePrice_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -418,6 +298,124 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtProfitAmount.Text = string.Empty;
                 TxtSalesPrice.Text = string.Empty;
                 TxtSalesPricePerUnit.Text = string.Empty;
+            }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void EnableFields(bool option = true)
+        {
+            TxtItemCode.Enabled = option;
+            TxtItemSubCode.Enabled = option;
+            TxtSalesPricePerUnit.Enabled = option;
+            TxtItemName.Enabled = option;
+            TxtItemBrand.Enabled = option;
+            ComboItemUnit.Enabled = option;
+            TxtNewPurchasePrice.Enabled = option;
+            TxtQuantity.Enabled = option;
+            TxtTotalPrice.Enabled = option;
+            TxtProfitPercent.Enabled = option;
+            TxtProfitAmount.Enabled = option;
+            TxtSalesPrice.Enabled = option;
+        }
+
+        private void ClearAllFields()
+        {
+            TxtItemCode.Clear();
+            TxtItemSubCode.Clear();
+            TxtItemName.Clear();
+            TxtItemBrand.Clear();
+            ComboItemUnit.Text = string.Empty;
+            TxtTotalStock.Clear();
+            TxtCurrentPurchasePrice.Clear();
+            TxtNewPurchasePrice.Clear();
+            TxtQuantity.Clear();
+            TxtTotalPrice.Clear();
+            TxtProfitPercent.Clear();
+            TxtProfitAmount.Clear();
+            TxtSalesPrice.Clear();
+            TxtSalesPricePerUnit.Clear();
+        }
+
+        public void PopulateItem(long itemId)
+        {
+            try
+            {
+                selectedItemId = itemId;
+                var itemTransaction = _itemTransactionService.GetItem(itemId);
+                var item = _itemService.GetItem(itemId);
+                TxtItemCode.Text = item.Code;
+                TxtItemName.Text = item.Name;
+                TxtItemBrand.Text = item.Brand;
+
+                ComboItemUnit.Text = itemTransaction.Unit.ToString();
+
+                StockFilterView filter = new StockFilterView
+                {
+                    ItemCode = item.Code
+                };
+
+                TxtTotalStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
+
+                TxtNewPurchasePrice.Text = itemTransaction.Price.ToString();
+
+                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
+                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
+                if (File.Exists(filePath))
+                {
+                    //PicBoxItemImage.Image = filePath;
+                    PicBoxItemImage.ImageLocation = filePath;
+                }
+
+                EnableFields(false);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void PopulateCodedItem(long codedItemId)
+        {
+            try
+            {
+                selectedCodedItemId = codedItemId;
+                var preparedItem = _codedItemService.GetCodedItem(codedItemId);
+                var item = _itemService.GetItem(preparedItem.ItemId);
+
+                TxtItemCode.Text = item.Code;
+                TxtItemSubCode.Text = preparedItem.ItemSubCode;
+                TxtItemName.Text = item.Name;
+                TxtItemBrand.Text = item.Brand;
+
+                ComboItemUnit.Text = preparedItem.Unit;
+                StockFilterView filter = new StockFilterView
+                {
+                    ItemCode = item.Code
+                };
+                TxtTotalStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
+                TxtCurrentPurchasePrice.Text = preparedItem.CurrentPurchasePrice.ToString();
+                TxtNewPurchasePrice.Text = preparedItem.PurchasePrice.ToString();
+                TxtQuantity.Text = preparedItem.Quantity.ToString();
+                TxtTotalPrice.Text = preparedItem.Price.ToString();
+                TxtProfitPercent.Text = preparedItem.ProfitPercent.ToString();
+                TxtProfitAmount.Text = preparedItem.ProfitAmount.ToString();
+                TxtSalesPrice.Text = preparedItem.SalesPrice.ToString();
+                TxtSalesPricePerUnit.Text = preparedItem.SalesPricePerUnit.ToString();
+
+                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
+                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
+                if (File.Exists(filePath))
+                {
+                    //PicBoxItemImage.Image = filePath;
+                    PicBoxItemImage.ImageLocation = filePath;
+                }
+
+                EnableFields(false);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         #endregion

@@ -1,7 +1,7 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -21,16 +21,16 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<PurchasedItem>();
             var query = @"SELECT " +
-                "ItemId, Unit, SUM(Quantity) AS 'Quantity' " +
+                "[ItemId], [Unit], SUM([Quantity]) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 ";
 
             if (!showEmptyItemCode)
             {
-                query += "AND Code != '' ";
+                query += "AND [Code] != '' ";
             }
 
-            query += "GROUP BY ItemId, Unit ";
+            query += "GROUP BY [ItemId], [Unit] ";
 
             try
             {
@@ -47,7 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString())
+                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString())
                                 };
 
                                 items.Add(item);
@@ -67,56 +67,85 @@ namespace GrocerySupplyManagementApp.Repositories
         public IEnumerable<StockView> GetStockView(StockFilterView filter)
         {
             var items = new List<StockView>();
-            var query = @"SELECT " +
-                "a.[Date], a.[BillInvoiceNo], a.[Description], a.[Code], a.[Name], " +
-                "a.[Brand], a.[Unit], a.[Quantity], a.[Price], a.[Total]  " +
-                "FROM " +
-                "( " +
-                "SELECT " +
-                "it.[Date] AS 'Date', it.[BillNo] AS 'BillInvoiceNo', 'Purchase' AS 'Description', i.[Code] AS 'Code', " +
-                "i.[Name] AS 'Name', i.[Brand] AS 'Brand', it.[Unit] AS 'Unit', " +
-                "it.[Quantity] AS 'Quantity', it.[Price] AS 'Price', CAST((it.[Quantity] * it.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " it " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON " +
-                "it.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 ";
+            var query = @"IF OBJECT_ID('tempdb..#MergedTable') IS NOT NULL
+                        DROP TABLE #MergedTable
+                
+                        SELECT m.[EndOfDate], m.[BillInvoiceNo], m.[Description], m.[ItemCode], m.[ItemName], m.[ItemBrand],
+                        m.[PurchaseQuantity], m.[PurchasePrice], m.[PurchaseTotal],
+                        m.[SalesQuantity], m.[SalesPrice], m.[SalesTotal], m.[Date]
+                        INTO #MergedTable
+                        FROM
+                        (
+	                        SELECT pi.[EndOfDate] AS [EndOfDate], pi.[BillNo] AS [BillInvoiceNo], 'Purchase' AS [Description], 
+	                        i.[Code] AS [ItemCode], i.[Name] AS [ItemName], i.[Brand] AS [ItemBrand], 
+	                        pi.[Quantity] AS [PurchaseQuantity], pi.[Price] AS [PurchasePrice], (pi.[Quantity] * pi.[Price]) AS [PurchaseTotal], 
+	                        0 AS [SalesQuantity], 0 AS [SalesPrice], 0 AS [SalesTotal], 
+	                        pi.[Date] AS [Date]
+	                        FROM PurchasedItem pi
+	                        INNER JOIN Item i
+	                        ON pi.[ItemId] = i.[Id]
+	                        UNION
+	                        SELECT si.[EndOfDate] AS [EndOfDate], si.[InvoiceNo] AS [BillInvoiceNo], 'Sales' AS [Description], 
+	                        i.[Code] AS [ItemCode], i.[Name] AS [ItemName], i.[Brand] AS [ItemBrand], 
+	                        0 AS [PurchaseQuantity], 0 AS [PurchasePrice], 0 AS [PurchaseTotal], 
+	                        si.[Quantity] AS [SalesQuantity], si.[Price] AS [SalesPrice], (si.[Quantity] * si.[Price]) AS [SalesTotal],
+	                        si.[Date] AS [Date]
+	                        FROM SoldItem si
+	                        INNER JOIN Item i
+	                        ON si.[ItemId] = i.[Id]
+                        ) m
+                        ORDER BY m.[Date]
+
+                        SELECT 
+                        final.[EndOfDate], final.[BillInvoiceNo], final.[Description], final.[ItemCode], final.[ItemName], final.[ItemBrand],
+                        final.[PurchaseQuantity], final.[PurchasePrice], final.[PurchaseTotal], final.[PurchaseGrandTotal],
+                        final.[SalesQuantity], final.[SalesPrice], final.[SalesTotal], final.[SalesGrandTotal], 
+                        final.[BalanceQuantity],
+                        (final.[PurchaseGrandTotal] - final.[SalesGrandTotal]) AS [TotalStockValue],
+                        (final.[PurchaseGrandTotal] - final.[SalesGrandTotal])/final.[BalanceQuantity] AS [PerUnitValue],
+                        final.[Date]
+                        FROM
+                        (
+	                        SELECT m.[EndOfDate], m.[BillInvoiceNo], m.[Description], m.[ItemCode], m.[ItemName], m.[ItemBrand],
+	                        m.[PurchaseQuantity], m.[PurchasePrice], m.[PurchaseTotal],
+	                        (
+	                        SELECT ISNULL(SUM(ISNULL(t.[PurchaseTotal], 0)), 0)
+	                        FROM #MergedTable t
+	                        WHERE 1 = 1
+	                        AND t.[Date] <= m.[Date] 
+	                        AND t.[ItemCode] = m.[ItemCode]
+	                        ) AS [PurchaseGrandTotal],
+	                        m.[SalesQuantity], m.[SalesPrice], m.[SalesTotal],
+	                        (
+	                        SELECT ISNULL(SUM(ISNULL(t.[SalesTotal], 0)), 0)
+	                        FROM #MergedTable t
+	                        WHERE 1 = 1
+	                        AND t.[Date] <= m.[Date] 
+	                        AND t.[ItemCode] = m.[ItemCode]
+	                        ) AS [SalesGrandTotal],
+	                        (
+	                        SELECT SUM(ISNULL(t.[PurchaseQuantity], 0) - ISNULL(t.[SalesQuantity], 0)) 
+	                        FROM #MergedTable t
+	                        WHERE 1 = 1 
+	                        AND t.[Date] <= m.[Date]
+	                        AND t.[ItemCode] = m.[ItemCode]
+	                        ) AS [BalanceQuantity],
+	                        m.[Date]
+	                        FROM #MergedTable m
+                        ) final
+                        WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND final.[ItemCode] = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND it.[Date] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND final.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
             }
 
-            query += "UNION " +
-                "SELECT " +
-                "pt.[InvoiceDate] AS 'Date', pt.[InvoiceNo] 'BillInvoiceNo', 'Sales' AS 'Description', psi.[ItemCode] AS 'Code', " +
-                "psi.[ItemName] AS 'Name', psi.[ItemBrand] AS 'Brand', psi.[Unit] AS 'Unit', " +
-                "psi.[Quantity] AS 'Quantity', pi.[Price] AS 'Price', CAST((psi.[Quantity] * pi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
-                "FROM " + Constants.TABLE_SOLD_ITEM + " psi " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON psi.[ItemCode] = i.[Code] " +
-                "INNER JOIN " + Constants.TABLE_PURCHASED_ITEM + " pi " +
-                "ON i.[Id] = pi.[ItemId] " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
-                "ON psi.[InvoiceNo] = pt.[InvoiceNo] " +
-                "WHERE 1 = 1 ";
-
-            if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
-            {
-                query += "AND psi.[ItemCode] = @Code ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
-            {
-                query += "AND pt.[InvoiceDate] BETWEEN @DateFrom AND @DateTo ";
-            }
-
-            query += ") a ORDER BY a.[Date] DESC ";
+            query += "ORDER BY final.[ItemCode], final.[Date]";
 
             try
             {
@@ -135,16 +164,24 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var item = new StockView
                                 {
-                                    Date = Convert.ToDateTime(reader["Date"].ToString()).ToString("yyyy-MM-dd"),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
                                     BillInvoiceNo = reader["BillInvoiceNo"].ToString(),
                                     Description = reader["Description"].ToString(),
-                                    Code = reader["Code"].ToString(),
-                                    Name = reader["Name"].ToString(),
-                                    Brand = reader["Brand"].ToString(),
-                                    Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    Price = Convert.ToDecimal(reader["Price"].ToString()),
-                                    Total = Convert.ToDecimal(reader["Total"].ToString())
+                                    ItemCode = reader["ItemCode"].ToString(),
+                                    ItemName = reader["ItemName"].ToString(),
+                                    ItemBrand = reader["ItemBrand"].ToString(),
+                                    PurchaseQuantity = Convert.ToInt64(reader["PurchaseQuantity"].ToString()),
+                                    PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
+                                    PurchaseTotal = Convert.ToDecimal(reader["PurchaseTotal"].ToString()),
+                                    PurchaseGrandTotal = Convert.ToDecimal(reader["PurchaseGrandTotal"].ToString()),
+                                    SalesQuantity = Convert.ToInt64(reader["SalesQuantity"].ToString()),
+                                    SalesPrice = Convert.ToDecimal(reader["SalesPrice"].ToString()),
+                                    SalesTotal = Convert.ToDecimal(reader["SalesTotal"].ToString()),
+                                    SalesGrandTotal = Convert.ToDecimal(reader["SalesGrandTotal"].ToString()),
+                                    BalanceQuantity = Convert.ToInt64(reader["BalanceQuantity"].ToString()),
+                                    TotalStockValue = Convert.ToDecimal(reader["TotalStockValue"].ToString()),
+                                    PerUnitValue = Convert.ToDecimal(reader["PerUnitValue"].ToString()),
+                                    Date = Convert.ToDateTime(reader["Date"].ToString())
                                 };
 
                                 items.Add(item);
@@ -161,15 +198,15 @@ namespace GrocerySupplyManagementApp.Repositories
             return items;
         }
 
-        public IEnumerable<PurchasedItem> GetItemsBySupplierAndBill(string supplierName, string billNo)
+        public IEnumerable<PurchasedItem> GetItemsBySupplierAndBill(string supplierId, string billNo)
         {
             var items = new List<PurchasedItem>();
             var query = @"SELECT " +
-                "SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo " +
+                "[EndOfDate], [SupplierId], [BillNo], [ItemId], [Unit], [Quantity], [Price], [Date] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND SupplierName = @SupplierName " +
-                "AND BillNo = @BillNo " +
+                "AND [SupplierId] = @SupplierId " +
+                "AND [BillNo] = @BillNo " +
                 "ORDER BY Date ";
 
             try
@@ -179,7 +216,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierName", supplierName);
+                        command.Parameters.AddWithValue("@SupplierId", supplierId);
                         command.Parameters.AddWithValue("@BillNo", billNo);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -187,13 +224,14 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var item = new PurchasedItem()
                                 {
-                                    SupplierName = reader["SupplierName"].ToString(),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
+                                    SupplierId = reader["SupplierId"].ToString(),
+                                    BillNo = reader["BillNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    PurchasePrice = Convert.ToDecimal(reader["Price"].ToString()),
-                                    PurchaseDate = Convert.ToDateTime(reader["Date"].ToString()),
-                                    BillNo = reader["BillNo"].ToString()
+                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
+                                    Price = Convert.ToDecimal(reader["Price"].ToString()),
+                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
                                 };
 
                                 items.Add(item);
@@ -210,15 +248,15 @@ namespace GrocerySupplyManagementApp.Repositories
             return items;
         }
 
-        public decimal GetTotalAmountBySupplierAndBill(string supplierName, string billNo)
+        public decimal GetTotalAmountBySupplierAndBill(string supplierId, string billNo)
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " +
-                "SUM(Quantity * Price) AS 'TotalPrice' " +
+                "SUM([Quantity] * [Price]) AS 'TotalPrice' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND SupplierName = @SupplierName " +
-                "AND BillNo = @BillNo ";
+                "AND [SupplierId] = @SupplierId " +
+                "AND [BillNo] = @BillNo ";
 
             try
             {
@@ -227,7 +265,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierName", ((object)supplierName) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BillNo", ((object)billNo) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
@@ -250,20 +288,20 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             long totalCount = 0;
             var query = @"SELECT " +
-                "SUM(Quantity) AS 'Quantity' " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " it " +
+                "SUM([Quantity]) AS 'Quantity' " +
+                "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON it.ItemId = i.Id " +
+                "ON pi.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += "AND Code = @Code ";
+                query += "AND i.[Code] = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND Date BETWEEN @DateFrom AND @DateTo ";
+                query += "AND pi.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -297,20 +335,22 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             long totalCount = 0;
             var query = @"SELECT " +
-                "SUM(psi.Quantity) AS 'Quantity' " +
-                "FROM " + Constants.TABLE_SOLD_ITEM + " psi " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
-                "ON psi.InvoiceNo = pt.InvoiceNo " +
+                "SUM(si.[Quantity]) AS 'Quantity' " +
+                "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
+                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += "AND psi.ItemCode = @Code ";
+                query += "AND i.[Code] = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND pt.InvoiceDate BETWEEN @DateFrom AND @DateTo ";
+                query += "AND ut.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -344,20 +384,20 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " +
-                "SUM(CAST((Quantity * Price) AS DECIMAL(18,2))) AS 'Total' " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " it " +
+                "SUM(CAST((pi.[Quantity] * pi.[Price]) AS DECIMAL(18,2))) AS 'Total' " +
+                "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON it.ItemId = i.Id " +
+                "ON pi.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += "AND Code = @Code ";
+                query += "AND i.[Code] = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND Date BETWEEN @DateFrom AND @DateTo ";
+                query += "AND pi.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -391,24 +431,20 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " + 
-                "SUM(CAST((psi.[Quantity] * pi.[Price]) AS DECIMAL(18,2))) AS 'Total' " +
-                "FROM " + Constants.TABLE_SOLD_ITEM + " psi " +
+                "SUM(CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2))) AS 'Total' " +
+                "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON psi.[ItemCode] = i.[Code] " +
-                "INNER JOIN " + Constants.TABLE_PURCHASED_ITEM + " pi " +
-                "ON i.[Id] = pi.[ItemId] " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " pt " +
-                "ON psi.[InvoiceNo] = pt.[InvoiceNo] " +
+                "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
-                query += "AND psi.ItemCode = @Code ";
+                query += "AND i.[Code] = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND pt.InvoiceDate BETWEEN @DateFrom AND @DateTo ";
+                query += "AND si.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -442,9 +478,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var itemNames = new List<string>();
             var query = @"SELECT " + 
-                "DISTINCT Name " +
+                "DISTINCT [Name] " +
                 "FROM " + Constants.TABLE_ITEM + " " + 
-                "ORDER BY NAME";
+                "ORDER BY [Name]";
 
             try
             {
@@ -476,10 +512,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var itemCodes = new List<string>();
             var query = @"SELECT " +
-                "DISTINCT a.Code " +
+                "DISTINCT a.[Code] " +
                 "FROM " + Constants.TABLE_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_PURCHASED_ITEM + " b " +
-                "ON a.Id = b.ItemId " +
+                "ON a.[Id] = b.[ItemId] " +
                 "ORDER BY 1";
 
             try
@@ -512,10 +548,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new PurchasedItem();
             var query = @"SELECT " +
-                "SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo " +
+                "[SupplierId], [ItemId], [Unit], [Quantity], [Price], [Date], [BillNo] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " + 
-                "AND ItemId = @ItemId";
+                "AND [ItemId] = @ItemId";
             
             try
             {
@@ -530,13 +566,13 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                item.SupplierName = reader["SupplierName"].ToString();
+                                item.SupplierId = reader["SupplierId"].ToString();
+                                item.BillNo = reader["BillNo"].ToString();
                                 item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 item.Unit = reader["Unit"].ToString();
-                                item.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
-                                item.PurchasePrice = Convert.ToDecimal(reader["Price"].ToString());
-                                item.PurchaseDate = Convert.ToDateTime(reader["Date"].ToString());
-                                item.BillNo = reader["BillNo"].ToString();
+                                item.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
+                                item.Price = Convert.ToDecimal(reader["Price"].ToString());
+                                item.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
                     }
@@ -554,11 +590,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             int itemId = 0;
             var query = @"SELECT " +
-                "ItemId " +
+                "[ItemId] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND SupplierName = @SupplierName " +
-                "AND BillNo = @BillNo ";
+                "AND [SupplierName] = @SupplierName " +
+                "AND [BillNo] = @BillNo ";
 
             try
             {
@@ -621,11 +657,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_PURCHASED_ITEM + " " +
                     "( " +
-                        "SupplierName, ItemId, Unit, Quantity, Price, Date, BillNo " +
+                        "[EndOfDate], [SupplierId], [BillNo], [ItemId], [Unit], [Quantity], [Price], [Date] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@SupplierName, @ItemId, @Unit, @Quantity, @Price, @Date, @BillNo " +
+                        "@EndOfDate, @SupplierId, @BillNo, @ItemId, @Unit, @Quantity, @Price, @Date " +
                     ") ";
             try
             {
@@ -634,13 +670,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierName", item.SupplierName);
+                        command.Parameters.AddWithValue("@EndOfDate", item.EndOfDate);
+                        command.Parameters.AddWithValue("@SupplierId", item.SupplierId);
+                        command.Parameters.AddWithValue("@BillNo", item.BillNo);
                         command.Parameters.AddWithValue("@ItemId", item.ItemId);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
                         command.Parameters.AddWithValue("@Quantity", item.Quantity);
-                        command.Parameters.AddWithValue("@Price", item.PurchasePrice);
-                        command.Parameters.AddWithValue("@Date", item.PurchaseDate);
-                        command.Parameters.AddWithValue("@BillNo", item.BillNo);
+                        command.Parameters.AddWithValue("@Price", item.Price);
+                        command.Parameters.AddWithValue("@Date", item.Date);
   
                         command.ExecuteNonQuery();
                     }
@@ -658,10 +695,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_PURCHASED_ITEM + " " +
                     "SET " +
-                    "Unit = @Unit, " +
-                    "Price = @Price " +
+                    "[Unit] = @Unit, " +
+                    "[Price] = @Price " +
                     "WHERE 1 = 1 " +
-                    "AND ItemId = @ItemId ";
+                    "AND [ItemId] = @ItemId ";
 
             try
             {
@@ -672,8 +709,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@ItemId", item.ItemId);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
-                        command.Parameters.AddWithValue("@Price", item.PurchasePrice);
-                       
+                        command.Parameters.AddWithValue("@Price", item.Price);
 
                         command.ExecuteNonQuery();
                     }
@@ -693,8 +729,8 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " + 
                 "FROM " +  Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND Name = @Name " +
-                "AND Brand = @Brand ";
+                "AND [Name] = @Name " +
+                "AND [Brand] = @Brand ";
 
             try
             {
@@ -724,7 +760,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                     "FROM " +  Constants.TABLE_PURCHASED_ITEM + " " + 
                     "WHERE 1 = 1 " +
-                    "AND BillNo = @BillNo ";
+                    "AND [BillNo] = @BillNo ";
 
             try
             {

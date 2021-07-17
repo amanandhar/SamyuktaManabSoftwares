@@ -1,7 +1,7 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -17,11 +17,13 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
         
-        public IEnumerable<SoldItem> GetPosSoldItems()
+        public IEnumerable<SoldItem> GetSoldItems()
         {
-            var posSoldItems = new List<SoldItem>();
+            var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
-                "* " +
+                "[Id], [EndOfDate], [MemberId], [InvoiceNo], " +
+                "[ItemId], [Unit], [Quantity], [Price], " +
+                "[Date] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
             try
@@ -35,19 +37,20 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var posSoldItem = new SoldItem
+                                var soldItem = new SoldItem
                                 {
-                                    Id = Convert.ToInt64(reader["InvoiceDate"].ToString()),
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
+                                    MemberId = reader["MemberId"].ToString(),
                                     InvoiceNo = reader["ItemId"].ToString(),
-                                    ItemCode = reader["ItemCode"].ToString(),
-                                    ItemName = reader["Unit"].ToString(),
-                                    ItemBrand = reader["ItemBrand"].ToString(),
+                                    ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
+                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
-                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString())
+                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
                                 };
 
-                                posSoldItems.Add(posSoldItem);
+                                soldItems.Add(soldItem);
                             }
                         }
                     }
@@ -58,23 +61,23 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posSoldItems;
+            return soldItems;
         }
 
-        public SoldItem GetPosSoldItem(long posSoldItemId)
+        public SoldItem GetSoldItem(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public SoldItem AddPosSoldItem(SoldItem posSoldItem)
+        public SoldItem AddSoldItem(SoldItem soldItem)
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[InvoiceNo], [ItemCode], [ItemName], [ItemBrand], [Unit], [Price], [Quantity] " +
+                        "[EndOfDate], [MemberId], [InvoiceNo], [ItemId], [Unit], [Quantity], [Price], [Date]" +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @ItemCode, @ItemName, @ItemBrand, @Unit, @Price, @Quantity " +
+                        "@EndOfDate, @MemberId, @InvoiceNo, @ItemId, @Unit, @Quantity, @Price, @Date " +
                     ") ";
             try
             {
@@ -83,13 +86,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@InvoiceNo", posSoldItem.InvoiceNo);
-                        command.Parameters.AddWithValue("@ItemCode", posSoldItem.ItemCode);
-                        command.Parameters.AddWithValue("@ItemName", posSoldItem.ItemName);
-                        command.Parameters.AddWithValue("@ItemBrand", posSoldItem.ItemBrand);
-                        command.Parameters.AddWithValue("@Unit", posSoldItem.Unit);
-                        command.Parameters.AddWithValue("@Price", posSoldItem.Price);
-                        command.Parameters.AddWithValue("@Quantity", posSoldItem.Quantity);
+                        command.Parameters.AddWithValue("@EndOfDate", soldItem.EndOfDate);
+                        command.Parameters.AddWithValue("@MemberId", soldItem.MemberId);
+                        command.Parameters.AddWithValue("@InvoiceNo", soldItem.InvoiceNo);
+                        command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
+                        command.Parameters.AddWithValue("@Unit", soldItem.Unit);
+                        command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
+                        command.Parameters.AddWithValue("@Price", soldItem.Price);
+                        command.Parameters.AddWithValue("@Date", soldItem.Date);
 
                         command.ExecuteNonQuery();
                     }
@@ -100,20 +104,20 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posSoldItem;
+            return soldItem;
         }
 
-        public SoldItem UpdatePosSoldItem(long posSoldItemId, SoldItem posSoldItem)
+        public SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeletePosSoldItem(long posSoldItemId, SoldItem posSoldItem)
+        public bool DeleteSoldItem(long soldItemId, SoldItem soldItem)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeletePosSoldItem(string invoiceNo)
+        public bool DeleteSoldItem(string invoiceNo)
         {
             bool result = false;
             string query = @"DELETE " +
@@ -141,18 +145,20 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        public IEnumerable<SoldItemView> GetPosSoldItemGrid(string invoiceNo)
+        public IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo)
         {
-            var posSoldItemGrids = new List<SoldItemView>();
+            var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.Id, a.ItemCode, a.ItemName, a.ItemBrand, a.Unit, a.Price, a.Quantity, " + 
-                "CAST((a.Price * a.Quantity) AS DECIMAL(18,2)) AS Total, " +
-                "b.Date " +
+                "a.[Id], c.[Code], c.[Name], c.[Brand], a.[Unit], a.[Quantity], a.[Price] " + 
+                "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
+                "b.[Date] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "ON a.InvoiceNo = b.InvoiceNo " +
+                "ON a.[InvoiceNo] = b.[InvoiceNo] " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " c " +
+                "ON a.[ItemId] = c.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND a.InvoiceNo = @InvoiceNo " +
+                "AND a.[InvoiceNo] = @InvoiceNo " +
                 "ORDER BY 1 ";
 
             try
@@ -168,20 +174,20 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var posSoldItemGrid = new SoldItemView
+                                var soldItemView = new SoldItemView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    ItemCode = reader["ItemCode"].ToString(),
-                                    ItemName = reader["ItemName"].ToString(),
-                                    ItemBrand = reader["ItemBrand"].ToString(),
+                                    ItemCode = reader["Code"].ToString(),
+                                    ItemName = reader["Name"].ToString(),
+                                    ItemBrand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
+                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
-                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString())
                                 };
 
-                                posSoldItemGrids.Add(posSoldItemGrid);
+                                soldItemViewList.Add(soldItemView);
                             }
                         }
                     }
@@ -192,7 +198,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return posSoldItemGrids;
+            return soldItemViewList;
         }
     }
 }

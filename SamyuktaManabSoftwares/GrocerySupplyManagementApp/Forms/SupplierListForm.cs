@@ -1,6 +1,7 @@
-﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,17 +11,17 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SupplierListForm : Form
     {
         private readonly ISupplierService _supplierService;
-        private readonly IUserTransactionService _posTransactionService;
+        private readonly IUserTransactionService _userTransactionService;
 
         public SupplierForm _supplierForm;
 
         #region Constructor
-        public SupplierListForm(ISupplierService supplierService, IUserTransactionService posTransactionService, SupplierForm supplierForm)
+        public SupplierListForm(ISupplierService supplierService, IUserTransactionService userTransactionService, SupplierForm supplierForm)
         {
             InitializeComponent();
 
             _supplierService = supplierService;
-            _posTransactionService = posTransactionService;
+            _userTransactionService = userTransactionService;
             _supplierForm = supplierForm;
         }
         #endregion
@@ -29,39 +30,17 @@ namespace GrocerySupplyManagementApp.Forms
         private void SupplierListForm_Load(object sender, EventArgs e)
         {
             var suppliers = _supplierService.GetSuppliers();
+            List<SupplierView> supplierViewList = suppliers.ToList().Select(x => new SupplierView()
+            {
+                Id = x.Id,
+                SupplierId = x.SupplierId,
+                Name = x.Name,
+                Owner = x.Owner,
+                Balance = _userTransactionService.GetSupplierTotalBalance(x.SupplierId),
+            }).ToList();
 
-            suppliers.ToList().ForEach(x => x.Balance = _posTransactionService.GetSupplierTotalBalance(x.SupplierId));
-
-            var bindingList = new BindingList<Supplier>(suppliers.ToList());
+            var bindingList = new BindingList<SupplierView>(supplierViewList.ToList());
             var source = new BindingSource(bindingList, null);
-
-            DataGridSupplierList.AutoGenerateColumns = false;
-
-            //Set Columns Count
-            DataGridSupplierList.ColumnCount = 4;
-
-            //Add Columns
-            DataGridSupplierList.Columns[0].Name = "SupplierId";
-            DataGridSupplierList.Columns[0].HeaderText = "Id";
-            DataGridSupplierList.Columns[0].DataPropertyName = "SupplierId";
-            DataGridSupplierList.Columns[0].Width = 50;
-
-            DataGridSupplierList.Columns[1].Name = "Name";
-            DataGridSupplierList.Columns[1].HeaderText = "Name";
-            DataGridSupplierList.Columns[1].DataPropertyName = "Name";
-            DataGridSupplierList.Columns[1].Width = 175;
-
-            DataGridSupplierList.Columns[2].Name = "Owner";
-            DataGridSupplierList.Columns[2].HeaderText = "Owner";
-            DataGridSupplierList.Columns[2].DataPropertyName = "Owner";
-            DataGridSupplierList.Columns[2].Width = 175;
-
-            DataGridSupplierList.Columns[3].Name = "Balance";
-            DataGridSupplierList.Columns[3].HeaderText = "Balance";
-            DataGridSupplierList.Columns[3].DataPropertyName = "Balance";
-            DataGridSupplierList.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            DataGridSupplierList.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
             DataGridSupplierList.DataSource = source;
         }
         #endregion
@@ -69,16 +48,42 @@ namespace GrocerySupplyManagementApp.Forms
         #region Data Grid Event
         private void DataGridSupplierList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView dgv = sender as DataGridView;
-            if (dgv == null)
-                return;
-            if (dgv.CurrentRow.Selected)
+            if (!(sender is DataGridView dgv))
             {
-                string supplierName = dgv.CurrentRow.Cells[1].Value.ToString();
-                _supplierForm.PopulateSupplier(supplierName);
-                this.Close();
+                return;
+            }
+
+            if (dgv.SelectedRows.Count == 1)
+            {
+                var selectedRow = dgv.SelectedRows[0];
+                string supplierId = selectedRow.Cells["SupplierId"].Value.ToString();
+                _supplierForm.PopulateSupplier(supplierId);
+                Close();
             }
         }
+
+        private void DataGridSupplierList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridSupplierList.Columns["Id"].Visible = false;
+
+            DataGridSupplierList.Columns["SupplierId"].HeaderText = "Id";
+            DataGridSupplierList.Columns["SupplierId"].Width = 50;
+            DataGridSupplierList.Columns["SupplierId"].DisplayIndex = 0;
+
+            DataGridSupplierList.Columns["Name"].HeaderText = "Name";
+            DataGridSupplierList.Columns["Name"].Width = 175;
+            DataGridSupplierList.Columns["Name"].DisplayIndex = 1;
+
+            DataGridSupplierList.Columns["Owner"].HeaderText = "Owner";
+            DataGridSupplierList.Columns["Owner"].Width = 175;
+            DataGridSupplierList.Columns["Owner"].DisplayIndex = 2;
+
+            DataGridSupplierList.Columns["Balance"].HeaderText = "Balance";
+            DataGridSupplierList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridSupplierList.Columns["Balance"].DisplayIndex = 3;
+            DataGridSupplierList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+        }
         #endregion
+
     }
 }

@@ -2,47 +2,48 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
 {
     public class CodedItemService : ICodedItemService
     {
-        private readonly ICodedItemRepository _preparedItemRepository;
+        private readonly ICodedItemRepository _codedItemRepository;
 
-        public CodedItemService(ICodedItemRepository preparedItemRepository)
+        public CodedItemService(ICodedItemRepository codedItemRepository)
         {
-            _preparedItemRepository = preparedItemRepository;
+            _codedItemRepository = codedItemRepository;
         }
 
-        public IEnumerable<CodedItem> GetPreparedItems()
+        public IEnumerable<CodedItem> GetCodedItems()
         {
-            return _preparedItemRepository.GetPreparedItems();
+            return _codedItemRepository.GetCodedItems();
         }
 
-        public CodedItem GetPreparedItem(long id)
+        public CodedItem GetCodedItem(long id)
         {
-            return _preparedItemRepository.GetPreparedItem(id);
+            return _codedItemRepository.GetCodedItem(id);
         }
 
-        public IEnumerable<ItemCodedView> GetPreparedItemGrid()
+        public CodedItem AddCodedItem(CodedItem codedItem)
         {
-            return _preparedItemRepository.GetPreparedItemGrid();
+            return _codedItemRepository.AddCodedItem(codedItem);
         }
 
-        public CodedItem AddPreparedItem(CodedItem preparedItem)
+        public CodedItem UpdateCodedItem(long id, CodedItem codedItem)
         {
-            return _preparedItemRepository.AddPreparedItem(preparedItem);
+            return _codedItemRepository.UpdateCodedItem(id, codedItem);
         }
 
-        public CodedItem UpdatePreparedItem(long id, CodedItem preparedItem)
+        public bool DeleteCodedItem(long id)
         {
-            return _preparedItemRepository.UpdatePreparedItem(id, preparedItem);
+            return _codedItemRepository.DeleteCodedItem(id);
         }
 
-        public bool DeletePreparedItem(long id)
+        public IEnumerable<CodedItemView> GetCodedItemViewList()
         {
-            return _preparedItemRepository.DeletePreparedItem(id);
+            return _codedItemRepository.GetCodedItemViewList();
         }
     }
 }

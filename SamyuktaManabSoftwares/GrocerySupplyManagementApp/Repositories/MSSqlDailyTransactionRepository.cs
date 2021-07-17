@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -16,43 +17,45 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<TransactionView> GetTransactionGrids(TransactionFilter transactionFilter)
+        public IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter)
         {
-            var transactionGrids = new List<TransactionView>();
+            var transactionViewList = new List<TransactionView>();
             var query = @"SELECT " +
-                "pt.[Id], [InvoiceDate], " +
+                "ut.[Id], ut.[EndOfDate], " +
                 "CASE " +
-                "WHEN [MemberId] IS NULL THEN [SupplierId] ELSE [MemberId] END AS [MemberSupplierId], " +
+                "WHEN ut.[MemberId] IS NULL THEN ut.[SupplierId] ELSE ut.[MemberId] END AS [MemberSupplierId], " +
                 "[Action], " +
                 "CASE " +
-                "WHEN [ActionType]='Cheque' THEN ([ActionType] + ' - ' + [Bank]) " +
-                "WHEN [Action] in ('Receipt', 'Expense') THEN ([ActionType] + ' - ' + [IncomeExpense]) " +
-                "ELSE [ActionType] END AS [ActionType], " +
-                "CASE WHEN [MemberId] IS NULL THEN pt.[BillNo] ELSE pt.[InvoiceNo] END AS [InvoiceBillNo], " +
-                "[ItemCode], [ItemName], [Quantity], [Price] AS [ItemPrice], " +
+                "WHEN ut.[ActionType]='Cheque' THEN (ut.[ActionType] + ' - ' + ut.[Bank]) " +
+                "WHEN ut.[Action] in ('Receipt', 'Expense') THEN (ut.[ActionType] + ' - ' + ut.[IncomeExpense]) " +
+                "ELSE ut.[ActionType] END AS [ActionType], " +
+                "CASE WHEN ut.[MemberId] IS NULL THEN ut.[BillNo] ELSE ut.[InvoiceNo] END AS [InvoiceBillNo], " +
+                "i.[Code], i.[Name], si.[Quantity], si.[Price] AS [ItemPrice], " +
                 "CASE " +
-                "WHEN [Action]='Purchase' AND [ActionType]='Credit' THEN [TotalAmount] " +
-                "WHEN [Action]='Purchase' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
-                "WHEN [Action]='Sales' AND [ActionType]='Credit' THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2)) " +
-                "WHEN [Action]='Sales' AND [ActionType]='Cash' THEN CAST(([Quantity] * [Price]) AS DECIMAL(18,2)) " +
-                "WHEN [Action]='Receipt' AND [ActionType]='Credit' THEN [TotalAmount] " +
-                "WHEN [Action]='Receipt' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
-                "WHEN [Action]='Receipt' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
-                "WHEN [Action]='Payment' AND [ActionType]='Credit' THEN [TotalAmount] " +
-                "WHEN [Action]='Payment' AND [ActionType]='Cash' THEN [ReceivedAmount] " +
-                "WHEN [Action]='Payment' AND [ActionType]='Cheque' THEN [ReceivedAmount] " +
-                "WHEN [Action]='Expense' AND [ActionType]='Credit' THEN [TotalAmount] " +
-                "WHEN [Action]='Expense' AND [ActionType]='Cash' THEN [TotalAmount] " +
-                "WHEN [Action]='Transfer' AND [ActionType]='Cash' THEN [TotalAmount] " +
-                "WHEN [Action]='Transfer' AND [ActionType]='Cheque' THEN [TotalAmount] " +
-                "ELSE pt.[TotalAmount] END  AS [Amount] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " pt LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " psi " +
-                "ON pt.InvoiceNo = psi.InvoiceNo " +
+                "WHEN ut.[Action]='Purchase' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='Purchase' AND ut.[ActionType]='Cash' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='Sales' AND ut.[ActionType]='Credit' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
+                "WHEN ut.[Action]='Sales' AND ut.[ActionType]='Cash' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
+                "WHEN ut.[Action]='Receipt' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='Receipt' AND ut.[ActionType]='Cash' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='Receipt' AND ut.[ActionType]='Cheque' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='Payment' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='Payment' AND ut.[ActionType]='Cash' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='Payment' AND ut.[ActionType]='Cheque' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='Expense' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='Expense' AND ut.[ActionType]='Cash' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='Transfer' AND ut.[ActionType]='Cash' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='Transfer' AND ut.[ActionType]='Cheque' THEN ut.[DueAmount] " +
+                "ELSE ut.[DueAmount] END  AS [Amount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
+                "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
+                "LEFT JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
                 "AND NOT " + 
                 "( " +
-                "[Action] = '" + Constants.RECEIPT + "' " +
-                "AND [IncomeExpense] " +
+                "ut.[Action] = '" + Constants.RECEIPT + "' " +
+                "AND ut.[IncomeExpense] " +
                 "IN " +
                 "(' " +
                 Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" +
@@ -62,40 +65,40 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (transactionFilter.Date != null)
             {
-                query += "AND pt.[InvoiceDate] = '" + transactionFilter.Date + "' " ;
+                query += "AND ut.[EndOfDate] = '" + transactionFilter.Date + "' " ;
             }
 
             if (transactionFilter.Purchase != null)
             {
-                query += " AND pt.[Action] = '" + Constants.PURCHASE + "' AND pt.[ActionType] = '" + transactionFilter.Purchase + "' ";
+                query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + transactionFilter.Purchase + "' ";
             }
             else if (transactionFilter.Sales != null)
             {
-                query += " AND pt.[Action] = '" + Constants.SALES + "' AND pt.[ActionType] = '" + transactionFilter.Sales + "' ";
+                query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + transactionFilter.Sales + "' ";
             }
             else if (transactionFilter.Receipt != null)
             {
-                query += " AND pt.[Action] = '" + Constants.RECEIPT + "' AND pt.[ActionType] = '" + transactionFilter.Receipt + "' ";
+                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + transactionFilter.Receipt + "' ";
             }
             else if (transactionFilter.Payment != null)
             {
-                query += " AND pt.[Action] = '" + Constants.PAYMENT + "' AND pt.[ActionType] = '" + transactionFilter.Payment + "' ";
+                query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + transactionFilter.Payment + "' ";
             }
             else if (transactionFilter.Expense != null)
             {
-                query += " AND pt.[Action] = '" + Constants.EXPENSE + "' AND pt.[ActionType] = '" + transactionFilter.Expense + "' ";
+                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + transactionFilter.Expense + "' ";
             }
             else if (transactionFilter.BankTransfer != null)
             {
-                query += " AND pt.[Action] = '" + Constants.TRANSFER + "' AND pt.[ActionType] = '" + transactionFilter.BankTransfer + "' ";
+                query += " AND ut.[Action] = '" + Constants.TRANSFER + "' AND ut.[ActionType] = '" + transactionFilter.BankTransfer + "' ";
             }
             else if (transactionFilter.ItemCode != null)
             {
-                query += " AND [ItemCode] = '" + transactionFilter.ItemCode + "' ";
+                query += " AND i.[Code] = '" + transactionFilter.ItemCode + "' ";
             }
             else if (transactionFilter.InvoiceNo != null)
             {
-                query += " AND pt.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+                query += " AND ut.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
             }
             else if (transactionFilter.User != null)
             {
@@ -106,7 +109,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += " ";
             }
 
-            query += "ORDER BY [DATE] ";
+            query += "ORDER BY ut.[EndOfDate] ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -118,22 +121,22 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var transactionGrid = new TransactionView
+                                var transactionView = new TransactionView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    InvoiceDate = Convert.ToDateTime(reader["InvoiceDate"].ToString()),
+                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
                                     MemberSupplierId = reader.IsDBNull(2) ? string.Empty : reader["MemberSupplierId"].ToString(),
                                     Action = reader.IsDBNull(3) ? string.Empty : reader["Action"].ToString(),
                                     ActionType = reader.IsDBNull(4) ? string.Empty : reader["ActionType"].ToString(),
                                     InvoiceBillNo = reader.IsDBNull(5) ? string.Empty : reader["InvoiceBillNo"].ToString(),
-                                    ItemCode = reader.IsDBNull(6) ? string.Empty : reader["ItemCode"].ToString(),
-                                    ItemName = reader.IsDBNull(7) ? string.Empty : reader["ItemName"].ToString(),
+                                    ItemCode = reader.IsDBNull(6) ? string.Empty : reader["Code"].ToString(),
+                                    ItemName = reader.IsDBNull(7) ? string.Empty : reader["Name"].ToString(),
                                     Quantity = reader.IsDBNull(8) ? 0.0m : Convert.ToDecimal(reader["Quantity"].ToString()),
                                     ItemPrice = reader.IsDBNull(9) ? 0.0m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
                                     Amount = reader.IsDBNull(10) ? 0.0m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };
 
-                                transactionGrids.Add(transactionGrid);
+                                transactionViewList.Add(transactionView);
                             }
                         }
                     }
@@ -144,55 +147,57 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return transactionGrids;
+            return transactionViewList;
         }
 
-        public decimal GetSumTransactionGrids(TransactionFilter transactionFilter)
+        public decimal GetUserTransactionBalance(TransactionFilter transactionFilter)
         {
             decimal total = 0.0m;
             var query = @"SELECT " +
-                "SUM(pt.[TotalAmount]) - SUM(pt.[ReceivedAmount]) AS [TOTAL] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " pt " +
-                "LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " psi " +
-                "ON pt.InvoiceNo = psi.InvoiceNo " +
+                "SUM(ut.[DueAmount]) - SUM(ut.[ReceivedAmount]) AS [Total] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
+                "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
+                "INNNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
             if (transactionFilter.Date != null)
             {
-                query += " AND pt.[InvoiceDate] = '" + transactionFilter.Date + "' ";
+                query += " AND ut.[EndOfDate] = '" + transactionFilter.Date + "' ";
             }
 
             if (transactionFilter.Purchase != null)
             {
-                query += " AND pt.[Action] = '" + Constants.PURCHASE + "' AND pt.[ActionType] = '" + transactionFilter.Purchase + "' ";
+                query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + transactionFilter.Purchase + "' ";
             }
             else if (transactionFilter.Sales != null)
             {
-                query += " AND pt.[Action] = '" + Constants.SALES + "' AND pt.[ActionType] = '" + transactionFilter.Sales + "' ";
+                query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + transactionFilter.Sales + "' ";
             }
             else if (transactionFilter.Payment != null)
             {
-                query += " AND pt.[Action] = '" + Constants.PAYMENT + "' AND pt.[ActionType] = '" + transactionFilter.Payment + "' ";
+                query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + transactionFilter.Payment + "' ";
             }
             else if (transactionFilter.Receipt != null)
             {
-                query += " AND pt.[Action] = '" + Constants.RECEIPT + "' AND pt.[ActionType] = '" + transactionFilter.Receipt + "' ";
+                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + transactionFilter.Receipt + "' ";
             }
             else if (transactionFilter.Expense != null)
             {
-                query += " AND pt.[Action] = '" + Constants.EXPENSE + "' AND pt.[ActionType] = '" + transactionFilter.Expense + "' ";
+                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + transactionFilter.Expense + "' ";
             }
             else if (transactionFilter.ItemCode != null)
             {
-                query += " AND [ItemCode] = '" + transactionFilter.ItemCode + "' ";
+                query += " AND i.[ItemCode] = '" + transactionFilter.ItemCode + "' ";
             }
             else if (transactionFilter.InvoiceNo != null)
             {
-                query += " AND pt.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+                query += " AND ut.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
             }
             else if (transactionFilter.User != null)
             {
-                query += " AND 1=2 ";
+                query += " AND 1 = 2 ";
             }
             else
             {
@@ -261,10 +266,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var itemCodes = new List<string>();
             var query = @"SELECT " +
-                "DISTINCT [ItemCode] " +
-                "FROM " + Constants.TABLE_SOLD_ITEM + " " +
+                "DISTINCT [Code] " +
+                "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "ORDER BY [ItemCode] ";
+                "ORDER BY [Code] ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -276,7 +283,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var itemCode = reader["ItemCode"].ToString();
+                                var itemCode = reader["Code"].ToString();
 
                                 itemCodes.Add(itemCode);
                             }
@@ -328,13 +335,13 @@ namespace GrocerySupplyManagementApp.Repositories
             return invoices;
         }
 
-        public bool DeleteTransactionGrids(long id)
+        public bool DeleteUserTransaction(long id)
         {
             bool result = false;
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND Id = @Id ";
+                "AND [Id] = @Id ";
 
             try
             {

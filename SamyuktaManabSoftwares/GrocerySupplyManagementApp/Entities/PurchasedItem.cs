@@ -4,13 +4,14 @@ namespace GrocerySupplyManagementApp.Entities
 {
     public class PurchasedItem
     {
-        public string SupplierName { get; set; }
+        public long Id { get; set; }
+        public DateTime EndOfDate { get; set; }
+        public string SupplierId { get; set; }
         public string BillNo { get; set; }
         public long ItemId { get; set; }
         public string Unit { get; set; }
-        public decimal Quantity { get; set; }
-        public decimal PurchasePrice { get; set; }
-        public decimal OldPurchasePrice { get; set; }
-        public DateTime PurchaseDate { get; set; }
+        public long Quantity { get; set; }
+        public decimal Price { get; set; }
+        public DateTime Date { get; set; }
     }
 }

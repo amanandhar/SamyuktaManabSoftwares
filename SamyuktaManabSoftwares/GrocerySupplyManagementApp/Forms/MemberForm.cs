@@ -3,6 +3,7 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,27 +15,27 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberForm : Form, IMemberListForm
     {
         private readonly IMemberService _memberService;
-        private readonly IUserTransactionService _posTransactionService;
-        private readonly ISoldItemService _posSoldItemService;
-        private readonly IBankDetailService _bankDetailService;
+        private readonly IUserTransactionService _userTransactionService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
+        private readonly IFiscalYearService _fiscalYearService;
         public DashboardForm _dashboard;
 
         #region Constructor
-        public MemberForm(IMemberService memberService, IUserTransactionService posTransactionService, 
-            ISoldItemService posSoldItemService, IBankDetailService bankDetailService, 
-            IBankTransactionService bankTransactionService, IFiscalYearDetailService fiscalYearDetailService,
+        public MemberForm(IMemberService memberService, IUserTransactionService userTransactionService, 
+            ISoldItemService soldItemService, IBankService bankService, 
+            IBankTransactionService bankTransactionService, IFiscalYearService fiscalYearService,
             DashboardForm dashboardForm)
         {
             InitializeComponent();
 
             _memberService = memberService;
-            _posTransactionService = posTransactionService;
-            _posSoldItemService = posSoldItemService;
-            _bankDetailService = bankDetailService;
+            _userTransactionService = userTransactionService;
+            _soldItemService = soldItemService;
+            _bankService = bankService;
             _bankTransactionService = bankTransactionService;
-            _fiscalYearDetailService = fiscalYearDetailService;
+            _fiscalYearService = fiscalYearService;
             _dashboard = dashboardForm;
         }
         #endregion
@@ -48,10 +49,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Button Events
+        #region Button Event
         private void BtnShowMember_Click(object sender, EventArgs e)
         {
-            MemberListForm memberListForm = new MemberListForm(_memberService, _posTransactionService, this);
+            MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
             memberListForm.Show();
         }
 
@@ -59,23 +60,25 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ClearAllFields();
             EnableFields(true);
-            var memberId = _memberService.GetNewMemberId();
-            RichMemberId.Text = memberId;
+            RichMemberId.Text = _memberService.GetNewMemberId();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                var member = _memberService.AddMember(new Member
+                var member = new Member
                 {
                     MemberId = RichMemberId.Text,
                     Name = RichName.Text,
                     Address = RichAddress.Text,
-                    ContactNumber = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
+                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     Email = RichEmail.Text,
-                    AccountNumber = RichAccountNumber.Text
-                }); ;
+                    AccountNo = RichAccountNumber.Text,
+                    Date = DateTime.Now
+                };
+
+                _memberService.AddMember(member);
 
                 DialogResult result = MessageBox.Show(member.MemberId + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -100,16 +103,17 @@ namespace GrocerySupplyManagementApp.Forms
             var memberId = RichMemberId.Text;
             try
             {
-                var member = _memberService.UpdateMember(memberId, new Member
+                var member = new Member
                 {
                     MemberId = RichMemberId.Text,
                     Name = RichName.Text,
                     Address = RichAddress.Text,
-                    ContactNumber = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
+                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     Email = RichEmail.Text,
-                    AccountNumber = RichAccountNumber.Text
-                }); ;
+                    AccountNo = RichAccountNumber.Text
+                };
 
+                _memberService.UpdateMember(memberId, member);
                 DialogResult result = MessageBox.Show(memberId + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -144,10 +148,10 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowSales_Click(object sender, EventArgs e)
         {
 
-            if (DataGridMemberTransactionList.SelectedRows.Count == 1)
+            if (DataGridMemberList.SelectedRows.Count == 1)
             {
-                var invoiceNo = DataGridMemberTransactionList.SelectedCells[4].Value.ToString();
-                PosForm posForm = new PosForm(_memberService, _posTransactionService, _posSoldItemService, invoiceNo);
+                var invoiceNo = DataGridMemberList.SelectedCells[4].Value.ToString();
+                PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, invoiceNo);
                 posForm.Show();
             }
         }
@@ -156,10 +160,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
-                var posTransaction = new UserTransaction
+                var fiscalYearDetail = _fiscalYearService.GetFiscalYear();
+                var userTransaction = new UserTransaction
                 {
-                    InvoiceDate = fiscalYearDetail.StartingDate,
+                    EndOfDate = fiscalYearDetail.StartingDate,
                     MemberId = RichMemberId.Text,
                     Action = Constants.RECEIPT,
                     ActionType = ComboReceipt.Text,
@@ -171,18 +175,19 @@ namespace GrocerySupplyManagementApp.Forms
                     Vat = 0.0m,
                     DeliveryChargePercent = 0.0m,
                     DeliveryCharge = 0.0m,
-                    TotalAmount = 0.0m,
+                    DueAmount = 0.0m,
                     ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                     Date = DateTime.Now
                 };
-                _posTransactionService.AddPosTransaction(posTransaction);
+                _userTransactionService.AddUserTransaction(userTransaction);
 
                 if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
                 {
-                    var lastPosTransaction = _posTransactionService.GetLastPosTransaction(string.Empty);
+                    var lastPosTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
+                        EndOfDate = fiscalYearDetail.StartingDate,
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastPosTransaction.Id,
                         Action = '1',
@@ -210,43 +215,83 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Combobox Event
+        private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selectedPayment = ComboReceipt.Text;
+            if (!string.IsNullOrWhiteSpace(selectedPayment))
+            {
+                if (selectedPayment.ToLower() == Constants.CHEQUE.ToLower())
+                {
+                    ComboBank.Enabled = true;
+                    ComboBank.Focus();
+                    RichAmount.Enabled = true;
+
+                    var banks = _bankService.GetBanks().ToList();
+                    if (banks.Count > 0)
+                    {
+                        ComboBank.ValueMember = "Id";
+                        ComboBank.DisplayMember = "Value";
+
+                        banks.OrderBy(x => x.Name).ToList().ForEach(x =>
+                        {
+                            ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
+                        });
+                    }
+                }
+                else
+                {
+                    ComboBank.Text = string.Empty;
+                    ComboBank.Enabled = false;
+                    RichAmount.Enabled = true;
+                    RichAmount.Focus();
+                }
+            }
+        }
+        #endregion
+
         #region Data Grid Event
         private void DataGridMemberTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            DataGridMemberTransactionList.Columns["Id"].Visible = false;
+            DataGridMemberList.Columns["Id"].Visible = false;
 
-            DataGridMemberTransactionList.Columns["InvoiceDate"].HeaderText = "Date";
-            DataGridMemberTransactionList.Columns["InvoiceDate"].Width = 100;
-            DataGridMemberTransactionList.Columns["InvoiceDate"].DisplayIndex = 1;
+            DataGridMemberList.Columns["EndOfDate"].HeaderText = "Date";
+            DataGridMemberList.Columns["EndOfDate"].Width = 100;
+            DataGridMemberList.Columns["EndOfDate"].DisplayIndex = 0;
+            DataGridMemberList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
 
-            DataGridMemberTransactionList.Columns["Action"].HeaderText = "Particulars";
-            DataGridMemberTransactionList.Columns["Action"].Width = 100;
-            DataGridMemberTransactionList.Columns["Action"].DisplayIndex = 2;
+            DataGridMemberList.Columns["Action"].HeaderText = "Description";
+            DataGridMemberList.Columns["Action"].Width = 100;
+            DataGridMemberList.Columns["Action"].DisplayIndex = 1;
 
-            DataGridMemberTransactionList.Columns["ActionType"].HeaderText = "Type";
-            DataGridMemberTransactionList.Columns["ActionType"].Width = 200;
-            DataGridMemberTransactionList.Columns["ActionType"].DisplayIndex = 3;
+            DataGridMemberList.Columns["ActionType"].HeaderText = "Type";
+            DataGridMemberList.Columns["ActionType"].Width = 200;
+            DataGridMemberList.Columns["ActionType"].DisplayIndex = 2;
 
-            DataGridMemberTransactionList.Columns["InvoiceNo"].HeaderText = "Invoice No";
-            DataGridMemberTransactionList.Columns["InvoiceNo"].Width = 100;
-            DataGridMemberTransactionList.Columns["InvoiceNo"].DisplayIndex = 4;
+            DataGridMemberList.Columns["InvoiceNo"].HeaderText = "Invoice No";
+            DataGridMemberList.Columns["InvoiceNo"].Width = 100;
+            DataGridMemberList.Columns["InvoiceNo"].DisplayIndex = 3;
 
-            DataGridMemberTransactionList.Columns["TotalAmount"].HeaderText = "Credit";
-            DataGridMemberTransactionList.Columns["TotalAmount"].Width = 100;
-            DataGridMemberTransactionList.Columns["TotalAmount"].DisplayIndex = 5;
+            DataGridMemberList.Columns["DueAmount"].HeaderText = "Credit";
+            DataGridMemberList.Columns["DueAmount"].Width = 100;
+            DataGridMemberList.Columns["DueAmount"].DisplayIndex = 4;
+            DataGridMemberList.Columns["DueAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridMemberTransactionList.Columns["ReceivedAmount"].HeaderText = "Debit";
-            DataGridMemberTransactionList.Columns["ReceivedAmount"].Width = 100;
-            DataGridMemberTransactionList.Columns["ReceivedAmount"].DisplayIndex = 6;
+            DataGridMemberList.Columns["ReceivedAmount"].HeaderText = "Debit";
+            DataGridMemberList.Columns["ReceivedAmount"].Width = 100;
+            DataGridMemberList.Columns["ReceivedAmount"].DisplayIndex = 5;
+            DataGridMemberList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridMemberTransactionList.Columns["Balance"].HeaderText = "Balance";
-            DataGridMemberTransactionList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridMemberTransactionList.Columns["Balance"].DisplayIndex = 7;
+            DataGridMemberList.Columns["Balance"].HeaderText = "Balance";
+            DataGridMemberList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridMemberList.Columns["Balance"].DisplayIndex = 6;
+            DataGridMemberList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            foreach (DataGridViewRow row in DataGridMemberTransactionList.Rows)
+            foreach (DataGridViewRow row in DataGridMemberList.Rows)
             {
-                DataGridMemberTransactionList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridMemberTransactionList.RowHeadersWidth = 50;
+                DataGridMemberList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridMemberList.RowHeadersWidth = 50;
+                DataGridMemberList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
         #endregion
@@ -280,14 +325,14 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var memberId = RichMemberId.Text;
 
-            List<MemberTransactionView> memberTransactionViews = _posTransactionService.GetMemberTransactions(memberId).ToList();
+            List<MemberTransactionView> memberTransactionViews = _userTransactionService.GetMemberTransactions(memberId).ToList();
 
-            RichBalance.Text = _posTransactionService.GetMemberTotalBalance(memberId).ToString();
+            RichBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
             TxtBalanceStatus.Text = Convert.ToDecimal(RichBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViews);
             var source = new BindingSource(bindingList, null);
-            DataGridMemberTransactionList.DataSource = source;
+            DataGridMemberList.DataSource = source;
         }
 
         public void PopulateMember(string memberId)
@@ -297,9 +342,9 @@ namespace GrocerySupplyManagementApp.Forms
             RichMemberId.Text = member.MemberId;
             RichName.Text = member.Name;
             RichAddress.Text = member.Address;
-            RichContactNumber.Text = member.ContactNumber.ToString();
+            RichContactNumber.Text = member.ContactNo.ToString();
             RichEmail.Text = member.Email;
-            RichAccountNumber.Text = member.AccountNumber;
+            RichAccountNumber.Text = member.AccountNo;
 
             ComboReceipt.Enabled = true;
 
@@ -310,39 +355,5 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        #region Combobox Event
-        private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var selectedPayment = ComboReceipt.Text;
-            if(!string.IsNullOrWhiteSpace(selectedPayment))
-            {
-                if(selectedPayment.ToLower() == Constants.CHEQUE.ToLower())
-                {
-                    ComboBank.Enabled = true;
-                    ComboBank.Focus();
-                    RichAmount.Enabled = true;
-
-                    var bankDetails = _bankDetailService.GetBankDetails().ToList();
-                    if(bankDetails.Count > 0)
-                    {
-                        ComboBank.ValueMember = "Id";
-                        ComboBank.DisplayMember = "Value";
-
-                        bankDetails.OrderBy(x => x.Name).ToList().ForEach(x =>
-                        {
-                            ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
-                        });
-                    }
-                }
-                else
-                {
-                    ComboBank.Text = string.Empty;
-                    ComboBank.Enabled = false;
-                    RichAmount.Enabled = true;
-                    RichAmount.Focus();
-                }
-            }
-        }
-        #endregion
     }
 }

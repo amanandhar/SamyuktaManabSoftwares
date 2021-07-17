@@ -26,6 +26,7 @@ namespace GrocerySupplyManagementApp.Services
 
         public Supplier AddSupplier(Supplier supplier)
         {
+            supplier.Counter = _supplierRepository.GetLastSupplierId() + 1;
             return _supplierRepository.AddSupplier(supplier);
         }
 
@@ -37,6 +38,30 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeleteSupplier(string supplierId)
         {
             return _supplierRepository.DeleteSupplier(supplierId);
+        }
+
+        public string GetNewSupplierId()
+        {
+            string supplierId;
+            var id = (_supplierRepository.GetLastSupplierId() + 1).ToString();
+            if (id.Length == 1)
+            {
+                supplierId = "000" + id;
+            }
+            else if (id.Length == 2)
+            {
+                supplierId = "00" + id;
+            }
+            else if (id.Length == 3)
+            {
+                supplierId = "0" + id;
+            }
+            else
+            {
+                supplierId = id;
+            }
+
+            return "S-" + supplierId;
         }
     }
 }

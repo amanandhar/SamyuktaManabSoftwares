@@ -1,7 +1,7 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -9,45 +9,45 @@ namespace GrocerySupplyManagementApp.Services
 {
     public class SoldItemService : ISoldItemService
     {
-        private readonly ISoldItemRepository _posSoldItemRepository;
+        private readonly ISoldItemRepository _soldItemRepository;
 
-        public SoldItemService(ISoldItemRepository posSoldItemRepository)
+        public SoldItemService(ISoldItemRepository soldItemRepository)
         {
-            _posSoldItemRepository = posSoldItemRepository;
+            _soldItemRepository = soldItemRepository;
         }
 
-        public IEnumerable<SoldItem> GetPosSoldItems()
+        public IEnumerable<SoldItem> GetSoldItems()
         {
-            return _posSoldItemRepository.GetPosSoldItems();
+            return _soldItemRepository.GetSoldItems();
         }
 
-        public SoldItem GetPosSoldItem(long posSoldItemId)
+        public SoldItem GetSoldItem(long soldItemId)
         {
-            return _posSoldItemRepository.GetPosSoldItem(posSoldItemId);
+            return _soldItemRepository.GetSoldItem(soldItemId);
         }
 
-        public SoldItem AddPosSoldItem(SoldItem posSoldItem)
+        public SoldItem AddSoldItem(SoldItem soldItem)
         {
-            return _posSoldItemRepository.AddPosSoldItem(posSoldItem);
+            return _soldItemRepository.AddSoldItem(soldItem);
         }
-        public SoldItem UpdatePosSoldItem(long posSoldItemId, SoldItem posSoldItem)
+        public SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem)
         {
-            return _posSoldItemRepository.UpdatePosSoldItem(posSoldItemId, posSoldItem);
+            return _soldItemRepository.UpdateSoldItem(soldItemId, soldItem);
         }
 
-        public bool DeleteSupplierTransaction(long posSoldItemId)
+        public bool DeleteSupplierTransaction(long soldItemId)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeletePosSoldItem(string invoiceNo)
+        public bool DeleteSoldItem(string invoiceNo)
         {
-            return _posSoldItemRepository.DeletePosSoldItem(invoiceNo);
+            return _soldItemRepository.DeleteSoldItem(invoiceNo);
         }
 
-        public IEnumerable<SoldItemView> GetPosSoldItemGrid(string invoiceNo)
+        public IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo)
         {
-            return _posSoldItemRepository.GetPosSoldItemGrid(invoiceNo);
+            return _soldItemRepository.GetSoldItemViewList(invoiceNo);
         }
     }
 }

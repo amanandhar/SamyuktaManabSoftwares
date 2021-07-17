@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
@@ -14,14 +15,14 @@ namespace GrocerySupplyManagementApp.Services
             _transactionRepository = transactionRepository;
         }
 
-        public IEnumerable<TransactionView> GetTransactionGrids(TransactionFilter transactionFilter)
+        public IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter)
         {
-            return _transactionRepository.GetTransactionGrids(transactionFilter);
+            return _transactionRepository.GetTransactionViewList(transactionFilter);
         }
 
-        public decimal GetSumTransactionGrids(TransactionFilter transactionFilter)
+        public decimal GetUserTransactionBalance(TransactionFilter transactionFilter)
         {
-            return _transactionRepository.GetSumTransactionGrids(transactionFilter);
+            return _transactionRepository.GetUserTransactionBalance(transactionFilter);
         }
 
         public IEnumerable<string> GetMemberIds()
@@ -39,9 +40,9 @@ namespace GrocerySupplyManagementApp.Services
             return _transactionRepository.GetInvoices();
         }
 
-        public bool DeleteTransactionGrids(long id)
+        public bool DeleteUserTransaction(long id)
         {
-            return _transactionRepository.DeleteTransactionGrids(id);
+            return _transactionRepository.DeleteUserTransaction(id);
         }
     }
 }

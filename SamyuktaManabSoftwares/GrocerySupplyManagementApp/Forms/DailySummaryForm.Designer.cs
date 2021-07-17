@@ -61,10 +61,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.RichBalanceCredit = new System.Windows.Forms.RichTextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DataGridSummaryList = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridSummaryList)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -415,9 +415,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBalanceCredit.TabIndex = 19;
             this.RichBalanceCredit.Text = "";
             // 
-            // dataGridView1
+            // DataGridSummaryList
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataGridSummaryList.BackgroundColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -425,8 +425,8 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridSummaryList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridSummaryList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -434,9 +434,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 139);
-            this.dataGridView1.Name = "dataGridView1";
+            this.DataGridSummaryList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridSummaryList.Location = new System.Drawing.Point(16, 139);
+            this.DataGridSummaryList.Name = "DataGridSummaryList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -444,9 +444,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Size = new System.Drawing.Size(623, 385);
-            this.dataGridView1.TabIndex = 20;
+            this.DataGridSummaryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DataGridSummaryList.Size = new System.Drawing.Size(623, 385);
+            this.DataGridSummaryList.TabIndex = 20;
             // 
             // SummaryForm
             // 
@@ -454,7 +454,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1044, 549);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DataGridSummaryList);
             this.Controls.Add(this.RichBalanceCredit);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox1);
@@ -468,7 +468,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridSummaryList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -505,6 +505,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnDailyTransaction;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RichTextBox RichBalanceCredit;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DataGridSummaryList;
     }
 }

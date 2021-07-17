@@ -6,28 +6,25 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ReportForm : Form
     {
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly IUserTransactionService _posTransactionService;
-        private readonly IBankDetailService _bankDetailService;
+        private readonly IFiscalYearService _fiscalYearService;
+        private readonly IUserTransactionService _userTransactionService;
+        private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IIncomeDetailService _incomeDetailService;
-        private readonly IIncomeService _incomeService;
         private readonly IItemTransactionService _itemTransactionService;
 
         #region Constructor
-        public ReportForm(IFiscalYearDetailService fiscalYearDetailService, IUserTransactionService posTransactionService,
-            IBankDetailService bankDetailService, IBankTransactionService bankTransactionService,
-            IIncomeDetailService incomeDetailService, IIncomeService incomeService,
-            IItemTransactionService itemTransactionService)
+        public ReportForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService,
+            IBankService bankService, IBankTransactionService bankTransactionService,
+            IIncomeDetailService incomeDetailService, IItemTransactionService itemTransactionService)
         {
             InitializeComponent();
 
-            _fiscalYearDetailService = fiscalYearDetailService;
-            _posTransactionService = posTransactionService;
-            _bankDetailService = bankDetailService;
+            _fiscalYearService = fiscalYearService;
+            _userTransactionService = userTransactionService;
+            _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _incomeDetailService = incomeDetailService;
-            _incomeService = incomeService;
             _itemTransactionService = itemTransactionService;
         }
         #endregion
@@ -43,29 +40,29 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnProfitLossForm_Click(object sender, EventArgs e)
         {
-            ProfitLossForm profitLossForm = new ProfitLossForm(_incomeDetailService, _posTransactionService);
+            ProfitLossForm profitLossForm = new ProfitLossForm(_incomeDetailService, _userTransactionService);
             profitLossForm.Show();
         }
 
         private void BtnDailyIncomeReport_Click(object sender, EventArgs e)
         {
-            IncomeDetailForm incomeDetailForm = new IncomeDetailForm(_fiscalYearDetailService, _incomeDetailService, 
-                _posTransactionService, _bankDetailService,
+            IncomeForm incomeDetailForm = new IncomeForm(_fiscalYearService, _incomeDetailService, 
+                _userTransactionService, _bankService,
                 _bankTransactionService);
             incomeDetailForm.Show();
         }
 
         private void BtnBalanceSheetForm_Click(object sender, EventArgs e)
         {
-            BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_posTransactionService, _incomeDetailService,
+            BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_userTransactionService, _incomeDetailService,
                 _bankTransactionService, _itemTransactionService);
             balanceSheetForm.Show();
         }
 
         private void BtnDailyExpenseReport_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearDetailService, _posTransactionService,
-                _bankDetailService, _bankTransactionService);
+            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService, _userTransactionService,
+                _bankService, _bankTransactionService);
             expenseForm.Show();
         }
 

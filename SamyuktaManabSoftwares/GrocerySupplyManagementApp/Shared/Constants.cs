@@ -24,7 +24,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_BANK_TRANSACTION = "BankTransaction";
         public const string TABLE_CODED_ITEM = "CodedItem";
         public const string TABLE_FISCAL_YEAR = "FiscalYear";
-        public const string TABLE_INCOME = "Income";
         public const string TABLE_ITEM = "Item";
         public const string TABLE_MEMBER = "Member";
         public const string TABLE_PURCHASED_ITEM = "PurchasedItem";
@@ -58,5 +57,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TELEPHONE_INTERNET = "Telephone & Internet";
 
         public const string TOTAL = "Total";
+        public const string DEPOSIT = "Deposit";
+        public const string WITHDRAWL = "Withdrawl";
     }
 }

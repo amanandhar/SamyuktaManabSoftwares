@@ -12,25 +12,26 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BankTransferForm : Form
     {
-        private readonly IFiscalYearDetailService _fiscalYearDetailService;
-        private readonly IBankDetailService _bankDetailService;
+        private readonly IFiscalYearService _fiscalYearService;
+        private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IUserTransactionService _posTransactionService;
-        private List<Bank> _bankDetails = new List<Bank>();
+        private readonly IUserTransactionService _userTransactionService;
+        private List<Bank> _banks = new List<Bank>();
 
         #region Constructor
-        public BankTransferForm(IFiscalYearDetailService fiscalYearDetailService, IBankDetailService bankDetailService, IBankTransactionService bankTransactionService, IUserTransactionService posTransactionService)
+        public BankTransferForm(IFiscalYearService fiscalYearService, IBankService bankService, 
+            IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _fiscalYearDetailService = fiscalYearDetailService;
-            _bankDetailService = bankDetailService;
-            _posTransactionService = posTransactionService;
+            _fiscalYearService = fiscalYearService;
+            _bankService = bankService;
+            _userTransactionService = userTransactionService;
             _bankTransactionService = bankTransactionService;
         }
         #endregion
 
-        #region Load Event
+        #region Form Load Event
         private void BankTransferForm_Load(object sender, EventArgs e)
         {
             LoadBankDetails();
@@ -42,10 +43,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYearDetail = _fiscalYearDetailService.GetFiscalYearDetail();
-                var posTransaction = new UserTransaction
+                var fiscalYear = _fiscalYearService.GetFiscalYear();
+                var userTransaction = new UserTransaction
                 {
-                    InvoiceDate = fiscalYearDetail.StartingDate,
+                    EndOfDate = fiscalYear.StartingDate,
                     Action = Constants.TRANSFER,
                     ActionType = Constants.CASH,
                     Bank = ComboBank.Text,
@@ -56,19 +57,20 @@ namespace GrocerySupplyManagementApp.Forms
                     Vat = 0.0m,
                     DeliveryChargePercent = 0.0m,
                     DeliveryCharge = 0.0m,
-                    TotalAmount = Convert.ToDecimal(RichDepositAmount.Text),
+                    DueAmount = Convert.ToDecimal(RichDepositAmount.Text),
                     ReceivedAmount = 0.0m,
                     Date = DateTime.Now
                 };
-                _posTransactionService.AddPosTransaction(posTransaction);
+                _userTransactionService.AddUserTransaction(userTransaction);
 
-                var lastPosTransaction = _posTransactionService.GetLastPosTransaction(string.Empty);
+                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                 var bankTransaction = new BankTransaction
                 {
+                    EndOfDate = fiscalYear.StartingDate,
                     BankId = Convert.ToInt64(selectedItem.Id),
-                    TransactionId = lastPosTransaction.Id,
+                    TransactionId = lastUserTransaction.Id,
                     Action = '1',
                     Debit = Convert.ToDecimal(RichDepositAmount.Text),
                     Credit = 0.0m,
@@ -108,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
             var selectedBank = ComboBank.Text;
             if(!string.IsNullOrWhiteSpace(selectedBank))
             {
-                var accountNo = _bankDetails.Where(x => x.Name == selectedBank).Select(x => x.AccountNo).FirstOrDefault();
+                var accountNo = _banks.Where(x => x.Name == selectedBank).Select(x => x.AccountNo).FirstOrDefault();
                 TxtAccountNo.Text = accountNo;
             }
         }
@@ -119,17 +121,17 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                _bankDetails = _bankDetailService.GetBankDetails().ToList();
+                _banks = _bankService.GetBanks().ToList();
 
                 ComboBank.ValueMember = "Id";
                 ComboBank.DisplayMember = "Value";
 
-                _bankDetails.OrderBy(x => x.Name).ToList().ForEach(x =>
+                _banks.OrderBy(x => x.Name).ToList().ForEach(x =>
                 {
                     ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
                 });
 
-                TxtCash.Text = _posTransactionService.GetCashInHand().ToString();
+                TxtCash.Text = _userTransactionService.GetCashInHand().ToString();
             }
             catch(Exception ex)
             {
@@ -143,7 +145,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 ComboBank.Text = string.Empty;
-                TxtCash.Text = _posTransactionService.GetCashInHand().ToString();
+                TxtCash.Text = _userTransactionService.GetCashInHand().ToString();
                 TxtAccountNo.Clear();
                 RichDepositAmount.Clear();
                 RichNarration.Clear();

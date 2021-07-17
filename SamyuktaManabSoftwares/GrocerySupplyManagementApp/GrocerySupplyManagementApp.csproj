@@ -87,26 +87,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DsSales.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DTOs\BankTransactionView.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
-    <Compile Include="DTOs\ExpenseTransactionView.cs" />
-    <Compile Include="DTOs\IncomeDetailView.cs" />
-    <Compile Include="DTOs\IncomeExpenseView.cs" />
-    <Compile Include="DTOs\ItemCodedView.cs" />
-    <Compile Include="DTOs\SoldItemView.cs" />
-    <Compile Include="DTOs\StockView.cs" />
-    <Compile Include="DTOs\MemberTransactionView.cs" />
-    <Compile Include="DTOs\ItemView.cs" />
-    <Compile Include="DTOs\ItemTransactionView.cs" />
-    <Compile Include="DTOs\StockFilterView.cs" />
-    <Compile Include="DTOs\SupplierTransactionView.cs" />
     <Compile Include="DTOs\TransactionFilter.cs" />
-    <Compile Include="DTOs\TransactionView.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
     <Compile Include="Entities\FiscalYear.cs" />
-    <Compile Include="Entities\Income.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\CodedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
@@ -146,12 +132,12 @@
       <DependentUpon>BankTransferForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Interfaces\IBankListForm.cs" />
-    <Compile Include="Forms\Interfaces\IPreparedItemListForm.cs" />
-    <Compile Include="Forms\PreparedItemListForm.cs">
+    <Compile Include="Forms\Interfaces\ICodedItemListForm.cs" />
+    <Compile Include="Forms\CodedItemListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PreparedItemListForm.Designer.cs">
-      <DependentUpon>PreparedItemListForm.cs</DependentUpon>
+    <Compile Include="Forms\CodedItemListForm.Designer.cs">
+      <DependentUpon>CodedItemListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ShareMemberForm.cs">
       <SubType>Form</SubType>
@@ -197,11 +183,11 @@
     <Compile Include="Forms\LoanForm.Designer.cs">
       <DependentUpon>LoanForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\IncomeDetailForm.cs">
+    <Compile Include="Forms\IncomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\IncomeDetailForm.Designer.cs">
-      <DependentUpon>IncomeDetailForm.cs</DependentUpon>
+    <Compile Include="Forms\IncomeForm.Designer.cs">
+      <DependentUpon>IncomeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InvoiceReportForm.cs">
       <SubType>Form</SubType>
@@ -331,25 +317,23 @@
     <Compile Include="Forms\TransactionForm.Designer.cs">
       <DependentUpon>TransactionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\Interfaces\IBankDetailRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICodedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDailyTransactionRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IFiscalYearDetailRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IFiscalYearRepository.cs" />
     <Compile Include="Repositories\Interfaces\IIncomeDetailRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IIncomeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPurchasedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISoldItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISupplierRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ITaxDetailRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITaxRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
-    <Compile Include="Repositories\MSSqlBankDetailRepository.cs" />
+    <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
-    <Compile Include="Repositories\MSSqlFiscalYearDetailRepository.cs" />
+    <Compile Include="Repositories\MSSqlFiscalYearRepository.cs" />
     <Compile Include="Repositories\MSSqlIncomeDetailRepository.cs" />
-    <Compile Include="Repositories\MSSqlIncomeRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
@@ -357,31 +341,29 @@
     <Compile Include="Repositories\MSSqlSoldItemRepository.cs" />
     <Compile Include="Repositories\MSSqlCodedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
-    <Compile Include="Repositories\MSSqlTaxDetailRepository.cs" />
+    <Compile Include="Repositories\MSSqlTaxRepository.cs" />
     <Compile Include="Repositories\MSSqlDailyTransactionRepository.cs" />
     <Compile Include="SampleSalesDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SampleSalesDBDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Services\BankDetailService.cs" />
+    <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
-    <Compile Include="Services\FiscalYearDetailService.cs" />
+    <Compile Include="Services\FiscalYearService.cs" />
     <Compile Include="Services\IncomeDetailService.cs" />
-    <Compile Include="Services\IncomeService.cs" />
-    <Compile Include="Services\Interfaces\IBankDetailService.cs" />
+    <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICodedItemService.cs" />
     <Compile Include="Services\Interfaces\IDailyTransactionService.cs" />
-    <Compile Include="Services\Interfaces\IFiscalYearDetailService.cs" />
+    <Compile Include="Services\Interfaces\IFiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IIncomeDetailService.cs" />
-    <Compile Include="Services\Interfaces\IIncomeService.cs" />
     <Compile Include="Services\Interfaces\IItemService.cs" />
     <Compile Include="Services\Interfaces\IItemTransactionService.cs" />
     <Compile Include="Services\Interfaces\IMemberService.cs" />
     <Compile Include="Services\Interfaces\ISoldItemService.cs" />
     <Compile Include="Services\Interfaces\ISupplierService.cs" />
-    <Compile Include="Services\Interfaces\ITaxDetailService.cs" />
+    <Compile Include="Services\Interfaces\ITaxService.cs" />
     <Compile Include="Services\Interfaces\IUserTransactionService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ItemTransactionService.cs" />
@@ -390,11 +372,26 @@
     <Compile Include="Services\SoldItemService.cs" />
     <Compile Include="Services\CodedItemService.cs" />
     <Compile Include="Services\SupplierService.cs" />
-    <Compile Include="Services\TaxDetailService.cs" />
+    <Compile Include="Services\TaxService.cs" />
     <Compile Include="Services\DailyTransactionService.cs" />
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="ViewModels\BankTransactionView.cs" />
+    <Compile Include="ViewModels\CodedItemView.cs" />
+    <Compile Include="ViewModels\ExpenseTransactionView.cs" />
+    <Compile Include="ViewModels\IncomeDetailView.cs" />
+    <Compile Include="ViewModels\IncomeExpenseView.cs" />
+    <Compile Include="ViewModels\ItemTransactionView.cs" />
+    <Compile Include="ViewModels\ItemView.cs" />
+    <Compile Include="ViewModels\MemberTransactionView.cs" />
+    <Compile Include="ViewModels\MemberView.cs" />
+    <Compile Include="ViewModels\SoldItemView.cs" />
+    <Compile Include="ViewModels\StockFilterView.cs" />
+    <Compile Include="ViewModels\StockView.cs" />
+    <Compile Include="ViewModels\SupplierTransactionView.cs" />
+    <Compile Include="ViewModels\SupplierView.cs" />
+    <Compile Include="ViewModels\TransactionView.cs" />
     <EmbeddedResource Include="Forms\AddNewCodeForm.resx">
       <DependentUpon>AddNewCodeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -410,8 +407,8 @@
     <EmbeddedResource Include="Forms\BankTransferForm.resx">
       <DependentUpon>BankTransferForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PreparedItemListForm.resx">
-      <DependentUpon>PreparedItemListForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CodedItemListForm.resx">
+      <DependentUpon>CodedItemListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ShareMemberForm.resx">
       <DependentUpon>ShareMemberForm.cs</DependentUpon>
@@ -434,8 +431,8 @@
     <EmbeddedResource Include="Forms\LoanForm.resx">
       <DependentUpon>LoanForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\IncomeDetailForm.resx">
-      <DependentUpon>IncomeDetailForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\IncomeForm.resx">
+      <DependentUpon>IncomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvoiceReportForm.resx">
       <DependentUpon>InvoiceReportForm.cs</DependentUpon>

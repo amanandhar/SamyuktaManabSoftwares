@@ -41,6 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridMemberList.Size = new System.Drawing.Size(495, 426);
             this.DataGridMemberList.TabIndex = 0;
             this.DataGridMemberList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridMemberList_CellDoubleClick);
+            this.DataGridMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberList_DataBindingComplete);
             // 
             // MemberListForm
             // 

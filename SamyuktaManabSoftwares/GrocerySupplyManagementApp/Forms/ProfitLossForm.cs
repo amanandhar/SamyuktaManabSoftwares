@@ -1,6 +1,6 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Data Grid Events
+        #region Data Grid Event
         private void DataGridIncomeList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridIncomeList.Columns["Name"].HeaderText = "Name";
@@ -71,6 +71,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DataGridIncomeList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridIncomeList.RowHeadersWidth = 50;
+                DataGridIncomeList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
 
@@ -88,6 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DataGridExpenseList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridExpenseList.RowHeadersWidth = 50;
+                DataGridExpenseList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
         #endregion
@@ -249,6 +251,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
     }
 }

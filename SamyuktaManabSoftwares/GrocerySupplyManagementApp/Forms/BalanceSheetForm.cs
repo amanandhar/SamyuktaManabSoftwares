@@ -1,6 +1,6 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -27,13 +27,14 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Form Load
+        #region Form Load Event
         private void BalanceSheetForm_Load(object sender, EventArgs e)
         {
 
         }
         #endregion
 
+        #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
             try
@@ -62,8 +63,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 StockFilterView filter = new StockFilterView();
 
-                var shareCapital = _bankTransactionService.GetBankTotalDeposit(Constants.SHARE_CAPITAL);
-                var ownerEquity = _bankTransactionService.GetBankTotalDeposit(Constants.OWNER_EQUITY);
+                var shareCapital = _bankTransactionService.GetTotalDeposit(Constants.SHARE_CAPITAL);
+                var ownerEquity = _bankTransactionService.GetTotalDeposit(Constants.OWNER_EQUITY);
                 var loadAmount = 0.0m;
                 var payableAmount = Math.Abs(_userTransactionService.GetSupplierTotalBalance());
                 var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.0m;
@@ -71,7 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
                     + payableAmount + netProfit;
 
                 var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
-                var bankAccount = _bankTransactionService.GetBankBalance();
+                var bankAccount = _bankTransactionService.GetTotalBalance();
                 var stockValue = _itemTransactionService.GetTotalPurchaseItemAmount(filter) - _itemTransactionService.GetTotalSalesItemAmount(filter);
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance();
                 var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.0m;
@@ -96,6 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+        #endregion 
 
         #region Helper Methods
         private void ClearAllFields()

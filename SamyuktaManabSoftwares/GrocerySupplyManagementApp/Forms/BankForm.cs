@@ -2,6 +2,8 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +14,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BankForm : Form, IBankListForm
     {
-        private readonly IBankDetailService _bankDetailService;
+        private readonly IFiscalYearService _fiscalYearService;
+        private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private long selectedBankId = 0;
 
@@ -29,23 +32,25 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public BankForm(IBankDetailService bankDetailService, IBankTransactionService bankTransactionService)
+        public BankForm(IFiscalYearService fiscalYearService, IBankService bankService, 
+            IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
 
-            _bankDetailService = bankDetailService;
+            _fiscalYearService = fiscalYearService;
+            _bankService = bankService;
             _bankTransactionService = bankTransactionService;
         }
         #endregion
 
-        #region Form Load
+        #region Form Load Event
         private void BankForm_Load(object sender, EventArgs e)
         {
 
         }
         #endregion 
 
-        #region Button Click Events
+        #region Button Click Event
         private void BtnAddBank_Click(object sender, EventArgs e)
         {
             EnableFields(Action.Add, true);
@@ -56,16 +61,16 @@ namespace GrocerySupplyManagementApp.Forms
         { 
             try 
             {
-                var bankDetail = new Bank
+                var bank = new Bank
                 {
                     Name = RichBankName.Text,
                     AccountNo = RichAccountNo.Text,
                     Date = DateTime.Now
                 };
 
-                _bankDetailService.AddBankDetail(bankDetail);
+                _bankService.AddBank(bank);
 
-                DialogResult result = MessageBox.Show(bankDetail.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(bank.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -85,14 +90,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdateBank_Click(object sender, EventArgs e)
         {
-            var bankDetail = new Bank
+            var bank = new Bank
             {
                 Name = RichBankName.Text,
                 AccountNo = RichAccountNo.Text
             };
 
-            _bankDetailService.UpdateBankDetail(selectedBankId, bankDetail);
-
+            _bankService.UpdateBank(selectedBankId, bank);
             MessageBox.Show(RichBankName.Text + " is updated successfully.", "Message", MessageBoxButtons.OK);
         }
 
@@ -100,15 +104,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (DataGridBankDetails.SelectedRows.Count == 1)
+                if (DataGridBankList.SelectedRows.Count == 1)
                 {
-                    var id = Convert.ToInt64(DataGridBankDetails.SelectedCells[0].Value.ToString());
-
+                    var selectedRow = DataGridBankList.SelectedRows[0];
+                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                     _bankTransactionService.DeleteBankTransaction(id);
-
-                    var bankBalance = _bankTransactionService.GetBankBalance(selectedBankId);
-                    TxtBalance.Text = bankBalance.ToString();
-
+                    var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
+                    TxtBalance.Text = totalBalance.ToString();
                     LoadBankTransaction();
                 }
             }
@@ -120,7 +122,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowBank_Click(object sender, EventArgs e)
         {
-            BankListForm bankListForm = new BankListForm(_bankDetailService, this);
+            BankListForm bankListForm = new BankListForm(_bankService, this);
             bankListForm.Show();
         }
 
@@ -130,26 +132,24 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var bankTransaction = new BankTransaction
                 {
+                    EndOfDate = _fiscalYearService.GetFiscalYear().StartingDate,
                     BankId = selectedBankId,
-                    Action = ComboAction.Text.ToLower() == "deposit" ? '1' : '0',
-                    Debit = ComboAction.Text.ToLower() == "deposit" ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
-                    Credit = ComboAction.Text.ToLower() == "deposit" ? 0.0m : Convert.ToDecimal(RichAmount.Text),
+                    Action = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
+                    Debit = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
+                    Credit = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.0m : Convert.ToDecimal(RichAmount.Text),
                     Narration = ComboType.Text,
                     Date = DateTime.Now
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
-
                 DialogResult result = MessageBox.Show(ComboAction.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    var bankBalance = _bankTransactionService.GetBankBalance(selectedBankId);
-                    TxtBalance.Text = bankBalance.ToString();
-
+                    var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
+                    TxtBalance.Text = totalBalance.ToString();
                     ComboAction.Text = string.Empty;
                     RichAmount.Clear();
                     ComboType.Text = string.Empty;
-
                     EnableFields(Action.Save, true);
                     LoadBankTransaction();
                 }
@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                _bankDetailService.DeleteBankDetail(selectedBankId);
+                _bankService.DeleteBank(selectedBankId);
                 _bankTransactionService.DeleteBankTransaction(selectedBankId);
 
                 DialogResult result = MessageBox.Show(RichBankName.Text + " is deleted successfully.", "Message", MessageBoxButtons.OK);
@@ -183,22 +183,62 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Helper Methods
+        #region Data Grid Event
+        private void DataGridBankDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridBankList.Columns["Id"].Visible = false;
+
+            DataGridBankList.Columns["EndOfDate"].HeaderText = "Date";
+            DataGridBankList.Columns["EndOfDate"].Width = 100;
+            DataGridBankList.Columns["EndOfDate"].DisplayIndex = 0;
+            DataGridBankList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+
+            DataGridBankList.Columns["Description"].HeaderText = "Descriptions";
+            DataGridBankList.Columns["Description"].Width = 100;
+            DataGridBankList.Columns["Description"].DisplayIndex = 1;
+
+            DataGridBankList.Columns["Narration"].HeaderText = "Narration";
+            DataGridBankList.Columns["Narration"].Width = 260;
+            DataGridBankList.Columns["Narration"].DisplayIndex = 2;
+
+            DataGridBankList.Columns["Debit"].HeaderText = "Debit";
+            DataGridBankList.Columns["Debit"].Width = 100;
+            DataGridBankList.Columns["Debit"].DisplayIndex = 3;
+            DataGridBankList.Columns["Debit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridBankList.Columns["Credit"].HeaderText = "Credit";
+            DataGridBankList.Columns["Credit"].Width = 100;
+            DataGridBankList.Columns["Credit"].DisplayIndex = 4;
+            DataGridBankList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridBankList.Columns["Balance"].HeaderText = "Balance";
+            DataGridBankList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridBankList.Columns["Balance"].DisplayIndex = 5;
+            DataGridBankList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridBankList.Rows)
+            {
+                DataGridBankList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridBankList.RowHeadersWidth = 50;
+                DataGridBankList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+
+        #endregion
+
+        #region Helper Method
         public void PopulateBank(long bankId)
         {
             try
             {
                 selectedBankId = bankId;
-                var bankDetail = _bankDetailService.GetBankDetail(bankId);
+                var bankDetail = _bankService.GetBank(bankId);
                 RichBankName.Text = bankDetail.Name;
                 RichAccountNo.Text = bankDetail.AccountNo;
-
-                var bankBalance = _bankTransactionService.GetBankBalance(bankId);
+                var bankBalance = _bankTransactionService.GetTotalBalance(bankId);
                 TxtBalance.Text = bankBalance.ToString();
-
                 EnableFields(Action.Populate, true);
                 ComboAction.Focus();
-
                 LoadBankTransaction();
             }
             catch (Exception ex)
@@ -209,7 +249,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(Action action, bool option = true)
         {
-            if(action == Action.Add)
+            if (action == Action.Add)
             {
                 RichBankName.Enabled = option;
                 RichAccountNo.Enabled = option;
@@ -229,7 +269,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichAmount.Enabled = option;
                 ComboType.Enabled = option;
             }
-            else if(action == Action.Populate)
+            else if (action == Action.Populate)
             {
                 ComboAction.Enabled = option;
                 RichAmount.Enabled = option;
@@ -258,50 +298,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadBankTransaction()
         {
-            List<BankTransactionView> bankTransactionViews = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
+            List<BankTransactionView> bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
 
-            var bindingList = new BindingList<BankTransactionView>(bankTransactionViews);
+            var bindingList = new BindingList<BankTransactionView>(bankTransactionViewList);
             var source = new BindingSource(bindingList, null);
-            DataGridBankDetails.DataSource = source;
-        }
-
-        #endregion
-
-        #region Data Grid Events 
-        private void DataGridBankDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            DataGridBankDetails.Columns["Id"].Visible = false;
-
-            DataGridBankDetails.Columns["Date"].HeaderText = "Date";
-            DataGridBankDetails.Columns["Date"].Width = 100;
-            DataGridBankDetails.Columns["Date"].DisplayIndex = 0;
-            DataGridBankDetails.Columns["Date"].DefaultCellStyle.Format = "yyyy-MM-dd";
-
-            DataGridBankDetails.Columns["Description"].HeaderText = "Descriptions";
-            DataGridBankDetails.Columns["Description"].Width = 100;
-            DataGridBankDetails.Columns["Description"].DisplayIndex = 1;
-
-            DataGridBankDetails.Columns["Narration"].HeaderText = "Narration";
-            DataGridBankDetails.Columns["Narration"].Width = 260;
-            DataGridBankDetails.Columns["Narration"].DisplayIndex = 2;
-
-            DataGridBankDetails.Columns["Debit"].HeaderText = "Debit";
-            DataGridBankDetails.Columns["Debit"].Width = 100;
-            DataGridBankDetails.Columns["Debit"].DisplayIndex = 3;
-
-            DataGridBankDetails.Columns["Credit"].HeaderText = "Credit";
-            DataGridBankDetails.Columns["Credit"].Width = 100;
-            DataGridBankDetails.Columns["Credit"].DisplayIndex = 4;
-
-            DataGridBankDetails.Columns["Balance"].HeaderText = "Balance";
-            DataGridBankDetails.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridBankDetails.Columns["Balance"].DisplayIndex = 5;
-
-            foreach (DataGridViewRow row in DataGridBankDetails.Rows)
-            {
-                DataGridBankDetails.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridBankDetails.RowHeadersWidth = 50;
-            }
+            DataGridBankList.DataSource = source;
         }
 
         #endregion

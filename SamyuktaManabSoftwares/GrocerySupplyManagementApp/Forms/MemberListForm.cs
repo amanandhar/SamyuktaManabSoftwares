@@ -1,8 +1,10 @@
-﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -11,16 +13,17 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberListForm : Form
     {
         private readonly IMemberService _memberService;
-        private readonly IUserTransactionService _posTransactionService;
+        private readonly IUserTransactionService _userTransactionService;
         public IMemberListForm _memberListForm;
 
         #region Constructor
-        public MemberListForm(IMemberService memberService, IUserTransactionService posTransactionService, IMemberListForm memberListForm)
+        public MemberListForm(IMemberService memberService, IUserTransactionService userTransactionService, 
+            IMemberListForm memberListForm)
         {
             InitializeComponent();
 
             _memberService = memberService;
-            _posTransactionService = posTransactionService;
+            _userTransactionService = userTransactionService;
             _memberListForm = memberListForm;
         }
         #endregion
@@ -29,39 +32,22 @@ namespace GrocerySupplyManagementApp.Forms
         private void MemberListForm_Load(object sender, EventArgs e)
         {
             var members = _memberService.GetMembers();
+            List<MemberView> memberViewList = members.ToList().Select(x => new MemberView()
+            {
+                Id = x.Id,
+                Counter = x.Counter,
+                MemberId = x.MemberId,
+                Name = x.Name,
+                Address = x.Address,
+                ContactNo = x.ContactNo,
+                Email = x.Email,
+                AccountNo = x.AccountNo,
+                Date = x.Date,
+                Balance = _userTransactionService.GetMemberTotalBalance(x.MemberId),
+            }).ToList();
 
-            members.ToList().ForEach(x => x.Balance = _posTransactionService.GetMemberTotalBalance(x.MemberId));
-
-            var bindingList = new BindingList<Member>(members.ToList());
+            var bindingList = new BindingList<MemberView>(memberViewList);
             var source = new BindingSource(bindingList, null);
-
-            DataGridMemberList.AutoGenerateColumns = false;
-
-            //Set Columns Count
-            DataGridMemberList.ColumnCount = 4;
-
-            //Add Columns
-            DataGridMemberList.Columns[0].Name = "MemberId";
-            DataGridMemberList.Columns[0].HeaderText = "Member Id";
-            DataGridMemberList.Columns[0].DataPropertyName = "MemberId";
-            DataGridMemberList.Columns[0].Width = 90;
-
-            DataGridMemberList.Columns[1].Name = "AccountNumber";
-            DataGridMemberList.Columns[1].HeaderText = "Account No";
-            DataGridMemberList.Columns[1].DataPropertyName = "AccountNumber";
-            DataGridMemberList.Columns[1].Width = 90;
-
-            DataGridMemberList.Columns[2].Name = "Name";
-            DataGridMemberList.Columns[2].HeaderText = "Name";
-            DataGridMemberList.Columns[2].DataPropertyName = "Name";
-            DataGridMemberList.Columns[2].Width = 180;
-
-            DataGridMemberList.Columns[3].Name = "Balance";
-            DataGridMemberList.Columns[3].HeaderText = "Balance";
-            DataGridMemberList.Columns[3].DataPropertyName = "Balance";
-            DataGridMemberList.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            DataGridMemberList.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
             DataGridMemberList.DataSource = source;
         }
         #endregion
@@ -69,16 +55,54 @@ namespace GrocerySupplyManagementApp.Forms
         #region Data Grid Event
         private void DataGridMemberList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView dgv = sender as DataGridView;
-            if (dgv == null)
-                return;
-            if (dgv.CurrentRow.Selected)
+            if (!(sender is DataGridView dgv))
             {
-                string memberId = dgv.CurrentRow.Cells[0].Value.ToString();
+                return;
+            }
+
+            if (dgv.SelectedRows.Count == 1)
+            {
+                var selectedRow = dgv.SelectedRows[0];
+                string memberId = selectedRow.Cells["MemberId"].Value.ToString();
                 _memberListForm.PopulateMember(memberId);
-                this.Close();
+                Close();
             }
         }
+
+        private void DataGridMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridMemberList.Columns["Id"].Visible = false;
+            DataGridMemberList.Columns["Counter"].Visible = false;
+            DataGridMemberList.Columns["Address"].Visible = false;
+            DataGridMemberList.Columns["ContactNo"].Visible = false;
+            DataGridMemberList.Columns["Email"].Visible = false;
+            DataGridMemberList.Columns["Date"].Visible = false;
+
+            DataGridMemberList.Columns["MemberId"].HeaderText = "Member Id";
+            DataGridMemberList.Columns["MemberId"].Width = 90;
+            DataGridMemberList.Columns["MemberId"].DisplayIndex = 0;
+
+            DataGridMemberList.Columns["AccountNo"].HeaderText = "Account No";
+            DataGridMemberList.Columns["AccountNo"].Width = 90;
+            DataGridMemberList.Columns["AccountNo"].DisplayIndex = 1;
+
+            DataGridMemberList.Columns["Name"].HeaderText = "Name";
+            DataGridMemberList.Columns["Name"].Width = 180;
+            DataGridMemberList.Columns["Name"].DisplayIndex = 2;
+
+            DataGridMemberList.Columns["Balance"].HeaderText = "Balance";
+            DataGridMemberList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridMemberList.Columns["Balance"].DisplayIndex = 3;
+            DataGridMemberList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridMemberList.Rows)
+            {
+                DataGridMemberList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridMemberList.RowHeadersWidth = 50;
+                DataGridMemberList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+
         #endregion
     }
 }
