@@ -6,6 +6,12 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 {
     public interface IPurchasedItemRepository
     {
+        IEnumerable<PurchasedItem> GetPurchasedItems();
+        PurchasedItem GetPurchasedItem(long purchasedItemId);
+        PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem);
+        PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem purchasedItem);
+        bool DeletePurchasedItem(long purchasedItemId);
+        IEnumerable<PurchasedItemListView> GetPurchasedItemViewList();
         IEnumerable<PurchasedItem> GetItems(bool showEmptyItemCode);
         IEnumerable<StockView> GetStockView(StockFilterView filter);
         IEnumerable<PurchasedItem> GetItemsBySupplierAndBill(string supplierName, string billNo);

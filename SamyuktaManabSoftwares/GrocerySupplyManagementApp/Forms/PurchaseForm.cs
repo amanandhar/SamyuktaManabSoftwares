@@ -15,13 +15,15 @@ namespace GrocerySupplyManagementApp.Forms
     {
         public SupplierForm _supplierForm;
         private readonly IItemService _itemService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly IItemTransactionService _itemTransactionService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IFiscalYearService _fiscalYearService;
         private List<ItemView> _itemViewList = new List<ItemView>();
 
         #region Constructor
-        public PurchaseForm(SupplierForm supplierForm, IItemService itemService, 
+        public PurchaseForm(SupplierForm supplierForm, IItemService itemService,
+            IPurchasedItemService purchasedItemService,
             IItemTransactionService itemTransactionService, IUserTransactionService userTransactionService, 
             IFiscalYearService fiscalYearService)
         {
@@ -29,6 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
             
             _supplierForm = supplierForm;
             _itemService = itemService;
+            _purchasedItemService = purchasedItemService;
             _itemTransactionService = itemTransactionService;
             _userTransactionService = userTransactionService;
             _fiscalYearService = fiscalYearService;
@@ -55,7 +58,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShowItem_Click(object sender, EventArgs e)
         {
-            ItemListForm itemListForm = new ItemListForm(_itemService, this, true);
+            ItemListForm itemListForm = new ItemListForm(_purchasedItemService, this, true);
             itemListForm.Show();
         }
 

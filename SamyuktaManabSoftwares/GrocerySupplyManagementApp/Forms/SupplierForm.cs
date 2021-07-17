@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SupplierForm : Form
     {
         private readonly ISupplierService _supplierService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly IItemService _itemService;
         private readonly IItemTransactionService _itemTransactionService;
         private readonly IBankService _bankService;
@@ -22,14 +23,15 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IFiscalYearService _fiscalYearService;
 
         #region Constructor
-        public SupplierForm(ISupplierService supplierService, IItemService itemService, 
-            IItemTransactionService itemTransactionService, 
+        public SupplierForm(ISupplierService supplierService, IPurchasedItemService purchasedItemService,
+            IItemService itemService, IItemTransactionService itemTransactionService, 
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IUserTransactionService userTransactionService,IFiscalYearService fiscalYearService)
         {
             InitializeComponent();
 
             _supplierService = supplierService;
+            _purchasedItemService = purchasedItemService;
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
             _bankService = bankService;
@@ -53,7 +55,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
             PurchaseForm purchaseForm = new PurchaseForm(this, _itemService,
-                _itemTransactionService, _userTransactionService, 
+                _purchasedItemService, _itemTransactionService, _userTransactionService, 
                 _fiscalYearService);
             purchaseForm.Show();
         }

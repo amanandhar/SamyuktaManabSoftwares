@@ -28,6 +28,7 @@ namespace GrocerySupplyManagementApp
                 container.Resolve<IFiscalYearService>(),
                 container.Resolve<ITaxService>(),
                 container.Resolve<IUserTransactionService>(),
+                container.Resolve<IPurchasedItemService>(),
                 container.Resolve<ISoldItemService>(),
                 container.Resolve<IDailyTransactionService>(),
                 container.Resolve<ICodedItemService>(),
@@ -48,6 +49,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IFiscalYearService, FiscalYearService>();
             container.RegisterType<ITaxService, TaxService>();
             container.RegisterType<IUserTransactionService, UserTransactionService>();
+            container.RegisterType<IPurchasedItemService, PurchasedItemService>();
             container.RegisterType<ISoldItemService, SoldItemService>();
             container.RegisterType<IDailyTransactionService, DailyTransactionService>();
             container.RegisterType<ICodedItemService, CodedItemService>();

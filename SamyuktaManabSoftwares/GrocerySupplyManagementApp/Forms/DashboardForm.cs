@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IFiscalYearService _fiscalYearService;
         private readonly ITaxService _taxService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IDailyTransactionService _transactionService;
         private readonly ICodedItemService _codedItemService;
@@ -24,10 +25,10 @@ namespace GrocerySupplyManagementApp.Forms
         public DashboardForm(IMemberService memberService, ISupplierService supplierService, 
             IItemService itemService, IItemTransactionService itemTransactionService, 
             IFiscalYearService fiscalYearService, ITaxService taxService,
-            IUserTransactionService userTransactionService, ISoldItemService soldItemService, 
-            IDailyTransactionService transactionService, ICodedItemService codedItemService,
-            IBankService bankService, IBankTransactionService bankTransactionService,
-            IIncomeDetailService incomeDetailService)
+            IUserTransactionService userTransactionService, IPurchasedItemService purchasedItemService,
+            ISoldItemService soldItemService, IDailyTransactionService transactionService, 
+            ICodedItemService codedItemService, IBankService bankService, 
+            IBankTransactionService bankTransactionService, IIncomeDetailService incomeDetailService)
         {
             InitializeComponent();
 
@@ -38,6 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
             _fiscalYearService = fiscalYearService;
             _taxService = taxService;
             _userTransactionService = userTransactionService;
+            _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _transactionService = transactionService;
             _codedItemService = codedItemService;
@@ -101,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
         {
-            SupplierForm supplierForm = new SupplierForm(_supplierService, _itemService, 
+            SupplierForm supplierForm = new SupplierForm(_supplierService, _purchasedItemService, _itemService, 
                 _itemTransactionService, _bankService, 
                 _bankTransactionService, _userTransactionService, 
                 _fiscalYearService);
@@ -110,7 +112,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnItemMgmt_Click(object sender, EventArgs e)
         {
-            ItemForm itemForm = new ItemForm(_itemService, _itemTransactionService, 
+            ItemForm itemForm = new ItemForm(_itemService, _purchasedItemService, _itemTransactionService, 
                 _codedItemService, this);
             itemForm.Show();
         }
@@ -137,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
-            SettingForm settingForm = new SettingForm(_fiscalYearService, _taxService, _itemService);
+            SettingForm settingForm = new SettingForm(_fiscalYearService, _purchasedItemService, _taxService, _itemService);
             settingForm.Show();
         }
 

@@ -361,6 +361,7 @@
     <Compile Include="Services\Interfaces\IItemService.cs" />
     <Compile Include="Services\Interfaces\IItemTransactionService.cs" />
     <Compile Include="Services\Interfaces\IMemberService.cs" />
+    <Compile Include="Services\Interfaces\IPurchasedItemService.cs" />
     <Compile Include="Services\Interfaces\ISoldItemService.cs" />
     <Compile Include="Services\Interfaces\ISupplierService.cs" />
     <Compile Include="Services\Interfaces\ITaxService.cs" />
@@ -368,6 +369,7 @@
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ItemTransactionService.cs" />
     <Compile Include="Services\MemberService.cs" />
+    <Compile Include="Services\PurchasedItemService.cs" />
     <Compile Include="Services\UserTransactionService.cs" />
     <Compile Include="Services\SoldItemService.cs" />
     <Compile Include="Services\CodedItemService.cs" />
@@ -386,6 +388,7 @@
     <Compile Include="ViewModels\ItemView.cs" />
     <Compile Include="ViewModels\MemberTransactionView.cs" />
     <Compile Include="ViewModels\MemberView.cs" />
+    <Compile Include="ViewModels\PurchasedItemListView.cs" />
     <Compile Include="ViewModels\SoldItemView.cs" />
     <Compile Include="ViewModels\StockFilterView.cs" />
     <Compile Include="ViewModels\StockView.cs" />

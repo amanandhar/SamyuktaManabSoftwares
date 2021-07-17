@@ -7,15 +7,18 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SettingForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly ITaxService _taxService;
         private readonly IItemService _itemService;
 
         #region Constructor
-        public SettingForm(IFiscalYearService fiscalYearService, ITaxService taxService, IItemService itemService)
+        public SettingForm(IFiscalYearService fiscalYearService, IPurchasedItemService purchasedItemService,
+            ITaxService taxService, IItemService itemService)
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
+            _purchasedItemService = purchasedItemService;
             _taxService = taxService;
             _itemService = itemService;
         }
@@ -31,13 +34,13 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnCompanyInfo_Click(object sender, EventArgs e)
         {
-            CompanyInfoForm companyEnfoForm = new CompanyInfoForm();
-            companyEnfoForm.Show();
+            CompanyInfoForm companyInfoForm = new CompanyInfoForm();
+            companyInfoForm.Show();
         }
 
         private void BtnAddNewCode_Click(object sender, EventArgs e)
         {
-            AddNewCodeForm addNewCodeForm = new AddNewCodeForm(_itemService);
+            AddNewCodeForm addNewCodeForm = new AddNewCodeForm(_itemService, _purchasedItemService);
             addNewCodeForm.Show();
         }
 

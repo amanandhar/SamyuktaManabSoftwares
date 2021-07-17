@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ItemForm : Form, IItemListForm, ICodedItemListForm
     {
         private readonly IItemService _itemService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly IItemTransactionService _itemTransactionService;
         private readonly ICodedItemService _codedItemService;
         public DashboardForm _dashboard;
@@ -24,13 +25,15 @@ namespace GrocerySupplyManagementApp.Forms
         private long selectedCodedItemId = 0;
 
         #region Constructor
-        public ItemForm(IItemService itemService, IItemTransactionService itemTransactionService, 
-            ICodedItemService preparedItemService, DashboardForm dashboardForm)
+        public ItemForm(IItemService itemService, IPurchasedItemService purchasedItemService,
+            IItemTransactionService itemTransactionService, ICodedItemService preparedItemService, 
+            DashboardForm dashboardForm)
         {
             InitializeComponent();
 
             _itemService = itemService;
             _itemTransactionService = itemTransactionService;
+            _purchasedItemService = purchasedItemService;
             _codedItemService = preparedItemService;
             _dashboard = dashboardForm;
         }
@@ -46,7 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnItemSearch_Click(object sender, EventArgs e)
         {
-            ItemListForm itemListForm = new ItemListForm(_itemService, this, true);
+            ItemListForm itemListForm = new ItemListForm(_purchasedItemService, this, true);
             itemListForm.Show();
         }
 

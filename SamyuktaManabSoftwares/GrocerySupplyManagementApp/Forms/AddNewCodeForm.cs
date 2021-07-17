@@ -12,6 +12,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class AddNewCodeForm : Form, IItemListForm
     {
         private readonly IItemService _itemService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private long selectedItemId = 0;
 
         #region Enum
@@ -27,11 +28,12 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Constructor
-        public AddNewCodeForm(IItemService itemService)
+        public AddNewCodeForm(IItemService itemService, IPurchasedItemService purchasedItemService)
         {
             InitializeComponent();
 
             _itemService = itemService;
+            _purchasedItemService = purchasedItemService;
         }
         #endregion
 
@@ -46,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Event
         private void BtnShowCode_Click(object sender, EventArgs e)
         {
-            ItemListForm itemListForm = new ItemListForm(_itemService, this, true);
+            ItemListForm itemListForm = new ItemListForm(_purchasedItemService, this, true);
             itemListForm.Show();
         }
 
