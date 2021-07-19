@@ -105,108 +105,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankTransaction;
         }
 
-        public BankTransaction AddBankTransaction(BankTransaction bankTransaction)
-        {
-            string query = @"INSERT INTO " + Constants.TABLE_BANK_TRANSACTION + " " +
-                    "( " +
-                        "[EndOfDate], [BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [Date] " +
-                    ") " +
-                    "VALUES " +
-                    "( " +
-                        "@EndOfDate, @BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @Date " +
-                    ") ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@EndOfDate", ((object)bankTransaction.EndOfDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Date", ((object)bankTransaction.Date) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return bankTransaction;
-        }
-
-        public BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction)
-        {
-
-            string query = @"UPDATE " + Constants.TABLE_BANK_TRANSACTION + " " +
-                    "SET " +
-                    "[BankId] = @BankId, [TransactionId] = @TransactionId, " +
-                    "[Action] = @Action, [Debit] = @Debit, " +
-                    "[Credit] = @Credit, [Narration] = @Narration, " +
-                    "[Date] = @Date " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] = @Id ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Date", ((object)bankTransaction.Date) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return bankTransaction;
-        }
-
-        public bool DeleteBankTransaction(long id)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [Id] = @Id ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return result;
-        }
-
         public IEnumerable<BankTransaction> GetBankTransactions(long bankId)
         {
             var bankTransactions = new List<BankTransaction>();
@@ -405,6 +303,108 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return total;
+        }
+
+        public BankTransaction AddBankTransaction(BankTransaction bankTransaction)
+        {
+            string query = @"INSERT INTO " + Constants.TABLE_BANK_TRANSACTION + " " +
+                    "( " +
+                        "[EndOfDate], [BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [Date] " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@EndOfDate, @BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @Date " +
+                    ") ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@EndOfDate", ((object)bankTransaction.EndOfDate) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Date", ((object)bankTransaction.Date) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return bankTransaction;
+        }
+
+        public BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction)
+        {
+
+            string query = @"UPDATE " + Constants.TABLE_BANK_TRANSACTION + " " +
+                    "SET " +
+                    "[BankId] = @BankId, [TransactionId] = @TransactionId, " +
+                    "[Action] = @Action, [Debit] = @Debit, " +
+                    "[Credit] = @Credit, [Narration] = @Narration, " +
+                    "[Date] = @Date " +
+                    "WHERE 1 = 1 " +
+                    "AND [Id] = @Id ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Date", ((object)bankTransaction.Date) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return bankTransaction;
+        }
+
+        public bool DeleteBankTransaction(long id)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [Id] = @Id ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
         }
 
         public bool DeleteBankTransactionByUserTransaction(long userTransactionId)

@@ -6,46 +6,39 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DashboardForm : Form
     {
-        private readonly IMemberService _memberService;
-        private readonly ISupplierService _supplierService;
-        private readonly IItemService _itemService;
-        private readonly IItemTransactionService _itemTransactionService;
         private readonly IFiscalYearService _fiscalYearService;
         private readonly ITaxService _taxService;
-        private readonly IUserTransactionService _userTransactionService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
-        private readonly IDailyTransactionService _transactionService;
-        private readonly ICodedItemService _codedItemService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IIncomeDetailService _incomeDetailService;
+        private readonly IItemService _itemService;
+        private readonly ICodedItemService _codedItemService;
+        private readonly IMemberService _memberService;
+        private readonly ISupplierService _supplierService;
+        private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
 
         #region Constructor
-        public DashboardForm(IMemberService memberService, ISupplierService supplierService, 
-            IItemService itemService, IItemTransactionService itemTransactionService, 
-            IFiscalYearService fiscalYearService, ITaxService taxService,
-            IUserTransactionService userTransactionService, IPurchasedItemService purchasedItemService,
-            ISoldItemService soldItemService, IDailyTransactionService transactionService, 
-            ICodedItemService codedItemService, IBankService bankService, 
-            IBankTransactionService bankTransactionService, IIncomeDetailService incomeDetailService)
+        public DashboardForm(IFiscalYearService fiscalYearService, ITaxService taxService,
+            IBankService bankService, IBankTransactionService bankTransactionService,
+            IItemService itemService, ICodedItemService codedItemService,
+            IMemberService memberService, ISupplierService supplierService,
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
+            IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _memberService = memberService;
-            _supplierService = supplierService;
-            _itemService = itemService;
-            _itemTransactionService = itemTransactionService;
             _fiscalYearService = fiscalYearService;
             _taxService = taxService;
-            _userTransactionService = userTransactionService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
-            _transactionService = transactionService;
-            _codedItemService = codedItemService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
-            _incomeDetailService = incomeDetailService;
+            _itemService = itemService;
+            _codedItemService = codedItemService;
+            _memberService = memberService;
+            _supplierService = supplierService;
+            _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -76,57 +69,62 @@ namespace GrocerySupplyManagementApp.Forms
         #region Menu Button
         private void BtnPosMgmt_Click(object sender, EventArgs e)
         {
-            PosForm posForm = new PosForm(_memberService, _itemService, 
-                _fiscalYearService, _taxService, 
-                _userTransactionService, _soldItemService, 
-                _transactionService, _codedItemService, 
+            PosForm posForm = new PosForm(  
+                _fiscalYearService, _taxService,
                 _bankService, _bankTransactionService,
-                _itemTransactionService);
+                _itemService, _codedItemService,
+                _memberService,
+                _purchasedItemService, _soldItemService,
+                _userTransactionService
+                 );
             posForm.Show();
         }
 
         private void BtnSummaryMgmt_Click(object sender, EventArgs e)
         {
-            SummaryForm summaryForm = new SummaryForm(_transactionService, _fiscalYearService, 
-                _soldItemService, _userTransactionService,
-                _bankTransactionService, _itemTransactionService);
+            SummaryForm summaryForm = new SummaryForm(_fiscalYearService, _bankTransactionService,
+                _purchasedItemService, _soldItemService, 
+                _userTransactionService);
             summaryForm.Show();
         }
 
         private void BtnMemberMgmt_Click(object sender, EventArgs e)
         {
-            MemberForm memberForm = new MemberForm(_memberService, _userTransactionService, 
-                _soldItemService, _bankService, 
-                _bankTransactionService, _fiscalYearService, this);
+            MemberForm memberForm = new MemberForm(_fiscalYearService,   
+                _bankService, _bankTransactionService, 
+                _memberService, _soldItemService,
+                _userTransactionService, this);
             memberForm.Show();
         }
 
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
         {
-            SupplierForm supplierForm = new SupplierForm(_supplierService, _purchasedItemService, _itemService, 
-                _itemTransactionService, _bankService, 
-                _bankTransactionService, _userTransactionService, 
-                _fiscalYearService);
+            SupplierForm supplierForm = new SupplierForm(_fiscalYearService, _bankService,
+                _bankTransactionService, _itemService, 
+                _supplierService, _purchasedItemService, 
+                _userTransactionService
+                );
             supplierForm.Show();
         }
 
         private void BtnItemMgmt_Click(object sender, EventArgs e)
         {
-            ItemForm itemForm = new ItemForm(_itemService, _purchasedItemService, _itemTransactionService, 
-                _codedItemService, this);
+            CodedItemForm itemForm = new CodedItemForm(_itemService, _codedItemService, 
+                _purchasedItemService, _soldItemService, this);
             itemForm.Show();
         }
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm(_itemTransactionService);
+            StockForm stockForm = new StockForm(_purchasedItemService, _soldItemService);
             stockForm.Show();
         }
 
         private void BtnIncomeExpenseMgmt_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseMgmtForm = new ExpenseForm(_fiscalYearService, _userTransactionService, 
-                _bankService, _bankTransactionService);
+            ExpenseForm expenseMgmtForm = new ExpenseForm(_fiscalYearService, 
+                _bankService, _bankTransactionService,
+                _userTransactionService);
             expenseMgmtForm.Show();
         }
 
@@ -139,15 +137,15 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
-            SettingForm settingForm = new SettingForm(_fiscalYearService, _purchasedItemService, _taxService, _itemService);
+            SettingForm settingForm = new SettingForm(_fiscalYearService, _taxService, _itemService, _purchasedItemService);
             settingForm.Show();
         }
 
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
-            ReportForm reportForm = new ReportForm(_fiscalYearService, _userTransactionService, 
-                _bankService, _bankTransactionService,
-                _incomeDetailService, _itemTransactionService);
+            ReportForm reportForm = new ReportForm(_fiscalYearService, _bankService, _bankTransactionService, _purchasedItemService,
+                _soldItemService, _userTransactionService
+                );
             reportForm.Show();
         }
 

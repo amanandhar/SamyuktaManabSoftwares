@@ -26,6 +26,16 @@ namespace GrocerySupplyManagementApp.Services
             return _codedItemRepository.GetCodedItem(id);
         }
 
+        public IEnumerable<CodedItemView> GetCodedItemViewList()
+        {
+            return _codedItemRepository.GetCodedItemViewList();
+        }
+
+        public IEnumerable<CodedItemView> GetCodedUnCodedItemViewList()
+        {
+            return _codedItemRepository.GetCodedUnCodedItemViewList();
+        }
+
         public CodedItem AddCodedItem(CodedItem codedItem)
         {
             return _codedItemRepository.AddCodedItem(codedItem);
@@ -39,11 +49,6 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeleteCodedItem(long id)
         {
             return _codedItemRepository.DeleteCodedItem(id);
-        }
-
-        public IEnumerable<CodedItemView> GetCodedItemViewList()
-        {
-            return _codedItemRepository.GetCodedItemViewList();
-        }
+        } 
     }
 }

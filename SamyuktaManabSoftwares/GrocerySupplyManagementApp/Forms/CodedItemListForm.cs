@@ -1,8 +1,8 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,21 +13,32 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly ICodedItemService _codedItemService;
         public ICodedItemListForm _codedItemListForm;
+        public bool _showCodedUncodedItem;
 
         #region Constructor
-        public CodedItemListForm(ICodedItemService preparedItemService, ICodedItemListForm preparedItemListForm)
+        public CodedItemListForm(ICodedItemService codedItemService, ICodedItemListForm codedItemListForm, bool showCodedUncodedItem)
         {
             InitializeComponent();
 
-            _codedItemService = preparedItemService;
-            _codedItemListForm = preparedItemListForm;
+            _codedItemService = codedItemService;
+            _codedItemListForm = codedItemListForm;
+            _showCodedUncodedItem = showCodedUncodedItem;
         }
         #endregion
 
         #region Form Load Event
-        private void PreparedItemList_Load(object sender, EventArgs e)
+        private void CodedItemListForm_Load(object sender, EventArgs e)
         {
-            var codedItemViewList = _codedItemService.GetCodedItemViewList();
+            IEnumerable<CodedItemView> codedItemViewList;
+            if (_showCodedUncodedItem)
+            {
+                codedItemViewList = _codedItemService.GetCodedUnCodedItemViewList();
+            }
+            else
+            {
+                codedItemViewList = _codedItemService.GetCodedItemViewList();
+            }
+            
             var bindingList = new BindingList<CodedItemView>(codedItemViewList.ToList());
             var source = new BindingSource(bindingList, null);
             DataGridCodedItemList.DataSource = source;
@@ -35,7 +46,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Data Grid Event
-        private void DataGridPreparedItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void DataGridCodedItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridCodedItemList.Columns["Id"].Visible = false;
 
@@ -43,9 +54,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridCodedItemList.Columns["Code"].Width = 50;
             DataGridCodedItemList.Columns["Code"].DisplayIndex = 0;
 
-            DataGridCodedItemList.Columns["ItemSubCode"].HeaderText = "Sub Code";
-            DataGridCodedItemList.Columns["ItemSubCode"].Width = 80;
-            DataGridCodedItemList.Columns["ItemSubCode"].DisplayIndex = 1;
+            DataGridCodedItemList.Columns["SubCode"].HeaderText = "Sub Code";
+            DataGridCodedItemList.Columns["SubCode"].Width = 80;
+            DataGridCodedItemList.Columns["SubCode"].DisplayIndex = 1;
 
             DataGridCodedItemList.Columns["Name"].HeaderText = "Name";
             DataGridCodedItemList.Columns["Name"].Width = 200;
@@ -63,7 +74,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void DataGridPreparedItemList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridCodedItemList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (!(sender is DataGridView dgv))
             {
@@ -73,11 +84,22 @@ namespace GrocerySupplyManagementApp.Forms
             if (dgv.CurrentRow.Selected)
             {
                 var selectedRow = dgv.SelectedRows[0];
-                long codedItemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                _codedItemListForm.PopulateCodedItem(codedItemId);
+                string itemSubCode = selectedRow.Cells["SubCode"].Value.ToString();
+                if (string.IsNullOrWhiteSpace(itemSubCode))
+                {
+                    long purchasedItemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    _codedItemListForm.PopulateCodedItem(false, purchasedItemId);
+                }
+                else
+                {
+                    long codedItemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    _codedItemListForm.PopulateCodedItem(true, codedItemId);
+                }
+
                 Close();
             }
         }
+
         #endregion
     }
 }

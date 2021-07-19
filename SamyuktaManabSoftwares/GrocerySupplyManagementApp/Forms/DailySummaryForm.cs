@@ -7,26 +7,24 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SummaryForm : Form
     {
-        private readonly IDailyTransactionService _transactionService;
         private readonly IFiscalYearService _fiscalYearService;
+        private readonly IBankTransactionService _bankTransactionService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IBankTransactionService _bankTransactionService;
-        private readonly IItemTransactionService _itemTransactionService;
 
         #region Constructor
-        public SummaryForm(IDailyTransactionService transactionService, IFiscalYearService fiscalYearService,
-            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
-            IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
+        public SummaryForm(IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
+            IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _transactionService = transactionService;
             _fiscalYearService = fiscalYearService;
+            _bankTransactionService = bankTransactionService;
+            _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
-            _bankTransactionService = bankTransactionService;
-            _itemTransactionService = itemTransactionService;
         }
         #endregion
 
@@ -40,9 +38,11 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
-            TransactionForm transactionForm = new TransactionForm(_transactionService, _fiscalYearService, 
-                _soldItemService, _userTransactionService,
-                _bankTransactionService, _itemTransactionService);
+            TransactionForm transactionForm = new TransactionForm(_fiscalYearService,
+                _bankTransactionService,
+                _purchasedItemService, _soldItemService, 
+                _userTransactionService
+                );
             transactionForm.Show();
         }
 

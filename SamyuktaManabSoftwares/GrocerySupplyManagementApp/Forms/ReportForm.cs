@@ -7,25 +7,27 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ReportForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IIncomeDetailService _incomeDetailService;
-        private readonly IItemTransactionService _itemTransactionService;
+        private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
 
         #region Constructor
-        public ReportForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService,
+        public ReportForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
-            IIncomeDetailService incomeDetailService, IItemTransactionService itemTransactionService)
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
+            IUserTransactionService userTransactionService
+            )
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
-            _userTransactionService = userTransactionService;
-            _bankService = bankService;
             _bankTransactionService = bankTransactionService;
-            _incomeDetailService = incomeDetailService;
-            _itemTransactionService = itemTransactionService;
+            _bankService = bankService;
+            _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -40,29 +42,30 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnProfitLossForm_Click(object sender, EventArgs e)
         {
-            ProfitLossForm profitLossForm = new ProfitLossForm(_incomeDetailService, _userTransactionService);
+            ProfitLossForm profitLossForm = new ProfitLossForm(_userTransactionService);
             profitLossForm.Show();
         }
 
         private void BtnDailyIncomeReport_Click(object sender, EventArgs e)
         {
-            IncomeForm incomeDetailForm = new IncomeForm(_fiscalYearService, _incomeDetailService, 
-                _userTransactionService, _bankService,
-                _bankTransactionService);
+            IncomeForm incomeDetailForm = new IncomeForm(_fiscalYearService, 
+                _bankService, _bankTransactionService, _userTransactionService);
             incomeDetailForm.Show();
         }
 
         private void BtnBalanceSheetForm_Click(object sender, EventArgs e)
         {
-            BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_userTransactionService, _incomeDetailService,
-                _bankTransactionService, _itemTransactionService);
+            BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_bankTransactionService,
+                _purchasedItemService, _soldItemService,
+                _userTransactionService);
             balanceSheetForm.Show();
         }
 
         private void BtnDailyExpenseReport_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService, _userTransactionService,
-                _bankService, _bankTransactionService);
+            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
+                _bankService, _bankTransactionService,
+                _userTransactionService);
             expenseForm.Show();
         }
 

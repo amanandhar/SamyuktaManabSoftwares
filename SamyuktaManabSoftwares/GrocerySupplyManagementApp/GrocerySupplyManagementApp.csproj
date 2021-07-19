@@ -101,11 +101,11 @@
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\Tax.cs" />
-    <Compile Include="Forms\AddNewCodeForm.cs">
+    <Compile Include="Forms\ItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddNewCodeForm.Designer.cs">
-      <DependentUpon>AddNewCodeForm.cs</DependentUpon>
+    <Compile Include="Forms\ItemForm.Designer.cs">
+      <DependentUpon>ItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\BalanceSheetForm.cs">
       <SubType>Form</SubType>
@@ -219,11 +219,11 @@
     <Compile Include="Forms\FiscalYearForm.Designer.cs">
       <DependentUpon>FiscalYearForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ItemForm.cs">
+    <Compile Include="Forms\CodedItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ItemForm.Designer.cs">
-      <DependentUpon>ItemForm.cs</DependentUpon>
+    <Compile Include="Forms\CodedItemForm.Designer.cs">
+      <DependentUpon>CodedItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
@@ -320,9 +320,7 @@
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICodedItemRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IDailyTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFiscalYearRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IIncomeDetailRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPurchasedItemRepository.cs" />
@@ -333,7 +331,6 @@
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlFiscalYearRepository.cs" />
-    <Compile Include="Repositories\MSSqlIncomeDetailRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
@@ -342,7 +339,6 @@
     <Compile Include="Repositories\MSSqlCodedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlTaxRepository.cs" />
-    <Compile Include="Repositories\MSSqlDailyTransactionRepository.cs" />
     <Compile Include="SampleSalesDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -351,15 +347,11 @@
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\FiscalYearService.cs" />
-    <Compile Include="Services\IncomeDetailService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICodedItemService.cs" />
-    <Compile Include="Services\Interfaces\IDailyTransactionService.cs" />
     <Compile Include="Services\Interfaces\IFiscalYearService.cs" />
-    <Compile Include="Services\Interfaces\IIncomeDetailService.cs" />
     <Compile Include="Services\Interfaces\IItemService.cs" />
-    <Compile Include="Services\Interfaces\IItemTransactionService.cs" />
     <Compile Include="Services\Interfaces\IMemberService.cs" />
     <Compile Include="Services\Interfaces\IPurchasedItemService.cs" />
     <Compile Include="Services\Interfaces\ISoldItemService.cs" />
@@ -367,7 +359,6 @@
     <Compile Include="Services\Interfaces\ITaxService.cs" />
     <Compile Include="Services\Interfaces\IUserTransactionService.cs" />
     <Compile Include="Services\ItemService.cs" />
-    <Compile Include="Services\ItemTransactionService.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\PurchasedItemService.cs" />
     <Compile Include="Services\UserTransactionService.cs" />
@@ -375,7 +366,6 @@
     <Compile Include="Services\CodedItemService.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\TaxService.cs" />
-    <Compile Include="Services\DailyTransactionService.cs" />
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -384,8 +374,7 @@
     <Compile Include="ViewModels\ExpenseTransactionView.cs" />
     <Compile Include="ViewModels\IncomeDetailView.cs" />
     <Compile Include="ViewModels\IncomeExpenseView.cs" />
-    <Compile Include="ViewModels\ItemTransactionView.cs" />
-    <Compile Include="ViewModels\ItemView.cs" />
+    <Compile Include="ViewModels\PurchasedItemView.cs" />
     <Compile Include="ViewModels\MemberTransactionView.cs" />
     <Compile Include="ViewModels\MemberView.cs" />
     <Compile Include="ViewModels\PurchasedItemListView.cs" />
@@ -395,8 +384,8 @@
     <Compile Include="ViewModels\SupplierTransactionView.cs" />
     <Compile Include="ViewModels\SupplierView.cs" />
     <Compile Include="ViewModels\TransactionView.cs" />
-    <EmbeddedResource Include="Forms\AddNewCodeForm.resx">
-      <DependentUpon>AddNewCodeForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ItemForm.resx">
+      <DependentUpon>ItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BalanceSheetForm.resx">
       <DependentUpon>BalanceSheetForm.cs</DependentUpon>
@@ -452,8 +441,8 @@
     <EmbeddedResource Include="Forms\FiscalYearForm.resx">
       <DependentUpon>FiscalYearForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ItemForm.resx">
-      <DependentUpon>ItemForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CodedItemForm.resx">
+      <DependentUpon>CodedItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

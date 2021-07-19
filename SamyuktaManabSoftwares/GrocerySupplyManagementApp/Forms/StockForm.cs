@@ -10,14 +10,16 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class StockForm : Form
     {
-        private readonly IItemTransactionService _itemTransactionService;
+        private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemItemService;
 
         #region Constructor
-        public StockForm(IItemTransactionService itemTransactionService)
+        public StockForm(IPurchasedItemService purchasedItemService, ISoldItemService soldItemItemService)
         {
             InitializeComponent();
 
-            _itemTransactionService = itemTransactionService;
+            _purchasedItemService = purchasedItemService;
+            _soldItemItemService = soldItemItemService;
         }
         #endregion
 
@@ -25,7 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void StockForm_Load(object sender, EventArgs e)
         {
 
-            _itemTransactionService.GetAllItemCodes().ToList().ForEach(code =>
+            _soldItemItemService.GetSoldItemCodes().ToList().ForEach(code =>
             {
                 ComboItemCode.Items.Add(code);
             });
@@ -78,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var name = DataGridStockList.SelectedCells[2].Value.ToString();
                 var brand = DataGridStockList.SelectedCells[3].Value.ToString();
-                _itemTransactionService.DeleteItem(name, brand);
+                _purchasedItemService.DeletePurchasedItem(name, brand);
 
                 DialogResult result = MessageBox.Show("Item with name: " + name + " and brand: " + brand + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -206,12 +208,12 @@ namespace GrocerySupplyManagementApp.Forms
                 filter.DateTo = MaskDateTo.Text;
             }
 
-            TxtPurchase.Text = _itemTransactionService.GetTotalPurchaseItemCount(filter).ToString();
-            TxtSales.Text = _itemTransactionService.GetTotalSalesItemCount(filter).ToString();
+            TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(filter).ToString();
+            TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(filter).ToString();
             TxtTotalStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
-            TxtTotalValue.Text = (_itemTransactionService.GetTotalPurchaseItemAmount(filter) - _itemTransactionService.GetTotalSalesItemAmount(filter)).ToString();
+            TxtTotalValue.Text = (_purchasedItemService.GetPurchasedItemTotalAmount(filter) - _soldItemItemService.GetSoldItemTotalAmount(filter)).ToString();
 
-            List<StockView> items = _itemTransactionService.GetStockView(filter).ToList();
+            List<StockView> items = _purchasedItemService.GetStockView(filter).ToList();
 
             var bindingList = new BindingList<StockView>(items);
             var source = new BindingSource(bindingList, null);

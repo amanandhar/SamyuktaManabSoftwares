@@ -11,16 +11,14 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ProfitLossForm : Form
     {
-        private readonly IIncomeDetailService _incomeDetailService;
         private readonly IUserTransactionService _userTransactionService;
         private decimal _totalIncome = 0.0m;
         private decimal _totalExpense = 0.0m;
 
         #region Constructor
-        public ProfitLossForm(IIncomeDetailService incomeDetailService, IUserTransactionService userTransactionService)
+        public ProfitLossForm(IUserTransactionService userTransactionService)
         {
             InitializeComponent();
-            _incomeDetailService = incomeDetailService;
             _userTransactionService = userTransactionService;
         }
         #endregion
@@ -99,10 +97,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalDeliveryCharge = _incomeDetailService.GetDeliveryCharge().ToList().Sum(x => x.Total);
-                var totalMemberFee = _incomeDetailService.GetMemberFee().ToList().Sum(x => x.Total);
-                var totalOtherIncome = _incomeDetailService.GetOtherIncome().ToList().Sum(x => x.Total);
-                var totalSalesProfit = _incomeDetailService.GetSalesProfit().ToList().Sum(x => x.Total);
+                var totalDeliveryCharge = _userTransactionService.GetDeliveryCharge().ToList().Sum(x => x.Total);
+                var totalMemberFee = _userTransactionService.GetMemberFee().ToList().Sum(x => x.Total);
+                var totalOtherIncome = _userTransactionService.GetOtherIncome().ToList().Sum(x => x.Total);
+                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Total);
                 _totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>

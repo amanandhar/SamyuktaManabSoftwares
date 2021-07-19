@@ -40,8 +40,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridCodedItemList.Name = "DataGridCodedItemList";
             this.DataGridCodedItemList.Size = new System.Drawing.Size(510, 437);
             this.DataGridCodedItemList.TabIndex = 0;
-            this.DataGridCodedItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPreparedItemList_CellDoubleClick);
-            this.DataGridCodedItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPreparedItemList_DataBindingComplete);
+            this.DataGridCodedItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridCodedItemList_CellDoubleClick);
+            this.DataGridCodedItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridCodedItemList_DataBindingComplete);
             // 
             // CodedItemListForm
             // 
@@ -51,7 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.DataGridCodedItemList);
             this.Name = "CodedItemListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.PreparedItemList_Load);
+            this.Load += new System.EventHandler(this.CodedItemListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridCodedItemList)).EndInit();
             this.ResumeLayout(false);
 

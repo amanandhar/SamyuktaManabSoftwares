@@ -7,9 +7,12 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<Supplier> GetSuppliers();
         Supplier GetSupplier(string supplierId);
-        Supplier AddSupplier(Supplier supplier);
-        Supplier UpdateSupplier(string supplierId, Supplier supplier);
-        bool DeleteSupplier(string supplierId);
         int GetLastSupplierId();
+
+        Supplier AddSupplier(Supplier supplier);
+
+        Supplier UpdateSupplier(string supplierId, Supplier supplier);
+
+        bool DeleteSupplier(string supplierId);
     }
 }

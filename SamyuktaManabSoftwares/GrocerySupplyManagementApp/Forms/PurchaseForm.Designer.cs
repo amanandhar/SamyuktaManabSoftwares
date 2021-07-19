@@ -172,6 +172,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShowItem
             // 
+            this.BtnShowItem.Enabled = false;
             this.BtnShowItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowItem.Location = new System.Drawing.Point(480, 15);
             this.BtnShowItem.Name = "BtnShowItem";

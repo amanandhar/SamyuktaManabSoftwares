@@ -7,27 +7,25 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     public interface IPurchasedItemRepository
     {
         IEnumerable<PurchasedItem> GetPurchasedItems();
-        PurchasedItem GetPurchasedItem(long purchasedItemId);
-        PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem);
-        PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem purchasedItem);
-        bool DeletePurchasedItem(long purchasedItemId);
-        IEnumerable<PurchasedItemListView> GetPurchasedItemViewList();
-        IEnumerable<PurchasedItem> GetItems(bool showEmptyItemCode);
+        PurchasedItem GetPurchasedItem(long id);
+        IEnumerable<PurchasedItemListView> GetPurchasedItemDetails();
+        IEnumerable<PurchasedItem> GetPurchasedItemTotalQuantity();
         IEnumerable<StockView> GetStockView(StockFilterView filter);
-        IEnumerable<PurchasedItem> GetItemsBySupplierAndBill(string supplierName, string billNo);
-        decimal GetTotalAmountBySupplierAndBill(string supplierName, string billNo);
-        long GetTotalPurchaseItemCount(StockFilterView filter);
-        long GetTotalSalesItemCount(StockFilterView filter);
-        decimal GetTotalPurchaseItemAmount(StockFilterView filter);
-        decimal GetTotalSalesItemAmount(StockFilterView filter);
-        IEnumerable<string> GetAllItemNames();
-        IEnumerable<string> GetAllItemCodes();
-        PurchasedItem GetItem(long itemId);
+        IEnumerable<PurchasedItem> GetPurchasedItemBySupplierAndBill(string supplierId, string billNo);
+        decimal GetPurchasedItemTotalAmount(string supplierId, string billNo);
+        decimal GetPurchasedItemTotalAmount(StockFilterView filter);
+        long GetPurchasedItemTotalQuantity(StockFilterView filter);
+        IEnumerable<string> GetPurchasedItemCodes();
+        PurchasedItem GetPurchasedItemByItemId(long itemId);
         long GetItemId(string supplierName, string billNo);
         string GetLastBillNo();
-        PurchasedItem AddItem(PurchasedItem item);
-        PurchasedItem UpdateItem(PurchasedItem item);
-        bool DeleteItem(string name, string brand);
-        bool DeleteItemTransaction(string billNo);
+        decimal GetLatestPurchasePrice(long itemId);
+
+        PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem);
+        PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem puchasedItem);
+
+        bool DeletePurchasedItem(long puchasedItemId);
+        bool DeletePurchasedItem(string billNo);
+        bool DeletePurchasedItem(string name, string brand);
     }
 }

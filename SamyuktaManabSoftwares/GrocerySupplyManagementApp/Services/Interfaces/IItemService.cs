@@ -10,9 +10,12 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         Item GetItem(long itemId);
         Item GetItem(string code);
         long GetItemId(string name, string brand);
+
         Item AddItem(Item item);
+
         Item UpdateItem(string code, Item item);
         Item UpdateItem(long id, Item item);
+
         bool DeleteItem(long id);
     }
 }

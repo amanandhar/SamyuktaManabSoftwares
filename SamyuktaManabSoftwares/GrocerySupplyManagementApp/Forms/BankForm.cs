@@ -1,5 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
@@ -17,6 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IFiscalYearService _fiscalYearService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
+
         private long selectedBankId = 0;
 
         #region Enum

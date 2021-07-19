@@ -24,22 +24,6 @@ namespace GrocerySupplyManagementApp.Services
             return _memberRepository.GetMember(memberId);
         }
 
-        public Member AddMember(Member member)
-        {
-            member.Counter = _memberRepository.GetLastMemberId() + 1;
-            return _memberRepository.AddMember(member);
-        }
-
-        public Member UpdateMember(string memberId, Member member)
-        {
-            return _memberRepository.UpdateMember(memberId, member);
-        }
-
-        public bool DeleteMember(string memberId)
-        {
-            return _memberRepository.DeleteMember(memberId);
-        }
-
         public string GetNewMemberId()
         {
             string memberId;
@@ -62,6 +46,22 @@ namespace GrocerySupplyManagementApp.Services
             }
 
             return "M-" + memberId;
+        }
+
+        public Member AddMember(Member member)
+        {
+            member.Counter = _memberRepository.GetLastMemberId() + 1;
+            return _memberRepository.AddMember(member);
+        }
+
+        public Member UpdateMember(string memberId, Member member)
+        {
+            return _memberRepository.UpdateMember(memberId, member);
+        }
+
+        public bool DeleteMember(string memberId)
+        {
+            return _memberRepository.DeleteMember(memberId);
         }
     }
 }

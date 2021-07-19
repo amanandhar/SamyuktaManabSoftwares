@@ -1,7 +1,6 @@
-﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
-using GrocerySupplyManagementApp.ViewModels;
+using GrocerySupplyManagementApp.Entities;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -11,30 +10,25 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ItemListForm : Form
     {
-        private readonly IPurchasedItemService _purchaseItemService;
+        private readonly IItemService _itemService;
         public IItemListForm _itemListForm;
-        public bool _showEmptyItemCode;
+        public bool _showPurchasedItem;
 
         #region Constructor
-        public ItemListForm(IPurchasedItemService purchaseItemService,
-            IItemListForm itemListForm, bool showEmptyItemCode)
+        public ItemListForm(IItemService itemService,
+            IItemListForm itemListForm)
         {
             InitializeComponent();
 
-            _purchaseItemService = purchaseItemService;
+            _itemService = itemService;
             _itemListForm = itemListForm;
-            _showEmptyItemCode = showEmptyItemCode;
         }
         #endregion
 
         #region Form Load Event
         private void ItemListForm_Load(object sender, EventArgs e)
         {
-            var purchasedItemViewList = _purchaseItemService.GetPurchasedItemViewList();
-
-            var bindingList = new BindingList<PurchasedItemListView>(purchasedItemViewList.ToList());
-            var source = new BindingSource(bindingList, null);
-            DataGridItemList.DataSource = source;
+            LoadItems();
         }
         #endregion
 
@@ -49,7 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (dgv.SelectedRows.Count == 1)
             {
                 var selectedRow = dgv.SelectedRows[0];
-                long itemId = Convert.ToInt64(selectedRow.Cells["ItemId"].Value.ToString());
+                long itemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                 _itemListForm.PopulateItem(itemId);
                 this.Close();
             }
@@ -57,19 +51,19 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            DataGridItemList.Columns["ItemId"].Visible = false;
+            DataGridItemList.Columns["Id"].Visible = false;
 
-            DataGridItemList.Columns["ItemCode"].HeaderText = "Code";
-            DataGridItemList.Columns["ItemCode"].Width = 100;
-            DataGridItemList.Columns["ItemCode"].DisplayIndex = 0;
+            DataGridItemList.Columns["Code"].HeaderText = "Code";
+            DataGridItemList.Columns["Code"].Width = 100;
+            DataGridItemList.Columns["Code"].DisplayIndex = 0;
 
-            DataGridItemList.Columns["ItemName"].HeaderText = "Name";
-            DataGridItemList.Columns["ItemName"].Width = 250;
-            DataGridItemList.Columns["ItemName"].DisplayIndex = 1;
+            DataGridItemList.Columns["Name"].HeaderText = "Name";
+            DataGridItemList.Columns["Name"].Width = 250;
+            DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
-            DataGridItemList.Columns["ItemBrand"].HeaderText = "Brand";
-            DataGridItemList.Columns["ItemBrand"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridItemList.Columns["ItemBrand"].DisplayIndex = 2;
+            DataGridItemList.Columns["Brand"].HeaderText = "Brand";
+            DataGridItemList.Columns["Brand"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridItemList.Columns["Brand"].DisplayIndex = 2;
 
             foreach (DataGridViewRow row in DataGridItemList.Rows)
             {
@@ -77,6 +71,17 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridItemList.RowHeadersWidth = 50;
                 DataGridItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadItems()
+        {
+            var items = _itemService.GetItems();
+
+            var bindingList = new BindingList<Item>(items.ToList());
+            var source = new BindingSource(bindingList, null);
+            DataGridItemList.DataSource = source;
         }
         #endregion
     }

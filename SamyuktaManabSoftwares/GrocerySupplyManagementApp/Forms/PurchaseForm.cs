@@ -13,37 +13,36 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PurchaseForm : Form, IItemListForm
     {
-        public SupplierForm _supplierForm;
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
-        private readonly IItemTransactionService _itemTransactionService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IFiscalYearService _fiscalYearService;
-        private List<ItemView> _itemViewList = new List<ItemView>();
+
+        public SupplierForm _supplierForm;
+        private List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
 
         #region Constructor
-        public PurchaseForm(SupplierForm supplierForm, IItemService itemService,
-            IPurchasedItemService purchasedItemService,
-            IItemTransactionService itemTransactionService, IUserTransactionService userTransactionService, 
-            IFiscalYearService fiscalYearService)
+        public PurchaseForm(IFiscalYearService fiscalYearService, IItemService itemService,
+            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
+            SupplierForm supplierForm
+            )
         {
             InitializeComponent();
-            
-            _supplierForm = supplierForm;
+
+            _fiscalYearService = fiscalYearService;
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
-            _itemTransactionService = itemTransactionService;
             _userTransactionService = userTransactionService;
-            _fiscalYearService = fiscalYearService;
+            _supplierForm = supplierForm;
         }
 
-        public PurchaseForm(IItemService itemService, IItemTransactionService itemTransactionService, string supplierName, string billNo)
+        public PurchaseForm(IItemService itemService, IPurchasedItemService purchasedItemService, string supplierId, string billNo)
         {
             InitializeComponent();
 
             _itemService = itemService;
-            _itemTransactionService = itemTransactionService;
-            LoadForm(supplierName, billNo);
+            _purchasedItemService = purchasedItemService;
+            LoadForm(supplierId, billNo);
         }
         #endregion
 
@@ -58,13 +57,13 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShowItem_Click(object sender, EventArgs e)
         {
-            ItemListForm itemListForm = new ItemListForm(_purchasedItemService, this, true);
+            ItemListForm itemListForm = new ItemListForm(_itemService, this);
             itemListForm.Show();
         }
 
         private void BtnAddNew_Click(object sender, EventArgs e)
         {
-            RichBillNo.Text = _itemTransactionService.GetBillNo();
+            RichBillNo.Text = _purchasedItemService.GetLastBillNo();
             EnableFields(true);
             RichItemCode.Focus();
         }
@@ -73,23 +72,24 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var item = new ItemView
+                var purchasedItemView = new PurchasedItemView
                 {
-                    Id = _itemViewList.Count + 1,
+                    Id = _purchasedItemViewList.Count + 1,
                     Date = DateTime.Now.ToString("yyyy-MM-dd"),
                     BillNo = RichBillNo.Text,
                     Code = RichItemCode.Text,
                     Name = RichItemName.Text,
                     Brand = RichItemBrand.Text,
                     Unit = ComboUnit.Text,
-                    Quantity = Convert.ToInt32(RichQuantity.Text),
-                    PurchasePrice = Convert.ToDecimal(RichPurchasePrice.Text)
+                    Quantity = Convert.ToInt64(RichQuantity.Text),
+                    Price = Convert.ToDecimal(RichPurchasePrice.Text),
+                    Total = (Convert.ToInt64(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text))
                 };
                 
-                _itemViewList.Add(item);
-                TxtTotalAmount.Text = _itemViewList.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
+                _purchasedItemViewList.Add(purchasedItemView);
+                TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
                 ClearAllFields();
-                LoadItems(_itemViewList);
+                LoadPurchasedItemViewList(_purchasedItemViewList);
                 
             }
             catch (Exception ex)
@@ -103,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var fiscalYear = _fiscalYearService.GetFiscalYear();
-                List<PurchasedItem> itemTransactions = _itemViewList.Select(item => new PurchasedItem
+                List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
                 {
                     EndOfDate = fiscalYear.StartingDate,
                     SupplierId = _supplierForm.GetSupplierId(),
@@ -111,13 +111,13 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemId = _itemService.GetItem(item.Code).Id,
                     Unit = item.Unit,
                     Quantity = item.Quantity,
-                    Price = item.PurchasePrice,
+                    Price = item.Price,
                     Date = DateTime.Now,
                 }).ToList();
 
-                itemTransactions.ForEach(itemTransaction =>
+                purchasedItems.ForEach(purchasedItem =>
                 {
-                    _itemTransactionService.AddItem(itemTransaction);
+                    _purchasedItemService.AddPurchasedItem(purchasedItem);
                 });
 
                 var userTransaction = new UserTransaction
@@ -158,10 +158,10 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var selectedRow = DataGridPurchaseList.SelectedRows[0];
                     var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    var itemToRemove = _itemViewList.Single(x => x.Id == id);
-                    _itemViewList.Remove(itemToRemove);
-                    TxtTotalAmount.Text = _itemViewList.Sum(x => (x.PurchasePrice * x.Quantity)).ToString();
-                    LoadItems(_itemViewList);
+                    var itemToRemove = _purchasedItemViewList.Single(x => x.Id == id);
+                    _purchasedItemViewList.Remove(itemToRemove);
+                    TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
+                    LoadPurchasedItemViewList(_purchasedItemViewList);
                 }
             }
             catch (Exception ex)
@@ -205,20 +205,21 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
             DataGridPurchaseList.Columns["Unit"].Width = 80;
             DataGridPurchaseList.Columns["Unit"].DisplayIndex = 5;
-            DataGridPurchaseList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
             DataGridPurchaseList.Columns["Quantity"].Width = 80;
             DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 6;
             DataGridPurchaseList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridPurchaseList.Columns["PurchasePrice"].HeaderText = "Price";
-            DataGridPurchaseList.Columns["PurchasePrice"].Width = 100;
-            DataGridPurchaseList.Columns["PurchasePrice"].DisplayIndex = 7;
-            DataGridPurchaseList.Columns["PurchasePrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridPurchaseList.Columns["Price"].HeaderText = "Price";
+            DataGridPurchaseList.Columns["Price"].Width = 100;
+            DataGridPurchaseList.Columns["Price"].DisplayIndex = 7;
+            DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Format = "0.00";
+            DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridPurchaseList.Columns["Total"].DisplayIndex = 8;
+            DataGridPurchaseList.Columns["Total"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridPurchaseList.Rows)
@@ -226,18 +227,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridPurchaseList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridPurchaseList.RowHeadersWidth = 50;
                 DataGridPurchaseList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-                double quantity = string.IsNullOrEmpty(Convert.ToString(DataGridPurchaseList.Rows[row.Index].Cells["Quantity"].Value))
-                ? 0.0
-                : Convert.ToDouble(DataGridPurchaseList.Rows[row.Index].Cells["Quantity"].Value);
-
-                double purchasePrice = string.IsNullOrEmpty(Convert.ToString(DataGridPurchaseList.Rows[row.Index].Cells["PurchasePrice"].Value))
-                    ? 0.0
-                    : Convert.ToDouble(DataGridPurchaseList.Rows[row.Index].Cells["PurchasePrice"].Value);
-
-                row.Cells[DataGridPurchaseList.Columns["Total"].Index].Value = Convert.ToDouble(quantity * purchasePrice) == 0.0
-                    ? string.Empty
-                    : (quantity * purchasePrice).ToString();
             }
         }
 
@@ -246,6 +235,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void EnableFields(bool option)
         {
+            BtnShowItem.Enabled = option;
             RichItemCode.Enabled = option;
             RichItemName.Enabled = option;
             RichItemBrand.Enabled = option;
@@ -264,34 +254,30 @@ namespace GrocerySupplyManagementApp.Forms
             RichPurchasePrice.Clear();
         }
 
-        private void LoadItems(List<ItemView> items)
+        private void LoadPurchasedItemViewList(List<PurchasedItemView> purchasedItemViewList)
         {
-            var bindingList = new BindingList<ItemView>(items);
+            var bindingList = new BindingList<PurchasedItemView>(purchasedItemViewList);
             var source = new BindingSource(bindingList, null);
-            if(!DataGridPurchaseList.Columns.Contains("Total"))
-            {
-                DataGridPurchaseList.Columns.Add("Total", "Total");
-            }
-            
             DataGridPurchaseList.DataSource = source;
         }
 
-        private void LoadForm(string supplierName, string billNo)
+        private void LoadForm(string supplierId, string billNo)
         {
-            var items = _itemTransactionService.GetItemsBySupplierAndBill(supplierName, billNo).Select(item => new ItemView
+            var purchasedItemViewList = _purchasedItemService.GetPurchasedItemBySupplierAndBill(supplierId, billNo).Select(purchasedItem => new PurchasedItemView
             {
-                Date = item.EndOfDate.ToString("yyyy-MM-dd"),
-                BillNo = item.BillNo,
-                Code = _itemService.GetItem(item.ItemId).Code,
-                Name = _itemService.GetItem(item.ItemId).Name,
-                Brand = _itemService.GetItem(item.ItemId).Brand,
-                Unit = item.Unit,
-                Quantity = item.Quantity,
-                PurchasePrice = item.Price
+                Date = purchasedItem.EndOfDate.ToString("yyyy-MM-dd"),
+                BillNo = purchasedItem.BillNo,
+                Code = _itemService.GetItem(purchasedItem.ItemId).Code,
+                Name = _itemService.GetItem(purchasedItem.ItemId).Name,
+                Brand = _itemService.GetItem(purchasedItem.ItemId).Brand,
+                Unit = purchasedItem.Unit,
+                Quantity = purchasedItem.Quantity,
+                Price = purchasedItem.Price,
+                Total = (purchasedItem.Quantity * purchasedItem.Price)
             }).ToList();
 
-            LoadItems(items);
-            TxtTotalAmount.Text = _itemTransactionService.GetTotalAmountBySupplierAndBill(supplierName, billNo).ToString();
+            LoadPurchasedItemViewList(purchasedItemViewList);
+            TxtTotalAmount.Text = _purchasedItemService.GetPurchasedItemTotalAmount(supplierId, billNo).ToString();
             RichBillNo.Text = billNo;
 
             BtnShowItem.Enabled = false;

@@ -14,20 +14,21 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ExpenseForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
+        private readonly IUserTransactionService _userTransactionService;
 
         #region Constructor
-        public ExpenseForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService,
-            IBankService bankService, IBankTransactionService bankTransactionService)
+        public ExpenseForm(IFiscalYearService fiscalYearService,
+            IBankService bankService, IBankTransactionService bankTransactionService, 
+            IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
-            _userTransactionService = userTransactionService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 

@@ -7,20 +7,20 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SettingForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
-        private readonly IPurchasedItemService _purchasedItemService;
         private readonly ITaxService _taxService;
         private readonly IItemService _itemService;
+        private readonly IPurchasedItemService _purchasedItemService;
 
         #region Constructor
-        public SettingForm(IFiscalYearService fiscalYearService, IPurchasedItemService purchasedItemService,
-            ITaxService taxService, IItemService itemService)
+        public SettingForm(IFiscalYearService fiscalYearService, ITaxService taxService, 
+            IItemService itemService, IPurchasedItemService purchasedItemService)
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
-            _purchasedItemService = purchasedItemService;
             _taxService = taxService;
             _itemService = itemService;
+            _purchasedItemService = purchasedItemService;
         }
         #endregion
 
@@ -40,7 +40,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddNewCode_Click(object sender, EventArgs e)
         {
-            AddNewCodeForm addNewCodeForm = new AddNewCodeForm(_itemService, _purchasedItemService);
+            ItemForm addNewCodeForm = new ItemForm(_itemService);
             addNewCodeForm.Show();
         }
 

@@ -81,6 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.Columns["Balance"].HeaderText = "Balance";
             DataGridSupplierList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridSupplierList.Columns["Balance"].DisplayIndex = 3;
+            DataGridSupplierList.Columns["Balance"].DefaultCellStyle.Format = "0.00;(0.00)";
             DataGridSupplierList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
         #endregion

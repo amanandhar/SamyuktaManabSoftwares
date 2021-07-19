@@ -59,26 +59,6 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetLastUserTransaction(option);
         }
 
-        public UserTransaction AddUserTransaction(UserTransaction userTransaction)
-        {
-            return _userTransactionRepository.AddUserTransaction(userTransaction);
-        }
-
-        public UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteUserTransaction(long id)
-        {
-            return _userTransactionRepository.DeleteUserTransaction(id);
-        }
-
-        public bool DeleteSupplierInvoice(long userTransactionId)
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetInvoiceNo()
         {
             string invoiceNo;
@@ -98,7 +78,7 @@ namespace GrocerySupplyManagementApp.Services
                     var value = formats[2];
                     var trimmedValue = (Convert.ToInt64(value.TrimStart(new char[] { '0' })) + 1).ToString();
 
-                    while(trimmedValue.Length < value.Length)
+                    while (trimmedValue.Length < value.Length)
                     {
                         trimmedValue = "0" + trimmedValue;
                     }
@@ -106,14 +86,14 @@ namespace GrocerySupplyManagementApp.Services
                     invoiceNo = prefix + "-" + year + "-" + trimmedValue;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
 
-            return invoiceNo; 
+            return invoiceNo;
         }
-        
+
         public decimal GetMemberTotalBalance()
         {
             return _userTransactionRepository.GetMemberTotalBalance();
@@ -147,6 +127,66 @@ namespace GrocerySupplyManagementApp.Services
         public decimal GetTotalExpense(string expense)
         {
             return _userTransactionRepository.GetTotalExpense(expense);
+        }
+
+        public IEnumerable<string> GetInvoices()
+        {
+            return _userTransactionRepository.GetInvoices();
+        }
+
+        public IEnumerable<string> GetMemberIds()
+        {
+            return _userTransactionRepository.GetMemberIds();
+        }
+
+        public decimal GetUserTransactionBalance(TransactionFilter transactionFilter)
+        {
+            return _userTransactionRepository.GetUserTransactionBalance(transactionFilter);
+        }
+
+        public IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter)
+        {
+            return _userTransactionRepository.GetTransactionViewList(transactionFilter);
+        }
+
+        public IEnumerable<IncomeDetailView> GetDeliveryCharge()
+        {
+            return _userTransactionRepository.GetDeliveryCharge();
+        }
+
+        public IEnumerable<IncomeDetailView> GetMemberFee()
+        {
+            return _userTransactionRepository.GetMemberFee();
+        }
+
+        public IEnumerable<IncomeDetailView> GetOtherIncome()
+        {
+            return _userTransactionRepository.GetOtherIncome();
+        }
+
+        public IEnumerable<IncomeDetailView> GetSalesProfit()
+        {
+            return _userTransactionRepository.GetSalesProfit();
+        }
+
+        public UserTransaction AddUserTransaction(UserTransaction userTransaction)
+        {
+            return _userTransactionRepository.AddUserTransaction(userTransaction);
+        }
+
+        public UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteUserTransaction(long id)
+        {
+            return _userTransactionRepository.DeleteUserTransaction(id);
+        }
+
+        public bool DeleteSupplierInvoice(long userTransactionId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

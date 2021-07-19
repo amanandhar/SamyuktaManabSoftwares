@@ -2,6 +2,6 @@
 {
     public interface ICodedItemListForm
     {
-        void PopulateCodedItem(long itemId);
+        void PopulateCodedItem(bool isItemCoded, long id);
     }
 }

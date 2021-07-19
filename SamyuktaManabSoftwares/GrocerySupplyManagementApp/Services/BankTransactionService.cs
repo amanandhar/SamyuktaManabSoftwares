@@ -26,21 +26,6 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetBankTransaction(id);
         }
 
-        public BankTransaction AddBankTransaction(BankTransaction bankTransaction)
-        {
-            return _bankTransactionRepository.AddBankTransaction(bankTransaction);
-        }
-
-        public BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction)
-        {
-            return _bankTransactionRepository.UpdateBankTransaction(id, bankTransaction);
-        }
-
-        public bool DeleteBankTransaction(long id)
-        {
-            return _bankTransactionRepository.DeleteBankTransaction(id);
-        }
-
         public IEnumerable<BankTransaction> GetBankTransactions(long bankId)
         {
             return _bankTransactionRepository.GetBankTransactions(bankId);
@@ -64,6 +49,21 @@ namespace GrocerySupplyManagementApp.Services
         public decimal GetTotalDeposit(string incomeType)
         {
             return _bankTransactionRepository.GetTotalDeposit(incomeType);
+        }
+
+        public BankTransaction AddBankTransaction(BankTransaction bankTransaction)
+        {
+            return _bankTransactionRepository.AddBankTransaction(bankTransaction);
+        }
+
+        public BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction)
+        {
+            return _bankTransactionRepository.UpdateBankTransaction(id, bankTransaction);
+        }
+
+        public bool DeleteBankTransaction(long id)
+        {
+            return _bankTransactionRepository.DeleteBankTransaction(id);
         }
 
         public bool DeleteBankTransactionByUserTransaction(long userTransactionId)

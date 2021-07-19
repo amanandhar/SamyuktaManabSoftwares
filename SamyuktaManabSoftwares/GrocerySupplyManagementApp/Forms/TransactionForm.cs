@@ -11,26 +11,25 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class TransactionForm : Form
     {
-        private readonly IDailyTransactionService _transactionService;
         private readonly IFiscalYearService _fiscalYearService;
+        private readonly IBankTransactionService _bankTransactionService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IBankTransactionService _bankTransactionService;
-        private readonly IItemTransactionService _itemTransactionService;
 
         #region Constructor
-        public TransactionForm(IDailyTransactionService transactionService, IFiscalYearService fiscalYearService,
-            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
-            IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
+        public TransactionForm(IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
+            IUserTransactionService userTransactionService
+            )
         {
             InitializeComponent();
 
-            _transactionService = transactionService;
             _fiscalYearService = fiscalYearService;
+            _bankTransactionService = bankTransactionService;
+            _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
-            _bankTransactionService = bankTransactionService;
-            _itemTransactionService = itemTransactionService;
         }
         #endregion
 
@@ -66,8 +65,8 @@ namespace GrocerySupplyManagementApp.Forms
                         {
                             if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
                             {
-                                _transactionService.DeleteUserTransaction(id);
-                                _itemTransactionService.DeleteItemTransaction(billInvoiceNo);
+                                _userTransactionService.DeleteUserTransaction(id);
+                                _purchasedItemService.DeletePurchasedItem(billInvoiceNo);
                                 _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                             }
                             else
@@ -87,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
                         var posTransaction = _userTransactionService.GetLastUserTransaction("IN");
                         if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
                         {
-                            _transactionService.DeleteUserTransaction(id);
+                            _userTransactionService.DeleteUserTransaction(id);
                             _soldItemService.DeleteSoldItem(billInvoiceNo);
                             _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                         }
@@ -103,7 +102,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                     else
                     {
-                        _transactionService.DeleteUserTransaction(id);
+                        _userTransactionService.DeleteUserTransaction(id);
                         _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                     }
 
@@ -342,16 +341,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItemCodes()
         {
-            var salesItems = _transactionService.GetSalesItems();
-            foreach (var salesItem in salesItems)
+            var soldItemCodes = _soldItemService.GetSoldItemCodes();
+            foreach (var soldItemCode in soldItemCodes)
             {
-                ComboItemCode.Items.Add(salesItem);
+                ComboItemCode.Items.Add(soldItemCode);
             }
         }
 
         private void LoadInvoiceNos()
         {
-            var invoices = _transactionService.GetInvoices();
+            var invoices = _userTransactionService.GetInvoices();
             foreach (var invoice in invoices)
             {
                 ComboInvoiceNo.Items.Add(invoice);
@@ -409,10 +408,10 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                transactionFilter.isAll = true;
+                transactionFilter.IsAll = true;
             }
 
-            List<TransactionView> transactionViewList = _transactionService.GetTransactionViewList(transactionFilter).ToList();
+            List<TransactionView> transactionViewList = _userTransactionService.GetTransactionViewList(transactionFilter).ToList();
             TxtTotal.Text = transactionViewList.Sum(x => x.Amount).ToString();
             
             var bindingList = new BindingList<TransactionView>(transactionViewList);

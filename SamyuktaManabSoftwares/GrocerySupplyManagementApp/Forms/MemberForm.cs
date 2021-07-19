@@ -14,28 +14,30 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class MemberForm : Form, IMemberListForm
     {
-        private readonly IMemberService _memberService;
-        private readonly IUserTransactionService _userTransactionService;
-        private readonly ISoldItemService _soldItemService;
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly IMemberService _memberService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
+        
         public DashboardForm _dashboard;
 
         #region Constructor
-        public MemberForm(IMemberService memberService, IUserTransactionService userTransactionService, 
-            ISoldItemService soldItemService, IBankService bankService, 
-            IBankTransactionService bankTransactionService, IFiscalYearService fiscalYearService,
+        public MemberForm(IFiscalYearService fiscalYearService,
+            IBankService bankService, IBankTransactionService bankTransactionService, 
+            IMemberService memberService,  
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
             DashboardForm dashboardForm)
         {
             InitializeComponent();
 
-            _memberService = memberService;
-            _userTransactionService = userTransactionService;
-            _soldItemService = soldItemService;
+            _fiscalYearService = fiscalYearService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
-            _fiscalYearService = fiscalYearService;
+            _memberService = memberService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
             _dashboard = dashboardForm;
         }
         #endregion
@@ -299,7 +301,6 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void EnableFields(bool option = true)
         {
-            RichMemberId.Enabled = option;
             RichName.Enabled = option;
             RichAddress.Enabled = option;
             RichContactNumber.Enabled = option;

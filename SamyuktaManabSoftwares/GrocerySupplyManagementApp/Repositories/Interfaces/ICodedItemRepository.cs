@@ -8,9 +8,13 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<CodedItem> GetCodedItems();
         CodedItem GetCodedItem(long id);
-        CodedItem AddCodedItem(CodedItem codedItem);
-        CodedItem UpdateCodedItem(long id, CodedItem codedItem);
-        bool DeleteCodedItem(long id);
         IEnumerable<CodedItemView> GetCodedItemViewList();
+        IEnumerable<CodedItemView> GetCodedUnCodedItemViewList();
+
+        CodedItem AddCodedItem(CodedItem codedItem);
+
+        CodedItem UpdateCodedItem(long id, CodedItem codedItem);
+
+        bool DeleteCodedItem(long id);
     }
 }

@@ -107,6 +107,37 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
+        public int GetLastSupplierId()
+        {
+            int id = 0;
+            string query = @"SELECT " +
+                "TOP 1 [Counter] " +
+                "FROM " + Constants.TABLE_SUPPLIER + " " +
+                "ORDER BY [Counter] DESC ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            id = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return id;
+        }
+
         public Supplier AddSupplier(Supplier supplier)
         {
             string query = @"INSERT INTO " + Constants.TABLE_SUPPLIER + " " +
@@ -212,37 +243,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        public int GetLastSupplierId()
-        {
-            int id = 0;
-            string query = @"SELECT " +
-                "TOP 1 [Counter] " +
-                "FROM " + Constants.TABLE_SUPPLIER + " " +
-                "ORDER BY [Counter] DESC ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            id = Convert.ToInt32(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return id;
-        }
+        } 
     }
 }

@@ -13,40 +13,40 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PosForm : Form, IMemberListForm, ICodedItemListForm
     {
-        private readonly IMemberService _memberService;
-        private readonly IItemService _itemService;
         private readonly IFiscalYearService _fiscalYearService;
         private readonly ITaxService _taxService;
-        private readonly IUserTransactionService _userTransactionService;
-        private readonly ISoldItemService _soldItemService;
-        private readonly IDailyTransactionService _dailyTransactionService;
-        private readonly ICodedItemService _codedItemService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IItemTransactionService _itemTransactionService;
+        private readonly IItemService _itemService;
+        private readonly ICodedItemService _codedItemService;
+        private readonly IMemberService _memberService;
+        private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
+        
         private List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
 
         #region Constructor
-        public PosForm(IMemberService memberService, IItemService itemService, 
-            IFiscalYearService fiscalYearService, ITaxService taxService, 
-            IUserTransactionService userTransactionService, ISoldItemService soldItemService, 
-            IDailyTransactionService dailyTransactionService, ICodedItemService codedItemService, 
+        public PosForm(IFiscalYearService fiscalYearService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
-            IItemTransactionService itemTransactionService)
+            IItemService itemService, ICodedItemService codedItemService,
+            IMemberService memberService,
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
+            IUserTransactionService userTransactionService
+            )
         {
             InitializeComponent();
 
-            _memberService = memberService;
-            _itemService = itemService;
             _fiscalYearService = fiscalYearService;
             _taxService = taxService;
-            _userTransactionService = userTransactionService;
-            _soldItemService = soldItemService;
-            _dailyTransactionService = dailyTransactionService;
-            _codedItemService = codedItemService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
-            _itemTransactionService = itemTransactionService;
+            _itemService = itemService;
+            _codedItemService = codedItemService;
+            _memberService = memberService;
+            _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
         }
 
         public PosForm(IMemberService memberService, IUserTransactionService userTransactionService, 
@@ -80,15 +80,14 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowItem_Click(object sender, EventArgs e)
         {
-            CodedItemListForm preparedItemListForm = new CodedItemListForm(_codedItemService, this);
-            preparedItemListForm.Show();
+            CodedItemListForm codedItemListForm = new CodedItemListForm(_codedItemService, this, false);
+            codedItemListForm.Show();
         }
 
         private void BtnDailySales_Click(object sender, EventArgs e)
         {
-            TransactionForm transactionForm = new TransactionForm(_dailyTransactionService, _fiscalYearService, 
-                _soldItemService, _userTransactionService,
-                _bankTransactionService, _itemTransactionService);
+            TransactionForm transactionForm = new TransactionForm(_fiscalYearService, _bankTransactionService, _purchasedItemService,
+                _soldItemService, _userTransactionService);
             transactionForm.Show();
         }
 
@@ -264,8 +263,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddExpense_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService, _userTransactionService,
-                _bankService, _bankTransactionService);
+            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
+                _bankService, _bankTransactionService,
+                _userTransactionService);
             expenseForm.Show();
         }
 
@@ -343,7 +343,6 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
             DataGridSoldItemList.Columns["Unit"].Width = 50;
             DataGridSoldItemList.Columns["Unit"].DisplayIndex = 3;
-            DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
             DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
@@ -444,7 +443,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        public void PopulateCodedItem(long codedItemId)
+        public void PopulateCodedItem(bool IsItemCoded, long codedItemId)
         {
             try
             {
@@ -460,7 +459,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemCode = item.Code
                 };
-                RichItemStock.Text = (_itemTransactionService.GetTotalPurchaseItemCount(filter) - _itemTransactionService.GetTotalSalesItemCount(filter)).ToString();
+                RichItemStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
                 RichItemUnit.Text = codedItem.Unit.ToString();
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();

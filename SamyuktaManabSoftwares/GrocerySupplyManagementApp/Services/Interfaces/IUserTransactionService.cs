@@ -15,10 +15,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         UserTransaction GetUserTransaction(long userTransactionId);
         UserTransaction GetUserTransaction(string invoiceNo);
         UserTransaction GetLastUserTransaction(string option);
-        UserTransaction AddUserTransaction(UserTransaction userTransaction);
-        UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction);
-        bool DeleteUserTransaction(long id);
-        bool DeleteSupplierInvoice(long userTransactionId);
         string GetInvoiceNo();
         decimal GetMemberTotalBalance();
         decimal GetMemberTotalBalance(string memberId);
@@ -27,5 +23,21 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         decimal GetCashInHand();
         decimal GetTotalBalance(string action, string actionType);
         decimal GetTotalExpense(string expense);
+        IEnumerable<string> GetInvoices();
+        IEnumerable<string> GetMemberIds();
+        decimal GetUserTransactionBalance(TransactionFilter transactionFilter);
+        IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter);
+        IEnumerable<IncomeDetailView> GetDeliveryCharge();
+        IEnumerable<IncomeDetailView> GetMemberFee();
+        IEnumerable<IncomeDetailView> GetOtherIncome();
+        IEnumerable<IncomeDetailView> GetSalesProfit();
+
+        UserTransaction AddUserTransaction(UserTransaction userTransaction);
+
+        UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction);
+
+        bool DeleteUserTransaction(long id);
+
+        bool DeleteSupplierInvoice(long userTransactionId);
     }
 }

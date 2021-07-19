@@ -8,10 +8,15 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     {
         IEnumerable<SoldItem> GetSoldItems();
         SoldItem GetSoldItem(long soldItemId);
-        SoldItem AddSoldItem(SoldItem soldItem);
-        SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem);
-        bool DeleteSupplierTransaction(long soldItemId);
-        bool DeleteSoldItem(string invoiceNo);
         IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo);
+        long GetSoldItemTotalQuantity(StockFilterView filter);
+        decimal GetSoldItemTotalAmount(StockFilterView filter);
+        IEnumerable<string> GetSoldItemCodes();
+
+        SoldItem AddSoldItem(SoldItem soldItem);
+
+        SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem);
+
+        bool DeleteSoldItem(string invoiceNo);
     }
 }

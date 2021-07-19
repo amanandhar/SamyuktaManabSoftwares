@@ -106,6 +106,37 @@ namespace GrocerySupplyManagementApp.Repositories
             return member;
         }
 
+        public int GetLastMemberId()
+        {
+            int id = 0;
+            string query = @"SELECT " +
+                "TOP 1 [Counter] " +
+                "FROM " + Constants.TABLE_MEMBER + " " +
+                "ORDER BY [Counter] DESC ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            id = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return id;
+        }
+
         public Member AddMember(Member member)
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
@@ -210,37 +241,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return result;
-        }
-
-        public int GetLastMemberId()
-        {
-            int id = 0;
-            string query = @"SELECT " +
-                "TOP 1 [Counter] " +
-                "FROM " + Constants.TABLE_MEMBER + " " + 
-                "ORDER BY [Counter] DESC ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            id = Convert.ToInt32(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return id;
         }
     }
 }

@@ -9,21 +9,21 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BalanceSheetForm : Form
     {
-        private readonly IUserTransactionService _userTransactionService;
-        private readonly IIncomeDetailService _incomeDetailService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IItemTransactionService _itemTransactionService;
-
+        private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
+        
         #region Constructor
-        public BalanceSheetForm(IUserTransactionService userTransactionService, IIncomeDetailService incomeDetailService,
-            IBankTransactionService bankTransactionService, IItemTransactionService itemTransactionService)
+        public BalanceSheetForm(IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
+            IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _userTransactionService = userTransactionService;
-            _incomeDetailService = incomeDetailService;
             _bankTransactionService = bankTransactionService;
-            _itemTransactionService = itemTransactionService;
+            _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -39,10 +39,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalDeliveryCharge = _incomeDetailService.GetDeliveryCharge().ToList().Sum(x => x.Total);
-                var totalMemberFee = _incomeDetailService.GetMemberFee().ToList().Sum(x => x.Total);
-                var totalOtherIncome = _incomeDetailService.GetOtherIncome().ToList().Sum(x => x.Total);
-                var totalSalesProfit = _incomeDetailService.GetSalesProfit().ToList().Sum(x => x.Total);
+                var totalDeliveryCharge = _userTransactionService.GetDeliveryCharge().ToList().Sum(x => x.Total);
+                var totalMemberFee = _userTransactionService.GetMemberFee().ToList().Sum(x => x.Total);
+                var totalOtherIncome = _userTransactionService.GetOtherIncome().ToList().Sum(x => x.Total);
+                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Total);
                 var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
@@ -73,7 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
                 var bankAccount = _bankTransactionService.GetTotalBalance();
-                var stockValue = _itemTransactionService.GetTotalPurchaseItemAmount(filter) - _itemTransactionService.GetTotalSalesItemAmount(filter);
+                var stockValue = _purchasedItemService.GetPurchasedItemTotalAmount(filter) - _soldItemService.GetSoldItemTotalAmount(filter);
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance();
                 var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.0m;
                 var assetsBalance = cashInHand + bankAccount + stockValue + receivableAmount + netLoss;

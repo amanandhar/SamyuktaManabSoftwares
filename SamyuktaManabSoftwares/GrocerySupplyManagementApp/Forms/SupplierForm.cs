@@ -13,31 +13,29 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SupplierForm : Form
     {
-        private readonly ISupplierService _supplierService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly IItemService _itemService;
-        private readonly IItemTransactionService _itemTransactionService;
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
+        private readonly IItemService _itemService;
+        private readonly ISupplierService _supplierService;
+        private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IFiscalYearService _fiscalYearService;
 
         #region Constructor
-        public SupplierForm(ISupplierService supplierService, IPurchasedItemService purchasedItemService,
-            IItemService itemService, IItemTransactionService itemTransactionService, 
-            IBankService bankService, IBankTransactionService bankTransactionService, 
-            IUserTransactionService userTransactionService,IFiscalYearService fiscalYearService)
+        public SupplierForm(IFiscalYearService fiscalYearService,
+            IBankService bankService, IBankTransactionService bankTransactionService,
+            IItemService itemService, ISupplierService supplierService, 
+            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _supplierService = supplierService;
-            _purchasedItemService = purchasedItemService;
-            _itemService = itemService;
-            _itemTransactionService = itemTransactionService;
+            _fiscalYearService = fiscalYearService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
+            _itemService = itemService;
+            _supplierService = supplierService;
+            _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
-            _fiscalYearService = fiscalYearService;
         }
 
         #endregion
@@ -54,9 +52,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Event
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
-            PurchaseForm purchaseForm = new PurchaseForm(this, _itemService,
-                _purchasedItemService, _itemTransactionService, _userTransactionService, 
-                _fiscalYearService);
+            PurchaseForm purchaseForm = new PurchaseForm(_fiscalYearService, _itemService,
+                _purchasedItemService, _userTransactionService, this);
             purchaseForm.Show();
         }
 
@@ -71,7 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var supplierId = RichSupplierId.Text;
                     var billNo = selectedRow.Cells["BillNo"].Value.ToString();
-                    PurchaseForm purchaseForm = new PurchaseForm(_itemService, _itemTransactionService, supplierId, billNo);
+                    PurchaseForm purchaseForm = new PurchaseForm(_itemService, _purchasedItemService, supplierId, billNo);
                     purchaseForm.Show();
                 }
             }
@@ -235,9 +232,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var particulars = DataGridSupplierList.SelectedCells[2].Value.ToString();
                     if (particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
                     {
-                        _itemTransactionService.DeleteItemTransaction(particulars);
+                        _purchasedItemService.DeletePurchasedItem(particulars);
                         LoadSupplierTransaction();
-    
                     }
 
                     if (particulars.ToLower() == Constants.CASH.ToLower() || particulars.ToLower() == Constants.CHEQUE.ToLower())

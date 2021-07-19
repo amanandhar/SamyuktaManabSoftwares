@@ -14,23 +14,21 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class IncomeForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
-        private readonly IIncomeDetailService _incomeDetailService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
+        private readonly IUserTransactionService _userTransactionService;
 
         #region Constructor
-        public IncomeForm(IFiscalYearService fiscalYearService, IIncomeDetailService incomeDetailService,
-            IUserTransactionService userTransactionService, IBankService bankService,
-            IBankTransactionService bankTransactionService)
+        public IncomeForm(IFiscalYearService fiscalYearService, 
+            IBankService bankService, IBankTransactionService bankTransactionService,
+            IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
-            _incomeDetailService = incomeDetailService;
-            _userTransactionService = userTransactionService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -212,26 +210,26 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
             {
-                incomeDetails = _incomeDetailService.GetDeliveryCharge().ToList();
+                incomeDetails = _userTransactionService.GetDeliveryCharge().ToList();
             }
             else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.MEMBER_FEE.ToLower()))
             {
-                incomeDetails = _incomeDetailService.GetMemberFee().ToList();
+                incomeDetails = _userTransactionService.GetMemberFee().ToList();
             }
             else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.OTHER_INCOME.ToLower()))
             {
-                incomeDetails = _incomeDetailService.GetOtherIncome().ToList();
+                incomeDetails = _userTransactionService.GetOtherIncome().ToList();
             }
             else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
             {
-                incomeDetails = _incomeDetailService.GetSalesProfit().ToList();
+                incomeDetails = _userTransactionService.GetSalesProfit().ToList();
             }
             else
             {
-                incomeDetails = _incomeDetailService.GetDeliveryCharge().ToList();
-                incomeDetails.AddRange(_incomeDetailService.GetMemberFee().ToList());
-                incomeDetails.AddRange(_incomeDetailService.GetOtherIncome().ToList());
-                incomeDetails.AddRange(_incomeDetailService.GetSalesProfit().ToList());
+                incomeDetails = _userTransactionService.GetDeliveryCharge().ToList();
+                incomeDetails.AddRange(_userTransactionService.GetMemberFee().ToList());
+                incomeDetails.AddRange(_userTransactionService.GetOtherIncome().ToList());
+                incomeDetails.AddRange(_userTransactionService.GetSalesProfit().ToList());
             }
 
             TxtAmount.Text = (incomeDetails.Sum(x => x.Total)).ToString();

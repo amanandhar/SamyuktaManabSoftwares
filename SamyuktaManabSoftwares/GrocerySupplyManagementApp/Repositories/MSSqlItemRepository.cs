@@ -218,6 +218,40 @@ namespace GrocerySupplyManagementApp.Repositories
             return id;
         }
 
+        public IEnumerable<string> GetItemNames()
+        {
+            var itemNames = new List<string>();
+            var query = @"SELECT " +
+                "DISTINCT [Name] " +
+                "FROM " + Constants.TABLE_ITEM + " " +
+                "ORDER BY [Name]";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var itemName = reader["Name"].ToString();
+                                itemNames.Add(itemName);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return itemNames;
+        }
+
         public Item AddItem(Item item)
         {
             string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +

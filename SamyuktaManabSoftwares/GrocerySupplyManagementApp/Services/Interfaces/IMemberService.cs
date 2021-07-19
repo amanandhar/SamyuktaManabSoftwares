@@ -7,9 +7,12 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     {
         IEnumerable<Member> GetMembers();
         Member GetMember(string memberId);
-        Member AddMember(Member member);
-        Member UpdateMember(string memberId, Member member);
-        bool DeleteMember(string memberId);
         string GetNewMemberId();
+
+        Member AddMember(Member member);
+
+        Member UpdateMember(string memberId, Member member);
+
+        bool DeleteMember(string memberId);
     }
 }
