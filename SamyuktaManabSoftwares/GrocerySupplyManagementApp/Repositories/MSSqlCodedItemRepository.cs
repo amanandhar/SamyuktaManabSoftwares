@@ -163,12 +163,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var codedItemViewList = new List<CodedItemView>();
             var query = @"SELECT " +
-                "DISTINCT pi.[Id], i.[Code], ISNULL(ci.[ItemSubCode], '') AS [ItemSubCode], i.[Name], i.[Brand] " +
+                "DISTINCT i.[Code], i.[Name], i.[Brand] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " + 
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
-                "LEFT JOIN " + Constants.TABLE_CODED_ITEM + " ci " +
-                "ON ci.[ItemId] = i.[Id] " +
                 "ORDER BY i.[Code] ";
 
             try
@@ -184,9 +182,9 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var codedItemView = new CodedItemView
                                 {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    //Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
-                                    SubCode = reader["ItemSubCode"].ToString(),
+                                    //SubCode = reader["ItemSubCode"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString()
                                 };

@@ -62,7 +62,8 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 Code = RichItemCode.Text,
                 Name = RichItemName.Text,
-                Brand = RichItemBrand.Text
+                Brand = RichItemBrand.Text,
+                Unit = ComboUnit.Text
             };
 
             _itemService.AddItem(item);
@@ -91,7 +92,8 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Code = RichItemCode.Text,
                         Name = RichItemName.Text,
-                        Brand = RichItemBrand.Text
+                        Brand = RichItemBrand.Text,
+                        Unit = ComboUnit.Text
                     };
 
                     _itemService.UpdateItem(selectedItemId, item);

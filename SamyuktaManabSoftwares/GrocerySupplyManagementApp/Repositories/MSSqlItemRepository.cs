@@ -20,7 +20,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             var query = @"SELECT " +
-                "[Id], [Name], [Brand], [Code] " +
+                "[Id], [Code], [Name], [Brand], [Unit] " +
                 "FROM " + Constants.TABLE_ITEM + " ";
 
             if (!showEmptyItemCode)
@@ -44,9 +44,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var item = new Item
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Code = reader.IsDBNull(1) ? string.Empty : reader["Code"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString(),
-                                    Code = reader.IsDBNull(3) ? string.Empty : reader["Code"].ToString()
+                                    Unit = reader["Unit"].ToString()
                                 };
 
                                 items.Add(item);
@@ -67,7 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             var query = @"SELECT " +
-                "[Id], [Name], [Brand], [Code] " +
+                "[Id], [Code], [Name], [Brand], [Unit] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "ORDER BY [Code] ";
 
@@ -85,9 +86,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var item = new Item
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Code = reader.IsDBNull(1) ? string.Empty : reader["Code"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString(),
-                                    Code = reader.IsDBNull(3) ? string.Empty : reader["Code"].ToString()
+                                    Unit = reader["Unit"].ToString(),
                                 };
 
                                 items.Add(item);
@@ -108,7 +110,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "[Id], [Name], [Brand], [Code] " +
+                "[Id], [Code], [Name], [Brand], [Unit] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Code] = @Code ";
@@ -127,9 +129,10 @@ namespace GrocerySupplyManagementApp.Repositories
                             while (reader.Read())
                             {
                                 item.Id = Convert.ToInt64(reader["Id"].ToString());
+                                item.Code = reader.IsDBNull(1) ? string.Empty : reader["Code"].ToString();
                                 item.Name = reader["Name"].ToString();
                                 item.Brand = reader["Brand"].ToString();
-                                item.Code = reader.IsDBNull(3) ? string.Empty : reader["Code"].ToString();
+                                item.Unit = reader["Unit"].ToString();
                             }
                         }
                     }
@@ -147,7 +150,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "[Id], [Name], [Brand], [Code] " +
+                "[Id], [Code], [Name], [Brand], [Unit] " +
                 "FROM " + Constants.TABLE_ITEM + " " + 
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id " +
@@ -167,9 +170,10 @@ namespace GrocerySupplyManagementApp.Repositories
                             while (reader.Read())
                             {
                                 item.Id = Convert.ToInt64(reader["Id"].ToString());
+                                item.Code = reader.IsDBNull(1) ? string.Empty : reader["Code"].ToString();
                                 item.Name = reader["Name"].ToString();
                                 item.Brand = reader["Brand"].ToString();
-                                item.Code = reader.IsDBNull(3) ? string.Empty : reader["Code"].ToString();
+                                item.Unit = reader["Unit"].ToString();
                             }
                         }
                     }
@@ -256,11 +260,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +
                     "( " +
-                        "[Name], [Brand], [Code] " +
+                        "[Name], [Brand], [Code], [Unit] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @Brand, @Code " +
+                        "@Name, @Brand, @Code, @Unit " +
                     ") ";
             try
             {
@@ -272,6 +276,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Code", ((object)item.Code) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Unit", ((object)item.Unit) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                     }
@@ -290,7 +295,8 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"UPDATE " + Constants.TABLE_ITEM + " " +
                 "SET " +
                 "[Name] = @Name, " +
-                "[Brand] = @Brand " +
+                "[Brand] = @Brand, " +
+                "[Unit] = @Unit " +
                 "WHERE 1 = 1 " +
                 "AND [Code] = @Code ";
 
@@ -301,10 +307,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@Code", code);
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
-                        command.Parameters.AddWithValue("@Code", code);
-                        
+                        command.Parameters.AddWithValue("@Unit", item.Unit);
+
                         command.ExecuteNonQuery();
                     }
                 }
@@ -323,7 +330,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SET " +
                 "[Name] = @Name, " +
                 "[Brand] = @Brand, " +
-                "[Code] = @Code " +
+                "[Code] = @Code, " +
+                "[Unit] = @Unit " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id ";
 
@@ -334,10 +342,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.Parameters.AddWithValue("@Code", item.Code);
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
-                        command.Parameters.AddWithValue("@Code", item.Code);
-                        command.Parameters.AddWithValue("@Id", id);
+                        command.Parameters.AddWithValue("@Unit", item.Unit);
 
                         command.ExecuteNonQuery();
                     }

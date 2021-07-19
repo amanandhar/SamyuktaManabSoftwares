@@ -62,11 +62,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
+            TxtItemSubCode.Enabled = true;
             TxtCurrentPurchasePrice.Enabled = true;
             TxtQuantity.Enabled = true;
             TxtProfitPercent.Enabled = true;
 
-            TxtCurrentPurchasePrice.Focus();
+            TxtItemSubCode.Focus();
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -87,7 +88,7 @@ namespace GrocerySupplyManagementApp.Forms
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
                 };
 
-                _codedItemService.UpdateCodedItem(_selectedItemId, codedItem);
+                _codedItemService.UpdateCodedItem(_selectedId, codedItem);
 
                 DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)

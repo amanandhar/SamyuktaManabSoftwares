@@ -49,14 +49,21 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridCodedItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridCodedItemList.Columns["Id"].Visible = false;
+            if(_showCodedUncodedItem)
+            {
+                DataGridCodedItemList.Columns["SubCode"].Visible = false;
+            }
 
             DataGridCodedItemList.Columns["Code"].HeaderText = "Code";
             DataGridCodedItemList.Columns["Code"].Width = 50;
             DataGridCodedItemList.Columns["Code"].DisplayIndex = 0;
 
-            DataGridCodedItemList.Columns["SubCode"].HeaderText = "Sub Code";
-            DataGridCodedItemList.Columns["SubCode"].Width = 80;
-            DataGridCodedItemList.Columns["SubCode"].DisplayIndex = 1;
+            if(!_showCodedUncodedItem)
+            {
+                DataGridCodedItemList.Columns["SubCode"].HeaderText = "Sub Code";
+                DataGridCodedItemList.Columns["SubCode"].Width = 80;
+                DataGridCodedItemList.Columns["SubCode"].DisplayIndex = 1;
+            }
 
             DataGridCodedItemList.Columns["Name"].HeaderText = "Name";
             DataGridCodedItemList.Columns["Name"].Width = 200;
@@ -84,17 +91,17 @@ namespace GrocerySupplyManagementApp.Forms
             if (dgv.CurrentRow.Selected)
             {
                 var selectedRow = dgv.SelectedRows[0];
-                string itemSubCode = selectedRow.Cells["SubCode"].Value.ToString();
-                if (string.IsNullOrWhiteSpace(itemSubCode))
-                {
-                    long purchasedItemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    _codedItemListForm.PopulateCodedItem(false, purchasedItemId);
-                }
-                else
+                if(selectedRow.Cells["SubCode"].Value != null)
                 {
                     long codedItemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                     _codedItemListForm.PopulateCodedItem(true, codedItemId);
                 }
+                else
+                {
+                    long purchasedItemId = Convert.ToInt64(selectedRow.Cells["Code"].Value.ToString());
+                    _codedItemListForm.PopulateCodedItem(false, purchasedItemId);
+                }
+                
 
                 Close();
             }
