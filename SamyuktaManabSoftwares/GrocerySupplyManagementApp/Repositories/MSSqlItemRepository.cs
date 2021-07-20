@@ -16,54 +16,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<Item> GetItems(bool showEmptyItemCode)
-        {
-            var items = new List<Item>();
-            var query = @"SELECT " +
-                "[Id], [Code], [Name], [Brand], [Unit] " +
-                "FROM " + Constants.TABLE_ITEM + " ";
-
-            if (!showEmptyItemCode)
-            {
-                query += "WHERE [Code] != '' ";
-            }
-
-            query += "ORDER BY [Id] ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var item = new Item
-                                {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    Code = reader.IsDBNull(1) ? string.Empty : reader["Code"].ToString(),
-                                    Name = reader["Name"].ToString(),
-                                    Brand = reader["Brand"].ToString(),
-                                    Unit = reader["Unit"].ToString()
-                                };
-
-                                items.Add(item);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return items;
-        }
-
         public IEnumerable<Item> GetItems()
         {
             var items = new List<Item>();
@@ -185,41 +137,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return item;
-        }
-
-        public long GetItemId(string name, string brand)
-        {
-            long id = 0;
-            var query = @"SELECT " + 
-                "[Id] " +
-                "FROM " + Constants.TABLE_ITEM + " " +
-                "WHERE 1 = 1 " +
-                "AND [Name] = @Name " + 
-                "AND [Brand] = @Brand ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Name", name);
-                        command.Parameters.AddWithValue("@Brand", brand);
-
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            id = Convert.ToInt64(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return id;
         }
 
         public IEnumerable<string> GetItemNames()

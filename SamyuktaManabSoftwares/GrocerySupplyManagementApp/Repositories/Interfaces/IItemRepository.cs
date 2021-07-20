@@ -5,11 +5,9 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 {
     public interface IItemRepository
     {
-        IEnumerable<Item> GetItems(bool showEmptyItemCode);
         IEnumerable<Item> GetItems();
         Item GetItem(string code);
         Item GetItem(long itemId);
-        long GetItemId(string name, string brand);
         IEnumerable<string> GetItemNames();
 
         Item AddItem(Item item);

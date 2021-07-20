@@ -14,11 +14,6 @@ namespace GrocerySupplyManagementApp.Services
             _itemRepository = itemRepository;
         }
 
-        public IEnumerable<Item> GetItems(bool showEmptyItemCode)
-        {
-            return _itemRepository.GetItems(showEmptyItemCode);
-        }
-
         public IEnumerable<Item> GetItems()
         {
             return _itemRepository.GetItems();
@@ -32,11 +27,6 @@ namespace GrocerySupplyManagementApp.Services
         public Item GetItem(long itemId)
         {
             return _itemRepository.GetItem(itemId);
-        }
-
-        public long GetItemId(string name, string brand)
-        {
-            return _itemRepository.GetItemId(name, brand);
         }
 
         public Item AddItem(Item item)
