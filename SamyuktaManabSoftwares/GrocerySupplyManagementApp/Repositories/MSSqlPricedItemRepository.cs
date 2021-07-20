@@ -167,8 +167,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " + 
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
-                "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " pri " +
-                "ON pi.[ItemId] != pri.[ItemId] " +
+                "WHERE 1 = 1 " +
+                "AND NOT EXISTS (SELECT 1 FROM PricedItem WHERE [ItemId] = pi.[ItemId]) " +
                 "ORDER BY i.[Code] ";
 
             try
