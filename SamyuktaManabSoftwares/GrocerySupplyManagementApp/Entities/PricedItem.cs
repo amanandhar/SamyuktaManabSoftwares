@@ -2,7 +2,7 @@
 
 namespace GrocerySupplyManagementApp.Entities
 {
-    public class CodedItem
+    public class PricedItem
     {
         public long Id { get; set; }
         public long ItemId { get; set; }

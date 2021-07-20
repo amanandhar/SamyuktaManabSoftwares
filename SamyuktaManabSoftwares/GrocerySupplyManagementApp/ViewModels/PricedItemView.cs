@@ -1,6 +1,6 @@
 ﻿namespace GrocerySupplyManagementApp.ViewModels
 {
-    public class CodedItemView
+    public class PricedItemView
     {
         public long Id { get; set; }
         public string Code { get; set; }

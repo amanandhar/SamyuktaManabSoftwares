@@ -52,6 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridItemList.Columns["Id"].Visible = false;
+            DataGridItemList.Columns["Unit"].Visible = false;
 
             DataGridItemList.Columns["Code"].HeaderText = "Code";
             DataGridItemList.Columns["Code"].Width = 100;

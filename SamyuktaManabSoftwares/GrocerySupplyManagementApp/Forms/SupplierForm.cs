@@ -20,12 +20,14 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISupplierService _supplierService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IStockService _stockService;
 
         #region Constructor
         public SupplierForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, ISupplierService supplierService, 
-            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService)
+            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
+            IStockService stockService)
         {
             InitializeComponent();
 
@@ -36,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             _supplierService = supplierService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
+            _stockService = stockService;
         }
 
         #endregion
@@ -53,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
             PurchaseForm purchaseForm = new PurchaseForm(_fiscalYearService, _itemService,
-                _purchasedItemService, _userTransactionService, this);
+                _purchasedItemService, _userTransactionService, _stockService, this);
             purchaseForm.Show();
         }
 

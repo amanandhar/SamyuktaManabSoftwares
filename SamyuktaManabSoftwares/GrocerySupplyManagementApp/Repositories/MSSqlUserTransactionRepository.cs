@@ -1168,7 +1168,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "si.[Quantity] AS 'Quantity', ci.[ProfitAmount] AS 'ProfitAmount', " +
                 "CAST((si.[Quantity] * ci.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_ITEM + " i " +
-                "INNER JOIN " + Constants.TABLE_CODED_ITEM + " ci " +
+                "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " ci " +
                 "ON i.[Id] = ci.[ItemId] " +
                 "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
                 "ON i.[Id] = si.[ItemId] " +

@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class CodedItemForm : Form, ICodedItemListForm
+    public partial class PricedItemForm : Form, IPricedItemListForm, IUnpricedItemListForm
     {
         private readonly IItemService _itemService;
-        private readonly ICodedItemService _codedItemService;
+        private readonly IPricedItemService _pricedItemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
 
@@ -25,15 +25,29 @@ namespace GrocerySupplyManagementApp.Forms
         private long _selectedId = 0;
         private long _selectedItemId = 0;
 
+        #region Enum
+        private enum Action
+        {
+            Add,
+            Save,
+            Edit,
+            Update,
+            Delete,
+            PopulatePricedItem,
+            PopulateUnpricedItem,
+            None
+        }
+        #endregion 
+
         #region Constructor
-        public CodedItemForm(IItemService itemService, ICodedItemService codedItemService,
+        public PricedItemForm(IItemService itemService, IPricedItemService pricedItemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             DashboardForm dashboardForm)
         {
             InitializeComponent();
 
             _itemService = itemService;
-            _codedItemService = codedItemService;
+            _pricedItemService = pricedItemService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _dashboard = dashboardForm;
@@ -48,25 +62,22 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShowCodedItem_Click(object sender, EventArgs e)
+        private void BtnShowPricedItem_Click(object sender, EventArgs e)
         {
-            CodedItemListForm codedItemListForm = new CodedItemListForm(_codedItemService, this, false);
-            codedItemListForm.Show();
+            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
+            pricedItemListForm.Show();
         }
 
-        private void BtnPurchasedItem_Click(object sender, EventArgs e)
+        private void BtnShowUnpricedItem_Click(object sender, EventArgs e)
         {
-            CodedItemListForm codedItemListForm = new CodedItemListForm(_codedItemService, this, true);
-            codedItemListForm.Show();
+            UnpricedItemListForm unpricedItemListForm = new UnpricedItemListForm(_pricedItemService, this);
+            unpricedItemListForm.Show();
         }
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            TxtItemSubCode.Enabled = true;
-            TxtCurrentPurchasePrice.Enabled = true;
-            TxtQuantity.Enabled = true;
-            TxtProfitPercent.Enabled = true;
-
+            EnableFields();
+            EnableFields(Action.Add);
             TxtItemSubCode.Focus();
         }
 
@@ -74,11 +85,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var codedItem = new CodedItem
+                var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
-                    Unit = ComboItemUnit.Text,
+                    Unit = TxtUnit.Text,
                     Price = Convert.ToDecimal(TxtNewPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
@@ -88,13 +99,13 @@ namespace GrocerySupplyManagementApp.Forms
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
                 };
 
-                _codedItemService.UpdateCodedItem(_selectedId, codedItem);
+                _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
 
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    EnableFields(false);
+                    EnableFields();
                 }
             }
             catch (Exception ex)
@@ -131,11 +142,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddNew_Click(object sender, EventArgs e)
         {
-            TxtItemSubCode.Enabled = true;
-            TxtCurrentPurchasePrice.Enabled = true;
-            TxtQuantity.Enabled = true;
-            TxtProfitPercent.Enabled = true;
-
+            EnableFields();
+            EnableFields(Action.Add);
             TxtItemSubCode.Focus();
         }
 
@@ -143,11 +151,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var codedItem = new CodedItem
+                var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
-                    Unit = ComboItemUnit.Text,
+                    Unit = TxtUnit.Text,
                     Price = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
@@ -158,13 +166,13 @@ namespace GrocerySupplyManagementApp.Forms
                     Date = DateTime.Now
                 };
 
-                _codedItemService.AddCodedItem(codedItem);
+                _pricedItemService.AddPricedItem(pricedItem);
 
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    EnableFields(false);
+                    EnableFields();
                 }
             }
             catch (Exception ex)
@@ -173,10 +181,25 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnClearAll_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
-            ClearAllFields();
+            try
+            {
+                _pricedItemService.DeletePricedItem(_selectedId);
+
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    EnableFields();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
         #endregion
 
         #region OpenFileDialog Event
@@ -307,20 +330,71 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void EnableFields(bool option = true)
+        private void EnableFields(Action action = Action.None)
         {
-            TxtItemCode.Enabled = option;
-            TxtItemSubCode.Enabled = option;
-            TxtSalesPricePerUnit.Enabled = option;
-            TxtItemName.Enabled = option;
-            TxtItemBrand.Enabled = option;
-            ComboItemUnit.Enabled = option;
-            TxtNewPurchasePrice.Enabled = option;
-            TxtQuantity.Enabled = option;
-            TxtTotalPrice.Enabled = option;
-            TxtProfitPercent.Enabled = option;
-            TxtProfitAmount.Enabled = option;
-            TxtSalesPrice.Enabled = option;
+            if(action == Action.PopulatePricedItem)
+            {
+                BtnAddNew.Enabled = true;
+                BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
+                BtnAddItemImage.Enabled = true;
+                BtnDeleteItemImage.Enabled = true;
+            }
+            else if (action == Action.PopulateUnpricedItem)
+            {
+                BtnAddNew.Enabled = true;
+                BtnDelete.Enabled = true;
+                BtnAddItemImage.Enabled = true;
+            }
+            else if(action == Action.Add)
+            {
+                TxtItemSubCode.Enabled = true;
+                TxtCurrentPurchasePrice.Enabled = true;
+                TxtQuantity.Enabled = true;
+                TxtProfitPercent.Enabled = true;
+
+                BtnSave.Enabled = true;
+                BtnDelete.Enabled = true;
+                BtnAddItemImage.Enabled = true;
+                BtnDeleteItemImage.Enabled = true;
+            }
+            else if (action == Action.Edit)
+            {
+                TxtItemSubCode.Enabled = true;
+                TxtCurrentPurchasePrice.Enabled = true;
+                TxtQuantity.Enabled = true;
+                TxtProfitPercent.Enabled = true;
+
+                BtnUpdate.Enabled = true;
+                BtnDelete.Enabled = true;
+                BtnAddItemImage.Enabled = true;
+                BtnDeleteItemImage.Enabled = true;
+            }
+            else
+            {
+                TxtItemCode.Enabled = false;
+                TxtItemSubCode.Enabled = false;
+                TxtItemName.Enabled = false;
+                TxtItemBrand.Enabled = false;
+                TxtUnit.Enabled = false;
+                TxtTotalStock.Enabled = false;
+                TxtNewPurchasePrice.Enabled = false;
+                TxtCurrentPurchasePrice.Enabled = false;
+                TxtQuantity.Enabled = false;
+                TxtTotalPrice.Enabled = false;
+                TxtProfitPercent.Enabled = false;
+                TxtProfitAmount.Enabled = false;
+                TxtSalesPrice.Enabled = false;
+                TxtSalesPricePerUnit.Enabled = false;
+
+                BtnAddNew.Enabled = false;
+                BtnSave.Enabled = false;
+                BtnEdit.Enabled = false;
+                BtnUpdate.Enabled = false;
+                BtnDelete.Enabled = false;
+                BtnAddItemImage.Enabled = false;
+                BtnDeleteItemImage.Enabled = false;
+            }
         }
 
         private void ClearAllFields()
@@ -329,7 +403,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemSubCode.Clear();
             TxtItemName.Clear();
             TxtItemBrand.Clear();
-            ComboItemUnit.Text = string.Empty;
+            TxtUnit.Clear();
             TxtTotalStock.Clear();
             TxtCurrentPurchasePrice.Clear();
             TxtNewPurchasePrice.Clear();
@@ -341,56 +415,34 @@ namespace GrocerySupplyManagementApp.Forms
             TxtSalesPricePerUnit.Clear();
         }
 
-        public void PopulateCodedItem(bool isItemCoded, long id)
+        public void PopulatePricedItem(long pricedId)
         {
             try
             {
                 ClearAllFields();
-                _selectedId = id;
-                if(isItemCoded)
-                {
-                    var codedItem = _codedItemService.GetCodedItem(_selectedId);
-                    _selectedItemId = codedItem.ItemId;
-                    var item = _itemService.GetItem(_selectedItemId);
+                _selectedId = pricedId;
+                var pricedItem = _pricedItemService.GetPricedItem(_selectedId);
+                _selectedItemId = pricedItem.ItemId;
+                var item = _itemService.GetItem(_selectedItemId);
 
-                    TxtItemCode.Text = item.Code;
-                    TxtItemSubCode.Text = codedItem.ItemSubCode;
-                    TxtItemName.Text = item.Name;
-                    TxtItemBrand.Text = item.Brand;
-                    ComboItemUnit.Text = codedItem.Unit;
-                    StockFilterView filter = new StockFilterView
-                    {
-                        ItemCode = item.Code
-                    };
-                    TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
-                    TxtNewPurchasePrice.Text = _purchasedItemService.GetLatestPurchasePrice(_selectedItemId).ToString();
-                    TxtCurrentPurchasePrice.Text = codedItem.Price.ToString();
-                    TxtQuantity.Text = codedItem.Quantity.ToString();
-                    TxtTotalPrice.Text = codedItem.TotalPrice.ToString();
-                    TxtProfitPercent.Text = codedItem.ProfitPercent.ToString();
-                    TxtProfitAmount.Text = codedItem.ProfitAmount.ToString();
-                    TxtSalesPrice.Text = codedItem.SalesPrice.ToString();
-                    TxtSalesPricePerUnit.Text = codedItem.SalesPricePerUnit.ToString();
-                }
-                else
+                TxtItemCode.Text = item.Code;
+                TxtItemSubCode.Text = pricedItem.ItemSubCode;
+                TxtItemName.Text = item.Name;
+                TxtItemBrand.Text = item.Brand;
+                TxtUnit.Text = pricedItem.Unit;
+                StockFilterView filter = new StockFilterView
                 {
-                    _selectedId = id;
-                    var purchasedItem = _purchasedItemService.GetPurchasedItem(_selectedId);
-                    _selectedItemId = purchasedItem.ItemId;
-                    var item = _itemService.GetItem(_selectedItemId);
-                    TxtItemCode.Text = item.Code;
-                    TxtItemName.Text = item.Name;
-                    TxtItemBrand.Text = item.Brand;
-                    ComboItemUnit.Text = purchasedItem.Unit.ToString();
-                    StockFilterView filter = new StockFilterView
-                    {
-                        ItemCode = item.Code
-                    };
-
-                    TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
-                    TxtNewPurchasePrice.Text = _purchasedItemService.GetLatestPurchasePrice(_selectedItemId).ToString();
-                    TxtCurrentPurchasePrice.Text = purchasedItem.Price.ToString();
-                }
+                    ItemCode = item.Code
+                };
+                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
+                TxtNewPurchasePrice.Text = _purchasedItemService.GetLatestPurchasePrice(_selectedItemId).ToString();
+                TxtCurrentPurchasePrice.Text = pricedItem.Price.ToString();
+                TxtQuantity.Text = pricedItem.Quantity.ToString();
+                TxtTotalPrice.Text = pricedItem.TotalPrice.ToString();
+                TxtProfitPercent.Text = pricedItem.ProfitPercent.ToString();
+                TxtProfitAmount.Text = pricedItem.ProfitAmount.ToString();
+                TxtSalesPrice.Text = pricedItem.SalesPrice.ToString();
+                TxtSalesPricePerUnit.Text = pricedItem.SalesPricePerUnit.ToString();
 
                 var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
                 var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
@@ -401,13 +453,53 @@ namespace GrocerySupplyManagementApp.Forms
                     PicBoxItemImage.ImageLocation = filePath;
                 }
 
-                EnableFields(false);
+                EnableFields(); 
+                EnableFields(Action.PopulatePricedItem);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
+        public void PopulateUnpricedItem(long itemId)
+        {
+            try
+            {
+                ClearAllFields();
+
+                _selectedItemId = itemId;
+                var item = _itemService.GetItem(_selectedItemId);
+                TxtItemCode.Text = item.Code;
+                TxtItemName.Text = item.Name;
+                TxtItemBrand.Text = item.Brand;
+                TxtUnit.Text = item.Unit;
+                StockFilterView filter = new StockFilterView
+                {
+                    ItemCode = item.Code
+                };
+
+                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
+                TxtNewPurchasePrice.Text = _purchasedItemService.GetLatestPurchasePrice(_selectedItemId).ToString();
+
+                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
+                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
+
+                if (File.Exists(filePath))
+                {
+                    //PicBoxItemImage.Image = filePath;
+                    PicBoxItemImage.ImageLocation = filePath;
+                }
+
+                EnableFields();
+                EnableFields(Action.PopulateUnpricedItem);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
     }
 }

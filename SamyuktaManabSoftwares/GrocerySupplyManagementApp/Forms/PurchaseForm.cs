@@ -17,6 +17,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IStockService _stockService;
 
         public SupplierForm _supplierForm;
         private List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
@@ -24,7 +25,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public PurchaseForm(IFiscalYearService fiscalYearService, IItemService itemService,
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
-            SupplierForm supplierForm
+            IStockService stockService, SupplierForm supplierForm
             )
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace GrocerySupplyManagementApp.Forms
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
+            _stockService = stockService;
             _supplierForm = supplierForm;
         }
 
@@ -80,8 +82,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Code = RichItemCode.Text,
                     Name = RichItemName.Text,
                     Brand = RichItemBrand.Text,
-                    Unit = ComboUnit.Text,
-                    Quantity = Convert.ToInt64(RichQuantity.Text),
+                    Unit = RichUnit.Text,
+                    Quantity = Convert.ToInt32(RichQuantity.Text),
                     Price = Convert.ToDecimal(RichPurchasePrice.Text),
                     Total = (Convert.ToInt64(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text))
                 };
@@ -140,6 +142,32 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _userTransactionService.AddUserTransaction(userTransaction);
+
+                // Stock Addition
+                //List<Stock> stocks = purchasedItems.Select(purchasedItem => new Stock
+                //{
+                //    ItemId = purchasedItem.ItemId,
+                //    Type = Constants.PURCHASE,
+                //    TypeNo = purchasedItem.BillNo,
+                //    PurchaseQuantity = purchasedItem.Quantity,
+                //    PurchasePrice = purchasedItem.Price,
+                //    PurchaseTotalPrice = (purchasedItem.Quantity * purchasedItem.Price),
+                //    PurchaseGrandPrice = (purchasedItem.Quantity * purchasedItem.Price) + _purchasedItemService.GetTotalPurchasePrice(purchasedItem.ItemId),
+                //    SalesQuantity = 0,
+                //    SalesPrice = 0.0m,
+                //    SalesTotalPrice = 0.0m,
+                //    SalesGrandPrice = 0.0m,
+                //    StockQuantity = purchasedItem.Quantity,
+                //    StockAmount = (purchasedItem.Quantity * purchasedItem.Price) + _purchasedItemService.GetTotalPurchasePrice(purchasedItem.ItemId) * purchasedItem.Quantity,
+                //    PerUnitStockAmount = (purchasedItem.Quantity * purchasedItem.Price) + _purchasedItemService.GetTotalPurchasePrice(purchasedItem.ItemId) / purchasedItem.Quantity,
+                //    Date = DateTime.Now
+                //}).ToList();
+
+                //stocks.ForEach(stock =>
+                //{
+                //    _stockService.AddStock(stock);
+                //});
+
                 _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
                 Close();
             }
@@ -239,7 +267,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemCode.Enabled = option;
             RichItemName.Enabled = option;
             RichItemBrand.Enabled = option;
-            ComboUnit.Enabled = option;
+            RichUnit.Enabled = option;
             RichPurchasePrice.Enabled = option;
             RichQuantity.Enabled = option;
         }
@@ -250,7 +278,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemName.Clear();
             RichItemBrand.Clear();
             RichQuantity.Clear();
-            ComboUnit.Text = string.Empty;
+            RichUnit.Clear();
             RichPurchasePrice.Clear();
         }
 
@@ -297,6 +325,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Text = item.Code;
                 RichItemName.Text = item.Name;
                 RichItemBrand.Text = item.Brand;
+                RichUnit.Text = item.Unit;
             }
             catch (Exception ex)
             {

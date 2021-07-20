@@ -11,20 +11,21 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemService _itemService;
-        private readonly ICodedItemService _codedItemService;
+        private readonly IPricedItemService _pricedItemService;
         private readonly IMemberService _memberService;
         private readonly ISupplierService _supplierService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IStockService _stockService;
 
         #region Constructor
         public DashboardForm(IFiscalYearService fiscalYearService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
-            IItemService itemService, ICodedItemService codedItemService,
+            IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService, ISupplierService supplierService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService)
+            IUserTransactionService userTransactionService, IStockService stockService)
         {
             InitializeComponent();
 
@@ -33,12 +34,13 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _itemService = itemService;
-            _codedItemService = codedItemService;
+            _pricedItemService = pricedItemService;
             _memberService = memberService;
             _supplierService = supplierService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _stockService = stockService;
         }
         #endregion
 
@@ -72,10 +74,10 @@ namespace GrocerySupplyManagementApp.Forms
             PosForm posForm = new PosForm(  
                 _fiscalYearService, _taxService,
                 _bankService, _bankTransactionService,
-                _itemService, _codedItemService,
+                _itemService, _pricedItemService,
                 _memberService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService
+                _userTransactionService, _stockService
                  );
             posForm.Show();
         }
@@ -102,16 +104,16 @@ namespace GrocerySupplyManagementApp.Forms
             SupplierForm supplierForm = new SupplierForm(_fiscalYearService, _bankService,
                 _bankTransactionService, _itemService, 
                 _supplierService, _purchasedItemService, 
-                _userTransactionService
+                _userTransactionService, _stockService
                 );
             supplierForm.Show();
         }
 
         private void BtnItemMgmt_Click(object sender, EventArgs e)
         {
-            CodedItemForm itemForm = new CodedItemForm(_itemService, _codedItemService, 
+            PricedItemForm pricedItemForm = new PricedItemForm(_itemService, _pricedItemService, 
                 _purchasedItemService, _soldItemService, this);
-            itemForm.Show();
+            pricedItemForm.Show();
         }
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)

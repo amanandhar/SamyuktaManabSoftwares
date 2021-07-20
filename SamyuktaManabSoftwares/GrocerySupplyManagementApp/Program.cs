@@ -26,12 +26,13 @@ namespace GrocerySupplyManagementApp
                 container.Resolve<IBankService>(),
                 container.Resolve<IBankTransactionService>(),
                 container.Resolve<IItemService>(),
-                container.Resolve<ICodedItemService>(),
+                container.Resolve<IPricedItemService>(),
                 container.Resolve<IMemberService>(),
                 container.Resolve<ISupplierService>(),
                 container.Resolve<IPurchasedItemService>(),
                 container.Resolve<ISoldItemService>(),
-                container.Resolve<IUserTransactionService>()
+                container.Resolve<IUserTransactionService>(),
+                container.Resolve<IStockService>()
                 ));
         }
 
@@ -45,22 +46,24 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IMemberService, MemberService>();
             container.RegisterType<ISupplierService, SupplierService>();
             container.RegisterType<IItemService, ItemService>();
-            container.RegisterType<ICodedItemService, CodedItemService>();
+            container.RegisterType<IPricedItemService, PricedItemService>();
             container.RegisterType<IPurchasedItemService, PurchasedItemService>();
             container.RegisterType<ISoldItemService, SoldItemService>();
             container.RegisterType<IUserTransactionService, UserTransactionService>();
+            container.RegisterType<IStockService, StockService>();
 
             container.RegisterType<IFiscalYearRepository, MSSqlFiscalYearRepository>();
             container.RegisterType<ITaxRepository, MSSqlTaxRepository>();
             container.RegisterType<IBankRepository, MSSqlBankRepository>();
             container.RegisterType<IBankTransactionRepository, MSSqlBankTransactionRepository>();
             container.RegisterType<IItemRepository, MSSqlItemRepository>();
-            container.RegisterType<ICodedItemRepository, MSSqlCodedItemRepository>();
+            container.RegisterType<IPricedItemRepository, MSSqlPricedItemRepository>();
             container.RegisterType<IMemberRepository, MSSqlMemberRepository>();
             container.RegisterType<ISupplierRepository, MSSqlSupplierRepository>();
             container.RegisterType<IPurchasedItemRepository, MSSqlPurchasedItemRepository>();
             container.RegisterType<ISoldItemRepository, MSSqlSoldItemRepository>();
             container.RegisterType<IUserTransactionRepository, MSSqlUserTransactionRepository>();
+            container.RegisterType<IStockRepository, MSSqlStockRepository>();
 
             return container;
         }

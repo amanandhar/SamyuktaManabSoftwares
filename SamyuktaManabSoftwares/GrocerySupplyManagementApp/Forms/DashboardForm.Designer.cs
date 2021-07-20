@@ -112,7 +112,7 @@
             this.BtnItemMgmt.Name = "BtnItemMgmt";
             this.BtnItemMgmt.Size = new System.Drawing.Size(240, 37);
             this.BtnItemMgmt.TabIndex = 7;
-            this.BtnItemMgmt.Text = "Item Coding Management";
+            this.BtnItemMgmt.Text = "Item Pricing Management";
             this.BtnItemMgmt.UseVisualStyleBackColor = false;
             this.BtnItemMgmt.Click += new System.EventHandler(this.BtnItemMgmt_Click);
             // 

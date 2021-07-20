@@ -46,7 +46,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemBrand = new System.Windows.Forms.RichTextBox();
             this.TxtTotalAmount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ComboUnit = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.RichPurchasePrice = new System.Windows.Forms.RichTextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -58,6 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnAddItem = new System.Windows.Forms.Button();
             this.DataGridPurchaseList = new System.Windows.Forms.DataGridView();
+            this.RichUnit = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseList)).BeginInit();
@@ -132,6 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.RichUnit);
             this.groupBox1.Controls.Add(this.BtnAddBonus);
             this.groupBox1.Controls.Add(this.BtnShowItem);
             this.groupBox1.Controls.Add(this.BtnAddNew);
@@ -140,7 +141,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.RichItemBrand);
             this.groupBox1.Controls.Add(this.TxtTotalAmount);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.ComboUnit);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.RichPurchasePrice);
             this.groupBox1.Controls.Add(this.label7);
@@ -247,23 +247,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.Size = new System.Drawing.Size(91, 20);
             this.label1.TabIndex = 22;
             this.label1.Text = "Price / Rate";
-            // 
-            // ComboUnit
-            // 
-            this.ComboUnit.Enabled = false;
-            this.ComboUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboUnit.FormattingEnabled = true;
-            this.ComboUnit.Items.AddRange(new object[] {
-            "kg",
-            "gram",
-            "ltr",
-            "pcs",
-            "pkt",
-            "dzn"});
-            this.ComboUnit.Location = new System.Drawing.Point(390, 48);
-            this.ComboUnit.Name = "ComboUnit";
-            this.ComboUnit.Size = new System.Drawing.Size(90, 28);
-            this.ComboUnit.TabIndex = 4;
             // 
             // label5
             // 
@@ -408,6 +391,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridPurchaseList.TabIndex = 60;
             this.DataGridPurchaseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseList_DataBindingComplete);
             // 
+            // RichUnit
+            // 
+            this.RichUnit.BackColor = System.Drawing.Color.White;
+            this.RichUnit.Enabled = false;
+            this.RichUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichUnit.Location = new System.Drawing.Point(390, 47);
+            this.RichUnit.Name = "RichUnit";
+            this.RichUnit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichUnit.Size = new System.Drawing.Size(90, 30);
+            this.RichUnit.TabIndex = 63;
+            this.RichUnit.Text = "";
+            // 
             // PurchaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -447,7 +442,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.Button BtnClear;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox ComboUnit;
         private System.Windows.Forms.Button BtnAddItem;
         private System.Windows.Forms.TextBox TxtTotalAmount;
         private System.Windows.Forms.Label label1;
@@ -458,5 +452,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button BtnShowItem;
         private System.Windows.Forms.Button BtnAddBonus;
+        private System.Windows.Forms.RichTextBox RichUnit;
     }
 }

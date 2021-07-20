@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Code = reader.IsDBNull(1) ? string.Empty : reader["Code"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString(),
-                                    Unit = reader["Unit"].ToString(),
+                                    Unit = reader["Unit"].ToString()
                                 };
 
                                 items.Add(item);

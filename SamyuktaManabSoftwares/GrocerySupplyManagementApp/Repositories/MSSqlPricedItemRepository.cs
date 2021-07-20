@@ -8,23 +8,23 @@ using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
-    public class MSSqlCodedItemRepository : ICodedItemRepository
+    public class MSSqlPricedItemRepository : IPricedItemRepository
     {
         private readonly string connectionString;
 
-        public MSSqlCodedItemRepository()
+        public MSSqlPricedItemRepository()
         {
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<CodedItem> GetCodedItems()
+        public IEnumerable<PricedItem> GetPricedItems()
         {
-            var codedItems = new List<CodedItem>();
+            var pricedItems = new List<PricedItem>();
             var query = @"SELECT " +
                 "[Id], [ItemId], [ItemSubCode], [Unit], " +
                 "[Price], [Quantity], [TotalPrice], " +
                 "[ProfitPercent], [ProfitAmount], [SalesPrice], [SalesPricePerUnit], [Date]  " +
-                "FROM " + Constants.TABLE_CODED_ITEM + " " +
+                "FROM " + Constants.TABLE_PRICED_ITEM + " " +
                 "ORDER BY Id ";
 
             try
@@ -38,7 +38,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var codedItem = new CodedItem
+                                var pricedItem = new PricedItem
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
@@ -54,7 +54,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Date = Convert.ToDateTime(reader["Date"].ToString())
                                 };
 
-                                codedItems.Add(codedItem);
+                                pricedItems.Add(pricedItem);
                             }
                         }
                     }
@@ -65,19 +65,19 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return codedItems;
+            return pricedItems;
         }
 
-        public CodedItem GetCodedItem(long id)
+        public PricedItem GetPricedItem(long id)
         {
             var query = @"SELECT " +
                 "[Id], [ItemId], [ItemSubCode], [Unit], " +
                 "[Price], [Quantity], [TotalPrice], " +
                 "[ProfitPercent], [ProfitAmount], [SalesPrice], [SalesPricePerUnit], [Date] " +
-                "FROM " + Constants.TABLE_CODED_ITEM + " " +
+                "FROM " + Constants.TABLE_PRICED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND Id = @Id ";
-            var codedItem = new CodedItem();
+            var pricedItem = new PricedItem();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -90,18 +90,18 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                codedItem.Id = Convert.ToInt64(reader["Id"].ToString());
-                                codedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                codedItem.ItemSubCode = reader["ItemSubCode"].ToString();
-                                codedItem.Unit = reader["Unit"].ToString();
-                                codedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
-                                codedItem.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
-                                codedItem.TotalPrice = Convert.ToDecimal(reader["TotalPrice"].ToString());
-                                codedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
-                                codedItem.ProfitAmount = Convert.ToDecimal(reader["ProfitAmount"].ToString());
-                                codedItem.SalesPrice = Convert.ToDecimal(reader["SalesPrice"].ToString());
-                                codedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
-                                codedItem.Date = Convert.ToDateTime(reader["Date"].ToString());
+                                pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
+                                pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
+                                pricedItem.ItemSubCode = reader["ItemSubCode"].ToString();
+                                pricedItem.Unit = reader["Unit"].ToString();
+                                pricedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
+                                pricedItem.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
+                                pricedItem.TotalPrice = Convert.ToDecimal(reader["TotalPrice"].ToString());
+                                pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
+                                pricedItem.ProfitAmount = Convert.ToDecimal(reader["ProfitAmount"].ToString());
+                                pricedItem.SalesPrice = Convert.ToDecimal(reader["SalesPrice"].ToString());
+                                pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
+                                pricedItem.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
                         }
                     }
@@ -112,15 +112,15 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return codedItem;
+            return pricedItem;
         }
 
-        public IEnumerable<CodedItemView> GetCodedItemViewList()
+        public IEnumerable<PricedItemView> GetPricedItemViewList()
         {
-            var codedItemViewList = new List<CodedItemView>();
+            var pricedItemViewList = new List<PricedItemView>();
             var query = @"SELECT " +
                 "DISTINCT ci.[Id], i.[Code], ci.[ItemSubCode], i.[Name], i.[Brand] " +
-                "FROM " + Constants.TABLE_CODED_ITEM + " ci " +
+                "FROM " + Constants.TABLE_PRICED_ITEM + " ci " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ci.[ItemId] = i.[Id] " +
                 "ORDER BY i.[Code] ";
@@ -136,7 +136,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var codedItemView = new CodedItemView
+                                var pricedItemView = new PricedItemView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
@@ -145,7 +145,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Brand = reader["Brand"].ToString()
                                 };
 
-                                codedItemViewList.Add(codedItemView);
+                                pricedItemViewList.Add(pricedItemView);
                             }
                         }
                     }
@@ -156,17 +156,19 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return codedItemViewList;
+            return pricedItemViewList;
         }
 
-        public IEnumerable<CodedItemView> GetCodedUnCodedItemViewList()
+        public IEnumerable<UnpricedItemView> GetUnpricedItemViewList()
         {
-            var codedItemViewList = new List<CodedItemView>();
+            var unpricedItemViewList = new List<UnpricedItemView>();
             var query = @"SELECT " +
-                "DISTINCT i.[Code], i.[Name], i.[Brand] " +
+                "DISTINCT i.[Id], i.[Code], i.[Name], i.[Brand] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " + 
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
+                "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " pri " +
+                "ON pi.[ItemId] != pri.[ItemId] " +
                 "ORDER BY i.[Code] ";
 
             try
@@ -180,16 +182,15 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var codedItemView = new CodedItemView
+                                var unpricedItemView = new UnpricedItemView
                                 {
-                                    //Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
-                                    //SubCode = reader["ItemSubCode"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString()
                                 };
 
-                                codedItemViewList.Add(codedItemView);
+                                unpricedItemViewList.Add(unpricedItemView);
                             }
                         }
                     }
@@ -200,12 +201,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return codedItemViewList;
+            return unpricedItemViewList;
         }
 
-        public CodedItem AddCodedItem(CodedItem codedItem)
+        public PricedItem AddPricedItem(PricedItem pricedItem)
         {
-            string query = @"INSERT INTO " + Constants.TABLE_CODED_ITEM + " " +
+            string query = @"INSERT INTO " + Constants.TABLE_PRICED_ITEM + " " +
                     "( " +
                         "[ItemId], [ItemSubCode], [Unit], [Price], [Quantity], [TotalPrice], " +
                         "[ProfitPercent], [ProfitAmount], [SalesPrice], [SalesPricePerUnit], [Date] " +
@@ -222,17 +223,17 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ItemId", codedItem.ItemId);
-                        command.Parameters.AddWithValue("@ItemSubCode", codedItem.ItemSubCode);
-                        command.Parameters.AddWithValue("@Unit", codedItem.Unit);
-                        command.Parameters.AddWithValue("@Price", codedItem.Price);
-                        command.Parameters.AddWithValue("@Quantity", codedItem.Quantity);
-                        command.Parameters.AddWithValue("@TotalPrice", codedItem.TotalPrice);
-                        command.Parameters.AddWithValue("@ProfitPercent", codedItem.ProfitPercent);
-                        command.Parameters.AddWithValue("@ProfitAmount", codedItem.ProfitAmount);
-                        command.Parameters.AddWithValue("@SalesPrice", codedItem.SalesPrice);
-                        command.Parameters.AddWithValue("@SalesPricePerUnit", codedItem.SalesPricePerUnit);
-                        command.Parameters.AddWithValue("@Date", codedItem.Date);
+                        command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
+                        command.Parameters.AddWithValue("@ItemSubCode", pricedItem.ItemSubCode);
+                        command.Parameters.AddWithValue("@Unit", pricedItem.Unit);
+                        command.Parameters.AddWithValue("@Price", pricedItem.Price);
+                        command.Parameters.AddWithValue("@Quantity", pricedItem.Quantity);
+                        command.Parameters.AddWithValue("@TotalPrice", pricedItem.TotalPrice);
+                        command.Parameters.AddWithValue("@ProfitPercent", pricedItem.ProfitPercent);
+                        command.Parameters.AddWithValue("@ProfitAmount", pricedItem.ProfitAmount);
+                        command.Parameters.AddWithValue("@SalesPrice", pricedItem.SalesPrice);
+                        command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
+                        command.Parameters.AddWithValue("@Date", pricedItem.Date);
 
                         command.ExecuteNonQuery();
                     }
@@ -243,12 +244,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return codedItem;
+            return pricedItem;
         }
 
-        public CodedItem UpdateCodedItem(long id, CodedItem codedItem)
+        public PricedItem UpdatePricedItem(long id, PricedItem pricedItem)
         {
-            string query = @"UPDATE " + Constants.TABLE_CODED_ITEM + " " + 
+            string query = @"UPDATE " + Constants.TABLE_PRICED_ITEM + " " + 
                 "SET " +
                 "[ItemSubCode] = @ItemSubCode, " +
                 "[Unit] = @Unit, " +
@@ -269,16 +270,16 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
-                        command.Parameters.AddWithValue("@ItemId", codedItem.ItemId);
-                        command.Parameters.AddWithValue("@ItemSubCode", codedItem.ItemSubCode);
-                        command.Parameters.AddWithValue("@Unit", codedItem.Unit);
-                        command.Parameters.AddWithValue("@Price", codedItem.Price);
-                        command.Parameters.AddWithValue("@Quantity", codedItem.Quantity);
-                        command.Parameters.AddWithValue("@TotalPrice", codedItem.TotalPrice);
-                        command.Parameters.AddWithValue("@ProfitPercent", codedItem.ProfitPercent);
-                        command.Parameters.AddWithValue("@ProfitAmount", codedItem.ProfitAmount);
-                        command.Parameters.AddWithValue("@SalesPrice", codedItem.SalesPrice);
-                        command.Parameters.AddWithValue("@SalesPricePerUnit", codedItem.SalesPricePerUnit);
+                        command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
+                        command.Parameters.AddWithValue("@ItemSubCode", pricedItem.ItemSubCode);
+                        command.Parameters.AddWithValue("@Unit", pricedItem.Unit);
+                        command.Parameters.AddWithValue("@Price", pricedItem.Price);
+                        command.Parameters.AddWithValue("@Quantity", pricedItem.Quantity);
+                        command.Parameters.AddWithValue("@TotalPrice", pricedItem.TotalPrice);
+                        command.Parameters.AddWithValue("@ProfitPercent", pricedItem.ProfitPercent);
+                        command.Parameters.AddWithValue("@ProfitAmount", pricedItem.ProfitAmount);
+                        command.Parameters.AddWithValue("@SalesPrice", pricedItem.SalesPrice);
+                        command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
 
                         command.ExecuteNonQuery();
                     }
@@ -289,14 +290,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return codedItem;
+            return pricedItem;
         }
 
-        public bool DeleteCodedItem(long id)
+        public bool DeletePricedItem(long id)
         {
             bool result = false;
             string query = @"DELETE " +
-                "FROM " + Constants.TABLE_CODED_ITEM + " " +
+                "FROM " + Constants.TABLE_PRICED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id ";
 

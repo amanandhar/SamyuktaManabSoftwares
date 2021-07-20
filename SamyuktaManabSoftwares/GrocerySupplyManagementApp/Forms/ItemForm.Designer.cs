@@ -33,6 +33,8 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ComboUnit = new System.Windows.Forms.ComboBox();
             this.RichItemBrand = new System.Windows.Forms.RichTextBox();
             this.RichItemName = new System.Windows.Forms.RichTextBox();
             this.BtnShowCode = new System.Windows.Forms.Button();
@@ -46,8 +48,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave = new System.Windows.Forms.Button();
             this.BtnAddNew = new System.Windows.Forms.Button();
             this.DataGridItemList = new System.Windows.Forms.DataGridView();
-            this.ComboUnit = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridItemList)).BeginInit();
@@ -80,6 +80,34 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(455, 125);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label4.Location = new System.Drawing.Point(294, 80);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 20);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Units";
+            // 
+            // ComboUnit
+            // 
+            this.ComboUnit.Enabled = false;
+            this.ComboUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboUnit.FormattingEnabled = true;
+            this.ComboUnit.Items.AddRange(new object[] {
+            "kg",
+            "gram",
+            "ltr",
+            "pcs",
+            "pkt",
+            "dzn"});
+            this.ComboUnit.Location = new System.Drawing.Point(346, 76);
+            this.ComboUnit.Name = "ComboUnit";
+            this.ComboUnit.Size = new System.Drawing.Size(103, 28);
+            this.ComboUnit.TabIndex = 9;
             // 
             // RichItemBrand
             // 
@@ -246,33 +274,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridItemList.Size = new System.Drawing.Size(655, 379);
             this.DataGridItemList.TabIndex = 3;
             this.DataGridItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridItemList_DataBindingComplete);
-            // 
-            // ComboUnit
-            // 
-            this.ComboUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboUnit.FormattingEnabled = true;
-            this.ComboUnit.Items.AddRange(new object[] {
-            "kg",
-            "gram",
-            "ltr",
-            "pcs",
-            "pkt",
-            "dzn"});
-            this.ComboUnit.Location = new System.Drawing.Point(346, 76);
-            this.ComboUnit.Name = "ComboUnit";
-            this.ComboUnit.Size = new System.Drawing.Size(103, 28);
-            this.ComboUnit.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(294, 80);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 20);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Units";
             // 
             // ItemForm
             // 

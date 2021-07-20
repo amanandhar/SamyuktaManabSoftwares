@@ -1,7 +1,7 @@
 ﻿
 namespace GrocerySupplyManagementApp.Forms
 {
-    partial class CodedItemForm
+    partial class PricedItemForm
     {
         /// <summary>
         /// Required designer variable.
@@ -46,7 +46,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtSalesPricePerUnit = new System.Windows.Forms.TextBox();
             this.TxtQuantity = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.BtnShowCodedItem = new System.Windows.Forms.Button();
+            this.BtnShowPricedItem = new System.Windows.Forms.Button();
             this.TxtTotalPrice = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.TxtProfitPercent = new System.Windows.Forms.TextBox();
@@ -58,18 +58,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtNewPurchasePrice = new System.Windows.Forms.TextBox();
             this.TxtItemName = new System.Windows.Forms.TextBox();
             this.TxtItemBrand = new System.Windows.Forms.TextBox();
-            this.ComboItemUnit = new System.Windows.Forms.ComboBox();
             this.TxtItemCode = new System.Windows.Forms.TextBox();
-            this.BtnPurchasedItem = new System.Windows.Forms.Button();
+            this.BtnShowUnpricedItem = new System.Windows.Forms.Button();
             this.BtnAddItemImage = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
             this.BtnEdit = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.BtnClearAll = new System.Windows.Forms.Button();
+            this.BtnDelete = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.BtnAddNew = new System.Windows.Forms.Button();
             this.BtnDeleteItemImage = new System.Windows.Forms.Button();
             this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
+            this.TxtUnit = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -180,6 +180,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.TxtUnit);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.TxtItemSubCode);
             this.groupBox2.Controls.Add(this.TxtCurrentPurchasePrice);
@@ -187,7 +188,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.TxtSalesPricePerUnit);
             this.groupBox2.Controls.Add(this.TxtQuantity);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.BtnShowCodedItem);
+            this.groupBox2.Controls.Add(this.BtnShowPricedItem);
             this.groupBox2.Controls.Add(this.TxtTotalPrice);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.TxtProfitPercent);
@@ -199,7 +200,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.TxtNewPurchasePrice);
             this.groupBox2.Controls.Add(this.TxtItemName);
             this.groupBox2.Controls.Add(this.TxtItemBrand);
-            this.groupBox2.Controls.Add(this.ComboItemUnit);
             this.groupBox2.Controls.Add(this.TxtItemCode);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label2);
@@ -291,17 +291,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.TabIndex = 33;
             this.label9.Text = "Item Quantity";
             // 
-            // BtnShowCodedItem
+            // BtnShowPricedItem
             // 
-            this.BtnShowCodedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowCodedItem.ForeColor = System.Drawing.Color.Red;
-            this.BtnShowCodedItem.Location = new System.Drawing.Point(339, 51);
-            this.BtnShowCodedItem.Name = "BtnShowCodedItem";
-            this.BtnShowCodedItem.Size = new System.Drawing.Size(40, 30);
-            this.BtnShowCodedItem.TabIndex = 32;
-            this.BtnShowCodedItem.Text = "C";
-            this.BtnShowCodedItem.UseVisualStyleBackColor = true;
-            this.BtnShowCodedItem.Click += new System.EventHandler(this.BtnShowCodedItem_Click);
+            this.BtnShowPricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowPricedItem.ForeColor = System.Drawing.Color.Red;
+            this.BtnShowPricedItem.Location = new System.Drawing.Point(339, 51);
+            this.BtnShowPricedItem.Name = "BtnShowPricedItem";
+            this.BtnShowPricedItem.Size = new System.Drawing.Size(40, 30);
+            this.BtnShowPricedItem.TabIndex = 32;
+            this.BtnShowPricedItem.Text = "C";
+            this.BtnShowPricedItem.UseVisualStyleBackColor = true;
+            this.BtnShowPricedItem.Click += new System.EventHandler(this.BtnShowPricedItem_Click);
             // 
             // TxtTotalPrice
             // 
@@ -419,24 +419,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemBrand.Size = new System.Drawing.Size(210, 29);
             this.TxtItemBrand.TabIndex = 17;
             // 
-            // ComboItemUnit
-            // 
-            this.ComboItemUnit.Enabled = false;
-            this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboItemUnit.FormattingEnabled = true;
-            this.ComboItemUnit.Items.AddRange(new object[] {
-            "kg",
-            "ltr",
-            "pkt",
-            "pcs",
-            "dzn",
-            "bag",
-            "grm"});
-            this.ComboItemUnit.Location = new System.Drawing.Point(169, 229);
-            this.ComboItemUnit.Name = "ComboItemUnit";
-            this.ComboItemUnit.Size = new System.Drawing.Size(77, 28);
-            this.ComboItemUnit.TabIndex = 16;
-            // 
             // TxtItemCode
             // 
             this.TxtItemCode.BackColor = System.Drawing.Color.White;
@@ -447,18 +429,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemCode.Size = new System.Drawing.Size(75, 29);
             this.TxtItemCode.TabIndex = 9;
             // 
-            // BtnPurchasedItem
+            // BtnShowUnpricedItem
             // 
-            this.BtnPurchasedItem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnPurchasedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPurchasedItem.ForeColor = System.Drawing.Color.Red;
-            this.BtnPurchasedItem.Location = new System.Drawing.Point(8, 13);
-            this.BtnPurchasedItem.Name = "BtnPurchasedItem";
-            this.BtnPurchasedItem.Size = new System.Drawing.Size(140, 40);
-            this.BtnPurchasedItem.TabIndex = 22;
-            this.BtnPurchasedItem.Text = "Search Stock";
-            this.BtnPurchasedItem.UseVisualStyleBackColor = true;
-            this.BtnPurchasedItem.Click += new System.EventHandler(this.BtnPurchasedItem_Click);
+            this.BtnShowUnpricedItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShowUnpricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowUnpricedItem.ForeColor = System.Drawing.Color.Red;
+            this.BtnShowUnpricedItem.Location = new System.Drawing.Point(8, 13);
+            this.BtnShowUnpricedItem.Name = "BtnShowUnpricedItem";
+            this.BtnShowUnpricedItem.Size = new System.Drawing.Size(140, 40);
+            this.BtnShowUnpricedItem.TabIndex = 22;
+            this.BtnShowUnpricedItem.Text = "Search Stock";
+            this.BtnShowUnpricedItem.UseVisualStyleBackColor = true;
+            this.BtnShowUnpricedItem.Click += new System.EventHandler(this.BtnShowUnpricedItem_Click);
             // 
             // BtnAddItemImage
             // 
@@ -474,6 +456,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnUpdate
             // 
+            this.BtnUpdate.Enabled = false;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnUpdate.Location = new System.Drawing.Point(8, 181);
@@ -486,6 +469,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnEdit
             // 
+            this.BtnEdit.Enabled = false;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.Red;
             this.BtnEdit.Location = new System.Drawing.Point(8, 139);
@@ -498,9 +482,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.BtnClearAll);
+            this.groupBox3.Controls.Add(this.BtnDelete);
             this.groupBox3.Controls.Add(this.BtnSave);
-            this.groupBox3.Controls.Add(this.BtnPurchasedItem);
+            this.groupBox3.Controls.Add(this.BtnShowUnpricedItem);
             this.groupBox3.Controls.Add(this.BtnAddNew);
             this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Controls.Add(this.BtnDeleteItemImage);
@@ -512,20 +496,22 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             // 
-            // BtnClearAll
+            // BtnDelete
             // 
-            this.BtnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnClearAll.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.BtnClearAll.Location = new System.Drawing.Point(8, 223);
-            this.BtnClearAll.Name = "BtnClearAll";
-            this.BtnClearAll.Size = new System.Drawing.Size(140, 40);
-            this.BtnClearAll.TabIndex = 44;
-            this.BtnClearAll.Text = "Clear All";
-            this.BtnClearAll.UseVisualStyleBackColor = true;
-            this.BtnClearAll.Click += new System.EventHandler(this.BtnClearAll_Click);
+            this.BtnDelete.Enabled = false;
+            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDelete.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.BtnDelete.Location = new System.Drawing.Point(8, 223);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(140, 40);
+            this.BtnDelete.TabIndex = 44;
+            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // BtnSave
             // 
+            this.BtnSave.Enabled = false;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnSave.Location = new System.Drawing.Point(8, 97);
@@ -538,6 +524,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnAddNew
             // 
+            this.BtnAddNew.Enabled = false;
             this.BtnAddNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddNew.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnAddNew.Location = new System.Drawing.Point(8, 55);
@@ -564,7 +551,16 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
             // 
-            // CodedItemForm
+            // TxtUnit
+            // 
+            this.TxtUnit.Enabled = false;
+            this.TxtUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtUnit.Location = new System.Drawing.Point(170, 226);
+            this.TxtUnit.Name = "TxtUnit";
+            this.TxtUnit.Size = new System.Drawing.Size(210, 29);
+            this.TxtUnit.TabIndex = 44;
+            // 
+            // PricedItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -574,7 +570,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
-            this.Name = "CodedItemForm";
+            this.Name = "PricedItemForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ItemForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -603,13 +599,12 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtNewPurchasePrice;
         private System.Windows.Forms.TextBox TxtItemName;
         private System.Windows.Forms.TextBox TxtItemBrand;
-        private System.Windows.Forms.ComboBox ComboItemUnit;
         private System.Windows.Forms.TextBox TxtItemCode;
         private System.Windows.Forms.Button BtnAddItemImage;
         private System.Windows.Forms.Button BtnUpdate;
         private System.Windows.Forms.Button BtnEdit;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button BtnPurchasedItem;
+        private System.Windows.Forms.Button BtnShowUnpricedItem;
         private System.Windows.Forms.OpenFileDialog OpenItemImageDialog;
         private System.Windows.Forms.TextBox TxtTotalStock;
         private System.Windows.Forms.Label label7;
@@ -619,7 +614,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtTotalPrice;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button BtnAddNew;
-        private System.Windows.Forms.Button BtnShowCodedItem;
+        private System.Windows.Forms.Button BtnShowPricedItem;
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.TextBox TxtQuantity;
         private System.Windows.Forms.Label label9;
@@ -630,6 +625,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button BtnDeleteItemImage;
         private System.Windows.Forms.PictureBox PicBoxItemImage;
-        private System.Windows.Forms.Button BtnClearAll;
+        private System.Windows.Forms.Button BtnDelete;
+        private System.Windows.Forms.TextBox TxtUnit;
     }
 }

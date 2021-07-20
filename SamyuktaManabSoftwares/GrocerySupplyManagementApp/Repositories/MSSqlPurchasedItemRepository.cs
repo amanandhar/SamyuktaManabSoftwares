@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     BillNo = reader["BillNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString()),
                                 };
@@ -92,7 +92,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 purchasedItem.BillNo = reader["BillNo"].ToString();
                                 purchasedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 purchasedItem.Unit = reader["Unit"].ToString();
-                                purchasedItem.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
+                                purchasedItem.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
                                 purchasedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 purchasedItem.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
@@ -176,7 +176,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString())
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString())
                                 };
 
                                 items.Add(item);
@@ -358,7 +358,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     BillNo = reader["BillNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString()),
                                 };
@@ -570,7 +570,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.BillNo = reader["BillNo"].ToString();
                                 item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 item.Unit = reader["Unit"].ToString();
-                                item.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
+                                item.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
                                 item.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 item.Date = Convert.ToDateTime(reader["Date"].ToString());
                             }
@@ -686,6 +686,40 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return price;
+        }
+
+        public decimal GetTotalPurchasePrice(long itemId)
+        {
+            decimal total = 0.0m;
+            string query = @"SELECT " +
+                "ISNULL(SUM([Price], 0) " +
+                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND [ItemId] = @ItemId ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ItemId", ((object)itemId) ?? DBNull.Value);
+
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            total = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return total;
         }
 
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)

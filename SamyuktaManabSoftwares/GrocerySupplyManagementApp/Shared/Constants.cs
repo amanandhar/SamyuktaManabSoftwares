@@ -22,12 +22,13 @@ namespace GrocerySupplyManagementApp.Shared
         public const string DB_CONNECTION_STRING = "DBConnectionString";
         public const string TABLE_BANK = "Bank";
         public const string TABLE_BANK_TRANSACTION = "BankTransaction";
-        public const string TABLE_CODED_ITEM = "CodedItem";
         public const string TABLE_FISCAL_YEAR = "FiscalYear";
         public const string TABLE_ITEM = "Item";
         public const string TABLE_MEMBER = "Member";
+        public const string TABLE_PRICED_ITEM = "PricedItem";
         public const string TABLE_PURCHASED_ITEM = "PurchasedItem";
         public const string TABLE_SOLD_ITEM = "SoldItem";
+        public const string TABLE_STOCK = "Stock";
         public const string TABLE_SUPPLIER = "Supplier";
         public const string TABLE_TAX = "Tax";
         public const string TABLE_USER_TRANSACTION = "UserTransaction";

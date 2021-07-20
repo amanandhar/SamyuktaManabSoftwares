@@ -148,6 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Enabled = false;
                 RichItemName.Enabled = false;
                 RichItemBrand.Enabled = false;
+                ComboUnit.Enabled = false;
                 BtnAddNew.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = true;
@@ -158,6 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Enabled = true;
                 RichItemName.Enabled = true;
                 RichItemBrand.Enabled = true;
+                ComboUnit.Enabled = true;
                 BtnAddNew.Enabled = true;
                 BtnSave.Enabled = true;
                 BtnEdit.Enabled = false;
@@ -168,6 +170,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Enabled = true;
                 RichItemName.Enabled = true;
                 RichItemBrand.Enabled = true;
+                ComboUnit.Enabled = true;
                 BtnAddNew.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = true;
@@ -178,6 +181,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Enabled = false;
                 RichItemName.Enabled = false;
                 RichItemBrand.Enabled = false;
+                ComboUnit.Enabled = false;
                 BtnAddNew.Enabled = true;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
@@ -190,6 +194,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemCode.Clear();
             RichItemName.Clear();
             RichItemBrand.Clear();
+            ComboUnit.Text = string.Empty;
         }
 
         private void LoadItems()
@@ -209,6 +214,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Text = item.Code;
                 RichItemName.Text = item.Name;
                 RichItemBrand.Text = item.Brand;
+                ComboUnit.Text = item.Unit;
 
                 EnableFields(Action.Show);
             }

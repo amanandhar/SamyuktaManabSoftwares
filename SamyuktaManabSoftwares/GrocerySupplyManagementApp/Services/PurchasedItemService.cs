@@ -139,6 +139,11 @@ namespace GrocerySupplyManagementApp.Services
             return _purchasedItemRepository.GetLatestPurchasePrice(itemId);
         }
 
+        public decimal GetTotalPurchasePrice(long itemId)
+        {
+            return _purchasedItemRepository.GetTotalPurchasePrice(itemId);
+        }
+
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)
         {
             return _purchasedItemRepository.AddPurchasedItem(purchasedItem);

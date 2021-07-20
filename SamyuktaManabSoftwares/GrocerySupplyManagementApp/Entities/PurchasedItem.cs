@@ -10,7 +10,7 @@ namespace GrocerySupplyManagementApp.Entities
         public string BillNo { get; set; }
         public long ItemId { get; set; }
         public string Unit { get; set; }
-        public long Quantity { get; set; }
+        public int Quantity { get; set; }
         public decimal Price { get; set; }
         public DateTime Date { get; set; }
     }

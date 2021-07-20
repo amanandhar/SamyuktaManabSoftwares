@@ -20,6 +20,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         long GetItemId(string supplierName, string billNo);
         string GetLastBillNo();
         decimal GetLatestPurchasePrice(long itemId);
+        decimal GetTotalPurchasePrice(long itemId);
 
         PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem);
 

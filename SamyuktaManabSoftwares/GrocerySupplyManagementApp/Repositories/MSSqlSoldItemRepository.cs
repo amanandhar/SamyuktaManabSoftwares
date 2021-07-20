@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["ItemId"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString()),
                                 };
@@ -105,7 +105,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Name"].ToString(),
                                     ItemBrand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString())

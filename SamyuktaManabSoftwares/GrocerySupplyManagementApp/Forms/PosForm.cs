@@ -11,28 +11,29 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class PosForm : Form, IMemberListForm, ICodedItemListForm
+    public partial class PosForm : Form, IMemberListForm, IPricedItemListForm
     {
         private readonly IFiscalYearService _fiscalYearService;
         private readonly ITaxService _taxService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemService _itemService;
-        private readonly ICodedItemService _codedItemService;
+        private readonly IPricedItemService _pricedItemService;
         private readonly IMemberService _memberService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
-        
+        private readonly IStockService _stockService;
+
         private List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
 
         #region Constructor
         public PosForm(IFiscalYearService fiscalYearService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
-            IItemService itemService, ICodedItemService codedItemService,
+            IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService
+            IUserTransactionService userTransactionService, IStockService stockService
             )
         {
             InitializeComponent();
@@ -42,11 +43,12 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _itemService = itemService;
-            _codedItemService = codedItemService;
+            _pricedItemService = pricedItemService;
             _memberService = memberService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _stockService = stockService;
         }
 
         public PosForm(IMemberService memberService, IUserTransactionService userTransactionService, 
@@ -80,8 +82,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowItem_Click(object sender, EventArgs e)
         {
-            CodedItemListForm codedItemListForm = new CodedItemListForm(_codedItemService, this, false);
-            codedItemListForm.Show();
+            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
+            pricedItemListForm.Show();
         }
 
         private void BtnDailySales_Click(object sender, EventArgs e)
@@ -172,7 +174,34 @@ namespace GrocerySupplyManagementApp.Forms
                     };
 
                     _soldItemService.AddSoldItem(soldItem);
+
+                    // Stock Addition
+                    //var salesPrice = _stockService.GetLatestPerUnitStockAmount(soldItem.ItemId);
+                    //var totalSalesPrice = _stockService.GetTotalSalesPrice(soldItem.ItemId);
+                    //var totalStockQuantity = _stockService.GetTotalStockQuantity(soldItem.ItemId);
+
+                    //_stockService.AddStock(new Stock
+                    //{
+                    //    ItemId = soldItem.ItemId,
+                    //    Type = Constants.SALES,
+                    //    TypeNo = soldItem.InvoiceNo,
+                    //    PurchaseQuantity = 0,
+                    //    PurchasePrice = 0.0m,
+                    //    PurchaseTotalPrice = 0.0m,
+                    //    PurchaseGrandPrice = 0.0m,
+                    //    SalesQuantity = soldItem.Quantity,
+                    //    SalesPrice = salesPrice,
+                    //    SalesTotalPrice = soldItem.Quantity * salesPrice,
+                    //    SalesGrandPrice = (soldItem.Quantity * salesPrice) + totalSalesPrice,
+                    //    StockQuantity = totalStockQuantity - soldItem.Quantity,
+                    //    StockAmount = (soldItem.Quantity * soldItem.Price) + _purchasedItemService.GetTotalPurchasePrice(soldItem.ItemId) * soldItem.Quantity,
+                    //    PerUnitStockAmount = (soldItem.Quantity * soldItem.Price) + _purchasedItemService.GetTotalPurchasePrice(soldItem.ItemId) / soldItem.Quantity,
+                    //    Date = DateTime.Now
+
+                    //});
                 });
+
+               
 
                 DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -443,24 +472,24 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        public void PopulateCodedItem(bool IsItemCoded, long codedItemId)
+        public void PopulatePricedItem(long pricedId)
         {
             try
             {
-                var codedItem = _codedItemService.GetCodedItem(codedItemId);
-                var item = _itemService.GetItem(codedItem.ItemId);
+                var pricedItem = _pricedItemService.GetPricedItem(pricedId);
+                var item = _itemService.GetItem(pricedItem.ItemId);
 
                 RichItemCode.Text = item.Code;
-                RichItemSubCode.Text = codedItem.ItemSubCode;
+                RichItemSubCode.Text = pricedItem.ItemSubCode;
                 RichItemName.Text = item.Name;
                 RichItemBrand.Text = item.Brand;
-                RichItemPrice.Text = codedItem.SalesPricePerUnit.ToString();
+                RichItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
                 StockFilterView filter = new StockFilterView
                 {
                     ItemCode = item.Code
                 };
                 RichItemStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
-                RichItemUnit.Text = codedItem.Unit.ToString();
+                RichItemUnit.Text = pricedItem.Unit.ToString();
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }
