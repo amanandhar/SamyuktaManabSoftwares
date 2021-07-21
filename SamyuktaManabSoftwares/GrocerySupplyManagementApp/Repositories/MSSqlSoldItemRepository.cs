@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], c.[Code], c.[Name], c.[Brand], c.[Unit], a.[Quantity], a.[Price] " +
+                "a.[Id], c.[Code], c.[Name], c.[Brand], c.[Unit], a.[Quantity], a.[Price], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
                 "b.[Date] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +

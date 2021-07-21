@@ -13,10 +13,12 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
-        
+        private readonly IStockService _stockService;
+
         #region Constructor
-        public BalanceSheetForm(IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
-            IUserTransactionService userTransactionService)
+        public BalanceSheetForm(IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService, 
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
+            IStockService stockService)
         {
             InitializeComponent();
 
@@ -24,6 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _stockService = stockService;
         }
         #endregion
 
@@ -65,17 +68,24 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var shareCapital = _bankTransactionService.GetTotalDeposit(Constants.SHARE_CAPITAL);
                 var ownerEquity = _bankTransactionService.GetTotalDeposit(Constants.OWNER_EQUITY);
-                var loadAmount = 0.0m;
+                var loadAmount = 0.00m;
                 var payableAmount = Math.Abs(_userTransactionService.GetSupplierTotalBalance());
-                var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.0m;
+                var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.00m;
                 var libilitiesBalance = shareCapital + ownerEquity + loadAmount
                     + payableAmount + netProfit;
 
                 var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
                 var bankAccount = _bankTransactionService.GetTotalBalance();
-                var stockValue = _purchasedItemService.GetPurchasedItemTotalAmount(filter) - _soldItemService.GetSoldItemTotalAmount(filter);
+
+                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.Date);
+                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                    .Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault())
+                    .ToList();
+                var stockValue = latestStockView.Sum(x => x.StockValue);
+
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance();
-                var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.0m;
+                var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.00m;
                 var assetsBalance = cashInHand + bankAccount + stockValue + receivableAmount + netLoss;
 
                 RichShareCapital.Text = shareCapital.ToString();

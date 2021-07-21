@@ -996,7 +996,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceBillNo = reader.IsDBNull(5) ? string.Empty : reader["InvoiceBillNo"].ToString(),
                                     ItemCode = reader.IsDBNull(6) ? string.Empty : reader["Code"].ToString(),
                                     ItemName = reader.IsDBNull(7) ? string.Empty : reader["Name"].ToString(),
-                                    Quantity = reader.IsDBNull(8) ? 0.0m : Convert.ToDecimal(reader["Quantity"].ToString()),
+                                    Quantity = reader.IsDBNull(8) ? 0 : Convert.ToInt32(reader["Quantity"].ToString()),
                                     ItemPrice = reader.IsDBNull(9) ? 0.0m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
                                     Amount = reader.IsDBNull(10) ? 0.0m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };

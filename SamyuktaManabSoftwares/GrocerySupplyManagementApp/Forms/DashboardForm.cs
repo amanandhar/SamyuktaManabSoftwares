@@ -140,14 +140,17 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
-            SettingForm settingForm = new SettingForm(_fiscalYearService, _taxService, _itemService, _purchasedItemService);
+            SettingForm settingForm = new SettingForm(_fiscalYearService, _taxService, 
+                _itemService, _purchasedItemService);
             settingForm.Show();
         }
 
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
-            ReportForm reportForm = new ReportForm(_fiscalYearService, _bankService, _bankTransactionService, _purchasedItemService,
-                _soldItemService, _userTransactionService
+            ReportForm reportForm = new ReportForm(_fiscalYearService, _bankService, 
+                _bankTransactionService, _purchasedItemService,
+                _soldItemService, _userTransactionService,
+                _stockService
                 );
             reportForm.Show();
         }

@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,10 +31,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void StockForm_Load(object sender, EventArgs e)
         {
-
-            _soldItemItemService.GetSoldItemCodes().ToList().ForEach(code =>
+            _purchasedItemService.GetPurchasedItemDetails().ToList().ForEach(purchasedItem =>
             {
-                ComboItemCode.Items.Add(code);
+                ComboItemCode.Items.Add(purchasedItem.Code);
             });
         }
 
@@ -98,11 +98,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["ItemCode"].Width = 100;
             DataGridStockList.Columns["ItemCode"].DisplayIndex = 2;
 
-            DataGridStockList.Columns["ItemName"].HeaderText = "ItemName";
+            DataGridStockList.Columns["ItemName"].HeaderText = "Item Name";
             DataGridStockList.Columns["ItemName"].Width = 180;
             DataGridStockList.Columns["ItemName"].DisplayIndex = 3;
 
-            DataGridStockList.Columns["PurchaseQuantity"].HeaderText = "PurchaseQuantity";
+            DataGridStockList.Columns["PurchaseQuantity"].HeaderText = "Purchase Quantity";
             DataGridStockList.Columns["PurchaseQuantity"].Width = 80;
             DataGridStockList.Columns["PurchaseQuantity"].DisplayIndex = 4;
             DataGridStockList.Columns["PurchaseQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -174,63 +174,17 @@ namespace GrocerySupplyManagementApp.Forms
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(filter).ToString();
             TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(filter).ToString();
             TxtTotalStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
-            TxtTotalValue.Text = (_purchasedItemService.GetPurchasedItemTotalAmount(filter) - _soldItemItemService.GetSoldItemTotalAmount(filter)).ToString();
 
             var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.Date);
-
-            var stockViewList = CalculateStock(stocks.ToList());
+            var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+            var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                .Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault())
+                .ToList();
+            TxtTotalValue.Text = latestStockView.Sum(x => x.StockValue).ToString();
 
             var bindingList = new BindingList<StockView>(stockViewList);
             var source = new BindingSource(bindingList, null);
             DataGridStockList.DataSource = source;
-        }
-
-        private List<StockView> CalculateStock(List<Stock> stocks)
-        {
-            var stockViewList = new List<StockView>();
-            int index = 0;
-            var itemCode = string.Empty;
-            foreach (var stock in stocks)
-            {
-                if (string.IsNullOrEmpty(itemCode))
-                {
-                    itemCode = stock.ItemCode;
-                }
-
-                var stockView = new StockView
-                {
-                    EndOfDate = stock.EndOfDate,
-                    Type = stock.Type,
-                    ItemCode = stock.ItemCode,
-                    ItemName = stock.ItemName,
-                    PurchaseQuantity = stock.PurchaseQuantity,
-                    SalesQuantity = stock.SalesQuantity,
-                    PurchasePrice = stock.PurchasePrice,
-                    StockQuantity = stock.StockQuantity,
-                    TotalPurchasePrice = stock.TotalPurchasePrice,
-                    Date = stock.Date
-                };
-
-                if (index == 0 || itemCode != stock.ItemCode)
-                {
-                    itemCode = stock.ItemCode;
-
-                    stockView.SalesPrice = 0.0m;
-                    stockView.StockValue = stock.TotalPurchasePrice;
-                    stockView.PerUnitValue = stock.TotalPurchasePrice / stock.PurchaseQuantity;
-                }
-                else
-                {
-                    stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
-                    stockView.StockValue = stock.Type.StartsWith("BN") ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) : (stock.StockQuantity * stockViewList[index - 1].PerUnitValue);
-                    stockView.PerUnitValue = stock.Type.StartsWith("BN") ? ((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity) : stockViewList[index - 1].PerUnitValue;
-                }
-
-                stockViewList.Add(stockView);
-                index++;
-            }
-
-            return stockViewList;
         }
 
         private void ChangeCheckState(bool option)

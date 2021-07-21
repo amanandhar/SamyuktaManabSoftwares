@@ -12,7 +12,7 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string InvoiceBillNo { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
         public decimal ItemPrice { get; set; }
         public decimal Amount { get; set; }
     }

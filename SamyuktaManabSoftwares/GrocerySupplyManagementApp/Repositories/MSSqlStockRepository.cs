@@ -40,7 +40,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         0 AS [PurchaseQuantity], si.[Quantity] as [SalesQuantity],
                         0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice],
-                        si.[Date] FROM [Test].[dbo].[SoldItem] si
+                        si.[Date] FROM [SoldItem] si
                         INNER JOIN 
                         [Item] i
                         ON si.[ItemId] = i.[Id]
@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Repositories
 	                        AND u.[ItemCode] = t.[ItemCode]
                         ) AS [StockQuantity],
                         (t.[PurchasePrice] * t.[PurchaseQuantity]) AS [TotalPurchasePrice]
-                        FROM #Temp t ";
+                        FROM #Temp t WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
             {
@@ -77,6 +77,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@Code", ((object)filter.ItemCode) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)filter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)filter.DateTo) ?? DBNull.Value);
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())

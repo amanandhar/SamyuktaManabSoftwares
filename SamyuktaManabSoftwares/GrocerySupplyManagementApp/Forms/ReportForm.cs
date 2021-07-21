@@ -12,12 +12,13 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IStockService _stockService;
 
         #region Constructor
         public ReportForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService
+            IUserTransactionService userTransactionService, IStockService stockService
             )
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _stockService = stockService;
         }
         #endregion
 
@@ -57,7 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_bankTransactionService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService);
+                _userTransactionService, _stockService);
             balanceSheetForm.Show();
         }
 
