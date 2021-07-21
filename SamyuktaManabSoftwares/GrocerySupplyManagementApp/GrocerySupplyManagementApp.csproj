@@ -179,12 +179,6 @@
     <Compile Include="Forms\MemberListForm.Designer.cs">
       <DependentUpon>MemberListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoanForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\LoanForm.Designer.cs">
-      <DependentUpon>LoanForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\IncomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -435,9 +429,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemberListForm.resx">
       <DependentUpon>MemberListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoanForm.resx">
-      <DependentUpon>LoanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\IncomeForm.resx">
       <DependentUpon>IncomeForm.cs</DependentUpon>
