@@ -77,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _itemService, _pricedItemService,
                 _memberService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService, _stockService
+                _userTransactionService
                  );
             posForm.Show();
         }
@@ -118,7 +118,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm(_purchasedItemService, _soldItemService);
+            StockForm stockForm = new StockForm(_purchasedItemService, _soldItemService,
+                _stockService);
             stockForm.Show();
         }
 

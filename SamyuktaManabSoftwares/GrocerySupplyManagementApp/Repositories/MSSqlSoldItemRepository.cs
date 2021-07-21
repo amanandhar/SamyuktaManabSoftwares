@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
                 "[Id], [EndOfDate], [MemberId], [InvoiceNo], " +
-                "[ItemId], [Unit], [Quantity], [Price], " +
+                "[ItemId], [Quantity], [Price], " +
                 "[Date] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
@@ -44,7 +44,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                     MemberId = reader["MemberId"].ToString(),
                                     InvoiceNo = reader["ItemId"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                    Unit = reader["Unit"].ToString(),
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString()),
@@ -73,7 +72,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], c.[Code], c.[Name], c.[Brand], a.[Unit], a.[Quantity], a.[Price] " +
+                "a.[Id], c.[Code], c.[Name], c.[Brand], c.[Unit], a.[Quantity], a.[Price] " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
                 "b.[Date] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
@@ -262,11 +261,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDate], [MemberId], [InvoiceNo], [ItemId], [Unit], [Quantity], [Price], [Date]" +
+                        "[EndOfDate], [MemberId], [InvoiceNo], [ItemId], [Quantity], [Price], [Date]" +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDate, @MemberId, @InvoiceNo, @ItemId, @Unit, @Quantity, @Price, @Date " +
+                        "@EndOfDate, @MemberId, @InvoiceNo, @ItemId, @Quantity, @Price, @Date " +
                     ") ";
             try
             {
@@ -279,7 +278,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@MemberId", soldItem.MemberId);
                         command.Parameters.AddWithValue("@InvoiceNo", soldItem.InvoiceNo);
                         command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
-                        command.Parameters.AddWithValue("@Unit", soldItem.Unit);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
                         command.Parameters.AddWithValue("@Date", soldItem.Date);
@@ -297,11 +295,6 @@ namespace GrocerySupplyManagementApp.Repositories
         }
 
         public SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool DeleteSoldItem(long soldItemId, SoldItem soldItem)
         {
             throw new System.NotImplementedException();
         }

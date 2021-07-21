@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
-using System;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
@@ -80,6 +79,5 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _soldItemRepository.DeleteSoldItem(invoiceNo);
         }
- 
     }
 }

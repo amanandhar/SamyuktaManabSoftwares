@@ -34,16 +34,6 @@ namespace GrocerySupplyManagementApp.Services
             return _purchasedItemRepository.GetPurchasedItemDetails();
         }
 
-        public IEnumerable<PurchasedItem> GetPurchasedItemTotalQuantity()
-        {
-            return _purchasedItemRepository.GetPurchasedItemTotalQuantity();
-        }
-
-        public IEnumerable<StockView> GetStockView(StockFilterView filter)
-        {
-            return _purchasedItemRepository.GetStockView(filter);
-        }
-
         public IEnumerable<PurchasedItem> GetPurchasedItemBySupplierAndBill(string supplierId, string billNo)
         {
             return _purchasedItemRepository.GetPurchasedItemBySupplierAndBill(supplierId, billNo);
@@ -139,11 +129,6 @@ namespace GrocerySupplyManagementApp.Services
             return _purchasedItemRepository.GetLatestPurchasePrice(itemId);
         }
 
-        public decimal GetTotalPurchasePrice(long itemId)
-        {
-            return _purchasedItemRepository.GetTotalPurchasePrice(itemId);
-        }
-
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)
         {
             return _purchasedItemRepository.AddPurchasedItem(purchasedItem);
@@ -162,11 +147,6 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeletePurchasedItem(string billNo)
         {
             return _purchasedItemRepository.DeletePurchasedItem(billNo);
-        }
-
-        public bool DeletePurchasedItem(string name, string brand)
-        {
-            return _purchasedItemRepository.DeletePurchasedItem(name, brand);
         }
     }
 }

@@ -23,7 +23,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IStockService _stockService;
 
         private List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
 
@@ -33,7 +32,7 @@ namespace GrocerySupplyManagementApp.Forms
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService, IStockService stockService
+            IUserTransactionService userTransactionService
             )
         {
             InitializeComponent();
@@ -48,7 +47,6 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
-            _stockService = stockService;
         }
 
         public PosForm(IMemberService memberService, IUserTransactionService userTransactionService, 
@@ -167,41 +165,13 @@ namespace GrocerySupplyManagementApp.Forms
                         MemberId = RichMemberId.Text.Trim(),
                         InvoiceNo = RichInvoiceNo.Text.Trim(),
                         ItemId = _itemService.GetItem(x.ItemCode).Id,
-                        Unit = x.Unit,
                         Quantity = x.Quantity,
                         Price = x.ItemPrice,
                         Date = DateTime.Now
                     };
 
                     _soldItemService.AddSoldItem(soldItem);
-
-                    // Stock Addition
-                    //var salesPrice = _stockService.GetLatestPerUnitStockAmount(soldItem.ItemId);
-                    //var totalSalesPrice = _stockService.GetTotalSalesPrice(soldItem.ItemId);
-                    //var totalStockQuantity = _stockService.GetTotalStockQuantity(soldItem.ItemId);
-
-                    //_stockService.AddStock(new Stock
-                    //{
-                    //    ItemId = soldItem.ItemId,
-                    //    Type = Constants.SALES,
-                    //    TypeNo = soldItem.InvoiceNo,
-                    //    PurchaseQuantity = 0,
-                    //    PurchasePrice = 0.0m,
-                    //    PurchaseTotalPrice = 0.0m,
-                    //    PurchaseGrandPrice = 0.0m,
-                    //    SalesQuantity = soldItem.Quantity,
-                    //    SalesPrice = salesPrice,
-                    //    SalesTotalPrice = soldItem.Quantity * salesPrice,
-                    //    SalesGrandPrice = (soldItem.Quantity * salesPrice) + totalSalesPrice,
-                    //    StockQuantity = totalStockQuantity - soldItem.Quantity,
-                    //    StockAmount = (soldItem.Quantity * soldItem.Price) + _purchasedItemService.GetTotalPurchasePrice(soldItem.ItemId) * soldItem.Quantity,
-                    //    PerUnitStockAmount = (soldItem.Quantity * soldItem.Price) + _purchasedItemService.GetTotalPurchasePrice(soldItem.ItemId) / soldItem.Quantity,
-                    //    Date = DateTime.Now
-
-                    //});
                 });
-
-               
 
                 DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -489,7 +459,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = item.Code
                 };
                 RichItemStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
-                RichItemUnit.Text = pricedItem.Unit.ToString();
+                RichItemUnit.Text = item.Unit;
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }

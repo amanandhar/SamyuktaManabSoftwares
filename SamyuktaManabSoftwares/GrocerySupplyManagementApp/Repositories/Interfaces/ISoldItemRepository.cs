@@ -17,7 +17,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 
         SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem);
 
-        bool DeleteSoldItem(long soldItemId, SoldItem soldItem);
         bool DeleteSoldItem(string invoiceNo);
     }
 }

@@ -17,7 +17,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IStockService _stockService;
 
         public SupplierForm _supplierForm;
         private List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
@@ -25,7 +24,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public PurchaseForm(IFiscalYearService fiscalYearService, IItemService itemService,
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
-            IStockService stockService, SupplierForm supplierForm
+            SupplierForm supplierForm
             )
         {
             InitializeComponent();
@@ -34,7 +33,6 @@ namespace GrocerySupplyManagementApp.Forms
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
-            _stockService = stockService;
             _supplierForm = supplierForm;
         }
 
@@ -111,7 +109,6 @@ namespace GrocerySupplyManagementApp.Forms
                     SupplierId = _supplierForm.GetSupplierId(),
                     BillNo = item.BillNo,
                     ItemId = _itemService.GetItem(item.Code).Id,
-                    Unit = item.Unit,
                     Quantity = item.Quantity,
                     Price = item.Price,
                     Date = DateTime.Now,
@@ -142,31 +139,6 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _userTransactionService.AddUserTransaction(userTransaction);
-
-                // Stock Addition
-                //List<Stock> stocks = purchasedItems.Select(purchasedItem => new Stock
-                //{
-                //    ItemId = purchasedItem.ItemId,
-                //    Type = Constants.PURCHASE,
-                //    TypeNo = purchasedItem.BillNo,
-                //    PurchaseQuantity = purchasedItem.Quantity,
-                //    PurchasePrice = purchasedItem.Price,
-                //    PurchaseTotalPrice = (purchasedItem.Quantity * purchasedItem.Price),
-                //    PurchaseGrandPrice = (purchasedItem.Quantity * purchasedItem.Price) + _purchasedItemService.GetTotalPurchasePrice(purchasedItem.ItemId),
-                //    SalesQuantity = 0,
-                //    SalesPrice = 0.0m,
-                //    SalesTotalPrice = 0.0m,
-                //    SalesGrandPrice = 0.0m,
-                //    StockQuantity = purchasedItem.Quantity,
-                //    StockAmount = (purchasedItem.Quantity * purchasedItem.Price) + _purchasedItemService.GetTotalPurchasePrice(purchasedItem.ItemId) * purchasedItem.Quantity,
-                //    PerUnitStockAmount = (purchasedItem.Quantity * purchasedItem.Price) + _purchasedItemService.GetTotalPurchasePrice(purchasedItem.ItemId) / purchasedItem.Quantity,
-                //    Date = DateTime.Now
-                //}).ToList();
-
-                //stocks.ForEach(stock =>
-                //{
-                //    _stockService.AddStock(stock);
-                //});
 
                 _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
                 Close();
@@ -298,7 +270,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Code = _itemService.GetItem(purchasedItem.ItemId).Code,
                 Name = _itemService.GetItem(purchasedItem.ItemId).Name,
                 Brand = _itemService.GetItem(purchasedItem.ItemId).Brand,
-                Unit = purchasedItem.Unit,
+                Unit = _itemService.GetItem(purchasedItem.ItemId).Unit,
                 Quantity = purchasedItem.Quantity,
                 Price = purchasedItem.Price,
                 Total = (purchasedItem.Quantity * purchasedItem.Price)

@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnPurchase_Click(object sender, System.EventArgs e)
         {
             PurchaseForm purchaseForm = new PurchaseForm(_fiscalYearService, _itemService,
-                _purchasedItemService, _userTransactionService, _stockService, this);
+                _purchasedItemService, _userTransactionService, this);
             purchaseForm.Show();
         }
 

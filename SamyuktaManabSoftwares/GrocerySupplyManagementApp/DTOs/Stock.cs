@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GrocerySupplyManagementApp.ViewModels
+namespace GrocerySupplyManagementApp.DTOs
 {
-    public class StockView
+    public class Stock
     {
         public DateTime EndOfDate { get; set; }
         public string Type { get; set; }
@@ -13,9 +13,6 @@ namespace GrocerySupplyManagementApp.ViewModels
         public int StockQuantity { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal TotalPurchasePrice { get; set; }
-        public decimal SalesPrice { get; set; }
-        public decimal StockValue { get; set; }
-        public decimal PerUnitValue { get; set; }
         public DateTime Date { get; set; }
     }
 }

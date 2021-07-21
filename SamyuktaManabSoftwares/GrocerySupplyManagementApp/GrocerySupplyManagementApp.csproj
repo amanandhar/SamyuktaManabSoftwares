@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
+    <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\TransactionFilter.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Entities\PricedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
-    <Compile Include="Entities\Stock.cs" />
     <Compile Include="Entities\UserTransaction.cs" />
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />

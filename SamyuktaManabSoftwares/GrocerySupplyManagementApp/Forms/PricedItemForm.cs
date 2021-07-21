@@ -89,7 +89,6 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
-                    Unit = TxtUnit.Text,
                     Price = Convert.ToDecimal(TxtNewPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
@@ -155,7 +154,6 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
-                    Unit = TxtUnit.Text,
                     Price = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
                     Quantity = Convert.ToInt64(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
@@ -429,7 +427,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemSubCode.Text = pricedItem.ItemSubCode;
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
-                TxtUnit.Text = pricedItem.Unit;
+                TxtUnit.Text = item.Unit;
                 StockFilterView filter = new StockFilterView
                 {
                     ItemCode = item.Code
