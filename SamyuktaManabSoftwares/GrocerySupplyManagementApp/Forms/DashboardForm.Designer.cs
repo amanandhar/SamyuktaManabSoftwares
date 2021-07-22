@@ -51,7 +51,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.BtnStaffMgmt = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtnEndOfDay = new System.Windows.Forms.Button();
+            this.BtnEndOfDayMgmt = new System.Windows.Forms.Button();
             this.BtnIncomeExpenseMgmt = new System.Windows.Forms.Button();
             this.BtnBankingMgmt = new System.Windows.Forms.Button();
             this.Timer = new System.Windows.Forms.Timer(this.components);
@@ -326,7 +326,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.groupBox1.Controls.Add(this.BtnEndOfDay);
+            this.groupBox1.Controls.Add(this.BtnEndOfDayMgmt);
             this.groupBox1.Controls.Add(this.BtnIncomeExpenseMgmt);
             this.groupBox1.Controls.Add(this.BtnBankingMgmt);
             this.groupBox1.Controls.Add(this.BtnReportsMgmt);
@@ -344,18 +344,19 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // BtnEndOfDay
+            // BtnEndOfDayMgmt
             // 
-            this.BtnEndOfDay.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnEndOfDay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEndOfDay.ForeColor = System.Drawing.Color.White;
-            this.BtnEndOfDay.Location = new System.Drawing.Point(15, 539);
-            this.BtnEndOfDay.Name = "BtnEndOfDay";
-            this.BtnEndOfDay.Size = new System.Drawing.Size(240, 37);
-            this.BtnEndOfDay.TabIndex = 3;
-            this.BtnEndOfDay.Text = "EOD Management";
-            this.BtnEndOfDay.UseVisualStyleBackColor = false;
+            this.BtnEndOfDayMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnEndOfDayMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnEndOfDayMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEndOfDayMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnEndOfDayMgmt.Location = new System.Drawing.Point(15, 539);
+            this.BtnEndOfDayMgmt.Name = "BtnEndOfDayMgmt";
+            this.BtnEndOfDayMgmt.Size = new System.Drawing.Size(240, 37);
+            this.BtnEndOfDayMgmt.TabIndex = 3;
+            this.BtnEndOfDayMgmt.Text = "EOD Management";
+            this.BtnEndOfDayMgmt.UseVisualStyleBackColor = false;
+            this.BtnEndOfDayMgmt.Click += new System.EventHandler(this.BtnEndOfDayMgmt_Click);
             // 
             // BtnIncomeExpenseMgmt
             // 
@@ -441,7 +442,7 @@
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Button BtnBankingMgmt;
         private System.Windows.Forms.Button BtnIncomeExpenseMgmt;
-        private System.Windows.Forms.Button BtnEndOfDay;
+        private System.Windows.Forms.Button BtnEndOfDayMgmt;
     }
 }
 

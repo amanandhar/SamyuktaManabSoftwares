@@ -18,6 +18,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
+        private readonly IEndOfDayService _endOfDateService;
 
         #region Constructor
         public DashboardForm(IFiscalYearService fiscalYearService, ITaxService taxService,
@@ -25,7 +26,8 @@ namespace GrocerySupplyManagementApp.Forms
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService, ISupplierService supplierService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService, IStockService stockService)
+            IUserTransactionService userTransactionService, IStockService stockService,
+            IEndOfDayService endOfDateService)
         {
             InitializeComponent();
 
@@ -41,6 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
+            _endOfDateService = endOfDateService;
         }
         #endregion
 
@@ -160,6 +163,25 @@ namespace GrocerySupplyManagementApp.Forms
             EmployeeForm staffForm = new EmployeeForm();
             staffForm.Show();
         }
+
+        private void BtnEndOfDayMgmt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    var fiscalYear = _fiscalYearService.GetFiscalYear();
+                    //var currentEOD = _endOfDateService.GetEndOfDay(fiscalYear.StartingDate);
+                    //var nextEOD = _endOfDateService.GetNextEndOfDay(currentEOD.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
+
     }
 }

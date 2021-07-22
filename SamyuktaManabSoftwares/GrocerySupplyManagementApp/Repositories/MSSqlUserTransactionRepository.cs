@@ -1165,13 +1165,13 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "ut.[Id] AS 'Id', ut.[EndOfDate] AS 'EndOfDate', si.[InvoiceNo] AS 'InvoiceNo', " +
                 "i.[Code] AS 'ItemCode', i.[Name] AS 'ItemName', i.[Brand] AS 'ItemBrand', " +
-                "si.[Quantity] AS 'Quantity', ci.[ProfitAmount] AS 'ProfitAmount', " +
-                "CAST((si.[Quantity] * ci.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
+                "si.[Quantity] AS 'Quantity', pi.[ProfitAmount] AS 'ProfitAmount', " +
+                "CAST((si.[Quantity] * pi.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_ITEM + " i " +
-                "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " ci " +
-                "ON i.[Id] = ci.[ItemId] " +
+                "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " pi " +
+                "ON i.[Id] = pi.[ItemId] " +
                 "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
-                "ON i.[Id] = si.[ItemId] " +
+                "ON pi.[ItemId] = si.[ItemId] AND pi.[ItemSubCode] = si.[ItemSubCode] " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
                 "WHERE 1 = 1 ";

@@ -95,6 +95,7 @@
     <Compile Include="Entities\BankTransaction.cs" />
     <Compile Include="Entities\FiscalYear.cs" />
     <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\EndOfDay.cs" />
     <Compile Include="Entities\PricedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
@@ -321,6 +322,7 @@
     </Compile>
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IEndOfDayRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPricedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFiscalYearRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
@@ -333,6 +335,7 @@
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlEndOfDayRepository.cs" />
     <Compile Include="Repositories\MSSqlFiscalYearRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
@@ -350,9 +353,11 @@
     </Compile>
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
+    <Compile Include="Services\EndOfDayService.cs" />
     <Compile Include="Services\FiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
+    <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
     <Compile Include="Services\Interfaces\IPricedItemService.cs" />
     <Compile Include="Services\Interfaces\IFiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IItemService.cs" />
@@ -526,6 +531,7 @@
     <None Include="Data\DsSales.xss">
       <DependentUpon>DsSales.xsd</DependentUpon>
     </None>
+    <None Include="Data\Files\AdToBsMapping.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GrocerySupplyManagementApp.Data.DsSales+tbl_FullSalesDataTable.datasource" />
     <None Include="Properties\Settings.settings">

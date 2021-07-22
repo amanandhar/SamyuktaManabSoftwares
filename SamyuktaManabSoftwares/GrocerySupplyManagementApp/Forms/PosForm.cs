@@ -165,6 +165,7 @@ namespace GrocerySupplyManagementApp.Forms
                         MemberId = RichMemberId.Text.Trim(),
                         InvoiceNo = RichInvoiceNo.Text.Trim(),
                         ItemId = _itemService.GetItem(x.ItemCode).Id,
+                        ItemSubCode = RichItemSubCode.Text,
                         Quantity = x.Quantity,
                         Price = x.ItemPrice,
                         Date = DateTime.Now
