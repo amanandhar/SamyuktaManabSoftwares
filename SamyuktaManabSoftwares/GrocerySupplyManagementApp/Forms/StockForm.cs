@@ -178,7 +178,7 @@ namespace GrocerySupplyManagementApp.Forms
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                 .Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault())
                 .ToList();
-            TxtTotalValue.Text = latestStockView.Sum(x => x.StockValue).ToString();
+            TxtTotalValue.Text = Math.Round(latestStockView.Sum(x => x.StockValue), 2).ToString();
 
             var bindingList = new BindingList<StockView>(stockViewList);
             var source = new BindingSource(bindingList, null);

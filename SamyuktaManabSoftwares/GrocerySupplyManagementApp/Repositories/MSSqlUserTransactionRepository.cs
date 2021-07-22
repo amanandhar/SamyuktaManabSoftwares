@@ -1163,20 +1163,16 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "ut.[Id] AS 'Id', ut.[EndOfDate] AS 'EndOfDate', si.[InvoiceNo] AS 'InvoiceNo', " +
-                "i.[Code] AS 'ItemCode', i.[Name] AS 'ItemName', i.[Brand] AS 'ItemBrand', " +
-                "si.[Quantity] AS 'Quantity', pi.[ProfitAmount] AS 'ProfitAmount', " +
-                "CAST((si.[Quantity] * pi.[ProfitAmount]) AS DECIMAL(18, 2)) AS 'Total' " +
+                "si.[Id] AS [Id], si.[EndOfDate] AS [EndOfDate], si.[InvoiceNo] AS [InvoiceNo], " +
+                "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], i.[Brand] AS [ItemBrand], " +
+                "si.[Quantity] AS [Quantity], si.[ProfitAmount] AS [ProfitAmount], " +
+                "CAST((si.[Quantity] * si.[ProfitAmount]) AS DECIMAL(18, 2)) AS [Total] " +
                 "FROM " + Constants.TABLE_ITEM + " i " +
-                "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " pi " +
-                "ON i.[Id] = pi.[ItemId] " +
                 "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
-                "ON pi.[ItemId] = si.[ItemId] AND pi.[ItemSubCode] = si.[ItemSubCode] " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
+                "ON i.[Id] = si.[ItemId] " +
                 "WHERE 1 = 1 ";
 
-            query += "ORDER BY ut.[Date] DESC ";
+            query += "ORDER BY si.[Date] DESC ";
 
             try
             {

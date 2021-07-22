@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
                 "[Id], [EndOfDate], [MemberId], [InvoiceNo], " +
-                "[ItemId], [ItemSubCode], [Quantity], [Price], " +
+                "[ItemId], [ItemSubCode], [ProfitAmount], [Quantity], [Price], " +
                 "[Date] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
@@ -45,6 +45,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     ItemSubCode = reader["ItemSubCode"].ToString(),
+                                    ProfitAmount = Convert.ToDecimal(reader["ProfitAmount"].ToString()),
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Date = Convert.ToDateTime(reader["Date"].ToString()),
@@ -262,11 +263,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDate], [MemberId], [InvoiceNo], [ItemId], [ItemSubCode], [Quantity], [Price], [Date] " +
+                        "[EndOfDate], [MemberId], [InvoiceNo], [ItemId], [ItemSubCode], [ProfitAmount], [Quantity], [Price], [Date] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDate, @MemberId, @InvoiceNo, @ItemId, @ItemSubCode, @Quantity, @Price, @Date " +
+                        "@EndOfDate, @MemberId, @InvoiceNo, @ItemId, @ItemSubCode, @ProfitAmount, @Quantity, @Price, @Date " +
                     ") ";
             try
             {
@@ -279,7 +280,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@MemberId", soldItem.MemberId);
                         command.Parameters.AddWithValue("@InvoiceNo", soldItem.InvoiceNo);
                         command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
-                        command.Parameters.AddWithValue("@ItemSubCode", soldItem.ItemId);
+                        command.Parameters.AddWithValue("@ItemSubCode", soldItem.ItemSubCode);
+                        command.Parameters.AddWithValue("@ProfitAmount", soldItem.ProfitAmount);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
                         command.Parameters.AddWithValue("@Date", soldItem.Date);

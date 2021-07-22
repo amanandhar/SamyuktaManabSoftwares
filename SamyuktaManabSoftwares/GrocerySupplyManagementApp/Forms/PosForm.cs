@@ -101,6 +101,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = RichItemCode.Text,
                     ItemName = RichItemName.Text,
                     ItemBrand = RichItemBrand.Text,
+                    ItemSubCode = RichItemSubCode.Text,
+                    ProfitAmount = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichProfitAmount.Text),
                     Unit = RichItemUnit.Text,
                     ItemPrice = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichItemPrice.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
@@ -136,6 +138,24 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                _soldItemViewList.ForEach(x =>
+                {
+                    var soldItem = new SoldItem
+                    {
+                        EndOfDate = Convert.ToDateTime(RichInvoiceDate.Text.Trim()),
+                        MemberId = RichMemberId.Text.Trim(),
+                        InvoiceNo = RichInvoiceNo.Text.Trim(),
+                        ItemId = _itemService.GetItem(x.ItemCode).Id,
+                        ItemSubCode = x.ItemSubCode,
+                        ProfitAmount = x.ProfitAmount,
+                        Quantity = x.Quantity,
+                        Price = x.ItemPrice,
+                        Date = DateTime.Now
+                    };
+
+                    _soldItemService.AddSoldItem(soldItem);
+                });
+
                 var userTransaction = new UserTransaction
                 {
                     InvoiceNo = RichInvoiceNo.Text.Trim(),
@@ -156,23 +176,6 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _userTransactionService.AddUserTransaction(userTransaction);
-
-                _soldItemViewList.ForEach(x =>
-                {
-                    var soldItem = new SoldItem
-                    {
-                        EndOfDate = Convert.ToDateTime(RichInvoiceDate.Text.Trim()),
-                        MemberId = RichMemberId.Text.Trim(),
-                        InvoiceNo = RichInvoiceNo.Text.Trim(),
-                        ItemId = _itemService.GetItem(x.ItemCode).Id,
-                        ItemSubCode = RichItemSubCode.Text,
-                        Quantity = x.Quantity,
-                        Price = x.ItemPrice,
-                        Date = DateTime.Now
-                    };
-
-                    _soldItemService.AddSoldItem(soldItem);
-                });
 
                 DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
@@ -326,6 +329,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridPosSoldItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridSoldItemList.Columns["Id"].Visible = false;
+            DataGridSoldItemList.Columns["ItemSubCode"].Visible = false;
+            DataGridSoldItemList.Columns["ProfitAmount"].Visible = false;
             DataGridSoldItemList.Columns["Date"].Visible = false;
 
             DataGridSoldItemList.Columns["ItemCode"].HeaderText = "Code";
@@ -389,6 +394,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemPrice.Clear();
             RichItemQuantity.Clear();
             RichItemUnit.Clear();
+            RichProfitAmount.Clear();
             RichItemStock.Clear();
         }
 
@@ -461,6 +467,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
                 RichItemStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
                 RichItemUnit.Text = item.Unit;
+                RichProfitAmount.Text = pricedItem.ProfitAmount.ToString();
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }

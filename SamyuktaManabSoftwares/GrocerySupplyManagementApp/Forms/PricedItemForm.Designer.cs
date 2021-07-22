@@ -39,6 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PicBoxItemImage = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.TxtUnit = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.TxtItemSubCode = new System.Windows.Forms.TextBox();
             this.TxtCurrentPurchasePrice = new System.Windows.Forms.TextBox();
@@ -69,7 +70,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddNew = new System.Windows.Forms.Button();
             this.BtnDeleteItemImage = new System.Windows.Forms.Button();
             this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.TxtUnit = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -144,9 +144,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label5.Location = new System.Drawing.Point(6, 357);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 18);
+            this.label5.Size = new System.Drawing.Size(153, 18);
             this.label5.TabIndex = 5;
-            this.label5.Text = "New Purchase Price";
+            this.label5.Text = "New Per Unit Value";
             // 
             // label6
             // 
@@ -213,6 +213,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(840, 485);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
+            // 
+            // TxtUnit
+            // 
+            this.TxtUnit.Enabled = false;
+            this.TxtUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtUnit.Location = new System.Drawing.Point(170, 226);
+            this.TxtUnit.Name = "TxtUnit";
+            this.TxtUnit.Size = new System.Drawing.Size(210, 29);
+            this.TxtUnit.TabIndex = 44;
             // 
             // label13
             // 
@@ -550,15 +559,6 @@ namespace GrocerySupplyManagementApp.Forms
             // OpenItemImageDialog
             // 
             this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
-            // 
-            // TxtUnit
-            // 
-            this.TxtUnit.Enabled = false;
-            this.TxtUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtUnit.Location = new System.Drawing.Point(170, 226);
-            this.TxtUnit.Name = "TxtUnit";
-            this.TxtUnit.Size = new System.Drawing.Size(210, 29);
-            this.TxtUnit.TabIndex = 44;
             // 
             // PricedItemForm
             // 

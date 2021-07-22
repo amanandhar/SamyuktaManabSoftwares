@@ -82,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault())
                     .ToList();
-                var stockValue = latestStockView.Sum(x => x.StockValue);
+                var stockValue = Math.Round(latestStockView.Sum(x => x.StockValue), 2);
 
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance();
                 var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.00m;

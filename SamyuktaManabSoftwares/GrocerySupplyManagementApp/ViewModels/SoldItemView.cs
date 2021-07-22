@@ -8,6 +8,8 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public string ItemBrand { get; set; }
+        public string ItemSubCode { get; set; }
+        public decimal ProfitAmount { get; set; }
         public string Unit { get; set; }
         public decimal ItemPrice { get; set; }
         public int Quantity { get; set; }

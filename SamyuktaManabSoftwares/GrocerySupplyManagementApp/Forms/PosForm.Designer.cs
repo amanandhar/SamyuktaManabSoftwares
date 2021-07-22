@@ -109,6 +109,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel22 = new System.Windows.Forms.LinkLabel();
             this.RichAccNo = new System.Windows.Forms.RichTextBox();
             this.DataGridSoldItemList = new System.Windows.Forms.DataGridView();
+            this.linkLabel24 = new System.Windows.Forms.LinkLabel();
+            this.RichProfitAmount = new System.Windows.Forms.RichTextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -161,6 +163,8 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox4.Controls.Add(this.RichProfitAmount);
+            this.groupBox4.Controls.Add(this.linkLabel24);
             this.groupBox4.Controls.Add(this.linkLabel23);
             this.groupBox4.Controls.Add(this.RichItemSubCode);
             this.groupBox4.Controls.Add(this.RichItemStock);
@@ -216,7 +220,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemStock.Location = new System.Drawing.Point(125, 141);
             this.RichItemStock.Name = "RichItemStock";
             this.RichItemStock.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichItemStock.Size = new System.Drawing.Size(205, 30);
+            this.RichItemStock.Size = new System.Drawing.Size(69, 30);
             this.RichItemStock.TabIndex = 33;
             this.RichItemStock.Text = "";
             // 
@@ -1162,6 +1166,32 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSoldItemList.TabIndex = 31;
             this.DataGridSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
             // 
+            // linkLabel24
+            // 
+            this.linkLabel24.AutoSize = true;
+            this.linkLabel24.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel24.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.linkLabel24.LinkColor = System.Drawing.SystemColors.HotTrack;
+            this.linkLabel24.Location = new System.Drawing.Point(200, 147);
+            this.linkLabel24.Name = "linkLabel24";
+            this.linkLabel24.Size = new System.Drawing.Size(49, 18);
+            this.linkLabel24.TabIndex = 39;
+            this.linkLabel24.TabStop = true;
+            this.linkLabel24.Text = "Profit";
+            // 
+            // RichProfitAmount
+            // 
+            this.RichProfitAmount.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.RichProfitAmount.Enabled = false;
+            this.RichProfitAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichProfitAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.RichProfitAmount.Location = new System.Drawing.Point(260, 140);
+            this.RichProfitAmount.Name = "RichProfitAmount";
+            this.RichProfitAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichProfitAmount.Size = new System.Drawing.Size(69, 30);
+            this.RichProfitAmount.TabIndex = 40;
+            this.RichProfitAmount.Text = "";
+            // 
             // PosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1274,5 +1304,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Button BtnBankTransfer;
         private System.Windows.Forms.Button BtnAddExpense;
+        private System.Windows.Forms.RichTextBox RichProfitAmount;
+        private System.Windows.Forms.LinkLabel linkLabel24;
     }
 }
