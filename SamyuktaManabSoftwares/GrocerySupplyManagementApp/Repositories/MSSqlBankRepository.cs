@@ -20,7 +20,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var banks = new List<Bank>();
             var query = @"SELECT " +
-                "[Id], [Name], [AccountNo], [Date] " +
+                "[Id], [Name], [AccountNo], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_BANK;
 
             try
@@ -39,7 +39,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Name = reader["Name"].ToString(),
                                     AccountNo = reader["AccountNo"].ToString(),
-                                    Date = reader.IsDBNull(3) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
+                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 banks.Add(bank);
@@ -60,7 +61,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var banks = new Bank();
             var query = @"SELECT " +
-                "[Id], [Name], [AccountNo], [Date] " +
+                "[Id], [Name], [AccountNo], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_BANK + " " +
                 "WHERE 1 = 1 " +
                 "AND Id = @Id";
@@ -83,10 +84,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                     banks.Id = Convert.ToInt64(reader["Id"].ToString());
                                     banks.Name = reader["Name"].ToString();
                                     banks.AccountNo = reader["AccountNo"].ToString();
-                                    banks.Date = reader.IsDBNull(3) ? DateTime.Now : Convert.ToDateTime(reader["Date"].ToString());
+                                    banks.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                    banks.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 }
                             }
-                                
                         }
                     }
                 }
@@ -104,11 +105,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " + 
                     " " + Constants.TABLE_BANK + " " +
                     "( " +
-                        "[Name], [AccountNo], [Date] " +
+                        "[Name], [AccountNo], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @AccountNo, @Date " +
+                        "@Name, @AccountNo, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -119,7 +120,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Name", ((object)bank.Name) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AccountNo", ((object)bank.AccountNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Date", ((object)bank.Date) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedDate", ((object)bank.AddedDate) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)bank.UpdatedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();  
                     }
                 }
@@ -135,8 +137,8 @@ namespace GrocerySupplyManagementApp.Repositories
         public Bank UpdateBank(long id, Bank bank)
         {
             string query = @"UPDATE " + Constants.TABLE_BANK + " " +
-                    "SET " + 
-                    "[Name] = @Name, [AccountNo] = @AccountNo " +
+                    "SET " +
+                    "[Name] = @Name, [AccountNo] = @AccountNo, [UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " + 
                     "AND [Id] = @Id";
             try
@@ -149,6 +151,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Name", ((object)bank.Name) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AccountNo", ((object)bank.AccountNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)bank.UpdatedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }
                 }

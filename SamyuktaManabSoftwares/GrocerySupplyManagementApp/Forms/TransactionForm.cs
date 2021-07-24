@@ -37,7 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void TransactionForm_Load(object sender, EventArgs e)
         {
             var fiscalYear = _fiscalYearService.GetFiscalYear();
-            MaskDate.Text = fiscalYear.StartingDate.ToString("yyyy/MM/dd");
+            MaskDate.Text = fiscalYear.StartingDate;
             MaskDate.Focus();
             EnableCombos(false);
         }
@@ -258,10 +258,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridTransactionList.Columns["Id"].Visible = false;
 
-            DataGridTransactionList.Columns["EndOfDate"].HeaderText = "Date";
-            DataGridTransactionList.Columns["EndOfDate"].Width = 75;
-            DataGridTransactionList.Columns["EndOfDate"].DisplayIndex = 0;
-            DataGridTransactionList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridTransactionList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridTransactionList.Columns["EndOfDay"].Width = 75;
+            DataGridTransactionList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Member/Supplier";
             DataGridTransactionList.Columns["MemberSupplierId"].Width = 90;
@@ -313,56 +312,12 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void ClearCombos()
-        {
-            ComboPurchase.Text = string.Empty;
-            ComboSales.Text = string.Empty;
-            ComboPayment.Text = string.Empty;
-            ComboReceipt.Text = string.Empty;
-            ComboExpense.Text = string.Empty;
-            ComboBankTransfer.Text = string.Empty;
-            ComboItemCode.Text = string.Empty;
-            ComboUser.Text = string.Empty;
-            ComboInvoiceNo.Text = string.Empty;
-        }
-
-        private void EnableCombos(bool option)
-        {
-            ComboPurchase.Enabled = option;
-            ComboSales.Enabled = option;
-            ComboPayment.Enabled = option;
-            ComboReceipt.Enabled = option;
-            ComboExpense.Enabled = option;
-            ComboBankTransfer.Enabled = option;
-            ComboItemCode.Enabled = option;
-            ComboUser.Enabled = option;
-            ComboInvoiceNo.Enabled = option;
-        }
-
-        private void LoadItemCodes()
-        {
-            var soldItemCodes = _soldItemService.GetSoldItemCodes();
-            foreach (var soldItemCode in soldItemCodes)
-            {
-                ComboItemCode.Items.Add(soldItemCode);
-            }
-        }
-
-        private void LoadInvoiceNos()
-        {
-            var invoices = _userTransactionService.GetInvoices();
-            foreach (var invoice in invoices)
-            {
-                ComboInvoiceNo.Items.Add(invoice);
-            }
-        }
-
-        private  void LoadTransactions()
+        private void LoadTransactions()
         {
             MaskDate.Focus();
             var transactionFilter = new TransactionFilter();
 
-            if (!string.IsNullOrWhiteSpace(MaskDate.Text))
+            if (!string.IsNullOrWhiteSpace(MaskDate.Text.Replace("-", string.Empty).Trim()))
             {
                 transactionFilter.Date = Convert.ToDateTime(MaskDate.Text).ToString("yyyy-MM-dd");
             }
@@ -413,10 +368,54 @@ namespace GrocerySupplyManagementApp.Forms
 
             List<TransactionView> transactionViewList = _userTransactionService.GetTransactionViewList(transactionFilter).ToList();
             TxtTotal.Text = transactionViewList.Sum(x => x.Amount).ToString();
-            
+
             var bindingList = new BindingList<TransactionView>(transactionViewList);
             var source = new BindingSource(bindingList, null);
             DataGridTransactionList.DataSource = source;
+        }
+
+        private void ClearCombos()
+        {
+            ComboPurchase.Text = string.Empty;
+            ComboSales.Text = string.Empty;
+            ComboPayment.Text = string.Empty;
+            ComboReceipt.Text = string.Empty;
+            ComboExpense.Text = string.Empty;
+            ComboBankTransfer.Text = string.Empty;
+            ComboItemCode.Text = string.Empty;
+            ComboUser.Text = string.Empty;
+            ComboInvoiceNo.Text = string.Empty;
+        }
+
+        private void EnableCombos(bool option)
+        {
+            ComboPurchase.Enabled = option;
+            ComboSales.Enabled = option;
+            ComboPayment.Enabled = option;
+            ComboReceipt.Enabled = option;
+            ComboExpense.Enabled = option;
+            ComboBankTransfer.Enabled = option;
+            ComboItemCode.Enabled = option;
+            ComboUser.Enabled = option;
+            ComboInvoiceNo.Enabled = option;
+        }
+
+        private void LoadItemCodes()
+        {
+            var soldItemCodes = _soldItemService.GetSoldItemCodes();
+            foreach (var soldItemCode in soldItemCodes)
+            {
+                ComboItemCode.Items.Add(soldItemCode);
+            }
+        }
+
+        private void LoadInvoiceNos()
+        {
+            var invoices = _userTransactionService.GetInvoices();
+            foreach (var invoice in invoices)
+            {
+                ComboInvoiceNo.Items.Add(invoice);
+            }
         }
 
         #endregion

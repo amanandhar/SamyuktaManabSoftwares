@@ -7,6 +7,7 @@ using System;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -17,6 +18,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPricedItemService _pricedItemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
+        private readonly IStockService _stockService;
 
         public DashboardForm _dashboard;
         private string _documentsDirectory;
@@ -41,8 +43,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public PricedItemForm(IItemService itemService, IPricedItemService pricedItemService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            DashboardForm dashboardForm)
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
+            IStockService stockService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
@@ -50,6 +52,8 @@ namespace GrocerySupplyManagementApp.Forms
             _pricedItemService = pricedItemService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
+            _stockService = stockService;
+
             _dashboard = dashboardForm;
         }
         #endregion
@@ -89,13 +93,14 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
-                    Price = Convert.ToDecimal(TxtNewPurchasePrice.Text),
-                    Quantity = Convert.ToInt64(TxtQuantity.Text),
+                    Price = Convert.ToDecimal(TxtPerUnitValue.Text),
+                    Quantity = Convert.ToInt32(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
-                    ProfitAmount = Convert.ToDecimal(TxtProfitAmount.Text),
+                    Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
+                    UpdatedDate = DateTime.Now
                 };
 
                 _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
@@ -150,18 +155,20 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var date = DateTime.Now;
                 var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
-                    Price = Convert.ToDecimal(TxtCurrentPurchasePrice.Text),
-                    Quantity = Convert.ToInt64(TxtQuantity.Text),
+                    Price = Convert.ToDecimal(TxtPerUnitValue.Text),
+                    Quantity = Convert.ToInt32(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
-                    ProfitAmount = Convert.ToDecimal(TxtProfitAmount.Text),
+                    Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _pricedItemService.AddPricedItem(pricedItem);
@@ -239,11 +246,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void TxtCurrentPurchasePrice_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(TxtCurrentPurchasePrice.Text))
+            if (!string.IsNullOrWhiteSpace(TxtPerUnitValue.Text))
             {
                 if(!string.IsNullOrWhiteSpace(TxtQuantity.Text))
                 {
-                    TxtTotalPrice.Text = (Convert.ToDecimal(TxtCurrentPurchasePrice.Text) * Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
+                    TxtTotalPrice.Text = (Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
                     if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text))
                     {
                         TxtProfitAmount.Text = (Convert.ToDecimal(TxtTotalPrice.Text) * (Convert.ToDecimal(TxtProfitPercent.Text) / 100)).ToString("0.00");
@@ -279,7 +286,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if(!string.IsNullOrWhiteSpace(TxtQuantity.Text))
             {
-                TxtTotalPrice.Text = (Convert.ToDecimal(TxtCurrentPurchasePrice.Text) * Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
+                TxtTotalPrice.Text = (Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
                 if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text))
                 {
                     TxtProfitAmount.Text = (Convert.ToDecimal(TxtTotalPrice.Text) * (Convert.ToDecimal(TxtProfitPercent.Text) / 100)).ToString("0.00");
@@ -347,7 +354,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if(action == Action.Add)
             {
                 TxtItemSubCode.Enabled = true;
-                TxtCurrentPurchasePrice.Enabled = true;
+                TxtPerUnitValue.Enabled = true;
                 TxtQuantity.Enabled = true;
                 TxtProfitPercent.Enabled = true;
 
@@ -359,7 +366,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Edit)
             {
                 TxtItemSubCode.Enabled = true;
-                TxtCurrentPurchasePrice.Enabled = true;
+                TxtPerUnitValue.Enabled = true;
                 TxtQuantity.Enabled = true;
                 TxtProfitPercent.Enabled = true;
 
@@ -376,8 +383,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemBrand.Enabled = false;
                 TxtUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;
-                TxtNewPurchasePrice.Enabled = false;
-                TxtCurrentPurchasePrice.Enabled = false;
+                TxtPerUnitValue.Enabled = false;
                 TxtQuantity.Enabled = false;
                 TxtTotalPrice.Enabled = false;
                 TxtProfitPercent.Enabled = false;
@@ -403,8 +409,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemBrand.Clear();
             TxtUnit.Clear();
             TxtTotalStock.Clear();
-            TxtCurrentPurchasePrice.Clear();
-            TxtNewPurchasePrice.Clear();
+            TxtPerUnitValue.Clear();
             TxtQuantity.Clear();
             TxtTotalPrice.Clear();
             TxtProfitPercent.Clear();
@@ -433,14 +438,21 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = item.Code
                 };
                 TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
-                TxtNewPurchasePrice.Text = _purchasedItemService.GetLatestPurchasePrice(_selectedItemId).ToString();
-                TxtCurrentPurchasePrice.Text = pricedItem.Price.ToString();
+
+                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
+                    .ToList();
+                
+                TxtPerUnitValue.Text = Math.Round(latestStockView.Sum(x => x.StockValue), 2).ToString();
+
                 TxtQuantity.Text = pricedItem.Quantity.ToString();
-                TxtTotalPrice.Text = pricedItem.TotalPrice.ToString();
+                TxtTotalPrice.Text = (Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToInt64(TxtQuantity.Text)).ToString("0.00");
                 TxtProfitPercent.Text = pricedItem.ProfitPercent.ToString();
-                TxtProfitAmount.Text = pricedItem.ProfitAmount.ToString();
-                TxtSalesPrice.Text = pricedItem.SalesPrice.ToString();
-                TxtSalesPricePerUnit.Text = pricedItem.SalesPricePerUnit.ToString();
+                TxtProfitAmount.Text = (Convert.ToDecimal(TxtTotalPrice.Text) * (Convert.ToDecimal(TxtProfitPercent.Text) / 100)).ToString("0.00");
+                TxtSalesPrice.Text = (Convert.ToDecimal(TxtTotalPrice.Text) + Convert.ToDecimal(TxtProfitAmount.Text)).ToString("0.00");
+                TxtSalesPricePerUnit.Text = (Convert.ToDecimal(TxtSalesPrice.Text) / Convert.ToDecimal(TxtQuantity.Text)).ToString("0.00");
 
                 var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
                 var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
@@ -478,7 +490,13 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
-                TxtNewPurchasePrice.Text = _purchasedItemService.GetLatestPurchasePrice(_selectedItemId).ToString();
+
+                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
+                    .ToList();
+                TxtPerUnitValue.Text = Math.Round(latestStockView.Sum(x => x.StockValue), 2).ToString();
 
                 var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
                 var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);

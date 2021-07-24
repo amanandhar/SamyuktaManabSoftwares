@@ -19,7 +19,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var fiscalYear = new FiscalYear();
             var query = @"SELECT " + 
-                "[InvoiceNo], [BillNo], [StartingDate], [Year] " +
+                "[StartingInvoiceNo], [StartingBillNo], [StartingDate], [Year], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_FISCAL_YEAR;
 
             try
@@ -33,10 +33,12 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                fiscalYear.InvoiceNo = reader.IsDBNull(0) ? string.Empty : reader["InvoiceNo"].ToString();
-                                fiscalYear.BillNo = reader.IsDBNull(0) ? string.Empty : reader["BillNo"].ToString();
-                                fiscalYear.StartingDate = reader.IsDBNull(1) ? DateTime.Today : Convert.ToDateTime(reader["StartingDate"].ToString());
+                                fiscalYear.StartingInvoiceNo = reader.IsDBNull(0) ? string.Empty : reader["StartingInvoiceNo"].ToString();
+                                fiscalYear.StartingBillNo = reader.IsDBNull(0) ? string.Empty : reader["StartingBillNo"].ToString();
+                                fiscalYear.StartingDate = reader["StartingDate"].ToString();
                                 fiscalYear.Year = reader.IsDBNull(2) ? string.Empty : reader["Year"].ToString();
+                                fiscalYear.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                fiscalYear.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -77,11 +79,11 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             string query = @"INSERT INTO " + Constants.TABLE_FISCAL_YEAR + " " +
                     "(" +
-                        "[InvoiceNo], [BillNo], [StartingDate], [Year] " +
+                        "[StartingInvoiceNo], [StartingBillNo], [StartingDate], [Year], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @BillNo, @StartingDate, @Year " +
+                        "@StartingInvoiceNo, @StartingBillNo, @StartingDate, @Year, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -90,10 +92,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@InvoiceNo", ((object)fiscalYear.InvoiceNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@BillNo", ((object)fiscalYear.BillNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@StartingInvoiceNo", ((object)fiscalYear.StartingInvoiceNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@StartingBillNo", ((object)fiscalYear.StartingBillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYear.StartingDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Year", ((object)fiscalYear.Year) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedDate", ((object)fiscalYear.AddedDate) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)fiscalYear.UpdatedDate) ?? DBNull.Value);
+
                         command.ExecuteNonQuery();
                         result = true;
                     }
@@ -112,10 +117,11 @@ namespace GrocerySupplyManagementApp.Repositories
             var result = false;
             string query = @"UPDATE " + Constants.TABLE_FISCAL_YEAR + " " +
                     "SET " +
-                    "[InvoiceNo] = @InvoiceNo, " +
-                    "[BillNo] = @BillNo, " +
+                    "[StartingInvoiceNo] = @StartingInvoiceNo, " +
+                    "[StartingBillNo] = @StartingBillNo, " +
                     "[StartingDate] = @StartingDate, " +
-                    "[Year] = @Year ";
+                    "[Year] = @Year, " +
+                    "[UpdatedDate] = @UpdatedDate ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -123,10 +129,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@InvoiceNo", ((object)fiscalYear.InvoiceNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@BillNo", ((object)fiscalYear.BillNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@StartingInvoiceNo", ((object)fiscalYear.StartingInvoiceNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@StartingBillNo", ((object)fiscalYear.StartingBillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYear.StartingDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Year", ((object)fiscalYear.Year) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)fiscalYear.UpdatedDate) ?? DBNull.Value);
+
                         command.ExecuteNonQuery();
                         result = true;
                     }

@@ -19,7 +19,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var Tax = new Tax();
             var query = @"SELECT " +
-                "[Discount], [Vat], [DeliveryCharge] " +
+                "[Discount], [Vat], [DeliveryCharge], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_TAX;
 
             try
@@ -36,6 +36,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                 Tax.Discount = reader.IsDBNull(0) ? 0.0m : Convert.ToDecimal(reader["Discount"].ToString());
                                 Tax.Vat = reader.IsDBNull(1) ? 0.0m : Convert.ToDecimal(reader["Vat"].ToString());
                                 Tax.DeliveryCharge = reader.IsDBNull(2) ? 0.0m : Convert.ToDecimal(reader["DeliveryCharge"].ToString());
+                                Tax.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                Tax.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -76,11 +78,11 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             string query = @"INSERT INTO " + Constants.TABLE_TAX + " " +
                     "( " +
-                        "[Discount], [Vat], [DeliveryCharge] " +
+                        "[Discount], [Vat], [DeliveryCharge], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Discount, @Vat, @DeliveryCharge " +
+                        "@Discount, @Vat, @DeliveryCharge, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -92,6 +94,9 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Discount", ((object)Tax.Discount) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Vat", ((object)Tax.Vat) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DeliveryCharge", ((object)Tax.DeliveryCharge) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedDate", ((object)Tax.AddedDate) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)Tax.UpdatedDate) ?? DBNull.Value);
+
                         command.ExecuteNonQuery();
                         result = true;
                     }
@@ -110,7 +115,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var result = false;
             string query = @"UPDATE " + Constants.TABLE_TAX + " " +
                     "SET " +
-                    "[Discount] = @Discount, [Vat] = @DeliveryCharge, [DeliveryCharge] = @DeliveryCharge ";
+                    "[Discount] = @Discount, [Vat] = @DeliveryCharge, [DeliveryCharge] = @DeliveryCharge, [UpdatedDate] = @UpdatedDate ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -121,6 +126,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Discount", ((object)Tax.Discount) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Vat", ((object)Tax.Vat) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DeliveryCharge", ((object)Tax.DeliveryCharge) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)Tax.UpdatedDate) ?? DBNull.Value);
+
                         command.ExecuteNonQuery();
                         result = true;
                     }

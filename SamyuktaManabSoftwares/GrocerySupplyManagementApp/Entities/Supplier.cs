@@ -12,6 +12,7 @@ namespace GrocerySupplyManagementApp.Entities
         public long ContactNo { get; set; }
         public string Email { get; set; }
         public string Owner { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime AddedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

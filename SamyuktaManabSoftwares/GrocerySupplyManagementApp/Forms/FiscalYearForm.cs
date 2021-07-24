@@ -24,9 +24,9 @@ namespace GrocerySupplyManagementApp.Forms
             var fiscalYear = _fiscalYearService.GetFiscalYear();
             if(fiscalYear != null)
             {
-                RichInvoiceNo.Text = fiscalYear.InvoiceNo;
-                RichBillNo.Text = fiscalYear.BillNo;
-                RichCompanyStartingDate.Text = fiscalYear.StartingDate.ToString();
+                RichInvoiceNo.Text = fiscalYear.StartingInvoiceNo;
+                RichBillNo.Text = fiscalYear.StartingBillNo;
+                RichCompanyStartingDate.Text = fiscalYear.StartingDate;
                 RichFiscalYear.Text = fiscalYear.Year;
             }           
         }
@@ -43,12 +43,15 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var currentDate = DateTime.Now;
                 var fiscalYear = new FiscalYear
                 {
-                    InvoiceNo = RichInvoiceNo.Text,
-                    BillNo = RichBillNo.Text,
-                    StartingDate = Convert.ToDateTime(RichCompanyStartingDate.Text),
-                    Year = RichFiscalYear.Text
+                    StartingInvoiceNo = RichInvoiceNo.Text,
+                    StartingBillNo = RichBillNo.Text,
+                    StartingDate = RichCompanyStartingDate.Text,
+                    Year = RichFiscalYear.Text,
+                    AddedDate = currentDate,
+                    UpdatedDate = currentDate
                 };
 
                 var truncate = true;

@@ -98,7 +98,7 @@ namespace GrocerySupplyManagementApp.Services
                 if (string.IsNullOrWhiteSpace(lastBillNo))
                 {
                     var fiscalYear = _fiscalYearRepository.GetFiscalYear();
-                    billNo = fiscalYear.BillNo;
+                    billNo = fiscalYear.StartingBillNo;
                 }
                 else
                 {

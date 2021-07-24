@@ -31,24 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void MemberListForm_Load(object sender, EventArgs e)
         {
-            var members = _memberService.GetMembers();
-            List<MemberView> memberViewList = members.ToList().Select(x => new MemberView()
-            {
-                Id = x.Id,
-                Counter = x.Counter,
-                MemberId = x.MemberId,
-                Name = x.Name,
-                Address = x.Address,
-                ContactNo = x.ContactNo,
-                Email = x.Email,
-                AccountNo = x.AccountNo,
-                Date = x.Date,
-                Balance = _userTransactionService.GetMemberTotalBalance(x.MemberId),
-            }).ToList();
-
-            var bindingList = new BindingList<MemberView>(memberViewList);
-            var source = new BindingSource(bindingList, null);
-            DataGridMemberList.DataSource = source;
+            LoadMembers();
         }
         #endregion
 
@@ -76,7 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["Address"].Visible = false;
             DataGridMemberList.Columns["ContactNo"].Visible = false;
             DataGridMemberList.Columns["Email"].Visible = false;
-            DataGridMemberList.Columns["Date"].Visible = false;
+            DataGridMemberList.Columns["AddedDate"].Visible = false;
 
             DataGridMemberList.Columns["MemberId"].HeaderText = "Member Id";
             DataGridMemberList.Columns["MemberId"].Width = 90;
@@ -103,6 +86,30 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        #endregion
+
+        #region Helper Methods
+        private void LoadMembers()
+        {
+            var members = _memberService.GetMembers();
+            List<MemberView> memberViewList = members.ToList().Select(x => new MemberView()
+            {
+                Id = x.Id,
+                Counter = x.Counter,
+                MemberId = x.MemberId,
+                Name = x.Name,
+                Address = x.Address,
+                ContactNo = x.ContactNo,
+                Email = x.Email,
+                AccountNo = x.AccountNo,
+                AddedDate = x.AddedDate,
+                Balance = _userTransactionService.GetMemberTotalBalance(x.MemberId),
+            }).ToList();
+
+            var bindingList = new BindingList<MemberView>(memberViewList);
+            var source = new BindingSource(bindingList, null);
+            DataGridMemberList.DataSource = source;
+        }
         #endregion
     }
 }

@@ -77,11 +77,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(34, 33);
+            this.label2.Location = new System.Drawing.Point(79, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 18);
+            this.label2.Size = new System.Drawing.Size(81, 18);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Update Fiscal Year";
+            this.label2.Text = "Fiscal Year";
             // 
             // label1
             // 
@@ -123,7 +123,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(685, 26);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "                                   Updating Date,Fiscal Year and Vat/Tax";
+            this.textBox1.Text = "                                   Updating Starting Date, Fiscal Year and Bill/I" +
+    "nvoice No";
             // 
             // groupBox3
             // 
@@ -217,11 +218,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(12, 31);
+            this.label4.Location = new System.Drawing.Point(23, 30);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(122, 18);
+            this.label4.Size = new System.Drawing.Size(109, 18);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Purchase Bill No.";
+            this.label4.Text = "Starting Bill No.";
             // 
             // FiscalYearForm
             // 

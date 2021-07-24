@@ -44,9 +44,10 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var fiscalYear = _fiscalYearService.GetFiscalYear();
+                var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDate = fiscalYear.StartingDate,
+                    EndOfDay = fiscalYear.StartingDate,
                     Action = Constants.TRANSFER,
                     ActionType = Constants.CASH,
                     Bank = ComboBank.Text,
@@ -59,7 +60,8 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = 0.0m,
                     DueAmount = Convert.ToDecimal(RichDepositAmount.Text),
                     ReceivedAmount = 0.0m,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
                 _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -68,14 +70,15 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                 var bankTransaction = new BankTransaction
                 {
-                    EndOfDate = fiscalYear.StartingDate,
+                    EndOfDay = fiscalYear.StartingDate,
                     BankId = Convert.ToInt64(selectedItem.Id),
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',
                     Debit = Convert.ToDecimal(RichDepositAmount.Text),
                     Credit = 0.0m,
                     Narration = RichNarration.Text,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
                 _bankTransactionService.AddBankTransaction(bankTransaction);
                 

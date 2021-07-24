@@ -27,32 +27,32 @@ namespace GrocerySupplyManagementApp.Repositories
                         INTO #Temp
                         FROM 
                         (
-                        SELECT pi.[EndOfDate], pi.[BillNo] as [Type], 
+                        SELECT pi.[EndOfDay], pi.[BillNo] as [Type], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         pi.[Quantity] as [PurchaseQuantity], 0 AS [SalesQuantity],
                         pi.[Price] AS [PurchasePrice], 0.0 AS [SalesPrice],
-                        pi.[Date] FROM [PurchasedItem] pi
+                        pi.[AddedDate] FROM [PurchasedItem] pi
                         INNER JOIN 
                         [Item] i
                         ON pi.[ItemId] = i.[Id]
                         UNION
-                        SELECT si.[EndOfDate], si.[InvoiceNo] as [Type], 
+                        SELECT si.[EndOfDay], si.[InvoiceNo] as [Type], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         0 AS [PurchaseQuantity], si.[Quantity] as [SalesQuantity],
                         0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice],
-                        si.[Date] FROM [SoldItem] si
+                        si.[AddedDate] FROM [SoldItem] si
                         INNER JOIN 
                         [Item] i
                         ON si.[ItemId] = i.[Id]
                         ) UnionTable
-                        ORDER BY UnionTable.[ItemCode], UnionTable.[Date]
+                        ORDER BY UnionTable.[ItemCode], UnionTable.[AddedDate]
 
                         SELECT t.*, 
                         (
 	                        SELECT SUM(u.[PurchaseQuantity] - u.[SalesQuantity])
 	                        FROM #Temp u
 	                        WHERE 1 = 1 
-	                        AND u.[Date] <= t.[Date]
+	                        AND u.[AddedDate] <= t.[AddedDate]
 	                        AND u.[ItemCode] = t.[ItemCode]
                         ) AS [StockQuantity],
                         (t.[PurchasePrice] * t.[PurchaseQuantity]) AS [TotalPurchasePrice]
@@ -65,10 +65,10 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND t.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND t.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
             }
 
-            query += "ORDER BY t.[ItemCode], t.[Date]";
+            query += "ORDER BY t.[ItemCode], t.[AddedDate]";
 
             try
             {
@@ -87,7 +87,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var stock = new Stock
                                 {
-                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
                                     Type = reader["Type"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     StockQuantity = Convert.ToInt32(reader["StockQuantity"].ToString()),
                                     PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
                                     TotalPurchasePrice = Convert.ToDecimal(reader["TotalPurchasePrice"].ToString()),
-                                    Date = Convert.ToDateTime(reader["Date"].ToString())
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
 
                                 stocks.Add(stock);

@@ -4,7 +4,7 @@ namespace GrocerySupplyManagementApp.ViewModels
 {
     public class StockView
     {
-        public DateTime EndOfDate { get; set; }
+        public string EndOfDay { get; set; }
         public string Type { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
@@ -16,6 +16,6 @@ namespace GrocerySupplyManagementApp.ViewModels
         public decimal SalesPrice { get; set; }
         public decimal StockValue { get; set; }
         public decimal PerUnitValue { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime AddedDate { get; set; }
     }
 }

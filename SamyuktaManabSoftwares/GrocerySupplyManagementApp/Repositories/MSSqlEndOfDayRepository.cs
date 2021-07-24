@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Id], [DateInAd], [DateInBs] " +
                 "FROM " + Constants.TABLE_END_OF_DAY + " " +
                 "WHERE 1 = 1 " +
-                "AND [Id] > @Id" + 
+                "AND [Id] > @Id " + 
                 "ORDER BY [Id]";
 
             try

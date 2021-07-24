@@ -29,19 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void SupplierListForm_Load(object sender, EventArgs e)
         {
-            var suppliers = _supplierService.GetSuppliers();
-            List<SupplierView> supplierViewList = suppliers.ToList().Select(x => new SupplierView()
-            {
-                Id = x.Id,
-                SupplierId = x.SupplierId,
-                Name = x.Name,
-                Owner = x.Owner,
-                Balance = _userTransactionService.GetSupplierTotalBalance(x.SupplierId),
-            }).ToList();
-
-            var bindingList = new BindingList<SupplierView>(supplierViewList.ToList());
-            var source = new BindingSource(bindingList, null);
-            DataGridSupplierList.DataSource = source;
+            LoadSuppliers();
         }
         #endregion
 
@@ -86,5 +74,23 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Helper Methods
+        private void LoadSuppliers()
+        {
+            var suppliers = _supplierService.GetSuppliers();
+            List<SupplierView> supplierViewList = suppliers.ToList().Select(x => new SupplierView()
+            {
+                Id = x.Id,
+                SupplierId = x.SupplierId,
+                Name = x.Name,
+                Owner = x.Owner,
+                Balance = _userTransactionService.GetSupplierTotalBalance(x.SupplierId),
+            }).ToList();
+
+            var bindingList = new BindingList<SupplierView>(supplierViewList.ToList());
+            var source = new BindingSource(bindingList, null);
+            DataGridSupplierList.DataSource = source;
+        }
+        #endregion
     }
 }

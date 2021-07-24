@@ -61,11 +61,13 @@ namespace GrocerySupplyManagementApp.Forms
         { 
             try 
             {
+                var date = DateTime.Now;
                 var bank = new Bank
                 {
                     Name = RichBankName.Text,
                     AccountNo = RichAccountNo.Text,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _bankService.AddBank(bank);
@@ -93,7 +95,8 @@ namespace GrocerySupplyManagementApp.Forms
             var bank = new Bank
             {
                 Name = RichBankName.Text,
-                AccountNo = RichAccountNo.Text
+                AccountNo = RichAccountNo.Text,
+                UpdatedDate = DateTime.Now
             };
 
             _bankService.UpdateBank(selectedBankId, bank);
@@ -130,15 +133,17 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var date = DateTime.Now;
                 var bankTransaction = new BankTransaction
                 {
-                    EndOfDate = _fiscalYearService.GetFiscalYear().StartingDate,
+                    EndOfDay = _fiscalYearService.GetFiscalYear().StartingDate,
                     BankId = selectedBankId,
                     Action = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
                     Debit = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
                     Credit = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.0m : Convert.ToDecimal(RichAmount.Text),
                     Narration = ComboType.Text,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -188,10 +193,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridBankList.Columns["Id"].Visible = false;
 
-            DataGridBankList.Columns["EndOfDate"].HeaderText = "Date";
-            DataGridBankList.Columns["EndOfDate"].Width = 100;
-            DataGridBankList.Columns["EndOfDate"].DisplayIndex = 0;
-            DataGridBankList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridBankList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridBankList.Columns["EndOfDay"].Width = 100;
+            DataGridBankList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridBankList.Columns["Description"].HeaderText = "Descriptions";
             DataGridBankList.Columns["Description"].Width = 100;
@@ -227,6 +231,15 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Method
+        private void LoadBankTransaction()
+        {
+            List<BankTransactionView> bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
+
+            var bindingList = new BindingList<BankTransactionView>(bankTransactionViewList);
+            var source = new BindingSource(bindingList, null);
+            DataGridBankList.DataSource = source;
+        }
+
         public void PopulateBank(long bankId)
         {
             try
@@ -295,16 +308,6 @@ namespace GrocerySupplyManagementApp.Forms
             TxtBalance.Clear();
             ComboType.Text = string.Empty;
         }
-
-        private void LoadBankTransaction()
-        {
-            List<BankTransactionView> bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
-
-            var bindingList = new BindingList<BankTransactionView>(bankTransactionViewList);
-            var source = new BindingSource(bindingList, null);
-            DataGridBankList.DataSource = source;
-        }
-
         #endregion
     }
 }

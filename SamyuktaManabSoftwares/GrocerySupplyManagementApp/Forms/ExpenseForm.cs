@@ -57,9 +57,10 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var fiscalYearDetail = _fiscalYearService.GetFiscalYear();
+                var date = DateTime.Now;
                 var posTransaction = new UserTransaction
                 {
-                    EndOfDate = fiscalYearDetail.StartingDate,
+                    EndOfDay = fiscalYearDetail.StartingDate,
                     Action = Constants.EXPENSE,
                     ActionType = ComboPayment.Text,
                     Bank = ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower() ? ComboBank.Text : null,
@@ -73,7 +74,8 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = 0.0m,
                     DueAmount = Convert.ToDecimal(RichAmount.Text),
                     ReceivedAmount = 0.0m,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
                 _userTransactionService.AddUserTransaction(posTransaction);
 
@@ -84,14 +86,15 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
-                        EndOfDate = fiscalYearDetail.StartingDate,
+                        EndOfDay = fiscalYearDetail.StartingDate,
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastUserTransaction.Id,
                         Action = '0',
                         Debit = 0.0m,
                         Credit = Convert.ToDecimal(RichAmount.Text),
                         Narration = ComboExpense.Text,
-                        Date = DateTime.Now
+                        AddedDate = date,
+                        UpdatedDate = date
                     };
 
                     _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -186,10 +189,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridExpenseList.Columns["Id"].Visible = false;
 
-            DataGridExpenseList.Columns["EndOfDate"].HeaderText = "Date";
-            DataGridExpenseList.Columns["EndOfDate"].Width = 100;
-            DataGridExpenseList.Columns["EndOfDate"].DisplayIndex = 0;
-            DataGridExpenseList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridExpenseList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridExpenseList.Columns["EndOfDay"].Width = 100;
+            DataGridExpenseList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridExpenseList.Columns["Action"].HeaderText = "Description";
             DataGridExpenseList.Columns["Action"].Width = 100;
@@ -229,14 +231,6 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void ClearAllFields()
-        {
-            ComboExpense.Text = string.Empty;
-            ComboPayment.Text = string.Empty;
-            RichAmount.Clear();
-            ComboBank.Text = string.Empty;
-        }
-
         private void LoadExpenseTransaction(ExpenseTransactionFilter expenseTransaction = null)
         {
             try
@@ -253,6 +247,14 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
+        }
+
+        private void ClearAllFields()
+        {
+            ComboExpense.Text = string.Empty;
+            ComboPayment.Text = string.Empty;
+            RichAmount.Clear();
+            ComboBank.Text = string.Empty;
         }
 
         #endregion

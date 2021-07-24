@@ -20,14 +20,12 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISupplierService _supplierService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
-        private readonly IStockService _stockService;
 
         #region Constructor
         public SupplierForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, ISupplierService supplierService, 
-            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
-            IStockService stockService)
+            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
@@ -38,7 +36,6 @@ namespace GrocerySupplyManagementApp.Forms
             _supplierService = supplierService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
-            _stockService = stockService;
         }
 
         #endregion
@@ -94,6 +91,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var date = DateTime.Now;
                 var supplier = new Supplier
                 {
                     SupplierId = RichSupplierId.Text,
@@ -102,7 +100,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     Email = RichEmail.Text,
                     Owner = RichOwner.Text,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _supplierService.AddSupplier(supplier);
@@ -135,7 +134,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Owner = RichOwner.Text,
                     Address = RichAddress.Text,
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                    Email = RichEmail.Text
+                    Email = RichEmail.Text,
+                    UpdatedDate = DateTime.Now
                 }); 
 
                 DialogResult result = MessageBox.Show(RichSupplierName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
@@ -169,9 +169,10 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var fiscalYear = _fiscalYearService.GetFiscalYear();
+                var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDate = fiscalYear.StartingDate,
+                    EndOfDay = fiscalYear.StartingDate,
                     BillNo = TxtBillNo.Text,
                     SupplierId = RichSupplierId.Text,
                     Action = Constants.PAYMENT,
@@ -186,7 +187,8 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = 0.0m,
                     DueAmount = 0.0m,
                     ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
                 _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -197,15 +199,17 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
-                        EndOfDate = fiscalYear.StartingDate,
+                        EndOfDay = fiscalYear.StartingDate,
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastUserTransaction.Id,
                         Action = '0',
                         Debit = 0.0m,
                         Credit = Convert.ToDecimal(RichAmount.Text),
                         Narration = RichSupplierId.Text + " - " + RichSupplierName.Text,
-                        Date = DateTime.Now
+                        AddedDate = date,
+                        UpdatedDate = date
                     };
+
                     _bankTransactionService.AddBankTransaction(bankTransaction);
                 }
 
@@ -293,10 +297,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridSupplierList.Columns["Id"].Visible = false;
 
-            DataGridSupplierList.Columns["EndOfDate"].HeaderText = "Date";
-            DataGridSupplierList.Columns["EndOfDate"].Width = 100;
-            DataGridSupplierList.Columns["EndOfDate"].DisplayIndex = 0;
-            DataGridSupplierList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridSupplierList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridSupplierList.Columns["EndOfDay"].Width = 100;
+            DataGridSupplierList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridSupplierList.Columns["Action"].HeaderText = "Description";
             DataGridSupplierList.Columns["Action"].Width = 100;
@@ -336,25 +339,6 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void EnableFields(bool option = true)
-        {
-            RichSupplierName.Enabled = option;
-            RichOwner.Enabled = option;
-            RichAddress.Enabled = option;
-            RichContactNumber.Enabled = option;
-            RichEmail.Enabled = option;
-        }
-
-        private void ClearAllFields()
-        {
-            RichSupplierId.Clear();
-            RichSupplierName.Clear();
-            RichOwner.Clear();
-            RichAddress.Clear();
-            RichContactNumber.Clear();
-            RichEmail.Clear();
-        }
-
         private void LoadSupplierTransaction()
         {
             var balance = _userTransactionService.GetSupplierTotalBalance(RichSupplierId.Text);
@@ -373,6 +357,25 @@ namespace GrocerySupplyManagementApp.Forms
             var bindingList = new BindingList<SupplierTransactionView>(supplierTransactionViews);
             var source = new BindingSource(bindingList, null);
             DataGridSupplierList.DataSource = source;
+        }
+
+        private void EnableFields(bool option = true)
+        {
+            RichSupplierName.Enabled = option;
+            RichOwner.Enabled = option;
+            RichAddress.Enabled = option;
+            RichContactNumber.Enabled = option;
+            RichEmail.Enabled = option;
+        }
+
+        private void ClearAllFields()
+        {
+            RichSupplierId.Clear();
+            RichSupplierName.Clear();
+            RichOwner.Clear();
+            RichAddress.Clear();
+            RichContactNumber.Clear();
+            RichEmail.Clear();
         }
 
         public void PopulateSupplier(string supplierName)

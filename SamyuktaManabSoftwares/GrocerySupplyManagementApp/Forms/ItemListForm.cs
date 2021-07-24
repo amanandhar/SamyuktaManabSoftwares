@@ -53,6 +53,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridItemList.Columns["Id"].Visible = false;
             DataGridItemList.Columns["Unit"].Visible = false;
+            DataGridItemList.Columns["Threshold"].Visible = false;
+            DataGridItemList.Columns["AddedDate"].Visible = false;
+            DataGridItemList.Columns["UpdatedDate"].Visible = false;
 
             DataGridItemList.Columns["Code"].HeaderText = "Code";
             DataGridItemList.Columns["Code"].Width = 100;

@@ -21,9 +21,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
-                "[Id], [EndOfDate], [MemberId], [InvoiceNo], " +
-                "[ItemId], [ItemSubCode], [ProfitAmount], [Quantity], [Price], " +
-                "[Date] " +
+                "[Id], [EndOfDay], [MemberId], [InvoiceNo], " +
+                "[ItemId], [ItemSubCode], [Profit], [Quantity], [Price], " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
             try
@@ -40,15 +40,15 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var soldItem = new SoldItem
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
                                     MemberId = reader["MemberId"].ToString(),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                    ItemSubCode = reader["ItemSubCode"].ToString(),
-                                    ProfitAmount = Convert.ToDecimal(reader["ProfitAmount"].ToString()),
+                                    Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
-                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
+                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 soldItems.Add(soldItem);
@@ -76,7 +76,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "a.[Id], c.[Code], c.[Name], c.[Brand], c.[Unit], a.[Quantity], a.[Price], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
-                "b.[Date] " +
+                "b.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " b " +
                 "ON a.[InvoiceNo] = b.[InvoiceNo] " +
@@ -109,7 +109,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
-                                    Date = Convert.ToDateTime(reader["Date"].ToString())
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
 
                                 soldItemViewList.Add(soldItemView);
@@ -145,7 +145,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND ut.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND ut.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -192,7 +192,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND si.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND si.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -263,11 +263,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDate], [MemberId], [InvoiceNo], [ItemId], [ItemSubCode], [ProfitAmount], [Quantity], [Price], [Date] " +
+                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Quantity], [Price], [AddedDate], [UpdatedDate]  " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDate, @MemberId, @InvoiceNo, @ItemId, @ItemSubCode, @ProfitAmount, @Quantity, @Price, @Date " +
+                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Quantity, @Price, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -276,15 +276,15 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@EndOfDate", soldItem.EndOfDate);
+                        command.Parameters.AddWithValue("@EndOfDay", soldItem.EndOfDay);
                         command.Parameters.AddWithValue("@MemberId", soldItem.MemberId);
                         command.Parameters.AddWithValue("@InvoiceNo", soldItem.InvoiceNo);
                         command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
-                        command.Parameters.AddWithValue("@ItemSubCode", soldItem.ItemSubCode);
-                        command.Parameters.AddWithValue("@ProfitAmount", soldItem.ProfitAmount);
+                        command.Parameters.AddWithValue("@Profit", soldItem.Profit);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
-                        command.Parameters.AddWithValue("@Date", soldItem.Date);
+                        command.Parameters.AddWithValue("@AddedDate", soldItem.AddedDate);
+                        command.Parameters.AddWithValue("@UpdatedDate", soldItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }

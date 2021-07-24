@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Windows.Forms;
 
@@ -50,16 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void DashboardForm_Load(object sender, EventArgs e)
         {
-
-            RichBoxDateInAd.Text = "Date in AD: " + DateTime.Today.ToString("MM/dd/yyyy");
-            RichBoxDateInAd.SelectionAlignment = HorizontalAlignment.Center;
-            RichBoxDateInBs.Text = "Date in BS: " + DateTime.Today.ToString("MM/dd/yyyy");
-            RichBoxDateInBs.SelectionAlignment = HorizontalAlignment.Center;
-
-            RichBoxUsername.Text = "User Name: Bhai Raja Manandhar";
-            RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
-            RichBoxFiscalYear.Text = "Fiscal Year: " + _fiscalYearService.GetFiscalYear().Year;
-            RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
+            LoadFiscalYear();
         }
         #endregion
 
@@ -107,15 +99,15 @@ namespace GrocerySupplyManagementApp.Forms
             SupplierForm supplierForm = new SupplierForm(_fiscalYearService, _bankService,
                 _bankTransactionService, _itemService, 
                 _supplierService, _purchasedItemService, 
-                _userTransactionService, _stockService
-                );
+                _userTransactionService);
             supplierForm.Show();
         }
 
         private void BtnItemMgmt_Click(object sender, EventArgs e)
         {
             PricedItemForm pricedItemForm = new PricedItemForm(_itemService, _pricedItemService, 
-                _purchasedItemService, _soldItemService, this);
+                _purchasedItemService, _soldItemService,
+                _stockService, this);
             pricedItemForm.Show();
         }
 
@@ -168,12 +160,30 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
+                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    var fiscalYear = _fiscalYearService.GetFiscalYear();
-                    //var currentEOD = _endOfDateService.GetEndOfDay(fiscalYear.StartingDate);
-                    //var nextEOD = _endOfDateService.GetNextEndOfDay(currentEOD.Id);
+                    var currentFiscalYear = _fiscalYearService.GetFiscalYear();
+                    var currentEOD = _endOfDateService.GetEndOfDay(currentFiscalYear.StartingDate);
+                    var nextEOD = _endOfDateService.GetNextEndOfDay(currentEOD.Id);
+
+                    var newFiscalYear = new FiscalYear
+                    {
+                        StartingInvoiceNo = currentFiscalYear.StartingInvoiceNo,
+                        StartingBillNo = currentFiscalYear.StartingBillNo,
+                        StartingDate = nextEOD.DateInBs,
+                        Year = currentFiscalYear.Year,
+                        UpdatedDate = DateTime.Now
+                    };
+
+                    if(_fiscalYearService.UpdateFiscalYear(newFiscalYear))
+                    {
+                        LoadFiscalYear();
+                    }
+                }
+                else
+                {
+                    return;
                 }
             }
             catch (Exception ex)
@@ -183,5 +193,22 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Helper Methods
+        private void LoadFiscalYear()
+        {
+            var fiscalYear = _fiscalYearService.GetFiscalYear();
+            var eod = _endOfDateService.GetEndOfDay(fiscalYear.StartingDate);
+
+            RichBoxDateInAd.Text = "Date in AD: " + eod.DateInAd.ToString("yyyy-MM-dd");
+            RichBoxDateInAd.SelectionAlignment = HorizontalAlignment.Center;
+            RichBoxDateInBs.Text = "Date in BS: " + eod.DateInBs;
+            RichBoxDateInBs.SelectionAlignment = HorizontalAlignment.Center;
+
+            RichBoxUsername.Text = "User Name: Bhai Raja Manandhar";
+            RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
+            RichBoxFiscalYear.Text = "Fiscal Year: " + fiscalYear.Year;
+            RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
+        }
+        #endregion
     }
 }

@@ -101,13 +101,12 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = RichItemCode.Text,
                     ItemName = RichItemName.Text,
                     ItemBrand = RichItemBrand.Text,
-                    ItemSubCode = RichItemSubCode.Text,
-                    ProfitAmount = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichProfitAmount.Text),
+                    Profit = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichProfitAmount.Text),
                     Unit = RichItemUnit.Text,
                     ItemPrice = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichItemPrice.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
                     Total = (string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichItemPrice.Text)),
-                    Date = DateTime.Now
+                    AddedDate = DateTime.Now
                 });
 
                 LoadItems(_soldItemViewList);
@@ -128,7 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var fiscalYear = _fiscalYearService.GetFiscalYear();
             RichInvoiceNo.Text = _userTransactionService.GetInvoiceNo();
-            RichInvoiceDate.Text = fiscalYear.StartingDate.ToString("yyyy/MM/dd");
+            RichInvoiceDate.Text = fiscalYear.StartingDate;
 
             BtnShowMember.Enabled = true;
             BtnShowItem.Enabled = true;
@@ -138,19 +137,20 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var date = DateTime.Now;
                 _soldItemViewList.ForEach(x =>
                 {
                     var soldItem = new SoldItem
                     {
-                        EndOfDate = Convert.ToDateTime(RichInvoiceDate.Text.Trim()),
+                        EndOfDay = RichInvoiceDate.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
                         InvoiceNo = RichInvoiceNo.Text.Trim(),
                         ItemId = _itemService.GetItem(x.ItemCode).Id,
-                        ItemSubCode = x.ItemSubCode,
-                        ProfitAmount = x.ProfitAmount,
+                        Profit = x.Profit,
                         Quantity = x.Quantity,
                         Price = x.ItemPrice,
-                        Date = DateTime.Now
+                        AddedDate = x.AddedDate,
+                        UpdatedDate = x.AddedDate
                     };
 
                     _soldItemService.AddSoldItem(soldItem);
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var userTransaction = new UserTransaction
                 {
                     InvoiceNo = RichInvoiceNo.Text.Trim(),
-                    EndOfDate = Convert.ToDateTime(RichInvoiceDate.Text.Trim()),
+                    EndOfDay = RichInvoiceDate.Text.Trim(),
                     MemberId = RichMemberId.Text.Trim(),
                     Action = Constants.SALES,
                     ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
@@ -172,7 +172,8 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = Convert.ToDecimal(RichTextDeliveryCharge.Text.Trim()),
                     DueAmount = Convert.ToDecimal(RichGrandTotal.Text.Trim()),
                     ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.0m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _userTransactionService.AddUserTransaction(userTransaction);
@@ -225,9 +226,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSavePayment_Click(object sender, EventArgs e)
         {
+            var date = DateTime.Now;
             var userTransaction = new UserTransaction
             {
-                EndOfDate = Convert.ToDateTime(RichInvoiceDate.Text),
+                EndOfDay = RichInvoiceDate.Text,
                 MemberId = RichMemberId.Text,
                 Action = Constants.RECEIPT,
                 ActionType = Constants.CASH,
@@ -240,7 +242,8 @@ namespace GrocerySupplyManagementApp.Forms
                 DeliveryCharge = 0.0m,
                 DueAmount = 0.0m,
                 ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
-                Date = DateTime.Now
+                AddedDate = date,
+                UpdatedDate = date
             };
 
             _userTransactionService.AddUserTransaction(userTransaction);
@@ -329,9 +332,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridPosSoldItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridSoldItemList.Columns["Id"].Visible = false;
-            DataGridSoldItemList.Columns["ItemSubCode"].Visible = false;
-            DataGridSoldItemList.Columns["ProfitAmount"].Visible = false;
-            DataGridSoldItemList.Columns["Date"].Visible = false;
+            DataGridSoldItemList.Columns["Profit"].Visible = false;
+            DataGridSoldItemList.Columns["AddedDate"].Visible = false;
 
             DataGridSoldItemList.Columns["ItemCode"].HeaderText = "Code";
             DataGridSoldItemList.Columns["ItemCode"].Width = 70;
@@ -374,6 +376,13 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
+        private void LoadItems(List<SoldItemView> soldItemGrids)
+        {
+            var bindingList = new BindingList<SoldItemView>(soldItemGrids);
+            var source = new BindingSource(bindingList, null);
+            DataGridSoldItemList.DataSource = source;
+        }
+
         private void ClearAllMemberFields()
         {
             RichMemberId.Clear();
@@ -467,7 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
                 RichItemStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
                 RichItemUnit.Text = item.Unit;
-                RichProfitAmount.Text = pricedItem.ProfitAmount.ToString();
+                RichProfitAmount.Text = pricedItem.Profit.ToString();
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }
@@ -475,13 +484,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
-        }
-
-        private void LoadItems(List<SoldItemView> soldItemGrids)
-        {
-            var bindingList = new BindingList<SoldItemView>(soldItemGrids);
-            var source = new BindingSource(bindingList, null);
-            DataGridSoldItemList.DataSource = source;
         }
 
         private void LoadPosDetails(SoldItemView soldItemGrid = null)

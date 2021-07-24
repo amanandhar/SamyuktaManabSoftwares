@@ -75,7 +75,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var purchasedItemView = new PurchasedItemView
                 {
                     Id = _purchasedItemViewList.Count + 1,
-                    Date = DateTime.Now.ToString("yyyy-MM-dd"),
+                    EndOfDay = _fiscalYearService.GetFiscalYear().StartingDate,
                     BillNo = RichBillNo.Text,
                     Code = RichItemCode.Text,
                     Name = RichItemName.Text,
@@ -103,15 +103,17 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var fiscalYear = _fiscalYearService.GetFiscalYear();
+                var date = DateTime.Now;
                 List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
                 {
-                    EndOfDate = fiscalYear.StartingDate,
+                    EndOfDay = fiscalYear.StartingDate,
                     SupplierId = _supplierForm.GetSupplierId(),
                     BillNo = item.BillNo,
                     ItemId = _itemService.GetItem(item.Code).Id,
                     Quantity = item.Quantity,
                     Price = item.Price,
-                    Date = DateTime.Now,
+                    AddedDate = date,
+                    UpdatedDate = date
                 }).ToList();
 
                 purchasedItems.ForEach(purchasedItem =>
@@ -121,7 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDate = Convert.ToDateTime(fiscalYear.StartingDate),
+                    EndOfDay = fiscalYear.StartingDate,
                     BillNo = RichBillNo.Text,
                     SupplierId = _supplierForm.GetSupplierId(),
                     Action = Constants.PURCHASE,
@@ -135,7 +137,8 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = 0.0m,
                     DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
                     ReceivedAmount = 0.0m,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _userTransactionService.AddUserTransaction(userTransaction);
@@ -182,9 +185,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridPurchaseList.Columns["Id"].Visible = false;
 
-            DataGridPurchaseList.Columns["Date"].HeaderText = "Date";
-            DataGridPurchaseList.Columns["Date"].Width = 80;
-            DataGridPurchaseList.Columns["Date"].DisplayIndex = 0;
+            DataGridPurchaseList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridPurchaseList.Columns["EndOfDay"].Width = 80;
+            DataGridPurchaseList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridPurchaseList.Columns["BillNo"].HeaderText = "Bill No";
             DataGridPurchaseList.Columns["BillNo"].Width = 80;
@@ -233,6 +236,13 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
+        private void LoadPurchasedItemViewList(List<PurchasedItemView> purchasedItemViewList)
+        {
+            var bindingList = new BindingList<PurchasedItemView>(purchasedItemViewList);
+            var source = new BindingSource(bindingList, null);
+            DataGridPurchaseList.DataSource = source;
+        }
+
         private void EnableFields(bool option)
         {
             BtnShowItem.Enabled = option;
@@ -254,18 +264,11 @@ namespace GrocerySupplyManagementApp.Forms
             RichPurchasePrice.Clear();
         }
 
-        private void LoadPurchasedItemViewList(List<PurchasedItemView> purchasedItemViewList)
-        {
-            var bindingList = new BindingList<PurchasedItemView>(purchasedItemViewList);
-            var source = new BindingSource(bindingList, null);
-            DataGridPurchaseList.DataSource = source;
-        }
-
         private void LoadForm(string supplierId, string billNo)
         {
             var purchasedItemViewList = _purchasedItemService.GetPurchasedItemBySupplierAndBill(supplierId, billNo).Select(purchasedItem => new PurchasedItemView
             {
-                Date = purchasedItem.EndOfDate.ToString("yyyy-MM-dd"),
+                EndOfDay = purchasedItem.EndOfDay,
                 BillNo = purchasedItem.BillNo,
                 Code = _itemService.GetItem(purchasedItem.ItemId).Code,
                 Name = _itemService.GetItem(purchasedItem.ItemId).Name,

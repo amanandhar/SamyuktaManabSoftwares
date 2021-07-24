@@ -58,7 +58,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnBalanceSheetForm_Click(object sender, EventArgs e)
         {
             BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_bankTransactionService,
-                _purchasedItemService, _soldItemService,
                 _userTransactionService, _stockService);
             balanceSheetForm.Show();
         }

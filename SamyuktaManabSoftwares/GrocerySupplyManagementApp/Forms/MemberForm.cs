@@ -69,6 +69,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var date = DateTime.Now;
                 var member = new Member
                 {
                     MemberId = RichMemberId.Text,
@@ -77,7 +78,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     Email = RichEmail.Text,
                     AccountNo = RichAccountNumber.Text,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _memberService.AddMember(member);
@@ -112,7 +114,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Address = RichAddress.Text,
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     Email = RichEmail.Text,
-                    AccountNo = RichAccountNumber.Text
+                    AccountNo = RichAccountNumber.Text,
+                    UpdatedDate = DateTime.Now
                 };
 
                 _memberService.UpdateMember(memberId, member);
@@ -163,9 +166,10 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var fiscalYearDetail = _fiscalYearService.GetFiscalYear();
+                var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDate = fiscalYearDetail.StartingDate,
+                    EndOfDay = fiscalYearDetail.StartingDate,
                     MemberId = RichMemberId.Text,
                     Action = Constants.RECEIPT,
                     ActionType = ComboReceipt.Text,
@@ -179,7 +183,8 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = 0.0m,
                     DueAmount = 0.0m,
                     ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
                 _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -189,14 +194,15 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
-                        EndOfDate = fiscalYearDetail.StartingDate,
+                        EndOfDay = fiscalYearDetail.StartingDate,
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastPosTransaction.Id,
                         Action = '1',
                         Debit = Convert.ToDecimal(RichAmount.Text),
                         Credit = 0.0m,
                         Narration = RichMemberId.Text + " - " + RichName.Text,
-                        Date = DateTime.Now
+                        AddedDate = date,
+                        UpdatedDate = date
                     };
 
                     _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -257,10 +263,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridMemberList.Columns["Id"].Visible = false;
 
-            DataGridMemberList.Columns["EndOfDate"].HeaderText = "Date";
-            DataGridMemberList.Columns["EndOfDate"].Width = 100;
-            DataGridMemberList.Columns["EndOfDate"].DisplayIndex = 0;
-            DataGridMemberList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridMemberList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridMemberList.Columns["EndOfDay"].Width = 100;
+            DataGridMemberList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridMemberList.Columns["Action"].HeaderText = "Description";
             DataGridMemberList.Columns["Action"].Width = 100;
@@ -299,6 +304,20 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
+        private void LoadMemberTransactions()
+        {
+            var memberId = RichMemberId.Text;
+
+            List<MemberTransactionView> memberTransactionViews = _userTransactionService.GetMemberTransactions(memberId).ToList();
+
+            RichBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
+            TxtBalanceStatus.Text = Convert.ToDecimal(RichBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
+
+            var bindingList = new BindingList<MemberTransactionView>(memberTransactionViews);
+            var source = new BindingSource(bindingList, null);
+            DataGridMemberList.DataSource = source;
+        }
+
         private void EnableFields(bool option = true)
         {
             RichName.Enabled = option;
@@ -320,20 +339,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboReceipt.Text = string.Empty;
             ComboBank.Text = string.Empty;
             RichAmount.Clear();
-        }
-
-        private void LoadMemberTransactions()
-        {
-            var memberId = RichMemberId.Text;
-
-            List<MemberTransactionView> memberTransactionViews = _userTransactionService.GetMemberTransactions(memberId).ToList();
-
-            RichBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
-            TxtBalanceStatus.Text = Convert.ToDecimal(RichBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
-
-            var bindingList = new BindingList<MemberTransactionView>(memberTransactionViews);
-            var source = new BindingSource(bindingList, null);
-            DataGridMemberList.DataSource = source;
         }
 
         public void PopulateMember(string memberId)

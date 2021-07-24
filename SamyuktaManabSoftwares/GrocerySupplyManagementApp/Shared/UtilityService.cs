@@ -41,7 +41,7 @@ namespace GrocerySupplyManagementApp.Shared
 
                 var stockView = new StockView
                 {
-                    EndOfDate = stock.EndOfDate,
+                    EndOfDay = stock.EndOfDay,
                     Type = stock.Type,
                     ItemCode = stock.ItemCode,
                     ItemName = stock.ItemName,
@@ -50,7 +50,7 @@ namespace GrocerySupplyManagementApp.Shared
                     PurchasePrice = stock.PurchasePrice,
                     StockQuantity = stock.StockQuantity,
                     TotalPurchasePrice = stock.TotalPurchasePrice,
-                    Date = stock.Date
+                    AddedDate = stock.AddedDate
                 };
 
                 if (index == 0 || itemCode != stock.ItemCode)

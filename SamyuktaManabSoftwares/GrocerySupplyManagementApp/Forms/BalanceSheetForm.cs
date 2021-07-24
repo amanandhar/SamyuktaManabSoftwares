@@ -10,21 +10,16 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class BalanceSheetForm : Form
     {
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
 
         #region Constructor
-        public BalanceSheetForm(IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService, 
-            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
+        public BalanceSheetForm(IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
             IStockService stockService)
         {
             InitializeComponent();
 
             _bankTransactionService = bankTransactionService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
         }
@@ -77,12 +72,12 @@ namespace GrocerySupplyManagementApp.Forms
                 var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
                 var bankAccount = _bankTransactionService.GetTotalBalance();
 
-                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.Date);
+                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var stockViewList = UtilityService.CalculateStock(stocks.ToList());
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
-                    .Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault())
+                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();
-                var stockValue = Math.Round(latestStockView.Sum(x => x.StockValue), 2);
+                var stockValue = latestStockView.Count > 0 ? Math.Round(latestStockView.Sum(x => x.StockValue), 2) : 0.00m;
 
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance();
                 var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.00m;

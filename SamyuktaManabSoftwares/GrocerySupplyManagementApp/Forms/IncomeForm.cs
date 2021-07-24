@@ -55,9 +55,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddIncome_Click(object sender, EventArgs e)
         {
+            var date = DateTime.Now;
             var userTransaction = new UserTransaction
             {
-                EndOfDate = _fiscalYearService.GetFiscalYear().StartingDate,
+                EndOfDay = _fiscalYearService.GetFiscalYear().StartingDate,
                 Action = Constants.RECEIPT,
                 ActionType = Constants.CHEQUE,
                 Bank = ComboBank.Text,
@@ -71,7 +72,8 @@ namespace GrocerySupplyManagementApp.Forms
                 DeliveryCharge = 0.0m,
                 DueAmount = 0.0m,
                 ReceivedAmount = Convert.ToDecimal(RichAddAmount.Text),
-                Date = DateTime.Now
+                AddedDate = date,
+                UpdatedDate = date
             };
 
             if(_userTransactionService.AddUserTransaction(userTransaction) != null)
@@ -80,14 +82,15 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                 var bankTransaction = new BankTransaction
                 {
-                    EndOfDate = _fiscalYearService.GetFiscalYear().StartingDate,
+                    EndOfDay = _fiscalYearService.GetFiscalYear().StartingDate,
                     BankId = Convert.ToInt64(selectedItem.Id),
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',
                     Debit = Convert.ToDecimal(RichAddAmount.Text),
                     Credit = 0.0m,
                     Narration = ComboAddIncome.Text,
-                    Date = DateTime.Now
+                    AddedDate = date,
+                    UpdatedDate = date
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -158,10 +161,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridIncomeList.Columns["Id"].Visible = false;
 
-            DataGridIncomeList.Columns["EndOfDate"].HeaderText = "Date";
-            DataGridIncomeList.Columns["EndOfDate"].Width = 75;
-            DataGridIncomeList.Columns["EndOfDate"].DisplayIndex = 0;
-            DataGridIncomeList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridIncomeList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridIncomeList.Columns["EndOfDay"].Width = 75;
+            DataGridIncomeList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
             DataGridIncomeList.Columns["InvoiceNo"].Width = 100;
@@ -184,10 +186,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["Quantity"].DisplayIndex = 5;
             DataGridIncomeList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridIncomeList.Columns["ProfitAmount"].HeaderText = "Profit";
-            DataGridIncomeList.Columns["ProfitAmount"].Width = 90;
-            DataGridIncomeList.Columns["ProfitAmount"].DisplayIndex = 6;
-            DataGridIncomeList.Columns["ProfitAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridIncomeList.Columns["Profit"].HeaderText = "Profit";
+            DataGridIncomeList.Columns["Profit"].Width = 90;
+            DataGridIncomeList.Columns["Profit"].DisplayIndex = 6;
+            DataGridIncomeList.Columns["Profit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridIncomeList.Columns["Total"].HeaderText = "Total";
             DataGridIncomeList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;

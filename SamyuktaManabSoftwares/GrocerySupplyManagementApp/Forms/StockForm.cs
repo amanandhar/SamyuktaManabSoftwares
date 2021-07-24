@@ -81,12 +81,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void DataGridStockList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            DataGridStockList.Columns["Date"].Visible = false;
+            DataGridStockList.Columns["AddedDate"].Visible = false;
 
-            DataGridStockList.Columns["EndOfDate"].HeaderText = "Date";
-            DataGridStockList.Columns["EndOfDate"].Width = 100;
-            DataGridStockList.Columns["EndOfDate"].DisplayIndex = 0;
-            DataGridStockList.Columns["EndOfDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            DataGridStockList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridStockList.Columns["EndOfDay"].Width = 100;
+            DataGridStockList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridStockList.Columns["Type"].HeaderText = "Type";
             DataGridStockList.Columns["Type"].Width = 100;
@@ -173,10 +172,10 @@ namespace GrocerySupplyManagementApp.Forms
             TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(filter).ToString();
             TxtTotalStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
 
-            var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.Date);
+            var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var stockViewList = UtilityService.CalculateStock(stocks.ToList());
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
-                .Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault())
+                .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
             TxtTotalValue.Text = Math.Round(latestStockView.Sum(x => x.StockValue), 2).ToString();
 
@@ -191,6 +190,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
     }
 }

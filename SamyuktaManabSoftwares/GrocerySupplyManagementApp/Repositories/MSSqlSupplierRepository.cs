@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [Counter], [SupplierId], [Name], " +
                 "[Address], [ContactNo], [Email], [Owner], " +
-                "[Date] " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SUPPLIER + " " +
                 "ORDER BY [SupplierId] ";
             try
@@ -46,7 +46,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
                                     Email = reader["Email"].ToString(),
                                     Owner = reader["Owner"].ToString(),
-                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
+                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 suppliers.Add(supplier);
@@ -68,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [Counter], [SupplierId], [Name], " +
                 "[Address], [ContactNo], [Email], [Owner], " +
-                "[Date] " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SUPPLIER + " " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] = @SupplierId ";
@@ -93,7 +94,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                 supplier.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
                                 supplier.Email = reader["Email"].ToString();
                                 supplier.Owner = reader["Owner"].ToString();
-                                supplier.Date = Convert.ToDateTime(reader["Date"].ToString());
+                                supplier.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                supplier.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -142,11 +144,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SUPPLIER + " " +
                     "( " +
-                        "[Counter], [SupplierId], [Name], [Address], [ContactNo], [Email], [Owner], [Date] " +
+                        "[Counter], [SupplierId], [Name], [Address], [ContactNo], [Email], [Owner], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "(  " +
-                        "@Counter, @SupplierId, @Name, @Address, @ContactNo, @Email, @Owner, @Date " +
+                        "@Counter, @SupplierId, @Name, @Address, @ContactNo, @Email, @Owner, @AddedDate, @UpdatedDate " +
                     ")";
 
             try
@@ -163,7 +165,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ContactNo", supplier.ContactNo);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
                         command.Parameters.AddWithValue("@Owner", supplier.Owner);
-                        command.Parameters.AddWithValue("@Date", supplier.Date);
+                        command.Parameters.AddWithValue("@AddedDate", supplier.AddedDate);
+                        command.Parameters.AddWithValue("@UpdatedDate", supplier.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -186,7 +189,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Address] = @Address, " +
                 "[ContactNo] = @ContactNo, " +
                 "[Email] = @Email, " +
-                "[Owner] = @Owner " +
+                "[Owner] = @Owner, " +
+                "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] = @SupplierId ";
 
@@ -203,6 +207,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ContactNo", supplier.ContactNo);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
                         command.Parameters.AddWithValue("@Owner", supplier.Owner);
+                        command.Parameters.AddWithValue("@UpdatedDate", supplier.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }

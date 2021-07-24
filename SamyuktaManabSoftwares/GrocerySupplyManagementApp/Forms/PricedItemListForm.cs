@@ -26,11 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void PricedItemListForm_Load(object sender, EventArgs e)
         {
-            var pricedItemViewList = _pricedItemService.GetPricedItemViewList();
-
-            var bindingList = new BindingList<PricedItemView>(pricedItemViewList.ToList());
-            var source = new BindingSource(bindingList, null);
-            DataGridPricedItemList.DataSource = source;
+            LoadPricedItems();
         }
         #endregion
 
@@ -81,6 +77,17 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridPricedItemList.RowHeadersWidth = 50;
                 DataGridPricedItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadPricedItems()
+        {
+            var pricedItemViewList = _pricedItemService.GetPricedItemViewList();
+
+            var bindingList = new BindingList<PricedItemView>(pricedItemViewList.ToList());
+            var source = new BindingSource(bindingList, null);
+            DataGridPricedItemList.DataSource = source;
         }
         #endregion
     }

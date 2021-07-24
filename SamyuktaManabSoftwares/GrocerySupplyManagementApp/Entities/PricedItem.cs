@@ -8,12 +8,13 @@ namespace GrocerySupplyManagementApp.Entities
         public long ItemId { get; set; }
         public string ItemSubCode { get; set; }
         public decimal Price { get; set; }
-        public long Quantity { get; set; }
+        public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal ProfitPercent { get; set; }
-        public decimal ProfitAmount { get; set; }
+        public decimal Profit { get; set; }
         public decimal SalesPrice { get; set; }
         public decimal SalesPricePerUnit { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime AddedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

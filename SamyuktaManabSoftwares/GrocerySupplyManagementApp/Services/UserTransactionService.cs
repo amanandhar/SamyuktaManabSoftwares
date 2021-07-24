@@ -68,7 +68,7 @@ namespace GrocerySupplyManagementApp.Services
                 if (string.IsNullOrWhiteSpace(lastInvoiceNo))
                 {
                     var fiscalYear = _fiscalYearRepository.GetFiscalYear();
-                    invoiceNo = fiscalYear.InvoiceNo;
+                    invoiceNo = fiscalYear.StartingInvoiceNo;
                 }
                 else
                 {

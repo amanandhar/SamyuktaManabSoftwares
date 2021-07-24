@@ -3,7 +3,7 @@
     public class PurchasedItemView
     {
         public long Id { get; set; }
-        public string Date { get; set; }
+        public string EndOfDay { get; set; }
         public string BillNo { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }

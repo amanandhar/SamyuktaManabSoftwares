@@ -93,7 +93,8 @@ namespace GrocerySupplyManagementApp.Forms
                         Code = RichItemCode.Text,
                         Name = RichItemName.Text,
                         Brand = RichItemBrand.Text,
-                        Unit = ComboUnit.Text
+                        Unit = ComboUnit.Text,
+                        UpdatedDate = DateTime.Now
                     };
 
                     _itemService.UpdateItem(selectedItemId, item);
@@ -118,6 +119,10 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridItemList.Columns["Id"].Visible = false;
+            DataGridItemList.Columns["Unit"].Visible = false;
+            DataGridItemList.Columns["Threshold"].Visible = false;
+            DataGridItemList.Columns["AddedDate"].Visible = false;
+            DataGridItemList.Columns["UpdatedDate"].Visible = false;
 
             DataGridItemList.Columns["Code"].HeaderText = "Code";
             DataGridItemList.Columns["Code"].Width = 100;
@@ -141,6 +146,14 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
+        private void LoadItems()
+        {
+            List<Item> items = _itemService.GetItems().ToList();
+            var bindingList = new BindingList<Item>(items);
+            var source = new BindingSource(bindingList, null);
+            DataGridItemList.DataSource = source;
+        }
+
         private void EnableFields(Action action)
         {
             if (action == Action.Show)
@@ -195,14 +208,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemName.Clear();
             RichItemBrand.Clear();
             ComboUnit.Text = string.Empty;
-        }
-
-        private void LoadItems()
-        {
-            List<Item> items = _itemService.GetItems().ToList();
-            var bindingList = new BindingList<Item>(items);
-            var source = new BindingSource(bindingList, null);
-            DataGridItemList.DataSource = source;
         }
 
         public void PopulateItem(long itemId)

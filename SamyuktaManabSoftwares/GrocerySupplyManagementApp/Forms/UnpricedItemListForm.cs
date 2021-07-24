@@ -26,11 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void UnpricedItemListForm_Load(object sender, EventArgs e)
         {
-            var unpricedItemViewList = _pricedItemService.GetUnpricedItemViewList();
-
-            var bindingList = new BindingList<UnpricedItemView>(unpricedItemViewList.ToList());
-            var source = new BindingSource(bindingList, null);
-            DataGridUnpricedItemList.DataSource = source;
+            LoadUnpricedItems();
         }
         #endregion
 
@@ -77,6 +73,17 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridUnpricedItemList.RowHeadersWidth = 50;
                 DataGridUnpricedItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadUnpricedItems()
+        {
+            var unpricedItemViewList = _pricedItemService.GetUnpricedItemViewList();
+
+            var bindingList = new BindingList<UnpricedItemView>(unpricedItemViewList.ToList());
+            var source = new BindingSource(bindingList, null);
+            DataGridUnpricedItemList.DataSource = source;
         }
         #endregion
     }

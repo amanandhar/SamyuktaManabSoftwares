@@ -4,7 +4,7 @@ namespace GrocerySupplyManagementApp.DTOs
 {
     public class Stock
     {
-        public DateTime EndOfDate { get; set; }
+        public string EndOfDay { get; set; }
         public string Type { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
@@ -13,6 +13,6 @@ namespace GrocerySupplyManagementApp.DTOs
         public int StockQuantity { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal TotalPurchasePrice { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime AddedDate { get; set; }
     }
 }

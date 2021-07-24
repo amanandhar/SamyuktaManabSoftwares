@@ -21,9 +21,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var purchasedItems = new List<PurchasedItem>();
             var query = @"SELECT " +
-                "[Id], [EndOfDate], [SupplierId], [BillNo], " +
+                "[Id], [EndOfDay], [SupplierId], [BillNo], " +
                 "[ItemId], [Quantity], [Price], " +
-                "[Date] " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "ORDER BY Id ";
             try
@@ -40,13 +40,14 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var purchasedItem = new PurchasedItem
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
                                     SupplierId = reader["SupplierId"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
-                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
+                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 purchasedItems.Add(purchasedItem);
@@ -67,9 +68,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var purchasedItem = new PurchasedItem();
             var query = @"SELECT " +
-                "[Id], [EndOfDate], [SupplierId], [BillNo], " +
+                "[Id], [EndOfDay], [SupplierId], [BillNo], " +
                 "[ItemId], [Quantity], [Price], " +
-                "[Date] " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id ";
@@ -86,13 +87,14 @@ namespace GrocerySupplyManagementApp.Repositories
                             while (reader.Read())
                             {
                                 purchasedItem.Id = Convert.ToInt64(reader["Id"].ToString());
-                                purchasedItem.EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString());
+                                purchasedItem.EndOfDay = reader["EndOfDay"].ToString();
                                 purchasedItem.SupplierId = reader["SupplierId"].ToString();
                                 purchasedItem.BillNo = reader["BillNo"].ToString();
                                 purchasedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 purchasedItem.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
                                 purchasedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
-                                purchasedItem.Date = Convert.ToDateTime(reader["Date"].ToString());
+                                purchasedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                purchasedItem.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -154,12 +156,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<PurchasedItem>();
             var query = @"SELECT " +
-                "[EndOfDate], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [Date] " +
+                "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] = @SupplierId " +
                 "AND [BillNo] = @BillNo " +
-                "ORDER BY Date ";
+                "ORDER BY AddedDate ";
 
             try
             {
@@ -176,13 +178,13 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var item = new PurchasedItem()
                                 {
-                                    EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
                                     SupplierId = reader["SupplierId"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
-                                    Date = Convert.ToDateTime(reader["Date"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                 };
 
                                 items.Add(item);
@@ -252,7 +254,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND pi.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND pi.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -299,7 +301,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
             {
-                query += "AND pi.[EndOfDate] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND pi.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
             }
 
             try
@@ -369,7 +371,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new PurchasedItem();
             var query = @"SELECT " +
-                "[EndOfDate], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [Date] " +
+                "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " + 
                 "AND [ItemId] = @ItemId";
@@ -387,13 +389,13 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                item.EndOfDate = Convert.ToDateTime(reader["EndOfDate"].ToString());
+                                item.EndOfDay = reader["EndOfDay"].ToString();
                                 item.SupplierId = reader["SupplierId"].ToString();
                                 item.BillNo = reader["BillNo"].ToString();
                                 item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 item.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
                                 item.Price = Convert.ToDecimal(reader["Price"].ToString());
-                                item.Date = Convert.ToDateTime(reader["Date"].ToString());
+                                item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                             }
                         }
                     }
@@ -513,11 +515,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_PURCHASED_ITEM + " " +
                     "( " +
-                        "[EndOfDate], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [Date]" +
+                        "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDate, @SupplierId, @BillNo, @ItemId, @Quantity, @Price, @Date " +
+                        "@EndOfDay, @SupplierId, @BillNo, @ItemId, @Quantity, @Price, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -526,13 +528,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@EndOfDate", purchasedItem.EndOfDate);
+                        command.Parameters.AddWithValue("@EndOfDay", purchasedItem.EndOfDay);
                         command.Parameters.AddWithValue("@SupplierId", purchasedItem.SupplierId);
                         command.Parameters.AddWithValue("@BillNo", purchasedItem.BillNo);
                         command.Parameters.AddWithValue("@ItemId", purchasedItem.ItemId);
                         command.Parameters.AddWithValue("@Quantity", purchasedItem.Quantity);
                         command.Parameters.AddWithValue("@Price", purchasedItem.Price);
-                        command.Parameters.AddWithValue("@Date", purchasedItem.Date);
+                        command.Parameters.AddWithValue("@AddedDate", purchasedItem.AddedDate);
+                        command.Parameters.AddWithValue("@UpdatedDate", purchasedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -546,16 +549,17 @@ namespace GrocerySupplyManagementApp.Repositories
             return purchasedItem;
         }
 
-        public PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem puchasedItem)
+        public PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem purchasedItem)
         {
             string query = @"UPDATE " + Constants.TABLE_PURCHASED_ITEM + " " +
                         "SET " +
-                        "[EndOfDate] = @EndOfDate, " +
+                        "[EndOfDay] = @EndOfDay, " +
                         "[SupplierId] = @SupplierId, " +
                         "[BillNo] = @BillNo, " +
                         "[ItemId] = @ItemId, " +
                         "[Quantity] = @Quantity, " +
-                        "[Price] = @Price " +
+                        "[Price] = @Price, " +
+                        "[UpdatedDate] = @UpdatedDate " +
                         "WHERE 1 = 1 " +
                         "AND [Id] = @Id ";
 
@@ -567,12 +571,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", purchasedItemId);
-                        command.Parameters.AddWithValue("@EndOfDate", puchasedItem.EndOfDate);
-                        command.Parameters.AddWithValue("@SupplierId", puchasedItem.SupplierId);
-                        command.Parameters.AddWithValue("@BillNo", puchasedItem.BillNo);
-                        command.Parameters.AddWithValue("@ItemId", puchasedItem.ItemId);
-                        command.Parameters.AddWithValue("@Quantity", puchasedItem.Quantity);
-                        command.Parameters.AddWithValue("@Price", puchasedItem.Price);
+                        command.Parameters.AddWithValue("@EndOfDay", purchasedItem.EndOfDay);
+                        command.Parameters.AddWithValue("@SupplierId", purchasedItem.SupplierId);
+                        command.Parameters.AddWithValue("@BillNo", purchasedItem.BillNo);
+                        command.Parameters.AddWithValue("@ItemId", purchasedItem.ItemId);
+                        command.Parameters.AddWithValue("@Quantity", purchasedItem.Quantity);
+                        command.Parameters.AddWithValue("@Price", purchasedItem.Price);
+                        command.Parameters.AddWithValue("@UpdatedDate", purchasedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -583,10 +588,10 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return puchasedItem;
+            return purchasedItem;
         }
 
-        public bool DeletePurchasedItem(long puchasedItemId)
+        public bool DeletePurchasedItem(long purchasedItemId)
         {
             throw new System.NotImplementedException();
         }

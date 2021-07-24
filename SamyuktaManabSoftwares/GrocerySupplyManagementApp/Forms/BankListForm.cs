@@ -26,11 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void BankListForm_Load(object sender, EventArgs e)
         {
-            var banks = _bankService.GetBanks();
-
-            var bindingList = new BindingList<Bank>(banks.ToList());
-            var source = new BindingSource(bindingList, null);
-            DataGridBankList.DataSource = source;
+            LoadBanks();
         }
         #endregion
 
@@ -54,8 +50,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridBankDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridBankList.Columns["Id"].Visible = false;
+            DataGridBankList.Columns["AddedDate"].Visible = false;
+            DataGridBankList.Columns["UpdatedDate"].Visible = false;
 
-            //Add Columns
             DataGridBankList.Columns["Name"].HeaderText = "Bank Name";
             DataGridBankList.Columns["Name"].Width = 250;
             DataGridBankList.Columns["Name"].DisplayIndex = 0;
@@ -64,14 +61,22 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridBankList.Columns["AccountNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridBankList.Columns["AccountNo"].DisplayIndex = 1;
 
-            DataGridBankList.Columns["Date"].Visible = false;
-
             foreach (DataGridViewRow row in DataGridBankList.Rows)
             {
                 DataGridBankList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
                 DataGridBankList.RowHeadersWidth = 50;
                 DataGridBankList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadBanks()
+        {
+            var banks = _bankService.GetBanks();
+            var bindingList = new BindingList<Bank>(banks.ToList());
+            var source = new BindingSource(bindingList, null);
+            DataGridBankList.DataSource = source;
         }
         #endregion
     }
