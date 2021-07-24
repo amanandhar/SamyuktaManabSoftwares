@@ -58,21 +58,32 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            var item = new Item
+            try
             {
-                Code = RichItemCode.Text,
-                Name = RichItemName.Text,
-                Brand = RichItemBrand.Text,
-                Unit = ComboUnit.Text
-            };
+                var currentDate = DateTime.Now;
+                var item = new Item
+                {
+                    Code = RichItemCode.Text,
+                    Name = RichItemName.Text,
+                    Brand = RichItemBrand.Text,
+                    Unit = ComboUnit.Text,
+                    Threshold = Convert.ToInt32(RichThreshold.Text),
+                    AddedDate = currentDate,
+                    UpdatedDate = currentDate
+                };
 
-            _itemService.AddItem(item);
-            DialogResult result = MessageBox.Show(item.Code + " has been added successfully.", "Message", MessageBoxButtons.OK);
-            if (result == DialogResult.OK)
+                _itemService.AddItem(item);
+                DialogResult result = MessageBox.Show(item.Code + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    EnableFields(Action.None);
+                    LoadItems();
+                }
+            }
+            catch(Exception ex)
             {
-                ClearAllFields();
-                EnableFields(Action.None);
-                LoadItems();
+                throw ex;
             }
         }
 
@@ -94,6 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Name = RichItemName.Text,
                         Brand = RichItemBrand.Text,
                         Unit = ComboUnit.Text,
+                        Threshold = Convert.ToInt32(RichThreshold.Text),
                         UpdatedDate = DateTime.Now
                     };
 
@@ -162,6 +174,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = false;
                 RichItemBrand.Enabled = false;
                 ComboUnit.Enabled = false;
+                RichThreshold.Enabled = false;
                 BtnAddNew.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = true;
@@ -173,6 +186,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = true;
                 RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
+                RichThreshold.Enabled = true;
                 BtnAddNew.Enabled = true;
                 BtnSave.Enabled = true;
                 BtnEdit.Enabled = false;
@@ -184,6 +198,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = true;
                 RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
+                RichThreshold.Enabled = true;
                 BtnAddNew.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = true;
@@ -195,6 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = false;
                 RichItemBrand.Enabled = false;
                 ComboUnit.Enabled = false;
+                RichThreshold.Enabled = false;
                 BtnAddNew.Enabled = true;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
@@ -208,6 +224,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemName.Clear();
             RichItemBrand.Clear();
             ComboUnit.Text = string.Empty;
+            RichThreshold.Clear();
         }
 
         public void PopulateItem(long itemId)
@@ -220,6 +237,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Text = item.Name;
                 RichItemBrand.Text = item.Brand;
                 ComboUnit.Text = item.Unit;
+                RichThreshold.Text = item.Threshold.ToString();
 
                 EnableFields(Action.Show);
             }

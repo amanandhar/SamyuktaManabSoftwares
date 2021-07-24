@@ -5,7 +5,7 @@ namespace GrocerySupplyManagementApp.DTOs
     public class Stock
     {
         public string EndOfDay { get; set; }
-        public string Type { get; set; }
+        public string Description { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public int PurchaseQuantity { get; set; }

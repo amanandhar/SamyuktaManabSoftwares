@@ -445,7 +445,7 @@ namespace GrocerySupplyManagementApp.Forms
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();
                 
-                TxtPerUnitValue.Text = Math.Round(latestStockView.Sum(x => x.StockValue), 2).ToString();
+                TxtPerUnitValue.Text = Math.Round(latestStockView.Sum(x => x.PerUnitValue), 2).ToString();
 
                 TxtQuantity.Text = pricedItem.Quantity.ToString();
                 TxtTotalPrice.Text = (Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToInt64(TxtQuantity.Text)).ToString("0.00");
@@ -496,7 +496,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();
-                TxtPerUnitValue.Text = Math.Round(latestStockView.Sum(x => x.StockValue), 2).ToString();
+                TxtPerUnitValue.Text = Math.Round(latestStockView.Sum(x => x.PerUnitValue), 2).ToString();
 
                 var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
                 var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);

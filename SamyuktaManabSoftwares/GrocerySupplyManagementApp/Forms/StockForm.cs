@@ -82,65 +82,56 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridStockList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridStockList.Columns["AddedDate"].Visible = false;
+            DataGridStockList.Columns["StockQuantity"].Visible = false;
+            DataGridStockList.Columns["TotalPurchasePrice"].Visible = false;
 
             DataGridStockList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridStockList.Columns["EndOfDay"].Width = 100;
+            DataGridStockList.Columns["EndOfDay"].Width = 90;
             DataGridStockList.Columns["EndOfDay"].DisplayIndex = 0;
 
-            DataGridStockList.Columns["Type"].HeaderText = "Type";
-            DataGridStockList.Columns["Type"].Width = 100;
-            DataGridStockList.Columns["Type"].DisplayIndex = 1;
+            DataGridStockList.Columns["Description"].HeaderText = "Description";
+            DataGridStockList.Columns["Description"].Width = 100;
+            DataGridStockList.Columns["Description"].DisplayIndex = 1;
 
             DataGridStockList.Columns["ItemCode"].HeaderText = "Item Code";
-            DataGridStockList.Columns["ItemCode"].Width = 100;
+            DataGridStockList.Columns["ItemCode"].Width = 90;
             DataGridStockList.Columns["ItemCode"].DisplayIndex = 2;
 
             DataGridStockList.Columns["ItemName"].HeaderText = "Item Name";
             DataGridStockList.Columns["ItemName"].Width = 180;
             DataGridStockList.Columns["ItemName"].DisplayIndex = 3;
 
-            DataGridStockList.Columns["PurchaseQuantity"].HeaderText = "Purchase Quantity";
-            DataGridStockList.Columns["PurchaseQuantity"].Width = 80;
+            DataGridStockList.Columns["PurchaseQuantity"].HeaderText = "Purchase";
+            DataGridStockList.Columns["PurchaseQuantity"].Width = 70;
             DataGridStockList.Columns["PurchaseQuantity"].DisplayIndex = 4;
             DataGridStockList.Columns["PurchaseQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridStockList.Columns["SalesQuantity"].HeaderText = "Sales Quantity";
-            DataGridStockList.Columns["SalesQuantity"].Width = 70;
+            DataGridStockList.Columns["SalesQuantity"].HeaderText = "Sales";
+            DataGridStockList.Columns["SalesQuantity"].Width = 60;
             DataGridStockList.Columns["SalesQuantity"].DisplayIndex = 5;
             DataGridStockList.Columns["SalesQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridStockList.Columns["StockQuantity"].HeaderText = "Stock Quantity";
-            DataGridStockList.Columns["StockQuantity"].Width = 70;
-            DataGridStockList.Columns["StockQuantity"].DisplayIndex = 6;
-            DataGridStockList.Columns["StockQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
             DataGridStockList.Columns["PurchasePrice"].HeaderText = "Purchase Price";
-            DataGridStockList.Columns["PurchasePrice"].Width = 100;
-            DataGridStockList.Columns["PurchasePrice"].DisplayIndex = 7;
+            DataGridStockList.Columns["PurchasePrice"].Width = 90;
+            DataGridStockList.Columns["PurchasePrice"].DisplayIndex = 6;
             DataGridStockList.Columns["PurchasePrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["PurchasePrice"].DefaultCellStyle.Format = "0.00";
 
-            DataGridStockList.Columns["TotalPurchasePrice"].HeaderText = "Total Purchase Price";
-            DataGridStockList.Columns["TotalPurchasePrice"].Width = 100;
-            DataGridStockList.Columns["TotalPurchasePrice"].DisplayIndex = 8;
-            DataGridStockList.Columns["TotalPurchasePrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            DataGridStockList.Columns["TotalPurchasePrice"].DefaultCellStyle.Format = "0.00";
-
             DataGridStockList.Columns["SalesPrice"].HeaderText = "Sales Price";
-            DataGridStockList.Columns["SalesPrice"].Width = 100;
-            DataGridStockList.Columns["SalesPrice"].DisplayIndex = 9;
+            DataGridStockList.Columns["SalesPrice"].Width = 90;
+            DataGridStockList.Columns["SalesPrice"].DisplayIndex = 7;
             DataGridStockList.Columns["SalesPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["SalesPrice"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["StockValue"].HeaderText = "Stock Value";
             DataGridStockList.Columns["StockValue"].Width = 100;
-            DataGridStockList.Columns["StockValue"].DisplayIndex = 10;
+            DataGridStockList.Columns["StockValue"].DisplayIndex = 8;
             DataGridStockList.Columns["StockValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["StockValue"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["PerUnitValue"].HeaderText = "Per Unit Value";
-            DataGridStockList.Columns["PerUnitValue"].Width = 100;
-            DataGridStockList.Columns["PerUnitValue"].DisplayIndex = 11;
+            DataGridStockList.Columns["PerUnitValue"].Width = 90;
+            DataGridStockList.Columns["PerUnitValue"].DisplayIndex = 9;
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Format = "0.00";
 

@@ -42,7 +42,7 @@ namespace GrocerySupplyManagementApp.Shared
                 var stockView = new StockView
                 {
                     EndOfDay = stock.EndOfDay,
-                    Type = stock.Type,
+                    Description = stock.Description,
                     ItemCode = stock.ItemCode,
                     ItemName = stock.ItemName,
                     PurchaseQuantity = stock.PurchaseQuantity,
@@ -64,8 +64,8 @@ namespace GrocerySupplyManagementApp.Shared
                 else
                 {
                     stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
-                    stockView.StockValue = stock.Type.StartsWith("BN") ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) : (stock.StockQuantity * stockViewList[index - 1].PerUnitValue);
-                    stockView.PerUnitValue = stock.Type.StartsWith("BN") ? ((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity) : stockViewList[index - 1].PerUnitValue;
+                    stockView.StockValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) : (stock.StockQuantity * stockViewList[index - 1].PerUnitValue);
+                    stockView.PerUnitValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) ? ((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity) : stockViewList[index - 1].PerUnitValue;
                 }
 
                 stockViewList.Add(stockView);

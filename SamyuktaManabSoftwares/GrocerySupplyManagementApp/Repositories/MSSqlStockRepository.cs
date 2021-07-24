@@ -27,7 +27,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         INTO #Temp
                         FROM 
                         (
-                        SELECT pi.[EndOfDay], pi.[BillNo] as [Type], 
+                        SELECT pi.[EndOfDay], 'Purchase' as [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         pi.[Quantity] as [PurchaseQuantity], 0 AS [SalesQuantity],
                         pi.[Price] AS [PurchasePrice], 0.0 AS [SalesPrice],
@@ -36,7 +36,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         [Item] i
                         ON pi.[ItemId] = i.[Id]
                         UNION
-                        SELECT si.[EndOfDay], si.[InvoiceNo] as [Type], 
+                        SELECT si.[EndOfDay], 'Sales' as [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         0 AS [PurchaseQuantity], si.[Quantity] as [SalesQuantity],
                         0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice],
@@ -88,7 +88,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var stock = new Stock
                                 {
                                     EndOfDay = reader["EndOfDay"].ToString(),
-                                    Type = reader["Type"].ToString(),
+                                    Description = reader["Description"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
                                     PurchaseQuantity = Convert.ToInt32(reader["PurchaseQuantity"].ToString()),
