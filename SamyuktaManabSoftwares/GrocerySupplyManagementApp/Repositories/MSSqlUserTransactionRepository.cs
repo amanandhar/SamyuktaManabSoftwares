@@ -895,41 +895,40 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHEN ut.[MemberId] IS NULL THEN ut.[SupplierId] ELSE ut.[MemberId] END AS [MemberSupplierId], " +
                 "[Action], " +
                 "CASE " +
-                "WHEN ut.[ActionType]='Cheque' THEN (ut.[ActionType] + ' - ' + ut.[Bank]) " +
-                "WHEN ut.[Action] in ('Receipt', 'Expense') THEN (ut.[ActionType] + ' - ' + ut.[IncomeExpense]) " +
+                "WHEN ut.[ActionType]='" + Constants.CHEQUE + "' THEN (ut.[ActionType] + ' - ' + ut.[Bank]) " +
+                "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NOT NULL THEN (ut.[ActionType] + ' - ' + ut.[IncomeExpense]) " +
+                "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NULL THEN ut.[ActionType] " +
                 "ELSE ut.[ActionType] END AS [ActionType], " +
                 "CASE WHEN ut.[MemberId] IS NULL THEN ut.[BillNo] ELSE ut.[InvoiceNo] END AS [InvoiceBillNo], " +
                 "i.[Code], i.[Name], si.[Quantity], si.[Price] AS [ItemPrice], " +
                 "CASE " +
-                "WHEN ut.[Action]='Purchase' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='Purchase' AND ut.[ActionType]='Cash' THEN ut.[ReceivedAmount] " +
-                "WHEN ut.[Action]='Sales' AND ut.[ActionType]='Credit' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
-                "WHEN ut.[Action]='Sales' AND ut.[ActionType]='Cash' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
-                "WHEN ut.[Action]='Receipt' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='Receipt' AND ut.[ActionType]='Cash' THEN ut.[ReceivedAmount] " +
-                "WHEN ut.[Action]='Receipt' AND ut.[ActionType]='Cheque' THEN ut.[ReceivedAmount] " +
-                "WHEN ut.[Action]='Payment' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='Payment' AND ut.[ActionType]='Cash' THEN ut.[ReceivedAmount] " +
-                "WHEN ut.[Action]='Payment' AND ut.[ActionType]='Cheque' THEN ut.[ReceivedAmount] " +
-                "WHEN ut.[Action]='Expense' AND ut.[ActionType]='Credit' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='Expense' AND ut.[ActionType]='Cash' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='Transfer' AND ut.[ActionType]='Cash' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='Transfer' AND ut.[ActionType]='Cheque' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
+                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
+                "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='" + Constants.EXPENSE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.EXPENSE + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.TRANSFER + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.TRANSFER + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[DueAmount] " +
                 "ELSE ut.[DueAmount] END  AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
                 "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
                 "LEFT JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND NOT " +
-                "( " +
-                "ut.[Action] = '" + Constants.RECEIPT + "' " +
-                "AND ut.[IncomeExpense] " +
-                "IN " +
-                "(' " +
-                Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" +
-                Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT +
-                "') " +
+                "AND NOT EXISTS " + 
+                "( " + 
+                "SELECT 1 FROM " +
+                "" + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE [Action] = '" + Constants.RECEIPT + "' " +
+                "AND [IncomeExpense] IN " +
+                "('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') " +
                 ") ";
 
             if (transactionFilter.Date != null)
