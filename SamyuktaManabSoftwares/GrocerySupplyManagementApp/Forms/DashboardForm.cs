@@ -179,6 +179,7 @@ namespace GrocerySupplyManagementApp.Forms
                     if(_fiscalYearService.UpdateFiscalYear(newFiscalYear))
                     {
                         LoadFiscalYear();
+                        Application.Exit();
                     }
                 }
                 else

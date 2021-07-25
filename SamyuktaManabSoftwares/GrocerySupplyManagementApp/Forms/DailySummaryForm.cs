@@ -61,7 +61,8 @@ namespace GrocerySupplyManagementApp.Forms
             RichPaymentCheque.Text = (_userTransactionService.GetTotalBalance(Constants.PAYMENT, Constants.CHEQUE) +
                 _userTransactionService.GetTotalBalance(Constants.EXPENSE, Constants.CHEQUE)).ToString();
             RichBalanceCash.Text = (Convert.ToDecimal(RichSalesCash.Text) + Convert.ToDecimal(RichReceiptCash.Text) - Convert.ToDecimal(RichPaymentCash.Text)).ToString();
-            RichBalanceCredit.Text = (Convert.ToDecimal(RichOpeningBalanceCredit.Text) + Convert.ToDecimal(RichSalesCredit.Text)).ToString();
+            RichBalanceCredit.Text = (Convert.ToDecimal(RichOpeningBalanceCredit.Text) + Convert.ToDecimal(RichSalesCredit.Text)
+                - (Convert.ToDecimal(RichReceiptCash.Text) + Convert.ToDecimal(RichReceiptCheque.Text))).ToString();
         }
         #endregion
     }

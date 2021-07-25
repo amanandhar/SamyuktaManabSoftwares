@@ -61,6 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     EnableFields(false);
+                    Application.Exit();
                 }
             }
             catch (Exception ex)

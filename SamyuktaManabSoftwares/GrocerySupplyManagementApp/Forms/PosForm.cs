@@ -6,6 +6,7 @@ using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -95,27 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                _soldItemViewList.Add(new SoldItemView
-                {
-                    Id = DataGridSoldItemList.RowCount,
-                    ItemCode = RichItemCode.Text,
-                    ItemName = RichItemName.Text,
-                    ItemBrand = RichItemBrand.Text,
-                    Profit = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichProfitAmount.Text),
-                    Unit = RichItemUnit.Text,
-                    ItemPrice = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichItemPrice.Text),
-                    Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
-                    Total = (string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichItemPrice.Text)),
-                    AddedDate = DateTime.Now
-                });
-
-                LoadItems(_soldItemViewList);
-
-                LoadPosDetails();
-
-                ClearAllItemFields();
-
-                BtnSaveInvoice.Enabled = true;
+                AddItemInCart();
             }
             catch (Exception ex)
             {
@@ -178,17 +159,24 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _userTransactionService.AddUserTransaction(userTransaction);
 
-                DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
+                ClearAllMemberFields();
+                ClearAllItemFields();
+                ClearAllInvoiceFields();
+                _soldItemViewList.Clear();
+                LoadItems(_soldItemViewList);
+                EnableFields(false);
+                RadioBtnCash.Checked = false;
+                RadioBtnCredit.Checked = true;
+
+                DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?", 
+                    "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    ClearAllMemberFields();
-                    ClearAllItemFields();
-                    ClearAllInvoiceFields();
-                    _soldItemViewList.Clear();
-                    LoadItems(_soldItemViewList);
-                    EnableFields(false);
-                    RadioBtnCash.Checked = false;
-                    RadioBtnCredit.Checked = true;
+                    // Show print dialog box
+                }
+                else
+                {
+                    return;
                 }
             }
             catch(Exception ex)
@@ -226,38 +214,45 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSavePayment_Click(object sender, EventArgs e)
         {
-            var date = DateTime.Now;
-            var userTransaction = new UserTransaction
+            try
             {
-                EndOfDay = RichInvoiceDate.Text,
-                MemberId = RichMemberId.Text,
-                Action = Constants.RECEIPT,
-                ActionType = Constants.CASH,
-                SubTotal = 0.0m,
-                DiscountPercent = 0.0m,
-                Discount = 0.0m,
-                VatPercent = 0.0m,
-                Vat = 0.0m,
-                DeliveryChargePercent = 0.0m,
-                DeliveryCharge = 0.0m,
-                DueAmount = 0.0m,
-                ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
-                AddedDate = date,
-                UpdatedDate = date
-            };
+                var date = DateTime.Now;
+                var userTransaction = new UserTransaction
+                {
+                    EndOfDay = RichInvoiceDate.Text,
+                    MemberId = RichMemberId.Text,
+                    Action = Constants.RECEIPT,
+                    ActionType = Constants.CASH,
+                    SubTotal = 0.0m,
+                    DiscountPercent = 0.0m,
+                    Discount = 0.0m,
+                    VatPercent = 0.0m,
+                    Vat = 0.0m,
+                    DeliveryChargePercent = 0.0m,
+                    DeliveryCharge = 0.0m,
+                    DueAmount = 0.0m,
+                    ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
+                    AddedDate = date,
+                    UpdatedDate = date
+                };
 
-            _userTransactionService.AddUserTransaction(userTransaction);
-            DialogResult result = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK);
-            if (result == DialogResult.OK)
+                _userTransactionService.AddUserTransaction(userTransaction);
+                DialogResult result = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllMemberFields();
+                    ClearAllItemFields();
+                    ClearAllInvoiceFields();
+                    _soldItemViewList.Clear();
+                    LoadItems(_soldItemViewList);
+                    EnableFields(false);
+                    RadioBtnCash.Checked = false;
+                    RadioBtnCredit.Checked = true;
+                }
+            }
+            catch (Exception ex)
             {
-                ClearAllMemberFields();
-                ClearAllItemFields();
-                ClearAllInvoiceFields();
-                _soldItemViewList.Clear();
-                LoadItems(_soldItemViewList);
-                EnableFields(false);
-                RadioBtnCash.Checked = false;
-                RadioBtnCredit.Checked = true;
+                throw ex;
             }
         }
 
@@ -289,6 +284,19 @@ namespace GrocerySupplyManagementApp.Forms
         private void RichReceivedAmount_KeyUp(object sender, KeyEventArgs e)
         {
             RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(RichTextDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0" : RichReceivedAmount.Text), 2).ToString();
+        }
+
+        private void RichItemQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                AddItemInCart();
+            }
         }
 
         private void RichItemQuantity_KeyUp(object sender, KeyEventArgs e)
@@ -331,46 +339,53 @@ namespace GrocerySupplyManagementApp.Forms
         #region DataGrid Event
         private void DataGridPosSoldItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            DataGridSoldItemList.Columns["Id"].Visible = false;
-            DataGridSoldItemList.Columns["Profit"].Visible = false;
-            DataGridSoldItemList.Columns["AddedDate"].Visible = false;
-
-            DataGridSoldItemList.Columns["ItemCode"].HeaderText = "Code";
-            DataGridSoldItemList.Columns["ItemCode"].Width = 70;
-            DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
-
-            DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-            DataGridSoldItemList.Columns["ItemName"].Width = 180;
-            DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
-
-            DataGridSoldItemList.Columns["ItemBrand"].HeaderText = "Brand";
-            DataGridSoldItemList.Columns["ItemBrand"].Width = 180;
-            DataGridSoldItemList.Columns["ItemBrand"].DisplayIndex = 2;
-
-            DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
-            DataGridSoldItemList.Columns["Unit"].Width = 50;
-            DataGridSoldItemList.Columns["Unit"].DisplayIndex = 3;
-
-            DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
-            DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
-            DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 4;
-            DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridSoldItemList.Columns["Quantity"].Width = 70;
-            DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 5;
-            DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridSoldItemList.Columns["Total"].HeaderText = "Total";
-            DataGridSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridSoldItemList.Columns["Total"].DisplayIndex = 6;
-            DataGridSoldItemList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            foreach (DataGridViewRow row in DataGridSoldItemList.Rows)
+            try
             {
-                DataGridSoldItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridSoldItemList.RowHeadersWidth = 50;
-                DataGridSoldItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                DataGridSoldItemList.Columns["Id"].Visible = false;
+                DataGridSoldItemList.Columns["Profit"].Visible = false;
+                DataGridSoldItemList.Columns["AddedDate"].Visible = false;
+
+                DataGridSoldItemList.Columns["ItemCode"].HeaderText = "Code";
+                DataGridSoldItemList.Columns["ItemCode"].Width = 70;
+                DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
+
+                DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
+                DataGridSoldItemList.Columns["ItemName"].Width = 180;
+                DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
+
+                DataGridSoldItemList.Columns["ItemBrand"].HeaderText = "Brand";
+                DataGridSoldItemList.Columns["ItemBrand"].Width = 180;
+                DataGridSoldItemList.Columns["ItemBrand"].DisplayIndex = 2;
+
+                DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
+                DataGridSoldItemList.Columns["Unit"].Width = 50;
+                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 3;
+
+                DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
+                DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
+                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 4;
+                DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
+                DataGridSoldItemList.Columns["Quantity"].Width = 70;
+                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 5;
+                DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                DataGridSoldItemList.Columns["Total"].HeaderText = "Total";
+                DataGridSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                DataGridSoldItemList.Columns["Total"].DisplayIndex = 6;
+                DataGridSoldItemList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                foreach (DataGridViewRow row in DataGridSoldItemList.Rows)
+                {
+                    DataGridSoldItemList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                    DataGridSoldItemList.RowHeadersWidth = 50;
+                    DataGridSoldItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
         #endregion
@@ -378,9 +393,48 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadItems(List<SoldItemView> soldItemGrids)
         {
-            var bindingList = new BindingList<SoldItemView>(soldItemGrids);
-            var source = new BindingSource(bindingList, null);
-            DataGridSoldItemList.DataSource = source;
+            try
+            {
+                var bindingList = new BindingList<SoldItemView>(soldItemGrids);
+                var source = new BindingSource(bindingList, null);
+                DataGridSoldItemList.DataSource = source;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void AddItemInCart()
+        {
+            try
+            {
+                _soldItemViewList.Add(new SoldItemView
+                {
+                    Id = DataGridSoldItemList.RowCount,
+                    ItemCode = RichItemCode.Text,
+                    ItemName = RichItemName.Text,
+                    ItemBrand = RichItemBrand.Text,
+                    Profit = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichProfitAmount.Text),
+                    Unit = RichItemUnit.Text,
+                    ItemPrice = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichItemPrice.Text),
+                    Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
+                    Total = (string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.0m : Convert.ToDecimal(RichItemPrice.Text)),
+                    AddedDate = DateTime.Now
+                });
+
+                LoadItems(_soldItemViewList);
+
+                LoadPosDetails();
+
+                ClearAllItemFields();
+
+                BtnSaveInvoice.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void ClearAllMemberFields()
@@ -464,17 +518,29 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var pricedItem = _pricedItemService.GetPricedItem(pricedId);
                 var item = _itemService.GetItem(pricedItem.ItemId);
+                StockFilterView filter = new StockFilterView
+                {
+                    ItemCode = item.Code
+                };
+
+                var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
+                if(stock < item.Threshold)
+                {
+                    DialogResult result = MessageBox.Show("Stock is less than threshold for this item. \n Please add more stock.", 
+                        "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if(result == DialogResult.OK)
+                    {
+                        RichItemStock.ForeColor = Color.Red;
+                    }
+                }
 
                 RichItemCode.Text = item.Code;
                 RichItemSubCode.Text = pricedItem.ItemSubCode;
                 RichItemName.Text = item.Name;
                 RichItemBrand.Text = item.Brand;
                 RichItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
-                StockFilterView filter = new StockFilterView
-                {
-                    ItemCode = item.Code
-                };
-                RichItemStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
+                
+                RichItemStock.Text = stock.ToString();
                 RichItemUnit.Text = item.Unit;
                 RichProfitAmount.Text = pricedItem.Profit.ToString();
                 RichItemQuantity.Enabled = true;
@@ -488,50 +554,64 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadPosDetails(SoldItemView soldItemGrid = null)
         {
-            var tax = _taxService.GetTax();
-            RichTextDiscountPercent.Text = tax.Discount.ToString();
-            RichTextVatPercent.Text = tax.Vat.ToString();
-            RichTextDeliveryChargePercent.Text = tax.DeliveryCharge.ToString();
-
-            decimal subTotal;
-            if (soldItemGrid == null)
+            try
             {
-                subTotal = string.IsNullOrWhiteSpace(RichSubTotal.Text) ? 0.0m : Convert.ToDecimal(RichSubTotal.Text);
-                RichSubTotal.Text = Math.Round(subTotal + (Convert.ToDecimal(RichItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2).ToString();
+                var tax = _taxService.GetTax();
+                RichTextDiscountPercent.Text = tax.Discount.ToString();
+                RichTextVatPercent.Text = tax.Vat.ToString();
+                RichTextDeliveryChargePercent.Text = tax.DeliveryCharge.ToString();
+
+                decimal subTotal;
+                if (soldItemGrid == null)
+                {
+                    subTotal = string.IsNullOrWhiteSpace(RichSubTotal.Text) ? 0.0m : Convert.ToDecimal(RichSubTotal.Text);
+                    RichSubTotal.Text = Math.Round(subTotal + (Convert.ToDecimal(RichItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2).ToString();
+                }
+                else
+                {
+                    subTotal = Convert.ToDecimal(RichSubTotal.Text) - soldItemGrid.Total;
+                    RichSubTotal.Text = Math.Round(subTotal, 2).ToString();
+
+                }
+
+                RichTextDiscount.Text = Math.Round((Convert.ToDecimal(RichSubTotal.Text) * (Convert.ToDecimal(RichTextDiscountPercent.Text) / 100)), 2).ToString();
+                RichTextDiscountTotal.Text = Math.Round(Convert.ToDecimal(RichSubTotal.Text) - (Convert.ToDecimal(RichSubTotal.Text) * (Convert.ToDecimal(RichTextDiscountPercent.Text) / 100)), 2).ToString();
+                RichTextVat.Text = Math.Round((Convert.ToDecimal(RichTextDiscountTotal.Text) * (Convert.ToDecimal(RichTextVatPercent.Text) / 100)), 2).ToString();
+                RichTextVatTotal.Text = Math.Round(Convert.ToDecimal(RichTextDiscountTotal.Text) + (Convert.ToDecimal(RichTextDiscountTotal.Text) * (Convert.ToDecimal(RichTextVatPercent.Text) / 100)), 2).ToString();
+                RichTextDeliveryCharge.Text = Math.Round((Convert.ToDecimal(RichTextVatTotal.Text) * (Convert.ToDecimal(RichTextDeliveryChargePercent.Text) / 100)), 2).ToString();
+                RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + (Convert.ToDecimal(RichTextVatTotal.Text) * (Convert.ToDecimal(RichTextDeliveryChargePercent.Text) / 100)), 2).ToString();
+                RichGrandTotal.Text = RichTextDeliveryChargeTotal.Text;
+                RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(RichTextDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0" : RichReceivedAmount.Text), 2).ToString();
             }
-            else
+            catch (Exception ex)
             {
-                subTotal = Convert.ToDecimal(RichSubTotal.Text) - soldItemGrid.Total;
-                RichSubTotal.Text = Math.Round(subTotal, 2).ToString();
-
+                throw ex;
             }
-
-            RichTextDiscount.Text = Math.Round((Convert.ToDecimal(RichSubTotal.Text) * (Convert.ToDecimal(RichTextDiscountPercent.Text) / 100)), 2).ToString();
-            RichTextDiscountTotal.Text = Math.Round(Convert.ToDecimal(RichSubTotal.Text) - (Convert.ToDecimal(RichSubTotal.Text) * (Convert.ToDecimal(RichTextDiscountPercent.Text) / 100)), 2).ToString();
-            RichTextVat.Text = Math.Round((Convert.ToDecimal(RichTextDiscountTotal.Text) * (Convert.ToDecimal(RichTextVatPercent.Text) / 100)), 2).ToString();
-            RichTextVatTotal.Text = Math.Round(Convert.ToDecimal(RichTextDiscountTotal.Text) + (Convert.ToDecimal(RichTextDiscountTotal.Text) * (Convert.ToDecimal(RichTextVatPercent.Text) / 100)), 2).ToString();
-            RichTextDeliveryCharge.Text = Math.Round((Convert.ToDecimal(RichTextVatTotal.Text) * (Convert.ToDecimal(RichTextDeliveryChargePercent.Text) / 100)), 2).ToString();
-            RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + (Convert.ToDecimal(RichTextVatTotal.Text) * (Convert.ToDecimal(RichTextDeliveryChargePercent.Text) / 100)), 2).ToString();
-            RichGrandTotal.Text = RichTextDeliveryChargeTotal.Text;
-            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(RichTextDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0" : RichReceivedAmount.Text), 2).ToString();
         }
 
         private void LoadPosDetails(string invoiceNo)
         {
-            var userTransaction = _userTransactionService.GetUserTransaction(invoiceNo);
+            try
+            {
+                var userTransaction = _userTransactionService.GetUserTransaction(invoiceNo);
 
-            RichSubTotal.Text = userTransaction.SubTotal.ToString();
-            RichTextDiscountPercent.Text = userTransaction.DiscountPercent.ToString();
-            RichTextDiscount.Text = userTransaction.Discount.ToString();
-            RichTextDiscountTotal.Text = Math.Round(Convert.ToDecimal(userTransaction.SubTotal.ToString()) - Convert.ToDecimal(userTransaction.Discount.ToString()), 2).ToString();
-            RichTextVatPercent.Text = userTransaction.VatPercent.ToString();
-            RichTextVat.Text = userTransaction.Vat.ToString();
-            RichTextVatTotal.Text = Math.Round(Convert.ToDecimal(RichTextDiscountTotal.Text) + Convert.ToDecimal(userTransaction.Vat.ToString()), 2).ToString();
-            RichTextDeliveryChargePercent.Text = userTransaction.DeliveryChargePercent.ToString();
-            RichTextDeliveryCharge.Text = userTransaction.DeliveryCharge.ToString();
-            RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + Convert.ToDecimal(userTransaction.DeliveryCharge.ToString()), 2).ToString();
-            RichGrandTotal.Text = userTransaction.DueAmount.ToString();
-            RichReceivedAmount.Text = userTransaction.ReceivedAmount.ToString();
+                RichSubTotal.Text = userTransaction.SubTotal.ToString();
+                RichTextDiscountPercent.Text = userTransaction.DiscountPercent.ToString();
+                RichTextDiscount.Text = userTransaction.Discount.ToString();
+                RichTextDiscountTotal.Text = Math.Round(Convert.ToDecimal(userTransaction.SubTotal.ToString()) - Convert.ToDecimal(userTransaction.Discount.ToString()), 2).ToString();
+                RichTextVatPercent.Text = userTransaction.VatPercent.ToString();
+                RichTextVat.Text = userTransaction.Vat.ToString();
+                RichTextVatTotal.Text = Math.Round(Convert.ToDecimal(RichTextDiscountTotal.Text) + Convert.ToDecimal(userTransaction.Vat.ToString()), 2).ToString();
+                RichTextDeliveryChargePercent.Text = userTransaction.DeliveryChargePercent.ToString();
+                RichTextDeliveryCharge.Text = userTransaction.DeliveryCharge.ToString();
+                RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + Convert.ToDecimal(userTransaction.DeliveryCharge.ToString()), 2).ToString();
+                RichGrandTotal.Text = userTransaction.DueAmount.ToString();
+                RichReceivedAmount.Text = userTransaction.ReceivedAmount.ToString();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion
