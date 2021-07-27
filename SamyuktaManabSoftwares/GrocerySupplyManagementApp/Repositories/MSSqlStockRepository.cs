@@ -55,7 +55,7 @@ namespace GrocerySupplyManagementApp.Repositories
 	                        AND u.[AddedDate] <= t.[AddedDate]
 	                        AND u.[ItemCode] = t.[ItemCode]
                         ) AS [StockQuantity],
-                        (t.[PurchasePrice] * t.[PurchaseQuantity]) AS [TotalPurchasePrice]
+                        CAST((t.[PurchasePrice] * t.[PurchaseQuantity]) AS DECIMAL(18,2)) AS [TotalPurchasePrice]
                         FROM #Temp t WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(filter?.ItemCode))

@@ -60,13 +60,17 @@ namespace GrocerySupplyManagementApp.Shared
 
                     stockView.SalesPrice = 0.0m;
                     stockView.StockValue = stock.TotalPurchasePrice;
-                    stockView.PerUnitValue = stock.TotalPurchasePrice / stock.PurchaseQuantity;
+                    stockView.PerUnitValue = GetTruncatedValue((stock.TotalPurchasePrice / stock.PurchaseQuantity), 0);
                 }
                 else
                 {
                     stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
-                    stockView.StockValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) : (stock.StockQuantity * stockViewList[index - 1].PerUnitValue);
-                    stockView.PerUnitValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) ? ((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity) : stockViewList[index - 1].PerUnitValue;
+                    stockView.StockValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) 
+                        ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) 
+                        : GetTruncatedValue((stock.StockQuantity * stockViewList[index - 1].PerUnitValue), 2);
+                    stockView.PerUnitValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) 
+                        ? GetTruncatedValue(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
+                        : stockViewList[index - 1].PerUnitValue;
                 }
 
                 stockViewList.Add(stockView);

@@ -922,9 +922,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 "LEFT JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND NOT EXISTS " + 
+                "AND ut.[Id] NOT IN " + 
                 "( " + 
-                "SELECT 1 FROM " +
+                "SELECT Id FROM " +
                 "" + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE [Action] = '" + Constants.RECEIPT + "' " +
                 "AND [IncomeExpense] IN " +
