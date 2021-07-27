@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -73,6 +74,12 @@ namespace GrocerySupplyManagementApp.Shared
             }
 
             return stockViewList;
+        }
+
+        public static decimal GetTruncatedValue(decimal value, int places)
+        {
+            var number = Convert.ToDecimal(Math.Pow(10, places));
+            return Math.Truncate(value * number) / number;
         }
     }
 }
