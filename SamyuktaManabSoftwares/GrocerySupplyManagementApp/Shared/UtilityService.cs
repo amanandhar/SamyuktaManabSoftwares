@@ -58,18 +58,18 @@ namespace GrocerySupplyManagementApp.Shared
                 {
                     itemCode = stock.ItemCode;
 
-                    stockView.SalesPrice = 0.0m;
+                    stockView.SalesPrice = 0.00m;
                     stockView.StockValue = stock.TotalPurchasePrice;
-                    stockView.PerUnitValue = GetTruncatedValue((stock.TotalPurchasePrice / stock.PurchaseQuantity), 0);
+                    stockView.PerUnitValue = Math.Round((stock.TotalPurchasePrice / stock.PurchaseQuantity), 2);
                 }
                 else
                 {
                     stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
                     stockView.StockValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) 
                         ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) 
-                        : GetTruncatedValue((stock.StockQuantity * stockViewList[index - 1].PerUnitValue), 2);
+                        : stockViewList[index - 1].StockValue - Math.Round((stock.SalesQuantity * stockViewList[index - 1].PerUnitValue), 2);
                     stockView.PerUnitValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) 
-                        ? GetTruncatedValue(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
+                        ? Math.Round(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
                         : stockViewList[index - 1].PerUnitValue;
                 }
 
@@ -78,12 +78,6 @@ namespace GrocerySupplyManagementApp.Shared
             }
 
             return stockViewList;
-        }
-
-        public static decimal GetTruncatedValue(decimal value, int places)
-        {
-            var number = Convert.ToDecimal(Math.Pow(10, places));
-            return Math.Truncate(value * number) / number;
         }
     }
 }

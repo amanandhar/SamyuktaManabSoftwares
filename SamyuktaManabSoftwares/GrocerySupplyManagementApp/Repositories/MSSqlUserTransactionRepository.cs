@@ -483,7 +483,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetMemberTotalBalance()
         {
-            decimal balance = 0.0m;
+            decimal balance = 0.00m;
             string query = @"SELECT " +
                 "SUM([DueAmount]) - SUM([ReceivedAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -520,7 +520,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] = @MemberId ";
-            decimal balance = 0.0m;
+            decimal balance = 0.00m;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -547,7 +547,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetSupplierTotalBalance()
         {
-            decimal balance = 0.0m;
+            decimal balance = 0.00m;
             string query = @"SELECT " +
                 "SUM([ReceivedAmount]) - SUM([DueAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -584,7 +584,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] = @SupplierId ";
-            decimal balance = 0.0m;
+            decimal balance = 0.00m;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -630,7 +630,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND [ActionType] = '" + Constants.CASH + "' " +
                 ") ";
 
-            decimal cashInHand = 0.0m;
+            decimal cashInHand = 0.00m;
 
             try
             {
@@ -679,7 +679,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "AND [ActionType] = @ActionType ";
             }
 
-            decimal balance = 0.0m;
+            decimal balance = 0.00m;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -707,7 +707,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetTotalExpense(string expense)
         {
-            decimal total = 0.0m;
+            decimal total = 0.00m;
             string query = @"SELECT " +
                     "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -811,7 +811,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetUserTransactionBalance(TransactionFilter transactionFilter)
         {
-            decimal total = 0.0m;
+            decimal total = 0.00m;
             var query = @"SELECT " +
                 "SUM(ut.[DueAmount]) - SUM(ut.[ReceivedAmount]) AS [Total] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
@@ -1000,8 +1000,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemCode = reader.IsDBNull(6) ? string.Empty : reader["Code"].ToString(),
                                     ItemName = reader.IsDBNull(7) ? string.Empty : reader["Name"].ToString(),
                                     Quantity = reader.IsDBNull(8) ? 0 : Convert.ToInt32(reader["Quantity"].ToString()),
-                                    ItemPrice = reader.IsDBNull(9) ? 0.0m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
-                                    Amount = reader.IsDBNull(10) ? 0.0m : Convert.ToDecimal(reader["Amount"].ToString())
+                                    ItemPrice = reader.IsDBNull(9) ? 0.00m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
+                                    Amount = reader.IsDBNull(10) ? 0.00m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };
 
                                 transactionViewList.Add(transactionView);
@@ -1048,7 +1048,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
                                     Quantity = 0,
-                                    Profit = 0.0m,
+                                    Profit = 0.00m,
                                     Total = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
 
@@ -1096,7 +1096,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
                                     Quantity = 0,
-                                    Profit = 0.0m,
+                                    Profit = 0.00m,
                                     Total = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
 
@@ -1144,7 +1144,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
                                     Quantity = 0,
-                                    Profit = 0.0m,
+                                    Profit = 0.00m,
                                     Total = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
 

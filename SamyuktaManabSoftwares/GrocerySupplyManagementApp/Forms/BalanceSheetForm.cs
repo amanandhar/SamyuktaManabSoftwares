@@ -77,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();
-                var stockValue = latestStockView.Count > 0 ? UtilityService.GetTruncatedValue(latestStockView.Sum(x => x.StockValue), 2) : 0.00m;
+                var stockValue = latestStockView.Count > 0 ? Math.Round(latestStockView.Sum(x => x.StockValue), 2) : 0.00m;
 
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance();
                 var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.00m;
@@ -93,7 +93,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 RichCashInHand.Text = cashInHand.ToString();
                 RichBankAccount.Text = bankAccount.ToString();
-                RichStockValue.Text = stockValue.ToString();
+                RichStockValue.Text = stockValue.ToString("#.00");
                 RichReceivableAmount.Text = receivableAmount.ToString();
                 RichAssetsBalance.Text = assetsBalance.ToString();
             }
