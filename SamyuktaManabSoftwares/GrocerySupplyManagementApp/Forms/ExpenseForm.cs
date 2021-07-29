@@ -237,7 +237,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 List<ExpenseTransactionView> expenseTransactionViews = _userTransactionService.GetExpenseTransactions(expenseTransaction).ToList();
 
-                TxtTotalAmount.Text = expenseTransactionViews.Sum(x => x.Balance).ToString();
+                TxtTotalAmount.Text = expenseTransactionViews.Sum(x => x.DueAmount).ToString();
 
                 var bindingList = new BindingList<ExpenseTransactionView>(expenseTransactionViews);
                 var source = new BindingSource(bindingList, null);

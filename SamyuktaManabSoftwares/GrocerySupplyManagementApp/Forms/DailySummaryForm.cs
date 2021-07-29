@@ -13,6 +13,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _endOfDay;
+
         #region Constructor
         public SummaryForm(IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
@@ -25,13 +27,15 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
         #region Form Load Event
         private void SummaryForm_Load(object sender, EventArgs e)
         {
-
+            MaskEndOfDay.Text = _endOfDay; 
         }
         #endregion
 
@@ -43,26 +47,46 @@ namespace GrocerySupplyManagementApp.Forms
                 _purchasedItemService, _soldItemService, 
                 _userTransactionService
                 );
+
             transactionForm.Show();
         }
 
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            decimal defaultValue = 0.0m;
-            RichOpeningBalanceCash.Text = defaultValue.ToString();
-            RichOpeningBalanceCredit.Text = defaultValue.ToString();
-            RichSalesCash.Text = _userTransactionService.GetTotalBalance(Constants.SALES, Constants.CASH).ToString();
-            RichSalesCredit.Text = _userTransactionService.GetTotalBalance(Constants.SALES, Constants.CREDIT).ToString();
-            RichReceiptCash.Text = _userTransactionService.GetTotalBalance(Constants.RECEIPT, Constants.CASH).ToString();
-            RichReceiptCheque.Text = _userTransactionService.GetTotalBalance(Constants.RECEIPT, Constants.CHEQUE).ToString();
-            RichPaymentCash.Text = (_userTransactionService.GetTotalBalance(Constants.PAYMENT, Constants.CASH) +
-                _userTransactionService.GetTotalBalance(Constants.EXPENSE, Constants.CASH) +
-                _userTransactionService.GetTotalBalance(Constants.TRANSFER, Constants.CASH)).ToString();
-            RichPaymentCheque.Text = (_userTransactionService.GetTotalBalance(Constants.PAYMENT, Constants.CHEQUE) +
-                _userTransactionService.GetTotalBalance(Constants.EXPENSE, Constants.CHEQUE)).ToString();
-            RichBalanceCash.Text = (Convert.ToDecimal(RichSalesCash.Text) + Convert.ToDecimal(RichReceiptCash.Text) - Convert.ToDecimal(RichPaymentCash.Text)).ToString();
-            RichBalanceCredit.Text = (Convert.ToDecimal(RichOpeningBalanceCredit.Text) + Convert.ToDecimal(RichSalesCredit.Text)
-                - (Convert.ToDecimal(RichReceiptCash.Text) + Convert.ToDecimal(RichReceiptCheque.Text))).ToString();
+            var endOfDay = (MaskEndOfDay.Text).Trim();
+
+            var previousSalesCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.SALES, Constants.CASH);
+            var previousSalesCredit = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.SALES, Constants.CREDIT);
+            var previousReceiptCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.RECEIPT, Constants.CASH);
+            var previousReceiptCheque = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
+            var previousPaymentCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.PAYMENT, Constants.CASH);
+            var previousExpenseCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
+            var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.TRANSFER, Constants.CASH);
+
+            var openingBalanceCash = previousSalesCash + previousReceiptCash - (previousPaymentCash + previousExpenseCash + previousTransferCash);
+            var openingBalanceCredit = previousSalesCredit - (previousReceiptCash + previousReceiptCheque);
+
+            var salesCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.SALES, Constants.CASH);
+            var salesCredit = _userTransactionService.GetTotalBalance(endOfDay, Constants.SALES, Constants.CREDIT);
+            var receiptCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CASH);
+            var receiptCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
+            var paymentCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CASH);
+            var expenseCash  = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
+            var transferCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.TRANSFER, Constants.CASH);
+            var paymentCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CHEQUE);
+            var expenseCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CHEQUE);
+
+            RichOpeningBalanceCash.Text = openingBalanceCash.ToString();
+            RichOpeningBalanceCredit.Text = openingBalanceCredit.ToString();
+            RichSalesCash.Text = salesCash.ToString();
+            RichSalesCredit.Text = salesCredit.ToString();
+            RichReceiptCash.Text = receiptCash.ToString();
+            RichReceiptCheque.Text = receiptCheque.ToString();
+            RichPaymentCash.Text = (paymentCash + expenseCash + transferCash).ToString();
+            RichPaymentCheque.Text = (paymentCheque + expenseCheque).ToString();
+
+            RichBalanceCash.Text = (openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash)).ToString();
+            RichBalanceCredit.Text = (openingBalanceCredit + salesCredit - (receiptCash + receiptCheque)).ToString();
         }
         #endregion
     }

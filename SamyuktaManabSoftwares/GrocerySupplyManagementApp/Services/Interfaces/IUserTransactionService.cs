@@ -21,7 +21,8 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         decimal GetSupplierTotalBalance();
         decimal GetSupplierTotalBalance(string supplierId);
         decimal GetCashInHand();
-        decimal GetTotalBalance(string action, string actionType);
+        decimal GetTotalBalance(string endOfDay, string action, string actionType);
+        decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType);
         decimal GetTotalExpense(string expense);
         IEnumerable<string> GetInvoices();
         IEnumerable<string> GetMemberIds();

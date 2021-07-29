@@ -515,12 +515,13 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetMemberTotalBalance(string memberId)
         {
+            decimal balance = 0.00m;
             string query = @"SELECT " +
                 "SUM([DueAmount]) - SUM([ReceivedAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] = @MemberId ";
-            decimal balance = 0.00m;
+            
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -579,12 +580,13 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetSupplierTotalBalance(string supplierId)
         {
+            decimal balance = 0.00m;
             string query = @"SELECT " +
                 "SUM([ReceivedAmount]) - SUM([DueAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] = @SupplierId ";
-            decimal balance = 0.00m;
+            
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -611,6 +613,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetCashInHand()
         {
+            decimal cashInHand = 0.00m;
             string query = @"SELECT " +
                 "( " +
                 "SELECT " +
@@ -629,8 +632,6 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND [Action] IN ('" + Constants.TRANSFER + "', '" + Constants.EXPENSE + "') " +
                 "AND [ActionType] = '" + Constants.CASH + "' " +
                 ") ";
-
-            decimal cashInHand = 0.00m;
 
             try
             {
@@ -655,8 +656,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return cashInHand;
         }
 
-        public decimal GetTotalBalance(string action, string actionType)
+        public decimal GetTotalBalance(string endOfDay, string action, string actionType)
         {
+            decimal balance = 0.00m;
             string query;
             if (action?.ToLower() == Constants.SALES.ToLower()
                 || action?.ToLower() == Constants.EXPENSE.ToLower()
@@ -666,6 +668,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
+                    "AND [EndOfDay] = @endOfDay " +
                     "AND [Action] = @Action " +
                     "AND [ActionType] = @ActionType ";
             }
@@ -675,11 +678,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SUM([ReceivedAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
+                    "AND [EndOfDay] = @endOfDay " +
                     "AND [Action] = @Action " +
                     "AND [ActionType] = @ActionType ";
             }
 
-            decimal balance = 0.00m;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -687,6 +690,60 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", ((object)endOfDay) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ActionType", ((object)actionType) ?? DBNull.Value);
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            balance = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return balance;
+        }
+
+        public decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType)
+        {
+            decimal balance = 0.00m;
+            string query;
+            if (action?.ToLower() == Constants.SALES.ToLower()
+                || action?.ToLower() == Constants.EXPENSE.ToLower()
+                || action?.ToLower() == Constants.TRANSFER.ToLower())
+            {
+                query = @"SELECT " +
+                    "SUM([DueAmount])" +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE 1 = 1 " +
+                    "AND [EndOfDay] < @endOfDay " +
+                    "AND [Action] = @Action " +
+                    "AND [ActionType] = @ActionType ";
+            }
+            else
+            {
+                query = @"SELECT " +
+                    "SUM([ReceivedAmount])" +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE 1 = 1 " +
+                    "AND [EndOfDay] < @endOfDay " +
+                    "AND [Action] = @Action " +
+                    "AND [ActionType] = @ActionType ";
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@EndOfDay", ((object)endOfDay) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ActionType", ((object)actionType) ?? DBNull.Value);
                         var result = command.ExecuteScalar();
@@ -707,7 +764,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetTotalExpense(string expense)
         {
-            decimal total = 0.00m;
+            decimal balance = 0.00m;
             string query = @"SELECT " +
                     "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -725,7 +782,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            total = Convert.ToDecimal(result.ToString());
+                            balance = Convert.ToDecimal(result.ToString());
                         }
                     }
                 }
@@ -735,7 +792,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return total;
+            return balance;
         }
 
         public IEnumerable<string> GetInvoices()

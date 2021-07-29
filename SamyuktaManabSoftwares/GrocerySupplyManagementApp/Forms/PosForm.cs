@@ -598,13 +598,13 @@ namespace GrocerySupplyManagementApp.Forms
                 RichSubTotal.Text = userTransaction.SubTotal.ToString();
                 RichTextDiscountPercent.Text = userTransaction.DiscountPercent.ToString();
                 RichTextDiscount.Text = userTransaction.Discount.ToString();
-                RichTextDiscountTotal.Text = (Convert.ToDecimal(userTransaction.SubTotal.ToString()) - Convert.ToDecimal(userTransaction.Discount.ToString())).ToString();
+                RichTextDiscountTotal.Text = (userTransaction.SubTotal - userTransaction.Discount).ToString();
                 RichTextVatPercent.Text = userTransaction.VatPercent.ToString();
                 RichTextVat.Text = userTransaction.Vat.ToString();
-                RichTextVatTotal.Text = Convert.ToDecimal(RichTextDiscountTotal.Text) + Convert.ToDecimal(userTransaction.Vat.ToString()).ToString();
+                RichTextVatTotal.Text = (userTransaction.SubTotal - userTransaction.Discount + userTransaction.Vat).ToString();
                 RichTextDeliveryChargePercent.Text = userTransaction.DeliveryChargePercent.ToString();
                 RichTextDeliveryCharge.Text = userTransaction.DeliveryCharge.ToString();
-                RichTextDeliveryChargeTotal.Text = (Convert.ToDecimal(RichTextVatTotal.Text) + Convert.ToDecimal(userTransaction.DeliveryCharge.ToString())).ToString();
+                RichTextDeliveryChargeTotal.Text = (userTransaction.SubTotal - userTransaction.Discount + userTransaction.Vat + userTransaction.DeliveryCharge).ToString();
                 RichGrandTotal.Text = userTransaction.DueAmount.ToString();
                 RichReceivedAmount.Text = userTransaction.ReceivedAmount.ToString();
             }

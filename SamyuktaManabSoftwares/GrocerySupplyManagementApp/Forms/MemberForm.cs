@@ -152,12 +152,15 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowSales_Click(object sender, EventArgs e)
         {
-
             if (DataGridMemberList.SelectedRows.Count == 1)
             {
-                var invoiceNo = DataGridMemberList.SelectedCells[4].Value.ToString();
-                PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, invoiceNo);
-                posForm.Show();
+                var selectedRow = DataGridMemberList.SelectedRows[0];
+                var invoiceNo = selectedRow.Cells["InvoiceNo"].Value.ToString();
+                if(!string.IsNullOrWhiteSpace(invoiceNo))
+                {
+                    PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, invoiceNo);
+                    posForm.Show();
+                }
             }
         }
 

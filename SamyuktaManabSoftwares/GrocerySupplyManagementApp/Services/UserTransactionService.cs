@@ -119,9 +119,14 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetCashInHand();
         }
 
-        public decimal GetTotalBalance(string action, string actionType)
+        public decimal GetTotalBalance(string endOfDay, string action, string actionType)
         {
-            return _userTransactionRepository.GetTotalBalance(action, actionType);
+            return _userTransactionRepository.GetTotalBalance(endOfDay, action, actionType);
+        }
+
+        public decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType)
+        {
+            return _userTransactionRepository.GetPreviousTotalBalance(endOfDay, action, actionType);
         }
 
         public decimal GetTotalExpense(string expense)
