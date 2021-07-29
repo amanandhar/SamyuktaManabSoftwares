@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Entities
         public decimal Profit { get; set; }
         public decimal SalesPrice { get; set; }
         public decimal SalesPricePerUnit { get; set; }
+        public string ImagePath { get; set; }
         public DateTime AddedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }

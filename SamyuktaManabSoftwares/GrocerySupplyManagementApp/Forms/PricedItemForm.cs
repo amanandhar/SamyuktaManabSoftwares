@@ -100,11 +100,15 @@ namespace GrocerySupplyManagementApp.Forms
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
+                    ImagePath = _uploadedImagePath,
                     UpdatedDate = DateTime.Now
                 };
 
                 _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
-
+                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                {
+                    //SaveImage(_documentsDirectory, _uploadedImagePath);
+                }
                 DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -129,19 +133,19 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
+                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + 
+                    TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
                 var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
-                if (File.Exists(filePath))
+                
+                if(DeleteImage(filePath))
                 {
                     PicBoxItemImage.Image = null;
-                    File.Delete(filePath);
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
         private void BtnAddNew_Click(object sender, EventArgs e)
@@ -167,13 +171,19 @@ namespace GrocerySupplyManagementApp.Forms
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
+                    ImagePath = _uploadedImagePath,
                     AddedDate = date,
                     UpdatedDate = date
                 };
 
                 _pricedItemService.AddPricedItem(pricedItem);
-
+                if(!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                {
+                    //SaveImage(_documentsDirectory, _uploadedImagePath);
+                }
+                
                 DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -190,13 +200,18 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                _pricedItemService.DeletePricedItem(_selectedId);
-
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
+                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(deleteResult == DialogResult.Yes)
                 {
-                    ClearAllFields();
-                    EnableFields();
+                    if(_pricedItemService.DeletePricedItem(_selectedId))
+                    {
+                        DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        if (result == DialogResult.OK)
+                        {
+                            ClearAllFields();
+                            EnableFields();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -212,20 +227,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                this.Activate();
+                Activate();
                 string[] files = OpenItemImageDialog.FileNames;
                 _uploadedImagePath = files[0];
-                PicBoxItemImage.Image = Image.FromFile(_uploadedImagePath);
-
-                if (!Directory.Exists(Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER)))
-                {
-                    UtilityService.CreateFolder(_documentsDirectory, ITEM_IMAGE_FOLDER);
-                }
-
-                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text;
-                var sourceFileName = _uploadedImagePath;
-                var destinationFileName = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER) + "\\" + fileName + ".jpg"; // + Path.GetExtension(sourceFileName);
-                File.Copy(sourceFileName, destinationFileName, true);
+                PicBoxItemImage.Image = Image.FromFile(_uploadedImagePath); 
             }
             catch(Exception ex)
             {
@@ -339,7 +344,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if(action == Action.PopulatePricedItem)
             {
-                BtnAddNew.Enabled = true;
+                BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
                 BtnAddItemImage.Enabled = true;
@@ -347,7 +352,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.PopulateUnpricedItem)
             {
-                BtnAddNew.Enabled = true;
+                BtnAdd.Enabled = true;
                 BtnDelete.Enabled = true;
                 BtnAddItemImage.Enabled = true;
             }
@@ -391,7 +396,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtSalesPrice.Enabled = false;
                 TxtSalesPricePerUnit.Enabled = false;
 
-                BtnAddNew.Enabled = false;
+                BtnAdd.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
@@ -416,6 +421,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtProfitAmount.Clear();
             TxtSalesPrice.Clear();
             TxtSalesPricePerUnit.Clear();
+
         }
 
         public void PopulatePricedItem(long pricedId)
@@ -437,6 +443,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemCode = item.Code
                 };
+
                 TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
 
                 var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
@@ -516,6 +523,39 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private bool SaveImage(string uploadedImagePath, string imageFolder, string imageName)
+        {
+            if (!Directory.Exists(imageFolder))
+            {
+                DialogResult errorResult = MessageBox.Show("Configured image directory is not correct. Please check.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (errorResult == DialogResult.OK)
+                {
+                    return false;
+                }
+            }
+
+            if (!Directory.Exists(Path.Combine(imageFolder, ITEM_IMAGE_FOLDER)))
+            {
+                UtilityService.CreateFolder(imageFolder, ITEM_IMAGE_FOLDER);
+            }
+
+            var destinationFileName = Path.Combine(imageFolder, ITEM_IMAGE_FOLDER) + "\\" + imageName + ".jpg"; 
+            File.Copy(uploadedImagePath, destinationFileName, true);
+            return true;
+        }
+
+        private bool DeleteImage(string imagePath)
+        {
+            var result = false;
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+                result = true;
+            }
+
+            return result;
+        }
         #endregion
     }
 }
