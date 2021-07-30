@@ -90,27 +90,30 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 string destinationFilePath = null;
-                if (!Directory.Exists(_baseImageFolder))
+                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                 {
-                    DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (errorResult == DialogResult.OK)
+                    if (!Directory.Exists(_baseImageFolder))
                     {
+                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            return;
+                        }
+
                         return;
                     }
-
-                    return;
-                }
-                else
-                {
-                    if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                    else
                     {
-                        UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
-                    }
+                        if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                        {
+                            UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                        }
 
-                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
-                    destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                    File.Copy(_uploadedImagePath, destinationFilePath, true);
+                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
+                        destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                        File.Copy(_uploadedImagePath, destinationFilePath, true);
+                    }
                 }
 
                 var date = DateTime.Now;

@@ -45,7 +45,9 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     Discount = Convert.ToDecimal(TextBoxDiscount.Text),
                     Vat = Convert.ToDecimal(TextBoxVat.Text),
-                    DeliveryCharge = Convert.ToDecimal(TextBoxDeliveryCharge.Text)
+                    DeliveryCharge = Convert.ToDecimal(TextBoxDeliveryCharge.Text),
+                    AddedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now
                 };
 
                 var truncate = true;

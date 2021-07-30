@@ -36,8 +36,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.RichItemQuantity = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.RichProfitAmount = new System.Windows.Forms.RichTextBox();
-            this.linkLabel24 = new System.Windows.Forms.LinkLabel();
             this.linkLabel23 = new System.Windows.Forms.LinkLabel();
             this.RichItemSubCode = new System.Windows.Forms.RichTextBox();
             this.RichItemStock = new System.Windows.Forms.RichTextBox();
@@ -111,6 +109,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel22 = new System.Windows.Forms.LinkLabel();
             this.RichAccNo = new System.Windows.Forms.RichTextBox();
             this.DataGridSoldItemList = new System.Windows.Forms.DataGridView();
+            this.TxtProfitAmount = new System.Windows.Forms.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -164,8 +163,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox4.Controls.Add(this.RichProfitAmount);
-            this.groupBox4.Controls.Add(this.linkLabel24);
+            this.groupBox4.Controls.Add(this.TxtProfitAmount);
             this.groupBox4.Controls.Add(this.linkLabel23);
             this.groupBox4.Controls.Add(this.RichItemSubCode);
             this.groupBox4.Controls.Add(this.RichItemStock);
@@ -187,32 +185,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Size = new System.Drawing.Size(375, 210);
             this.groupBox4.TabIndex = 22;
             this.groupBox4.TabStop = false;
-            // 
-            // RichProfitAmount
-            // 
-            this.RichProfitAmount.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichProfitAmount.Enabled = false;
-            this.RichProfitAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichProfitAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.RichProfitAmount.Location = new System.Drawing.Point(260, 140);
-            this.RichProfitAmount.Name = "RichProfitAmount";
-            this.RichProfitAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichProfitAmount.Size = new System.Drawing.Size(69, 30);
-            this.RichProfitAmount.TabIndex = 40;
-            this.RichProfitAmount.Text = "";
-            // 
-            // linkLabel24
-            // 
-            this.linkLabel24.AutoSize = true;
-            this.linkLabel24.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel24.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel24.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel24.Location = new System.Drawing.Point(200, 147);
-            this.linkLabel24.Name = "linkLabel24";
-            this.linkLabel24.Size = new System.Drawing.Size(49, 18);
-            this.linkLabel24.TabIndex = 39;
-            this.linkLabel24.TabStop = true;
-            this.linkLabel24.Text = "Profit";
             // 
             // linkLabel23
             // 
@@ -270,7 +242,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemUnit.Enabled = false;
             this.RichItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichItemUnit.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.RichItemUnit.Location = new System.Drawing.Point(259, 172);
+            this.RichItemUnit.Location = new System.Drawing.Point(259, 143);
             this.RichItemUnit.Name = "RichItemUnit";
             this.RichItemUnit.Size = new System.Drawing.Size(71, 30);
             this.RichItemUnit.TabIndex = 31;
@@ -334,7 +306,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel3.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.linkLabel3.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel3.Location = new System.Drawing.Point(218, 177);
+            this.linkLabel3.Location = new System.Drawing.Point(215, 149);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(38, 18);
             this.linkLabel3.TabIndex = 2;
@@ -1194,6 +1166,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSoldItemList.TabIndex = 31;
             this.DataGridSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
             // 
+            // TxtProfitAmount
+            // 
+            this.TxtProfitAmount.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TxtProfitAmount.Enabled = false;
+            this.TxtProfitAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtProfitAmount.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.TxtProfitAmount.Location = new System.Drawing.Point(259, 174);
+            this.TxtProfitAmount.Name = "TxtProfitAmount";
+            this.TxtProfitAmount.Size = new System.Drawing.Size(70, 29);
+            this.TxtProfitAmount.TabIndex = 38;
+            // 
             // PosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1306,7 +1289,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Button BtnBankTransfer;
         private System.Windows.Forms.Button BtnAddExpense;
-        private System.Windows.Forms.RichTextBox RichProfitAmount;
-        private System.Windows.Forms.LinkLabel linkLabel24;
+        private System.Windows.Forms.TextBox TxtProfitAmount;
     }
 }

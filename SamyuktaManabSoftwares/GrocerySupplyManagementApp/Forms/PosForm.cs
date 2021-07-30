@@ -416,7 +416,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = RichItemCode.Text,
                     ItemName = RichItemName.Text,
                     ItemBrand = RichItemBrand.Text,
-                    Profit = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.00m : Convert.ToDecimal(RichProfitAmount.Text),
+                    Profit = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
                     Unit = RichItemUnit.Text,
                     ItemPrice = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.00m : Convert.ToDecimal(RichItemPrice.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
@@ -458,7 +458,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemPrice.Clear();
             RichItemQuantity.Clear();
             RichItemUnit.Clear();
-            RichProfitAmount.Clear();
+            TxtProfitAmount.Clear();
             RichItemStock.Clear();
             PicBoxItemImage.Image = null;
         }
@@ -528,7 +528,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
                 if(stock < item.Threshold)
                 {
-                    DialogResult result = MessageBox.Show("Stock is less than threshold for this item. \n Please add more stock.", 
+                    DialogResult result = MessageBox.Show("Stock is low. \nPlease add more stock.", 
                         "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if(result == DialogResult.OK)
                     {
@@ -544,7 +544,7 @@ namespace GrocerySupplyManagementApp.Forms
                 
                 RichItemStock.Text = stock.ToString();
                 RichItemUnit.Text = item.Unit;
-                RichProfitAmount.Text = pricedItem.Profit.ToString();
+                TxtProfitAmount.Text = pricedItem.Profit.ToString();
                 if (File.Exists(pricedItem.ImagePath))
                 {
                     PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
