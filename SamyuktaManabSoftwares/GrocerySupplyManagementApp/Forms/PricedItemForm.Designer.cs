@@ -438,6 +438,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnAddItemImage
             // 
+            this.BtnAddItemImage.Enabled = false;
             this.BtnAddItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddItemImage.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnAddItemImage.Location = new System.Drawing.Point(8, 268);
@@ -531,6 +532,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnDeleteItemImage
             // 
+            this.BtnDeleteItemImage.Enabled = false;
             this.BtnDeleteItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteItemImage.ForeColor = System.Drawing.Color.Red;
             this.BtnDeleteItemImage.Location = new System.Drawing.Point(81, 268);

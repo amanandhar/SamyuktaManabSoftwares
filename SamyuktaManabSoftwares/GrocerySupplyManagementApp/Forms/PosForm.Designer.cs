@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichMemberId = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PicBoxItemImage = new System.Windows.Forms.PictureBox();
             this.RadioBtnCredit = new System.Windows.Forms.RadioButton();
             this.RadioBtnCash = new System.Windows.Forms.RadioButton();
             this.BtnSaveInvoice = new System.Windows.Forms.Button();
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridSoldItemList)).BeginInit();
             this.SuspendLayout();
@@ -878,20 +878,21 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.pictureBox1);
+            this.groupBox3.Controls.Add(this.PicBoxItemImage);
             this.groupBox3.Location = new System.Drawing.Point(9, 8);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(150, 150);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             // 
-            // pictureBox1
+            // PicBoxItemImage
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(5, 10);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(141, 135);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.PicBoxItemImage.Location = new System.Drawing.Point(5, 10);
+            this.PicBoxItemImage.Name = "PicBoxItemImage";
+            this.PicBoxItemImage.Size = new System.Drawing.Size(141, 135);
+            this.PicBoxItemImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PicBoxItemImage.TabIndex = 0;
+            this.PicBoxItemImage.TabStop = false;
             // 
             // RadioBtnCredit
             // 
@@ -1218,7 +1219,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridSoldItemList)).EndInit();
@@ -1295,7 +1296,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichItemSubCode;
         private System.Windows.Forms.TextBox TxtBalanceStatus;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox PicBoxItemImage;
         private System.Windows.Forms.LinkLabel linkLabel23;
         private System.Windows.Forms.LinkLabel linkLabel17;
         private System.Windows.Forms.LinkLabel linkLabel14;

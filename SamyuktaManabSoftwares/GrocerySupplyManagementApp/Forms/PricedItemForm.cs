@@ -21,7 +21,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IStockService _stockService;
 
         public DashboardForm _dashboard;
-        private string _documentsDirectory;
+        private string _baseImageFolder;
         private const string ITEM_IMAGE_FOLDER = "Items";
         private string _uploadedImagePath = string.Empty;
         private long _selectedId = 0;
@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void ItemForm_Load(object sender, EventArgs e)
         {
-            _documentsDirectory = ConfigurationManager.AppSettings["DocumentsDirectory"].ToString();
+            _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
         }
         #endregion
 
@@ -89,6 +89,31 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                string destinationFilePath = null;
+                if (!Directory.Exists(_baseImageFolder))
+                {
+                    DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    return;
+                }
+                else
+                {
+                    if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                    {
+                        UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                    }
+
+                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
+                    destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                    File.Copy(_uploadedImagePath, destinationFilePath, true);
+                }
+
+                var date = DateTime.Now;
                 var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
@@ -100,15 +125,11 @@ namespace GrocerySupplyManagementApp.Forms
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                    ImagePath = _uploadedImagePath,
-                    UpdatedDate = DateTime.Now
+                    ImagePath = destinationFilePath,
+                    UpdatedDate = date
                 };
 
                 _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
-                {
-                    //SaveImage(_documentsDirectory, _uploadedImagePath);
-                }
                 DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -124,28 +145,14 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddItemImage_Click(object sender, EventArgs e)
         {
-            OpenItemImageDialog.InitialDirectory = _documentsDirectory;
+            OpenItemImageDialog.InitialDirectory = _baseImageFolder;
             OpenItemImageDialog.Filter = "All files |*.*";
             OpenItemImageDialog.ShowDialog();
         }
 
         private void BtnDeleteItemImage_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + 
-                    TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
-                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
-                
-                if(DeleteImage(filePath))
-                {
-                    PicBoxItemImage.Image = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            PicBoxItemImage.Image = null;
         }
 
         private void BtnAddNew_Click(object sender, EventArgs e)
@@ -159,6 +166,33 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                string destinationFilePath = null;
+                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                {
+                    if (!Directory.Exists(_baseImageFolder))
+                    {
+                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            return;
+                        }
+
+                        return;
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                        {
+                            UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                        }
+
+                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
+                        destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                        File.Copy(_uploadedImagePath, destinationFilePath, true);
+                    }
+                }
+
                 var date = DateTime.Now;
                 var pricedItem = new PricedItem
                 {
@@ -171,19 +205,13 @@ namespace GrocerySupplyManagementApp.Forms
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPrice = Convert.ToDecimal(TxtSalesPrice.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                    ImagePath = _uploadedImagePath,
+                    ImagePath = destinationFilePath,
                     AddedDate = date,
                     UpdatedDate = date
                 };
 
                 _pricedItemService.AddPricedItem(pricedItem);
-                if(!string.IsNullOrWhiteSpace(_uploadedImagePath))
-                {
-                    //SaveImage(_documentsDirectory, _uploadedImagePath);
-                }
-                
                 DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -203,13 +231,18 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if(deleteResult == DialogResult.Yes)
                 {
-                    if(_pricedItemService.DeletePricedItem(_selectedId))
+                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
+                    var filePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                    if(UtilityService.DeleteImage(filePath))
                     {
-                        DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
-                        if (result == DialogResult.OK)
+                        if (_pricedItemService.DeletePricedItem(_selectedId))
                         {
-                            ClearAllFields();
-                            EnableFields();
+                            DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            if (result == DialogResult.OK)
+                            {
+                                ClearAllFields();
+                                EnableFields();
+                            }
                         }
                     }
                 }
@@ -347,14 +380,11 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
-                BtnAddItemImage.Enabled = true;
-                BtnDeleteItemImage.Enabled = true;
             }
             else if (action == Action.PopulateUnpricedItem)
             {
                 BtnAdd.Enabled = true;
                 BtnDelete.Enabled = true;
-                BtnAddItemImage.Enabled = true;
             }
             else if(action == Action.Add)
             {
@@ -421,7 +451,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtProfitAmount.Clear();
             TxtSalesPrice.Clear();
             TxtSalesPricePerUnit.Clear();
-
+            PicBoxItemImage.Image = null;
         }
 
         public void PopulatePricedItem(long pricedId)
@@ -461,13 +491,9 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtSalesPrice.Text = Math.Round((Convert.ToDecimal(TxtTotalPrice.Text) + Convert.ToDecimal(TxtProfitAmount.Text)), 2).ToString();
                 TxtSalesPricePerUnit.Text = Math.Round((Convert.ToDecimal(TxtSalesPrice.Text) / Convert.ToDecimal(TxtQuantity.Text)), 2).ToString();
 
-                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
-                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
-
-                if (File.Exists(filePath))
+                if (File.Exists(pricedItem.ImagePath))
                 {
-                    //PicBoxItemImage.Image = filePath;
-                    PicBoxItemImage.ImageLocation = filePath;
+                    PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
                 }
 
                 EnableFields(); 
@@ -505,15 +531,6 @@ namespace GrocerySupplyManagementApp.Forms
                     .ToList();
                 TxtPerUnitValue.Text = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)).ToString();
 
-                var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemName.Text + ".jpg";
-                var filePath = Path.Combine(_documentsDirectory, ITEM_IMAGE_FOLDER, fileName);
-
-                if (File.Exists(filePath))
-                {
-                    //PicBoxItemImage.Image = filePath;
-                    PicBoxItemImage.ImageLocation = filePath;
-                }
-
                 EnableFields();
                 EnableFields(Action.PopulateUnpricedItem);
             }
@@ -521,40 +538,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
-        }
-
-        private bool SaveImage(string uploadedImagePath, string imageFolder, string imageName)
-        {
-            if (!Directory.Exists(imageFolder))
-            {
-                DialogResult errorResult = MessageBox.Show("Configured image directory is not correct. Please check.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (errorResult == DialogResult.OK)
-                {
-                    return false;
-                }
-            }
-
-            if (!Directory.Exists(Path.Combine(imageFolder, ITEM_IMAGE_FOLDER)))
-            {
-                UtilityService.CreateFolder(imageFolder, ITEM_IMAGE_FOLDER);
-            }
-
-            var destinationFileName = Path.Combine(imageFolder, ITEM_IMAGE_FOLDER) + "\\" + imageName + ".jpg"; 
-            File.Copy(uploadedImagePath, destinationFileName, true);
-            return true;
-        }
-
-        private bool DeleteImage(string imagePath)
-        {
-            var result = false;
-            if (File.Exists(imagePath))
-            {
-                File.Delete(imagePath);
-                result = true;
-            }
-
-            return result;
         }
         #endregion
     }

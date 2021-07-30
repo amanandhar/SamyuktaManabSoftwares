@@ -21,7 +21,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var members = new List<Member>();
             var query = @"SELECT " +
                 "[Id], [Counter], [MemberId], [Name], " +
-                "[Address], [ContactNo], [Email], [AccountNo], " +
+                "[Address], [ContactNo], [Email], [AccountNo], [ImagePath], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_MEMBER;
             try
@@ -45,6 +45,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
                                     Email = reader["Email"].ToString(),
                                     AccountNo = reader["AccountNo"].ToString(),
+                                    ImagePath = reader["ImagePath"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
@@ -67,7 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var query = @"SELECT " +
                 "[Id], [Counter], [MemberId], [Name], " +
-                "[Address], [ContactNo], [Email], [AccountNo], " +
+                "[Address], [ContactNo], [Email], [AccountNo], [ImagePath], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_MEMBER + " " +
                 "WHERE 1 = 1 " +
@@ -93,6 +94,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 member.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
                                 member.Email = reader["Email"].ToString();
                                 member.AccountNo = reader["AccountNo"].ToString();
+                                member.ImagePath = reader["ImagePath"].ToString();
                                 member.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 member.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
@@ -143,11 +145,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
                     "( " +
-                        "[Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [AddedDate], [UpdatedDate] " +
+                        "[Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @AddedDate, @UpdatedDate " +
+                        "@Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -163,6 +165,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ContactNo", member.ContactNo);
                         command.Parameters.AddWithValue("@Email", member.Email);
                         command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
+                        command.Parameters.AddWithValue("@ImagePath", member.ImagePath);
                         command.Parameters.AddWithValue("@AddedDate", member.AddedDate);
                         command.Parameters.AddWithValue("@UpdatedDate", member.UpdatedDate);
 
@@ -189,6 +192,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[ContactNo] = @ContactNo, " +
                 "[Email] = @Email, " +
                 "[AccountNo] = @AccountNo, " +
+                "[ImagePath] = @ImagePath, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] = @MemberId ";
@@ -203,9 +207,10 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@MemberId", memberId);
                         command.Parameters.AddWithValue("@Name", member.Name);
                         command.Parameters.AddWithValue("@Address", member.Address);
-                        command.Parameters.AddWithValue("@ContactNumber", member.ContactNo);
+                        command.Parameters.AddWithValue("@ContactNo", member.ContactNo);
                         command.Parameters.AddWithValue("@Email", member.Email);
                         command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
+                        command.Parameters.AddWithValue("@ImagePath", member.ImagePath);
                         command.Parameters.AddWithValue("@UpdatedDate", member.UpdatedDate);
 
                         command.ExecuteNonQuery();

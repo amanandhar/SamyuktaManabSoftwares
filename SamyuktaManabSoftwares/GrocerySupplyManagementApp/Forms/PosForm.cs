@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -459,6 +460,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemUnit.Clear();
             RichProfitAmount.Clear();
             RichItemStock.Clear();
+            PicBoxItemImage.Image = null;
         }
 
         private void ClearAllInvoiceFields()
@@ -543,6 +545,11 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemStock.Text = stock.ToString();
                 RichItemUnit.Text = item.Unit;
                 RichProfitAmount.Text = pricedItem.Profit.ToString();
+                if (File.Exists(pricedItem.ImagePath))
+                {
+                    PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
+                }
+
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }

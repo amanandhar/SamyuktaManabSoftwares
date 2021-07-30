@@ -7,6 +7,9 @@ using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -22,6 +25,22 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
         
         public DashboardForm _dashboard;
+        private string _baseImageFolder;
+        private const string MEMBER_IMAGE_FOLDER = "Members";
+        private string _uploadedImagePath = string.Empty;
+
+        #region Enum
+        private enum Action
+        {
+            Add,
+            Save,
+            Edit,
+            Update,
+            Delete,
+            PopulateMember,
+            None
+        }
+        #endregion 
 
         #region Constructor
         public MemberForm(IFiscalYearService fiscalYearService,
@@ -48,6 +67,7 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
             EnableFields(false);
             LoadMemberTransactions();
+            _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
         }
         #endregion
 
@@ -69,6 +89,33 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                string destinationFilePath = null;
+                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                {
+                    if (!Directory.Exists(_baseImageFolder))
+                    {
+                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            return;
+                        }
+
+                        return;
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                        {
+                            UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                        }
+
+                        var fileName = RichMemberId.Text + ".jpg";
+                        destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                        File.Copy(_uploadedImagePath, destinationFilePath, true);
+                    }
+                }
+
                 var date = DateTime.Now;
                 var member = new Member
                 {
@@ -78,6 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     Email = RichEmail.Text,
                     AccountNo = RichAccountNumber.Text,
+                    ImagePath = destinationFilePath,
                     AddedDate = date,
                     UpdatedDate = date
                 };
@@ -107,6 +155,30 @@ namespace GrocerySupplyManagementApp.Forms
             var memberId = RichMemberId.Text;
             try
             {
+                string destinationFilePath = null;
+                if (!Directory.Exists(_baseImageFolder))
+                {
+                    DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    return;
+                }
+                else
+                {
+                    if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                    {
+                        UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                    }
+
+                    var fileName = RichMemberId.Text + ".jpg";
+                    destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                    File.Copy(_uploadedImagePath, destinationFilePath, true);
+                }
+
                 var member = new Member
                 {
                     MemberId = RichMemberId.Text,
@@ -115,6 +187,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     Email = RichEmail.Text,
                     AccountNo = RichAccountNumber.Text,
+                    ImagePath = destinationFilePath,
                     UpdatedDate = DateTime.Now
                 };
 
@@ -134,14 +207,31 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            var memberId = RichMemberId.Text;
-            _memberService.DeleteMember(memberId);
-
-            DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
-            if (result == DialogResult.OK)
+            try
             {
-                ClearAllFields();
-                LoadMemberTransactions();
+                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (deleteResult == DialogResult.Yes)
+                {
+                    var memberId = RichMemberId.Text;
+                    var fileName = memberId + ".jpg";
+                    var filePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                    if (UtilityService.DeleteImage(filePath))
+                    {
+                        if(_memberService.DeleteMember(memberId))
+                        {
+                            DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            if (result == DialogResult.OK)
+                            {
+                                ClearAllFields();
+                                LoadMemberTransactions();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -224,6 +314,35 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnAddImage_Click(object sender, EventArgs e)
+        {
+            OpenMemberImageDialog.InitialDirectory = _baseImageFolder;
+            OpenMemberImageDialog.Filter = "All files |*.*";
+            OpenMemberImageDialog.ShowDialog();
+        }
+
+        private void BtnDeleteImage_Click(object sender, EventArgs e)
+        {
+            PicBoxMemberImage.Image = null;
+        }
+
+        #endregion
+
+        #region OpenFileDialog Event
+        private void OpenMemberImageDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                Activate();
+                string[] files = OpenMemberImageDialog.FileNames;
+                _uploadedImagePath = files[0];
+                PicBoxMemberImage.Image = Image.FromFile(_uploadedImagePath);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region Combobox Event
@@ -342,6 +461,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboReceipt.Text = string.Empty;
             ComboBank.Text = string.Empty;
             RichAmount.Clear();
+            PicBoxMemberImage.Image = null;
         }
 
         public void PopulateMember(string memberId)
@@ -355,12 +475,18 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmail.Text = member.Email;
             RichAccountNumber.Text = member.AccountNo;
 
+            if (File.Exists(member.ImagePath))
+            {
+                PicBoxMemberImage.ImageLocation = member.ImagePath;
+            }
+
             ComboReceipt.Enabled = true;
 
             EnableFields(false);
 
             LoadMemberTransactions();
         }
+
 
         #endregion
 

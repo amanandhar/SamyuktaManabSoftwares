@@ -9,6 +9,12 @@ namespace GrocerySupplyManagementApp.Shared
 {
     public static class UtilityService
     {
+        public static string GetConnectionString()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings[Constants.DB_CONNECTION_STRING].ConnectionString;
+            return connectionString;
+        }
+
         public static bool CreateFolder(string rootPath, string folderName)
         {
             bool result = false;
@@ -22,10 +28,16 @@ namespace GrocerySupplyManagementApp.Shared
             return result;
         }
 
-        public static string GetConnectionString()
+        public static bool DeleteImage(string imagePath)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings[Constants.DB_CONNECTION_STRING].ConnectionString;
-            return connectionString;
+            var result = false;
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+                result = true;
+            }
+
+            return result;
         }
 
         public static List<StockView> CalculateStock(List<Stock> stocks)
