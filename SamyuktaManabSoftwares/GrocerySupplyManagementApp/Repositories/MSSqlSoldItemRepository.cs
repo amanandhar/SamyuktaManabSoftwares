@@ -337,7 +337,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND [EndOfDay] = @EndOfDay ";
+                "AND [EndOfDay] > @EndOfDay ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

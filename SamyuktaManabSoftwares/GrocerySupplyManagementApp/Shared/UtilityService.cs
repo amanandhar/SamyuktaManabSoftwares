@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Shared
 
                     stockView.SalesPrice = 0.00m;
                     stockView.StockValue = stock.TotalPurchasePrice;
-                    stockView.PerUnitValue = Math.Round((stock.TotalPurchasePrice / stock.PurchaseQuantity), 2);
+                    stockView.PerUnitValue = stock.TotalPurchasePrice == 0.00m ? 0.00m : Math.Round((stock.TotalPurchasePrice / stock.PurchaseQuantity), 2);
                 }
                 else
                 {

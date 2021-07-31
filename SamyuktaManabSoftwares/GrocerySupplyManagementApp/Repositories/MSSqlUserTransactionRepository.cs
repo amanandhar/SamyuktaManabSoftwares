@@ -1365,7 +1365,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [EndOfDay] = @EndOfDay ";
+                "AND [EndOfDay] > @EndOfDay ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
