@@ -16,6 +16,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
+
+        private readonly string _endOfDay;
         private List<Bank> _banks = new List<Bank>();
 
         #region Constructor
@@ -28,6 +30,8 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _userTransactionService = userTransactionService;
             _bankTransactionService = bankTransactionService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
@@ -43,11 +47,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYear = _fiscalYearService.GetFiscalYear();
                 var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDay = fiscalYear.StartingDate,
+                    EndOfDay = _endOfDay,
                     Action = Constants.TRANSFER,
                     ActionType = Constants.CASH,
                     Bank = ComboBank.Text,
@@ -70,7 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                 var bankTransaction = new BankTransaction
                 {
-                    EndOfDay = fiscalYear.StartingDate,
+                    EndOfDay = _endOfDay,
                     BankId = Convert.ToInt64(selectedItem.Id),
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',

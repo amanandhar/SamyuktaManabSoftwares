@@ -8,13 +8,23 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class FiscalYearForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
+        private readonly IBankTransactionService _bankTransactionService;
+        private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
 
         #region Constructor
-        public FiscalYearForm(IFiscalYearService fiscalYearService)
+        public FiscalYearForm(IFiscalYearService fiscalYearService,
+            IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService,
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
+            _bankTransactionService = bankTransactionService;
+            _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -44,11 +54,12 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var currentDate = DateTime.Now;
+                var endOfDay = RichCompanyStartingDate.Text;
                 var fiscalYear = new FiscalYear
                 {
                     StartingInvoiceNo = RichInvoiceNo.Text,
                     StartingBillNo = RichBillNo.Text,
-                    StartingDate = RichCompanyStartingDate.Text,
+                    StartingDate = endOfDay,
                     Year = RichFiscalYear.Text,
                     AddedDate = currentDate,
                     UpdatedDate = currentDate
@@ -56,6 +67,11 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var truncate = true;
                 _fiscalYearService.AddFiscalYear(fiscalYear, truncate);
+
+                _bankTransactionService.DeleteBankTransactionAfterEndOfDay(endOfDay);
+                _purchasedItemService.DeletePurchasedItemAfterEndOfDay(endOfDay);
+                _soldItemService.DeleteSoldItemAfterEndOfDay(endOfDay);
+                _userTransactionService.DeleteUserTransactionAfterEndOfDay(endOfDay);
 
                 DialogResult result = MessageBox.Show("Fiscal year detail has been saved successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)

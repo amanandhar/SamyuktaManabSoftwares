@@ -29,9 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ComboItemCode = new System.Windows.Forms.ComboBox();
@@ -49,8 +49,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtSales = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
-            this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
             this.DataGridStockList = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -165,8 +165,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.TxtSales);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.MaskDateTo);
-            this.groupBox2.Controls.Add(this.MaskDateFrom);
+            this.groupBox2.Controls.Add(this.MaskEndOfDayTo);
+            this.groupBox2.Controls.Add(this.MaskEndOfDayFrom);
             this.groupBox2.Controls.Add(this.TxtTotalStock);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label4);
@@ -261,57 +261,57 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.TabIndex = 18;
             this.label6.Text = "Total Purchase";
             // 
-            // MaskDateTo
+            // MaskEndOfDayTo
             // 
-            this.MaskDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateTo.Location = new System.Drawing.Point(349, 19);
-            this.MaskDateTo.Mask = "0000-00-00";
-            this.MaskDateTo.Name = "MaskDateTo";
-            this.MaskDateTo.Size = new System.Drawing.Size(105, 26);
-            this.MaskDateTo.TabIndex = 17;
-            this.MaskDateTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDateTo_KeyDown);
+            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayTo.Location = new System.Drawing.Point(349, 19);
+            this.MaskEndOfDayTo.Mask = "0000-00-00";
+            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
+            this.MaskEndOfDayTo.Size = new System.Drawing.Size(105, 26);
+            this.MaskEndOfDayTo.TabIndex = 17;
+            this.MaskEndOfDayTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDateTo_KeyDown);
             // 
-            // MaskDateFrom
+            // MaskEndOfDayFrom
             // 
-            this.MaskDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateFrom.Location = new System.Drawing.Point(172, 18);
-            this.MaskDateFrom.Mask = "0000-00-00";
-            this.MaskDateFrom.Name = "MaskDateFrom";
-            this.MaskDateFrom.Size = new System.Drawing.Size(105, 26);
-            this.MaskDateFrom.TabIndex = 16;
-            this.MaskDateFrom.ValidatingType = typeof(System.DateTime);
-            this.MaskDateFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskTextBoxDateFrom_KeyDown);
+            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(172, 18);
+            this.MaskEndOfDayFrom.Mask = "0000-00-00";
+            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
+            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(105, 26);
+            this.MaskEndOfDayFrom.TabIndex = 16;
+            this.MaskEndOfDayFrom.ValidatingType = typeof(System.DateTime);
+            this.MaskEndOfDayFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskTextBoxDateFrom_KeyDown);
             // 
             // DataGridStockList
             // 
             this.DataGridStockList.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridStockList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridStockList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridStockList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridStockList.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridStockList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridStockList.Location = new System.Drawing.Point(13, 139);
             this.DataGridStockList.Name = "DataGridStockList";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridStockList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridStockList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridStockList.Size = new System.Drawing.Size(1015, 390);
             this.DataGridStockList.TabIndex = 17;
             this.DataGridStockList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockList_DataBindingComplete);
@@ -351,8 +351,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView DataGridStockList;
-        private System.Windows.Forms.MaskedTextBox MaskDateTo;
-        private System.Windows.Forms.MaskedTextBox MaskDateFrom;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox TxtPurchase;

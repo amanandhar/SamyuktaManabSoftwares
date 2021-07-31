@@ -22,6 +22,7 @@ namespace GrocerySupplyManagementApp
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DashboardForm(
                 container.Resolve<IFiscalYearService>(),
+                container.Resolve<ICompanyInfoService>(),
                 container.Resolve<ITaxService>(),
                 container.Resolve<IBankService>(),
                 container.Resolve<IBankTransactionService>(),
@@ -41,6 +42,7 @@ namespace GrocerySupplyManagementApp
         {
             var container = new UnityContainer();
             container.RegisterType<IFiscalYearService, FiscalYearService>();
+            container.RegisterType<ICompanyInfoService, CompanyInfoService>();
             container.RegisterType<ITaxService, TaxService>();
             container.RegisterType<IBankService, BankService>();
             container.RegisterType<IBankTransactionService, BankTransactionService>();
@@ -55,6 +57,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IEndOfDayService, EndOfDayService>();
 
             container.RegisterType<IFiscalYearRepository, MSSqlFiscalYearRepository>();
+            container.RegisterType<ICompanyInfoRepository, MSSqlCompanyInfoRepository>();
             container.RegisterType<ITaxRepository, MSSqlTaxRepository>();
             container.RegisterType<IBankRepository, MSSqlBankRepository>();
             container.RegisterType<IBankTransactionRepository, MSSqlBankTransactionRepository>();

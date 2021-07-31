@@ -21,6 +21,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _endOfDay;
+
         #region Constructor
         public SupplierForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
@@ -36,6 +38,8 @@ namespace GrocerySupplyManagementApp.Forms
             _supplierService = supplierService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
 
         #endregion
@@ -168,11 +172,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYear = _fiscalYearService.GetFiscalYear();
                 var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDay = fiscalYear.StartingDate,
+                    EndOfDay = _endOfDay,
                     BillNo = TxtBillNo.Text,
                     SupplierId = RichSupplierId.Text,
                     Action = Constants.PAYMENT,
@@ -199,7 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
-                        EndOfDay = fiscalYear.StartingDate,
+                        EndOfDay = _endOfDay,
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastUserTransaction.Id,
                         Action = '0',

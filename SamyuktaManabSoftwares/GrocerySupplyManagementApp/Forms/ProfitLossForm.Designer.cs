@@ -33,11 +33,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnShow = new System.Windows.Forms.Button();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,6 +48,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.DataGridIncomeList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -100,15 +100,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2.Text = "                                                                                 " +
     "     Profit & Loss Report";
             // 
-            // richTextBox3
-            // 
-            this.richTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox3.Location = new System.Drawing.Point(184, 20);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(160, 30);
-            this.richTextBox3.TabIndex = 6;
-            this.richTextBox3.Text = "";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -140,22 +131,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.UseVisualStyleBackColor = true;
             this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.Location = new System.Drawing.Point(444, 19);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.richTextBox2.Size = new System.Drawing.Size(160, 30);
-            this.richTextBox2.TabIndex = 5;
-            this.richTextBox2.Text = "";
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.MaskEndOfDayTo);
+            this.groupBox1.Controls.Add(this.MaskEndOfDayFrom);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.richTextBox3);
-            this.groupBox1.Controls.Add(this.richTextBox2);
             this.groupBox1.Location = new System.Drawing.Point(21, 31);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(820, 65);
@@ -280,6 +261,24 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Text = "                                                                                 " +
     "                          Profit & Loss : 2078/079";
             // 
+            // MaskEndOfDayFrom
+            // 
+            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(187, 22);
+            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
+            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
+            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDayFrom.TabIndex = 102;
+            // 
+            // MaskEndOfDayTo
+            // 
+            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayTo.Location = new System.Drawing.Point(448, 20);
+            this.MaskEndOfDayTo.Mask = "   0000-00-00";
+            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
+            this.MaskEndOfDayTo.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDayTo.TabIndex = 103;
+            // 
             // ProfitLossForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,11 +320,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnShow;
-        private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
@@ -338,5 +335,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView DataGridExpenseList;
         private System.Windows.Forms.DataGridView DataGridIncomeList;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
     }
 }

@@ -34,8 +34,8 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
-            this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
             this.TxtTotalAmount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -77,8 +77,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.MaskDateTo);
-            this.groupBox1.Controls.Add(this.MaskDateFrom);
+            this.groupBox1.Controls.Add(this.MaskEndOfDayTo);
+            this.groupBox1.Controls.Add(this.MaskEndOfDayFrom);
             this.groupBox1.Controls.Add(this.TxtTotalAmount);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label9);
@@ -92,23 +92,23 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
-            // MaskDateTo
+            // MaskEndOfDayTo
             // 
-            this.MaskDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateTo.Location = new System.Drawing.Point(347, 15);
-            this.MaskDateTo.Mask = "   0000-00-00";
-            this.MaskDateTo.Name = "MaskDateTo";
-            this.MaskDateTo.Size = new System.Drawing.Size(105, 24);
-            this.MaskDateTo.TabIndex = 27;
+            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayTo.Location = new System.Drawing.Point(347, 15);
+            this.MaskEndOfDayTo.Mask = "   0000-00-00";
+            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
+            this.MaskEndOfDayTo.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDayTo.TabIndex = 27;
             // 
-            // MaskDateFrom
+            // MaskEndOfDayFrom
             // 
-            this.MaskDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateFrom.Location = new System.Drawing.Point(167, 16);
-            this.MaskDateFrom.Mask = "   0000-00-00";
-            this.MaskDateFrom.Name = "MaskDateFrom";
-            this.MaskDateFrom.Size = new System.Drawing.Size(105, 24);
-            this.MaskDateFrom.TabIndex = 26;
+            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(167, 16);
+            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
+            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
+            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDayFrom.TabIndex = 26;
             // 
             // TxtTotalAmount
             // 
@@ -450,7 +450,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView DataGridExpenseList;
-        private System.Windows.Forms.MaskedTextBox MaskDateTo;
-        private System.Windows.Forms.MaskedTextBox MaskDateFrom;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
     }
 }

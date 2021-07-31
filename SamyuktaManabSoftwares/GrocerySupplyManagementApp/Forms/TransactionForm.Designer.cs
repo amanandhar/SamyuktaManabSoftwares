@@ -48,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboInvoiceNo = new System.Windows.Forms.ComboBox();
             this.ComboSales = new System.Windows.Forms.ComboBox();
             this.RadioReceipt = new System.Windows.Forms.RadioButton();
-            this.MaskDate = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.RadioPurchase = new System.Windows.Forms.RadioButton();
             this.ComboPayment = new System.Windows.Forms.ComboBox();
@@ -83,7 +83,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.Controls.Add(this.ComboInvoiceNo);
             this.GroupFilter.Controls.Add(this.ComboSales);
             this.GroupFilter.Controls.Add(this.RadioReceipt);
-            this.GroupFilter.Controls.Add(this.MaskDate);
+            this.GroupFilter.Controls.Add(this.MaskEndOfDay);
             this.GroupFilter.Controls.Add(this.label3);
             this.GroupFilter.Controls.Add(this.RadioPurchase);
             this.GroupFilter.Controls.Add(this.ComboPayment);
@@ -285,14 +285,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioReceipt.UseVisualStyleBackColor = true;
             this.RadioReceipt.CheckedChanged += new System.EventHandler(this.RadioReceipt_CheckedChanged);
             // 
-            // MaskDate
+            // MaskEndOfDay
             // 
-            this.MaskDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDate.Location = new System.Drawing.Point(132, 17);
-            this.MaskDate.Mask = "   0000-00-00";
-            this.MaskDate.Name = "MaskDate";
-            this.MaskDate.Size = new System.Drawing.Size(105, 24);
-            this.MaskDate.TabIndex = 1;
+            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDay.Location = new System.Drawing.Point(132, 17);
+            this.MaskEndOfDay.Mask = "   0000-00-00";
+            this.MaskEndOfDay.Name = "MaskEndOfDay";
+            this.MaskEndOfDay.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDay.TabIndex = 1;
             // 
             // label3
             // 
@@ -492,7 +492,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RadioButton RadioUser;
         private System.Windows.Forms.RadioButton RadioPurchase;
         private System.Windows.Forms.TextBox TxtTotal;
-        private System.Windows.Forms.MaskedTextBox MaskDate;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDay;
         private System.Windows.Forms.DataGridView DataGridTransactionList;
         private System.Windows.Forms.RadioButton RadioItemCode;
         private System.Windows.Forms.ComboBox ComboItemCode;

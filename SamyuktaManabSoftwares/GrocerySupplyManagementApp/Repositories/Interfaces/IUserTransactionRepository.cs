@@ -38,5 +38,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction);
 
         bool DeleteUserTransaction(long id);
+        bool DeleteUserTransactionAfterEndOfDay(string endOfDay);
     }
 }

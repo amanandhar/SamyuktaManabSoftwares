@@ -26,6 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _endOfDay;
         private List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
 
         #region Constructor
@@ -49,6 +50,8 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
 
         public PosForm(IMemberService memberService, IUserTransactionService userTransactionService, 
@@ -107,9 +110,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddSale_Click(object sender, EventArgs e)
         {
-            var fiscalYear = _fiscalYearService.GetFiscalYear();
             RichInvoiceNo.Text = _userTransactionService.GetInvoiceNo();
-            RichInvoiceDate.Text = fiscalYear.StartingDate;
+            RichInvoiceDate.Text = _endOfDay;
 
             BtnShowMember.Enabled = true;
             BtnShowItem.Enabled = true;

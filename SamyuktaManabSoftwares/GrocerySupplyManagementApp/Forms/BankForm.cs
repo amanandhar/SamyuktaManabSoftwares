@@ -17,6 +17,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
 
+        private readonly string _endOfDay;
         private long selectedBankId = 0;
 
         #region Enum
@@ -40,6 +41,8 @@ namespace GrocerySupplyManagementApp.Forms
             _fiscalYearService = fiscalYearService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
@@ -136,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var date = DateTime.Now;
                 var bankTransaction = new BankTransaction
                 {
-                    EndOfDay = _fiscalYearService.GetFiscalYear().StartingDate,
+                    EndOfDay = _endOfDay,
                     BankId = selectedBankId,
                     Action = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
                     Debit = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,

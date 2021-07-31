@@ -7,20 +7,30 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SettingForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
+        private readonly ICompanyInfoService _companyInfoService;
         private readonly ITaxService _taxService;
         private readonly IItemService _itemService;
+        private readonly IBankTransactionService _bankTransactionService;
         private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
+        private readonly IUserTransactionService _userTransactionService;
 
         #region Constructor
-        public SettingForm(IFiscalYearService fiscalYearService, ITaxService taxService, 
-            IItemService itemService, IPurchasedItemService purchasedItemService)
+        public SettingForm(IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
+            ITaxService taxService, IItemService itemService,
+            IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService,
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
+            _companyInfoService = companyInfoService;
             _taxService = taxService;
             _itemService = itemService;
+            _bankTransactionService = bankTransactionService;
             _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
+            _userTransactionService = userTransactionService;
         }
         #endregion
 
@@ -34,7 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnCompanyInfo_Click(object sender, EventArgs e)
         {
-            CompanyInfoForm companyInfoForm = new CompanyInfoForm();
+            CompanyInfoForm companyInfoForm = new CompanyInfoForm(_companyInfoService);
             companyInfoForm.Show();
         }
 
@@ -52,7 +62,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnFiscalYearForm_Click(object sender, EventArgs e)
         {
-            FiscalYearForm fiscalYearForm = new FiscalYearForm(_fiscalYearService);
+            FiscalYearForm fiscalYearForm = new FiscalYearForm(_fiscalYearService,
+                _bankTransactionService, _purchasedItemService,
+                _soldItemService, _userTransactionService);
             fiscalYearForm.Show();
         }
 

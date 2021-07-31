@@ -193,5 +193,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             throw new NotImplementedException();
         }
+
+        public bool DeleteUserTransactionAfterEndOfDay(string endOfDay)
+        {
+            return _userTransactionRepository.DeleteUserTransactionAfterEndOfDay(endOfDay);
+        }
     }
 }

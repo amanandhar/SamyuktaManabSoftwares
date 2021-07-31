@@ -18,6 +18,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _endOfDay;
         public SupplierForm _supplierForm;
         private List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
 
@@ -34,6 +35,8 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
             _supplierForm = supplierForm;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
 
         public PurchaseForm(IItemService itemService, IPurchasedItemService purchasedItemService, string supplierId, string billNo)
@@ -75,7 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var purchasedItemView = new PurchasedItemView
                 {
                     Id = _purchasedItemViewList.Count + 1,
-                    EndOfDay = _fiscalYearService.GetFiscalYear().StartingDate,
+                    EndOfDay = _endOfDay,
                     BillNo = RichBillNo.Text,
                     Code = RichItemCode.Text,
                     Name = RichItemName.Text,
@@ -102,11 +105,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYear = _fiscalYearService.GetFiscalYear();
                 var date = DateTime.Now;
                 List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
                 {
-                    EndOfDay = fiscalYear.StartingDate,
+                    EndOfDay = _endOfDay,
                     SupplierId = _supplierForm.GetSupplierId(),
                     BillNo = item.BillNo,
                     ItemId = _itemService.GetItem(item.Code).Id,
@@ -123,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDay = fiscalYear.StartingDate,
+                    EndOfDay = _endOfDay,
                     BillNo = RichBillNo.Text,
                     SupplierId = _supplierForm.GetSupplierId(),
                     Action = Constants.PURCHASE,

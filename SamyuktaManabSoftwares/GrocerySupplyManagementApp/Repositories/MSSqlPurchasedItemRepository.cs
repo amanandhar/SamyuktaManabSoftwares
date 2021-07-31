@@ -624,5 +624,34 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return result;
         }
-     }
+
+        public bool DeletePurchasedItemAfterEndOfDay(string endOfDay)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                    "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
+                    "WHERE 1 = 1 " +
+                    "AND [EndOfDay] = @EndOfDay ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@EndOfDay", endOfDay);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+    }
 }

@@ -93,6 +93,7 @@
     <Compile Include="DTOs\TransactionFilter.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
+    <Compile Include="Entities\CompanyInfo.cs" />
     <Compile Include="Entities\FiscalYear.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\EndOfDay.cs" />
@@ -322,6 +323,7 @@
     </Compile>
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICompanyInfoRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEndOfDayRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPricedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFiscalYearRepository.cs" />
@@ -335,6 +337,7 @@
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
     <Compile Include="Repositories\MSSqlEndOfDayRepository.cs" />
     <Compile Include="Repositories\MSSqlFiscalYearRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
@@ -353,10 +356,12 @@
     </Compile>
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
+    <Compile Include="Services\CompanyInfoService.cs" />
     <Compile Include="Services\EndOfDayService.cs" />
     <Compile Include="Services\FiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
+    <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
     <Compile Include="Services\Interfaces\IPricedItemService.cs" />
     <Compile Include="Services\Interfaces\IFiscalYearService.cs" />

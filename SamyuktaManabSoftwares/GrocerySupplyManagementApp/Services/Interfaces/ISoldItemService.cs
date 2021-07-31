@@ -18,5 +18,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem);
 
         bool DeleteSoldItem(string invoiceNo);
+        bool DeleteSoldItemAfterEndOfDay(string endOfDay);
     }
 }

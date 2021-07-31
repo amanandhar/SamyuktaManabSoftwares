@@ -42,8 +42,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if (CheckAllTransactions.Checked)
             {
-                MaskDateFrom.Text = string.Empty;
-                MaskDateTo.Text = string.Empty;
+                MaskEndOfDayFrom.Text = string.Empty;
+                MaskEndOfDayTo.Text = string.Empty;
                 ComboItemCode.Text = string.Empty;
             }
         }
@@ -155,8 +155,8 @@ namespace GrocerySupplyManagementApp.Forms
             if (!CheckAllTransactions.Checked)
             {
                 filter.ItemCode = ComboItemCode.Text;
-                filter.DateFrom = MaskDateFrom.Text;
-                filter.DateTo = MaskDateTo.Text;
+                filter.DateFrom = MaskEndOfDayFrom.Text;
+                filter.DateTo = MaskEndOfDayTo.Text;
             }
 
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(filter).ToString();

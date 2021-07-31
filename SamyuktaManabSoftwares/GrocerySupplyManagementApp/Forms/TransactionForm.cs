@@ -17,6 +17,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _endOfDay;
+
         #region Constructor
         public TransactionForm(IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
@@ -30,15 +32,16 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
         #region Form Load Event
         private void TransactionForm_Load(object sender, EventArgs e)
         {
-            var fiscalYear = _fiscalYearService.GetFiscalYear();
-            MaskDate.Text = fiscalYear.StartingDate;
-            MaskDate.Focus();
+            MaskEndOfDay.Text = _endOfDay;
+            MaskEndOfDay.Focus();
             EnableCombos(false);
         }
         #endregion
@@ -314,12 +317,12 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadTransactions()
         {
-            MaskDate.Focus();
+            MaskEndOfDay.Focus();
             var transactionFilter = new TransactionFilter();
 
-            if (!string.IsNullOrWhiteSpace(MaskDate.Text.Replace("-", string.Empty).Trim()))
+            if (!string.IsNullOrWhiteSpace(MaskEndOfDay.Text.Replace("-", string.Empty).Trim()))
             {
-                transactionFilter.Date = Convert.ToDateTime(MaskDate.Text).ToString("yyyy-MM-dd");
+                transactionFilter.Date = Convert.ToDateTime(MaskEndOfDay.Text).ToString("yyyy-MM-dd");
             }
 
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()

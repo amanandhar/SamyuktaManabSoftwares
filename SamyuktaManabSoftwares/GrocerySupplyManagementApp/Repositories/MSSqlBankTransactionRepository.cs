@@ -444,5 +444,33 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return result;
         }
+
+        public bool DeleteBankTransactionAfterEndOfDay(string endOfDay)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [EndOfDay] = @EndOfDay ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@EndOfDay", ((object)endOfDay) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
     }
 }

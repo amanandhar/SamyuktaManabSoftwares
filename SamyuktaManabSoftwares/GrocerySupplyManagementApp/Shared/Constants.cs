@@ -22,6 +22,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string DB_CONNECTION_STRING = "DBConnectionString";
         public const string TABLE_BANK = "Bank";
         public const string TABLE_BANK_TRANSACTION = "BankTransaction";
+        public const string TABLE_COMPANY_INFO = "CompanyInfo";
         public const string TABLE_END_OF_DAY = "EndOfDay";
         public const string TABLE_FISCAL_YEAR = "FiscalYear";
         public const string TABLE_ITEM = "Item";

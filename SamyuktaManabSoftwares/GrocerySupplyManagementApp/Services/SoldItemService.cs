@@ -79,5 +79,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _soldItemRepository.DeleteSoldItem(invoiceNo);
         }
+
+        public bool DeleteSoldItemAfterEndOfDay(string endOfDay)
+        {
+            return _soldItemRepository.DeleteSoldItemAfterEndOfDay(endOfDay);
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class DashboardForm : Form
     {
         private readonly IFiscalYearService _fiscalYearService;
+        private readonly ICompanyInfoService _companyInfoService;
         private readonly ITaxService _taxService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
@@ -22,7 +23,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IEndOfDayService _endOfDateService;
 
         #region Constructor
-        public DashboardForm(IFiscalYearService fiscalYearService, ITaxService taxService,
+        public DashboardForm(IFiscalYearService fiscalYearService, 
+            ICompanyInfoService companyInfoService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService, ISupplierService supplierService,
@@ -33,6 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
+            _companyInfoService = companyInfoService;
             _taxService = taxService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
@@ -135,8 +138,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
-            SettingForm settingForm = new SettingForm(_fiscalYearService, _taxService, 
-                _itemService, _purchasedItemService);
+            SettingForm settingForm = new SettingForm(_fiscalYearService, _companyInfoService,
+                _taxService, _itemService,
+                _bankTransactionService, _purchasedItemService,
+                _soldItemService, _userTransactionService);
             settingForm.Show();
         }
 

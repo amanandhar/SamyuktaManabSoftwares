@@ -34,8 +34,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.ComboBank = new System.Windows.Forms.ComboBox();
-            this.MaskDateFrom = new System.Windows.Forms.MaskedTextBox();
-            this.MaskDateTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.RichAddAmount = new System.Windows.Forms.RichTextBox();
@@ -62,8 +62,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.ComboBank);
-            this.groupBox3.Controls.Add(this.MaskDateFrom);
-            this.groupBox3.Controls.Add(this.MaskDateTo);
+            this.groupBox3.Controls.Add(this.MaskEndOfDayFrom);
+            this.groupBox3.Controls.Add(this.MaskEndOfDayTo);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.RichAddAmount);
@@ -101,24 +101,24 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Size = new System.Drawing.Size(250, 28);
             this.ComboBank.TabIndex = 19;
             // 
-            // MaskDateFrom
+            // MaskEndOfDayFrom
             // 
-            this.MaskDateFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateFrom.Location = new System.Drawing.Point(149, 19);
-            this.MaskDateFrom.Mask = "   0000-00-00";
-            this.MaskDateFrom.Name = "MaskDateFrom";
-            this.MaskDateFrom.Size = new System.Drawing.Size(125, 26);
-            this.MaskDateFrom.TabIndex = 24;
-            this.MaskDateFrom.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MaskDateFrom_KeyUp);
+            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(149, 19);
+            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
+            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
+            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(125, 26);
+            this.MaskEndOfDayFrom.TabIndex = 24;
+            this.MaskEndOfDayFrom.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MaskDateFrom_KeyUp);
             // 
-            // MaskDateTo
+            // MaskEndOfDayTo
             // 
-            this.MaskDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateTo.Location = new System.Drawing.Point(356, 19);
-            this.MaskDateTo.Mask = "   0000-00-00";
-            this.MaskDateTo.Name = "MaskDateTo";
-            this.MaskDateTo.Size = new System.Drawing.Size(125, 26);
-            this.MaskDateTo.TabIndex = 23;
+            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayTo.Location = new System.Drawing.Point(356, 19);
+            this.MaskEndOfDayTo.Mask = "   0000-00-00";
+            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
+            this.MaskEndOfDayTo.Size = new System.Drawing.Size(125, 26);
+            this.MaskEndOfDayTo.TabIndex = 23;
             // 
             // label5
             // 
@@ -337,7 +337,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridIncomeList.TabIndex = 32;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeView_DataBindingComplete);
             // 
-            // IncomeDetailForm
+            // IncomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -347,7 +347,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
-            this.Name = "IncomeDetailForm";
+            this.Name = "IncomeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.IncomeDetailForm_Load);
             this.groupBox3.ResumeLayout(false);
@@ -377,8 +377,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtAmount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DataGridIncomeList;
-        private System.Windows.Forms.MaskedTextBox MaskDateFrom;
-        private System.Windows.Forms.MaskedTextBox MaskDateTo;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox ComboBank;
         private System.Windows.Forms.Label label4;

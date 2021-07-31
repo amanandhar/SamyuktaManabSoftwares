@@ -23,7 +23,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IMemberService _memberService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
-        
+
+        private readonly string _endOfDay;
         public DashboardForm _dashboard;
         private string _baseImageFolder;
         private const string MEMBER_IMAGE_FOLDER = "Members";
@@ -58,6 +59,8 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _dashboard = dashboardForm;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
@@ -261,11 +264,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYearDetail = _fiscalYearService.GetFiscalYear();
                 var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDay = fiscalYearDetail.StartingDate,
+                    EndOfDay = _endOfDay,
                     MemberId = RichMemberId.Text,
                     Action = Constants.RECEIPT,
                     ActionType = ComboReceipt.Text,
@@ -290,7 +292,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
-                        EndOfDay = fiscalYearDetail.StartingDate,
+                        EndOfDay = _endOfDay,
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastPosTransaction.Id,
                         Action = '1',
@@ -490,8 +492,6 @@ namespace GrocerySupplyManagementApp.Forms
             LoadMemberTransactions();
         }
 
-
         #endregion
-
     }
 }

@@ -18,6 +18,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _endOfDay;
+
         #region Constructor
         public ExpenseForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
@@ -29,6 +31,8 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _userTransactionService = userTransactionService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
@@ -56,11 +60,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var fiscalYearDetail = _fiscalYearService.GetFiscalYear();
                 var date = DateTime.Now;
                 var posTransaction = new UserTransaction
                 {
-                    EndOfDay = fiscalYearDetail.StartingDate,
+                    EndOfDay = _endOfDay,
                     Action = Constants.EXPENSE,
                     ActionType = ComboPayment.Text,
                     Bank = ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower() ? ComboBank.Text : null,
@@ -86,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
-                        EndOfDay = fiscalYearDetail.StartingDate,
+                        EndOfDay = _endOfDay,
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastUserTransaction.Id,
                         Action = '0',
@@ -178,8 +181,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Radio Button Event
         private void RadioAll_CheckedChanged(object sender, EventArgs e)
         {
-            MaskDateFrom.Clear();
-            MaskDateTo.Clear();
+            MaskEndOfDayFrom.Clear();
+            MaskEndOfDayTo.Clear();
             ComboFilteredBy.Text = string.Empty;
         }
         #endregion

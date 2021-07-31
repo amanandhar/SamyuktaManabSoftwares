@@ -70,5 +70,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _bankTransactionRepository.DeleteBankTransactionByUserTransaction(userTransactionId);
         }
+
+        public bool DeleteBankTransactionAfterEndOfDay(string endOfDay)
+        {
+            return _bankTransactionRepository.DeleteBankTransactionAfterEndOfDay(endOfDay);
+        }
     }
 }

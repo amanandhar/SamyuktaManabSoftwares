@@ -56,8 +56,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdateBank = new System.Windows.Forms.Button();
             this.BtnAddBank = new System.Windows.Forms.Button();
             this.BtnDeleteBank = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -65,6 +63,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDateTo = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -281,7 +281,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(275, 499);
+            this.label3.Location = new System.Drawing.Point(234, 500);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 18);
             this.label3.TabIndex = 2;
@@ -292,7 +292,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(49, 498);
+            this.label2.Location = new System.Drawing.Point(24, 499);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 18);
             this.label2.TabIndex = 1;
@@ -376,22 +376,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteBank.Text = "Delete";
             this.BtnDeleteBank.UseVisualStyleBackColor = false;
             this.BtnDeleteBank.Click += new System.EventHandler(this.BtnDeleteBank_Click);
-            // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(342, 496);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(120, 26);
-            this.textBox3.TabIndex = 8;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(135, 495);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(120, 26);
-            this.textBox4.TabIndex = 9;
             // 
             // textBox5
             // 
@@ -484,20 +468,38 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             // 
+            // MaskEndOfDayFrom
+            // 
+            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(113, 496);
+            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
+            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
+            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDayFrom.TabIndex = 22;
+            // 
+            // MaskEndOfDateTo
+            // 
+            this.MaskEndOfDateTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDateTo.Location = new System.Drawing.Point(305, 496);
+            this.MaskEndOfDateTo.Mask = "   0000-00-00";
+            this.MaskEndOfDateTo.Name = "MaskEndOfDateTo";
+            this.MaskEndOfDateTo.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDateTo.TabIndex = 24;
+            // 
             // BankForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.Controls.Add(this.MaskEndOfDateTo);
+            this.Controls.Add(this.MaskEndOfDayFrom);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.DataGridBankList);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
@@ -536,8 +538,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RichTextBox RichAmount;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
@@ -553,5 +553,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox ComboType;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDateTo;
     }
 }

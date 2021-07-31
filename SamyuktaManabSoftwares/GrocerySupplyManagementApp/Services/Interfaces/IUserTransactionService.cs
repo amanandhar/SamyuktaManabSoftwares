@@ -40,5 +40,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         bool DeleteUserTransaction(long id);
 
         bool DeleteSupplierInvoice(long userTransactionId);
+        bool DeleteUserTransactionAfterEndOfDay(string endOfDay);
     }
 }

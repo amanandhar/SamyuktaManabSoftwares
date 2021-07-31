@@ -31,7 +31,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.linkLabel15 = new System.Windows.Forms.LinkLabel();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnShow = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -66,6 +65,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RichNetLoss = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,8 +74,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.MaskEndOfDay);
             this.groupBox1.Controls.Add(this.linkLabel15);
-            this.groupBox1.Controls.Add(this.richTextBox2);
             this.groupBox1.Location = new System.Drawing.Point(19, 32);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(818, 65);
@@ -88,21 +88,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel15.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.linkLabel15.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel15.Location = new System.Drawing.Point(82, 25);
+            this.linkLabel15.Location = new System.Drawing.Point(15, 27);
             this.linkLabel15.Name = "linkLabel15";
-            this.linkLabel15.Size = new System.Drawing.Size(76, 20);
+            this.linkLabel15.Size = new System.Drawing.Size(48, 20);
             this.linkLabel15.TabIndex = 21;
             this.linkLabel15.TabStop = true;
-            this.linkLabel15.Text = "For Date ";
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.Location = new System.Drawing.Point(158, 22);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(120, 30);
-            this.richTextBox2.TabIndex = 5;
-            this.richTextBox2.Text = "";
+            this.linkLabel15.Text = "Date ";
             // 
             // groupBox3
             // 
@@ -526,6 +517,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Assets";
             // 
+            // MaskEndOfDay
+            // 
+            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDay.Location = new System.Drawing.Point(69, 25);
+            this.MaskEndOfDay.Mask = "   0000-00-00";
+            this.MaskEndOfDay.Name = "MaskEndOfDay";
+            this.MaskEndOfDay.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDay.TabIndex = 22;
+            // 
             // BalanceSheetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,7 +560,6 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.TextBox textBox1;
@@ -596,5 +595,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RichTextBox RichNetLoss;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDay;
     }
 }

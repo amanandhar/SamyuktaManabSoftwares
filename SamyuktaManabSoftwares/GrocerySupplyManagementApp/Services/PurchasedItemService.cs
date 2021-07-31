@@ -148,5 +148,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _purchasedItemRepository.DeletePurchasedItem(billNo);
         }
+
+        public bool DeletePurchasedItemAfterEndOfDay(string endOfDay)
+        {
+            return _purchasedItemRepository.DeletePurchasedItemAfterEndOfDay(endOfDay);
+        }
     }
 }

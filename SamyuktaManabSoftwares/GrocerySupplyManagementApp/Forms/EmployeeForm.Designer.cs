@@ -276,11 +276,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label16.Location = new System.Drawing.Point(16, 365);
+            this.label16.Location = new System.Drawing.Point(3, 365);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(103, 20);
+            this.label16.Size = new System.Drawing.Size(121, 20);
             this.label16.TabIndex = 16;
-            this.label16.Text = "Appoint Date";
+            this.label16.Text = "Appointed Date";
             // 
             // richTextBox1
             // 
@@ -486,11 +486,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label21.Location = new System.Drawing.Point(16, 402);
+            this.label21.Location = new System.Drawing.Point(6, 402);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(98, 20);
+            this.label21.Size = new System.Drawing.Size(116, 20);
             this.label21.TabIndex = 32;
-            this.label21.Text = "Resine Date";
+            this.label21.Text = "Resigned Date";
             // 
             // richTextBox18
             // 
@@ -700,7 +700,7 @@ namespace GrocerySupplyManagementApp.Forms
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Red;
+            this.button5.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.button5.Location = new System.Drawing.Point(7, 89);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(130, 35);
