@@ -165,7 +165,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ContactNo", member.ContactNo);
                         command.Parameters.AddWithValue("@Email", member.Email);
                         command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
-                        command.Parameters.AddWithValue("@ImagePath", member.ImagePath);
+                        command.Parameters.AddWithValue("@ImagePath", ((object)member.ImagePath) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", member.AddedDate);
                         command.Parameters.AddWithValue("@UpdatedDate", member.UpdatedDate);
 
@@ -210,7 +210,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ContactNo", member.ContactNo);
                         command.Parameters.AddWithValue("@Email", member.Email);
                         command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
-                        command.Parameters.AddWithValue("@ImagePath", member.ImagePath);
+                        command.Parameters.AddWithValue("@ImagePath", ((object)member.ImagePath) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", member.UpdatedDate);
 
                         command.ExecuteNonQuery();

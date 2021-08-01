@@ -238,7 +238,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
                         command.Parameters.AddWithValue("@SalesPrice", pricedItem.SalesPrice);
                         command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
-                        command.Parameters.AddWithValue("@ImagePath", pricedItem.ImagePath);
+                        command.Parameters.AddWithValue("@ImagePath", ((object)pricedItem.ImagePath) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", pricedItem.AddedDate);
                         command.Parameters.AddWithValue("@UpdatedDate", pricedItem.UpdatedDate);
 
@@ -287,7 +287,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
                         command.Parameters.AddWithValue("@SalesPrice", pricedItem.SalesPrice);
                         command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
-                        command.Parameters.AddWithValue("@ImagePath", pricedItem.ImagePath);
+                        command.Parameters.AddWithValue("@ImagePath", ((object)pricedItem.ImagePath) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", pricedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
