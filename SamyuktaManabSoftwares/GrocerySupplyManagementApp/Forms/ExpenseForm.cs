@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var date = DateTime.Now;
-                var posTransaction = new UserTransaction
+                var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
                     Action = Constants.EXPENSE,
@@ -80,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
                     AddedDate = date,
                     UpdatedDate = date
                 };
-                _userTransactionService.AddUserTransaction(posTransaction);
+                _userTransactionService.AddUserTransaction(userTransaction);
 
                 if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                 {

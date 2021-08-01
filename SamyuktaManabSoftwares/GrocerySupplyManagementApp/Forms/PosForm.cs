@@ -162,6 +162,50 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _userTransactionService.AddUserTransaction(userTransaction);
 
+                // Add Sales Discount
+                var userTransactionForSalesDiscount = new UserTransaction
+                {
+                    EndOfDay = _endOfDay,
+                    Action = Constants.SALES,
+                    ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
+                    IncomeExpense = Constants.SALES_DISCOUNT,
+                    SubTotal = 0.0m,
+                    DiscountPercent = 0.0m,
+                    Discount = 0.0m,
+                    VatPercent = 0.0m,
+                    Vat = 0.0m,
+                    DeliveryChargePercent = 0.0m,
+                    DeliveryCharge = 0.0m,
+                    DueAmount = Convert.ToDecimal(RichTextDiscount.Text),
+                    ReceivedAmount = 0.0m,
+                    AddedDate = date,
+                    UpdatedDate = date
+                };
+
+                _userTransactionService.AddUserTransaction(userTransactionForSalesDiscount);
+
+                // Add Delivery Charge
+                var userTransactionForDeliveryCharge = new UserTransaction
+                {
+                    EndOfDay = _endOfDay,
+                    Action = Constants.SALES,
+                    ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
+                    IncomeExpense = Constants.DELIVERY_CHARGE,
+                    SubTotal = 0.0m,
+                    DiscountPercent = 0.0m,
+                    Discount = 0.0m,
+                    VatPercent = 0.0m,
+                    Vat = 0.0m,
+                    DeliveryChargePercent = 0.0m,
+                    DeliveryCharge = 0.0m,
+                    DueAmount = 0.0m,
+                    ReceivedAmount = Convert.ToDecimal(RichTextDeliveryCharge.Text),
+                    AddedDate = date,
+                    UpdatedDate = date
+                };
+
+                _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);
+
                 ClearAllMemberFields();
                 ClearAllItemFields();
                 ClearAllInvoiceFields();
