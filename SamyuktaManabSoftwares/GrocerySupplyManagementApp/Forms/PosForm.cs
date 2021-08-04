@@ -226,7 +226,8 @@ namespace GrocerySupplyManagementApp.Forms
                     "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    // Show print dialog box
+                    InvoiceReportForm invoiceReportForm = new InvoiceReportForm();
+                    invoiceReportForm.ShowDialog();
                 }
                 else
                 {

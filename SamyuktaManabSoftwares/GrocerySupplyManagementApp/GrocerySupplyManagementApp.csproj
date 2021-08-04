@@ -87,6 +87,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DsSales.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Data\InvoiceDataSet.cs">
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\InvoiceDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
@@ -519,7 +527,7 @@
     <EmbeddedResource Include="Forms\TransactionForm.resx">
       <DependentUpon>TransactionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\SalesReport.rdlc" />
+    <EmbeddedResource Include="Reports\InvoiceReport.rdlc" />
     <None Include=".Designer.gitignore" />
     <None Include=".gitignore">
       <SubType>Form</SubType>
@@ -537,6 +545,17 @@
       <DependentUpon>DsSales.xsd</DependentUpon>
     </None>
     <None Include="Data\Files\AdToBsMapping.xlsx" />
+    <None Include="Data\InvoiceDataSet.xsc">
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Data\InvoiceDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>InvoiceDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Data\InvoiceDataSet.xss">
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GrocerySupplyManagementApp.Data.DsSales+tbl_FullSalesDataTable.datasource" />
     <None Include="Properties\Settings.settings">
