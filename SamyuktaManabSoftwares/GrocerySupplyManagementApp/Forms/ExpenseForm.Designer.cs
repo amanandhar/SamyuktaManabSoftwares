@@ -285,7 +285,6 @@ namespace GrocerySupplyManagementApp.Forms
             "Miscellaneous",
             "Office Rent ",
             "Repair & Maintenance",
-            "Sales Discount",
             "Staff  Allowance",
             "Staff Salary ",
             "Telephone & Internet"});

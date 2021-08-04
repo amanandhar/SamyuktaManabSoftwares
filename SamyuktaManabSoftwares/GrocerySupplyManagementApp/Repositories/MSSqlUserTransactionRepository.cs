@@ -622,6 +622,13 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHERE 1 = 1 " +
                 "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') " +
                 "AND [ActionType] = '" + Constants.CASH + "' " +
+                "AND [Id] NOT IN " +
+                "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
+                    "( " +
+                        "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', " +
+                        "'" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "'" +
+                    ") " +
+                ") " +
                 ") " +
                 "- " +
                 "( " +
@@ -631,6 +638,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHERE 1 = 1 " +
                 "AND [Action] IN ('" + Constants.TRANSFER + "', '" + Constants.EXPENSE + "') " +
                 "AND [ActionType] = '" + Constants.CASH + "' " +
+                "AND [Id] NOT IN " +
+                "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
+                    "( " +
+                        "'" + Constants.SALES_DISCOUNT + "'" +
+                    ") " +
+                ") " +
                 ") ";
 
             try
@@ -670,7 +683,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE 1 = 1 " +
                     "AND [EndOfDay] = @endOfDay " +
                     "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType ";
+                    "AND [ActionType] = @ActionType " +
+                    "AND [Id] NOT IN " +
+                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
+                        "( " +
+                            "'" + Constants.SALES_DISCOUNT + "'" +
+                        ") " +
+                    ") ";
             }
             else
             {
@@ -680,7 +699,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE 1 = 1 " +
                     "AND [EndOfDay] = @endOfDay " +
                     "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType ";
+                    "AND [ActionType] = @ActionType " +
+                    "AND [Id] NOT IN " +
+                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
+                        "( " +
+                            "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', " +
+                            "'" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "'" +
+                        ") " +
+                    ") ";
             }
 
             try
@@ -723,7 +749,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE 1 = 1 " +
                     "AND [EndOfDay] < @endOfDay " +
                     "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType ";
+                    "AND [ActionType] = @ActionType " +
+                    "AND [Id] NOT IN " +
+                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
+                        "( " +
+                            "'" + Constants.SALES_DISCOUNT + "'" +
+                        ") " +
+                    ") ";
             }
             else
             {
@@ -733,7 +765,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE 1 = 1 " +
                     "AND [EndOfDay] < @endOfDay " +
                     "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType ";
+                    "AND [Id] NOT IN " +
+                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
+                        "( " +
+                            "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', " +
+                            "'" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "'" +
+                        ") " +
+                    ") ";
             }
 
             try
@@ -978,15 +1016,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
                 "LEFT JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 " +
-                "AND ut.[Id] NOT IN " + 
-                "( " + 
-                "SELECT Id FROM " +
-                "" + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE [Action] = '" + Constants.RECEIPT + "' " +
-                "AND [IncomeExpense] IN " +
-                "('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') " +
-                ") ";
+                "WHERE 1 = 1 ";
 
             if (transactionFilter.Date != null)
             {
