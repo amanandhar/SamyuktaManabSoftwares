@@ -36,7 +36,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnFiscalYearForm = new System.Windows.Forms.Button();
             this.BtnAddNewCode = new System.Windows.Forms.Button();
             this.BtnVatTaxSetup = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnDelivery = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -125,16 +125,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnVatTaxSetup.UseVisualStyleBackColor = true;
             this.BtnVatTaxSetup.Click += new System.EventHandler(this.BtnVatTaxSetup_Click);
             // 
-            // button1
+            // BtnDelivery
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(714, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(250, 125);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Set-up";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnDelivery.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDelivery.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDelivery.Location = new System.Drawing.Point(714, 56);
+            this.BtnDelivery.Name = "BtnDelivery";
+            this.BtnDelivery.Size = new System.Drawing.Size(250, 125);
+            this.BtnDelivery.TabIndex = 25;
+            this.BtnDelivery.Text = "Delivery Boy";
+            this.BtnDelivery.UseVisualStyleBackColor = true;
+            this.BtnDelivery.Click += new System.EventHandler(this.BtnDelivery_Click);
             // 
             // button2
             // 
@@ -166,7 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnDelivery);
             this.Controls.Add(this.BtnVatTaxSetup);
             this.Controls.Add(this.BtnAddNewCode);
             this.Controls.Add(this.BtnFiscalYearForm);
@@ -191,7 +192,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnFiscalYearForm;
         private System.Windows.Forms.Button BtnAddNewCode;
         private System.Windows.Forms.Button BtnVatTaxSetup;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnDelivery;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
     }

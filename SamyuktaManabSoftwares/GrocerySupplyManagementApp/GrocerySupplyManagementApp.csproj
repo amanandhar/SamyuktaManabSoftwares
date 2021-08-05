@@ -112,6 +112,12 @@
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\Tax.cs" />
+    <Compile Include="Forms\DeliveryBoyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeliveryBoyForm.Designer.cs">
+      <DependentUpon>DeliveryBoyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Interfaces\IUnpricedItemListForm.cs" />
     <Compile Include="Forms\ItemForm.cs">
       <SubType>Form</SubType>
@@ -409,6 +415,9 @@
     <Compile Include="ViewModels\SupplierView.cs" />
     <Compile Include="ViewModels\TransactionView.cs" />
     <Compile Include="ViewModels\UnpricedItemView.cs" />
+    <EmbeddedResource Include="Forms\DeliveryBoyForm.resx">
+      <DependentUpon>DeliveryBoyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>
     </EmbeddedResource>
