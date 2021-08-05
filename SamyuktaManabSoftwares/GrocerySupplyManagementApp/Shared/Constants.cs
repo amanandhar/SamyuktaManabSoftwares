@@ -39,7 +39,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string MEMBER_FEE = "Member Fee";
         public const string OTHER_INCOME = "Other Income";
         public const string SALES_PROFIT = "Sales Profit";
-        public const string SUPPLIERS_COMMISSION = "Suppliers Commission";
 
         public const string SHARE_CAPITAL = "Share Capital";
         public const string OWNER_EQUITY = "Owner Equity";

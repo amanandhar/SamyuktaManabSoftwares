@@ -623,11 +623,10 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') " +
                 "AND [ActionType] = '" + Constants.CASH + "' " +
                 "AND [Id] NOT IN " +
-                "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
-                    "( " +
-                        "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', " +
-                        "'" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "'" +
-                    ") " +
+                "( " +
+                "SELECT [Id] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
                 ") " +
                 ") " +
                 "- " +
@@ -639,10 +638,10 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND [Action] IN ('" + Constants.TRANSFER + "', '" + Constants.EXPENSE + "') " +
                 "AND [ActionType] = '" + Constants.CASH + "' " +
                 "AND [Id] NOT IN " +
-                "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
-                    "( " +
-                        "'" + Constants.SALES_DISCOUNT + "'" +
-                    ") " +
+                "( " +
+                "SELECT [Id] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
                 ") " +
                 ") ";
 
@@ -685,10 +684,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     "AND [Action] = @Action " +
                     "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
-                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
-                        "( " +
-                            "'" + Constants.SALES_DISCOUNT + "'" +
-                        ") " +
+                    "( " +
+                    "SELECT [Id] " +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
                     ") ";
             }
             else
@@ -701,12 +700,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     "AND [Action] = @Action " +
                     "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
-                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
-                        "( " +
-                            "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', " +
-                            "'" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "'" +
-                        ") " +
-                    ") ";
+                    "( " +
+                    "SELECT [Id] " +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
+                    ") " ;
             }
 
             try
@@ -751,10 +749,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     "AND [Action] = @Action " +
                     "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
-                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
-                        "( " +
-                            "'" + Constants.SALES_DISCOUNT + "'" +
-                        ") " +
+                    "( " +
+                    "SELECT [Id] " +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
                     ") ";
             }
             else
@@ -766,11 +764,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     "AND [EndOfDay] < @endOfDay " +
                     "AND [Action] = @Action " +
                     "AND [Id] NOT IN " +
-                    "( SELECT [Id] FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE [IncomeExpense] IN " +
-                        "( " +
-                            "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', " +
-                            "'" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "'" +
-                        ") " +
+                    "( " +
+                    "SELECT [Id] " +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
                     ") ";
             }
 
