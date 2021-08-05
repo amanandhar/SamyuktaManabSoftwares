@@ -21,6 +21,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
         private readonly IEndOfDayService _endOfDateService;
+        private readonly IReportService _reportService;
 
         #region Constructor
         public DashboardForm(IFiscalYearService fiscalYearService, 
@@ -30,7 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
             IMemberService memberService, ISupplierService supplierService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IStockService stockService,
-            IEndOfDayService endOfDateService)
+            IEndOfDayService endOfDateService, IReportService reportService)
         {
             InitializeComponent();
 
@@ -48,6 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
             _stockService = stockService;
             _endOfDateService = endOfDateService;
+            _reportService = reportService;
         }
         #endregion
 
@@ -75,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _itemService, _pricedItemService,
                 _memberService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService
+                _userTransactionService, _reportService
                  );
             posForm.Show();
         }

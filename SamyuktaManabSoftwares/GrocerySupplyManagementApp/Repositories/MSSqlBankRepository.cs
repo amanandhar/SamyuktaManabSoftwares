@@ -59,7 +59,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Bank GetBank(long id)
         {
-            var banks = new Bank();
+            var bank = new Bank();
             var query = @"SELECT " +
                 "[Id], [Name], [AccountNo], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_BANK + " " +
@@ -81,11 +81,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                 while (reader.Read())
                                 {
 
-                                    banks.Id = Convert.ToInt64(reader["Id"].ToString());
-                                    banks.Name = reader["Name"].ToString();
-                                    banks.AccountNo = reader["AccountNo"].ToString();
-                                    banks.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    banks.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    bank.Id = Convert.ToInt64(reader["Id"].ToString());
+                                    bank.Name = reader["Name"].ToString();
+                                    bank.AccountNo = reader["AccountNo"].ToString();
+                                    bank.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                    bank.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 }
                             }
                         }
@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw new Exception(ex.Message);
             }
 
-            return banks;
+            return bank;
         }
 
         public Bank AddBank(Bank bank)

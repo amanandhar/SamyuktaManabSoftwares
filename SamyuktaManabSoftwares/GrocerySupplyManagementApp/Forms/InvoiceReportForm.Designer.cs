@@ -55,7 +55,7 @@ namespace GrocerySupplyManagementApp.Forms
             reportDataSource1.Name = "DataSet1";
             reportDataSource1.Value = this.tblFullSalesBindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "GrocerySupplyManagementApp.Reports.SalesReport.rdlc";
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "GrocerySupplyManagementApp.Reports.InvoiceReport.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;

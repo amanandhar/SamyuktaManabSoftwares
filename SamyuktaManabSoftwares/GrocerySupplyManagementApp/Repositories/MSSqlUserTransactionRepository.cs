@@ -455,7 +455,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "TOP 1 [InvoiceNo] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [InvoiceNo] LIKE 'IN%' " +
+                "AND [InvoiceNo] IS NOT NULL " +
                 "ORDER BY [Id] DESC ";
             string invoiceNo = string.Empty;
             try
@@ -837,7 +837,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "DISTINCT [InvoiceNo] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [InvoiceNo] LIKE 'IN%' " +
+                "AND [InvoiceNo] IS NOT NULL " +
                 "ORDER BY [InvoiceNo] ";
             try
             {

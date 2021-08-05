@@ -34,7 +34,8 @@ namespace GrocerySupplyManagementApp
                 container.Resolve<ISoldItemService>(),
                 container.Resolve<IUserTransactionService>(),
                 container.Resolve<IStockService>(),
-                container.Resolve<IEndOfDayService>()
+                container.Resolve<IEndOfDayService>(),
+                container.Resolve<IReportService>()
                 ));
         }
 
@@ -55,6 +56,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IUserTransactionService, UserTransactionService>();
             container.RegisterType<IStockService, StockService>();
             container.RegisterType<IEndOfDayService, EndOfDayService>();
+            container.RegisterType<IReportService, ReportService>();
 
             container.RegisterType<IFiscalYearRepository, MSSqlFiscalYearRepository>();
             container.RegisterType<ICompanyInfoRepository, MSSqlCompanyInfoRepository>();
@@ -70,6 +72,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IUserTransactionRepository, MSSqlUserTransactionRepository>();
             container.RegisterType<IStockRepository, MSSqlStockRepository>();
             container.RegisterType<IEndOfDayRepository, MSSqlEndOfDayRepository>();
+            container.RegisterType<IReportRepository, MSSqlReportRepository>();
 
             return container;
         }

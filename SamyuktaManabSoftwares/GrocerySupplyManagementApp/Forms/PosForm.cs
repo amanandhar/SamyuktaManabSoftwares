@@ -25,8 +25,10 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IReportService _reportService;
 
         private readonly string _endOfDay;
+        private string _selectedInvoiceNo;
         private List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
 
         #region Constructor
@@ -35,7 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService
+            IUserTransactionService userTransactionService, IReportService reportService
             )
         {
             InitializeComponent();
@@ -50,6 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _reportService = reportService;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
@@ -110,7 +113,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddSale_Click(object sender, EventArgs e)
         {
-            RichInvoiceNo.Text = _userTransactionService.GetInvoiceNo();
+            _selectedInvoiceNo = _userTransactionService.GetInvoiceNo();
+            RichInvoiceNo.Text = _selectedInvoiceNo;
             RichInvoiceDate.Text = _endOfDay;
 
             BtnShowMember.Enabled = true;
@@ -226,7 +230,7 @@ namespace GrocerySupplyManagementApp.Forms
                     "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    InvoiceReportForm invoiceReportForm = new InvoiceReportForm();
+                    InvoiceReportForm invoiceReportForm = new InvoiceReportForm(_reportService, _selectedInvoiceNo);
                     invoiceReportForm.ShowDialog();
                 }
                 else
