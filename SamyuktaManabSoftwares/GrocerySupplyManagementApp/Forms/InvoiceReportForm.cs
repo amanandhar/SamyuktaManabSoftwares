@@ -26,13 +26,14 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void InvoiceReportForm_Load(object sender, EventArgs e)
         {
-            var report = _reportService.GetInvoiceReport(_invoiceNo);
-            /* Previous
-            // TODO: This line of code loads data into the 'sampleSalesDBDataSet.tbl_FullSales' table. You can move, or remove it, as needed.
-            this.tbl_FullSalesTableAdapter.Fill(this.sampleSalesDBDataSet.tbl_FullSales);
-            //this.Controls.Add(this.reportViewer1);
-            this.reportViewer1.RefreshReport();
-            */
+            LoadInvoiceReport();
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadInvoiceReport()
+        {
+            var reports = _reportService.GetInvoiceReport(_invoiceNo);
 
             DataTable invoiceDataTable = new DataTable();
 
@@ -49,31 +50,43 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceDataTable.Columns.Add("DueAmount");
             invoiceDataTable.Columns.Add("ReceivedAmount");
             invoiceDataTable.Columns.Add("Balance");
+            invoiceDataTable.Columns.Add("ItemName");
+            invoiceDataTable.Columns.Add("Brand");
+            invoiceDataTable.Columns.Add("Unit");
+            invoiceDataTable.Columns.Add("Quantity");
+            invoiceDataTable.Columns.Add("Price");
 
-            var row = invoiceDataTable.NewRow();
+            foreach (var report in reports)
+            {
+                var row = invoiceDataTable.NewRow();
 
-            row["MemberId"] = report.MemberId;
-            row["Name"] = report.Name;
-            row["Address"] = report.Address;
-            row["ContactNo"] = report.ContactNo;
-            row["InvoiceNo"] = report.InvoiceNo;
-            row["ActionType"] = report.ActionType;
-            row["EndOfDay"] = report.EndOfDay;
-            row["SubTotal"] = report.SubTotal;
-            row["Discount"] = report.Discount;
-            row["Vat"] = report.Vat;
-            row["DueAmount"] = report.DueAmount;
-            row["ReceivedAmount"] = report.ReceivedAmount;
-            row["Balance"] = report.Balance;
+                row["MemberId"] = report.MemberId;
+                row["Name"] = report.Name;
+                row["Address"] = report.Address;
+                row["ContactNo"] = report.ContactNo;
+                row["InvoiceNo"] = report.InvoiceNo;
+                row["ActionType"] = report.ActionType;
+                row["EndOfDay"] = report.EndOfDay;
+                row["SubTotal"] = report.SubTotal;
+                row["Discount"] = report.Discount;
+                row["Vat"] = report.Vat;
+                row["DueAmount"] = report.DueAmount;
+                row["ReceivedAmount"] = report.ReceivedAmount;
+                row["Balance"] = report.Balance;
+                row["ItemName"] = report.ItemName;
+                row["Brand"] = report.Brand;
+                row["Unit"] = report.Unit;
+                row["Quantity"] = report.Quantity;
+                row["Price"] = report.Price;
 
-            invoiceDataTable.Rows.Add(row);
-   
+                invoiceDataTable.Rows.Add(row);
+            }
+
             ReportDataSource reportDataSource = new ReportDataSource("Invoice", invoiceDataTable);
 
-            this.reportViewer1.LocalReport.DataSources.Clear();
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource);
-            this.reportViewer1.RefreshReport();
-
+            this.reportViewerInvoice.LocalReport.DataSources.Clear();
+            this.reportViewerInvoice.LocalReport.DataSources.Add(reportDataSource);
+            this.reportViewerInvoice.RefreshReport();
         }
         #endregion
     }

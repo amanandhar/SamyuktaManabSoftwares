@@ -15,5 +15,10 @@
         public decimal DueAmount { get; set; }
         public decimal ReceivedAmount { get; set; }
         public decimal Balance { get; set; }
+        public string ItemName { get; set; }
+        public string Brand { get; set; }
+        public string Unit { get; set; }
+        public long Quantity { get; set; }
+        public decimal Price { get; set; }
     }
 }

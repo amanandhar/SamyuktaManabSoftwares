@@ -83,11 +83,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DsSales.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DsSales.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Data\InvoiceDataSet.cs">
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </Compile>
@@ -548,17 +543,6 @@
       <SubType>Form</SubType>
     </None>
     <None Include="app.config" />
-    <None Include="Data\DsSales.xsc">
-      <DependentUpon>DsSales.xsd</DependentUpon>
-    </None>
-    <None Include="Data\DsSales.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DsSales.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Data\DsSales.xss">
-      <DependentUpon>DsSales.xsd</DependentUpon>
-    </None>
     <None Include="Data\Files\AdToBsMapping.xlsx" />
     <None Include="Data\InvoiceDataSet.xsc">
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
@@ -596,9 +580,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Data\SampleSalesDB.accdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Data\Scripts\CreateTables.sql" />
     <Content Include="Data\Scripts\TestScript.sql" />
     <Content Include="Data\Scripts\TruncateTables.sql" />

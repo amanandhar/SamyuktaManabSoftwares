@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
+using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -13,7 +14,7 @@ namespace GrocerySupplyManagementApp.Services
             _reportRepository = reportRepository;
         }
 
-        public InvoiceReportView GetInvoiceReport(string invoiceNo)
+        public IEnumerable<InvoiceReportView> GetInvoiceReport(string invoiceNo)
         {
             return _reportRepository.GetInvoiceReport(invoiceNo);
         }

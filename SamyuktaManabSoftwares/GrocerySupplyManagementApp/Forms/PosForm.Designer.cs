@@ -211,10 +211,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel24.LinkColor = System.Drawing.SystemColors.HotTrack;
             this.linkLabel24.Location = new System.Drawing.Point(26, 20);
             this.linkLabel24.Name = "linkLabel24";
-            this.linkLabel24.Size = new System.Drawing.Size(78, 18);
+            this.linkLabel24.Size = new System.Drawing.Size(73, 18);
             this.linkLabel24.TabIndex = 39;
             this.linkLabel24.TabStop = true;
-            this.linkLabel24.Text = "Delevery ";
+            this.linkLabel24.Text = "Delivery ";
             // 
             // TxtProfitAmount
             // 
