@@ -1,7 +1,7 @@
 ﻿
 namespace GrocerySupplyManagementApp.Forms
 {
-    partial class DeliveryBoyForm
+    partial class DeliveryPersonForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,38 +31,42 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
+            this.BtnShowTransaction = new System.Windows.Forms.Button();
+            this.BtnShow = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TxtName = new System.Windows.Forms.TextBox();
+            this.TxtAmount = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.DataGridDeliveryPersonList = new System.Windows.Forms.DataGridView();
+            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridDeliveryPersonList)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.DataGridDeliveryPersonList);
             this.groupBox2.Location = new System.Drawing.Point(12, 121);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(660, 220);
+            this.groupBox2.Size = new System.Drawing.Size(660, 228);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button7);
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.textBox5);
-            this.groupBox3.Controls.Add(this.textBox4);
+            this.groupBox3.Controls.Add(this.MaskEndOfDayTo);
+            this.groupBox3.Controls.Add(this.MaskEndOfDayFrom);
+            this.groupBox3.Controls.Add(this.BtnShowTransaction);
+            this.groupBox3.Controls.Add(this.BtnShow);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.TxtName);
+            this.groupBox3.Controls.Add(this.TxtAmount);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(12, 24);
@@ -71,50 +75,53 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
-            // button7
+            // MaskEndOfDayTo
             // 
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button7.Location = new System.Drawing.Point(512, 13);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(135, 34);
-            this.button7.TabIndex = 0;
-            this.button7.Text = "Show Transaction";
-            this.button7.UseVisualStyleBackColor = true;
+            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayTo.Location = new System.Drawing.Point(329, 18);
+            this.MaskEndOfDayTo.Mask = "   0000-00-00";
+            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
+            this.MaskEndOfDayTo.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDayTo.TabIndex = 41;
             // 
-            // button1
+            // MaskEndOfDayFrom
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(399, 52);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 28);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "C";
-            this.button1.UseVisualStyleBackColor = true;
+            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(112, 17);
+            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
+            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
+            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDayFrom.TabIndex = 40;
             // 
-            // textBox5
+            // BtnShowTransaction
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(314, 15);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(120, 26);
-            this.textBox5.TabIndex = 10;
+            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.Location = new System.Drawing.Point(512, 13);
+            this.BtnShowTransaction.Name = "BtnShowTransaction";
+            this.BtnShowTransaction.Size = new System.Drawing.Size(135, 34);
+            this.BtnShowTransaction.TabIndex = 0;
+            this.BtnShowTransaction.Text = "Show Transaction";
+            this.BtnShowTransaction.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // BtnShow
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(112, 16);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(120, 26);
-            this.textBox4.TabIndex = 9;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.Color.Red;
+            this.BtnShow.Location = new System.Drawing.Point(399, 52);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(35, 28);
+            this.BtnShow.TabIndex = 6;
+            this.BtnShow.Text = "C";
+            this.BtnShow.UseVisualStyleBackColor = true;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(247, 21);
+            this.label5.Location = new System.Drawing.Point(262, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 18);
             this.label5.TabIndex = 8;
@@ -131,22 +138,23 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.TabIndex = 7;
             this.label4.Text = "Date From";
             // 
-            // textBox2
+            // TxtName
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(112, 53);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(277, 26);
-            this.textBox2.TabIndex = 4;
+            this.TxtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtName.Location = new System.Drawing.Point(112, 53);
+            this.TxtName.Name = "TxtName";
+            this.TxtName.Size = new System.Drawing.Size(277, 26);
+            this.TxtName.TabIndex = 4;
             // 
-            // textBox1
+            // TxtAmount
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(512, 54);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(135, 26);
-            this.textBox1.TabIndex = 3;
+            this.TxtAmount.BackColor = System.Drawing.Color.White;
+            this.TxtAmount.Enabled = false;
+            this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAmount.Location = new System.Drawing.Point(512, 54);
+            this.TxtAmount.Name = "TxtAmount";
+            this.TxtAmount.Size = new System.Drawing.Size(135, 26);
+            this.TxtAmount.TabIndex = 3;
             // 
             // label3
             // 
@@ -179,7 +187,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox3.Size = new System.Drawing.Size(688, 22);
             this.textBox3.TabIndex = 7;
             // 
-            // DeliveryBoyForm
+            // DataGridDeliveryPersonList
+            // 
+            this.DataGridDeliveryPersonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(6, 19);
+            this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
+            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(648, 195);
+            this.DataGridDeliveryPersonList.TabIndex = 0;
+            this.DataGridDeliveryPersonList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridDeliveryPersonList_DataBindingComplete);
+            // 
+            // DeliveryPersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -187,10 +204,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Name = "DeliveryBoyForm";
+            this.Name = "DeliveryPersonForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridDeliveryPersonList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,14 +220,15 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button BtnShow;
+        private System.Windows.Forms.TextBox TxtName;
+        private System.Windows.Forms.TextBox TxtAmount;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button BtnShowTransaction;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
+        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
+        private System.Windows.Forms.DataGridView DataGridDeliveryPersonList;
     }
 }

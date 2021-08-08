@@ -14,12 +14,14 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IEmployeeService _employeeService;
 
         #region Constructor
         public SettingForm(IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
             ITaxService taxService, IItemService itemService,
             IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService,
-            ISoldItemService soldItemService, IUserTransactionService userTransactionService)
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
+            IEmployeeService employeeService)
         {
             InitializeComponent();
 
@@ -31,6 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _employeeService = employeeService;
         }
         #endregion
 
@@ -56,8 +59,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelivery_Click(object sender, EventArgs e)
         {
-            DeliveryBoyForm deliveryBoyForm = new DeliveryBoyForm();
-            deliveryBoyForm.ShowDialog();
+            DeliveryPersonForm deliveryPersonForm = new DeliveryPersonForm(_userTransactionService,
+                _employeeService);
+            deliveryPersonForm.ShowDialog();
         }
 
         private void BtnUserSetup_Click(object sender, EventArgs e)

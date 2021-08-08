@@ -21,6 +21,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
         private readonly IEndOfDayService _endOfDateService;
+        private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
 
         #region Constructor
@@ -31,7 +32,8 @@ namespace GrocerySupplyManagementApp.Forms
             IMemberService memberService, ISupplierService supplierService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IStockService stockService,
-            IEndOfDayService endOfDateService, IReportService reportService)
+            IEndOfDayService endOfDateService, IEmployeeService employeeService, 
+            IReportService reportService)
         {
             InitializeComponent();
 
@@ -49,6 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
             _stockService = stockService;
             _endOfDateService = endOfDateService;
+            _employeeService = employeeService;
             _reportService = reportService;
         }
         #endregion
@@ -77,7 +80,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _itemService, _pricedItemService,
                 _memberService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService, _reportService
+                _userTransactionService, _reportService,
+                _employeeService
                  );
             posForm.Show();
         }
@@ -143,7 +147,8 @@ namespace GrocerySupplyManagementApp.Forms
             SettingForm settingForm = new SettingForm(_fiscalYearService, _companyInfoService,
                 _taxService, _itemService,
                 _bankTransactionService, _purchasedItemService,
-                _soldItemService, _userTransactionService);
+                _soldItemService, _userTransactionService,
+                _employeeService);
             settingForm.Show();
         }
 
@@ -159,7 +164,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStaffMgmt_Click(object sender, EventArgs e)
         {
-            EmployeeForm staffForm = new EmployeeForm();
+            EmployeeForm staffForm = new EmployeeForm(_employeeService);
             staffForm.Show();
         }
 

@@ -7,7 +7,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<Supplier> GetSuppliers();
         Supplier GetSupplier(string supplierId);
-        int GetLastSupplierId();
+        long GetLastSupplierId();
 
         Supplier AddSupplier(Supplier supplier);
 

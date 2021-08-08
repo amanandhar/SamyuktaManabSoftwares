@@ -9,6 +9,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<UserTransaction> GetUserTransactions();
         IEnumerable<UserTransaction> GetUserTransactions(string memberId);
+        IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter filter);
         IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(string supplierId);
         IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter);

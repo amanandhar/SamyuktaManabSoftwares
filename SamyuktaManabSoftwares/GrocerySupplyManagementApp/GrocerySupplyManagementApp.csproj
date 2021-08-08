@@ -92,12 +92,14 @@
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DTOs\ComboBoxItem.cs" />
+    <Compile Include="DTOs\DeliveryPersonFilter.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\TransactionFilter.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
     <Compile Include="Entities\CompanyInfo.cs" />
+    <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\FiscalYear.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\EndOfDay.cs" />
@@ -108,12 +110,25 @@
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\Tax.cs" />
-    <Compile Include="Forms\DeliveryBoyForm.cs">
+    <Compile Include="Forms\DeliveryPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DeliveryBoyForm.Designer.cs">
-      <DependentUpon>DeliveryBoyForm.cs</DependentUpon>
+    <Compile Include="Forms\DeliveryPersonForm.Designer.cs">
+      <DependentUpon>DeliveryPersonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DeliveryPersonListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeliveryPersonListForm.Designer.cs">
+      <DependentUpon>DeliveryPersonListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmployeeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeListForm.Designer.cs">
+      <DependentUpon>EmployeeListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Interfaces\IEmployeeListForm.cs" />
     <Compile Include="Forms\Interfaces\IUnpricedItemListForm.cs" />
     <Compile Include="Forms\ItemForm.cs">
       <SubType>Form</SubType>
@@ -334,6 +349,7 @@
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyInfoRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEndOfDayRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPricedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFiscalYearRepository.cs" />
@@ -349,6 +365,7 @@
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
+    <Compile Include="Repositories\MSSqlEmployeeRepository.cs" />
     <Compile Include="Repositories\MSSqlEndOfDayRepository.cs" />
     <Compile Include="Repositories\MSSqlFiscalYearRepository.cs" />
     <Compile Include="Repositories\MSSqlReportRepository.cs" />
@@ -361,19 +378,16 @@
     <Compile Include="Repositories\MSSqlPricedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlTaxRepository.cs" />
-    <Compile Include="SampleSalesDBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SampleSalesDBDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\CompanyInfoService.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\EndOfDayService.cs" />
     <Compile Include="Services\FiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
+    <Compile Include="Services\Interfaces\IEmployeeService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
     <Compile Include="Services\Interfaces\IPricedItemService.cs" />
     <Compile Include="Services\Interfaces\IFiscalYearService.cs" />
@@ -416,8 +430,14 @@
     <Compile Include="ViewModels\SupplierView.cs" />
     <Compile Include="ViewModels\TransactionView.cs" />
     <Compile Include="ViewModels\UnpricedItemView.cs" />
-    <EmbeddedResource Include="Forms\DeliveryBoyForm.resx">
-      <DependentUpon>DeliveryBoyForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DeliveryPersonForm.resx">
+      <DependentUpon>DeliveryPersonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeliveryPersonListForm.resx">
+      <DependentUpon>DeliveryPersonListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeListForm.resx">
+      <DependentUpon>EmployeeListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>
@@ -566,17 +586,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="SampleSalesDBDataSet.xsc">
-      <DependentUpon>SampleSalesDBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="SampleSalesDBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SampleSalesDBDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SampleSalesDBDataSet.xss">
-      <DependentUpon>SampleSalesDBDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

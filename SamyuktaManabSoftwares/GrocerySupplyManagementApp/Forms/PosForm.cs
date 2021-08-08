@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
@@ -26,6 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IReportService _reportService;
+        private readonly IEmployeeService _employeeService;
 
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
@@ -37,7 +39,8 @@ namespace GrocerySupplyManagementApp.Forms
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService, IReportService reportService
+            IUserTransactionService userTransactionService, IReportService reportService,
+            IEmployeeService employeeService
             )
         {
             InitializeComponent();
@@ -53,6 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _reportService = reportService;
+            _employeeService = employeeService;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
@@ -149,6 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
                     InvoiceNo = RichInvoiceNo.Text.Trim(),
                     EndOfDay = RichInvoiceDate.Text.Trim(),
                     MemberId = RichMemberId.Text.Trim(),
+                    DeliveryPersonId = ComboDeliveryPerson.Text.Trim(),
                     Action = Constants.SALES,
                     ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                     SubTotal = Convert.ToDecimal(RichSubTotal.Text.Trim()),
@@ -391,6 +396,21 @@ namespace GrocerySupplyManagementApp.Forms
             RichPayment.Enabled = true;
             BtnSavePayment.Enabled = true;
             RichPayment.Focus();
+        }
+
+        private void ComboDeliveryPerson_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var deliveryPersons = _employeeService.GetDeliveryPersons().ToList();
+            if (deliveryPersons.Count > 0)
+            {
+                ComboDeliveryPerson.ValueMember = "Id";
+                ComboDeliveryPerson.DisplayMember = "Value";
+
+                deliveryPersons.OrderBy(x => x.Name).ToList().ForEach(x =>
+                {
+                    ComboDeliveryPerson.Items.Add(new ComboBoxItem { Id = x.EmployeeId, Value = x.Name });
+                });
+            }
         }
 
         #endregion
@@ -680,5 +700,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
     }
 }

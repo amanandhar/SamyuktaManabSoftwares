@@ -7,7 +7,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<Member> GetMembers();
         Member GetMember(string memberId);
-        int GetLastMemberId();
+        long GetLastMemberId();
 
         Member AddMember(Member member);
 

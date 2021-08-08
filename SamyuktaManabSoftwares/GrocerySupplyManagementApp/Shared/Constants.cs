@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_BANK = "Bank";
         public const string TABLE_BANK_TRANSACTION = "BankTransaction";
         public const string TABLE_COMPANY_INFO = "CompanyInfo";
+        public const string TABLE_EMPLOYEE = "Employee";
         public const string TABLE_END_OF_DAY = "EndOfDay";
         public const string TABLE_FISCAL_YEAR = "FiscalYear";
         public const string TABLE_ITEM = "Item";
@@ -63,5 +64,8 @@ namespace GrocerySupplyManagementApp.Shared
 
         //Images
         public const string BASE_IMAGE_FOLDER = "BaseImageFolder";
+
+        //Employee
+        public const string DELIVERY_PERSON = "Delivery Person";
     }
 }

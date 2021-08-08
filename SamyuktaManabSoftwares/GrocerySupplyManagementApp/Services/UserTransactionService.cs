@@ -29,6 +29,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetUserTransactions(memberId);
         }
 
+        public IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter filter)
+        {
+            return _userTransactionRepository.GetUserTransactions(filter);
+        }
+
         public IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId)
         {
             return _userTransactionRepository.GetMemberTransactions(memberId);

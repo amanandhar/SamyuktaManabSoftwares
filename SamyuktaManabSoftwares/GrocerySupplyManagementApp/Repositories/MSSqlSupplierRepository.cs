@@ -109,9 +109,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
-        public int GetLastSupplierId()
+        public long GetLastSupplierId()
         {
-            int id = 0;
+            long id = 0;
             string query = @"SELECT " +
                 "TOP 1 [Counter] " +
                 "FROM " + Constants.TABLE_SUPPLIER + " " +

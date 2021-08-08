@@ -110,9 +110,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return member;
         }
 
-        public int GetLastMemberId()
+        public long GetLastMemberId()
         {
-            int id = 0;
+            long id = 0;
             string query = @"SELECT " +
                 "TOP 1 [Counter] " +
                 "FROM " + Constants.TABLE_MEMBER + " " +

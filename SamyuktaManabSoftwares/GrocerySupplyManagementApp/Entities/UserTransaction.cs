@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Entities
         public string BillNo { get; set; }
         public string MemberId { get; set; }
         public string SupplierId { get; set; }
+        public string DeliveryPersonId { get; set; }
         public string Action { get; set; }
         public string ActionType { get; set; }
         public string Bank { get; set; }

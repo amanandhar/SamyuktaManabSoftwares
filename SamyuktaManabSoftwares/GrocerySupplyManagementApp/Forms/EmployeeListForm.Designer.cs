@@ -1,7 +1,7 @@
 ﻿
 namespace GrocerySupplyManagementApp.Forms
 {
-    partial class MemberListForm
+    partial class EmployeeListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,36 +29,36 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.DataGridMemberList = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).BeginInit();
+            this.DataGridEmployeeList = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridEmployeeList)).BeginInit();
             this.SuspendLayout();
             // 
-            // DataGridMemberList
+            // DataGridEmployeeList
             // 
-            this.DataGridMemberList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridMemberList.Location = new System.Drawing.Point(12, 12);
-            this.DataGridMemberList.Name = "DataGridMemberList";
-            this.DataGridMemberList.Size = new System.Drawing.Size(510, 437);
-            this.DataGridMemberList.TabIndex = 0;
-            this.DataGridMemberList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridMemberList_CellDoubleClick);
-            this.DataGridMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberList_DataBindingComplete);
+            this.DataGridEmployeeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridEmployeeList.Location = new System.Drawing.Point(12, 12);
+            this.DataGridEmployeeList.Name = "DataGridEmployeeList";
+            this.DataGridEmployeeList.Size = new System.Drawing.Size(510, 437);
+            this.DataGridEmployeeList.TabIndex = 0;
+            this.DataGridEmployeeList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridEmployeeList_CellDoubleClick);
+            this.DataGridEmployeeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridEmployeeList_DataBindingComplete);
             // 
-            // MemberListForm
+            // EmployeeListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 461);
-            this.Controls.Add(this.DataGridMemberList);
-            this.Name = "MemberListForm";
+            this.Controls.Add(this.DataGridEmployeeList);
+            this.Name = "EmployeeListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.MemberListForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).EndInit();
+            this.Load += new System.EventHandler(this.EmployeeListForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridEmployeeList)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView DataGridMemberList;
+        private System.Windows.Forms.DataGridView DataGridEmployeeList;
     }
 }
