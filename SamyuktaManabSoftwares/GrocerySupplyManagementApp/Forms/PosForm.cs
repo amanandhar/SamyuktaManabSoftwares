@@ -80,6 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void PosForm_Load(object sender, EventArgs e)
         {
             LoadItems(_soldItemViewList);
+            LoadDeliveryPersons();
         }
         #endregion
 
@@ -148,12 +149,13 @@ namespace GrocerySupplyManagementApp.Forms
                     _soldItemService.AddSoldItem(soldItem);
                 });
 
+                ComboBoxItem selectedItem = (ComboBoxItem)ComboDeliveryPerson.SelectedItem;
                 var userTransaction = new UserTransaction
                 {
                     InvoiceNo = RichInvoiceNo.Text.Trim(),
                     EndOfDay = RichInvoiceDate.Text.Trim(),
                     MemberId = RichMemberId.Text.Trim(),
-                    DeliveryPersonId = ComboDeliveryPerson.Text.Trim(),
+                    DeliveryPersonId = selectedItem.Id.Trim(),
                     Action = Constants.SALES,
                     ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                     SubTotal = Convert.ToDecimal(RichSubTotal.Text.Trim()),
@@ -230,6 +232,7 @@ namespace GrocerySupplyManagementApp.Forms
                 EnableFields(false);
                 RadioBtnCash.Checked = false;
                 RadioBtnCredit.Checked = true;
+                ComboDeliveryPerson.Text = string.Empty;
 
                 DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?", 
                     "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -396,21 +399,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichPayment.Enabled = true;
             BtnSavePayment.Enabled = true;
             RichPayment.Focus();
-        }
-
-        private void ComboDeliveryPerson_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var deliveryPersons = _employeeService.GetDeliveryPersons().ToList();
-            if (deliveryPersons.Count > 0)
-            {
-                ComboDeliveryPerson.ValueMember = "Id";
-                ComboDeliveryPerson.DisplayMember = "Value";
-
-                deliveryPersons.OrderBy(x => x.Name).ToList().ForEach(x =>
-                {
-                    ComboDeliveryPerson.Items.Add(new ComboBoxItem { Id = x.EmployeeId, Value = x.Name });
-                });
-            }
         }
 
         #endregion
@@ -699,7 +687,26 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        #endregion
+        private void LoadDeliveryPersons()
+        {
+            try
+            {
+                var deliveryPersons = _employeeService.GetDeliveryPersons().ToList();
 
+                ComboDeliveryPerson.ValueMember = "Id";
+                ComboDeliveryPerson.DisplayMember = "Value";
+
+                deliveryPersons.OrderBy(x => x.Name).ToList().ForEach(x =>
+                {
+                    ComboDeliveryPerson.Items.Add(new ComboBoxItem { Id = x.EmployeeId, Value = x.Name });
+                });
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
     }
 }

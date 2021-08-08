@@ -30,6 +30,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.DataGridDeliveryPersonList = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
@@ -42,10 +43,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.DataGridDeliveryPersonList = new System.Windows.Forms.DataGridView();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridDeliveryPersonList)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -56,6 +56,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(660, 228);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
+            // 
+            // DataGridDeliveryPersonList
+            // 
+            this.DataGridDeliveryPersonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(6, 19);
+            this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
+            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(648, 195);
+            this.DataGridDeliveryPersonList.TabIndex = 0;
+            this.DataGridDeliveryPersonList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridDeliveryPersonList_DataBindingComplete);
             // 
             // groupBox3
             // 
@@ -103,6 +112,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.TabIndex = 0;
             this.BtnShowTransaction.Text = "Show Transaction";
             this.BtnShowTransaction.UseVisualStyleBackColor = true;
+            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
             // 
             // BtnShow
             // 
@@ -187,15 +197,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox3.Size = new System.Drawing.Size(688, 22);
             this.textBox3.TabIndex = 7;
             // 
-            // DataGridDeliveryPersonList
-            // 
-            this.DataGridDeliveryPersonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(6, 19);
-            this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
-            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(648, 195);
-            this.DataGridDeliveryPersonList.TabIndex = 0;
-            this.DataGridDeliveryPersonList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridDeliveryPersonList_DataBindingComplete);
-            // 
             // DeliveryPersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,9 +208,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.Name = "DeliveryPersonForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridDeliveryPersonList)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridDeliveryPersonList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

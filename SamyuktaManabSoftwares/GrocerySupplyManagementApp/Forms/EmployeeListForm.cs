@@ -63,6 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridEmployeeList.Columns["FatherName"].Visible = false;
             DataGridEmployeeList.Columns["MotherName"].Visible = false;
             DataGridEmployeeList.Columns["Gender"].Visible = false;
+            DataGridEmployeeList.Columns["MaritalStatus"].Visible = false;
             DataGridEmployeeList.Columns["SpouseName"].Visible = false;
             DataGridEmployeeList.Columns["Post"].Visible = false;
             DataGridEmployeeList.Columns["PostStatus"].Visible = false;
@@ -73,13 +74,12 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridEmployeeList.Columns["UpdatedDate"].Visible = false;
 
             DataGridEmployeeList.Columns["EmployeeId"].HeaderText = "Employee Id";
-            DataGridEmployeeList.Columns["EmployeeId"].Width = 90;
+            DataGridEmployeeList.Columns["EmployeeId"].Width = 150;
             DataGridEmployeeList.Columns["EmployeeId"].DisplayIndex = 0;
 
             DataGridEmployeeList.Columns["Name"].HeaderText = "Name";
             DataGridEmployeeList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridEmployeeList.Columns["Name"].DisplayIndex = 1;
-            DataGridEmployeeList.Columns["Name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridEmployeeList.Rows)
             {

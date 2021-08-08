@@ -12,6 +12,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IUserTransactionService _userTransactionService;
         private readonly IEmployeeService _employeeService;
+        private string _selectedEmployeeId;
 
         #region Constructor
         public DeliveryPersonForm(IUserTransactionService userTransactionService, IEmployeeService employeeService)
@@ -28,6 +29,18 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DeliveryPersonListForm deliveryPersonListForm = new DeliveryPersonListForm(_employeeService, this);
             deliveryPersonListForm.ShowDialog();
+        }
+
+        private void BtnShowTransaction_Click(object sender, System.EventArgs e)
+        {
+            var deliveryPersonFilter = new DeliveryPersonFilter()
+            {
+                DateFrom = MaskEndOfDayFrom.Text,
+                DateTo = MaskEndOfDayTo.Text,
+                EmployeeId = _selectedEmployeeId
+            };
+
+            LoadDeliveryTransactions(deliveryPersonFilter);
         }
         #endregion
 
@@ -54,20 +67,20 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["UpdatedDate"].Visible = false;
 
             DataGridDeliveryPersonList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridDeliveryPersonList.Columns["EndOfDay"].Width = 90;
+            DataGridDeliveryPersonList.Columns["EndOfDay"].Width = 100;
             DataGridDeliveryPersonList.Columns["EndOfDay"].DisplayIndex = 0;
 
-            DataGridDeliveryPersonList.Columns["InvoiceNo"].HeaderText = "Invoice No";
-            DataGridDeliveryPersonList.Columns["InvoiceNo"].Width = 90;
-            DataGridDeliveryPersonList.Columns["InvoiceNo"].DisplayIndex = 1;
-
             DataGridDeliveryPersonList.Columns["DeliveryPersonId"].HeaderText = "Employee Id";
-            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].Width = 90;
-            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].DisplayIndex = 0;
+            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].Width = 100;
+            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].DisplayIndex = 1;
+
+            DataGridDeliveryPersonList.Columns["InvoiceNo"].HeaderText = "Invoice No";
+            DataGridDeliveryPersonList.Columns["InvoiceNo"].Width = 100;
+            DataGridDeliveryPersonList.Columns["InvoiceNo"].DisplayIndex = 2;
 
             DataGridDeliveryPersonList.Columns["DeliveryCharge"].HeaderText = "Delivery Charge";
             DataGridDeliveryPersonList.Columns["DeliveryCharge"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridDeliveryPersonList.Columns["DeliveryCharge"].DisplayIndex = 4;
+            DataGridDeliveryPersonList.Columns["DeliveryCharge"].DisplayIndex = 3;
             DataGridDeliveryPersonList.Columns["DeliveryCharge"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridDeliveryPersonList.Rows)
@@ -84,13 +97,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var employee = _employeeService.GetEmployee(id);
             TxtName.Text = employee.Name;
-            DeliveryPersonFilter deliveryPersonFilter = new DeliveryPersonFilter()
-            {
-                DateFrom = MaskEndOfDayFrom.Text,
-                DateTo = MaskEndOfDayTo.Text,
-                EmployeeId = employee.EmployeeId
-            };
-            
+            _selectedEmployeeId = employee.EmployeeId;
+        }
+
+        private void LoadDeliveryTransactions(DeliveryPersonFilter deliveryPersonFilter)
+        {
             var userTransations = _userTransactionService.GetUserTransactions(deliveryPersonFilter);
 
             TxtAmount.Text = userTransations.ToList().Sum(x => x.DeliveryCharge).ToString();
@@ -100,5 +111,6 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.DataSource = source;
         }
         #endregion
+
     }
 }

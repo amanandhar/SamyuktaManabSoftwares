@@ -151,7 +151,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], " +
-                "[SupplierId], [Action], [ActionType], [Bank], [IncomeExpense], " +
+                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [IncomeExpense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], " +
                 "[Vat], [DeliveryChargePercent], [DeliveryCharge], " +
                 "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
@@ -161,14 +161,15 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (filter != null)
             {
-                if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
+                if (!string.IsNullOrWhiteSpace(filter?.DateFrom.Replace("-", string.Empty).Trim()) 
+                    && !string.IsNullOrWhiteSpace(filter?.DateTo.Replace("-", string.Empty).Trim()))
                 {
-                    query += " AND [EndOfDay] BETWEEN '" + filter.DateFrom + "' AND '" + filter.DateTo + "' ";
+                    query += "AND [EndOfDay] BETWEEN '" + filter.DateFrom + "' AND '" + filter.DateTo + "' ";
                 }
 
                 if (filter?.EmployeeId != null)
                 {
-                    query += " AND [DeliveryPersonId] = '" + filter.EmployeeId + "' ";
+                    query += "AND [DeliveryPersonId] = '" + filter.EmployeeId + "' ";
                 }
             }
 
@@ -1382,13 +1383,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
-                        "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [SupplierId], [Action], [ActionType], [Bank], " +
+                        "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
                         "[IncomeExpense], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
                         "[DeliveryCharge], [DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @SupplierId, @Action, @ActionType, @Bank, " +
+                        "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
                         "@IncomeExpense, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
                         "@DeliveryCharge, @DueAmount, @ReceivedAmount, @AddedDate, @UpdatedDate " +
                     ") ";
@@ -1404,6 +1405,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@BillNo", ((object)userTransaction.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@MemberId", ((object)userTransaction.MemberId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SupplierId", ((object)userTransaction.SupplierId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DeliveryPersonId", ((object)userTransaction.DeliveryPersonId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", userTransaction.Action);
                         command.Parameters.AddWithValue("@ActionType", userTransaction.ActionType);
                         command.Parameters.AddWithValue("@Bank", ((object)userTransaction.Bank) ?? DBNull.Value);

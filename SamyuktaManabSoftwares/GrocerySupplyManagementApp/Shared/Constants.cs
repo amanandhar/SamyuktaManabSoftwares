@@ -67,5 +67,11 @@ namespace GrocerySupplyManagementApp.Shared
 
         //Employee
         public const string DELIVERY_PERSON = "Delivery Person";
+
+        //Page Margin
+        public const string PAGE_MARGIN_TOP = "PageMarginTop";
+        public const string PAGE_MARGIN_BOTTOM = "PageMarginBottom";
+        public const string PAGE_MARGIN_LEFT = "PageMarginLeft";
+        public const string PAGE_MARGIN_RIGHT = "PageMarginRight";
     }
 }

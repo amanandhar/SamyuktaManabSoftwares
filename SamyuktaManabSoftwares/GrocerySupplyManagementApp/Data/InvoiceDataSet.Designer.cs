@@ -297,13 +297,11 @@ namespace GrocerySupplyManagementApp.Data {
             
             private global::System.Data.DataColumn columnDiscount;
             
-            private global::System.Data.DataColumn columnVat;
+            private global::System.Data.DataColumn columnDeliveryCharge;
             
             private global::System.Data.DataColumn columnDueAmount;
             
             private global::System.Data.DataColumn columnReceivedAmount;
-            
-            private global::System.Data.DataColumn columnBalance;
             
             private global::System.Data.DataColumn columnItemName;
             
@@ -314,6 +312,12 @@ namespace GrocerySupplyManagementApp.Data {
             private global::System.Data.DataColumn columnQuantity;
             
             private global::System.Data.DataColumn columnPrice;
+            
+            private global::System.Data.DataColumn columnAmount;
+            
+            private global::System.Data.DataColumn columnItemNo;
+            
+            private global::System.Data.DataColumn columnAmountInWords;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -422,9 +426,9 @@ namespace GrocerySupplyManagementApp.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn VatColumn {
+            public global::System.Data.DataColumn DeliveryChargeColumn {
                 get {
-                    return this.columnVat;
+                    return this.columnDeliveryCharge;
                 }
             }
             
@@ -441,14 +445,6 @@ namespace GrocerySupplyManagementApp.Data {
             public global::System.Data.DataColumn ReceivedAmountColumn {
                 get {
                     return this.columnReceivedAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BalanceColumn {
-                get {
-                    return this.columnBalance;
                 }
             }
             
@@ -489,6 +485,30 @@ namespace GrocerySupplyManagementApp.Data {
             public global::System.Data.DataColumn PriceColumn {
                 get {
                     return this.columnPrice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AmountColumn {
+                get {
+                    return this.columnAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ItemNoColumn {
+                get {
+                    return this.columnItemNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AmountInWordsColumn {
+                get {
+                    return this.columnAmountInWords;
                 }
             }
             
@@ -539,15 +559,17 @@ namespace GrocerySupplyManagementApp.Data {
                         string EndOfDay, 
                         string SubTotal, 
                         string Discount, 
-                        string Vat, 
+                        string DeliveryCharge, 
                         string DueAmount, 
                         string ReceivedAmount, 
-                        string Balance, 
                         string ItemName, 
                         string Brand, 
                         string Unit, 
                         string Quantity, 
-                        string Price) {
+                        string Price, 
+                        string Amount, 
+                        string ItemNo, 
+                        string AmountInWords) {
                 InvoiceRow rowInvoiceRow = ((InvoiceRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         MemberId,
@@ -559,15 +581,17 @@ namespace GrocerySupplyManagementApp.Data {
                         EndOfDay,
                         SubTotal,
                         Discount,
-                        Vat,
+                        DeliveryCharge,
                         DueAmount,
                         ReceivedAmount,
-                        Balance,
                         ItemName,
                         Brand,
                         Unit,
                         Quantity,
-                        Price};
+                        Price,
+                        Amount,
+                        ItemNo,
+                        AmountInWords};
                 rowInvoiceRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInvoiceRow);
                 return rowInvoiceRow;
@@ -599,15 +623,17 @@ namespace GrocerySupplyManagementApp.Data {
                 this.columnEndOfDay = base.Columns["EndOfDay"];
                 this.columnSubTotal = base.Columns["SubTotal"];
                 this.columnDiscount = base.Columns["Discount"];
-                this.columnVat = base.Columns["Vat"];
+                this.columnDeliveryCharge = base.Columns["DeliveryCharge"];
                 this.columnDueAmount = base.Columns["DueAmount"];
                 this.columnReceivedAmount = base.Columns["ReceivedAmount"];
-                this.columnBalance = base.Columns["Balance"];
                 this.columnItemName = base.Columns["ItemName"];
                 this.columnBrand = base.Columns["Brand"];
                 this.columnUnit = base.Columns["Unit"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnPrice = base.Columns["Price"];
+                this.columnAmount = base.Columns["Amount"];
+                this.columnItemNo = base.Columns["ItemNo"];
+                this.columnAmountInWords = base.Columns["AmountInWords"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -631,14 +657,12 @@ namespace GrocerySupplyManagementApp.Data {
                 base.Columns.Add(this.columnSubTotal);
                 this.columnDiscount = new global::System.Data.DataColumn("Discount", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDiscount);
-                this.columnVat = new global::System.Data.DataColumn("Vat", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnVat);
+                this.columnDeliveryCharge = new global::System.Data.DataColumn("DeliveryCharge", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDeliveryCharge);
                 this.columnDueAmount = new global::System.Data.DataColumn("DueAmount", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDueAmount);
                 this.columnReceivedAmount = new global::System.Data.DataColumn("ReceivedAmount", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnReceivedAmount);
-                this.columnBalance = new global::System.Data.DataColumn("Balance", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBalance);
                 this.columnItemName = new global::System.Data.DataColumn("ItemName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnItemName);
                 this.columnBrand = new global::System.Data.DataColumn("Brand", typeof(string), null, global::System.Data.MappingType.Element);
@@ -649,6 +673,12 @@ namespace GrocerySupplyManagementApp.Data {
                 base.Columns.Add(this.columnQuantity);
                 this.columnPrice = new global::System.Data.DataColumn("Price", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPrice);
+                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmount);
+                this.columnItemNo = new global::System.Data.DataColumn("ItemNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnItemNo);
+                this.columnAmountInWords = new global::System.Data.DataColumn("AmountInWords", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmountInWords);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -935,17 +965,17 @@ namespace GrocerySupplyManagementApp.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Vat {
+            public string DeliveryCharge {
                 get {
                     try {
-                        return ((string)(this[this.tableInvoice.VatColumn]));
+                        return ((string)(this[this.tableInvoice.DeliveryChargeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Vat\' in table \'Invoice\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'DeliveryCharge\' in table \'Invoice\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableInvoice.VatColumn] = value;
+                    this[this.tableInvoice.DeliveryChargeColumn] = value;
                 }
             }
             
@@ -978,22 +1008,6 @@ namespace GrocerySupplyManagementApp.Data {
                 }
                 set {
                     this[this.tableInvoice.ReceivedAmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Balance {
-                get {
-                    try {
-                        return ((string)(this[this.tableInvoice.BalanceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Balance\' in table \'Invoice\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableInvoice.BalanceColumn] = value;
                 }
             }
             
@@ -1074,6 +1088,54 @@ namespace GrocerySupplyManagementApp.Data {
                 }
                 set {
                     this[this.tableInvoice.PriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Amount {
+                get {
+                    try {
+                        return ((string)(this[this.tableInvoice.AmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Amount\' in table \'Invoice\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoice.AmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ItemNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableInvoice.ItemNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ItemNo\' in table \'Invoice\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoice.ItemNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string AmountInWords {
+                get {
+                    try {
+                        return ((string)(this[this.tableInvoice.AmountInWordsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AmountInWords\' in table \'Invoice\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoice.AmountInWordsColumn] = value;
                 }
             }
             
@@ -1187,14 +1249,14 @@ namespace GrocerySupplyManagementApp.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsVatNull() {
-                return this.IsNull(this.tableInvoice.VatColumn);
+            public bool IsDeliveryChargeNull() {
+                return this.IsNull(this.tableInvoice.DeliveryChargeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetVatNull() {
-                this[this.tableInvoice.VatColumn] = global::System.Convert.DBNull;
+            public void SetDeliveryChargeNull() {
+                this[this.tableInvoice.DeliveryChargeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1219,18 +1281,6 @@ namespace GrocerySupplyManagementApp.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetReceivedAmountNull() {
                 this[this.tableInvoice.ReceivedAmountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsBalanceNull() {
-                return this.IsNull(this.tableInvoice.BalanceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetBalanceNull() {
-                this[this.tableInvoice.BalanceColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1291,6 +1341,42 @@ namespace GrocerySupplyManagementApp.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetPriceNull() {
                 this[this.tableInvoice.PriceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAmountNull() {
+                return this.IsNull(this.tableInvoice.AmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAmountNull() {
+                this[this.tableInvoice.AmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsItemNoNull() {
+                return this.IsNull(this.tableInvoice.ItemNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetItemNoNull() {
+                this[this.tableInvoice.ItemNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAmountInWordsNull() {
+                return this.IsNull(this.tableInvoice.AmountInWordsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAmountInWordsNull() {
+                this[this.tableInvoice.AmountInWordsColumn] = global::System.Convert.DBNull;
             }
         }
         

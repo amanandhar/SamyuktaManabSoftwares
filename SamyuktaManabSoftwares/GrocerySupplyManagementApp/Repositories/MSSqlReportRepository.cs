@@ -22,10 +22,9 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "m.[MemberId], m.[Name], m.[Address], m.[ContactNo], " +
                 "ut.[InvoiceNo], ut.[ActionType], ut.[EndOfDay], " +
-                "ut.[SubTotal], ut.[Discount], ut.[Vat], ut.[DueAmount], ut.[ReceivedAmount], " +
-                "(ut.[DueAmount] - ut.[ReceivedAmount]) AS [Balance], " +
+                "ut.[SubTotal], ut.[Discount], ut.[DeliveryCharge], ut.[DueAmount], ut.[ReceivedAmount], " +
                 "i.[Name] AS [ItemName], i.[Brand], i.[Unit], " +
-                "si.[Quantity], si.[Price] " +
+                "si.[Quantity], si.[Price], (si.[Quantity] * si.[Price]) AS [Amount] " +
                 "FROM " + Constants.TABLE_MEMBER + " m " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON m.[MemberId] = ut.[MemberId] " +
@@ -48,6 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             if (reader.HasRows)
                             {
+                                int i = 1;
                                 while (reader.Read())
                                 {
                                     var invoiceReportView = new InvoiceReportView();
@@ -61,17 +61,19 @@ namespace GrocerySupplyManagementApp.Repositories
                                     invoiceReportView.EndOfDay = reader["EndOfDay"].ToString();
                                     invoiceReportView.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
                                     invoiceReportView.Discount = Convert.ToDecimal(reader["Discount"].ToString());
-                                    invoiceReportView.Vat = Convert.ToDecimal(reader["Vat"].ToString());
+                                    invoiceReportView.DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString());
                                     invoiceReportView.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
                                     invoiceReportView.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                    invoiceReportView.Balance = Convert.ToDecimal(reader["Balance"].ToString());
                                     invoiceReportView.ItemName = reader["ItemName"].ToString();
                                     invoiceReportView.Brand = reader["Brand"].ToString();
                                     invoiceReportView.Unit = reader["Unit"].ToString();
                                     invoiceReportView.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
                                     invoiceReportView.Price = Convert.ToDecimal(reader["Price"].ToString());
+                                    invoiceReportView.Amount = Convert.ToDecimal(reader["Amount"].ToString());
+                                    invoiceReportView.ItemNo = i;
 
                                     invoiceReportViews.Add(invoiceReportView);
+                                    i++;
                                 }
                             }
                         }

@@ -195,9 +195,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboDeliveryPerson.BackColor = System.Drawing.SystemColors.Window;
             this.ComboDeliveryPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboDeliveryPerson.FormattingEnabled = true;
-            this.ComboDeliveryPerson.Items.AddRange(new object[] {
-            "Gopal Maharjan",
-            "Ram Prashad Dhakal"});
             this.ComboDeliveryPerson.Location = new System.Drawing.Point(125, 15);
             this.ComboDeliveryPerson.Name = "ComboDeliveryPerson";
             this.ComboDeliveryPerson.Size = new System.Drawing.Size(178, 28);

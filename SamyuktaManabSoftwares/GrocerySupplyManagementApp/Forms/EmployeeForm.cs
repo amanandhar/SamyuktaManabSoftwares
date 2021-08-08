@@ -63,6 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields();
             EnableFields(Action.Add);
             RichEmployeeId.Text = _employeeService.GetNewEmployeeId();
+            RichName.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -130,6 +131,7 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
+                    EnableFields();
                     EnableFields(Action.Save);
                 }
             }
@@ -141,6 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
+            EnableFields();
             EnableFields(Action.Edit);
         }
 
@@ -268,7 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearchSalaryDetails_Click(object sender, EventArgs e)
         {
-
+            System.Diagnostics.Process.Start(_baseImageFolder);
         }
 
         #endregion
@@ -321,7 +324,9 @@ namespace GrocerySupplyManagementApp.Forms
                 PicBoxEmployeeImage.ImageLocation = employee.ImagePath;
             }
 
+            EnableFields();
             EnableFields(Action.PopulateEmployee);
+
         }
 
         private void EnableFields(Action action = Action.None)
@@ -364,6 +369,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if(action == Action.Edit)
             {
+                BtnAdd.Enabled = false;
                 BtnUpdate.Enabled = true;
                 BtnClear.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -415,8 +421,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichCitizenshipNo.Enabled = false;
                 ComboEducation.Enabled = false;
                 MaskDateOfBirth.Enabled = false;
-                ComboEducation.Enabled = false;
                 RichAge.Enabled = false;
+                ComboBloodGroup.Enabled = false;
                 RichFatherName.Enabled = false;
                 RichMotherName.Enabled = false;
                 ComboGender.Enabled = false;
@@ -450,8 +456,8 @@ namespace GrocerySupplyManagementApp.Forms
             RichCitizenshipNo.Clear();
             ComboEducation.Text = string.Empty;
             MaskDateOfBirth.Clear();
-            ComboBloodGroup.Text = string.Empty;
             RichAge.Clear();
+            ComboBloodGroup.Text = string.Empty;
             RichFatherName.Clear();
             RichMotherName.Clear();
             ComboGender.Text = string.Empty;
