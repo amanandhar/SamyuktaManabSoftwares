@@ -104,10 +104,14 @@
           <DataField>AmountInWords</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="AccountNo">
+          <DataField>AccountNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InvoiceDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\_adam\Github\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\InvoiceDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Application\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\DataSet\InvoiceDataSet.xsd</rd:SchemaPath>
         <rd:TableName>Invoice</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -139,7 +143,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>CompanyDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\_adam\Github\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\DataSet\CompanyDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Application\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\DataSet\CompanyDataSet.xsd</rd:SchemaPath>
         <rd:TableName>Company</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -1217,7 +1221,7 @@
         <Height>3.68993in</Height>
         <Style />
       </Body>
-      <Width>7.79526in</Width>
+      <Width>7.20708in</Width>
       <Page>
         <PageHeader>
           <Height>2.23694in</Height>
@@ -1227,8 +1231,7 @@
               <Source>External</Source>
               <Value>=Parameters!LogoPath.Value</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.08548in</Top>
-              <Left>5.63429in</Left>
+              <Left>5.39874in</Left>
               <Height>0.91458in</Height>
               <Width>0.85057in</Width>
               <ToolTip>Samyukta Manab</ToolTip>
@@ -1668,7 +1671,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox11</rd:DefaultName>
               <Top>0.83694in</Top>
-              <Left>3.40833in</Left>
+              <Left>3.30833in</Left>
               <Height>0.25in</Height>
               <Width>0.78125in</Width>
               <ZIndex>14</ZIndex>
@@ -1838,6 +1841,70 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Textbox Name="Textbox25">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Account No.</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox25</rd:DefaultName>
+              <Top>1.00701in</Top>
+              <Left>4.23264in</Left>
+              <Height>0.25in</Height>
+              <Width>1.0675in</Width>
+              <ZIndex>20</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox32">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!AccountNo.Value, "Invoice")</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox32</rd:DefaultName>
+              <Top>0.98833in</Top>
+              <Left>5.39874in</Left>
+              <Height>0.25in</Height>
+              <Width>1.08196in</Width>
+              <ZIndex>21</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -1845,16 +1912,6 @@
             </Border>
           </Style>
         </PageHeader>
-        <PageFooter>
-          <Height>1.61458in</Height>
-          <PrintOnFirstPage>true</PrintOnFirstPage>
-          <PrintOnLastPage>true</PrintOnLastPage>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </PageFooter>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
         <TopMargin>1in</TopMargin>

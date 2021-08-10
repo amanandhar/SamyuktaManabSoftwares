@@ -66,6 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceDataTable.Columns.Add("Name");
             invoiceDataTable.Columns.Add("Address");
             invoiceDataTable.Columns.Add("ContactNo");
+            invoiceDataTable.Columns.Add("AccountNo");
             invoiceDataTable.Columns.Add("InvoiceNo");
             invoiceDataTable.Columns.Add("ActionType");
             invoiceDataTable.Columns.Add("EndOfDay");
@@ -91,6 +92,7 @@ namespace GrocerySupplyManagementApp.Forms
                 invoiceRow["Name"] = report.Name;
                 invoiceRow["Address"] = report.Address;
                 invoiceRow["ContactNo"] = report.ContactNo;
+                invoiceRow["AccountNo"] = report.AccountNo;
                 invoiceRow["InvoiceNo"] = report.InvoiceNo;
                 invoiceRow["ActionType"] = report.ActionType;
                 invoiceRow["EndOfDay"] = report.EndOfDay;

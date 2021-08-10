@@ -241,7 +241,6 @@ namespace GrocerySupplyManagementApp.Forms
                 RichEmailId.Enabled = false;
                 RichWebsite.Enabled = false;
                 RichFacebookPage.Enabled = false;
-                PicBoxCompanyLogo.Image = null;
             }
         }
 

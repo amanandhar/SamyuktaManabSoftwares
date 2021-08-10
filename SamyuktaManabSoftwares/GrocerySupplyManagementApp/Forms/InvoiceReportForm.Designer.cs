@@ -43,14 +43,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.reportViewerInvoice.Location = new System.Drawing.Point(0, 0);
             this.reportViewerInvoice.Name = "reportViewerInvoice";
             this.reportViewerInvoice.ServerReport.BearerToken = null;
-            this.reportViewerInvoice.Size = new System.Drawing.Size(836, 787);
+            this.reportViewerInvoice.Size = new System.Drawing.Size(719, 787);
             this.reportViewerInvoice.TabIndex = 0;
             // 
             // InvoiceReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 787);
+            this.ClientSize = new System.Drawing.Size(719, 787);
             this.Controls.Add(this.reportViewerInvoice);
             this.Name = "InvoiceReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

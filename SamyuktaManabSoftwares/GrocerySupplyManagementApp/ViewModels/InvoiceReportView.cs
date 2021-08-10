@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public string Address { get; set; }
         public long ContactNo { get; set; }
+        public string AccountNo { get; set; }
         public string InvoiceNo { get; set; }
         public string ActionType { get; set; }
         public string EndOfDay { get; set; }

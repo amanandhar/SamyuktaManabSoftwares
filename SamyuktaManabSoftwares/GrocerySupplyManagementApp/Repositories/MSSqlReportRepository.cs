@@ -20,7 +20,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var invoiceReportViews = new List<InvoiceReportView>();
             var query = @"SELECT " +
-                "m.[MemberId], m.[Name], m.[Address], m.[ContactNo], " +
+                "m.[MemberId], m.[Name], m.[Address], m.[ContactNo], m.[AccountNo], " +
                 "ut.[InvoiceNo], ut.[ActionType], ut.[EndOfDay], " +
                 "ut.[SubTotal], ut.[Discount], ut.[DeliveryCharge], ut.[DueAmount], ut.[ReceivedAmount], " +
                 "i.[Name] AS [ItemName], i.[Brand], i.[Unit], " +
@@ -56,6 +56,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     invoiceReportView.Name = reader["Name"].ToString();
                                     invoiceReportView.Address = reader["Address"].ToString();
                                     invoiceReportView.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
+                                    invoiceReportView.AccountNo = reader["AccountNo"].ToString();
                                     invoiceReportView.InvoiceNo = reader["InvoiceNo"].ToString();
                                     invoiceReportView.ActionType = reader["ActionType"].ToString();
                                     invoiceReportView.EndOfDay = reader["EndOfDay"].ToString();
