@@ -27,6 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IReportService _reportService;
+        private readonly ICompanyInfoService _companyInfoService;
         private readonly IEmployeeService _employeeService;
 
         private readonly string _endOfDay;
@@ -40,7 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
             IMemberService memberService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IReportService reportService,
-            IEmployeeService employeeService
+            ICompanyInfoService companyInfoService, IEmployeeService employeeService
             )
         {
             InitializeComponent();
@@ -56,6 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _reportService = reportService;
+            _companyInfoService = companyInfoService;
             _employeeService = employeeService;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
@@ -238,7 +240,7 @@ namespace GrocerySupplyManagementApp.Forms
                     "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    InvoiceReportForm invoiceReportForm = new InvoiceReportForm(_reportService, _selectedInvoiceNo);
+                    InvoiceReportForm invoiceReportForm = new InvoiceReportForm(_companyInfoService, _reportService, _selectedInvoiceNo);
                     invoiceReportForm.ShowDialog();
                 }
                 else

@@ -81,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _memberService,
                 _purchasedItemService, _soldItemService,
                 _userTransactionService, _reportService,
-                _employeeService
+                _companyInfoService, _employeeService
                  );
             posForm.Show();
         }

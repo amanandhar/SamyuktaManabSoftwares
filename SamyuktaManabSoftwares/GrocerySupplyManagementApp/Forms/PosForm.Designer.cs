@@ -199,7 +199,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboDeliveryPerson.Name = "ComboDeliveryPerson";
             this.ComboDeliveryPerson.Size = new System.Drawing.Size(178, 28);
             this.ComboDeliveryPerson.TabIndex = 40;
-            this.ComboDeliveryPerson.SelectedValueChanged += new System.EventHandler(this.ComboDeliveryPerson_SelectedValueChanged);
             // 
             // linkLabel24
             // 

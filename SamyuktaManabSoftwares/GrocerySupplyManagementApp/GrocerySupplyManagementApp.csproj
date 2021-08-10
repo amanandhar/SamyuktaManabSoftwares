@@ -83,10 +83,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\InvoiceDataSet.cs">
+    <Compile Include="Data\DataSet\CompanyDataSet.cs">
+      <DependentUpon>CompanyDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DataSet\CompanyDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DataSet\InvoiceDataSet.cs">
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Data\InvoiceDataSet.Designer.cs">
+    <Compile Include="Data\DataSet\InvoiceDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
@@ -563,20 +571,32 @@
       <SubType>Form</SubType>
     </None>
     <None Include="app.config" />
+    <None Include="Data\DataSet\CompanyDataSet.xsc">
+      <DependentUpon>CompanyDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Data\DataSet\CompanyDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CompanyDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Data\DataSet\CompanyDataSet.xss">
+      <DependentUpon>CompanyDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Data\Files\AdToBsMapping.xlsx" />
-    <None Include="Data\InvoiceDataSet.xsc">
+    <None Include="Data\DataSet\InvoiceDataSet.xsc">
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Data\InvoiceDataSet.xsd">
+    <None Include="Data\DataSet\InvoiceDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>InvoiceDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Data\InvoiceDataSet.xss">
+    <None Include="Data\DataSet\InvoiceDataSet.xss">
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GrocerySupplyManagementApp.Data.DsSales+tbl_FullSalesDataTable.datasource" />
+    <None Include="Properties\DataSources\GrocerySupplyManagementApp.Entities.CompanyInfo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

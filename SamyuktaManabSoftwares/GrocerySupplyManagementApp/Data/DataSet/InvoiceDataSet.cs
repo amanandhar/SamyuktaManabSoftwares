@@ -1,4 +1,4 @@
-﻿namespace GrocerySupplyManagementApp.Data
+﻿namespace GrocerySupplyManagementApp.Data.DataSet
 {
     partial class InvoiceDataSet
     {

@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class InvoiceReportForm : Form
     {
+        private readonly ICompanyInfoService _companyInfoService;
         private readonly IReportService _reportService;
 
         private string _invoiceNo;
@@ -19,10 +20,12 @@ namespace GrocerySupplyManagementApp.Forms
         private int _pageMarginBottom;
 
         #region Constructor
-        public InvoiceReportForm(IReportService reportService, string invoiceNo)
+        public InvoiceReportForm(ICompanyInfoService companyInfoService, IReportService reportService, 
+            string invoiceNo)
         {
             InitializeComponent();
 
+            _companyInfoService = companyInfoService;
             _reportService = reportService;
 
             _invoiceNo = invoiceNo;
@@ -39,7 +42,23 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadInvoiceReport()
         {
+            var companyInfo = _companyInfoService.GetCompanyInfo();
             var reports = _reportService.GetInvoiceReport(_invoiceNo);
+
+            DataTable companyInfoDataTable = new DataTable();
+            companyInfoDataTable.Columns.Add("Name");
+            companyInfoDataTable.Columns.Add("Address");
+            companyInfoDataTable.Columns.Add("ContactNo");
+            companyInfoDataTable.Columns.Add("LogoPath");
+
+            var companyInfoRow = companyInfoDataTable.NewRow();
+
+            companyInfoRow["Name"] = companyInfo.Name;
+            companyInfoRow["Address"] = companyInfo.Address;
+            companyInfoRow["ContactNo"] = companyInfo.ContactNo;
+            companyInfoRow["LogoPath"] = companyInfo.LogoPath;
+
+            companyInfoDataTable.Rows.Add(companyInfoRow);
 
             DataTable invoiceDataTable = new DataTable();
 
@@ -66,44 +85,52 @@ namespace GrocerySupplyManagementApp.Forms
 
             foreach (var report in reports)
             {
-                var row = invoiceDataTable.NewRow();
+                var invoiceRow = invoiceDataTable.NewRow();
 
-                row["MemberId"] = report.MemberId;
-                row["Name"] = report.Name;
-                row["Address"] = report.Address;
-                row["ContactNo"] = report.ContactNo;
-                row["InvoiceNo"] = report.InvoiceNo;
-                row["ActionType"] = report.ActionType;
-                row["EndOfDay"] = report.EndOfDay;
-                row["SubTotal"] = report.SubTotal;
-                row["Discount"] = report.Discount;
-                row["DeliveryCharge"] = report.DeliveryCharge;
-                row["DueAmount"] = report.DueAmount;
-                row["ReceivedAmount"] = report.ReceivedAmount;
-                row["AmountInWords"] = UtilityService.ConvertAmount(report.DueAmount);
-                row["ItemName"] = report.ItemName;
-                row["Brand"] = report.Brand;
-                row["Unit"] = report.Unit;
-                row["Quantity"] = report.Quantity;
-                row["Price"] = report.Price;
-                row["Amount"] = report.Amount;
-                row["ItemNo"] = report.ItemNo;
+                invoiceRow["MemberId"] = report.MemberId;
+                invoiceRow["Name"] = report.Name;
+                invoiceRow["Address"] = report.Address;
+                invoiceRow["ContactNo"] = report.ContactNo;
+                invoiceRow["InvoiceNo"] = report.InvoiceNo;
+                invoiceRow["ActionType"] = report.ActionType;
+                invoiceRow["EndOfDay"] = report.EndOfDay;
+                invoiceRow["SubTotal"] = report.SubTotal;
+                invoiceRow["Discount"] = report.Discount;
+                invoiceRow["DeliveryCharge"] = report.DeliveryCharge;
+                invoiceRow["DueAmount"] = report.DueAmount;
+                invoiceRow["ReceivedAmount"] = report.ReceivedAmount;
+                invoiceRow["AmountInWords"] = UtilityService.ConvertAmount(report.DueAmount);
+                invoiceRow["ItemName"] = report.ItemName;
+                invoiceRow["Brand"] = report.Brand;
+                invoiceRow["Unit"] = report.Unit;
+                invoiceRow["Quantity"] = report.Quantity;
+                invoiceRow["Price"] = report.Price;
+                invoiceRow["Amount"] = report.Amount;
+                invoiceRow["ItemNo"] = report.ItemNo;
 
-                invoiceDataTable.Rows.Add(row);
+                invoiceDataTable.Rows.Add(invoiceRow);
             }
 
+            ReportDataSource companyInfoDataSource = new ReportDataSource("Company", companyInfoDataTable);
             ReportDataSource reportDataSource = new ReportDataSource("Invoice", invoiceDataTable);
+
+            this.reportViewerInvoice.LocalReport.EnableExternalImages = true;
+            var logoPath = new Uri(companyInfo.LogoPath).AbsoluteUri;
+            ReportParameter parameter = new ReportParameter();
+            parameter.Name = "LogoPath";
+            parameter.Values.Add(logoPath);
+            this.reportViewerInvoice.LocalReport.SetParameters(parameter);
 
             _pageMarginLeft = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.PAGE_MARGIN_LEFT].ToString());
             _pageMarginRight = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.PAGE_MARGIN_RIGHT].ToString());
             _pageMarginTop = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.PAGE_MARGIN_TOP].ToString());
             _pageMarginBottom = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.PAGE_MARGIN_BOTTOM].ToString());
-
             var setup = this.reportViewerInvoice.GetPageSettings();
-
             setup.Margins = new System.Drawing.Printing.Margins(_pageMarginLeft, _pageMarginRight, _pageMarginTop, _pageMarginBottom);
             this.reportViewerInvoice.SetPageSettings(setup);
+
             this.reportViewerInvoice.LocalReport.DataSources.Clear();
+            this.reportViewerInvoice.LocalReport.DataSources.Add(companyInfoDataSource);
             this.reportViewerInvoice.LocalReport.DataSources.Add(reportDataSource);
             this.reportViewerInvoice.RefreshReport();
         }
