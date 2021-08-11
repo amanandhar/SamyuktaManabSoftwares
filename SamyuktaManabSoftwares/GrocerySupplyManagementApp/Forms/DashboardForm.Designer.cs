@@ -64,6 +64,9 @@
             // 
             this.BtnStockMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnStockMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnStockMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnStockMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnStockMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnStockMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnStockMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnStockMgmt.Location = new System.Drawing.Point(15, 255);
@@ -78,7 +81,10 @@
             // 
             this.BtnReportsMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnReportsMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnReportsMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnReportsMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnReportsMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnReportsMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnReportsMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnReportsMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnReportsMgmt.Location = new System.Drawing.Point(15, 446);
             this.BtnReportsMgmt.Name = "BtnReportsMgmt";
@@ -92,7 +98,10 @@
             // 
             this.BtnSettingMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnSettingMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnSettingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSettingMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnSettingMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSettingMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSettingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSettingMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnSettingMgmt.Location = new System.Drawing.Point(15, 399);
             this.BtnSettingMgmt.Name = "BtnSettingMgmt";
@@ -106,7 +115,10 @@
             // 
             this.BtnItemMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnItemMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnItemMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnItemMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnItemMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnItemMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnItemMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnItemMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnItemMgmt.Location = new System.Drawing.Point(15, 207);
             this.BtnItemMgmt.Name = "BtnItemMgmt";
@@ -120,7 +132,10 @@
             // 
             this.BtnSupplierMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnSupplierMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnSupplierMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSupplierMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnSupplierMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSupplierMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSupplierMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSupplierMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnSupplierMgmt.Location = new System.Drawing.Point(15, 159);
             this.BtnSupplierMgmt.Name = "BtnSupplierMgmt";
@@ -134,7 +149,10 @@
             // 
             this.BtnMemberMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnMemberMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnMemberMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnMemberMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnMemberMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnMemberMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnMemberMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnMemberMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnMemberMgmt.Location = new System.Drawing.Point(15, 111);
             this.BtnMemberMgmt.Name = "BtnMemberMgmt";
@@ -148,7 +166,10 @@
             // 
             this.BtnSummaryMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnSummaryMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnSummaryMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSummaryMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnSummaryMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSummaryMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSummaryMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSummaryMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnSummaryMgmt.Location = new System.Drawing.Point(15, 64);
             this.BtnSummaryMgmt.Name = "BtnSummaryMgmt";
@@ -162,7 +183,10 @@
             // 
             this.BtnPosMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnPosMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnPosMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnPosMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnPosMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnPosMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPosMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnPosMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnPosMgmt.Location = new System.Drawing.Point(15, 19);
             this.BtnPosMgmt.Name = "BtnPosMgmt";
@@ -174,7 +198,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox2.Controls.Add(this.RichBoxFiscalYear);
             this.groupBox2.Controls.Add(this.RichBoxTime);
             this.groupBox2.Controls.Add(this.RichBoxUsername);
@@ -189,7 +213,7 @@
             // RichBoxFiscalYear
             // 
             this.RichBoxFiscalYear.Enabled = false;
-            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxFiscalYear.ForeColor = System.Drawing.Color.Black;
             this.RichBoxFiscalYear.Location = new System.Drawing.Point(1073, 6);
             this.RichBoxFiscalYear.Name = "RichBoxFiscalYear";
@@ -200,7 +224,7 @@
             // RichBoxTime
             // 
             this.RichBoxTime.Enabled = false;
-            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxTime.ForeColor = System.Drawing.Color.Black;
             this.RichBoxTime.Location = new System.Drawing.Point(544, 7);
             this.RichBoxTime.Name = "RichBoxTime";
@@ -211,7 +235,7 @@
             // RichBoxUsername
             // 
             this.RichBoxUsername.Enabled = false;
-            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxUsername.ForeColor = System.Drawing.Color.Black;
             this.RichBoxUsername.Location = new System.Drawing.Point(809, 6);
             this.RichBoxUsername.Name = "RichBoxUsername";
@@ -222,7 +246,7 @@
             // RichBoxDateInBs
             // 
             this.RichBoxDateInBs.Enabled = false;
-            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInBs.ForeColor = System.Drawing.Color.Black;
             this.RichBoxDateInBs.Location = new System.Drawing.Point(274, 7);
             this.RichBoxDateInBs.Name = "RichBoxDateInBs";
@@ -233,7 +257,7 @@
             // RichBoxDateInAd
             // 
             this.RichBoxDateInAd.Enabled = false;
-            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInAd.ForeColor = System.Drawing.Color.Black;
             this.RichBoxDateInAd.Location = new System.Drawing.Point(7, 7);
             this.RichBoxDateInAd.Name = "RichBoxDateInAd";
@@ -244,7 +268,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
+            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 80.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label1.Location = new System.Drawing.Point(72, 137);
@@ -257,27 +281,28 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label2.Location = new System.Drawing.Point(224, 356);
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(225, 356);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(590, 31);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Nayabazar-16,Kathmandu,Mobile : 9841862943";
+            this.label2.Text = "Nayabazar-16,Kathmandu,Mobile : 9841272950";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label3.ForeColor = System.Drawing.Color.Red;
             this.label3.Location = new System.Drawing.Point(182, 277);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(663, 55);
+            this.label3.Size = new System.Drawing.Size(693, 55);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Grocery Management System";
+            this.label3.Text = "Grocery Management Software";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);
@@ -313,7 +338,10 @@
             // 
             this.BtnStaffMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnStaffMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnStaffMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnStaffMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnStaffMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnStaffMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnStaffMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnStaffMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnStaffMgmt.Location = new System.Drawing.Point(15, 494);
             this.BtnStaffMgmt.Name = "BtnStaffMgmt";
@@ -348,13 +376,16 @@
             // 
             this.BtnEndOfDayMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnEndOfDayMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnEndOfDayMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEndOfDayMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnEndOfDayMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnEndOfDayMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEndOfDayMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEndOfDayMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnEndOfDayMgmt.Location = new System.Drawing.Point(15, 539);
             this.BtnEndOfDayMgmt.Name = "BtnEndOfDayMgmt";
             this.BtnEndOfDayMgmt.Size = new System.Drawing.Size(240, 37);
             this.BtnEndOfDayMgmt.TabIndex = 3;
-            this.BtnEndOfDayMgmt.Text = "EOD Management";
+            this.BtnEndOfDayMgmt.Text = "End of Day Management";
             this.BtnEndOfDayMgmt.UseVisualStyleBackColor = false;
             this.BtnEndOfDayMgmt.Click += new System.EventHandler(this.BtnEndOfDayMgmt_Click);
             // 
@@ -362,7 +393,10 @@
             // 
             this.BtnIncomeExpenseMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnIncomeExpenseMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnIncomeExpenseMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnIncomeExpenseMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnIncomeExpenseMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnIncomeExpenseMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnIncomeExpenseMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnIncomeExpenseMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnIncomeExpenseMgmt.Location = new System.Drawing.Point(15, 303);
             this.BtnIncomeExpenseMgmt.Name = "BtnIncomeExpenseMgmt";
@@ -376,7 +410,10 @@
             // 
             this.BtnBankingMgmt.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnBankingMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnBankingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnBankingMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnBankingMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnBankingMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnBankingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnBankingMgmt.ForeColor = System.Drawing.Color.White;
             this.BtnBankingMgmt.Location = new System.Drawing.Point(15, 351);
             this.BtnBankingMgmt.Name = "BtnBankingMgmt";

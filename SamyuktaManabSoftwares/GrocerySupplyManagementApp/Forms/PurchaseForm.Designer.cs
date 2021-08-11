@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBillNo = new System.Windows.Forms.RichTextBox();
             this.RichItemName = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RichUnit = new System.Windows.Forms.RichTextBox();
             this.BtnAddBonus = new System.Windows.Forms.Button();
             this.BtnShowItem = new System.Windows.Forms.Button();
             this.BtnAddNew = new System.Windows.Forms.Button();
@@ -57,7 +58,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnAddItem = new System.Windows.Forms.Button();
             this.DataGridPurchaseList = new System.Windows.Forms.DataGridView();
-            this.RichUnit = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseList)).BeginInit();
@@ -158,6 +158,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(790, 120);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
+            // 
+            // RichUnit
+            // 
+            this.RichUnit.BackColor = System.Drawing.Color.White;
+            this.RichUnit.Enabled = false;
+            this.RichUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichUnit.Location = new System.Drawing.Point(390, 47);
+            this.RichUnit.Name = "RichUnit";
+            this.RichUnit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichUnit.Size = new System.Drawing.Size(90, 30);
+            this.RichUnit.TabIndex = 63;
+            this.RichUnit.Text = "";
             // 
             // BtnAddBonus
             // 
@@ -367,7 +379,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridPurchaseList
             // 
-            this.DataGridPurchaseList.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataGridPurchaseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -391,23 +403,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridPurchaseList.TabIndex = 60;
             this.DataGridPurchaseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseList_DataBindingComplete);
             // 
-            // RichUnit
-            // 
-            this.RichUnit.BackColor = System.Drawing.Color.White;
-            this.RichUnit.Enabled = false;
-            this.RichUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichUnit.Location = new System.Drawing.Point(390, 47);
-            this.RichUnit.Name = "RichUnit";
-            this.RichUnit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichUnit.Size = new System.Drawing.Size(90, 30);
-            this.RichUnit.TabIndex = 63;
-            this.RichUnit.Text = "";
-            // 
             // PurchaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.DataGridPurchaseList);
             this.Controls.Add(this.groupBox2);

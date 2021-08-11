@@ -160,7 +160,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.BtnStockAdjustment);

@@ -203,28 +203,36 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnRemove
             // 
+            this.BtnRemove.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnRemove.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Salmon;
+            this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRemove.ForeColor = System.Drawing.Color.Red;
-            this.BtnRemove.Location = new System.Drawing.Point(9, 87);
+            this.BtnRemove.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnRemove.Location = new System.Drawing.Point(8, 85);
             this.BtnRemove.Name = "BtnRemove";
             this.BtnRemove.Size = new System.Drawing.Size(125, 35);
             this.BtnRemove.TabIndex = 15;
             this.BtnRemove.Text = "Remove";
-            this.BtnRemove.UseVisualStyleBackColor = true;
+            this.BtnRemove.UseVisualStyleBackColor = false;
             this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // BtnShow
             // 
+            this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShow.Location = new System.Drawing.Point(8, 11);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(125, 35);
             this.BtnShow.TabIndex = 16;
             this.BtnShow.Text = "Show";
-            this.BtnShow.UseVisualStyleBackColor = true;
+            this.BtnShow.UseVisualStyleBackColor = false;
             this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // ComboBank
@@ -344,14 +352,18 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnSaveExpense
             // 
+            this.BtnSaveExpense.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSaveExpense.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSaveExpense.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSaveExpense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSaveExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSaveExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSaveExpense.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnSaveExpense.Location = new System.Drawing.Point(8, 48);
             this.BtnSaveExpense.Name = "BtnSaveExpense";
             this.BtnSaveExpense.Size = new System.Drawing.Size(125, 35);
             this.BtnSaveExpense.TabIndex = 25;
             this.BtnSaveExpense.Text = "Save Expense";
-            this.BtnSaveExpense.UseVisualStyleBackColor = true;
+            this.BtnSaveExpense.UseVisualStyleBackColor = false;
             this.BtnSaveExpense.Click += new System.EventHandler(this.BtnSaveExpense_Click);
             // 
             // groupBox4
@@ -367,7 +379,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridExpenseList
             // 
-            this.DataGridExpenseList.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -403,7 +415,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.DataGridExpenseList);
             this.Controls.Add(this.groupBox4);

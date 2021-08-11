@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label3.Location = new System.Drawing.Point(40, 85);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 20);
@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label4.Location = new System.Drawing.Point(39, 46);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 20);
@@ -142,6 +142,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(434, 221);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.groupBox1);

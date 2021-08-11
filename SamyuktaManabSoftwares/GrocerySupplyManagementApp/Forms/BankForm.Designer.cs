@@ -29,8 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ComboType = new System.Windows.Forms.ComboBox();
@@ -86,6 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox1.Controls.Add(this.ComboType);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.TxtBalance);
@@ -254,26 +255,35 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnDeleteTransaction
             // 
+            this.BtnDeleteTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnDeleteTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDeleteTransaction.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.BtnDeleteTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Salmon;
+            this.BtnDeleteTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteTransaction.Location = new System.Drawing.Point(8, 58);
+            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.White;
+            this.BtnDeleteTransaction.Location = new System.Drawing.Point(8, 60);
             this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
-            this.BtnDeleteTransaction.Size = new System.Drawing.Size(125, 45);
+            this.BtnDeleteTransaction.Size = new System.Drawing.Size(125, 46);
             this.BtnDeleteTransaction.TabIndex = 29;
             this.BtnDeleteTransaction.Text = "Remove";
-            this.BtnDeleteTransaction.UseVisualStyleBackColor = true;
+            this.BtnDeleteTransaction.UseVisualStyleBackColor = false;
             this.BtnDeleteTransaction.Click += new System.EventHandler(this.BtnDeleteTransaction_Click);
             // 
             // BtnSaveTransaction
             // 
+            this.BtnSaveTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSaveTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnSaveTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSaveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSaveTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSaveTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSaveTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnSaveTransaction.Location = new System.Drawing.Point(8, 12);
             this.BtnSaveTransaction.Name = "BtnSaveTransaction";
-            this.BtnSaveTransaction.Size = new System.Drawing.Size(125, 45);
+            this.BtnSaveTransaction.Size = new System.Drawing.Size(125, 46);
             this.BtnSaveTransaction.TabIndex = 24;
             this.BtnSaveTransaction.Text = "Save  Transaction";
-            this.BtnSaveTransaction.UseVisualStyleBackColor = true;
+            this.BtnSaveTransaction.UseVisualStyleBackColor = false;
             this.BtnSaveTransaction.Click += new System.EventHandler(this.BtnSaveTransaction_Click);
             // 
             // label3
@@ -410,24 +420,24 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridBankList
             // 
-            this.DataGridBankList.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridBankList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridBankList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridBankList.Location = new System.Drawing.Point(12, 122);
             this.DataGridBankList.Name = "DataGridBankList";
             this.DataGridBankList.Size = new System.Drawing.Size(870, 354);
@@ -436,10 +446,13 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShowTransaction
             // 
-            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnShowTransaction.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShowTransaction.Location = new System.Drawing.Point(8, 13);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(125, 70);
@@ -490,7 +503,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.MaskEndOfDateTo);
             this.Controls.Add(this.MaskEndOfDayFrom);

@@ -295,6 +295,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox2.Location = new System.Drawing.Point(12, 163);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(660, 180);
@@ -327,6 +328,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(684, 361);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

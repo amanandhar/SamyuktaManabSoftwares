@@ -29,10 +29,11 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
             this.BtnDailyTransaction = new System.Windows.Forms.Button();
             this.BtnShow = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,7 +62,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.RichBalanceCredit = new System.Windows.Forms.RichTextBox();
             this.DataGridSummaryList = new System.Windows.Forms.DataGridView();
-            this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridSummaryList)).BeginInit();
@@ -79,28 +79,45 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // MaskEndOfDay
+            // 
+            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDay.Location = new System.Drawing.Point(133, 23);
+            this.MaskEndOfDay.Mask = "   0000-00-00";
+            this.MaskEndOfDay.Name = "MaskEndOfDay";
+            this.MaskEndOfDay.Size = new System.Drawing.Size(118, 26);
+            this.MaskEndOfDay.TabIndex = 4;
+            // 
             // BtnDailyTransaction
             // 
+            this.BtnDailyTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnDailyTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDailyTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDailyTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDailyTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDailyTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDailyTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnDailyTransaction.Location = new System.Drawing.Point(860, 13);
             this.BtnDailyTransaction.Name = "BtnDailyTransaction";
             this.BtnDailyTransaction.Size = new System.Drawing.Size(144, 48);
             this.BtnDailyTransaction.TabIndex = 3;
             this.BtnDailyTransaction.Text = "Daily Transaction";
-            this.BtnDailyTransaction.UseVisualStyleBackColor = true;
+            this.BtnDailyTransaction.UseVisualStyleBackColor = false;
             this.BtnDailyTransaction.Click += new System.EventHandler(this.BtnDailyTransactions_Click);
             // 
             // BtnShow
             // 
+            this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShow.Location = new System.Drawing.Point(748, 13);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(110, 48);
             this.BtnShow.TabIndex = 2;
             this.BtnShow.Text = "Show";
-            this.BtnShow.UseVisualStyleBackColor = true;
+            this.BtnShow.UseVisualStyleBackColor = false;
             this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // label1
@@ -216,8 +233,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichOpeningBalanceCash
             // 
             this.RichOpeningBalanceCash.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichOpeningBalanceCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichOpeningBalanceCash.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RichOpeningBalanceCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichOpeningBalanceCash.ForeColor = System.Drawing.Color.Black;
             this.RichOpeningBalanceCash.Location = new System.Drawing.Point(189, 55);
             this.RichOpeningBalanceCash.Name = "RichOpeningBalanceCash";
             this.RichOpeningBalanceCash.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -267,8 +284,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichBalanceCash
             // 
             this.RichBalanceCash.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichBalanceCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBalanceCash.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RichBalanceCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBalanceCash.ForeColor = System.Drawing.Color.Black;
             this.RichBalanceCash.Location = new System.Drawing.Point(189, 311);
             this.RichBalanceCash.Name = "RichBalanceCash";
             this.RichBalanceCash.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -290,8 +307,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichPaymentCheque
             // 
             this.RichPaymentCheque.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichPaymentCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichPaymentCheque.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.RichPaymentCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichPaymentCheque.ForeColor = System.Drawing.Color.Black;
             this.RichPaymentCheque.Location = new System.Drawing.Point(189, 279);
             this.RichPaymentCheque.Name = "RichPaymentCheque";
             this.RichPaymentCheque.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -302,8 +319,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichPaymentCash
             // 
             this.RichPaymentCash.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichPaymentCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichPaymentCash.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.RichPaymentCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichPaymentCash.ForeColor = System.Drawing.Color.Black;
             this.RichPaymentCash.Location = new System.Drawing.Point(189, 247);
             this.RichPaymentCash.Name = "RichPaymentCash";
             this.RichPaymentCash.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -314,8 +331,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichReceiptCheque
             // 
             this.RichReceiptCheque.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichReceiptCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichReceiptCheque.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.RichReceiptCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichReceiptCheque.ForeColor = System.Drawing.Color.Black;
             this.RichReceiptCheque.Location = new System.Drawing.Point(189, 215);
             this.RichReceiptCheque.Name = "RichReceiptCheque";
             this.RichReceiptCheque.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -326,8 +343,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichReceiptCash
             // 
             this.RichReceiptCash.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichReceiptCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichReceiptCash.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RichReceiptCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichReceiptCash.ForeColor = System.Drawing.Color.Black;
             this.RichReceiptCash.Location = new System.Drawing.Point(189, 183);
             this.RichReceiptCash.Name = "RichReceiptCash";
             this.RichReceiptCash.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -338,8 +355,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichSalesCredit
             // 
             this.RichSalesCredit.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichSalesCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichSalesCredit.ForeColor = System.Drawing.Color.Red;
+            this.RichSalesCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichSalesCredit.ForeColor = System.Drawing.Color.Black;
             this.RichSalesCredit.Location = new System.Drawing.Point(189, 151);
             this.RichSalesCredit.Name = "RichSalesCredit";
             this.RichSalesCredit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -350,8 +367,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichSalesCash
             // 
             this.RichSalesCash.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichSalesCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichSalesCash.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RichSalesCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichSalesCash.ForeColor = System.Drawing.Color.Black;
             this.RichSalesCash.Location = new System.Drawing.Point(189, 119);
             this.RichSalesCash.Name = "RichSalesCash";
             this.RichSalesCash.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -362,8 +379,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichOpeningBalanceCredit
             // 
             this.RichOpeningBalanceCredit.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichOpeningBalanceCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichOpeningBalanceCredit.ForeColor = System.Drawing.Color.Red;
+            this.RichOpeningBalanceCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichOpeningBalanceCredit.ForeColor = System.Drawing.Color.Black;
             this.RichOpeningBalanceCredit.Location = new System.Drawing.Point(189, 87);
             this.RichOpeningBalanceCredit.Name = "RichOpeningBalanceCredit";
             this.RichOpeningBalanceCredit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -398,8 +415,8 @@ namespace GrocerySupplyManagementApp.Forms
             // RichBalanceCredit
             // 
             this.RichBalanceCredit.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.RichBalanceCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBalanceCredit.ForeColor = System.Drawing.Color.Red;
+            this.RichBalanceCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBalanceCredit.ForeColor = System.Drawing.Color.Black;
             this.RichBalanceCredit.Location = new System.Drawing.Point(841, 474);
             this.RichBalanceCredit.Name = "RichBalanceCredit";
             this.RichBalanceCredit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -409,51 +426,42 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridSummaryList
             // 
-            this.DataGridSummaryList.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSummaryList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridSummaryList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSummaryList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridSummaryList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridSummaryList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridSummaryList.DefaultCellStyle = dataGridViewCellStyle5;
             this.DataGridSummaryList.Location = new System.Drawing.Point(16, 139);
             this.DataGridSummaryList.Name = "DataGridSummaryList";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSummaryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSummaryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.DataGridSummaryList.Size = new System.Drawing.Size(623, 385);
             this.DataGridSummaryList.TabIndex = 20;
-            // 
-            // MaskEndOfDay
-            // 
-            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDay.Location = new System.Drawing.Point(133, 23);
-            this.MaskEndOfDay.Mask = "   0000-00-00";
-            this.MaskEndOfDay.Name = "MaskEndOfDay";
-            this.MaskEndOfDay.Size = new System.Drawing.Size(105, 24);
-            this.MaskEndOfDay.TabIndex = 4;
             // 
             // SummaryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.DataGridSummaryList);
             this.Controls.Add(this.RichBalanceCredit);

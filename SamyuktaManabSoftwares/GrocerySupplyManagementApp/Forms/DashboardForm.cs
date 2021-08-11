@@ -223,5 +223,10 @@ namespace GrocerySupplyManagementApp.Forms
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
         }
         #endregion
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

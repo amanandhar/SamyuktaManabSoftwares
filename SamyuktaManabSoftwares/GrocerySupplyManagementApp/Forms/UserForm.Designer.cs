@@ -221,9 +221,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.checkBox18.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.checkBox18.Location = new System.Drawing.Point(354, 80);
             this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(211, 24);
+            this.checkBox18.Size = new System.Drawing.Size(167, 24);
             this.checkBox18.TabIndex = 35;
-            this.checkBox18.Text = "Bank / Loan Management";
+            this.checkBox18.Text = "Bank  Management";
             this.checkBox18.UseVisualStyleBackColor = true;
             // 
             // checkBox17
@@ -419,7 +419,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(684, 549);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox2);

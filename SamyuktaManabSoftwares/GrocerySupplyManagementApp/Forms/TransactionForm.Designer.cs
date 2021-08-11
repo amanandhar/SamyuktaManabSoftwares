@@ -29,10 +29,12 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.GroupFilter = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.ComboBankTransfer = new System.Windows.Forms.ComboBox();
             this.RadioBankTransfer = new System.Windows.Forms.RadioButton();
             this.RadioItemCode = new System.Windows.Forms.RadioButton();
@@ -68,6 +70,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // GroupFilter
             // 
+            this.GroupFilter.Controls.Add(this.radioButton1);
+            this.GroupFilter.Controls.Add(this.comboBox1);
             this.GroupFilter.Controls.Add(this.ComboBankTransfer);
             this.GroupFilter.Controls.Add(this.RadioBankTransfer);
             this.GroupFilter.Controls.Add(this.RadioItemCode);
@@ -98,6 +102,31 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.Size = new System.Drawing.Size(850, 137);
             this.GroupFilter.TabIndex = 5;
             this.GroupFilter.TabStop = false;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.radioButton1.Location = new System.Drawing.Point(26, 46);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(96, 22);
+            this.radioButton1.TabIndex = 46;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "By Service";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Delivery",
+            "Discount"});
+            this.comboBox1.Location = new System.Drawing.Point(132, 44);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(105, 26);
+            this.comboBox1.TabIndex = 45;
             // 
             // ComboBankTransfer
             // 
@@ -287,11 +316,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // MaskEndOfDay
             // 
-            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaskEndOfDay.Location = new System.Drawing.Point(132, 17);
             this.MaskEndOfDay.Mask = "   0000-00-00";
             this.MaskEndOfDay.Name = "MaskEndOfDay";
-            this.MaskEndOfDay.Size = new System.Drawing.Size(105, 24);
+            this.MaskEndOfDay.Size = new System.Drawing.Size(105, 26);
             this.MaskEndOfDay.TabIndex = 1;
             // 
             // label3
@@ -386,21 +415,28 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnDeleteTransaction
             // 
+            this.BtnDeleteTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnDeleteTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDeleteTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Salmon;
+            this.BtnDeleteTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Red;
+            this.BtnDeleteTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 72);
             this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
             this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 55);
             this.BtnDeleteTransaction.TabIndex = 1;
             this.BtnDeleteTransaction.Text = "Delete Transaction";
-            this.BtnDeleteTransaction.UseVisualStyleBackColor = true;
+            this.BtnDeleteTransaction.UseVisualStyleBackColor = false;
             this.BtnDeleteTransaction.Click += new System.EventHandler(this.BtnDeleteTransaction_Click);
             // 
             // BtnShowTransaction
             // 
-            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShowTransaction.Location = new System.Drawing.Point(10, 15);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(130, 55);
@@ -423,34 +459,34 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridTransactionList
             // 
-            this.DataGridTransactionList.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridTransactionList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridTransactionList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridTransactionList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridTransactionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridTransactionList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 174);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridTransactionList.DefaultCellStyle = dataGridViewCellStyle5;
+            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 182);
             this.DataGridTransactionList.Name = "DataGridTransactionList";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.DataGridTransactionList.Size = new System.Drawing.Size(1015, 355);
             this.DataGridTransactionList.TabIndex = 4;
             this.DataGridTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridTransactionList_DataBindingComplete);
@@ -459,7 +495,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.GroupFilter);
             this.Controls.Add(this.DataGridTransactionList);
@@ -507,5 +543,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox ComboPurchase;
         private System.Windows.Forms.ComboBox ComboBankTransfer;
         private System.Windows.Forms.RadioButton RadioBankTransfer;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

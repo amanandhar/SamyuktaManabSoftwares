@@ -425,15 +425,19 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShowUnpricedItem
             // 
+            this.BtnShowUnpricedItem.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnShowUnpricedItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShowUnpricedItem.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowUnpricedItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowUnpricedItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowUnpricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowUnpricedItem.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowUnpricedItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShowUnpricedItem.Location = new System.Drawing.Point(8, 13);
             this.BtnShowUnpricedItem.Name = "BtnShowUnpricedItem";
             this.BtnShowUnpricedItem.Size = new System.Drawing.Size(140, 40);
             this.BtnShowUnpricedItem.TabIndex = 22;
             this.BtnShowUnpricedItem.Text = "Search Stock";
-            this.BtnShowUnpricedItem.UseVisualStyleBackColor = true;
+            this.BtnShowUnpricedItem.UseVisualStyleBackColor = false;
             this.BtnShowUnpricedItem.Click += new System.EventHandler(this.BtnShowUnpricedItem_Click);
             // 
             // BtnAddItemImage
@@ -551,7 +555,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

@@ -565,6 +565,7 @@
     <EmbeddedResource Include="Forms\TransactionForm.resx">
       <DependentUpon>TransactionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\BalanceSheet.rdlc" />
     <EmbeddedResource Include="Reports\InvoiceReport.rdlc" />
     <None Include=".Designer.gitignore" />
     <None Include=".gitignore">

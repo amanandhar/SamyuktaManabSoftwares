@@ -122,5 +122,11 @@ namespace GrocerySupplyManagementApp.Forms
             RichAssetsBalance.Clear();
         }
         #endregion
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+
+        }
     }
 }
