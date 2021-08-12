@@ -127,7 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(640, 110);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "User Informational";
+            this.groupBox1.Text = "User Information";
             // 
             // button6
             // 
@@ -140,6 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // richTextBox4
             // 
+            this.richTextBox4.Enabled = false;
             this.richTextBox4.Location = new System.Drawing.Point(435, 26);
             this.richTextBox4.Name = "richTextBox4";
             this.richTextBox4.Size = new System.Drawing.Size(170, 30);
@@ -148,6 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // richTextBox3
             // 
+            this.richTextBox3.Enabled = false;
             this.richTextBox3.Location = new System.Drawing.Point(435, 64);
             this.richTextBox3.Name = "richTextBox3";
             this.richTextBox3.Size = new System.Drawing.Size(170, 30);
@@ -156,6 +158,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // richTextBox2
             // 
+            this.richTextBox2.Enabled = false;
             this.richTextBox2.Location = new System.Drawing.Point(112, 65);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(170, 30);
@@ -164,6 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Enabled = false;
             this.richTextBox1.Location = new System.Drawing.Point(113, 27);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(75, 30);
@@ -199,9 +203,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(226, 38);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(96, 24);
+            this.checkBox2.Size = new System.Drawing.Size(102, 24);
             this.checkBox2.TabIndex = 37;
-            this.checkBox2.Text = "All Delete";
+            this.checkBox2.Text = "Read Only";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox1
@@ -368,7 +372,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 40);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Add New ";
+            this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2

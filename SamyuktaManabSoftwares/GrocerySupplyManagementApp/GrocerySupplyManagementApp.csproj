@@ -114,6 +114,7 @@
     <Compile Include="Entities\PricedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserTransaction.cs" />
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
@@ -369,6 +370,7 @@
     <Compile Include="Repositories\Interfaces\IStockRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISupplierRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITaxRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
@@ -381,6 +383,7 @@
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
     <Compile Include="Repositories\MSSqlStockRepository.cs" />
+    <Compile Include="Repositories\MSSqlUserRepository.cs" />
     <Compile Include="Repositories\MSSqlUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlSoldItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPricedItemRepository.cs" />

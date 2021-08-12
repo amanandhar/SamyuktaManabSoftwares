@@ -80,7 +80,6 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 while (reader.Read())
                                 {
-
                                     bank.Id = Convert.ToInt64(reader["Id"].ToString());
                                     bank.Name = reader["Name"].ToString();
                                     bank.AccountNo = reader["AccountNo"].ToString();
