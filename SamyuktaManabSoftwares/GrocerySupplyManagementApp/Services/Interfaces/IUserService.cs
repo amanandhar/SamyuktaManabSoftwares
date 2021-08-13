@@ -1,9 +1,13 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace GrocerySupplyManagementApp.Repositories.Interfaces
+namespace GrocerySupplyManagementApp.Services.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         IEnumerable<User> GetUsers();
         User GetUser(long id);

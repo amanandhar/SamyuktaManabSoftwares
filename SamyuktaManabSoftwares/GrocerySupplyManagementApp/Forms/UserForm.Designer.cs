@@ -29,59 +29,48 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.BtnShow = new System.Windows.Forms.Button();
+            this.RichUsername = new System.Windows.Forms.RichTextBox();
+            this.RichConfirmPassword = new System.Windows.Forms.RichTextBox();
+            this.RichPassword = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox18 = new System.Windows.Forms.CheckBox();
-            this.checkBox17 = new System.Windows.Forms.CheckBox();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.ChkReadOnly = new System.Windows.Forms.CheckBox();
+            this.ChkEOD = new System.Windows.Forms.CheckBox();
+            this.ChkBank = new System.Windows.Forms.CheckBox();
+            this.ChkEmployee = new System.Windows.Forms.CheckBox();
+            this.ChkMember = new System.Windows.Forms.CheckBox();
+            this.ChkStock = new System.Windows.Forms.CheckBox();
+            this.ChkItemPricing = new System.Windows.Forms.CheckBox();
+            this.ChkDailyExpense = new System.Windows.Forms.CheckBox();
+            this.ChkSupplier = new System.Windows.Forms.CheckBox();
+            this.ChkDailySummary = new System.Windows.Forms.CheckBox();
+            this.ChkPOS = new System.Windows.Forms.CheckBox();
+            this.ChkSetting = new System.Windows.Forms.CheckBox();
+            this.ChkReport = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.BtnDelete = new System.Windows.Forms.Button();
+            this.BtnAdd = new System.Windows.Forms.Button();
+            this.BtnSave = new System.Windows.Forms.Button();
+            this.BtnUpdate = new System.Windows.Forms.Button();
+            this.BtnEdit = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ComboUserType = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(33, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "User ID";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(298, 31);
+            this.label2.Location = new System.Drawing.Point(19, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 20);
             this.label2.TabIndex = 1;
@@ -111,12 +100,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button6);
-            this.groupBox1.Controls.Add(this.richTextBox4);
-            this.groupBox1.Controls.Add(this.richTextBox3);
-            this.groupBox1.Controls.Add(this.richTextBox2);
-            this.groupBox1.Controls.Add(this.richTextBox1);
+            this.groupBox1.Controls.Add(this.ComboUserType);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.BtnShow);
+            this.groupBox1.Controls.Add(this.RichUsername);
+            this.groupBox1.Controls.Add(this.RichConfirmPassword);
+            this.groupBox1.Controls.Add(this.RichPassword);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -129,66 +118,58 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "User Information";
             // 
-            // button6
+            // BtnShow
             // 
-            this.button6.Location = new System.Drawing.Point(189, 26);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(41, 30);
-            this.button6.TabIndex = 8;
-            this.button6.Text = "C";
-            this.button6.UseVisualStyleBackColor = true;
+            this.BtnShow.Location = new System.Drawing.Point(287, 26);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(41, 30);
+            this.BtnShow.TabIndex = 8;
+            this.BtnShow.Text = "C";
+            this.BtnShow.UseVisualStyleBackColor = true;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
-            // richTextBox4
+            // RichUsername
             // 
-            this.richTextBox4.Enabled = false;
-            this.richTextBox4.Location = new System.Drawing.Point(435, 26);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(170, 30);
-            this.richTextBox4.TabIndex = 7;
-            this.richTextBox4.Text = "";
+            this.RichUsername.Enabled = false;
+            this.RichUsername.Location = new System.Drawing.Point(112, 26);
+            this.RichUsername.Name = "RichUsername";
+            this.RichUsername.Size = new System.Drawing.Size(170, 30);
+            this.RichUsername.TabIndex = 7;
+            this.RichUsername.Text = "";
             // 
-            // richTextBox3
+            // RichConfirmPassword
             // 
-            this.richTextBox3.Enabled = false;
-            this.richTextBox3.Location = new System.Drawing.Point(435, 64);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(170, 30);
-            this.richTextBox3.TabIndex = 6;
-            this.richTextBox3.Text = "";
+            this.RichConfirmPassword.Enabled = false;
+            this.RichConfirmPassword.Location = new System.Drawing.Point(435, 64);
+            this.RichConfirmPassword.Name = "RichConfirmPassword";
+            this.RichConfirmPassword.Size = new System.Drawing.Size(170, 30);
+            this.RichConfirmPassword.TabIndex = 6;
+            this.RichConfirmPassword.Text = "";
             // 
-            // richTextBox2
+            // RichPassword
             // 
-            this.richTextBox2.Enabled = false;
-            this.richTextBox2.Location = new System.Drawing.Point(112, 65);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(170, 30);
-            this.richTextBox2.TabIndex = 6;
-            this.richTextBox2.Text = "";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Enabled = false;
-            this.richTextBox1.Location = new System.Drawing.Point(113, 27);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(75, 30);
-            this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "";
+            this.RichPassword.Enabled = false;
+            this.RichPassword.Location = new System.Drawing.Point(112, 65);
+            this.RichPassword.Name = "RichPassword";
+            this.RichPassword.Size = new System.Drawing.Size(170, 30);
+            this.RichPassword.TabIndex = 6;
+            this.RichPassword.Text = "";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.checkBox18);
-            this.groupBox2.Controls.Add(this.checkBox17);
-            this.groupBox2.Controls.Add(this.checkBox16);
-            this.groupBox2.Controls.Add(this.checkBox15);
-            this.groupBox2.Controls.Add(this.checkBox14);
-            this.groupBox2.Controls.Add(this.checkBox13);
-            this.groupBox2.Controls.Add(this.checkBox12);
-            this.groupBox2.Controls.Add(this.checkBox11);
-            this.groupBox2.Controls.Add(this.checkBox10);
-            this.groupBox2.Controls.Add(this.checkBox9);
-            this.groupBox2.Controls.Add(this.checkBox8);
+            this.groupBox2.Controls.Add(this.ChkReadOnly);
+            this.groupBox2.Controls.Add(this.ChkEOD);
+            this.groupBox2.Controls.Add(this.ChkBank);
+            this.groupBox2.Controls.Add(this.ChkEmployee);
+            this.groupBox2.Controls.Add(this.ChkMember);
+            this.groupBox2.Controls.Add(this.ChkStock);
+            this.groupBox2.Controls.Add(this.ChkItemPricing);
+            this.groupBox2.Controls.Add(this.ChkDailyExpense);
+            this.groupBox2.Controls.Add(this.ChkSupplier);
+            this.groupBox2.Controls.Add(this.ChkDailySummary);
+            this.groupBox2.Controls.Add(this.ChkPOS);
+            this.groupBox2.Controls.Add(this.ChkSetting);
+            this.groupBox2.Controls.Add(this.ChkReport);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.groupBox2.Location = new System.Drawing.Point(23, 143);
@@ -196,217 +177,253 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(640, 300);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "User Right";
+            this.groupBox2.Text = "User Permission";
             // 
-            // checkBox2
+            // ChkReadOnly
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(226, 38);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(102, 24);
-            this.checkBox2.TabIndex = 37;
-            this.checkBox2.Text = "Read Only";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.ChkReadOnly.AutoSize = true;
+            this.ChkReadOnly.Enabled = false;
+            this.ChkReadOnly.Location = new System.Drawing.Point(226, 38);
+            this.ChkReadOnly.Name = "ChkReadOnly";
+            this.ChkReadOnly.Size = new System.Drawing.Size(102, 24);
+            this.ChkReadOnly.TabIndex = 37;
+            this.ChkReadOnly.Text = "Read Only";
+            this.ChkReadOnly.UseVisualStyleBackColor = true;
+            this.ChkReadOnly.CheckedChanged += new System.EventHandler(this.ChkReadOnly_CheckedChanged);
             // 
-            // checkBox1
+            // ChkEOD
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox1.Location = new System.Drawing.Point(354, 261);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(239, 24);
-            this.checkBox1.TabIndex = 36;
-            this.checkBox1.Text = "End Of The Day Management";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.ChkEOD.AutoSize = true;
+            this.ChkEOD.Enabled = false;
+            this.ChkEOD.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkEOD.Location = new System.Drawing.Point(354, 261);
+            this.ChkEOD.Name = "ChkEOD";
+            this.ChkEOD.Size = new System.Drawing.Size(208, 24);
+            this.ChkEOD.TabIndex = 36;
+            this.ChkEOD.Text = "End Of Day Management";
+            this.ChkEOD.UseVisualStyleBackColor = true;
+            this.ChkEOD.CheckedChanged += new System.EventHandler(this.ChkEOD_CheckedChanged);
             // 
-            // checkBox18
+            // ChkBank
             // 
-            this.checkBox18.AutoSize = true;
-            this.checkBox18.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox18.Location = new System.Drawing.Point(354, 80);
-            this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(167, 24);
-            this.checkBox18.TabIndex = 35;
-            this.checkBox18.Text = "Bank  Management";
-            this.checkBox18.UseVisualStyleBackColor = true;
+            this.ChkBank.AutoSize = true;
+            this.ChkBank.Enabled = false;
+            this.ChkBank.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkBank.Location = new System.Drawing.Point(354, 80);
+            this.ChkBank.Name = "ChkBank";
+            this.ChkBank.Size = new System.Drawing.Size(167, 24);
+            this.ChkBank.TabIndex = 35;
+            this.ChkBank.Text = "Bank  Management";
+            this.ChkBank.UseVisualStyleBackColor = true;
+            this.ChkBank.CheckedChanged += new System.EventHandler(this.ChkBank_CheckedChanged);
             // 
-            // checkBox17
+            // ChkEmployee
             // 
-            this.checkBox17.AutoSize = true;
-            this.checkBox17.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox17.Location = new System.Drawing.Point(354, 214);
-            this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(187, 24);
-            this.checkBox17.TabIndex = 34;
-            this.checkBox17.Text = "Emloyee Management";
-            this.checkBox17.UseVisualStyleBackColor = true;
+            this.ChkEmployee.AutoSize = true;
+            this.ChkEmployee.Enabled = false;
+            this.ChkEmployee.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkEmployee.Location = new System.Drawing.Point(354, 214);
+            this.ChkEmployee.Name = "ChkEmployee";
+            this.ChkEmployee.Size = new System.Drawing.Size(196, 24);
+            this.ChkEmployee.TabIndex = 34;
+            this.ChkEmployee.Text = "Employee Management";
+            this.ChkEmployee.UseVisualStyleBackColor = true;
+            this.ChkEmployee.CheckedChanged += new System.EventHandler(this.ChkEmployee_CheckedChanged);
             // 
-            // checkBox16
+            // ChkMember
             // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox16.Location = new System.Drawing.Point(62, 124);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(213, 24);
-            this.checkBox16.TabIndex = 33;
-            this.checkBox16.Text = "Membership Management";
-            this.checkBox16.UseVisualStyleBackColor = true;
+            this.ChkMember.AutoSize = true;
+            this.ChkMember.Enabled = false;
+            this.ChkMember.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkMember.Location = new System.Drawing.Point(62, 124);
+            this.ChkMember.Name = "ChkMember";
+            this.ChkMember.Size = new System.Drawing.Size(213, 24);
+            this.ChkMember.TabIndex = 33;
+            this.ChkMember.Text = "Membership Management";
+            this.ChkMember.UseVisualStyleBackColor = true;
+            this.ChkMember.CheckedChanged += new System.EventHandler(this.ChkMember_CheckedChanged);
             // 
-            // checkBox15
+            // ChkStock
             // 
-            this.checkBox15.AutoSize = true;
-            this.checkBox15.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox15.Location = new System.Drawing.Point(62, 261);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(236, 24);
-            this.checkBox15.TabIndex = 32;
-            this.checkBox15.Text = "Stock Inventary Management";
-            this.checkBox15.UseVisualStyleBackColor = true;
+            this.ChkStock.AutoSize = true;
+            this.ChkStock.Enabled = false;
+            this.ChkStock.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkStock.Location = new System.Drawing.Point(62, 261);
+            this.ChkStock.Name = "ChkStock";
+            this.ChkStock.Size = new System.Drawing.Size(236, 24);
+            this.ChkStock.TabIndex = 32;
+            this.ChkStock.Text = "Stock Inventary Management";
+            this.ChkStock.UseVisualStyleBackColor = true;
+            this.ChkStock.CheckedChanged += new System.EventHandler(this.ChkStock_CheckedChanged);
             // 
-            // checkBox14
+            // ChkItemPricing
             // 
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox14.Location = new System.Drawing.Point(62, 214);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(212, 24);
-            this.checkBox14.TabIndex = 31;
-            this.checkBox14.Text = "Item Coding Management";
-            this.checkBox14.UseVisualStyleBackColor = true;
+            this.ChkItemPricing.AutoSize = true;
+            this.ChkItemPricing.Enabled = false;
+            this.ChkItemPricing.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkItemPricing.Location = new System.Drawing.Point(62, 214);
+            this.ChkItemPricing.Name = "ChkItemPricing";
+            this.ChkItemPricing.Size = new System.Drawing.Size(209, 24);
+            this.ChkItemPricing.TabIndex = 31;
+            this.ChkItemPricing.Text = "Item Pricing Management";
+            this.ChkItemPricing.UseVisualStyleBackColor = true;
+            this.ChkItemPricing.CheckedChanged += new System.EventHandler(this.ChkItemPricing_CheckedChanged);
             // 
-            // checkBox13
+            // ChkDailyExpense
             // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox13.Location = new System.Drawing.Point(354, 38);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(226, 24);
-            this.checkBox13.TabIndex = 30;
-            this.checkBox13.Text = "Daily Expense Management";
-            this.checkBox13.UseVisualStyleBackColor = true;
+            this.ChkDailyExpense.AutoSize = true;
+            this.ChkDailyExpense.Enabled = false;
+            this.ChkDailyExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkDailyExpense.Location = new System.Drawing.Point(354, 38);
+            this.ChkDailyExpense.Name = "ChkDailyExpense";
+            this.ChkDailyExpense.Size = new System.Drawing.Size(226, 24);
+            this.ChkDailyExpense.TabIndex = 30;
+            this.ChkDailyExpense.Text = "Daily Expense Management";
+            this.ChkDailyExpense.UseVisualStyleBackColor = true;
+            this.ChkDailyExpense.CheckedChanged += new System.EventHandler(this.ChkDailyExpense_CheckedChanged);
             // 
-            // checkBox12
+            // ChkSupplier
             // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox12.Location = new System.Drawing.Point(62, 168);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(213, 24);
-            this.checkBox12.TabIndex = 29;
-            this.checkBox12.Text = "Suppliership Management";
-            this.checkBox12.UseVisualStyleBackColor = true;
+            this.ChkSupplier.AutoSize = true;
+            this.ChkSupplier.Enabled = false;
+            this.ChkSupplier.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkSupplier.Location = new System.Drawing.Point(62, 168);
+            this.ChkSupplier.Name = "ChkSupplier";
+            this.ChkSupplier.Size = new System.Drawing.Size(213, 24);
+            this.ChkSupplier.TabIndex = 29;
+            this.ChkSupplier.Text = "Suppliership Management";
+            this.ChkSupplier.UseVisualStyleBackColor = true;
+            this.ChkSupplier.CheckedChanged += new System.EventHandler(this.ChkSupplier_CheckedChanged);
             // 
-            // checkBox11
+            // ChkDailySummary
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox11.Location = new System.Drawing.Point(62, 80);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(231, 24);
-            this.checkBox11.TabIndex = 28;
-            this.checkBox11.Text = "Daily Summary Management";
-            this.checkBox11.UseVisualStyleBackColor = true;
+            this.ChkDailySummary.AutoSize = true;
+            this.ChkDailySummary.Enabled = false;
+            this.ChkDailySummary.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkDailySummary.Location = new System.Drawing.Point(62, 80);
+            this.ChkDailySummary.Name = "ChkDailySummary";
+            this.ChkDailySummary.Size = new System.Drawing.Size(231, 24);
+            this.ChkDailySummary.TabIndex = 28;
+            this.ChkDailySummary.Text = "Daily Summary Management";
+            this.ChkDailySummary.UseVisualStyleBackColor = true;
+            this.ChkDailySummary.CheckedChanged += new System.EventHandler(this.ChkDailySummary_CheckedChanged);
             // 
-            // checkBox10
+            // ChkPOS
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox10.Location = new System.Drawing.Point(62, 38);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(159, 24);
-            this.checkBox10.TabIndex = 27;
-            this.checkBox10.Text = "POS Management";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.ChkPOS.AutoSize = true;
+            this.ChkPOS.Enabled = false;
+            this.ChkPOS.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkPOS.Location = new System.Drawing.Point(62, 38);
+            this.ChkPOS.Name = "ChkPOS";
+            this.ChkPOS.Size = new System.Drawing.Size(159, 24);
+            this.ChkPOS.TabIndex = 27;
+            this.ChkPOS.Text = "POS Management";
+            this.ChkPOS.UseVisualStyleBackColor = true;
+            this.ChkPOS.CheckedChanged += new System.EventHandler(this.ChkPOS_CheckedChanged);
             // 
-            // checkBox9
+            // ChkSetting
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox9.Location = new System.Drawing.Point(354, 124);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(198, 24);
-            this.checkBox9.TabIndex = 26;
-            this.checkBox9.Text = "All Setting Management";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this.ChkSetting.AutoSize = true;
+            this.ChkSetting.Enabled = false;
+            this.ChkSetting.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkSetting.Location = new System.Drawing.Point(354, 124);
+            this.ChkSetting.Name = "ChkSetting";
+            this.ChkSetting.Size = new System.Drawing.Size(198, 24);
+            this.ChkSetting.TabIndex = 26;
+            this.ChkSetting.Text = "All Setting Management";
+            this.ChkSetting.UseVisualStyleBackColor = true;
+            this.ChkSetting.CheckedChanged += new System.EventHandler(this.ChkSetting_CheckedChanged);
             // 
-            // checkBox8
+            // ChkReport
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox8.Location = new System.Drawing.Point(354, 168);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(196, 24);
-            this.checkBox8.TabIndex = 25;
-            this.checkBox8.Text = "All Report Management";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.ChkReport.AutoSize = true;
+            this.ChkReport.Enabled = false;
+            this.ChkReport.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkReport.Location = new System.Drawing.Point(354, 168);
+            this.ChkReport.Name = "ChkReport";
+            this.ChkReport.Size = new System.Drawing.Size(196, 24);
+            this.ChkReport.TabIndex = 25;
+            this.ChkReport.Text = "All Report Management";
+            this.ChkReport.UseVisualStyleBackColor = true;
+            this.ChkReport.CheckedChanged += new System.EventHandler(this.ChkReport_CheckedChanged);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button5);
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.button4);
-            this.groupBox3.Controls.Add(this.button3);
+            this.groupBox3.Controls.Add(this.BtnDelete);
+            this.groupBox3.Controls.Add(this.BtnAdd);
+            this.groupBox3.Controls.Add(this.BtnSave);
+            this.groupBox3.Controls.Add(this.BtnUpdate);
+            this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Location = new System.Drawing.Point(23, 452);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(640, 79);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             // 
-            // button5
+            // BtnDelete
             // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Red;
-            this.button5.Location = new System.Drawing.Point(491, 23);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(115, 40);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Delete";
-            this.button5.UseVisualStyleBackColor = true;
+            this.BtnDelete.Enabled = false;
+            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDelete.ForeColor = System.Drawing.Color.Red;
+            this.BtnDelete.Location = new System.Drawing.Point(491, 23);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(115, 40);
+            this.BtnDelete.TabIndex = 4;
+            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
-            // button1
+            // BtnAdd
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(21, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 40);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnAdd.Enabled = false;
+            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAdd.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnAdd.Location = new System.Drawing.Point(21, 23);
+            this.BtnAdd.Name = "BtnAdd";
+            this.BtnAdd.Size = new System.Drawing.Size(115, 40);
+            this.BtnAdd.TabIndex = 0;
+            this.BtnAdd.Text = "Add";
+            this.BtnAdd.UseVisualStyleBackColor = true;
+            this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
-            // button2
+            // BtnSave
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button2.Location = new System.Drawing.Point(139, 23);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 40);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
+            this.BtnSave.Enabled = false;
+            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSave.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSave.Location = new System.Drawing.Point(139, 23);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(115, 40);
+            this.BtnSave.TabIndex = 1;
+            this.BtnSave.Text = "Save";
+            this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
-            // button4
+            // BtnUpdate
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button4.Location = new System.Drawing.Point(374, 23);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(115, 40);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Update";
-            this.button4.UseVisualStyleBackColor = true;
+            this.BtnUpdate.Enabled = false;
+            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnUpdate.Location = new System.Drawing.Point(374, 23);
+            this.BtnUpdate.Name = "BtnUpdate";
+            this.BtnUpdate.Size = new System.Drawing.Size(115, 40);
+            this.BtnUpdate.TabIndex = 3;
+            this.BtnUpdate.Text = "Update";
+            this.BtnUpdate.UseVisualStyleBackColor = true;
+            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
-            // button3
+            // BtnEdit
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.Red;
-            this.button3.Location = new System.Drawing.Point(257, 23);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(115, 40);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Edit";
-            this.button3.UseVisualStyleBackColor = true;
+            this.BtnEdit.Enabled = false;
+            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEdit.ForeColor = System.Drawing.Color.Red;
+            this.BtnEdit.Location = new System.Drawing.Point(257, 23);
+            this.BtnEdit.Name = "BtnEdit";
+            this.BtnEdit.Size = new System.Drawing.Size(115, 40);
+            this.BtnEdit.TabIndex = 2;
+            this.BtnEdit.Text = "Edit";
+            this.BtnEdit.UseVisualStyleBackColor = true;
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
             // textBox1
             // 
@@ -418,6 +435,31 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Size = new System.Drawing.Size(688, 26);
             this.textBox1.TabIndex = 7;
             this.textBox1.Text = "                                                           User Set-up";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(344, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 20);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "User Type";
+            // 
+            // ComboUserType
+            // 
+            this.ComboUserType.Enabled = false;
+            this.ComboUserType.FormattingEnabled = true;
+            this.ComboUserType.Items.AddRange(new object[] {
+            "Please Select",
+            "Admin",
+            "Standard",
+            "Guest"});
+            this.ComboUserType.Location = new System.Drawing.Point(435, 25);
+            this.ComboUserType.Name = "ComboUserType";
+            this.ComboUserType.Size = new System.Drawing.Size(170, 28);
+            this.ComboUserType.TabIndex = 10;
             // 
             // UserForm
             // 
@@ -431,6 +473,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox3);
             this.Name = "UserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.UserForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -442,37 +485,36 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox richTextBox4;
-        private System.Windows.Forms.RichTextBox richTextBox3;
-        private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox RichUsername;
+        private System.Windows.Forms.RichTextBox RichConfirmPassword;
+        private System.Windows.Forms.RichTextBox RichPassword;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBox18;
-        private System.Windows.Forms.CheckBox checkBox17;
-        private System.Windows.Forms.CheckBox checkBox16;
-        private System.Windows.Forms.CheckBox checkBox15;
-        private System.Windows.Forms.CheckBox checkBox14;
-        private System.Windows.Forms.CheckBox checkBox12;
-        private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox ChkBank;
+        private System.Windows.Forms.CheckBox ChkEmployee;
+        private System.Windows.Forms.CheckBox ChkMember;
+        private System.Windows.Forms.CheckBox ChkStock;
+        private System.Windows.Forms.CheckBox ChkItemPricing;
+        private System.Windows.Forms.CheckBox ChkSupplier;
+        private System.Windows.Forms.CheckBox ChkDailySummary;
+        private System.Windows.Forms.CheckBox ChkPOS;
+        private System.Windows.Forms.CheckBox ChkSetting;
+        private System.Windows.Forms.CheckBox ChkReport;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnDelete;
+        private System.Windows.Forms.Button BtnUpdate;
+        private System.Windows.Forms.Button BtnEdit;
+        private System.Windows.Forms.Button BtnSave;
+        private System.Windows.Forms.Button BtnAdd;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.CheckBox checkBox13;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox ChkDailyExpense;
+        private System.Windows.Forms.Button BtnShow;
+        private System.Windows.Forms.CheckBox ChkEOD;
+        private System.Windows.Forms.CheckBox ChkReadOnly;
+        private System.Windows.Forms.ComboBox ComboUserType;
+        private System.Windows.Forms.Label label1;
     }
 }

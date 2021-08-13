@@ -650,7 +650,6 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnSaveInvoice
             // 
             this.BtnSaveInvoice.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnSaveInvoice.Enabled = false;
             this.BtnSaveInvoice.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.BtnSaveInvoice.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnSaveInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -994,7 +993,6 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnAddItem
             // 
             this.BtnAddItem.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnAddItem.Enabled = false;
             this.BtnAddItem.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.BtnAddItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnAddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

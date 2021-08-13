@@ -1,12 +1,13 @@
-﻿namespace GrocerySupplyManagementApp.Entities
+﻿using System;
+
+namespace GrocerySupplyManagementApp.Entities
 {
     public class User
     {
         public long Id { get; set; }
-        public long Counter { get; set; }
-        public string UserId { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
+        public string Type { get; set; }
         public bool IsReadOnly { get; set; }
         public bool Bank { get; set; }
         public bool DailyExpense { get; set; }
@@ -20,5 +21,7 @@
         public bool Setting { get; set; }
         public bool Stock { get; set; }
         public bool Supplier { get; set; }
+        public DateTime AddedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

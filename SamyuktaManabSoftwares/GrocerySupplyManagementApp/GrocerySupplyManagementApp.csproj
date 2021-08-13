@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="Forms\Interfaces\IEmployeeListForm.cs" />
     <Compile Include="Forms\Interfaces\IUnpricedItemListForm.cs" />
+    <Compile Include="Forms\Interfaces\IUserListForm.cs" />
     <Compile Include="Forms\ItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -335,6 +336,12 @@
     <Compile Include="Forms\UserForm.Designer.cs">
       <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UserListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UserListForm.Designer.cs">
+      <DependentUpon>UserListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\SupplierForm.cs">
@@ -410,12 +417,14 @@
     <Compile Include="Services\Interfaces\IStockService.cs" />
     <Compile Include="Services\Interfaces\ISupplierService.cs" />
     <Compile Include="Services\Interfaces\ITaxService.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\Interfaces\IUserTransactionService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\PurchasedItemService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\StockService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserTransactionService.cs" />
     <Compile Include="Services\SoldItemService.cs" />
     <Compile Include="Services\PricedItemService.cs" />
@@ -548,6 +557,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserListForm.resx">
+      <DependentUpon>UserListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

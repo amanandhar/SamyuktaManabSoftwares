@@ -326,7 +326,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             EnableFields();
             EnableFields(Action.PopulateEmployee);
-
         }
 
         private void EnableFields(Action action = Action.None)

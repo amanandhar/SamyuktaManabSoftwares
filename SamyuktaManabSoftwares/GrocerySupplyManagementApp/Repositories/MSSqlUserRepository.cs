@@ -20,12 +20,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var users = new List<User>();
             var query = @"SELECT " +
-                "[Id], [Counter], [UserId], [Username], " +
+                "[Id], [Username], [Type], " +
                 "[Password], [IsReadOnly], [Bank], [DailyExpense], " +
                 "[DailySummary], [Employee], [EOD], [ItemPricing], " +
                 "[Member], [POS], [Report], [Setting], " +
-                "[Stock], [Supplier] " +
-                "FROM " + Constants.TABLE_USER;
+                "[Stock], [Supplier], [AddedDate], [UpdatedDate] " +
+                "FROM [" + Constants.TABLE_USER + "] ";
 
             try
             {
@@ -41,23 +41,24 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var user = new User
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    Counter = Convert.ToInt64(reader["Id"].ToString()),
-                                    UserId = reader["UserId"].ToString(),
-                                    UserName = reader["UserName"].ToString(),
+                                    Username = reader["Username"].ToString(),
                                     Password = reader["Password"].ToString(),
-                                    IsReadOnly = reader["IsReadOnly"].ToString() == "1",
-                                    Bank = reader["Bank"].ToString() == "1",
-                                    DailyExpense = reader["DailyExpense"].ToString() == "1",
-                                    DailySummary = reader["DailySummary"].ToString() == "1",
-                                    Employee = reader["Employee"].ToString() == "1",
-                                    EOD = reader["EOD"].ToString() == "1",
-                                    ItemPricing = reader["ItemPricing"].ToString() == "1",
-                                    Member = reader["Member"].ToString() == "1",
-                                    POS = reader["POS"].ToString() == "1",
-                                    Report = reader["Report"].ToString() == "1",
-                                    Setting = reader["Setting"].ToString() == "1",
-                                    Stock = reader["Stock"].ToString() == "1",
-                                    Supplier = reader["Supplier"].ToString() == "1"
+                                    Type = reader["Type"].ToString(),
+                                    IsReadOnly = Convert.ToBoolean(reader["IsReadOnly"].ToString()),
+                                    Bank = Convert.ToBoolean(reader["Bank"].ToString()),
+                                    DailyExpense = Convert.ToBoolean(reader["DailyExpense"].ToString()),
+                                    DailySummary = Convert.ToBoolean(reader["DailySummary"].ToString()),
+                                    Employee = Convert.ToBoolean(reader["Employee"].ToString()),
+                                    EOD = Convert.ToBoolean(reader["EOD"].ToString()),
+                                    ItemPricing = Convert.ToBoolean(reader["ItemPricing"].ToString()),
+                                    Member = Convert.ToBoolean(reader["Member"].ToString()),
+                                    POS = Convert.ToBoolean(reader["POS"].ToString()),
+                                    Report = Convert.ToBoolean(reader["Report"].ToString()),
+                                    Setting = Convert.ToBoolean(reader["Setting"].ToString()),
+                                    Stock = Convert.ToBoolean(reader["Stock"].ToString()),
+                                    Supplier = Convert.ToBoolean(reader["Supplier"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
+                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 users.Add(user);
@@ -78,14 +79,14 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var user = new User();
             var query = @"SELECT " +
-                "[Id], [Counter], [UserId], [Username], " +
+                "[Id], [Username], [Type], " +
                 "[Password], [IsReadOnly], [Bank], [DailyExpense], " +
                 "[DailySummary], [Employee], [EOD], [ItemPricing], " +
                 "[Member], [POS], [Report], [Setting], " +
-                "[Stock], [Supplier] " +
-                "FROM " + Constants.TABLE_USER + " " +
+                "[Stock], [Supplier], [AddedDate], [UpdatedDate] " +
+                "FROM [" + Constants.TABLE_USER + "] " + 
                 "WHERE 1 = 1 " +
-                "[Id] = @Id ";
+                "AND [Id] = @Id ";
 
             try
             {
@@ -102,23 +103,24 @@ namespace GrocerySupplyManagementApp.Repositories
                                 while (reader.Read())
                                 {
                                     user.Id = Convert.ToInt64(reader["Id"].ToString());
-                                    user.Counter = Convert.ToInt64(reader["Id"].ToString());
-                                    user.UserId = reader["UserId"].ToString();
-                                    user.UserName = reader["UserName"].ToString();
+                                    user.Username = reader["Username"].ToString();
                                     user.Password = reader["Password"].ToString();
-                                    user.IsReadOnly = reader["IsReadOnly"].ToString() == "1";
-                                    user.Bank = reader["Bank"].ToString() == "1";
-                                    user.DailyExpense = reader["DailyExpense"].ToString() == "1";
-                                    user.DailySummary = reader["DailySummary"].ToString() == "1";
-                                    user.Employee = reader["Employee"].ToString() == "1";
-                                    user.EOD = reader["EOD"].ToString() == "1";
-                                    user.ItemPricing = reader["ItemPricing"].ToString() == "1";
-                                    user.Member = reader["Member"].ToString() == "1";
-                                    user.POS = reader["POS"].ToString() == "1";
-                                    user.Report = reader["Report"].ToString() == "1";
-                                    user.Setting = reader["Setting"].ToString() == "1";
-                                    user.Stock = reader["Stock"].ToString() == "1";
-                                    user.Supplier = reader["Supplier"].ToString() == "1";
+                                    user.Type = reader["Type"].ToString();
+                                    user.IsReadOnly = Convert.ToBoolean(reader["IsReadOnly"].ToString());
+                                    user.Bank = Convert.ToBoolean(reader["Bank"].ToString());
+                                    user.DailyExpense = Convert.ToBoolean(reader["DailyExpense"].ToString());
+                                    user.DailySummary = Convert.ToBoolean(reader["DailySummary"].ToString());
+                                    user.Employee = Convert.ToBoolean(reader["Employee"].ToString());
+                                    user.EOD = Convert.ToBoolean(reader["EOD"].ToString());
+                                    user.ItemPricing = Convert.ToBoolean(reader["ItemPricing"].ToString());
+                                    user.Member = Convert.ToBoolean(reader["Member"].ToString());
+                                    user.POS = Convert.ToBoolean(reader["POS"].ToString());
+                                    user.Report = Convert.ToBoolean(reader["Report"].ToString());
+                                    user.Setting = Convert.ToBoolean(reader["Setting"].ToString());
+                                    user.Stock = Convert.ToBoolean(reader["Stock"].ToString());
+                                    user.Supplier = Convert.ToBoolean(reader["Supplier"].ToString());
+                                    user.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                    user.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 }
                             }
                         }
@@ -135,17 +137,214 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public User AddUser(User user)
         {
-            return new User();
+            string query = @"INSERT INTO " +
+                    " [" + Constants.TABLE_USER + "] " +
+                    "( " +
+                        "[Username], [Type], " +
+                        "[Password], [IsReadOnly], [Bank], [DailyExpense], " +
+                        "[DailySummary], [Employee], [EOD], [ItemPricing], " +
+                        "[Member], [POS], [Report], [Setting], " +
+                        "[Stock], [Supplier], [AddedDate], [UpdatedDate] " +
+                    ") " +
+                    "VALUES " +
+                    "( " +
+                        "@Username, @Type, " +
+                        "@Password, @IsReadOnly, @Bank, @DailyExpense, " +
+                        "@DailySummary, @Employee, @EOD, @ItemPricing, " +
+                        "@Member, @POS, @Report, @Setting, " +
+                        "@Stock, @Supplier, @AddedDate, @UpdatedDate " +
+                    ") ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", ((object)user.Username) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Password", ((object)user.Password) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Type", ((object)user.Type) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IsReadOnly", ((object)user.IsReadOnly) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Bank", ((object)user.Bank) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DailyExpense", ((object)user.DailyExpense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DailySummary", ((object)user.DailySummary) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Employee", ((object)user.Employee) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@EOD", ((object)user.EOD) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ItemPricing", ((object)user.ItemPricing) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Member", ((object)user.Member) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@POS", ((object)user.POS) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Report", ((object)user.Report) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Setting", ((object)user.Setting) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Stock", ((object)user.Stock) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Supplier", ((object)user.Supplier) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedDate", ((object)user.AddedDate) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)user.UpdatedDate) ?? DBNull.Value);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return user;
         }
 
         public User UpdateUser(long id, User user)
         {
-            return new User();
+            string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
+                    "SET " +
+                    "[Username] = @Username, [Type] = @Type, " +
+                    "[Password] = @Password, [IsReadOnly] = @IsReadOnly, [Bank] = @Bank, " +
+                    "[DailyExpense] = @DailyExpense, [DailySummary] = @DailySummary, [Employee] = @Employee, " +
+                    "[EOD] = @EOD, [ItemPricing] = @ItemPricing, [Member] = @Member, " +
+                    "[POS] = @POS, [Report] = @Report, [Setting] = @Setting, " +
+                    "[Stock] = @Stock, [Supplier] = @Supplier, [UpdatedDate] = @UpdatedDate " +
+                    "WHERE 1 = 1 " +
+                    "AND [Id] = @Id";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Username", ((object)user.Username) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Password", ((object)user.Password) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Type", ((object)user.Type) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IsReadOnly", ((object)user.IsReadOnly) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Bank", ((object)user.Bank) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DailyExpense", ((object)user.DailyExpense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DailySummary", ((object)user.DailySummary) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Employee", ((object)user.Employee) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@EOD", ((object)user.EOD) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ItemPricing", ((object)user.ItemPricing) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Member", ((object)user.Member) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@POS", ((object)user.POS) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Report", ((object)user.Report) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Setting", ((object)user.Setting) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Stock", ((object)user.Stock) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Supplier", ((object)user.Supplier) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)user.UpdatedDate) ?? DBNull.Value);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return user;
+        }
+
+        public User UpdateUser(string username, User user)
+        {
+            string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
+                    "SET " +
+                    "[Type] = @Type, " +
+                    "[Password] = @Password, [IsReadOnly] = @IsReadOnly, [Bank] = @Bank, " +
+                    "[DailyExpense] = @DailyExpense, [DailySummary] = @DailySummary, [Employee] = @Employee, " +
+                    "[EOD] = @EOD, [ItemPricing] = @ItemPricing, [Member] = @Member, " +
+                    "[POS] = @POS, [Report] = @Report, [Setting] = @Setting, " +
+                    "[Stock] = @Stock, [Supplier] = @Supplier, [UpdatedDate] = @UpdatedDate " +
+                    "WHERE 1 = 1 " +
+                    "AND [Username] = @Username";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Password", ((object)user.Password) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Type", ((object)user.Type) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IsReadOnly", ((object)user.IsReadOnly) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Bank", ((object)user.Bank) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DailyExpense", ((object)user.DailyExpense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DailySummary", ((object)user.DailySummary) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Employee", ((object)user.Employee) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@EOD", ((object)user.EOD) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ItemPricing", ((object)user.ItemPricing) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Member", ((object)user.Member) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@POS", ((object)user.POS) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Report", ((object)user.Report) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Setting", ((object)user.Setting) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Stock", ((object)user.Stock) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Supplier", ((object)user.Supplier) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)user.UpdatedDate) ?? DBNull.Value);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return user;
         }
 
         public bool DeleteUser(long id)
         {
-            return false;
+            bool result = false;
+            string query = @"DELETE " +
+                    "FROM [" + Constants.TABLE_USER + "] " +
+                    "WHERE 1 = 1 " +
+                    "AND [Id] = @Id";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public bool DeleteUser(string username)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                    "FROM [" + Constants.TABLE_USER + "] " +
+                    "WHERE 1 = 1 " +
+                    "AND [Username] = @Username";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
         }
     }
 }
