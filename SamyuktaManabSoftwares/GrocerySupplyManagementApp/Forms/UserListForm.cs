@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IUserService _userService;
         public IUserListForm _userListForm;
+        private List<User> _users = new List<User>(); 
 
         #region Constructor 
         public UserListForm(IUserService userService, IUserListForm userListForm)
@@ -84,15 +86,29 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Helper Methods
-        private void LoadUsers()
+        #region Richbox Event
+        private void RichSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
-            var users = _userService.GetUsers().ToList();
+            var searchString = TxtSearch.Text;
+            var users = _users.Where(x => x.Username.ToLower().StartsWith(searchString)).ToList();
             
             var bindingList = new BindingList<User>(users);
             var source = new BindingSource(bindingList, null);
             DataGridUserList.DataSource = source;
         }
         #endregion
+
+        #region Helper Methods
+        private void LoadUsers()
+        {
+            _users = _userService.GetUsers().ToList();
+            
+            var bindingList = new BindingList<User>(_users);
+            var source = new BindingSource(bindingList, null);
+            DataGridUserList.DataSource = source;
+        }
+        #endregion
+
+        
     }
 }

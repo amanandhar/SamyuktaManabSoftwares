@@ -1,10 +1,12 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Windows.Forms;
 
-namespace GrocerySupplyManagementApp.Forms
+namespace GrocerySupplyManagementApp.Forms                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 {
     public partial class UserForm : Form, IUserListForm
     {
@@ -37,6 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void UserForm_Load(object sender, System.EventArgs e)
         {
             EnableFields(Action.Load);
+            LoadUserTypes();
         }
         #endregion
 
@@ -57,7 +60,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var user = new User
                 {
                     Username = RichUsername.Text,
-                    Password = RichPassword.Text,
+                    Password = TxtPassword.Text,
                     Type = ComboUserType.Text,
                     Bank = ChkBank.Checked,
                     DailyExpense = ChkDailyExpense.Checked,
@@ -107,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var user = new User
                 {
                     Username = RichUsername.Text,
-                    Password = RichPassword.Text,
+                    Password = TxtPassword.Text,
                     Type = ComboUserType.Text,
                     Bank = ChkBank.Checked,
                     DailyExpense = ChkDailyExpense.Checked,
@@ -245,8 +248,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllFields()
         {
             RichUsername.Clear();
-            RichPassword.Clear();
-            RichConfirmPassword.Clear();
+            TxtPassword.Clear();
+            TxtConfirmPassword.Clear();
             ComboUserType.Text = string.Empty;
             ChkBank.Checked = false;
             ChkPOS.Checked = false;
@@ -269,8 +272,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             RichUsername.Text = user.Username;
             ComboUserType.Text = user.Type;
-            RichPassword.Text = user.Password;
-            RichConfirmPassword.Text = user.Password;
+            TxtPassword.Text = user.Password;
+            TxtConfirmPassword.Text = user.Password;
 
             ChkBank.Checked = user.Bank;
             ChkDailyExpense.Checked = user.DailyExpense;
@@ -304,8 +307,8 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnDelete.Enabled = false;
 
                 RichUsername.Enabled = true;
-                RichPassword.Enabled = true;
-                RichConfirmPassword.Enabled = true;
+                TxtPassword.Enabled = true;
+                TxtConfirmPassword.Enabled = true;
                 ComboUserType.Enabled = true;
 
                 ChkBank.Enabled = true;
@@ -335,8 +338,8 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnDelete.Enabled = true;
 
                 RichUsername.Enabled = true;
-                RichPassword.Enabled = true;
-                RichConfirmPassword.Enabled = true;
+                TxtPassword.Enabled = true;
+                TxtConfirmPassword.Enabled = true;
                 ComboUserType.Enabled = true;
 
                 ChkBank.Enabled = true;
@@ -375,8 +378,8 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnDelete.Enabled = false;
 
                 RichUsername.Enabled = false;
-                RichPassword.Enabled = false;
-                RichConfirmPassword.Enabled = false;
+                TxtPassword.Enabled = false;
+                TxtConfirmPassword.Enabled = false;
                 ComboUserType.Enabled = false;
 
                 ChkBank.Enabled = false;
@@ -393,6 +396,16 @@ namespace GrocerySupplyManagementApp.Forms
                 ChkStock.Enabled = false;
                 ChkSupplier.Enabled = false;
             }
+        }
+
+        private void LoadUserTypes()
+        {
+            ComboUserType.ValueMember = "Id";
+            ComboUserType.DisplayMember = "Value";
+
+            ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.ADMIN, Value = Constants.ADMIN });
+            ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.GENERAL, Value = Constants.GENERAL });
+            ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.GUEST, Value = Constants.GUEST });
         }
         #endregion
     }

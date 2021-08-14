@@ -33,10 +33,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ComboUserType = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.BtnShow = new System.Windows.Forms.Button();
             this.RichUsername = new System.Windows.Forms.RichTextBox();
-            this.RichConfirmPassword = new System.Windows.Forms.RichTextBox();
-            this.RichPassword = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ChkReadOnly = new System.Windows.Forms.CheckBox();
             this.ChkEOD = new System.Windows.Forms.CheckBox();
@@ -58,8 +58,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate = new System.Windows.Forms.Button();
             this.BtnEdit = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ComboUserType = new System.Windows.Forms.ComboBox();
+            this.TxtPassword = new System.Windows.Forms.TextBox();
+            this.TxtConfirmPassword = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -100,12 +100,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TxtConfirmPassword);
+            this.groupBox1.Controls.Add(this.TxtPassword);
             this.groupBox1.Controls.Add(this.ComboUserType);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.BtnShow);
             this.groupBox1.Controls.Add(this.RichUsername);
-            this.groupBox1.Controls.Add(this.RichConfirmPassword);
-            this.groupBox1.Controls.Add(this.RichPassword);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -117,6 +117,28 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "User Information";
+            // 
+            // ComboUserType
+            // 
+            this.ComboUserType.Enabled = false;
+            this.ComboUserType.FormattingEnabled = true;
+            this.ComboUserType.Items.AddRange(new object[] {
+            "Please Select"});
+            this.ComboUserType.Location = new System.Drawing.Point(435, 25);
+            this.ComboUserType.Name = "ComboUserType";
+            this.ComboUserType.Size = new System.Drawing.Size(170, 28);
+            this.ComboUserType.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(344, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 20);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "User Type";
             // 
             // BtnShow
             // 
@@ -136,24 +158,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichUsername.Size = new System.Drawing.Size(170, 30);
             this.RichUsername.TabIndex = 7;
             this.RichUsername.Text = "";
-            // 
-            // RichConfirmPassword
-            // 
-            this.RichConfirmPassword.Enabled = false;
-            this.RichConfirmPassword.Location = new System.Drawing.Point(435, 64);
-            this.RichConfirmPassword.Name = "RichConfirmPassword";
-            this.RichConfirmPassword.Size = new System.Drawing.Size(170, 30);
-            this.RichConfirmPassword.TabIndex = 6;
-            this.RichConfirmPassword.Text = "";
-            // 
-            // RichPassword
-            // 
-            this.RichPassword.Enabled = false;
-            this.RichPassword.Location = new System.Drawing.Point(112, 65);
-            this.RichPassword.Name = "RichPassword";
-            this.RichPassword.Size = new System.Drawing.Size(170, 30);
-            this.RichPassword.TabIndex = 6;
-            this.RichPassword.Text = "";
             // 
             // groupBox2
             // 
@@ -436,30 +440,23 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.TabIndex = 7;
             this.textBox1.Text = "                                                           User Set-up";
             // 
-            // label1
+            // TxtPassword
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(344, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 20);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "User Type";
+            this.TxtPassword.Enabled = false;
+            this.TxtPassword.Location = new System.Drawing.Point(112, 66);
+            this.TxtPassword.Name = "TxtPassword";
+            this.TxtPassword.Size = new System.Drawing.Size(170, 26);
+            this.TxtPassword.TabIndex = 38;
+            this.TxtPassword.UseSystemPasswordChar = true;
             // 
-            // ComboUserType
+            // TxtConfirmPassword
             // 
-            this.ComboUserType.Enabled = false;
-            this.ComboUserType.FormattingEnabled = true;
-            this.ComboUserType.Items.AddRange(new object[] {
-            "Please Select",
-            "Admin",
-            "Standard",
-            "Guest"});
-            this.ComboUserType.Location = new System.Drawing.Point(435, 25);
-            this.ComboUserType.Name = "ComboUserType";
-            this.ComboUserType.Size = new System.Drawing.Size(170, 28);
-            this.ComboUserType.TabIndex = 10;
+            this.TxtConfirmPassword.Enabled = false;
+            this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 66);
+            this.TxtConfirmPassword.Name = "TxtConfirmPassword";
+            this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 26);
+            this.TxtConfirmPassword.TabIndex = 39;
+            this.TxtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // UserForm
             // 
@@ -490,8 +487,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox RichUsername;
-        private System.Windows.Forms.RichTextBox RichConfirmPassword;
-        private System.Windows.Forms.RichTextBox RichPassword;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox ChkBank;
         private System.Windows.Forms.CheckBox ChkEmployee;
@@ -516,5 +511,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.CheckBox ChkReadOnly;
         private System.Windows.Forms.ComboBox ComboUserType;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox TxtConfirmPassword;
+        private System.Windows.Forms.TextBox TxtPassword;
     }
 }
