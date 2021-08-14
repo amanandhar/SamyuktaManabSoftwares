@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,7 +12,8 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class PricedItemListForm : Form
     {
         private readonly IPricedItemService _pricedItemService;
-        public IPricedItemListForm _pricedItemListForm;
+        private IPricedItemListForm _pricedItemListForm;
+        private List<PricedItemView> _pricedItemViewList = new List<PricedItemView>();
 
         #region Constructor
         public PricedItemListForm(IPricedItemService pricedItemService, IPricedItemListForm pricedItemListForm)
@@ -26,7 +28,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void PricedItemListForm_Load(object sender, EventArgs e)
         {
-            LoadPricedItems();
+            _pricedItemViewList = GetPricedItems();
+            LoadPricedItems(_pricedItemViewList);
+            RichSearchItemName.Focus();
         }
         #endregion
 
@@ -80,15 +84,41 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Helper Methods
-        private void LoadPricedItems()
+        #region Rich Textbox Event
+        private void RichSearchItemName_KeyUp(object sender, KeyEventArgs e)
         {
-            var pricedItemViewList = _pricedItemService.GetPricedItemViewList();
+            SearchPricedItems();
+        }
 
-            var bindingList = new BindingList<PricedItemView>(pricedItemViewList.ToList());
+        private void RichSearchItemCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchPricedItems();
+        }
+        #endregion
+
+        #region Helper Methods
+        private List<PricedItemView> GetPricedItems()
+        {
+            var pricedItemViewList = _pricedItemService.GetPricedItemViewList().ToList();
+            return pricedItemViewList;
+        }
+
+        private void LoadPricedItems(List<PricedItemView> pricedItemViewList)
+        {
+            var bindingList = new BindingList<PricedItemView>(pricedItemViewList);
             var source = new BindingSource(bindingList, null);
             DataGridPricedItemList.DataSource = source;
         }
+
+        private void SearchPricedItems()
+        {
+            var itemName = RichSearchItemName.Text;
+            var itemCode = RichSearchItemCode.Text;
+
+            var pricedItemViewList = _pricedItemViewList.Where(x => x.Name.ToLower().StartsWith(itemName.ToLower()) && x.Code.ToLower().StartsWith(itemCode.ToLower())).ToList();
+            LoadPricedItems(pricedItemViewList);
+        }
+
         #endregion
     }
 }

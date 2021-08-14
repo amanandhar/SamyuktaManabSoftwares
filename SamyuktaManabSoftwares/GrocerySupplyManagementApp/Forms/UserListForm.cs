@@ -12,8 +12,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class UserListForm : Form
     {
         private readonly IUserService _userService;
-        public IUserListForm _userListForm;
-        private List<User> _users = new List<User>(); 
+        public IUserListForm _userListForm; 
 
         #region Constructor 
         public UserListForm(IUserService userService, IUserListForm userListForm)
@@ -86,11 +85,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Richbox Event
-        private void RichSearch_KeyPress(object sender, KeyPressEventArgs e)
+        #region Helper Methods
+        private void LoadUsers()
         {
-            var searchString = TxtSearch.Text;
-            var users = _users.Where(x => x.Username.ToLower().StartsWith(searchString)).ToList();
+            var users = _userService.GetUsers().ToList();
             
             var bindingList = new BindingList<User>(users);
             var source = new BindingSource(bindingList, null);
@@ -98,17 +96,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Helper Methods
-        private void LoadUsers()
-        {
-            _users = _userService.GetUsers().ToList();
-            
-            var bindingList = new BindingList<User>(_users);
-            var source = new BindingSource(bindingList, null);
-            DataGridUserList.DataSource = source;
-        }
-        #endregion
-
-        
     }
 }

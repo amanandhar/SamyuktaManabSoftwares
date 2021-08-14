@@ -5,14 +5,15 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ItemListForm : Form
     {
         private readonly IItemService _itemService;
-        public IItemListForm _itemListForm;
-        public bool _showPurchasedItem;
+        private IItemListForm _itemListForm;
+        private List<Item> _items = new List<Item>();
 
         #region Constructor
         public ItemListForm(IItemService itemService,
@@ -28,7 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void ItemListForm_Load(object sender, EventArgs e)
         {
-            LoadItems();
+            _items = GetItems();
+            LoadItems(_items);
+            RichSearchItemName.Focus();
         }
         #endregion
 
@@ -78,15 +81,43 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Helper Methods
-        private void LoadItems()
+        #region Rich Textbox Event
+        private void RichSearchItemName_KeyUp(object sender, KeyEventArgs e)
         {
-            var items = _itemService.GetItems();
+            SearchItems();
+        }
 
-            var bindingList = new BindingList<Item>(items.ToList());
+        private void RichSearchItemCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchItems();
+        }
+        #endregion
+
+        #region Helper Methods
+
+        private List<Item> GetItems()
+        {
+            _items = _itemService.GetItems().ToList();
+            return _items;
+        }
+
+        private void LoadItems(List<Item> items)
+        {
+            var bindingList = new BindingList<Item>(items);
             var source = new BindingSource(bindingList, null);
             DataGridItemList.DataSource = source;
         }
+
+        private void SearchItems()
+        {
+            var itemName = RichSearchItemName.Text;
+            var itemCode = RichSearchItemCode.Text;
+
+            var items = _items.Where(x => x.Name.ToLower().StartsWith(itemName.ToLower()) && x.Code.ToLower().StartsWith(itemCode.ToLower())).ToList();
+            LoadItems(items);
+        }
+
         #endregion
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
@@ -14,7 +15,8 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IMemberService _memberService;
         private readonly IUserTransactionService _userTransactionService;
-        public IMemberListForm _memberListForm;
+        private IMemberListForm _memberListForm;
+        private List<MemberView> _memberViewList = new List<MemberView>();
 
         #region Constructor
         public MemberListForm(IMemberService memberService, IUserTransactionService userTransactionService, 
@@ -31,7 +33,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void MemberListForm_Load(object sender, EventArgs e)
         {
-            LoadMembers();
+            var memberViewList = GetMembers();
+            LoadMembers(memberViewList);
+            RichSearchMemberName.Focus();
         }
         #endregion
 
@@ -89,10 +93,10 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadMembers()
+        private List<MemberView> GetMembers()
         {
             var members = _memberService.GetMembers();
-            List<MemberView> memberViewList = members.ToList().Select(x => new MemberView()
+            _memberViewList = members.ToList().Select(x => new MemberView()
             {
                 Id = x.Id,
                 Counter = x.Counter,
@@ -106,9 +110,35 @@ namespace GrocerySupplyManagementApp.Forms
                 Balance = _userTransactionService.GetMemberTotalBalance(x.MemberId),
             }).ToList();
 
+            return _memberViewList;
+        }
+
+        private void LoadMembers(List<MemberView> memberViewList)
+        {
             var bindingList = new BindingList<MemberView>(memberViewList);
             var source = new BindingSource(bindingList, null);
             DataGridMemberList.DataSource = source;
+        }
+
+        private void SearchMembers()
+        {
+            var memberName = RichSearchMemberName.Text;
+            var memberId = RichSearchMemberId.Text;
+
+            var members = _memberViewList.Where(x => x.Name.ToLower().StartsWith(memberName.ToLower()) && x.MemberId.ToLower().StartsWith(memberId.ToLower())).ToList();
+            LoadMembers(members);
+        }
+        #endregion
+
+        #region 
+        private void RichSearchMemberName_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchMembers();
+        }
+
+        private void RichSearchMemberId_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchMembers();
         }
         #endregion
     }

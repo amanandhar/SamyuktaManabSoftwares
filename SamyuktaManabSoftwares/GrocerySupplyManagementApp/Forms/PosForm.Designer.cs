@@ -535,9 +535,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label8.Location = new System.Drawing.Point(53, 195);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(127, 18);
+            this.label8.Size = new System.Drawing.Size(124, 18);
             this.label8.TabIndex = 33;
-            this.label8.Text = "Reciieved Amount";
+            this.label8.Text = "Received Amount";
             // 
             // label7
             // 
