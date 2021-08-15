@@ -10,25 +10,33 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class StockForm : Form
     {
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemItemService;
         private readonly IStockService _stockService;
 
+        private readonly string _endOfDay;
+
         #region Constructor
-        public StockForm(IPurchasedItemService purchasedItemService, ISoldItemService soldItemItemService,
-            IStockService stockService)
+        public StockForm(IFiscalYearService fiscalYearService, IPurchasedItemService purchasedItemService, 
+            ISoldItemService soldItemItemService, IStockService stockService)
         {
             InitializeComponent();
 
+            _fiscalYearService = fiscalYearService;
             _purchasedItemService = purchasedItemService;
             _soldItemItemService = soldItemItemService;
             _stockService = stockService;
-    }
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+        }
         #endregion
 
         #region Form Load Event
         private void StockForm_Load(object sender, EventArgs e)
         {
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
             _purchasedItemService.GetPurchasedItemDetails().ToList().ForEach(purchasedItem =>
             {
                 ComboItemCode.Items.Add(purchasedItem.Code);

@@ -384,7 +384,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.Size = new System.Drawing.Size(107, 20);
             this.label2.TabIndex = 45;
             this.label2.Text = "Cash In Hand";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 

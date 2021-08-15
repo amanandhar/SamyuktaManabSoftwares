@@ -47,7 +47,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowCode_Click(object sender, EventArgs e)
         {
             ItemListForm itemListForm = new ItemListForm(_itemService, this);
-            itemListForm.Show();
+            itemListForm.ShowDialog();
         }
 
         private void BtnAddNew_Click(object sender, EventArgs e)

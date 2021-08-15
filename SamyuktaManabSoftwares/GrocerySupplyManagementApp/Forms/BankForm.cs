@@ -49,7 +49,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void BankForm_Load(object sender, EventArgs e)
         {
-
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
         }
         #endregion 
 
@@ -129,7 +130,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowBank_Click(object sender, EventArgs e)
         {
             BankListForm bankListForm = new BankListForm(_bankService, this);
-            bankListForm.Show();
+            bankListForm.ShowDialog();
         }
 
         private void BtnSaveTransaction_Click(object sender, EventArgs e)

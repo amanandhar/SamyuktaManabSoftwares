@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelivery_Click(object sender, EventArgs e)
         {
-            DeliveryPersonForm deliveryPersonForm = new DeliveryPersonForm(_userTransactionService,
+            DeliveryPersonForm deliveryPersonForm = new DeliveryPersonForm(_fiscalYearService, _userTransactionService,
                 _employeeService);
             deliveryPersonForm.ShowDialog();
         }

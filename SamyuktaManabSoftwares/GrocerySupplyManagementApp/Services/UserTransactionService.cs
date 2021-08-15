@@ -194,6 +194,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.DeleteUserTransaction(id);
         }
 
+        public bool DeleteUserTransaction(string invoiceNo)
+        {
+            return _userTransactionRepository.DeleteUserTransaction(invoiceNo);
+        }
+
         public bool DeleteSupplierInvoice(long userTransactionId)
         {
             throw new NotImplementedException();

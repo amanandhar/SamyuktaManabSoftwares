@@ -4,6 +4,7 @@
     {
         public string Date { get; set; }
         public bool IsAll { get; set; }
+        public string Service { get; set; }
         public string Purchase { get; set; }
         public string Sales { get; set; }
         public string Payment { get; set; }

@@ -124,8 +124,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm(_purchasedItemService, _soldItemService,
-                _stockService);
+            StockForm stockForm = new StockForm(_fiscalYearService, _purchasedItemService, 
+                _soldItemService, _stockService);
             stockForm.Show();
         }
 

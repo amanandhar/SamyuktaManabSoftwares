@@ -11,22 +11,29 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ProfitLossForm : Form
     {
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IUserTransactionService _userTransactionService;
+
+        private readonly string _endOfDay;
         private decimal _totalIncome = 0.0m;
         private decimal _totalExpense = 0.0m;
 
         #region Constructor
-        public ProfitLossForm(IUserTransactionService userTransactionService)
+        public ProfitLossForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
+
+            _fiscalYearService = fiscalYearService;
             _userTransactionService = userTransactionService;
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
         #region Form Load Event
         private void ProfitLossForm_Load(object sender, System.EventArgs e)
         {
-
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
         }
         #endregion
 

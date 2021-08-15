@@ -90,13 +90,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowMember_Click(object sender, EventArgs e)
         {
             MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
-            memberListForm.Show();
+            memberListForm.ShowDialog();
         }
 
         private void BtnShowItem_Click(object sender, EventArgs e)
         {
             PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
-            pricedItemListForm.Show();
+            pricedItemListForm.ShowDialog();
         }
 
         private void BtnDailySales_Click(object sender, EventArgs e)
@@ -121,8 +121,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddSale_Click(object sender, EventArgs e)
         {
             _selectedInvoiceNo = _userTransactionService.GetInvoiceNo();
-            RichInvoiceNo.Text = _selectedInvoiceNo;
-            RichInvoiceDate.Text = _endOfDay;
+            TxtInvoiceNo.Text = _selectedInvoiceNo;
+            TxtInvoiceDate.Text = _endOfDay;
 
             BtnShowMember.Enabled = true;
             BtnShowItem.Enabled = true;
@@ -137,9 +137,9 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var soldItem = new SoldItem
                     {
-                        EndOfDay = RichInvoiceDate.Text.Trim(),
+                        EndOfDay = TxtInvoiceDate.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
-                        InvoiceNo = RichInvoiceNo.Text.Trim(),
+                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         ItemId = _itemService.GetItem(x.ItemCode).Id,
                         Profit = x.Profit,
                         Quantity = x.Quantity,
@@ -154,8 +154,8 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboDeliveryPerson.SelectedItem;
                 var userTransaction = new UserTransaction
                 {
-                    InvoiceNo = RichInvoiceNo.Text.Trim(),
-                    EndOfDay = RichInvoiceDate.Text.Trim(),
+                    EndOfDay = TxtInvoiceDate.Text.Trim(),
+                    InvoiceNo = TxtInvoiceNo.Text.Trim(),
                     MemberId = RichMemberId.Text.Trim(),
                     DeliveryPersonId = selectedItem.Id.Trim(),
                     Action = Constants.SALES,
@@ -181,6 +181,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransactionForSalesDiscount = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
+                        MemberId = RichMemberId.Text.Trim(),
                         Action = Constants.EXPENSE,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.SALES_DISCOUNT,
@@ -206,6 +208,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransactionForDeliveryCharge = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
+                        MemberId = RichMemberId.Text.Trim(),
                         Action = Constants.RECEIPT,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.DELIVERY_CHARGE,
@@ -288,7 +292,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
-                    EndOfDay = RichInvoiceDate.Text,
+                    EndOfDay = TxtInvoiceDate.Text,
                     MemberId = RichMemberId.Text,
                     Action = Constants.RECEIPT,
                     ActionType = Constants.CASH,
@@ -509,7 +513,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllMemberFields()
         {
             RichMemberId.Clear();
-            RichAccNo.Clear();
+            TxtAccNo.Clear();
             RichName.Clear();
             RichAddress.Clear();
             RichContactNo.Clear();
@@ -533,8 +537,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllInvoiceFields()
         {
-            RichInvoiceNo.Clear();
-            RichInvoiceDate.Clear();
+            TxtInvoiceNo.Clear();
+            TxtInvoiceDate.Clear();
             RichSubTotal.Clear();
             RichTextDiscountPercent.Clear();
             RichTextDiscount.Clear();
@@ -568,7 +572,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichName.Text = member.Name;
                 RichAddress.Text = member.Address;
                 RichContactNo.Text = member.ContactNo.ToString();
-                RichAccNo.Text = member.AccountNo;
+                TxtAccNo.Text = member.AccountNo;
 
                 List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(memberId).ToList();
                 TxtBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
@@ -710,5 +714,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
+
     }
 }

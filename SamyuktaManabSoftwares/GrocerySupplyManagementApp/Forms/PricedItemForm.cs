@@ -69,13 +69,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowPricedItem_Click(object sender, EventArgs e)
         {
             PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
-            pricedItemListForm.Show();
+            pricedItemListForm.ShowDialog();
         }
 
         private void BtnShowUnpricedItem_Click(object sender, EventArgs e)
         {
             UnpricedItemListForm unpricedItemListForm = new UnpricedItemListForm(_pricedItemService, this);
-            unpricedItemListForm.Show();
+            unpricedItemListForm.ShowDialog();
         }
 
         private void BtnEdit_Click(object sender, EventArgs e)

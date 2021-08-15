@@ -10,18 +10,33 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DeliveryPersonForm : Form, IEmployeeListForm
     {
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IEmployeeService _employeeService;
         private string _selectedEmployeeId;
+        private readonly string _endOfDay;
 
         #region Constructor
-        public DeliveryPersonForm(IUserTransactionService userTransactionService, IEmployeeService employeeService)
+        public DeliveryPersonForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService,
+            IEmployeeService employeeService)
         {
             InitializeComponent();
 
+            _fiscalYearService = fiscalYearService;
             _userTransactionService = userTransactionService;
             _employeeService = employeeService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
+        #endregion
+
+        #region Form Load Event
+        private void DeliveryPersonForm_Load(object sender, System.EventArgs e)
+        {
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
+        }
+
         #endregion
 
         #region Button Click Event
@@ -112,5 +127,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        
     }
 }

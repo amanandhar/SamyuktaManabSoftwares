@@ -67,6 +67,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Load Event
         private void MemberForm_Load(object sender, System.EventArgs e)
         {
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
             EnableFields(false);
             LoadMemberTransactions();
@@ -78,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowMember_Click(object sender, EventArgs e)
         {
             MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
-            memberListForm.Show();
+            memberListForm.ShowDialog();
         }
 
         private void BtnAddMember_Click(object sender, System.EventArgs e)

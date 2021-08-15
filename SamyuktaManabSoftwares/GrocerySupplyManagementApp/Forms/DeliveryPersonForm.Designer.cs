@@ -210,6 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "DeliveryPersonForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.DeliveryPersonForm_Load);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridDeliveryPersonList)).EndInit();
             this.groupBox3.ResumeLayout(false);

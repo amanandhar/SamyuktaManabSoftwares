@@ -39,7 +39,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction);
 
         bool DeleteUserTransaction(long id);
-
+        bool DeleteUserTransaction(string invoiceNo);
         bool DeleteSupplierInvoice(long userTransactionId);
         bool DeleteUserTransactionAfterEndOfDay(string endOfDay);
     }

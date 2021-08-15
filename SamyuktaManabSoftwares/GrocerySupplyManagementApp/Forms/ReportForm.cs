@@ -44,7 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnProfitLossForm_Click(object sender, EventArgs e)
         {
-            ProfitLossForm profitLossForm = new ProfitLossForm(_userTransactionService);
+            ProfitLossForm profitLossForm = new ProfitLossForm(_fiscalYearService, _userTransactionService);
             profitLossForm.Show();
         }
 
@@ -57,7 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnBalanceSheetForm_Click(object sender, EventArgs e)
         {
-            BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_bankTransactionService,
+            BalanceSheetForm balanceSheetForm = new BalanceSheetForm(_fiscalYearService, _bankTransactionService,
                 _userTransactionService, _stockService);
             balanceSheetForm.Show();
         }

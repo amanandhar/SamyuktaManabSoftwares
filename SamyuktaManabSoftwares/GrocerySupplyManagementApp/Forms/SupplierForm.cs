@@ -47,6 +47,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void SupplierForm_Load(object sender, EventArgs e)
         {
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
             EnableFields(false);
             LoadSupplierTransaction();
@@ -81,7 +83,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowSupplier_Click(object sender, System.EventArgs e)
         {
             SupplierListForm supplierListForm = new SupplierListForm(_supplierService, _userTransactionService, this);
-            supplierListForm.Show();
+            supplierListForm.ShowDialog();
         }
 
         private void BtnAddSupplier_Click(object sender, System.EventArgs e)

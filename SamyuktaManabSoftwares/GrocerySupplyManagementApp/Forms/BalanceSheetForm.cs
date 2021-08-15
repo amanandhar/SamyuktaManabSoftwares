@@ -9,26 +9,32 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BalanceSheetForm : Form
     {
+        private readonly IFiscalYearService _fiscalYearService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
 
+        private readonly string _endOfDay;
+
         #region Constructor
-        public BalanceSheetForm(IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
-            IStockService stockService)
+        public BalanceSheetForm(IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService, 
+            IUserTransactionService userTransactionService, IStockService stockService)
         {
             InitializeComponent();
 
+            _fiscalYearService = fiscalYearService;
             _bankTransactionService = bankTransactionService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
+
+            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
 
         #region Form Load Event
         private void BalanceSheetForm_Load(object sender, EventArgs e)
         {
-
+            MaskEndOfDay.Text = _endOfDay;
         }
         #endregion
 
@@ -123,10 +129,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-
-        }
     }
 }

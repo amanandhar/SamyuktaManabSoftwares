@@ -89,9 +89,8 @@ namespace GrocerySupplyManagementApp.Forms
                         var posTransaction = _userTransactionService.GetLastUserTransaction("IN");
                         if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
                         {
-                            _userTransactionService.DeleteUserTransaction(id);
+                            _userTransactionService.DeleteUserTransaction(billInvoiceNo);
                             _soldItemService.DeleteSoldItem(billInvoiceNo);
-                            _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                         }
                         else
                         {
@@ -126,6 +125,19 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Radio Button Event
+        private void RadioService_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioService.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboService.Enabled = true;
+            }
+            else
+            {
+                ComboService.Enabled = false;
+            }
+        }
 
         private void RadioPurchase_CheckedChanged(object sender, EventArgs e)
         {
@@ -328,7 +340,11 @@ namespace GrocerySupplyManagementApp.Forms
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
 
-            if (selectedFilter.Name.Equals("RadioPurchase"))
+            if (selectedFilter.Name.Equals("RadioService"))
+            {
+                transactionFilter.Service = ComboService.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioPurchase"))
             {
                 transactionFilter.Purchase = ComboPurchase.Text;
             }
@@ -379,6 +395,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearCombos()
         {
+            ComboService.Text = string.Empty;
             ComboPurchase.Text = string.Empty;
             ComboSales.Text = string.Empty;
             ComboPayment.Text = string.Empty;
@@ -392,6 +409,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableCombos(bool option)
         {
+            ComboService.Enabled = option;
             ComboPurchase.Enabled = option;
             ComboSales.Enabled = option;
             ComboPayment.Enabled = option;
@@ -422,5 +440,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+        
     }
 }

@@ -21,9 +21,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly string _endOfDay;
 
         #region Constructor
-        public ExpenseForm(IFiscalYearService fiscalYearService,
-            IBankService bankService, IBankTransactionService bankTransactionService, 
-            IUserTransactionService userTransactionService)
+        public ExpenseForm(IFiscalYearService fiscalYearService, IBankService bankService, 
+            IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
@@ -39,7 +38,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void ExpenseForm_Load(object sender, EventArgs e)
         {
-
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
         }
         #endregion
 

@@ -54,7 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShow_Click(object sender, EventArgs e)
         {
             EmployeeListForm employeeListForm = new EmployeeListForm(_employeeService, this);
-            employeeListForm.Show();
+            employeeListForm.ShowDialog();
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)

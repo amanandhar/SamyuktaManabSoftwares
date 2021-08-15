@@ -39,6 +39,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void IncomeDetailForm_Load(object sender, EventArgs e)
         {
+            MaskEndOfDayFrom.Text = _endOfDay;
+            MaskEndOfDayTo.Text = _endOfDay;
             LoadBanks();
         }
         #endregion

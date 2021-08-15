@@ -164,12 +164,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 if (!string.IsNullOrWhiteSpace(filter?.DateFrom.Replace("-", string.Empty).Trim()) 
                     && !string.IsNullOrWhiteSpace(filter?.DateTo.Replace("-", string.Empty).Trim()))
                 {
-                    query += "AND [EndOfDay] BETWEEN '" + filter.DateFrom + "' AND '" + filter.DateTo + "' ";
+                    query += "AND [EndOfDay] >= '" + filter.DateFrom.Trim() + "' AND [EndOfDay] <= '" + filter.DateTo.Trim() + "' ";
                 }
 
                 if (filter?.EmployeeId != null)
                 {
-                    query += "AND [DeliveryPersonId] = '" + filter.EmployeeId + "' ";
+                    query += "AND [DeliveryPersonId] = '" + filter.EmployeeId.Trim() + "' ";
                 }
             }
 
@@ -1100,7 +1100,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ut.[EndOfDay] = '" + transactionFilter.Date + "' ";
             }
 
-            if (transactionFilter.Purchase != null)
+            if (transactionFilter.Service != null)
+            {
+                query += " AND ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] = '" + transactionFilter.Service + "' ";
+            }
+            else if (transactionFilter.Purchase != null)
             {
                 query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + transactionFilter.Purchase + "' ";
             }
@@ -1454,6 +1458,34 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public bool DeleteUserTransaction(string invoiceNo)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [InvoiceNo] = @InvoiceNo ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }
