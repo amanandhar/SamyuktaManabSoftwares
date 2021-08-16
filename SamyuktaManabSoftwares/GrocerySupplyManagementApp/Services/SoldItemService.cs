@@ -30,34 +30,34 @@ namespace GrocerySupplyManagementApp.Services
             return _soldItemRepository.GetSoldItemViewList(invoiceNo);
         }
 
-        public long GetSoldItemTotalQuantity(StockFilterView filter)
+        public long GetSoldItemTotalQuantity(StockFilter stockFilter)
         {
-            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
             {
-                filter.DateFrom = null;
-                filter.DateTo = null;
+                stockFilter.DateFrom = null;
+                stockFilter.DateTo = null;
             }
-            else if (!string.IsNullOrWhiteSpace(filter.DateTo))
+            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo))
             {
-                filter.DateTo += " 23:59:59.999";
+                stockFilter.DateTo += " 23:59:59.999";
             }
 
-            return _soldItemRepository.GetSoldItemTotalQuantity(filter);
+            return _soldItemRepository.GetSoldItemTotalQuantity(stockFilter);
         }
 
-        public decimal GetSoldItemTotalAmount(StockFilterView filter)
+        public decimal GetSoldItemTotalAmount(StockFilter stockFilter)
         {
-            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
             {
-                filter.DateFrom = null;
-                filter.DateTo = null;
+                stockFilter.DateFrom = null;
+                stockFilter.DateTo = null;
             }
-            else if (!string.IsNullOrWhiteSpace(filter.DateTo) && !filter.DateTo.Contains("23:59:59.999"))
+            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo) && !stockFilter.DateTo.Contains("23:59:59.999"))
             {
-                filter.DateTo += " 23:59:59.999";
+                stockFilter.DateTo += " 23:59:59.999";
             }
 
-            return _soldItemRepository.GetSoldItemTotalAmount(filter);
+            return _soldItemRepository.GetSoldItemTotalAmount(stockFilter);
         }
 
         public IEnumerable<string> GetSoldItemCodes()

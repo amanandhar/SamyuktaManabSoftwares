@@ -11,8 +11,8 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         IEnumerable<PurchasedItemListView> GetPurchasedItemDetails();
         IEnumerable<PurchasedItem> GetPurchasedItemBySupplierAndBill(string supplierId, string billNo);
         decimal GetPurchasedItemTotalAmount(string supplierId, string billNo);
-        decimal GetPurchasedItemTotalAmount(StockFilterView filter);
-        long GetPurchasedItemTotalQuantity(StockFilterView filter);
+        decimal GetPurchasedItemTotalAmount(StockFilter stockFilter);
+        long GetPurchasedItemTotalQuantity(StockFilter stockFilter);
         IEnumerable<string> GetPurchasedItemCodes();
         PurchasedItem GetPurchasedItemByItemId(long itemId);
         long GetItemId(string supplierName, string billNo);

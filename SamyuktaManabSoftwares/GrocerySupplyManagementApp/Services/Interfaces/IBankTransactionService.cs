@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
@@ -10,6 +11,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         BankTransaction GetBankTransaction(long id);
         IEnumerable<BankTransaction> GetBankTransactions(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(long bankId);
+        IEnumerable<BankTransactionView> GetBankTransactionViews(BankTransactionFilter bankTransactionFilter);
         decimal GetTotalBalance();
         decimal GetTotalBalance(long bankId);
         decimal GetTotalDeposit(string incomeType);

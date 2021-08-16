@@ -37,7 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7 = new System.Windows.Forms.Label();
             this.TxtBalance = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.ComboAction = new System.Windows.Forms.ComboBox();
+            this.ComboActionType = new System.Windows.Forms.ComboBox();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -56,12 +56,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdateBank = new System.Windows.Forms.Button();
             this.BtnAddBank = new System.Windows.Forms.Button();
             this.BtnDeleteBank = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.TxtAmount = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.DataGridBankList = new System.Windows.Forms.DataGridView();
             this.BtnShowTransaction = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ComboAction = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
             this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
@@ -91,7 +91,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.TxtBalance);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.ComboAction);
+            this.groupBox1.Controls.Add(this.ComboActionType);
             this.groupBox1.Controls.Add(this.RichAmount);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label8);
@@ -151,18 +151,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.TabIndex = 23;
             this.label11.Text = "Deposit /Withdraw";
             // 
-            // ComboAction
+            // ComboActionType
             // 
-            this.ComboAction.Enabled = false;
-            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboAction.FormattingEnabled = true;
-            this.ComboAction.Items.AddRange(new object[] {
+            this.ComboActionType.Enabled = false;
+            this.ComboActionType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboActionType.FormattingEnabled = true;
+            this.ComboActionType.Items.AddRange(new object[] {
             "Deposit",
             "Withdrawal"});
-            this.ComboAction.Location = new System.Drawing.Point(737, 16);
-            this.ComboAction.Name = "ComboAction";
-            this.ComboAction.Size = new System.Drawing.Size(110, 28);
-            this.ComboAction.TabIndex = 22;
+            this.ComboActionType.Location = new System.Drawing.Point(737, 16);
+            this.ComboActionType.Name = "ComboActionType";
+            this.ComboActionType.Size = new System.Drawing.Size(110, 28);
+            this.ComboActionType.TabIndex = 22;
             // 
             // RichAmount
             // 
@@ -387,15 +387,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteBank.UseVisualStyleBackColor = false;
             this.BtnDeleteBank.Click += new System.EventHandler(this.BtnDeleteBank_Click);
             // 
-            // textBox5
+            // TxtAmount
             // 
-            this.textBox5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(716, 496);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox5.Size = new System.Drawing.Size(125, 26);
-            this.textBox5.TabIndex = 10;
+            this.TxtAmount.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TxtAmount.Enabled = false;
+            this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAmount.Location = new System.Drawing.Point(716, 496);
+            this.TxtAmount.Name = "TxtAmount";
+            this.TxtAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtAmount.Size = new System.Drawing.Size(125, 26);
+            this.TxtAmount.TabIndex = 10;
             // 
             // label10
             // 
@@ -459,18 +460,19 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.TabIndex = 21;
             this.BtnShowTransaction.Text = "Show Transaction";
             this.BtnShowTransaction.UseVisualStyleBackColor = false;
+            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
             // 
-            // comboBox1
+            // ComboAction
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboAction.FormattingEnabled = true;
+            this.ComboAction.Items.AddRange(new object[] {
             "Deposit",
             "Withdrawl"});
-            this.comboBox1.Location = new System.Drawing.Point(469, 496);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(125, 26);
-            this.comboBox1.TabIndex = 22;
+            this.ComboAction.Location = new System.Drawing.Point(469, 496);
+            this.ComboAction.Name = "ComboAction";
+            this.ComboAction.Size = new System.Drawing.Size(125, 26);
+            this.ComboAction.TabIndex = 22;
             // 
             // groupBox3
             // 
@@ -508,11 +510,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.MaskEndOfDayTo);
             this.Controls.Add(this.MaskEndOfDayFrom);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ComboAction);
             this.Controls.Add(this.DataGridBankList);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.TxtAmount);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
@@ -551,10 +553,10 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RichTextBox RichAmount;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox TxtAmount;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox ComboAction;
+        private System.Windows.Forms.ComboBox ComboActionType;
         private System.Windows.Forms.Button BtnSaveTransaction;
         private System.Windows.Forms.TextBox TxtBalance;
         private System.Windows.Forms.Button BtnDeleteTransaction;
@@ -562,7 +564,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.DataGridView DataGridBankList;
         private System.Windows.Forms.Button BtnDeleteBank;
         private System.Windows.Forms.Button BtnShowTransaction;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboAction;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox ComboType;
         private System.Windows.Forms.Label label7;

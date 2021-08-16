@@ -38,10 +38,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddSupplier = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.BtnEdit = new System.Windows.Forms.Button();
-            this.BtnShowDetails = new System.Windows.Forms.Button();
+            this.BtnShowTransaction = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.TxtAmount = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.ComboBank = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.RichSupplierName = new System.Windows.Forms.RichTextBox();
             this.RichOwner = new System.Windows.Forms.RichTextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ComboAction = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.RichSupplierId = new System.Windows.Forms.RichTextBox();
             this.BtnShowPurchase = new System.Windows.Forms.Button();
@@ -156,20 +156,21 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.UseVisualStyleBackColor = true;
             this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
-            // BtnShowDetails
+            // BtnShowTransaction
             // 
-            this.BtnShowDetails.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowDetails.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShowDetails.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShowDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnShowDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowDetails.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnShowDetails.Location = new System.Drawing.Point(8, 16);
-            this.BtnShowDetails.Name = "BtnShowDetails";
-            this.BtnShowDetails.Size = new System.Drawing.Size(135, 70);
-            this.BtnShowDetails.TabIndex = 7;
-            this.BtnShowDetails.Text = "Show Transaction";
-            this.BtnShowDetails.UseVisualStyleBackColor = false;
+            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnShowTransaction.Location = new System.Drawing.Point(8, 16);
+            this.BtnShowTransaction.Name = "BtnShowTransaction";
+            this.BtnShowTransaction.Size = new System.Drawing.Size(135, 70);
+            this.BtnShowTransaction.TabIndex = 7;
+            this.BtnShowTransaction.Text = "Show Transaction";
+            this.BtnShowTransaction.UseVisualStyleBackColor = false;
+            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
             // 
             // textBox1
             // 
@@ -195,15 +196,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox7.TabIndex = 38;
             this.textBox7.Text = "                                                              Purchase\r\n Details";
             // 
-            // textBox3
+            // TxtAmount
             // 
-            this.textBox3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(697, 503);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox3.Size = new System.Drawing.Size(130, 24);
-            this.textBox3.TabIndex = 36;
+            this.TxtAmount.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TxtAmount.Enabled = false;
+            this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAmount.Location = new System.Drawing.Point(697, 503);
+            this.TxtAmount.Name = "TxtAmount";
+            this.TxtAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtAmount.Size = new System.Drawing.Size(130, 24);
+            this.TxtAmount.TabIndex = 36;
             // 
             // label14
             // 
@@ -384,19 +386,19 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichOwner.TabIndex = 2;
             this.RichOwner.Text = "";
             // 
-            // comboBox1
+            // ComboAction
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.White;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.ComboAction.BackColor = System.Drawing.Color.White;
+            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboAction.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.ComboAction.FormattingEnabled = true;
+            this.ComboAction.Items.AddRange(new object[] {
             "Purchase",
             "Payment"});
-            this.comboBox1.Location = new System.Drawing.Point(464, 502);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(125, 26);
-            this.comboBox1.TabIndex = 37;
+            this.ComboAction.Location = new System.Drawing.Point(464, 502);
+            this.ComboAction.Name = "ComboAction";
+            this.ComboAction.Size = new System.Drawing.Size(125, 26);
+            this.ComboAction.TabIndex = 37;
             // 
             // groupBox1
             // 
@@ -625,7 +627,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.BtnShowDetails);
+            this.groupBox2.Controls.Add(this.BtnShowTransaction);
             this.groupBox2.Location = new System.Drawing.Point(882, 435);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(150, 95);
@@ -665,11 +667,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.TxtAmount);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ComboAction);
             this.Controls.Add(this.groupBox1);
             this.Name = "SupplierForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -688,14 +690,14 @@ namespace GrocerySupplyManagementApp.Forms
 
         private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button BtnShowDetails;
+        private System.Windows.Forms.Button BtnShowTransaction;
         private System.Windows.Forms.Button BtnUpdate;
         private System.Windows.Forms.Button BtnAddSupplier;
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.Button BtnEdit;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox TxtAmount;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox ComboBank;
         private System.Windows.Forms.Label label15;
@@ -712,7 +714,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox RichSupplierName;
         private System.Windows.Forms.RichTextBox RichOwner;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboAction;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox RichAddress;
         private System.Windows.Forms.Button BtnPurchase;

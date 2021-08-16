@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
@@ -104,9 +105,34 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalDeliveryCharge = _userTransactionService.GetDeliveryCharge().ToList().Sum(x => x.Total);
-                var totalMemberFee = _userTransactionService.GetMemberFee().ToList().Sum(x => x.Total);
-                var totalOtherIncome = _userTransactionService.GetOtherIncome().ToList().Sum(x => x.Total);
+                var incomeTransactionFilter = new IncomeTransactionFilter();
+                var dateFrom = MaskEndOfDayFrom.Text;
+                var dateTo = MaskEndOfDayTo.Text;
+
+                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                {
+                    incomeTransactionFilter.DateFrom = dateFrom.Trim();
+                }
+
+                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                {
+                    incomeTransactionFilter.DateTo = dateTo.Trim();
+                }
+                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter(){ 
+                    DateFrom = dateFrom,
+                    DateTo = dateTo,
+                    Income = Constants.DELIVERY_CHARGE
+                }).ToList().Sum(x => x.Total);
+                var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter(){
+                    DateFrom = dateFrom,
+                    DateTo = dateTo,
+                    Income = Constants.MEMBER_FEE
+                }).ToList().Sum(x => x.Total);
+                var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter(){
+                    DateFrom = dateFrom,
+                    DateTo = dateTo,
+                    Income = Constants.OTHER_INCOME
+                }).ToList().Sum(x => x.Total);
                 var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Total);
                 _totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 

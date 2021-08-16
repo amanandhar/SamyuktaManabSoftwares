@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
@@ -43,9 +44,22 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalDeliveryCharge = _userTransactionService.GetDeliveryCharge().ToList().Sum(x => x.Total);
-                var totalMemberFee = _userTransactionService.GetMemberFee().ToList().Sum(x => x.Total);
-                var totalOtherIncome = _userTransactionService.GetOtherIncome().ToList().Sum(x => x.Total);
+                StockFilter filter = new StockFilter();
+                var dateFrom = MaskEndOfDay.Text;
+                var dateTo = MaskEndOfDay.Text;
+                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                {
+                    filter.DateFrom = dateFrom.Trim();
+                }
+
+                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                {
+                    filter.DateTo = dateTo.Trim();
+                }
+
+                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE}).ToList().Sum(x => x.Total);
+                var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Total);
+                var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Total);
                 var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Total);
                 var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
@@ -64,8 +78,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanFeeInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
                     + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
-
-                StockFilterView filter = new StockFilterView();
 
                 var shareCapital = _bankTransactionService.GetTotalDeposit(Constants.SHARE_CAPITAL);
                 var ownerEquity = _bankTransactionService.GetTotalDeposit(Constants.OWNER_EQUITY);

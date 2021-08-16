@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
@@ -118,7 +119,8 @@ namespace GrocerySupplyManagementApp.Forms
                     _bankTransactionService.DeleteBankTransaction(id);
                     var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
                     TxtBalance.Text = totalBalance.ToString();
-                    LoadBankTransaction();
+                    var bankTransactionViewList = GetBankTransaction();
+                    LoadBankTransaction(bankTransactionViewList);
                 }
             }
             catch (Exception ex)
@@ -142,25 +144,26 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EndOfDay = _endOfDay,
                     BankId = selectedBankId,
-                    Action = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
-                    Debit = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
-                    Credit = ComboAction.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.0m : Convert.ToDecimal(RichAmount.Text),
+                    Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
+                    Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
+                    Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.0m : Convert.ToDecimal(RichAmount.Text),
                     Narration = ComboType.Text,
                     AddedDate = date,
                     UpdatedDate = date
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
-                DialogResult result = MessageBox.Show(ComboAction.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(ComboActionType.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
                     TxtBalance.Text = totalBalance.ToString();
-                    ComboAction.Text = string.Empty;
+                    ComboActionType.Text = string.Empty;
                     RichAmount.Clear();
                     ComboType.Text = string.Empty;
                     EnableFields(Action.Save, true);
-                    LoadBankTransaction();
+                    var bankTransactionViewList = GetBankTransaction();
+                    LoadBankTransaction(bankTransactionViewList);
                 }
             }
             catch(Exception ex)
@@ -186,9 +189,37 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ClearAllFields();
                     EnableFields(Action.None, false);
-                    LoadBankTransaction();
+                    var bankTransactionViewList = GetBankTransaction();
+                    LoadBankTransaction(bankTransactionViewList);
                 }
             }
+        }
+
+        private void BtnShowTransaction_Click(object sender, EventArgs e)
+        {
+            var action = ComboAction.Text;
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+            var bankTransactionFilter = new BankTransactionFilter();
+
+            if(!string.IsNullOrWhiteSpace(action))
+            {
+                bankTransactionFilter.Action = action.Equals(Constants.DEPOSIT) ? '1' : '0';
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                bankTransactionFilter.DateFrom = dateFrom.Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                bankTransactionFilter.DateTo = dateTo.Trim();
+            }
+
+            var bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(bankTransactionFilter).ToList();
+            TxtAmount.Text = bankTransactionViewList.Sum(x => x.Balance).ToString();
+            LoadBankTransaction(bankTransactionViewList);
         }
         #endregion
 
@@ -235,10 +266,14 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Method
-        private void LoadBankTransaction()
+        private List<BankTransactionView> GetBankTransaction()
         {
-            List<BankTransactionView> bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
+            var bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
+            return bankTransactionViewList;
+        }
 
+        private void LoadBankTransaction(List<BankTransactionView> bankTransactionViewList)
+        {
             var bindingList = new BindingList<BankTransactionView>(bankTransactionViewList);
             var source = new BindingSource(bindingList, null);
             DataGridBankList.DataSource = source;
@@ -255,8 +290,9 @@ namespace GrocerySupplyManagementApp.Forms
                 var bankBalance = _bankTransactionService.GetTotalBalance(bankId);
                 TxtBalance.Text = bankBalance.ToString();
                 EnableFields(Action.Populate, true);
-                ComboAction.Focus();
-                LoadBankTransaction();
+                ComboActionType.Focus();
+                var bankTransactionViewList = GetBankTransaction();
+                LoadBankTransaction(bankTransactionViewList);
             }
             catch (Exception ex)
             {
@@ -275,20 +311,20 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 RichBankName.Enabled = option;
                 RichAccountNo.Enabled = option;
-                ComboAction.Enabled = option;
+                ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
                 ComboType.Enabled = option;
             }
             else if (action == Action.Save)
             {
-                ComboAction.Enabled = option;
+                ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 ComboType.Enabled = option;
             }
             else if (action == Action.Populate)
             {
-                ComboAction.Enabled = option;
+                ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 ComboType.Enabled = option;
             }
@@ -296,7 +332,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 RichBankName.Enabled = option;
                 RichAccountNo.Enabled = option;
-                ComboAction.Enabled = option;
+                ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
                 ComboType.Enabled = option;
@@ -307,7 +343,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             RichBankName.Clear();
             RichAccountNo.Clear();
-            ComboAction.Text = string.Empty;
+            ComboActionType.Text = string.Empty;
             RichAmount.Clear();
             TxtBalance.Clear();
             ComboType.Text = string.Empty;

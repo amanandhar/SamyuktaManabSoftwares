@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
@@ -181,6 +182,73 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@BankId", ((object)bankId) ?? DBNull.Value);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var bankTransactionView = new BankTransactionView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    Narration = reader["Narration"].ToString(),
+                                    Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = reader.IsDBNull(6) ? 0.0m : Convert.ToDecimal(reader["Balance"].ToString()),
+                                };
+
+                                bankTransactionViews.Add(bankTransactionView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return bankTransactionViews;
+        }
+
+        public IEnumerable<BankTransactionView> GetBankTransactionViews(BankTransactionFilter bankTransactionFilter)
+        {
+            var bankTransactionViews = new List<BankTransactionView>();
+            var query = @"SELECT " +
+                "[Id], [EndOfDay], " +
+                "CASE WHEN [Action] = '1' THEN 'Deposit' ELSE 'Withdrawl' END AS Description, [Narration], " +
+                "[Debit], [Credit], " +
+                "(SELECT SUM(ISNULL(b.[Debit], 0) - ISNULL(b.[Credit], 0)) " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " b " +
+                "WHERE b.[AddedDate] <= a.[AddedDate]) as 'Balance' " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " a " +
+                "WHERE 1 = 1 ";
+
+            if (!char.IsWhiteSpace((char)bankTransactionFilter?.Action))
+            {
+                query += "AND [Action] = @Action ";
+            }
+
+            if (!string.IsNullOrEmpty(bankTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrEmpty(bankTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Action", ((object)bankTransactionFilter.Action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter.DateTo) ?? DBNull.Value);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())

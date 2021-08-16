@@ -99,10 +99,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DTOs\BankTransactionFilter.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\DeliveryPersonFilter.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
+    <Compile Include="DTOs\IncomeTransactionFilter.cs" />
+    <Compile Include="DTOs\MemberFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
+    <Compile Include="DTOs\SupplierFilter.cs" />
     <Compile Include="DTOs\TransactionFilter.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
@@ -444,7 +448,7 @@
     <Compile Include="ViewModels\MemberView.cs" />
     <Compile Include="ViewModels\PurchasedItemListView.cs" />
     <Compile Include="ViewModels\SoldItemView.cs" />
-    <Compile Include="ViewModels\StockFilterView.cs" />
+    <Compile Include="ViewModels\StockFilter.cs" />
     <Compile Include="ViewModels\StockView.cs" />
     <Compile Include="ViewModels\SupplierTransactionView.cs" />
     <Compile Include="ViewModels\SupplierView.cs" />

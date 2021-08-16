@@ -44,34 +44,34 @@ namespace GrocerySupplyManagementApp.Services
             return _purchasedItemRepository.GetPurchasedItemTotalAmount(supplierId, billNo);
         }
 
-        public decimal GetPurchasedItemTotalAmount(StockFilterView filter)
+        public decimal GetPurchasedItemTotalAmount(StockFilter stockFilter)
         {
-            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
             {
-                filter.DateFrom = null;
-                filter.DateTo = null;
+                stockFilter.DateFrom = null;
+                stockFilter.DateTo = null;
             }
-            else if (!string.IsNullOrWhiteSpace(filter.DateTo) && !filter.DateTo.Contains("23:59:59.999"))
+            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo) && !stockFilter.DateTo.Contains("23:59:59.999"))
             {
-                filter.DateTo += " 23:59:59.999";
+                stockFilter.DateTo += " 23:59:59.999";
             }
 
-            return _purchasedItemRepository.GetPurchasedItemTotalAmount(filter);
+            return _purchasedItemRepository.GetPurchasedItemTotalAmount(stockFilter);
         }
 
-        public long GetPurchasedItemTotalQuantity(StockFilterView filter)
+        public long GetPurchasedItemTotalQuantity(StockFilter stockFilter)
         {
-            if (filter?.DateFrom == "    -  -" || filter?.DateTo == "    -  -")
+            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
             {
-                filter.DateFrom = null;
-                filter.DateTo = null;
+                stockFilter.DateFrom = null;
+                stockFilter.DateTo = null;
             }
-            else if (!string.IsNullOrWhiteSpace(filter.DateTo))
+            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo))
             {
-                filter.DateTo += " 23:59:59.999";
+                stockFilter.DateTo += " 23:59:59.999";
             }
 
-            return _purchasedItemRepository.GetPurchasedItemTotalQuantity(filter);
+            return _purchasedItemRepository.GetPurchasedItemTotalQuantity(stockFilter);
         }
 
         public IEnumerable<string> GetPurchasedItemCodes()

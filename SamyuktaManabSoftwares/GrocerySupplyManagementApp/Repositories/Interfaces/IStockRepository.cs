@@ -6,6 +6,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 {
     public interface IStockRepository
     {
-        IEnumerable<Stock> GetStocks(StockFilterView filter);
+        IEnumerable<Stock> GetStocks(StockFilter stockFilter);
     }
 }

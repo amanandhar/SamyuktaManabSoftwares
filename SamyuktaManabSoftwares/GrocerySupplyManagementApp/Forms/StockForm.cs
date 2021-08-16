@@ -158,20 +158,31 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadItems()
         {
 
-            StockFilterView filter = new StockFilterView();
+            StockFilter stockFilter = new StockFilter();
 
             if (!CheckAllTransactions.Checked)
             {
-                filter.ItemCode = ComboItemCode.Text;
-                filter.DateFrom = MaskEndOfDayFrom.Text;
-                filter.DateTo = MaskEndOfDayTo.Text;
+                var dateFrom = MaskEndOfDayFrom.Text;
+                var dateTo = MaskEndOfDayTo.Text;
+
+                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                {
+                    stockFilter.DateFrom = dateFrom.Trim();
+                }
+
+                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                {
+                    stockFilter.DateTo = dateTo.Trim();
+                }
+
+                stockFilter.ItemCode = ComboItemCode.Text;
             }
 
-            TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(filter).ToString();
-            TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(filter).ToString();
+            TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter).ToString();
+            TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter).ToString();
             TxtTotalStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
 
-            var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var stockViewList = UtilityService.CalculateStock(stocks.ToList());
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())

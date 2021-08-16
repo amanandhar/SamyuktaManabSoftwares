@@ -70,8 +70,10 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
-            EnableFields(false);
-            LoadMemberTransactions();
+            EnableFields(false); 
+            var memberId = RichMemberId.Text;
+            var memberTransactionViewList = GetMemberTransactions(memberId);
+            LoadMemberTransactions(memberTransactionViewList);
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
         }
         #endregion
@@ -141,7 +143,8 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadMemberTransactions();
+                    var memberTransactionViewList = GetMemberTransactions(member.MemberId);
+                    LoadMemberTransactions(memberTransactionViewList);
                 }
             }
             catch (Exception ex)
@@ -204,7 +207,8 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadMemberTransactions();
+                    var memberTransactionViewList = GetMemberTransactions(memberId);
+                    LoadMemberTransactions(memberTransactionViewList);
                 }
             }
             catch (Exception ex)
@@ -231,7 +235,8 @@ namespace GrocerySupplyManagementApp.Forms
                             if (result == DialogResult.OK)
                             {
                                 ClearAllFields();
-                                LoadMemberTransactions();
+                                var memberTransactionViewList = GetMemberTransactions(memberId);
+                                LoadMemberTransactions(memberTransactionViewList);
                             }
                         }
                     }
@@ -312,7 +317,8 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadMemberTransactions();
+                    var memberTransactionViewList = GetMemberTransactions(RichMemberId.Text);
+                    LoadMemberTransactions(memberTransactionViewList);
                 }
             }
             catch (Exception ex)
@@ -331,6 +337,29 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
             PicBoxMemberImage.Image = null;
+        }
+
+        private void BtnShowTransaction_Click(object sender, EventArgs e)
+        {
+            var filter = new MemberFilter();
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+            var action = ComboAction.Text;
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                filter.DateFrom = dateFrom.Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                filter.DateTo = dateTo.Trim();
+            }
+
+            filter.Action = action;
+            var memberTransactionViewList = GetMemberTransactions(filter);
+            TxtAmount.Text = memberTransactionViewList.Sum(x => x.Balance).ToString();
+            LoadMemberTransactions(memberTransactionViewList);
         }
 
         #endregion
@@ -433,16 +462,22 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadMemberTransactions()
+        private List<MemberTransactionView> GetMemberTransactions(string memberId)
         {
-            var memberId = RichMemberId.Text;
+            return _userTransactionService.GetMemberTransactions(memberId).ToList();
+        }
 
-            List<MemberTransactionView> memberTransactionViews = _userTransactionService.GetMemberTransactions(memberId).ToList();
+        private List<MemberTransactionView> GetMemberTransactions(MemberFilter memberFilter)
+        {
+            return _userTransactionService.GetMemberTransactions(memberFilter).ToList();
+        }
 
-            RichBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
+        private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
+        {
+            RichBalance.Text = _userTransactionService.GetMemberTotalBalance(RichMemberId.Text).ToString();
             TxtBalanceStatus.Text = Convert.ToDecimal(RichBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
 
-            var bindingList = new BindingList<MemberTransactionView>(memberTransactionViews);
+            var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);
             var source = new BindingSource(bindingList, null);
             DataGridMemberList.DataSource = source;
         }
@@ -490,8 +525,8 @@ namespace GrocerySupplyManagementApp.Forms
             ComboReceipt.Enabled = true;
 
             EnableFields(false);
-
-            LoadMemberTransactions();
+            var memberTransactionViewList = GetMemberTransactions(memberId);
+            LoadMemberTransactions(memberTransactionViewList);
         }
 
         #endregion

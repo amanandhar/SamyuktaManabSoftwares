@@ -29,9 +29,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetUserTransactions(memberId);
         }
 
-        public IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter filter)
+        public IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter deliveryPersonFilter)
         {
-            return _userTransactionRepository.GetUserTransactions(filter);
+            return _userTransactionRepository.GetUserTransactions(deliveryPersonFilter);
         }
 
         public IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId)
@@ -39,14 +39,24 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetMemberTransactions(memberId);
         }
 
+        public IEnumerable<MemberTransactionView> GetMemberTransactions(MemberFilter memberFilter)
+        {
+            return _userTransactionRepository.GetMemberTransactions(memberFilter);
+        }
+
         public IEnumerable<SupplierTransactionView> GetSupplierTransactions(string supplierId)
         {
             return _userTransactionRepository.GetSupplierTransactions(supplierId);
         }
 
-        public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter)
+        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierFilter supplierFilter)
         {
-            return _userTransactionRepository.GetExpenseTransactions(filter);
+            return _userTransactionRepository.GetSupplierTransactions(supplierFilter);
+        }
+
+        public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter expenseTransactionFilter)
+        {
+            return _userTransactionRepository.GetExpenseTransactions(expenseTransactionFilter);
         }
 
         public UserTransaction GetUserTransaction(long userTransactionId)
@@ -159,19 +169,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetTransactionViewList(transactionFilter);
         }
 
-        public IEnumerable<IncomeDetailView> GetDeliveryCharge()
+        public IEnumerable<IncomeDetailView> GetIncome(IncomeTransactionFilter filter)
         {
-            return _userTransactionRepository.GetDeliveryCharge();
-        }
-
-        public IEnumerable<IncomeDetailView> GetMemberFee()
-        {
-            return _userTransactionRepository.GetMemberFee();
-        }
-
-        public IEnumerable<IncomeDetailView> GetOtherIncome()
-        {
-            return _userTransactionRepository.GetOtherIncome();
+            return _userTransactionRepository.GetIncome(filter);
         }
 
         public IEnumerable<IncomeDetailView> GetSalesProfit()

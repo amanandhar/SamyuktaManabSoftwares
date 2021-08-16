@@ -334,7 +334,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (!string.IsNullOrWhiteSpace(MaskEndOfDay.Text.Replace("-", string.Empty).Trim()))
             {
-                transactionFilter.Date = Convert.ToDateTime(MaskEndOfDay.Text).ToString("yyyy-MM-dd");
+                transactionFilter.Date = MaskEndOfDay.Text.Trim();
             }
 
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()

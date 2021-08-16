@@ -36,6 +36,11 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetBankTransactionViews(bankId);
         }
 
+        public IEnumerable<BankTransactionView> GetBankTransactionViews(BankTransactionFilter bankTransactionFilter)
+        {
+            return _bankTransactionRepository.GetBankTransactionViews(bankTransactionFilter);
+        }
+
         public decimal GetTotalBalance()
         {
             return _bankTransactionRepository.GetTotalBalance();

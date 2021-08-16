@@ -48,13 +48,21 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, System.EventArgs e)
         {
-            var deliveryPersonFilter = new DeliveryPersonFilter()
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+            var employeeId = _selectedEmployeeId;
+            var deliveryPersonFilter = new DeliveryPersonFilter();
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
             {
-                DateFrom = MaskEndOfDayFrom.Text,
-                DateTo = MaskEndOfDayTo.Text,
-                EmployeeId = _selectedEmployeeId
-            };
+                deliveryPersonFilter.DateFrom = dateFrom.Trim();
+            }
 
+            if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
+            {
+                deliveryPersonFilter.DateTo = dateTo.Trim();
+            }
+
+            deliveryPersonFilter.EmployeeId = employeeId;
             LoadDeliveryTransactions(deliveryPersonFilter);
         }
         #endregion

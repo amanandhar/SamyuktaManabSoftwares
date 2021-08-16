@@ -592,7 +592,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var pricedItem = _pricedItemService.GetPricedItem(pricedId);
                 var item = _itemService.GetItem(pricedItem.ItemId);
-                StockFilterView filter = new StockFilterView
+                StockFilter filter = new StockFilter
                 {
                     ItemCode = item.Code
                 };

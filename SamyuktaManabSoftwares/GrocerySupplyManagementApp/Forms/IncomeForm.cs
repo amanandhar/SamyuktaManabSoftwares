@@ -48,15 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            var filter = ComboFilter.Text;
-            if(string.IsNullOrWhiteSpace(filter))
-            {
-                LoadIncomeDetails();
-            }
-            else
-            {
-                LoadIncomeDetails(filter);
-            }
+            LoadIncomeDetails();
         }
 
         private void BtnAddIncome_Click(object sender, EventArgs e)
@@ -143,7 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Combo Box Event
         private void ComboFilter_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(ComboFilter.Text))
+            if (!string.IsNullOrWhiteSpace(ComboFilteredBy.Text))
             {
                 RadioAll.Checked = false;
             }
@@ -212,31 +204,47 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadIncomeDetails(string type = null)
+        private void LoadIncomeDetails()
         {
+            var incomeTransactionFilter = new IncomeTransactionFilter();
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+            var income = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text;
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                incomeTransactionFilter.DateFrom = dateFrom.Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                incomeTransactionFilter.DateTo = dateTo.Trim();
+            }
+
+            incomeTransactionFilter.Income = income;
+
             List<IncomeDetailView> incomeDetails;
 
-            if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
+            if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
             {
-                incomeDetails = _userTransactionService.GetDeliveryCharge().ToList();
+                incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
             }
-            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.MEMBER_FEE.ToLower()))
+            else if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.MEMBER_FEE.ToLower()))
             {
-                incomeDetails = _userTransactionService.GetMemberFee().ToList();
+                incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
             }
-            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.OTHER_INCOME.ToLower()))
+            else if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.OTHER_INCOME.ToLower()))
             {
-                incomeDetails = _userTransactionService.GetOtherIncome().ToList();
+                incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
             }
-            else if (!string.IsNullOrWhiteSpace(type) && type.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
+            else if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
             {
                 incomeDetails = _userTransactionService.GetSalesProfit().ToList();
             }
             else
             {
-                incomeDetails = _userTransactionService.GetDeliveryCharge().ToList();
-                incomeDetails.AddRange(_userTransactionService.GetMemberFee().ToList());
-                incomeDetails.AddRange(_userTransactionService.GetOtherIncome().ToList());
+                incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
+                incomeDetails.AddRange(_userTransactionService.GetIncome(incomeTransactionFilter).ToList());
+                incomeDetails.AddRange(_userTransactionService.GetIncome(incomeTransactionFilter).ToList());
                 incomeDetails.AddRange(_userTransactionService.GetSalesProfit().ToList());
             }
 

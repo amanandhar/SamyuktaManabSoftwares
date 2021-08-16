@@ -237,7 +237,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalAmount;
         }
 
-        public decimal GetPurchasedItemTotalAmount(StockFilterView filter)
+        public decimal GetPurchasedItemTotalAmount(StockFilter stockFilter)
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " +
@@ -247,12 +247,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON pi.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
-            if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
                 query += "AND i.[Code] = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter?.DateTo))
             {
                 query += "AND pi.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
             }
@@ -264,9 +264,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Code", ((object)filter.ItemCode) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateFrom", ((object)filter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)filter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Code", ((object)stockFilter.ItemCode) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)stockFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)stockFilter.DateTo) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
@@ -284,7 +284,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalAmount;
         }
 
-        public long GetPurchasedItemTotalQuantity(StockFilterView filter)
+        public long GetPurchasedItemTotalQuantity(StockFilter stockFilter)
         {
             long totalCount = 0;
             var query = @"SELECT " +
@@ -294,12 +294,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON pi.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
-            if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
                 query += "AND i.[Code] = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter?.DateTo))
             {
                 query += "AND pi.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
             }
@@ -311,9 +311,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Code", ((object)filter.ItemCode) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateFrom", ((object)filter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)filter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Code", ((object)stockFilter.ItemCode) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)stockFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)stockFilter.DateTo) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)

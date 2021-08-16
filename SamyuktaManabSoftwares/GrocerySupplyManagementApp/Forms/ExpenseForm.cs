@@ -46,13 +46,21 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            var expenseTransactionFilter = new ExpenseTransactionFilter
+            var expenseTransactionFilter = new ExpenseTransactionFilter();
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+            var expense = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text;
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
             {
-                //DateFrom = string.IsNullOrWhiteSpace(MaskDateFrom.Text) ? DateTime.MinValue : Convert.ToDateTime(MaskDateFrom.Text),
-                //DateTo = string.IsNullOrWhiteSpace(MaskDateTo.Text) ? DateTime.MinValue : Convert.ToDateTime(MaskDateTo.Text),
-                Expense = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text
-            };
+                expenseTransactionFilter.DateFrom = dateFrom.Trim();
+            }
 
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                expenseTransactionFilter.DateTo = dateTo.Trim();
+            }
+
+            expenseTransactionFilter.Expense = expense;
             LoadExpenseTransaction(expenseTransactionFilter);
         }
 

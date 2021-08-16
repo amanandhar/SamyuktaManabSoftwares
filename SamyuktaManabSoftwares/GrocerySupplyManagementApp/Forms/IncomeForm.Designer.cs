@@ -43,7 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboAddIncome = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.ComboFilter = new System.Windows.Forms.ComboBox();
+            this.ComboFilteredBy = new System.Windows.Forms.ComboBox();
             this.RadioAll = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -71,7 +71,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.ComboAddIncome);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.ComboFilter);
+            this.groupBox3.Controls.Add(this.ComboFilteredBy);
             this.groupBox3.Controls.Add(this.RadioAll);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label3);
@@ -197,20 +197,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.TabIndex = 8;
             this.label9.Text = "Date To";
             // 
-            // ComboFilter
+            // ComboFilteredBy
             // 
-            this.ComboFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboFilter.FormattingEnabled = true;
-            this.ComboFilter.Items.AddRange(new object[] {
+            this.ComboFilteredBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboFilteredBy.FormattingEnabled = true;
+            this.ComboFilteredBy.Items.AddRange(new object[] {
             "Delivery Charge",
             "Member Fee",
             "Other Income",
             "Sales Profit"});
-            this.ComboFilter.Location = new System.Drawing.Point(124, 60);
-            this.ComboFilter.Name = "ComboFilter";
-            this.ComboFilter.Size = new System.Drawing.Size(150, 28);
-            this.ComboFilter.TabIndex = 8;
-            this.ComboFilter.SelectedValueChanged += new System.EventHandler(this.ComboFilter_SelectedValueChanged);
+            this.ComboFilteredBy.Location = new System.Drawing.Point(124, 60);
+            this.ComboFilteredBy.Name = "ComboFilteredBy";
+            this.ComboFilteredBy.Size = new System.Drawing.Size(150, 28);
+            this.ComboFilteredBy.TabIndex = 8;
+            this.ComboFilteredBy.SelectedValueChanged += new System.EventHandler(this.ComboFilter_SelectedValueChanged);
             // 
             // RadioAll
             // 
@@ -379,7 +379,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichAddAmount;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton RadioAll;
-        private System.Windows.Forms.ComboBox ComboFilter;
+        private System.Windows.Forms.ComboBox ComboFilteredBy;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button BtnShow;

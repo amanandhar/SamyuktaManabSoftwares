@@ -17,7 +17,7 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<Stock> GetStocks(StockFilterView filter)
+        public IEnumerable<Stock> GetStocks(StockFilter stockFilter)
         {
             var stocks = new List<Stock>();
             var query = @"IF OBJECT_ID('tempdb..#Temp') IS NOT NULL
@@ -58,14 +58,19 @@ namespace GrocerySupplyManagementApp.Repositories
                         CAST((t.[PurchasePrice] * t.[PurchaseQuantity]) AS DECIMAL(18,2)) AS [TotalPurchasePrice]
                         FROM #Temp t WHERE 1 = 1 ";
 
-            if (!string.IsNullOrWhiteSpace(filter?.ItemCode))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
                 query += "AND t.[ItemCode] = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(filter?.DateFrom) && !string.IsNullOrWhiteSpace(filter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
-                query += "AND t.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND t.[EndOfDay] >= @DateFrom ";
+            }
+
+            if(!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            {
+                query += "AND t.[EndOfDay] <= @DateTo ";
             }
 
             query += "ORDER BY t.[ItemCode], t.[AddedDate]";
@@ -77,9 +82,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Code", ((object)filter.ItemCode) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateFrom", ((object)filter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)filter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Code", ((object)stockFilter.ItemCode) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)stockFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)stockFilter.DateTo) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

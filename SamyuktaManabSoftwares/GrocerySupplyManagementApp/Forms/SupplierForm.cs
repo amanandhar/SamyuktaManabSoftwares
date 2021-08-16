@@ -51,7 +51,8 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
             EnableFields(false);
-            LoadSupplierTransaction();
+            var supplierTransactionViewList = GetSupplierTransaction();
+            LoadSupplierTransaction(supplierTransactionViewList);
         }
         #endregion
 
@@ -224,7 +225,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboPayment.Text = string.Empty;
                     ComboBank.Text = string.Empty;
                     RichAmount.Clear();
-                    LoadSupplierTransaction();
+                    var supplierTransactionViewList = GetSupplierTransaction();
+                    LoadSupplierTransaction(supplierTransactionViewList);
                 }
             }
             catch (Exception ex)
@@ -245,12 +247,14 @@ namespace GrocerySupplyManagementApp.Forms
                     if (particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
                     {
                         _purchasedItemService.DeletePurchasedItem(particulars);
-                        LoadSupplierTransaction();
+                        var supplierTransactionViewList = GetSupplierTransaction();
+                        LoadSupplierTransaction(supplierTransactionViewList);
                     }
 
                     if (particulars.ToLower() == Constants.CASH.ToLower() || particulars.ToLower() == Constants.CHEQUE.ToLower())
                     {
-                        LoadSupplierTransaction();
+                        var supplierTransactionViewList = GetSupplierTransaction();
+                        LoadSupplierTransaction(supplierTransactionViewList);
                     }
                 }
             }
@@ -258,6 +262,29 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
+        }
+
+        private void BtnShowTransaction_Click(object sender, EventArgs e)
+        {
+            var supplierFilter = new SupplierFilter();
+
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                supplierFilter.DateFrom = dateFrom.Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                supplierFilter.DateTo = dateTo.Trim();
+            }
+
+            supplierFilter.Action = ComboAction.Text;
+
+            var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
+            TxtAmount.Text = supplierTransactionViewList.Sum(x => x.Balance).ToString();
+            LoadSupplierTransaction(supplierTransactionViewList);
         }
 
         #endregion
@@ -344,7 +371,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadSupplierTransaction()
+        private List<SupplierTransactionView> GetSupplierTransaction()
         {
             var balance = _userTransactionService.GetSupplierTotalBalance(RichSupplierId.Text);
             RichBalance.Text = decimal.Negate(balance).ToString();
@@ -357,9 +384,17 @@ namespace GrocerySupplyManagementApp.Forms
                 TextBoxDebitCredit.Text = "Clear";
             }
 
-            List<SupplierTransactionView> supplierTransactionViews = _userTransactionService.GetSupplierTransactions(RichSupplierId.Text).ToList();
+            return _userTransactionService.GetSupplierTransactions(RichSupplierId.Text).ToList();
+        }
 
-            var bindingList = new BindingList<SupplierTransactionView>(supplierTransactionViews);
+        private List<SupplierTransactionView> GetSupplierTransaction(SupplierFilter supplierFilter)
+        {
+            return _userTransactionService.GetSupplierTransactions(supplierFilter).ToList();
+        }
+
+        private void LoadSupplierTransaction(List<SupplierTransactionView> supplierTransactionViewList)
+        {
+            var bindingList = new BindingList<SupplierTransactionView>(supplierTransactionViewList);
             var source = new BindingSource(bindingList, null);
             DataGridSupplierList.DataSource = source;
         }
@@ -398,14 +433,15 @@ namespace GrocerySupplyManagementApp.Forms
             BtnShowPurchase.Enabled = true;
 
             EnableFields(false);
-
-            LoadSupplierTransaction();
+            var supplierTransactionViewList = GetSupplierTransaction();
+            LoadSupplierTransaction(supplierTransactionViewList);
         }
 
         public void PopulateItemsPurchaseDetails(string billNo)
         {
             TxtBillNo.Text = billNo;
-            LoadSupplierTransaction();
+            var supplierTransactionViewList = GetSupplierTransaction();
+            LoadSupplierTransaction(supplierTransactionViewList);
         }
 
         public string GetSupplierName()
@@ -418,5 +454,6 @@ namespace GrocerySupplyManagementApp.Forms
             return RichSupplierId.Text;
         }
         #endregion
+
     }
 }

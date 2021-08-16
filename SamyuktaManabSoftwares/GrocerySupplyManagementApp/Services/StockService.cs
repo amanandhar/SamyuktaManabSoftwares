@@ -15,9 +15,9 @@ namespace GrocerySupplyManagementApp.Services
             _stockRepository = stockRepository;
         }
 
-        public IEnumerable<Stock> GetStocks(StockFilterView filter)
+        public IEnumerable<Stock> GetStocks(StockFilter stockFilter)
         {
-            return _stockRepository.GetStocks(filter);
+            return _stockRepository.GetStocks(stockFilter);
         }
     }
 }

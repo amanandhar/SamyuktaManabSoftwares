@@ -472,7 +472,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 TxtUnit.Text = item.Unit;
-                StockFilterView filter = new StockFilterView
+                StockFilter filter = new StockFilter
                 {
                     ItemCode = item.Code
                 };
@@ -520,7 +520,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 TxtUnit.Text = item.Unit;
-                StockFilterView filter = new StockFilterView
+                StockFilter filter = new StockFilter
                 {
                     ItemCode = item.Code
                 };

@@ -9,10 +9,12 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<UserTransaction> GetUserTransactions();
         IEnumerable<UserTransaction> GetUserTransactions(string memberId);
-        IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter filter);
+        IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter deliveryPersonFilter);
         IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId);
+        IEnumerable<MemberTransactionView> GetMemberTransactions(MemberFilter memberFilter);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(string supplierId);
-        IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter filter);
+        IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierFilter supplierFilter);
+        IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter expenseTransactionFilter);
         UserTransaction GetUserTransaction(long userTransactionId);
         UserTransaction GetUserTransaction(string invoiceNo);
         UserTransaction GetLastUserTransaction(string option);
@@ -29,9 +31,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<string> GetMemberIds();
         decimal GetUserTransactionBalance(TransactionFilter transactionFilter);
         IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter);
-        IEnumerable<IncomeDetailView> GetDeliveryCharge();
-        IEnumerable<IncomeDetailView> GetMemberFee();
-        IEnumerable<IncomeDetailView> GetOtherIncome();
+        IEnumerable<IncomeDetailView> GetIncome(IncomeTransactionFilter incomeTransactionFilter);
         IEnumerable<IncomeDetailView> GetSalesProfit();
 
         UserTransaction AddUserTransaction(UserTransaction userTransaction);
