@@ -52,20 +52,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichLiabilitiesBalance = new System.Windows.Forms.RichTextBox();
             this.RichStockValue = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.RichNetLoss = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -84,11 +84,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // MaskEndOfDay
             // 
-            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDay.Location = new System.Drawing.Point(161, 23);
+            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDay.Location = new System.Drawing.Point(220, 23);
             this.MaskEndOfDay.Mask = "   0000-00-00";
             this.MaskEndOfDay.Name = "MaskEndOfDay";
-            this.MaskEndOfDay.Size = new System.Drawing.Size(110, 24);
+            this.MaskEndOfDay.Size = new System.Drawing.Size(117, 26);
             this.MaskEndOfDay.TabIndex = 22;
             // 
             // linkLabel15
@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.linkLabel15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel15.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.linkLabel15.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel15.Location = new System.Drawing.Point(109, 25);
+            this.linkLabel15.Location = new System.Drawing.Point(168, 25);
             this.linkLabel15.Name = "linkLabel15";
             this.linkLabel15.Size = new System.Drawing.Size(48, 20);
             this.linkLabel15.TabIndex = 21;
@@ -117,14 +117,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnShow.Location = new System.Drawing.Point(16, 15);
+            this.BtnShow.Location = new System.Drawing.Point(16, 12);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 40);
+            this.BtnShow.Size = new System.Drawing.Size(125, 45);
             this.BtnShow.TabIndex = 0;
             this.BtnShow.Text = "Show";
             this.BtnShow.UseVisualStyleBackColor = false;
@@ -341,6 +341,66 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Laibilities";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(78, 233);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(74, 20);
+            this.label14.TabIndex = 51;
+            this.label14.Text = "Balance";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(76, 192);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(75, 20);
+            this.label13.TabIndex = 50;
+            this.label13.Text = "Net Profit";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(35, 155);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(116, 20);
+            this.label12.TabIndex = 49;
+            this.label12.Text = "Payble Amount";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(46, 116);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(105, 20);
+            this.label11.TabIndex = 48;
+            this.label11.Text = "Loan Amount";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(38, 78);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(114, 20);
+            this.label10.TabIndex = 47;
+            this.label10.Text = "Owner\'s Equity";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(47, 39);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(105, 20);
+            this.label9.TabIndex = 46;
+            this.label9.Text = "Share Capital";
+            // 
             // RichNetLoss
             // 
             this.RichNetLoss.Enabled = false;
@@ -375,45 +435,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Assets";
             // 
-            // label2
+            // label8
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(83, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 20);
-            this.label2.TabIndex = 45;
-            this.label2.Text = "Cash In Hand";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(81, 79);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 20);
-            this.label3.TabIndex = 46;
-            this.label3.Text = "Bank Account";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(95, 116);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 20);
-            this.label5.TabIndex = 47;
-            this.label5.Text = "Stock Value";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(43, 156);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(147, 20);
-            this.label6.TabIndex = 48;
-            this.label6.Text = "Receivable Amount";
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(115, 233);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 20);
+            this.label8.TabIndex = 50;
+            this.label8.Text = "Balance";
             // 
             // label7
             // 
@@ -425,81 +455,51 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.TabIndex = 49;
             this.label7.Text = "Net Loss";
             // 
-            // label8
+            // label6
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(115, 233);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 20);
-            this.label8.TabIndex = 50;
-            this.label8.Text = "Balance";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(43, 155);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(147, 20);
+            this.label6.TabIndex = 48;
+            this.label6.Text = "Receivable Amount";
             // 
-            // label9
+            // label5
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(47, 40);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(105, 20);
-            this.label9.TabIndex = 46;
-            this.label9.Text = "Share Capital";
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(95, 116);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 20);
+            this.label5.TabIndex = 47;
+            this.label5.Text = "Stock Value";
             // 
-            // label10
+            // label3
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(38, 79);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(114, 20);
-            this.label10.TabIndex = 47;
-            this.label10.Text = "Owner\'s Equity";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(81, 79);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(109, 20);
+            this.label3.TabIndex = 46;
+            this.label3.Text = "Bank Account";
             // 
-            // label11
+            // label2
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(46, 116);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(105, 20);
-            this.label11.TabIndex = 48;
-            this.label11.Text = "Loan Amount";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(35, 156);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(116, 20);
-            this.label12.TabIndex = 49;
-            this.label12.Text = "Payble Amount";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(76, 193);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(75, 20);
-            this.label13.TabIndex = 50;
-            this.label13.Text = "Net Profit";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(78, 233);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(74, 20);
-            this.label14.TabIndex = 51;
-            this.label14.Text = "Balance";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(83, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 20);
+            this.label2.TabIndex = 45;
+            this.label2.Text = "Cash In Hand";
             // 
             // BalanceSheetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);

@@ -104,8 +104,26 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                     else
                     {
-                        _userTransactionService.DeleteUserTransaction(id);
-                        _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
+                        var userTransaction = _userTransactionService.GetUserTransaction(id);
+                        if(userTransaction.TransactionId > 0)
+                        {
+                            var userTransactions = _userTransactionService.GetUserTransactions(userTransaction.TransactionId);
+                            foreach(var transaction in userTransactions)
+                            {
+                                // Delete Child Transactions
+                                _userTransactionService.DeleteUserTransaction(transaction.Id);
+                                _bankTransactionService.DeleteBankTransactionByUserTransaction(transaction.Id);
+                            }
+
+                            // Delete Parent Transaction
+                            _userTransactionService.DeleteUserTransaction(userTransaction.TransactionId);
+                            _bankTransactionService.DeleteBankTransactionByUserTransaction(userTransaction.TransactionId);
+                        }
+                        else
+                        {
+                            _userTransactionService.DeleteUserTransaction(id);
+                            _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
+                        }
                     }
 
 

@@ -101,7 +101,8 @@ namespace GrocerySupplyManagementApp.Forms
             MemberForm memberForm = new MemberForm(_fiscalYearService,   
                 _bankService, _bankTransactionService, 
                 _memberService, _soldItemService,
-                _userTransactionService, this);
+                _userTransactionService, _employeeService,
+                this);
             memberForm.Show();
         }
 

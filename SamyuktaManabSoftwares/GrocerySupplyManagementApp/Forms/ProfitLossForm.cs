@@ -105,19 +105,19 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var incomeTransactionFilter = new IncomeTransactionFilter();
                 var dateFrom = MaskEndOfDayFrom.Text;
                 var dateTo = MaskEndOfDayTo.Text;
 
                 if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
                 {
-                    incomeTransactionFilter.DateFrom = dateFrom.Trim();
+                    dateFrom = dateFrom.Trim();
                 }
 
-                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
                 {
-                    incomeTransactionFilter.DateTo = dateTo.Trim();
+                    dateTo = dateTo.Trim();
                 }
+
                 var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter(){ 
                     DateFrom = dateFrom,
                     DateTo = dateTo,
@@ -282,5 +282,15 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        private void DataGridExpenseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DataGridIncomeList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

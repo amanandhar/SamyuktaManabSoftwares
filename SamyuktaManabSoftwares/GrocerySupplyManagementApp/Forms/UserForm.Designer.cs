@@ -33,6 +33,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TxtConfirmPassword = new System.Windows.Forms.TextBox();
+            this.TxtPassword = new System.Windows.Forms.TextBox();
             this.ComboUserType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnShow = new System.Windows.Forms.Button();
@@ -58,8 +60,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate = new System.Windows.Forms.Button();
             this.BtnEdit = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.TxtPassword = new System.Windows.Forms.TextBox();
-            this.TxtConfirmPassword = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -118,15 +118,34 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "User Information";
             // 
+            // TxtConfirmPassword
+            // 
+            this.TxtConfirmPassword.Enabled = false;
+            this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 66);
+            this.TxtConfirmPassword.Name = "TxtConfirmPassword";
+            this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 26);
+            this.TxtConfirmPassword.TabIndex = 39;
+            this.TxtConfirmPassword.UseSystemPasswordChar = true;
+            // 
+            // TxtPassword
+            // 
+            this.TxtPassword.Enabled = false;
+            this.TxtPassword.Location = new System.Drawing.Point(112, 66);
+            this.TxtPassword.Name = "TxtPassword";
+            this.TxtPassword.Size = new System.Drawing.Size(170, 26);
+            this.TxtPassword.TabIndex = 38;
+            this.TxtPassword.UseSystemPasswordChar = true;
+            // 
             // ComboUserType
             // 
             this.ComboUserType.Enabled = false;
+            this.ComboUserType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboUserType.FormattingEnabled = true;
             this.ComboUserType.Items.AddRange(new object[] {
             "Please Select"});
             this.ComboUserType.Location = new System.Drawing.Point(435, 25);
             this.ComboUserType.Name = "ComboUserType";
-            this.ComboUserType.Size = new System.Drawing.Size(170, 28);
+            this.ComboUserType.Size = new System.Drawing.Size(170, 26);
             this.ComboUserType.TabIndex = 10;
             // 
             // label1
@@ -142,9 +161,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShow
             // 
-            this.BtnShow.Location = new System.Drawing.Point(287, 26);
+            this.BtnShow.Location = new System.Drawing.Point(284, 25);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(41, 30);
+            this.BtnShow.Size = new System.Drawing.Size(40, 29);
             this.BtnShow.TabIndex = 8;
             this.BtnShow.Text = "C";
             this.BtnShow.UseVisualStyleBackColor = true;
@@ -439,24 +458,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Size = new System.Drawing.Size(688, 26);
             this.textBox1.TabIndex = 7;
             this.textBox1.Text = "                                                           User Set-up";
-            // 
-            // TxtPassword
-            // 
-            this.TxtPassword.Enabled = false;
-            this.TxtPassword.Location = new System.Drawing.Point(112, 66);
-            this.TxtPassword.Name = "TxtPassword";
-            this.TxtPassword.Size = new System.Drawing.Size(170, 26);
-            this.TxtPassword.TabIndex = 38;
-            this.TxtPassword.UseSystemPasswordChar = true;
-            // 
-            // TxtConfirmPassword
-            // 
-            this.TxtConfirmPassword.Enabled = false;
-            this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 66);
-            this.TxtConfirmPassword.Name = "TxtConfirmPassword";
-            this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 26);
-            this.TxtConfirmPassword.TabIndex = 39;
-            this.TxtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // UserForm
             // 

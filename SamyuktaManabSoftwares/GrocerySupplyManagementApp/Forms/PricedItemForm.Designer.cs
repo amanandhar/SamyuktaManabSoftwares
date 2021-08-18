@@ -289,7 +289,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.BtnShowPricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowPricedItem.ForeColor = System.Drawing.Color.Red;
-            this.BtnShowPricedItem.Location = new System.Drawing.Point(339, 51);
+            this.BtnShowPricedItem.Location = new System.Drawing.Point(335, 50);
             this.BtnShowPricedItem.Name = "BtnShowPricedItem";
             this.BtnShowPricedItem.Size = new System.Drawing.Size(40, 30);
             this.BtnShowPricedItem.TabIndex = 32;
@@ -427,7 +427,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.BtnShowUnpricedItem.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnShowUnpricedItem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnShowUnpricedItem.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowUnpricedItem.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnShowUnpricedItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowUnpricedItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowUnpricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

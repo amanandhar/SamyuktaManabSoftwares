@@ -215,7 +215,7 @@ namespace GrocerySupplyManagementApp.Forms
                 incomeTransactionFilter.DateFrom = dateFrom.Trim();
             }
 
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
             {
                 incomeTransactionFilter.DateTo = dateTo.Trim();
             }
@@ -243,8 +243,6 @@ namespace GrocerySupplyManagementApp.Forms
             else
             {
                 incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
-                incomeDetails.AddRange(_userTransactionService.GetIncome(incomeTransactionFilter).ToList());
-                incomeDetails.AddRange(_userTransactionService.GetIncome(incomeTransactionFilter).ToList());
                 incomeDetails.AddRange(_userTransactionService.GetSalesProfit().ToList());
             }
 

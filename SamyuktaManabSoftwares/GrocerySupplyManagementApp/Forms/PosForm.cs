@@ -32,7 +32,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
-        private List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
+        private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
 
         #region Constructor
         public PosForm(IFiscalYearService fiscalYearService, ITaxService taxService,
@@ -64,13 +64,14 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         public PosForm(IMemberService memberService, IUserTransactionService userTransactionService, 
-            ISoldItemService soldItemService, string invoiceNo)
+            ISoldItemService soldItemService, IEmployeeService employeeService, string invoiceNo)
         {
             InitializeComponent();
 
             _memberService = memberService;
             _userTransactionService = userTransactionService;
             _soldItemService = soldItemService;
+            _employeeService = employeeService;
 
             _soldItemViewList = _soldItemService.GetSoldItemViewList(invoiceNo).ToList();
             LoadItems(_soldItemViewList);
@@ -151,23 +152,21 @@ namespace GrocerySupplyManagementApp.Forms
                     _soldItemService.AddSoldItem(soldItem);
                 });
 
-                ComboBoxItem selectedItem = (ComboBoxItem)ComboDeliveryPerson.SelectedItem;
+                ComboBoxItem selectedDeliveryPerson = (ComboBoxItem)ComboDeliveryPerson.SelectedItem;
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = TxtInvoiceDate.Text.Trim(),
                     InvoiceNo = TxtInvoiceNo.Text.Trim(),
                     MemberId = RichMemberId.Text.Trim(),
-                    DeliveryPersonId = selectedItem.Id.Trim(),
+                    DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
                     Action = Constants.SALES,
                     ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                    SubTotal = Convert.ToDecimal(RichSubTotal.Text.Trim()),
-                    DiscountPercent = Convert.ToDecimal(RichTextDiscountPercent.Text.Trim()),
-                    Discount = Convert.ToDecimal(RichTextDiscount.Text.Trim()),
-                    VatPercent = Convert.ToDecimal(RichTextVatPercent.Text.Trim()),
-                    Vat = Convert.ToDecimal(RichTextVat.Text.Trim()),
-                    DeliveryChargePercent = Convert.ToDecimal(RichTextDeliveryChargePercent.Text.Trim()),
-                    DeliveryCharge = Convert.ToDecimal(RichTextDeliveryCharge.Text.Trim()),
-                    DueAmount = Convert.ToDecimal(RichGrandTotal.Text.Trim()),
+                    SubTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim()),
+                    DiscountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim()),
+                    Discount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
+                    DeliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()),
+                    DeliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
+                    DueAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
                     ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
                     AddedDate = date,
                     UpdatedDate = date
@@ -175,14 +174,16 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _userTransactionService.AddUserTransaction(userTransaction);
 
+                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+
                 // Add Sales Discount
-                if(Convert.ToDecimal(RichTextDiscount.Text) != 0.00m)
+                if(Convert.ToDecimal(TxtDiscount.Text) != 0.00m)
                 {
                     var userTransactionForSalesDiscount = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
+                        TransactionId = lastUserTransaction.Id,
                         Action = Constants.EXPENSE,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.SALES_DISCOUNT,
@@ -193,7 +194,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Vat = 0.0m,
                         DeliveryChargePercent = 0.0m,
                         DeliveryCharge = 0.0m,
-                        DueAmount = Convert.ToDecimal(RichTextDiscount.Text),
+                        DueAmount = Convert.ToDecimal(TxtDiscount.Text),
                         ReceivedAmount = 0.0m,
                         AddedDate = date,
                         UpdatedDate = date
@@ -203,13 +204,13 @@ namespace GrocerySupplyManagementApp.Forms
                 }
 
                 // Add Delivery Charge
-                if (Convert.ToDecimal(RichTextDeliveryCharge.Text) != 0.00m)
+                if (Convert.ToDecimal(TxtDeliveryCharge.Text) != 0.00m)
                 {
                     var userTransactionForDeliveryCharge = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
+                        TransactionId = lastUserTransaction.Id,
                         Action = Constants.RECEIPT,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.DELIVERY_CHARGE,
@@ -221,7 +222,7 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryChargePercent = 0.0m,
                         DeliveryCharge = 0.0m,
                         DueAmount = 0.0m,
-                        ReceivedAmount = Convert.ToDecimal(RichTextDeliveryCharge.Text),
+                        ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text),
                         AddedDate = date,
                         UpdatedDate = date
                     };
@@ -356,7 +357,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RichReceivedAmount_KeyUp(object sender, KeyEventArgs e)
         {
-            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(RichTextDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0.00" : RichReceivedAmount.Text), 2).ToString();
+            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0.00" : RichReceivedAmount.Text), 2).ToString();
         }
 
         private void RichItemQuantity_KeyPress(object sender, KeyPressEventArgs e)
@@ -486,13 +487,13 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     Id = DataGridSoldItemList.RowCount,
                     ItemCode = RichItemCode.Text,
-                    ItemName = RichItemName.Text,
-                    ItemBrand = RichItemBrand.Text,
-                    Profit = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
-                    Unit = RichItemUnit.Text,
-                    ItemPrice = string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.00m : Convert.ToDecimal(RichItemPrice.Text),
+                    ItemName = TxtItemName.Text,
+                    ItemBrand = TxtItemBrand.Text,
+                    Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
+                    Unit = TxtItemUnit.Text,
+                    ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
-                    Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(RichItemPrice.Text) ? 0.00m : Convert.ToDecimal(RichItemPrice.Text)), 2),
+                    Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
                     AddedDate = DateTime.Now
                 });
 
@@ -514,9 +515,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             RichMemberId.Clear();
             TxtAccNo.Clear();
-            RichName.Clear();
-            RichAddress.Clear();
-            RichContactNo.Clear();
+            TxtName.Clear();
+            TxtAddress.Clear();
+            TxtContactNo.Clear();
             RichPayment.Clear();
             TxtBalance.Clear();
         }
@@ -525,13 +526,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             RichItemCode.Clear();
             RichItemSubCode.Clear();
-            RichItemName.Clear();
-            RichItemBrand.Clear();
-            RichItemPrice.Clear();
+            TxtItemName.Clear();
+            TxtItemBrand.Clear();
+            TxtItemPrice.Clear();
             RichItemQuantity.Clear();
-            RichItemUnit.Clear();
+            TxtItemUnit.Clear();
             TxtProfitAmount.Clear();
-            RichItemStock.Clear();
+            TxtItemStock.Clear();
             PicBoxItemImage.Image = null;
         }
 
@@ -539,17 +540,14 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TxtInvoiceNo.Clear();
             TxtInvoiceDate.Clear();
-            RichSubTotal.Clear();
-            RichTextDiscountPercent.Clear();
-            RichTextDiscount.Clear();
-            RichTextDiscountTotal.Clear();
-            RichTextVatPercent.Clear();
-            RichTextVat.Clear();
-            RichTextVatTotal.Clear();
-            RichTextDeliveryChargePercent.Clear();
-            RichTextDeliveryCharge.Clear();
-            RichTextDeliveryChargeTotal.Clear();
-            RichGrandTotal.Clear();
+            TxtSubTotal.Clear();
+            TxtDiscountPercent.Clear();
+            TxtDiscount.Clear();
+            TxtDiscountTotal.Clear();
+            TxtDeliveryChargePercent.Clear();
+            TxtDeliveryCharge.Clear();
+            TxtDeliveryChargeTotal.Clear();
+            TxtGrandTotal.Clear();
             RichReceivedAmount.Clear();
             RichBalanceAmount.Clear();
         }
@@ -569,14 +567,13 @@ namespace GrocerySupplyManagementApp.Forms
                 var member = _memberService.GetMember(memberId);
 
                 RichMemberId.Text = member.MemberId;
-                RichName.Text = member.Name;
-                RichAddress.Text = member.Address;
-                RichContactNo.Text = member.ContactNo.ToString();
+                TxtName.Text = member.Name;
+                TxtAddress.Text = member.Address;
+                TxtContactNo.Text = member.ContactNo.ToString();
                 TxtAccNo.Text = member.AccountNo;
 
                 List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(memberId).ToList();
                 TxtBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
-                TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.00m ? Constants.CLEAR : Constants.DUE;
 
                 BtnPaymentIn.Enabled = true;
             }
@@ -604,18 +601,18 @@ namespace GrocerySupplyManagementApp.Forms
                         "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if(result == DialogResult.OK)
                     {
-                        RichItemStock.ForeColor = Color.Red;
+                        TxtItemStock.ForeColor = Color.Red;
                     }
                 }
 
                 RichItemCode.Text = item.Code;
                 RichItemSubCode.Text = pricedItem.ItemSubCode;
-                RichItemName.Text = item.Name;
-                RichItemBrand.Text = item.Brand;
-                RichItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
+                TxtItemName.Text = item.Name;
+                TxtItemBrand.Text = item.Brand;
+                TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
                 
-                RichItemStock.Text = stock.ToString();
-                RichItemUnit.Text = item.Unit;
+                TxtItemStock.Text = stock.ToString();
+                TxtItemUnit.Text = item.Unit;
                 TxtProfitAmount.Text = pricedItem.Profit.ToString();
                 if (File.Exists(pricedItem.ImagePath))
                 {
@@ -636,31 +633,28 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var tax = _taxService.GetTax();
-                RichTextDiscountPercent.Text = tax.Discount.ToString();
-                RichTextVatPercent.Text = tax.Vat.ToString();
-                RichTextDeliveryChargePercent.Text = tax.DeliveryCharge.ToString();
+                TxtDiscountPercent.Text = tax.Discount.ToString();
+                TxtDeliveryChargePercent.Text = tax.DeliveryCharge.ToString();
 
                 decimal subTotal;
                 if (soldItemGrid == null)
                 {
-                    subTotal = string.IsNullOrWhiteSpace(RichSubTotal.Text) ? 0.00m : Convert.ToDecimal(RichSubTotal.Text);
-                    RichSubTotal.Text = (subTotal + Math.Round((Convert.ToDecimal(RichItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2)).ToString();
+                    subTotal = string.IsNullOrWhiteSpace(TxtSubTotal.Text) ? 0.00m : Convert.ToDecimal(TxtSubTotal.Text);
+                    TxtSubTotal.Text = (subTotal + Math.Round((Convert.ToDecimal(TxtItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2)).ToString();
                 }
                 else
                 {
-                    subTotal = Convert.ToDecimal(RichSubTotal.Text) - soldItemGrid.Total;
-                    RichSubTotal.Text = subTotal.ToString();
+                    subTotal = Convert.ToDecimal(TxtSubTotal.Text) - soldItemGrid.Total;
+                    TxtSubTotal.Text = subTotal.ToString();
 
                 }
 
-                RichTextDiscount.Text = Math.Round((Convert.ToDecimal(RichSubTotal.Text) * (Convert.ToDecimal(RichTextDiscountPercent.Text) / 100)), 2).ToString();
-                RichTextDiscountTotal.Text = Math.Round(Convert.ToDecimal(RichSubTotal.Text) - (Convert.ToDecimal(RichSubTotal.Text) * (Convert.ToDecimal(RichTextDiscountPercent.Text) / 100)), 2).ToString();
-                RichTextVat.Text = Math.Round((Convert.ToDecimal(RichTextDiscountTotal.Text) * (Convert.ToDecimal(RichTextVatPercent.Text) / 100)), 2).ToString();
-                RichTextVatTotal.Text = Math.Round(Convert.ToDecimal(RichTextDiscountTotal.Text) + (Convert.ToDecimal(RichTextDiscountTotal.Text) * (Convert.ToDecimal(RichTextVatPercent.Text) / 100)), 2).ToString();
-                RichTextDeliveryCharge.Text = Math.Round((Convert.ToDecimal(RichTextVatTotal.Text) * (Convert.ToDecimal(RichTextDeliveryChargePercent.Text) / 100)), 2).ToString();
-                RichTextDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(RichTextVatTotal.Text) + (Convert.ToDecimal(RichTextVatTotal.Text) * (Convert.ToDecimal(RichTextDeliveryChargePercent.Text) / 100)), 2).ToString();
-                RichGrandTotal.Text = RichTextDeliveryChargeTotal.Text;
-                RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(RichTextDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0.00" : RichReceivedAmount.Text), 2).ToString();
+                TxtDiscount.Text = Math.Round((Convert.ToDecimal(TxtSubTotal.Text) * (Convert.ToDecimal(TxtDiscountPercent.Text) / 100)), 2).ToString();
+                TxtDiscountTotal.Text = Math.Round(Convert.ToDecimal(TxtSubTotal.Text) - (Convert.ToDecimal(TxtSubTotal.Text) * (Convert.ToDecimal(TxtDiscountPercent.Text) / 100)), 2).ToString();
+                TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
+                TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text) + (Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
+                TxtGrandTotal.Text = TxtDeliveryChargeTotal.Text;
+                RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0.00" : RichReceivedAmount.Text), 2).ToString();
             }
             catch (Exception ex)
             {
@@ -674,17 +668,14 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var userTransaction = _userTransactionService.GetUserTransaction(invoiceNo);
 
-                RichSubTotal.Text = userTransaction.SubTotal.ToString();
-                RichTextDiscountPercent.Text = userTransaction.DiscountPercent.ToString();
-                RichTextDiscount.Text = userTransaction.Discount.ToString();
-                RichTextDiscountTotal.Text = (userTransaction.SubTotal - userTransaction.Discount).ToString();
-                RichTextVatPercent.Text = userTransaction.VatPercent.ToString();
-                RichTextVat.Text = userTransaction.Vat.ToString();
-                RichTextVatTotal.Text = (userTransaction.SubTotal - userTransaction.Discount + userTransaction.Vat).ToString();
-                RichTextDeliveryChargePercent.Text = userTransaction.DeliveryChargePercent.ToString();
-                RichTextDeliveryCharge.Text = userTransaction.DeliveryCharge.ToString();
-                RichTextDeliveryChargeTotal.Text = (userTransaction.SubTotal - userTransaction.Discount + userTransaction.Vat + userTransaction.DeliveryCharge).ToString();
-                RichGrandTotal.Text = userTransaction.DueAmount.ToString();
+                TxtSubTotal.Text = userTransaction.SubTotal.ToString();
+                TxtDiscountPercent.Text = userTransaction.DiscountPercent.ToString();
+                TxtDiscount.Text = userTransaction.Discount.ToString();
+                TxtDiscountTotal.Text = (userTransaction.SubTotal - userTransaction.Discount).ToString();
+                TxtDeliveryChargePercent.Text = userTransaction.DeliveryChargePercent.ToString();
+                TxtDeliveryCharge.Text = userTransaction.DeliveryCharge.ToString();
+                TxtDeliveryChargeTotal.Text = (userTransaction.SubTotal - userTransaction.Discount + userTransaction.Vat + userTransaction.DeliveryCharge).ToString();
+                TxtGrandTotal.Text = userTransaction.DueAmount.ToString();
                 RichReceivedAmount.Text = userTransaction.ReceivedAmount.ToString();
             }
             catch(Exception ex)
@@ -715,5 +706,19 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        private void TxtDiscountTotal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtDiscount_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtDiscountPercent_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

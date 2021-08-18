@@ -42,9 +42,9 @@ namespace GrocerySupplyManagementApp.Forms
             // DataGridItemList
             // 
             this.DataGridItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridItemList.Location = new System.Drawing.Point(12, 64);
+            this.DataGridItemList.Location = new System.Drawing.Point(12, 57);
             this.DataGridItemList.Name = "DataGridItemList";
-            this.DataGridItemList.Size = new System.Drawing.Size(510, 285);
+            this.DataGridItemList.Size = new System.Drawing.Size(510, 292);
             this.DataGridItemList.TabIndex = 0;
             this.DataGridItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridItemList_CellDoubleClick);
             this.DataGridItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridItemList_DataBindingComplete);
@@ -55,7 +55,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.RichSearchItemName);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 1);
+            this.groupBox1.Location = new System.Drawing.Point(12, -1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(510, 50);
             this.groupBox1.TabIndex = 6;

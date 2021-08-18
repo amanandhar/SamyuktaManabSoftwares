@@ -29,6 +29,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetUserTransactions(memberId);
         }
 
+        public IEnumerable<UserTransaction> GetUserTransactions(long transactionId)
+        {
+            return _userTransactionRepository.GetUserTransactions(transactionId);
+        }
+
         public IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter deliveryPersonFilter)
         {
             return _userTransactionRepository.GetUserTransactions(deliveryPersonFilter);
@@ -61,7 +66,7 @@ namespace GrocerySupplyManagementApp.Services
 
         public UserTransaction GetUserTransaction(long userTransactionId)
         {
-            throw new NotImplementedException();
+            return _userTransactionRepository.GetUserTransaction(userTransactionId);
         }
         
         public UserTransaction GetUserTransaction(string invoiceNo)

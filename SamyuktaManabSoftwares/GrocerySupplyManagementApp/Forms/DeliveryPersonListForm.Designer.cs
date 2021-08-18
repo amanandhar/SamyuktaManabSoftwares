@@ -36,9 +36,9 @@ namespace GrocerySupplyManagementApp.Forms
             // DataGridDeliveryPersonList
             // 
             this.DataGridDeliveryPersonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(12, 12);
+            this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(12, 11);
             this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
-            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(510, 437);
+            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(510, 340);
             this.DataGridDeliveryPersonList.TabIndex = 0;
             this.DataGridDeliveryPersonList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridDeliveryPersonList_CellDoubleClick);
             this.DataGridDeliveryPersonList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridDeliveryPersonList_DataBindingComplete);
@@ -48,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(534, 461);
+            this.ClientSize = new System.Drawing.Size(534, 361);
             this.Controls.Add(this.DataGridDeliveryPersonList);
             this.Name = "DeliveryPersonListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

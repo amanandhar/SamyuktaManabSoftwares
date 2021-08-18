@@ -133,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelivery.Name = "BtnDelivery";
             this.BtnDelivery.Size = new System.Drawing.Size(250, 125);
             this.BtnDelivery.TabIndex = 25;
-            this.BtnDelivery.Text = "Delivery";
+            this.BtnDelivery.Text = "Delivery Person";
             this.BtnDelivery.UseVisualStyleBackColor = true;
             this.BtnDelivery.Click += new System.EventHandler(this.BtnDelivery_Click);
             // 

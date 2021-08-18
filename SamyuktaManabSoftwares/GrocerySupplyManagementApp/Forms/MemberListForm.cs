@@ -15,7 +15,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IMemberService _memberService;
         private readonly IUserTransactionService _userTransactionService;
-        private IMemberListForm _memberListForm;
+        private readonly IMemberListForm _memberListForm;
         private List<MemberView> _memberViewList = new List<MemberView>();
 
         #region Constructor
@@ -66,11 +66,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["AddedDate"].Visible = false;
 
             DataGridMemberList.Columns["MemberId"].HeaderText = "Member Id";
-            DataGridMemberList.Columns["MemberId"].Width = 90;
+            DataGridMemberList.Columns["MemberId"].Width = 100;
             DataGridMemberList.Columns["MemberId"].DisplayIndex = 0;
 
             DataGridMemberList.Columns["AccountNo"].HeaderText = "Account No";
-            DataGridMemberList.Columns["AccountNo"].Width = 90;
+            DataGridMemberList.Columns["AccountNo"].Width = 100;
             DataGridMemberList.Columns["AccountNo"].DisplayIndex = 1;
 
             DataGridMemberList.Columns["Name"].HeaderText = "Name";

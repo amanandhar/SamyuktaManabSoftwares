@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPricedItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridPricedItemList.Columns["SubCode"].HeaderText = "Sub Code";
-            DataGridPricedItemList.Columns["SubCode"].Width = 80;
+            DataGridPricedItemList.Columns["SubCode"].Width = 95;
             DataGridPricedItemList.Columns["SubCode"].DisplayIndex = 1;
 
             DataGridPricedItemList.Columns["Name"].HeaderText = "Name";

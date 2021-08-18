@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IMemberService _memberService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IEmployeeService _employeeService;
 
         private readonly string _endOfDay;
         public DashboardForm _dashboard;
@@ -46,8 +47,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public MemberForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
-            IMemberService memberService,  
-            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
+            IMemberService memberService, ISoldItemService soldItemService, 
+            IUserTransactionService userTransactionService, IEmployeeService employeeService,
             DashboardForm dashboardForm)
         {
             InitializeComponent();
@@ -58,6 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
             _memberService = memberService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _employeeService = employeeService;
             _dashboard = dashboardForm;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
@@ -261,7 +263,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var invoiceNo = selectedRow.Cells["InvoiceNo"].Value.ToString();
                 if(!string.IsNullOrWhiteSpace(invoiceNo))
                 {
-                    PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, invoiceNo);
+                    PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, _employeeService, invoiceNo);
                     posForm.Show();
                 }
             }
@@ -474,8 +476,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
         {
-            RichBalance.Text = _userTransactionService.GetMemberTotalBalance(RichMemberId.Text).ToString();
-            TxtBalanceStatus.Text = Convert.ToDecimal(RichBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
+            TxtBalance.Text = memberTransactionViewList.Sum(x => x.Balance).ToString();
+            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);
             var source = new BindingSource(bindingList, null);
@@ -499,7 +501,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichAddress.Clear();
             RichContactNumber.Clear();
             RichEmail.Clear();
-            RichBalance.Clear();
+            TxtBalance.Clear();
             ComboReceipt.Text = string.Empty;
             ComboBank.Text = string.Empty;
             RichAmount.Clear();

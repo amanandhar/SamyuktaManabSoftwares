@@ -374,7 +374,7 @@ namespace GrocerySupplyManagementApp.Forms
         private List<SupplierTransactionView> GetSupplierTransaction()
         {
             var balance = _userTransactionService.GetSupplierTotalBalance(RichSupplierId.Text);
-            RichBalance.Text = decimal.Negate(balance).ToString();
+            TxtBalance.Text = decimal.Negate(balance).ToString();
             if (balance < 0)
             {
                 TextBoxDebitCredit.Text = "Due";
