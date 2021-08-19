@@ -88,6 +88,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var companyInfo = new CompanyInfo
                 {
                     Name = RichCompanyName.Text,
+                    ShortName = RichShortName.Text,
                     Type = RichCompanyType.Text,
                     Address = RichAddress.Text,
                     ContactNo = Convert.ToInt64(RichContactNo.Text),
@@ -175,6 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichCompanyType.Text = companyInfo.Type;
             RichAddress.Text = companyInfo.Address;
             RichContactNo.Text = companyInfo.ContactNo.ToString();
+            RichShortName.Text = companyInfo.ShortName;
             RichEmailId.Text = companyInfo.EmailId;
             RichWebsite.Text = companyInfo.Website;
             RichFacebookPage.Text = companyInfo.FacebookPage;
@@ -193,6 +195,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichCompanyType.Clear();
             RichAddress.Clear();
             RichContactNo.Clear();
+            RichShortName.Clear();
             RichEmailId.Clear();
             RichWebsite.Clear();
             RichFacebookPage.Clear();
@@ -219,6 +222,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichCompanyType.Enabled = true;
                 RichAddress.Enabled = true;
                 RichContactNo.Enabled = true;
+                RichShortName.Enabled = true;
                 RichEmailId.Enabled = true;
                 RichWebsite.Enabled = true;
                 RichFacebookPage.Enabled = true;
@@ -238,6 +242,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichCompanyType.Enabled = false;
                 RichAddress.Enabled = false;
                 RichContactNo.Enabled = false;
+                RichShortName.Enabled = false;
                 RichEmailId.Enabled = false;
                 RichWebsite.Enabled = false;
                 RichFacebookPage.Enabled = false;

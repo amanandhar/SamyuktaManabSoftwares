@@ -160,23 +160,21 @@ namespace GrocerySupplyManagementApp.Forms
 
             StockFilter stockFilter = new StockFilter();
 
-            if (!CheckAllTransactions.Checked)
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
             {
-                var dateFrom = MaskEndOfDayFrom.Text;
-                var dateTo = MaskEndOfDayTo.Text;
-
-                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-                {
-                    stockFilter.DateFrom = dateFrom.Trim();
-                }
-
-                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-                {
-                    stockFilter.DateTo = dateTo.Trim();
-                }
-
-                stockFilter.ItemCode = ComboItemCode.Text;
+                stockFilter.DateFrom = dateFrom.Trim();
             }
+
+            if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
+            {
+                stockFilter.DateTo = dateTo.Trim();
+            }
+
+            stockFilter.ItemCode = ComboItemCode.Text;
+ 
 
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter).ToString();
             TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter).ToString();

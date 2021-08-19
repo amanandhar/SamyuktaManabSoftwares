@@ -49,6 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.RichFacebookPage = new System.Windows.Forms.RichTextBox();
             this.RichWebsite = new System.Windows.Forms.RichTextBox();
@@ -61,8 +62,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.OpenCompanyLogoDialog = new System.Windows.Forms.OpenFileDialog();
             this.BtnAddImage = new System.Windows.Forms.Button();
             this.BtnDeleteImage = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.RichShortName = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxCompanyLogo)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -293,7 +293,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.RichShortName);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.RichFacebookPage);
@@ -317,6 +317,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Company Info";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label11.Location = new System.Drawing.Point(379, 153);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(88, 18);
+            this.label11.TabIndex = 21;
+            this.label11.Text = "Short Name";
             // 
             // label10
             // 
@@ -441,25 +452,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.UseVisualStyleBackColor = true;
             this.BtnDeleteImage.Click += new System.EventHandler(this.BtnDeleteImage_Click);
             // 
-            // label11
+            // RichShortName
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(379, 153);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(88, 18);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "Short Name";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(473, 148);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(116, 31);
-            this.textBox2.TabIndex = 22;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RichShortName.Enabled = false;
+            this.RichShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichShortName.Location = new System.Drawing.Point(473, 146);
+            this.RichShortName.Name = "RichShortName";
+            this.RichShortName.Size = new System.Drawing.Size(116, 35);
+            this.RichShortName.TabIndex = 22;
+            this.RichShortName.Text = "";
             // 
             // CompanyInfoForm
             // 
@@ -524,6 +525,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnAddImage;
         private System.Windows.Forms.Button BtnDeleteImage;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.RichTextBox RichShortName;
     }
 }

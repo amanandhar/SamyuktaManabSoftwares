@@ -5,6 +5,7 @@ namespace GrocerySupplyManagementApp.Entities
     public class CompanyInfo
     {
         public string Name { get; set; }
+        public string ShortName { get; set; }
         public string Type { get; set; }
         public string Address { get; set; }
         public long ContactNo { get; set; }

@@ -182,8 +182,9 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransactionForSalesDiscount = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
-                        TransactionId = lastUserTransaction.Id,
+                        //TransactionId = lastUserTransaction.Id,
                         Action = Constants.EXPENSE,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.SALES_DISCOUNT,
@@ -209,8 +210,9 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransactionForDeliveryCharge = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
-                        TransactionId = lastUserTransaction.Id,
+                        //TransactionId = lastUserTransaction.Id,
                         Action = Constants.RECEIPT,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.DELIVERY_CHARGE,
@@ -705,20 +707,5 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
-
-        private void TxtDiscountTotal_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtDiscount_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtDiscountPercent_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

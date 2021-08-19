@@ -47,17 +47,21 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.BtnStaffMgmt = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnEndOfDayMgmt = new System.Windows.Forms.Button();
             this.BtnIncomeExpenseMgmt = new System.Windows.Forms.Button();
             this.BtnBankingMgmt = new System.Windows.Forms.Button();
             this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblCompanyShortName = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lblCompanyName = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnStockMgmt
@@ -311,28 +315,6 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(285, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1063, 47);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "                     Samyukta Manab Grocery Management";
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(7, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(272, 47);
-            this.textBox2.TabIndex = 12;
-            this.textBox2.Text = "        SMGM";
-            // 
             // BtnStaffMgmt
             // 
             this.BtnStaffMgmt.BackColor = System.Drawing.SystemColors.Highlight;
@@ -428,14 +410,56 @@
             this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.SystemColors.Highlight;
+            this.groupBox4.Controls.Add(this.lblCompanyShortName);
+            this.groupBox4.Location = new System.Drawing.Point(9, -2);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(270, 53);
+            this.groupBox4.TabIndex = 13;
+            this.groupBox4.TabStop = false;
+            // 
+            // lblCompanyShortName
+            // 
+            this.lblCompanyShortName.AutoSize = true;
+            this.lblCompanyShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompanyShortName.ForeColor = System.Drawing.Color.White;
+            this.lblCompanyShortName.Location = new System.Drawing.Point(64, 11);
+            this.lblCompanyShortName.Name = "lblCompanyShortName";
+            this.lblCompanyShortName.Size = new System.Drawing.Size(129, 39);
+            this.lblCompanyShortName.TabIndex = 0;
+            this.lblCompanyShortName.Text = "SMGM";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.BackColor = System.Drawing.SystemColors.Highlight;
+            this.groupBox5.Controls.Add(this.lblCompanyName);
+            this.groupBox5.Location = new System.Drawing.Point(286, -2);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(1061, 53);
+            this.groupBox5.TabIndex = 14;
+            this.groupBox5.TabStop = false;
+            // 
+            // lblCompanyName
+            // 
+            this.lblCompanyName.AutoSize = true;
+            this.lblCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompanyName.ForeColor = System.Drawing.Color.White;
+            this.lblCompanyName.Location = new System.Drawing.Point(210, 11);
+            this.lblCompanyName.Name = "lblCompanyName";
+            this.lblCompanyName.Size = new System.Drawing.Size(665, 39);
+            this.lblCompanyName.TabIndex = 0;
+            this.lblCompanyName.Text = "Samyukta Manab Grocery Management";
+            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1354, 691);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -447,8 +471,11 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -468,8 +495,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnStockMgmt;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button BtnStaffMgmt;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox RichBoxFiscalYear;
@@ -479,6 +504,10 @@
         private System.Windows.Forms.Button BtnBankingMgmt;
         private System.Windows.Forms.Button BtnIncomeExpenseMgmt;
         private System.Windows.Forms.Button BtnEndOfDayMgmt;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label lblCompanyShortName;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label lblCompanyName;
     }
 }
 

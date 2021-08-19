@@ -19,7 +19,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var companyInfo = new CompanyInfo();
             var query = @"SELECT " +
-                "[Name], [Type], [Address], [ContactNo], " +
+                "[Name], [ShortName], [Type], [Address], [ContactNo], " +
                 "[EmailId], [Website], [FacebookPage], [RegistrationNo], " +
                 "[RegistrationDate], [PanVatNo], [LogoPath], [AddedDate] " +
                 "FROM " + Constants.TABLE_COMPANY_INFO + " " +
@@ -39,6 +39,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 while (reader.Read())
                                 {
                                     companyInfo.Name = reader["Name"].ToString();
+                                    companyInfo.ShortName = reader["ShortName"].ToString();
                                     companyInfo.Type = reader["Type"].ToString();
                                     companyInfo.Address =reader["Address"].ToString();
                                     companyInfo.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
@@ -69,13 +70,13 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " +
                     " " + Constants.TABLE_COMPANY_INFO + " " +
                     "( " +
-                        "[Name], [Type], [Address], [ContactNo], " +
+                        "[Name], [ShortName], [Type], [Address], [ContactNo], " +
                         "[EmailId], [Website], [FacebookPage], [RegistrationNo], " +
                         "[RegistrationDate], [PanVatNo], [LogoPath], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @Type, @Address, @ContactNo, " +
+                        "@Name, @ShortName, @Type, @Address, @ContactNo, " +
                         "@EmailId, @Website, @FacebookPage, @RegistrationNo, " +
                         "@RegistrationDate, @PanVatNo, @LogoPath, @AddedDate " +
                     ") ";
@@ -87,6 +88,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", ((object)companyInfo.Name) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ShortName", ((object)companyInfo.ShortName) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Type", ((object)companyInfo.Type) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Address", ((object)companyInfo.Address) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ContactNo", ((object)companyInfo.ContactNo) ?? DBNull.Value);

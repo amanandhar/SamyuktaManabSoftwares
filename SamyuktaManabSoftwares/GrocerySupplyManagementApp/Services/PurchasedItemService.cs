@@ -61,16 +61,6 @@ namespace GrocerySupplyManagementApp.Services
 
         public long GetPurchasedItemTotalQuantity(StockFilter stockFilter)
         {
-            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
-            {
-                stockFilter.DateFrom = null;
-                stockFilter.DateTo = null;
-            }
-            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo))
-            {
-                stockFilter.DateTo += " 23:59:59.999";
-            }
-
             return _purchasedItemRepository.GetPurchasedItemTotalQuantity(stockFilter);
         }
 

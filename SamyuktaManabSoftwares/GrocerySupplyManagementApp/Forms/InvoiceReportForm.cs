@@ -4,6 +4,7 @@ using Microsoft.Reporting.WinForms;
 using System;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -117,7 +118,12 @@ namespace GrocerySupplyManagementApp.Forms
             ReportDataSource reportDataSource = new ReportDataSource("Invoice", invoiceDataTable);
 
             this.reportViewerInvoice.LocalReport.EnableExternalImages = true;
-            var logoPath = new Uri(companyInfo.LogoPath).AbsoluteUri;
+            var logoPath = string.Empty;
+            if(File.Exists(companyInfo.LogoPath))
+            {
+                logoPath = new Uri(companyInfo.LogoPath).AbsoluteUri;
+            }
+
             ReportParameter parameter = new ReportParameter();
             parameter.Name = "LogoPath";
             parameter.Values.Add(logoPath);

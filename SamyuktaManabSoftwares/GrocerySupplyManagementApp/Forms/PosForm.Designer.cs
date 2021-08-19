@@ -502,7 +502,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtDiscountPercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtDiscountPercent.Size = new System.Drawing.Size(53, 29);
             this.TxtDiscountPercent.TabIndex = 40;
-            this.TxtDiscountPercent.TextChanged += new System.EventHandler(this.TxtDiscountPercent_TextChanged);
             // 
             // TxtDeliveryChargeTotal
             // 
@@ -521,7 +520,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtDiscountTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtDiscountTotal.Size = new System.Drawing.Size(100, 29);
             this.TxtDiscountTotal.TabIndex = 38;
-            this.TxtDiscountTotal.TextChanged += new System.EventHandler(this.TxtDiscountTotal_TextChanged);
             // 
             // TxtGrandTotal
             // 

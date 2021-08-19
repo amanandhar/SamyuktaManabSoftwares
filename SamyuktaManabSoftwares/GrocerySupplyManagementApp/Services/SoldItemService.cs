@@ -32,31 +32,11 @@ namespace GrocerySupplyManagementApp.Services
 
         public long GetSoldItemTotalQuantity(StockFilter stockFilter)
         {
-            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
-            {
-                stockFilter.DateFrom = null;
-                stockFilter.DateTo = null;
-            }
-            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo))
-            {
-                stockFilter.DateTo += " 23:59:59.999";
-            }
-
             return _soldItemRepository.GetSoldItemTotalQuantity(stockFilter);
         }
 
         public decimal GetSoldItemTotalAmount(StockFilter stockFilter)
         {
-            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
-            {
-                stockFilter.DateFrom = null;
-                stockFilter.DateTo = null;
-            }
-            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo) && !stockFilter.DateTo.Contains("23:59:59.999"))
-            {
-                stockFilter.DateTo += " 23:59:59.999";
-            }
-
             return _soldItemRepository.GetSoldItemTotalAmount(stockFilter);
         }
 

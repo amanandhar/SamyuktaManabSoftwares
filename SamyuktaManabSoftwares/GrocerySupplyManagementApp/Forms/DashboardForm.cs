@@ -62,6 +62,10 @@ namespace GrocerySupplyManagementApp.Forms
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             LoadFiscalYear();
+
+            var companyInfo = _companyInfoService.GetCompanyInfo();
+            lblCompanyShortName.Text = companyInfo.ShortName;
+            lblCompanyName.Text = companyInfo.Name;
         }
         #endregion
 
