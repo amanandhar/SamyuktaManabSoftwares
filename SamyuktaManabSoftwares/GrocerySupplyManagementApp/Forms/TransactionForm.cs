@@ -305,10 +305,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Quantity"].DisplayIndex = 7;
             DataGridTransactionList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridTransactionList.Columns["ItemPrice"].HeaderText = "Item Price";
-            DataGridTransactionList.Columns["ItemPrice"].Width = 80;
-            DataGridTransactionList.Columns["ItemPrice"].DisplayIndex = 8;
-            DataGridTransactionList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridTransactionList.Columns["SalesPrice"].HeaderText = "Sales Price";
+            DataGridTransactionList.Columns["SalesPrice"].Width = 80;
+            DataGridTransactionList.Columns["SalesPrice"].DisplayIndex = 8;
+            DataGridTransactionList.Columns["SalesPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridTransactionList.Columns["Amount"].HeaderText = "Amount";
             DataGridTransactionList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;

@@ -679,6 +679,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDeliveryChargeTotal.Text = (userTransaction.SubTotal - userTransaction.Discount + userTransaction.Vat + userTransaction.DeliveryCharge).ToString();
                 TxtGrandTotal.Text = userTransaction.DueAmount.ToString();
                 RichReceivedAmount.Text = userTransaction.ReceivedAmount.ToString();
+                RichBalanceAmount.Text = (userTransaction.DueAmount - userTransaction.ReceivedAmount).ToString();
             }
             catch(Exception ex)
             {

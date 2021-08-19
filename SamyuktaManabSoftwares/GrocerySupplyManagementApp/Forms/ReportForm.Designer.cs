@@ -29,7 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnShareCapital = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.BtnBalanceSheetForm = new System.Windows.Forms.Button();
             this.BtnProfitLossForm = new System.Windows.Forms.Button();
@@ -41,16 +41,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // BtnShareCapital
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(63, 52);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(250, 125);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Share Capital";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnShareCapital.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShareCapital.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShareCapital.Location = new System.Drawing.Point(63, 52);
+            this.BtnShareCapital.Name = "BtnShareCapital";
+            this.BtnShareCapital.Size = new System.Drawing.Size(250, 125);
+            this.BtnShareCapital.TabIndex = 0;
+            this.BtnShareCapital.Text = "Share Capital";
+            this.BtnShareCapital.UseVisualStyleBackColor = true;
+            this.BtnShareCapital.Click += new System.EventHandler(this.BtnShareCapital_Click);
             // 
             // textBox1
             // 
@@ -170,7 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.button9);
             this.Controls.Add(this.BtnProfitLossForm);
             this.Controls.Add(this.BtnBalanceSheetForm);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnShareCapital);
             this.Controls.Add(this.textBox1);
             this.Name = "ReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -181,7 +182,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnShareCapital;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button BtnBalanceSheetForm;
         private System.Windows.Forms.Button BtnProfitLossForm;

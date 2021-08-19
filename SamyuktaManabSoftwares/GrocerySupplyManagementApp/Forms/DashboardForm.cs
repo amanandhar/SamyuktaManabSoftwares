@@ -162,17 +162,16 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
             ReportForm reportForm = new ReportForm(_fiscalYearService, _bankService, 
-                _bankTransactionService, _purchasedItemService,
-                _soldItemService, _userTransactionService,
+                _bankTransactionService, _userTransactionService,
                 _stockService
                 );
             reportForm.Show();
         }
 
-        private void BtnStaffMgmt_Click(object sender, EventArgs e)
+        private void BtnEmployeeMgmt_Click(object sender, EventArgs e)
         {
-            EmployeeForm staffForm = new EmployeeForm(_employeeService);
-            staffForm.Show();
+            EmployeeForm employeeForm = new EmployeeForm(_employeeService);
+            employeeForm.Show();
         }
 
         private void BtnEndOfDayMgmt_Click(object sender, EventArgs e)
@@ -231,5 +230,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        
     }
 }

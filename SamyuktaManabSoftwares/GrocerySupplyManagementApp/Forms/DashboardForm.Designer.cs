@@ -47,7 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.BtnStaffMgmt = new System.Windows.Forms.Button();
+            this.BtnEmployeeMgmt = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnEndOfDayMgmt = new System.Windows.Forms.Button();
             this.BtnIncomeExpenseMgmt = new System.Windows.Forms.Button();
@@ -315,22 +315,22 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
-            // BtnStaffMgmt
+            // BtnEmployeeMgmt
             // 
-            this.BtnStaffMgmt.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnStaffMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnStaffMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnStaffMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnStaffMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnStaffMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnStaffMgmt.ForeColor = System.Drawing.Color.White;
-            this.BtnStaffMgmt.Location = new System.Drawing.Point(15, 494);
-            this.BtnStaffMgmt.Name = "BtnStaffMgmt";
-            this.BtnStaffMgmt.Size = new System.Drawing.Size(240, 37);
-            this.BtnStaffMgmt.TabIndex = 10;
-            this.BtnStaffMgmt.Text = "Employee Management";
-            this.BtnStaffMgmt.UseVisualStyleBackColor = false;
-            this.BtnStaffMgmt.Click += new System.EventHandler(this.BtnStaffMgmt_Click);
+            this.BtnEmployeeMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnEmployeeMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnEmployeeMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnEmployeeMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnEmployeeMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEmployeeMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEmployeeMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnEmployeeMgmt.Location = new System.Drawing.Point(15, 494);
+            this.BtnEmployeeMgmt.Name = "BtnEmployeeMgmt";
+            this.BtnEmployeeMgmt.Size = new System.Drawing.Size(240, 37);
+            this.BtnEmployeeMgmt.TabIndex = 10;
+            this.BtnEmployeeMgmt.Text = "Employee Management";
+            this.BtnEmployeeMgmt.UseVisualStyleBackColor = false;
+            this.BtnEmployeeMgmt.Click += new System.EventHandler(this.BtnEmployeeMgmt_Click);
             // 
             // groupBox1
             // 
@@ -341,7 +341,7 @@
             this.groupBox1.Controls.Add(this.BtnReportsMgmt);
             this.groupBox1.Controls.Add(this.BtnSettingMgmt);
             this.groupBox1.Controls.Add(this.BtnStockMgmt);
-            this.groupBox1.Controls.Add(this.BtnStaffMgmt);
+            this.groupBox1.Controls.Add(this.BtnEmployeeMgmt);
             this.groupBox1.Controls.Add(this.BtnPosMgmt);
             this.groupBox1.Controls.Add(this.BtnMemberMgmt);
             this.groupBox1.Controls.Add(this.BtnSummaryMgmt);
@@ -495,7 +495,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnStockMgmt;
-        private System.Windows.Forms.Button BtnStaffMgmt;
+        private System.Windows.Forms.Button BtnEmployeeMgmt;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox RichBoxFiscalYear;
         private System.Windows.Forms.RichTextBox RichBoxTime;

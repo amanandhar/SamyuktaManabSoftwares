@@ -80,6 +80,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " b " +
                 "ON a.[InvoiceNo] = b.[InvoiceNo] " +
+                "AND ISNULL(b.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " c " +
                 "ON a.[ItemId] = c.[Id] " +
                 "WHERE 1 = 1 " +

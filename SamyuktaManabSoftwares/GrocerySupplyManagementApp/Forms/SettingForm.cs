@@ -91,8 +91,13 @@ namespace GrocerySupplyManagementApp.Forms
             TaxSetupForm taxSetupForm = new TaxSetupForm(_taxService);
             taxSetupForm.Show();
         }
-        #endregion
 
-        
+        private void BtnSetup_Click(object sender, EventArgs e)
+        {
+            SetupForm setupForm = new SetupForm();
+            setupForm.ShowDialog();
+        }
+
+        #endregion
     }
 }

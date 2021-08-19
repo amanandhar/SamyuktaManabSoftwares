@@ -240,15 +240,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = 'Cheque' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
                 "[InvoiceNo], [DueAmount], [ReceivedAmount], " +
-                "(SELECT SUM(ISNULL(b.[DueAmount],0) - ISNULL(b.[ReceivedAmount],0)) " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "WHERE b.[AddedDate] <= a.[AddedDate] AND [MemberId] = @MemberId " +
-                "AND ISNULL(b.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
-                ") AS Balance " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
+                "(ISNULL([DueAmount],0) - ISNULL([ReceivedAmount],0))  AS Balance " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] = @MemberId " +
-                "AND ISNULL(a.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
                 "ORDER BY [Id] ";
 
             try
@@ -570,7 +566,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [Id] = @Id ";
+                "AND [Id] = @Id " +
+                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
 
             try
             {
@@ -628,7 +625,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [InvoiceNo] = @InvoiceNo ";
+                "AND [InvoiceNo] = @InvoiceNo " +
+                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
 
             try
             {
@@ -785,7 +783,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] IS NOT NULL " +
-                "AND [InvoiceNo] IS NOT NULL ";
+                "AND [InvoiceNo] IS NOT NULL " +
+                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
 
             try
             {
@@ -818,8 +817,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] = @MemberId " +
-                "AND [InvoiceNo] IS NOT NULL ";
-            
+                "AND [InvoiceNo] IS NOT NULL " +
+                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -1290,12 +1290,15 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NULL THEN ut.[ActionType] " +
                 "ELSE ut.[ActionType] END AS [ActionType], " +
                 "CASE WHEN ut.[MemberId] IS NULL THEN ut.[BillNo] ELSE ut.[InvoiceNo] END AS [InvoiceBillNo], " +
-                "i.[Code], i.[Name], si.[Quantity], si.[Price] AS [ItemPrice], " +
+                "i.[Code], i.[Name], si.[Quantity], " +
+                "CASE " +
+                "WHEN ut.[Action]='" + Constants.SALES + "' THEN ut.[DueAmount] " +
+                "ELSE 0.00 END AS [SalesPrice], " +
                 "CASE " +
                 "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
                 "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
-                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
-                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
+                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
@@ -1387,7 +1390,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemCode = reader.IsDBNull(6) ? string.Empty : reader["Code"].ToString(),
                                     ItemName = reader.IsDBNull(7) ? string.Empty : reader["Name"].ToString(),
                                     Quantity = reader.IsDBNull(8) ? 0 : Convert.ToInt32(reader["Quantity"].ToString()),
-                                    ItemPrice = reader.IsDBNull(9) ? 0.00m : Convert.ToDecimal(reader["ItemPrice"].ToString()),
+                                    SalesPrice = reader.IsDBNull(9) ? 0.00m : Convert.ToDecimal(reader["SalesPrice"].ToString()),
                                     Amount = reader.IsDBNull(10) ? 0.00m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };
 

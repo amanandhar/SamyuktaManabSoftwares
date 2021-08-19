@@ -9,15 +9,12 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IFiscalYearService _fiscalYearService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
 
         #region Constructor
         public ReportForm(IFiscalYearService fiscalYearService,
-            IBankService bankService, IBankTransactionService bankTransactionService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
+            IBankService bankService, IBankTransactionService bankTransactionService, 
             IUserTransactionService userTransactionService, IStockService stockService
             )
         {
@@ -26,8 +23,6 @@ namespace GrocerySupplyManagementApp.Forms
             _fiscalYearService = fiscalYearService;
             _bankTransactionService = bankTransactionService;
             _bankService = bankService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
         }
@@ -41,6 +36,12 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
+
+        private void BtnShareCapital_Click(object sender, EventArgs e)
+        {
+            ShareMemberForm shareMemberForm = new ShareMemberForm();
+            shareMemberForm.ShowDialog();
+        }
 
         private void BtnProfitLossForm_Click(object sender, EventArgs e)
         {
@@ -83,5 +84,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
     }
 }
