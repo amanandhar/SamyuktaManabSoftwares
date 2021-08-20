@@ -221,6 +221,7 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
+                        DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
                         Action = Constants.RECEIPT,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.DELIVERY_CHARGE,
@@ -403,7 +404,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 try
                 {
-                    var codes = RichItemCode.Text.Replace("\n", "").Split('/');
+                    var codes = RichItemCode.Text.Replace("\n", "").Split('-');
                     var itemCode = codes[0];
                     var itemSubCode = codes[1];
                     var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
@@ -424,7 +425,7 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    RichItemCode.Text = item.Code + "/" + pricedItem.ItemSubCode;
+                    RichItemCode.Text = item.Code + "-" + pricedItem.ItemSubCode;
                     TxtItemName.Text = item.Name;
                     TxtItemBrand.Text = item.Brand;
                     TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
@@ -556,7 +557,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _soldItemViewList.Add(new SoldItemView
                 {
                     Id = DataGridSoldItemList.RowCount,
-                    ItemCode = RichItemCode.Text,
+                    ItemCode = RichItemCode.Text.Split('-')[0],
                     ItemName = TxtItemName.Text,
                     ItemBrand = TxtItemBrand.Text,
                     Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
@@ -565,7 +566,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
                     Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
                     AddedDate = DateTime.Now
-                });
+                }); ;
 
                 LoadItems(_soldItemViewList);
 
@@ -674,7 +675,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                RichItemCode.Text = item.Code + "/" + pricedItem.ItemSubCode;
+                RichItemCode.Text = item.Code + "-" + pricedItem.ItemSubCode;
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();

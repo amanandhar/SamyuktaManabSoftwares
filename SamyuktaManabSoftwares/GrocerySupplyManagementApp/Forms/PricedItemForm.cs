@@ -115,6 +115,10 @@ namespace GrocerySupplyManagementApp.Forms
                         File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
                 }
+                else
+                {
+                    destinationFilePath = PicBoxItemImage.ImageLocation;
+                }
 
                 var date = DateTime.Now;
                 var pricedItem = new PricedItem

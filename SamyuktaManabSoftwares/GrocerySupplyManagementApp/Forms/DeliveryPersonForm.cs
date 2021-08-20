@@ -84,8 +84,8 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["Vat"].Visible = false;
             DataGridDeliveryPersonList.Columns["VatPercent"].Visible = false;
             DataGridDeliveryPersonList.Columns["DeliveryChargePercent"].Visible = false;
+            DataGridDeliveryPersonList.Columns["DeliveryCharge"].Visible = false;
             DataGridDeliveryPersonList.Columns["DueAmount"].Visible = false;
-            DataGridDeliveryPersonList.Columns["ReceivedAmount"].Visible = false;
             DataGridDeliveryPersonList.Columns["AddedDate"].Visible = false;
             DataGridDeliveryPersonList.Columns["UpdatedDate"].Visible = false;
 
@@ -101,10 +101,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["InvoiceNo"].Width = 100;
             DataGridDeliveryPersonList.Columns["InvoiceNo"].DisplayIndex = 2;
 
-            DataGridDeliveryPersonList.Columns["DeliveryCharge"].HeaderText = "Delivery Charge";
-            DataGridDeliveryPersonList.Columns["DeliveryCharge"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridDeliveryPersonList.Columns["DeliveryCharge"].DisplayIndex = 3;
-            DataGridDeliveryPersonList.Columns["DeliveryCharge"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridDeliveryPersonList.Columns["ReceivedAmount"].HeaderText = "Delivery Charge";
+            DataGridDeliveryPersonList.Columns["ReceivedAmount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridDeliveryPersonList.Columns["ReceivedAmount"].DisplayIndex = 3;
+            DataGridDeliveryPersonList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridDeliveryPersonList.Rows)
             {
@@ -127,7 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var userTransations = _userTransactionService.GetUserTransactions(deliveryPersonFilter);
 
-            TxtAmount.Text = userTransations.ToList().Sum(x => x.DeliveryCharge).ToString();
+            TxtAmount.Text = userTransations.ToList().Sum(x => x.ReceivedAmount).ToString();
 
             var bindingList = new BindingList<UserTransaction>(userTransations.ToList());
             var source = new BindingSource(bindingList, null);

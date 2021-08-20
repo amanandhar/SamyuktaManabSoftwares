@@ -14,7 +14,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IReportService _reportService;
 
-        private string _invoiceNo;
+        private readonly string _invoiceNo;
         private int _pageMarginLeft;
         private int _pageMarginRight;
         private int _pageMarginTop;
@@ -124,8 +124,10 @@ namespace GrocerySupplyManagementApp.Forms
                 logoPath = new Uri(companyInfo.LogoPath).AbsoluteUri;
             }
 
-            ReportParameter parameter = new ReportParameter();
-            parameter.Name = "LogoPath";
+            ReportParameter parameter = new ReportParameter
+            {
+                Name = "LogoPath"
+            };
             parameter.Values.Add(logoPath);
             this.reportViewerInvoice.LocalReport.SetParameters(parameter);
 
