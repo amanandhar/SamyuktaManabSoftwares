@@ -133,6 +133,16 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                if(string.IsNullOrWhiteSpace(ComboDeliveryPerson.Text) && TxtDeliveryChargePercent.Text != "0.00")
+                {
+                    DialogResult dialogResult = MessageBox.Show("Please fill the following fields: \n Delivery Person",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if(dialogResult == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+
                 var date = DateTime.Now;
                 _soldItemViewList.ForEach(x =>
                 {
@@ -184,7 +194,6 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
-                        //TransactionId = lastUserTransaction.Id,
                         Action = Constants.EXPENSE,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.SALES_DISCOUNT,
@@ -212,7 +221,6 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
-                        //TransactionId = lastUserTransaction.Id,
                         Action = Constants.RECEIPT,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                         IncomeExpense = Constants.DELIVERY_CHARGE,
@@ -380,6 +388,66 @@ namespace GrocerySupplyManagementApp.Forms
             BtnAddItem.Enabled = true;
         }
 
+        private void RichMemberId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                var memberId = RichMemberId.Text.Replace("\n", "");
+                PopulateMember(memberId);
+            }
+        }
+
+        private void RichItemCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                try
+                {
+                    var codes = RichItemCode.Text.Replace("\n", "").Split('/');
+                    var itemCode = codes[0];
+                    var itemSubCode = codes[1];
+                    var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
+                    var item = _itemService.GetItem(pricedItem.ItemId);
+                    StockFilter filter = new StockFilter
+                    {
+                        ItemCode = item.Code
+                    };
+
+                    var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
+                    if (stock < item.Threshold)
+                    {
+                        DialogResult result = MessageBox.Show("Stock is low. \nPlease add more stock.",
+                            "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (result == DialogResult.OK)
+                        {
+                            TxtItemStock.ForeColor = Color.Red;
+                        }
+                    }
+
+                    RichItemCode.Text = item.Code + "/" + pricedItem.ItemSubCode;
+                    TxtItemName.Text = item.Name;
+                    TxtItemBrand.Text = item.Brand;
+                    TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
+
+                    TxtItemStock.Text = stock.ToString();
+                    TxtItemUnit.Text = item.Unit;
+                    TxtProfitAmount.Text = pricedItem.Profit.ToString();
+                    if (File.Exists(pricedItem.ImagePath))
+                    {
+                        PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
+                    }
+
+                    RichItemQuantity.Enabled = true;
+                    RichItemQuantity.Focus();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
+        }
+
         #endregion
 
         #region Radio Buttons Event
@@ -527,7 +595,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllItemFields()
         {
             RichItemCode.Clear();
-            RichItemSubCode.Clear();
             TxtItemName.Clear();
             TxtItemBrand.Clear();
             TxtItemPrice.Clear();
@@ -607,8 +674,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                RichItemCode.Text = item.Code;
-                RichItemSubCode.Text = pricedItem.ItemSubCode;
+                RichItemCode.Text = item.Code + "/" + pricedItem.ItemSubCode;
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();

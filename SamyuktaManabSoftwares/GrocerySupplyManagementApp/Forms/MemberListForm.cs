@@ -130,7 +130,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region 
+        #region Rich Textbox Event
         private void RichSearchMemberName_KeyUp(object sender, KeyEventArgs e)
         {
             SearchMembers();

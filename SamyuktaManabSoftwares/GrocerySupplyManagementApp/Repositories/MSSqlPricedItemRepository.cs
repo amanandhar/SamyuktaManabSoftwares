@@ -118,6 +118,69 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return pricedItem;
         }
+        
+        public PricedItem GetPricedItem(string itemCode, string itemSubCode)
+        {
+            var query = @"SELECT " +
+                "pi.[Id], pi.[ItemId], pi.[ItemSubCode], " +
+                "pi.[Price], pi.[Quantity], pi.[TotalPrice], " +
+                "pi.[ProfitPercent], pi.[Profit], pi.[SalesPrice], " +
+                "pi.[ImagePath], pi.[SalesPricePerUnit], pi.[AddedDate], pi.[UpdatedDate] " +
+                "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON pi.[ItemId] = i.[Id] " +
+                "WHERE 1 = 1 ";
+
+            if(!string.IsNullOrWhiteSpace(itemCode))
+            {
+                query += "AND i.[Code] = @Code ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(itemSubCode))
+            {
+                query += "AND pi.[ItemSubCode] = @ItemSubCode ";
+            }
+
+            var pricedItem = new PricedItem();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Code", itemCode);
+                        command.Parameters.AddWithValue("@ItemSubCode", itemSubCode);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
+                                pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
+                                pricedItem.ItemSubCode = reader["ItemSubCode"].ToString();
+                                pricedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
+                                pricedItem.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
+                                pricedItem.TotalPrice = Convert.ToDecimal(reader["TotalPrice"].ToString());
+                                pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
+                                pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
+                                pricedItem.SalesPrice = Convert.ToDecimal(reader["SalesPrice"].ToString());
+                                pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
+                                pricedItem.ImagePath = reader["ImagePath"].ToString();
+                                pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                pricedItem.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return pricedItem;
+        }
 
         public IEnumerable<PricedItemView> GetPricedItemViewList()
         {
