@@ -57,10 +57,10 @@ namespace GrocerySupplyManagementApp.Forms
                     filter.DateTo = dateTo.Trim();
                 }
 
-                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE}).ToList().Sum(x => x.Total);
-                var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Total);
-                var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Total);
-                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Total);
+                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE}).ToList().Sum(x => x.Amount);
+                var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Amount);
+                var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Amount);
+                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Amount);
                 var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);

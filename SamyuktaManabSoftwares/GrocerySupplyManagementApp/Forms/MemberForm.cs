@@ -360,7 +360,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             filter.Action = action;
             var memberTransactionViewList = GetMemberTransactions(filter);
-            TxtAmount.Text = memberTransactionViewList.Sum(x => x.Balance).ToString();
+            TxtAmount.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
             LoadMemberTransactions(memberTransactionViewList);
         }
 
@@ -439,12 +439,12 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["InvoiceNo"].Width = 100;
             DataGridMemberList.Columns["InvoiceNo"].DisplayIndex = 3;
 
-            DataGridMemberList.Columns["DueAmount"].HeaderText = "Credit";
+            DataGridMemberList.Columns["DueAmount"].HeaderText = "Debit";
             DataGridMemberList.Columns["DueAmount"].Width = 100;
             DataGridMemberList.Columns["DueAmount"].DisplayIndex = 4;
             DataGridMemberList.Columns["DueAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridMemberList.Columns["ReceivedAmount"].HeaderText = "Debit";
+            DataGridMemberList.Columns["ReceivedAmount"].HeaderText = "Credit";
             DataGridMemberList.Columns["ReceivedAmount"].Width = 100;
             DataGridMemberList.Columns["ReceivedAmount"].DisplayIndex = 5;
             DataGridMemberList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -476,7 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
         {
-            TxtBalance.Text = memberTransactionViewList.Sum(x => x.Balance).ToString();
+            TxtBalance.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
             TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);

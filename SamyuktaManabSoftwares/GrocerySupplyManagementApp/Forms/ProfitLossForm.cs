@@ -122,18 +122,18 @@ namespace GrocerySupplyManagementApp.Forms
                     DateFrom = dateFrom,
                     DateTo = dateTo,
                     Income = Constants.DELIVERY_CHARGE
-                }).ToList().Sum(x => x.Total);
+                }).ToList().Sum(x => x.Amount);
                 var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter(){
                     DateFrom = dateFrom,
                     DateTo = dateTo,
                     Income = Constants.MEMBER_FEE
-                }).ToList().Sum(x => x.Total);
+                }).ToList().Sum(x => x.Amount);
                 var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter(){
                     DateFrom = dateFrom,
                     DateTo = dateTo,
                     Income = Constants.OTHER_INCOME
-                }).ToList().Sum(x => x.Total);
-                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Total);
+                }).ToList().Sum(x => x.Amount);
+                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Amount);
                 _totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>

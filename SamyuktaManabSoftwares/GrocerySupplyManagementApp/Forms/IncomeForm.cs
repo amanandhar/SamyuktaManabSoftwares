@@ -164,7 +164,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
-            DataGridIncomeList.Columns["InvoiceNo"].Width = 100;
+            DataGridIncomeList.Columns["InvoiceNo"].Width = 125;
             DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 1;
 
             DataGridIncomeList.Columns["ItemCode"].HeaderText = "Code";
@@ -176,7 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["ItemName"].DisplayIndex = 3;
 
             DataGridIncomeList.Columns["ItemBrand"].HeaderText = "Brand";
-            DataGridIncomeList.Columns["ItemBrand"].Width = 200;
+            DataGridIncomeList.Columns["ItemBrand"].Width = 175;
             DataGridIncomeList.Columns["ItemBrand"].DisplayIndex = 4;
 
             DataGridIncomeList.Columns["Quantity"].HeaderText = "Quantity";
@@ -189,10 +189,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["Profit"].DisplayIndex = 6;
             DataGridIncomeList.Columns["Profit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridIncomeList.Columns["Total"].HeaderText = "Total";
-            DataGridIncomeList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridIncomeList.Columns["Total"].DisplayIndex = 7;
-            DataGridIncomeList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridIncomeList.Columns["Amount"].HeaderText = "Amount";
+            DataGridIncomeList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridIncomeList.Columns["Amount"].DisplayIndex = 7;
+            DataGridIncomeList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridIncomeList.Rows)
             {
@@ -246,7 +246,7 @@ namespace GrocerySupplyManagementApp.Forms
                 incomeDetails.AddRange(_userTransactionService.GetSalesProfit().ToList());
             }
 
-            TxtAmount.Text = (incomeDetails.Sum(x => x.Total)).ToString();
+            TxtTotalAmount.Text = (incomeDetails.Sum(x => x.Amount)).ToString();
 
             var bindingList = new BindingList<IncomeDetailView>(incomeDetails);
             var source = new BindingSource(bindingList, null);

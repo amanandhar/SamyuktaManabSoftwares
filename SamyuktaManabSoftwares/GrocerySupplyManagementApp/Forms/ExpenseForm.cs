@@ -209,11 +209,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Action"].DisplayIndex = 1;
 
             DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
-            DataGridExpenseList.Columns["ActionType"].Width = 200;
+            DataGridExpenseList.Columns["ActionType"].Width = 300;
             DataGridExpenseList.Columns["ActionType"].DisplayIndex = 2;
 
             DataGridExpenseList.Columns["Expense"].HeaderText = "Expense";
-            DataGridExpenseList.Columns["Expense"].Width = 100;
+            DataGridExpenseList.Columns["Expense"].Width = 150;
             DataGridExpenseList.Columns["Expense"].DisplayIndex = 3;
 
             DataGridExpenseList.Columns["DueAmount"].HeaderText = "Debit";
@@ -226,10 +226,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["ReceivedAmount"].DisplayIndex = 5;
             DataGridExpenseList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridExpenseList.Columns["Balance"].HeaderText = "Balance";
-            DataGridExpenseList.Columns["Balance"].DisplayIndex = 6;
-            DataGridExpenseList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridExpenseList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridExpenseList.Columns["Amount"].HeaderText = "Amount";
+            DataGridExpenseList.Columns["Amount"].DisplayIndex = 6;
+            DataGridExpenseList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridExpenseList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridExpenseList.Rows)
             {
@@ -248,7 +248,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 List<ExpenseTransactionView> expenseTransactionViews = _userTransactionService.GetExpenseTransactions(expenseTransaction).ToList();
 
-                TxtTotalAmount.Text = expenseTransactionViews.Sum(x => x.DueAmount).ToString();
+                TxtTotalAmount.Text = expenseTransactionViews.Sum(x => x.Amount).ToString();
 
                 var bindingList = new BindingList<ExpenseTransactionView>(expenseTransactionViews);
                 var source = new BindingSource(bindingList, null);

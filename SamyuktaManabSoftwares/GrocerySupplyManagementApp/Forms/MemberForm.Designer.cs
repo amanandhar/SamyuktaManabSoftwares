@@ -100,7 +100,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboAction.FormattingEnabled = true;
             this.ComboAction.Items.AddRange(new object[] {
             "Sales",
-            "Reciept"});
+            "Receipt"});
             this.ComboAction.Location = new System.Drawing.Point(473, 498);
             this.ComboAction.Name = "ComboAction";
             this.ComboAction.Size = new System.Drawing.Size(120, 26);

@@ -29,8 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.ComboBank = new System.Windows.Forms.ComboBox();
@@ -39,7 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.RichAddAmount = new System.Windows.Forms.RichTextBox();
-            this.TxtAmount = new System.Windows.Forms.TextBox();
+            this.TxtTotalAmount = new System.Windows.Forms.TextBox();
             this.ComboAddIncome = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -67,7 +67,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.RichAddAmount);
-            this.groupBox3.Controls.Add(this.TxtAmount);
+            this.groupBox3.Controls.Add(this.TxtTotalAmount);
             this.groupBox3.Controls.Add(this.ComboAddIncome);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label9);
@@ -152,15 +152,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAddAmount.TabIndex = 17;
             this.RichAddAmount.Text = "";
             // 
-            // TxtAmount
+            // TxtTotalAmount
             // 
-            this.TxtAmount.Enabled = false;
-            this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAmount.Location = new System.Drawing.Point(356, 68);
-            this.TxtAmount.Name = "TxtAmount";
-            this.TxtAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtAmount.Size = new System.Drawing.Size(125, 29);
-            this.TxtAmount.TabIndex = 21;
+            this.TxtTotalAmount.Enabled = false;
+            this.TxtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTotalAmount.Location = new System.Drawing.Point(356, 68);
+            this.TxtTotalAmount.Name = "TxtTotalAmount";
+            this.TxtTotalAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtTotalAmount.Size = new System.Drawing.Size(125, 29);
+            this.TxtTotalAmount.TabIndex = 21;
             // 
             // ComboAddIncome
             // 
@@ -325,23 +325,23 @@ namespace GrocerySupplyManagementApp.Forms
             // DataGridIncomeList
             // 
             this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridIncomeList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridIncomeList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridIncomeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridIncomeList.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridIncomeList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridIncomeList.Location = new System.Drawing.Point(18, 156);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
             this.DataGridIncomeList.Size = new System.Drawing.Size(1005, 377);
@@ -385,7 +385,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox TxtAmount;
+        private System.Windows.Forms.TextBox TxtTotalAmount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DataGridIncomeList;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;

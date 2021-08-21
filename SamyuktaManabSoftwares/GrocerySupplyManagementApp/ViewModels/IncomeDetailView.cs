@@ -10,6 +10,6 @@
         public string ItemBrand { get; set; }
         public int Quantity { get; set; }
         public decimal Profit { get; set; }
-        public decimal Total { get; set; }
+        public decimal Amount { get; set; }
     }
 }

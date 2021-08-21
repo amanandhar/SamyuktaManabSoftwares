@@ -97,9 +97,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.Controls.Add(this.RadioUser);
             this.GroupFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupFilter.ForeColor = System.Drawing.Color.Red;
-            this.GroupFilter.Location = new System.Drawing.Point(15, 26);
+            this.GroupFilter.Location = new System.Drawing.Point(15, 25);
             this.GroupFilter.Name = "GroupFilter";
-            this.GroupFilter.Size = new System.Drawing.Size(850, 137);
+            this.GroupFilter.Size = new System.Drawing.Size(850, 132);
             this.GroupFilter.TabIndex = 5;
             this.GroupFilter.TabStop = false;
             // 
@@ -119,26 +119,26 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboService
             // 
-            this.ComboService.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboService.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboService.FormattingEnabled = true;
             this.ComboService.Items.AddRange(new object[] {
             "Delivery Charge",
             "Sales Discount"});
-            this.ComboService.Location = new System.Drawing.Point(132, 44);
+            this.ComboService.Location = new System.Drawing.Point(132, 45);
             this.ComboService.Name = "ComboService";
-            this.ComboService.Size = new System.Drawing.Size(105, 26);
+            this.ComboService.Size = new System.Drawing.Size(115, 24);
             this.ComboService.TabIndex = 45;
             // 
             // ComboBankTransfer
             // 
             this.ComboBankTransfer.Enabled = false;
-            this.ComboBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBankTransfer.FormattingEnabled = true;
             this.ComboBankTransfer.Items.AddRange(new object[] {
             "Cash"});
-            this.ComboBankTransfer.Location = new System.Drawing.Point(442, 73);
+            this.ComboBankTransfer.Location = new System.Drawing.Point(442, 69);
             this.ComboBankTransfer.Name = "ComboBankTransfer";
-            this.ComboBankTransfer.Size = new System.Drawing.Size(115, 26);
+            this.ComboBankTransfer.Size = new System.Drawing.Size(115, 24);
             this.ComboBankTransfer.TabIndex = 44;
             // 
             // RadioBankTransfer
@@ -146,7 +146,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioBankTransfer.AutoSize = true;
             this.RadioBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioBankTransfer.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioBankTransfer.Location = new System.Drawing.Point(270, 77);
+            this.RadioBankTransfer.Location = new System.Drawing.Point(270, 72);
             this.RadioBankTransfer.Name = "RadioBankTransfer";
             this.RadioBankTransfer.Size = new System.Drawing.Size(119, 22);
             this.RadioBankTransfer.TabIndex = 43;
@@ -171,14 +171,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboPurchase
             // 
-            this.ComboPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboPurchase.FormattingEnabled = true;
             this.ComboPurchase.Items.AddRange(new object[] {
             "Cash",
             "Credit"});
-            this.ComboPurchase.Location = new System.Drawing.Point(132, 72);
+            this.ComboPurchase.Location = new System.Drawing.Point(132, 71);
             this.ComboPurchase.Name = "ComboPurchase";
-            this.ComboPurchase.Size = new System.Drawing.Size(105, 26);
+            this.ComboPurchase.Size = new System.Drawing.Size(115, 24);
             this.ComboPurchase.TabIndex = 42;
             // 
             // RadioInvoiceNo
@@ -186,7 +186,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioInvoiceNo.AutoSize = true;
             this.RadioInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioInvoiceNo.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioInvoiceNo.Location = new System.Drawing.Point(587, 47);
+            this.RadioInvoiceNo.Location = new System.Drawing.Point(587, 45);
             this.RadioInvoiceNo.Name = "RadioInvoiceNo";
             this.RadioInvoiceNo.Size = new System.Drawing.Size(117, 22);
             this.RadioInvoiceNo.TabIndex = 35;
@@ -196,23 +196,23 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboExpense
             // 
-            this.ComboExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboExpense.FormattingEnabled = true;
             this.ComboExpense.Items.AddRange(new object[] {
             "Cash",
             "Cheque"});
-            this.ComboExpense.Location = new System.Drawing.Point(442, 45);
+            this.ComboExpense.Location = new System.Drawing.Point(442, 43);
             this.ComboExpense.Name = "ComboExpense";
-            this.ComboExpense.Size = new System.Drawing.Size(115, 26);
+            this.ComboExpense.Size = new System.Drawing.Size(115, 24);
             this.ComboExpense.TabIndex = 41;
             // 
             // ComboItemCode
             // 
-            this.ComboItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboItemCode.FormattingEnabled = true;
             this.ComboItemCode.Location = new System.Drawing.Point(705, 17);
             this.ComboItemCode.Name = "ComboItemCode";
-            this.ComboItemCode.Size = new System.Drawing.Size(120, 26);
+            this.ComboItemCode.Size = new System.Drawing.Size(120, 24);
             this.ComboItemCode.TabIndex = 31;
             // 
             // RadioExpense
@@ -220,7 +220,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioExpense.AutoSize = true;
             this.RadioExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioExpense.Location = new System.Drawing.Point(270, 48);
+            this.RadioExpense.Location = new System.Drawing.Point(270, 45);
             this.RadioExpense.Name = "RadioExpense";
             this.RadioExpense.Size = new System.Drawing.Size(166, 22);
             this.RadioExpense.TabIndex = 40;
@@ -248,7 +248,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPayment.AutoSize = true;
             this.RadioPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioPayment.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioPayment.Location = new System.Drawing.Point(270, 19);
+            this.RadioPayment.Location = new System.Drawing.Point(270, 18);
             this.RadioPayment.Name = "RadioPayment";
             this.RadioPayment.Size = new System.Drawing.Size(172, 22);
             this.RadioPayment.TabIndex = 39;
@@ -273,7 +273,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioSales.AutoSize = true;
             this.RadioSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioSales.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioSales.Location = new System.Drawing.Point(26, 102);
+            this.RadioSales.Location = new System.Drawing.Point(26, 98);
             this.RadioSales.Name = "RadioSales";
             this.RadioSales.Size = new System.Drawing.Size(84, 22);
             this.RadioSales.TabIndex = 3;
@@ -283,23 +283,23 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboInvoiceNo
             // 
-            this.ComboInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboInvoiceNo.FormattingEnabled = true;
-            this.ComboInvoiceNo.Location = new System.Drawing.Point(705, 45);
+            this.ComboInvoiceNo.Location = new System.Drawing.Point(705, 43);
             this.ComboInvoiceNo.Name = "ComboInvoiceNo";
-            this.ComboInvoiceNo.Size = new System.Drawing.Size(120, 26);
+            this.ComboInvoiceNo.Size = new System.Drawing.Size(120, 24);
             this.ComboInvoiceNo.TabIndex = 36;
             // 
             // ComboSales
             // 
-            this.ComboSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboSales.FormattingEnabled = true;
             this.ComboSales.Items.AddRange(new object[] {
             "Cash",
             "Credit"});
-            this.ComboSales.Location = new System.Drawing.Point(132, 100);
+            this.ComboSales.Location = new System.Drawing.Point(132, 97);
             this.ComboSales.Name = "ComboSales";
-            this.ComboSales.Size = new System.Drawing.Size(105, 26);
+            this.ComboSales.Size = new System.Drawing.Size(115, 24);
             this.ComboSales.TabIndex = 38;
             // 
             // RadioReceipt
@@ -307,7 +307,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioReceipt.AutoSize = true;
             this.RadioReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioReceipt.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioReceipt.Location = new System.Drawing.Point(270, 105);
+            this.RadioReceipt.Location = new System.Drawing.Point(270, 98);
             this.RadioReceipt.Name = "RadioReceipt";
             this.RadioReceipt.Size = new System.Drawing.Size(101, 22);
             this.RadioReceipt.TabIndex = 14;
@@ -321,7 +321,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskEndOfDay.Location = new System.Drawing.Point(132, 17);
             this.MaskEndOfDay.Mask = "   0000-00-00";
             this.MaskEndOfDay.Name = "MaskEndOfDay";
-            this.MaskEndOfDay.Size = new System.Drawing.Size(105, 26);
+            this.MaskEndOfDay.Size = new System.Drawing.Size(115, 26);
             this.MaskEndOfDay.TabIndex = 1;
             // 
             // label3
@@ -329,7 +329,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(586, 104);
+            this.label3.Location = new System.Drawing.Point(586, 98);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 20);
             this.label3.TabIndex = 5;
@@ -340,7 +340,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPurchase.AutoSize = true;
             this.RadioPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioPurchase.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioPurchase.Location = new System.Drawing.Point(26, 74);
+            this.RadioPurchase.Location = new System.Drawing.Point(26, 71);
             this.RadioPurchase.Name = "RadioPurchase";
             this.RadioPurchase.Size = new System.Drawing.Size(110, 22);
             this.RadioPurchase.TabIndex = 18;
@@ -350,42 +350,42 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboPayment
             // 
-            this.ComboPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboPayment.FormattingEnabled = true;
             this.ComboPayment.Items.AddRange(new object[] {
             "Cash",
             "Cheque"});
             this.ComboPayment.Location = new System.Drawing.Point(442, 17);
             this.ComboPayment.Name = "ComboPayment";
-            this.ComboPayment.Size = new System.Drawing.Size(115, 26);
+            this.ComboPayment.Size = new System.Drawing.Size(115, 24);
             this.ComboPayment.TabIndex = 22;
             // 
             // ComboReceipt
             // 
-            this.ComboReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboReceipt.FormattingEnabled = true;
             this.ComboReceipt.Items.AddRange(new object[] {
             "Cash",
             "Cheque"});
-            this.ComboReceipt.Location = new System.Drawing.Point(442, 101);
+            this.ComboReceipt.Location = new System.Drawing.Point(442, 95);
             this.ComboReceipt.Name = "ComboReceipt";
-            this.ComboReceipt.Size = new System.Drawing.Size(115, 26);
+            this.ComboReceipt.Size = new System.Drawing.Size(115, 24);
             this.ComboReceipt.TabIndex = 23;
             // 
             // ComboUser
             // 
-            this.ComboUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboUser.FormattingEnabled = true;
-            this.ComboUser.Location = new System.Drawing.Point(705, 73);
+            this.ComboUser.Location = new System.Drawing.Point(705, 69);
             this.ComboUser.Name = "ComboUser";
-            this.ComboUser.Size = new System.Drawing.Size(120, 26);
+            this.ComboUser.Size = new System.Drawing.Size(120, 24);
             this.ComboUser.TabIndex = 37;
             // 
             // TxtTotal
             // 
             this.TxtTotal.Enabled = false;
             this.TxtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTotal.Location = new System.Drawing.Point(705, 101);
+            this.TxtTotal.Location = new System.Drawing.Point(705, 95);
             this.TxtTotal.Name = "TxtTotal";
             this.TxtTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotal.Size = new System.Drawing.Size(120, 26);
@@ -396,7 +396,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioUser.AutoSize = true;
             this.RadioUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioUser.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioUser.Location = new System.Drawing.Point(587, 76);
+            this.RadioUser.Location = new System.Drawing.Point(587, 72);
             this.RadioUser.Name = "RadioUser";
             this.RadioUser.Size = new System.Drawing.Size(79, 22);
             this.RadioUser.TabIndex = 19;
@@ -410,7 +410,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnShowTransaction);
             this.groupBox2.Location = new System.Drawing.Point(879, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(150, 135);
+            this.groupBox2.Size = new System.Drawing.Size(150, 130);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
@@ -478,7 +478,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridTransactionList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 173);
+            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 165);
             this.DataGridTransactionList.Name = "DataGridTransactionList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -488,7 +488,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridTransactionList.Size = new System.Drawing.Size(1015, 365);
+            this.DataGridTransactionList.Size = new System.Drawing.Size(1015, 374);
             this.DataGridTransactionList.TabIndex = 4;
             this.DataGridTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridTransactionList_DataBindingComplete);
             // 
