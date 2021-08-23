@@ -792,6 +792,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHERE 1 = 1 " +
                 "AND [MemberId] IS NOT NULL " +
                 "AND [InvoiceNo] IS NOT NULL " +
+                "AND [IncomeExpense] IS NOT NULL " + 
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
 
             try
@@ -825,6 +826,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] = @MemberId " +
+                "AND [InvoiceNo] IS NOT NULL " +
+                "AND [IncomeExpense] IS NOT NULL " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
 
             try
@@ -1422,7 +1425,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Id], [EndOfDay], [Bank], [IncomeExpense], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [Action] = '" + Constants.RECEIPT + "' ";
+                "AND [Action] = '" + Constants.RECEIPT + "' " +
+                "AND [IncomeExpense] IS NOT NULL ";
 
             if (!string.IsNullOrEmpty(incomeTransactionFilter?.Income))
             {

@@ -444,6 +444,7 @@
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\BankTransactionView.cs" />
+    <Compile Include="ViewModels\DailySummaryView.cs" />
     <Compile Include="ViewModels\InvoiceReportView.cs" />
     <Compile Include="ViewModels\PricedItemView.cs" />
     <Compile Include="ViewModels\ExpenseTransactionView.cs" />

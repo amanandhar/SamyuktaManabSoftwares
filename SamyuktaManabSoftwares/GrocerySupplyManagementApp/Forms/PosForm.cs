@@ -33,6 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
+        private const char separator = '.';
 
         #region Constructor
         public PosForm(IFiscalYearService fiscalYearService, ITaxService taxService,
@@ -406,7 +407,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 try
                 {
-                    var codes = RichItemCode.Text.Replace("\n", "").Split('-');
+                    var codes = RichItemCode.Text.Replace("\n", "").Split(separator);
                     var itemCode = codes[0];
                     var itemSubCode = codes[1];
                     var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
@@ -427,7 +428,7 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    RichItemCode.Text = item.Code + "-" + pricedItem.ItemSubCode;
+                    RichItemCode.Text = item.Code + (string.IsNullOrWhiteSpace(pricedItem.ItemSubCode) ? "" : (separator + pricedItem.ItemSubCode));
                     TxtItemName.Text = item.Name;
                     TxtItemBrand.Text = item.Brand;
                     TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
@@ -559,7 +560,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _soldItemViewList.Add(new SoldItemView
                 {
                     Id = DataGridSoldItemList.RowCount,
-                    ItemCode = RichItemCode.Text.Split('-')[0],
+                    ItemCode = RichItemCode.Text.Split(separator)[0],
                     ItemName = TxtItemName.Text,
                     ItemBrand = TxtItemBrand.Text,
                     Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
@@ -678,7 +679,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                RichItemCode.Text = item.Code + "-" + pricedItem.ItemSubCode;
+                RichItemCode.Text = item.Code + (string.IsNullOrWhiteSpace(pricedItem.ItemSubCode) ? "" : (separator + pricedItem.ItemSubCode));
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();

@@ -1,6 +1,9 @@
 ﻿using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -91,6 +94,52 @@ namespace GrocerySupplyManagementApp.Forms
 
             RichBalanceCash.Text = (openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash)).ToString();
             RichBalanceCredit.Text = (openingBalanceCredit + salesCredit - (receiptCash + receiptCheque)).ToString();
+
+            var dailySummaryViewList = new List<DailySummaryView>() {
+                new DailySummaryView() { Description = "Sales Cash", Debit = 0.00M, Credit = salesCash },
+                new DailySummaryView() { Description = "Sales Credit", Debit = salesCredit, Credit = 0.00M },
+                new DailySummaryView() { Description = "Receipt Cash", Debit = 0.00M, Credit = receiptCash },
+                new DailySummaryView() { Description = "Receipt Cheque", Debit = 0.00M, Credit = receiptCheque },
+                new DailySummaryView() { Description = "Payment Cash", Debit = paymentCash + expenseCash + transferCash, Credit = 0.00M },
+                new DailySummaryView() { Description = "Payment Cheque", Debit = paymentCheque + expenseCheque, Credit = 0.00M }
+            };
+
+            LoadDailySummary(dailySummaryViewList);
+        }
+        #endregion
+
+        #region DataGrid Event 
+        private void DataGridSummaryList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridSummaryList.Columns["Description"].HeaderText = "Description";
+            DataGridSummaryList.Columns["Description"].Width = 300;
+            DataGridSummaryList.Columns["Description"].DisplayIndex = 0;
+
+            DataGridSummaryList.Columns["Debit"].HeaderText = "Debit";
+            DataGridSummaryList.Columns["Debit"].Width = 150;
+            DataGridSummaryList.Columns["Debit"].DisplayIndex = 1;
+            DataGridSummaryList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridSummaryList.Columns["Credit"].HeaderText = "Credit";
+            DataGridSummaryList.Columns["Credit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridSummaryList.Columns["Credit"].DisplayIndex = 2;
+            DataGridSummaryList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridSummaryList.Rows)
+            {
+                DataGridSummaryList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridSummaryList.RowHeadersWidth = 50;
+                DataGridSummaryList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+        #endregion
+
+        #region DataGrid Event 
+        private void LoadDailySummary(List<DailySummaryView> dailySummaryViewList)
+        {
+            var bindingList = new BindingList<DailySummaryView>(dailySummaryViewList);
+            var source = new BindingSource(bindingList, null);
+            DataGridSummaryList.DataSource = source;
         }
         #endregion
     }
