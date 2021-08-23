@@ -84,6 +84,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             LoadItems(_soldItemViewList);
             LoadDeliveryPersons();
+            BtnAddSale.Focus();
         }
         #endregion
 
@@ -391,6 +392,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RichMemberId_KeyPress(object sender, KeyPressEventArgs e)
         {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
             if (e.KeyChar == (char)Keys.Enter)
             {
                 var memberId = RichMemberId.Text.Replace("\n", "");
@@ -575,6 +577,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearAllItemFields();
 
                 BtnSaveInvoice.Enabled = true;
+                RichItemCode.Focus();
             }
             catch (Exception ex)
             {
