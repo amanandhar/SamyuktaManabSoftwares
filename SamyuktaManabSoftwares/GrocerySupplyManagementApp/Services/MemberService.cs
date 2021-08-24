@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Services
                 memberId = id;
             }
 
-            return "M-" + memberId;
+            return "M" + memberId;
         }
 
         public Member AddMember(Member member)

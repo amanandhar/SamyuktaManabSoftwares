@@ -82,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var shareCapital = _bankTransactionService.GetTotalDeposit(Constants.SHARE_CAPITAL);
                 var ownerEquity = _bankTransactionService.GetTotalDeposit(Constants.OWNER_EQUITY);
                 var loadAmount = 0.00m;
-                var payableAmount = Math.Abs(_userTransactionService.GetSupplierTotalBalance());
+                var payableAmount = Math.Abs(_userTransactionService.GetSupplierTotalBalance(string.Empty));
                 var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.00m;
                 var libilitiesBalance = shareCapital + ownerEquity + loadAmount
                     + payableAmount + netProfit;
@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
                     .ToList();
                 var stockValue = latestStockView.Count > 0 ? Math.Round(latestStockView.Sum(x => x.StockValue), 2) : 0.00m;
 
-                var receivableAmount = _userTransactionService.GetMemberTotalBalance();
+                var receivableAmount = _userTransactionService.GetMemberTotalBalance(string.Empty);
                 var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.00m;
                 var assetsBalance = cashInHand + bankAccount + stockValue + receivableAmount + netLoss;
 

@@ -19,9 +19,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         UserTransaction GetUserTransaction(string invoiceNo);
         UserTransaction GetLastUserTransaction(string option);
         string GetInvoiceNo();
-        decimal GetMemberTotalBalance();
         decimal GetMemberTotalBalance(string memberId);
-        decimal GetSupplierTotalBalance();
         decimal GetSupplierTotalBalance(string supplierId);
         decimal GetCashInHand();
         decimal GetTotalBalance(string endOfDay, string action, string actionType);

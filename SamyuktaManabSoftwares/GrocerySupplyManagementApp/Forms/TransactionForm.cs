@@ -305,7 +305,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Quantity"].DisplayIndex = 7;
             DataGridTransactionList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridTransactionList.Columns["SalesPrice"].HeaderText = "Sales Price";
+            DataGridTransactionList.Columns["SalesPrice"].HeaderText = "Price";
             DataGridTransactionList.Columns["SalesPrice"].Width = 80;
             DataGridTransactionList.Columns["SalesPrice"].DisplayIndex = 8;
             DataGridTransactionList.Columns["SalesPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;

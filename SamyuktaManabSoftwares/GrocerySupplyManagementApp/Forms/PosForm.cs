@@ -126,6 +126,8 @@ namespace GrocerySupplyManagementApp.Forms
             _selectedInvoiceNo = _userTransactionService.GetInvoiceNo();
             TxtInvoiceNo.Text = _selectedInvoiceNo;
             TxtInvoiceDate.Text = _endOfDay;
+            RichMemberId.Enabled = true;
+            RichItemCode.Enabled = true;
 
             BtnShowMember.Enabled = true;
             BtnShowItem.Enabled = true;
@@ -403,14 +405,24 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RichItemCode_KeyPress(object sender, KeyPressEventArgs e)
         {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
             if (e.KeyChar == (char)Keys.Enter)
             {
                 try
                 {
                     var codes = RichItemCode.Text.Replace("\n", "").Split(separator);
                     var itemCode = codes[0];
-                    var itemSubCode = codes[1];
+                    var itemSubCode = codes.Length > 1 ? codes[1] : string.Empty;
                     var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
+                    if(pricedItem.ItemId == 0)
+                    {
+                        DialogResult result = MessageBox.Show("There is no item with code: " + RichItemCode.Text,
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (result == DialogResult.OK)
+                        {
+                            return;
+                        }
+                    }
                     var item = _itemService.GetItem(pricedItem.ItemId);
                     StockFilter filter = new StockFilter
                     {
@@ -421,7 +433,7 @@ namespace GrocerySupplyManagementApp.Forms
                     if (stock < item.Threshold)
                     {
                         DialogResult result = MessageBox.Show("Stock is low. \nPlease add more stock.",
-                            "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         if (result == DialogResult.OK)
                         {
                             TxtItemStock.ForeColor = Color.Red;

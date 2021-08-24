@@ -202,7 +202,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.RichBoxFiscalYear);
             this.groupBox2.Controls.Add(this.RichBoxTime);
             this.groupBox2.Controls.Add(this.RichBoxUsername);
@@ -272,10 +272,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 80.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(72, 137);
+            this.label1.Location = new System.Drawing.Point(70, 137);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(928, 120);
             this.label1.TabIndex = 0;
@@ -286,7 +286,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(225, 356);
+            this.label2.Location = new System.Drawing.Point(223, 356);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(590, 31);
             this.label2.TabIndex = 1;
@@ -297,15 +297,15 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(182, 277);
+            this.label3.Location = new System.Drawing.Point(187, 277);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(693, 55);
+            this.label3.Size = new System.Drawing.Size(663, 55);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Grocery Management Software";
+            this.label3.Text = "Grocery Management System";
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox3.BackColor = System.Drawing.Color.White;
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);
@@ -444,6 +444,7 @@
             // lblCompanyName
             // 
             this.lblCompanyName.AutoSize = true;
+            this.lblCompanyName.BackColor = System.Drawing.SystemColors.Highlight;
             this.lblCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompanyName.ForeColor = System.Drawing.Color.White;
             this.lblCompanyName.Location = new System.Drawing.Point(210, 11);

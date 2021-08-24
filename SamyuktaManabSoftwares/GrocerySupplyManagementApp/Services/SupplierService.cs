@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Services
                 supplierId = id;
             }
 
-            return "S-" + supplierId;
+            return "S" + supplierId;
         }
 
         public Supplier AddSupplier(Supplier supplier)

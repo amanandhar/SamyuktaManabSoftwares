@@ -174,7 +174,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
                 {
                     if (!Directory.Exists(_baseImageFolder))
                     {
@@ -196,7 +196,14 @@ namespace GrocerySupplyManagementApp.Forms
 
                         var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
                         destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
+                        if(!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                        {
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
+                        }
+                        else
+                        {
+                            File.Copy(PicBoxItemImage.ImageLocation, destinationFilePath, true);
+                        }
                     }
                 }
 

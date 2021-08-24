@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Services
                 employeeId = id;
             }
 
-            return "E-" + employeeId;
+            return "E" + employeeId;
         }
 
         public IEnumerable<Employee> GetDeliveryPersons()

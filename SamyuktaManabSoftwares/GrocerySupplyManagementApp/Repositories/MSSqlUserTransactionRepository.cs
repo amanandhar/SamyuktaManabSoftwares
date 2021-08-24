@@ -783,41 +783,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return invoiceNo;
         }
 
-        public decimal GetMemberTotalBalance()
-        {
-            decimal balance = 0.00m;
-            string query = @"SELECT " +
-                "SUM([DueAmount]) - SUM([ReceivedAmount]) " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [MemberId] IS NOT NULL " +
-                "AND [InvoiceNo] IS NOT NULL " +
-                "AND [IncomeExpense] IS NOT NULL " + 
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            balance = Convert.ToDecimal(result.ToString());
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return balance;
-        }
-
         public decimal GetMemberTotalBalance(string memberId)
         {
             decimal balance = 0.00m;
@@ -825,10 +790,13 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SUM([DueAmount]) - SUM([ReceivedAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [MemberId] = @MemberId " +
                 "AND [InvoiceNo] IS NOT NULL " +
-                "AND [IncomeExpense] IS NOT NULL " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
+
+            if(!string.IsNullOrWhiteSpace(memberId))
+            {
+                query += "AND [MemberId] = @MemberId ";
+            }
 
             try
             {
@@ -854,46 +822,21 @@ namespace GrocerySupplyManagementApp.Repositories
             return balance;
         }
 
-        public decimal GetSupplierTotalBalance()
-        {
-            decimal balance = 0.00m;
-            string query = @"SELECT " +
-                "SUM([ReceivedAmount]) - SUM([DueAmount]) " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [SupplierId] IS NOT NULL ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            balance = Convert.ToDecimal(result.ToString());
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return balance;
-        }
-
         public decimal GetSupplierTotalBalance(string supplierId)
         {
             decimal balance = 0.00m;
             string query = @"SELECT " +
                 "SUM([ReceivedAmount]) - SUM([DueAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [SupplierId] = @SupplierId ";
+                "WHERE 1 = 1 ";
+            if(!string.IsNullOrWhiteSpace(supplierId))
+            {
+                query += "AND [SupplierId] = @SupplierId ";
+            }
+            else
+            {
+                query += "AND [SupplierId] IS NOT NULL ";
+            }  
             
             try
             {
