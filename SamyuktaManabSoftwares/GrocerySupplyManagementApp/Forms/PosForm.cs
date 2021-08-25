@@ -427,8 +427,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
                     if(pricedItem.ItemId == 0)
                     {
-                        DialogResult result = MessageBox.Show("There is no item with code: " + RichItemCode.Text,
-                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text + "!",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         if (result == DialogResult.OK)
                         {
                             return;
