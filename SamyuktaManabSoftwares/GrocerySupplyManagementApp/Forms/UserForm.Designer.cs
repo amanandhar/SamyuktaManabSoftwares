@@ -111,7 +111,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox1.Location = new System.Drawing.Point(23, 30);
+            this.groupBox1.Location = new System.Drawing.Point(23, 41);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(640, 110);
             this.groupBox1.TabIndex = 4;
@@ -195,7 +195,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.ChkReport);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox2.Location = new System.Drawing.Point(23, 143);
+            this.groupBox2.Location = new System.Drawing.Point(23, 153);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(640, 300);
             this.groupBox2.TabIndex = 5;
@@ -377,7 +377,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnUpdate);
             this.groupBox3.Controls.Add(this.BtnEdit);
-            this.groupBox3.Location = new System.Drawing.Point(23, 452);
+            this.groupBox3.Location = new System.Drawing.Point(23, 458);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(640, 79);
             this.groupBox3.TabIndex = 6;
@@ -451,13 +451,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(-2, -1);
+            this.textBox1.Location = new System.Drawing.Point(1, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(688, 26);
+            this.textBox1.Size = new System.Drawing.Size(682, 35);
             this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "                                                           User Set-up";
+            this.textBox1.Text = "User Set-up";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // UserForm
             // 

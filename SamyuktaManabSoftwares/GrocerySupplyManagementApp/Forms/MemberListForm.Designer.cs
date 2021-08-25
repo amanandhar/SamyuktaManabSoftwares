@@ -45,6 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             // DataGridMemberList
             // 
             this.DataGridMemberList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridMemberList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

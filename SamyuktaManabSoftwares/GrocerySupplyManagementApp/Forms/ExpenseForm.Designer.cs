@@ -66,14 +66,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 26);
+            this.textBox1.Size = new System.Drawing.Size(1045, 44);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "                                                                                \r" +
-    "\n   \r\n Daily Expense Details";
+            this.textBox1.Text = "Daily Expense Management";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox1
             // 
@@ -86,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.RadioAll);
             this.groupBox1.Controls.Add(this.ComboFilteredBy);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(18, 27);
+            this.groupBox1.Location = new System.Drawing.Point(18, 44);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(470, 125);
             this.groupBox1.TabIndex = 1;
@@ -112,11 +112,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // TxtTotalAmount
             // 
-            this.TxtTotalAmount.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TxtTotalAmount.Enabled = false;
+            this.TxtTotalAmount.BackColor = System.Drawing.Color.White;
             this.TxtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtTotalAmount.Location = new System.Drawing.Point(167, 86);
             this.TxtTotalAmount.Name = "TxtTotalAmount";
+            this.TxtTotalAmount.ReadOnly = true;
             this.TxtTotalAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotalAmount.Size = new System.Drawing.Size(285, 29);
             this.TxtTotalAmount.TabIndex = 26;
@@ -211,9 +211,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRemove.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnRemove.Location = new System.Drawing.Point(8, 85);
+            this.BtnRemove.Location = new System.Drawing.Point(8, 84);
             this.BtnRemove.Name = "BtnRemove";
-            this.BtnRemove.Size = new System.Drawing.Size(125, 35);
+            this.BtnRemove.Size = new System.Drawing.Size(125, 33);
             this.BtnRemove.TabIndex = 15;
             this.BtnRemove.Text = "Remove";
             this.BtnRemove.UseVisualStyleBackColor = false;
@@ -228,9 +228,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnShow.Location = new System.Drawing.Point(8, 11);
+            this.BtnShow.Location = new System.Drawing.Point(8, 12);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 35);
+            this.BtnShow.Size = new System.Drawing.Size(125, 33);
             this.BtnShow.TabIndex = 16;
             this.BtnShow.Text = "Show";
             this.BtnShow.UseVisualStyleBackColor = false;
@@ -272,6 +272,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // RichAmount
             // 
+            this.RichAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichAmount.Location = new System.Drawing.Point(255, 51);
             this.RichAmount.Name = "RichAmount";
@@ -334,7 +335,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.ComboBank);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.ComboPayment);
-            this.groupBox3.Location = new System.Drawing.Point(500, 27);
+            this.groupBox3.Location = new System.Drawing.Point(500, 44);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(372, 125);
             this.groupBox3.TabIndex = 25;
@@ -361,7 +362,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveExpense.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnSaveExpense.Location = new System.Drawing.Point(8, 48);
             this.BtnSaveExpense.Name = "BtnSaveExpense";
-            this.BtnSaveExpense.Size = new System.Drawing.Size(125, 35);
+            this.BtnSaveExpense.Size = new System.Drawing.Size(125, 33);
             this.BtnSaveExpense.TabIndex = 25;
             this.BtnSaveExpense.Text = "Save Expense";
             this.BtnSaveExpense.UseVisualStyleBackColor = false;
@@ -372,7 +373,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnRemove);
             this.groupBox4.Controls.Add(this.BtnShow);
             this.groupBox4.Controls.Add(this.BtnSaveExpense);
-            this.groupBox4.Location = new System.Drawing.Point(882, 27);
+            this.groupBox4.Location = new System.Drawing.Point(882, 43);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(140, 125);
             this.groupBox4.TabIndex = 26;
@@ -381,6 +382,7 @@ namespace GrocerySupplyManagementApp.Forms
             // DataGridExpenseList
             // 
             this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridExpenseList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -398,7 +400,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridExpenseList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridExpenseList.Location = new System.Drawing.Point(18, 162);
+            this.DataGridExpenseList.Location = new System.Drawing.Point(18, 172);
             this.DataGridExpenseList.Name = "DataGridExpenseList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -408,7 +410,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridExpenseList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridExpenseList.Size = new System.Drawing.Size(1004, 372);
+            this.DataGridExpenseList.Size = new System.Drawing.Size(1004, 365);
             this.DataGridExpenseList.TabIndex = 27;
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
             // 

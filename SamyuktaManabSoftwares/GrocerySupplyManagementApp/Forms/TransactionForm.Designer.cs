@@ -29,9 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.GroupFilter = new System.Windows.Forms.GroupBox();
             this.RadioService = new System.Windows.Forms.RadioButton();
             this.ComboService = new System.Windows.Forms.ComboBox();
@@ -99,7 +99,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.ForeColor = System.Drawing.Color.Red;
             this.GroupFilter.Location = new System.Drawing.Point(15, 43);
             this.GroupFilter.Name = "GroupFilter";
-            this.GroupFilter.Size = new System.Drawing.Size(850, 132);
+            this.GroupFilter.Size = new System.Drawing.Size(850, 125);
             this.GroupFilter.TabIndex = 5;
             this.GroupFilter.TabStop = false;
             // 
@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioService.AutoSize = true;
             this.RadioService.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioService.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioService.Location = new System.Drawing.Point(26, 46);
+            this.RadioService.Location = new System.Drawing.Point(26, 43);
             this.RadioService.Name = "RadioService";
             this.RadioService.Size = new System.Drawing.Size(96, 22);
             this.RadioService.TabIndex = 46;
@@ -124,7 +124,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboService.Items.AddRange(new object[] {
             "Delivery Charge",
             "Sales Discount"});
-            this.ComboService.Location = new System.Drawing.Point(132, 45);
+            this.ComboService.Location = new System.Drawing.Point(132, 42);
             this.ComboService.Name = "ComboService";
             this.ComboService.Size = new System.Drawing.Size(115, 24);
             this.ComboService.TabIndex = 45;
@@ -136,7 +136,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBankTransfer.FormattingEnabled = true;
             this.ComboBankTransfer.Items.AddRange(new object[] {
             "Cash"});
-            this.ComboBankTransfer.Location = new System.Drawing.Point(442, 69);
+            this.ComboBankTransfer.Location = new System.Drawing.Point(442, 66);
             this.ComboBankTransfer.Name = "ComboBankTransfer";
             this.ComboBankTransfer.Size = new System.Drawing.Size(115, 24);
             this.ComboBankTransfer.TabIndex = 44;
@@ -146,7 +146,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioBankTransfer.AutoSize = true;
             this.RadioBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioBankTransfer.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioBankTransfer.Location = new System.Drawing.Point(270, 72);
+            this.RadioBankTransfer.Location = new System.Drawing.Point(270, 69);
             this.RadioBankTransfer.Name = "RadioBankTransfer";
             this.RadioBankTransfer.Size = new System.Drawing.Size(119, 22);
             this.RadioBankTransfer.TabIndex = 43;
@@ -160,7 +160,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioItemCode.AutoSize = true;
             this.RadioItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioItemCode.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioItemCode.Location = new System.Drawing.Point(587, 19);
+            this.RadioItemCode.Location = new System.Drawing.Point(587, 16);
             this.RadioItemCode.Name = "RadioItemCode";
             this.RadioItemCode.Size = new System.Drawing.Size(115, 22);
             this.RadioItemCode.TabIndex = 32;
@@ -176,7 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPurchase.Items.AddRange(new object[] {
             "Cash",
             "Credit"});
-            this.ComboPurchase.Location = new System.Drawing.Point(132, 71);
+            this.ComboPurchase.Location = new System.Drawing.Point(132, 68);
             this.ComboPurchase.Name = "ComboPurchase";
             this.ComboPurchase.Size = new System.Drawing.Size(115, 24);
             this.ComboPurchase.TabIndex = 42;
@@ -186,7 +186,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioInvoiceNo.AutoSize = true;
             this.RadioInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioInvoiceNo.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioInvoiceNo.Location = new System.Drawing.Point(587, 45);
+            this.RadioInvoiceNo.Location = new System.Drawing.Point(587, 42);
             this.RadioInvoiceNo.Name = "RadioInvoiceNo";
             this.RadioInvoiceNo.Size = new System.Drawing.Size(117, 22);
             this.RadioInvoiceNo.TabIndex = 35;
@@ -201,7 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboExpense.Items.AddRange(new object[] {
             "Cash",
             "Cheque"});
-            this.ComboExpense.Location = new System.Drawing.Point(442, 43);
+            this.ComboExpense.Location = new System.Drawing.Point(442, 40);
             this.ComboExpense.Name = "ComboExpense";
             this.ComboExpense.Size = new System.Drawing.Size(115, 24);
             this.ComboExpense.TabIndex = 41;
@@ -210,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboItemCode.FormattingEnabled = true;
-            this.ComboItemCode.Location = new System.Drawing.Point(705, 17);
+            this.ComboItemCode.Location = new System.Drawing.Point(705, 14);
             this.ComboItemCode.Name = "ComboItemCode";
             this.ComboItemCode.Size = new System.Drawing.Size(120, 24);
             this.ComboItemCode.TabIndex = 31;
@@ -220,7 +220,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioExpense.AutoSize = true;
             this.RadioExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioExpense.Location = new System.Drawing.Point(270, 45);
+            this.RadioExpense.Location = new System.Drawing.Point(270, 42);
             this.RadioExpense.Name = "RadioExpense";
             this.RadioExpense.Size = new System.Drawing.Size(166, 22);
             this.RadioExpense.TabIndex = 40;
@@ -235,7 +235,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.Checked = true;
             this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioAll.Location = new System.Drawing.Point(27, 18);
+            this.RadioAll.Location = new System.Drawing.Point(27, 15);
             this.RadioAll.Name = "RadioAll";
             this.RadioAll.Size = new System.Drawing.Size(49, 22);
             this.RadioAll.TabIndex = 2;
@@ -248,7 +248,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPayment.AutoSize = true;
             this.RadioPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioPayment.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioPayment.Location = new System.Drawing.Point(270, 18);
+            this.RadioPayment.Location = new System.Drawing.Point(270, 15);
             this.RadioPayment.Name = "RadioPayment";
             this.RadioPayment.Size = new System.Drawing.Size(172, 22);
             this.RadioPayment.TabIndex = 39;
@@ -262,7 +262,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(81, 20);
+            this.label2.Location = new System.Drawing.Point(81, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 18);
             this.label2.TabIndex = 4;
@@ -273,7 +273,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioSales.AutoSize = true;
             this.RadioSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioSales.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioSales.Location = new System.Drawing.Point(26, 98);
+            this.RadioSales.Location = new System.Drawing.Point(26, 95);
             this.RadioSales.Name = "RadioSales";
             this.RadioSales.Size = new System.Drawing.Size(84, 22);
             this.RadioSales.TabIndex = 3;
@@ -285,7 +285,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboInvoiceNo.FormattingEnabled = true;
-            this.ComboInvoiceNo.Location = new System.Drawing.Point(705, 43);
+            this.ComboInvoiceNo.Location = new System.Drawing.Point(705, 40);
             this.ComboInvoiceNo.Name = "ComboInvoiceNo";
             this.ComboInvoiceNo.Size = new System.Drawing.Size(120, 24);
             this.ComboInvoiceNo.TabIndex = 36;
@@ -297,7 +297,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboSales.Items.AddRange(new object[] {
             "Cash",
             "Credit"});
-            this.ComboSales.Location = new System.Drawing.Point(132, 97);
+            this.ComboSales.Location = new System.Drawing.Point(132, 94);
             this.ComboSales.Name = "ComboSales";
             this.ComboSales.Size = new System.Drawing.Size(115, 24);
             this.ComboSales.TabIndex = 38;
@@ -307,7 +307,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioReceipt.AutoSize = true;
             this.RadioReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioReceipt.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioReceipt.Location = new System.Drawing.Point(270, 98);
+            this.RadioReceipt.Location = new System.Drawing.Point(270, 95);
             this.RadioReceipt.Name = "RadioReceipt";
             this.RadioReceipt.Size = new System.Drawing.Size(101, 22);
             this.RadioReceipt.TabIndex = 14;
@@ -318,7 +318,7 @@ namespace GrocerySupplyManagementApp.Forms
             // MaskEndOfDay
             // 
             this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDay.Location = new System.Drawing.Point(132, 17);
+            this.MaskEndOfDay.Location = new System.Drawing.Point(132, 14);
             this.MaskEndOfDay.Mask = "   0000-00-00";
             this.MaskEndOfDay.Name = "MaskEndOfDay";
             this.MaskEndOfDay.Size = new System.Drawing.Size(115, 26);
@@ -329,7 +329,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(586, 98);
+            this.label3.Location = new System.Drawing.Point(586, 95);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 20);
             this.label3.TabIndex = 5;
@@ -340,7 +340,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPurchase.AutoSize = true;
             this.RadioPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioPurchase.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioPurchase.Location = new System.Drawing.Point(26, 71);
+            this.RadioPurchase.Location = new System.Drawing.Point(26, 68);
             this.RadioPurchase.Name = "RadioPurchase";
             this.RadioPurchase.Size = new System.Drawing.Size(110, 22);
             this.RadioPurchase.TabIndex = 18;
@@ -355,7 +355,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPayment.Items.AddRange(new object[] {
             "Cash",
             "Cheque"});
-            this.ComboPayment.Location = new System.Drawing.Point(442, 17);
+            this.ComboPayment.Location = new System.Drawing.Point(442, 14);
             this.ComboPayment.Name = "ComboPayment";
             this.ComboPayment.Size = new System.Drawing.Size(115, 24);
             this.ComboPayment.TabIndex = 22;
@@ -367,7 +367,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboReceipt.Items.AddRange(new object[] {
             "Cash",
             "Cheque"});
-            this.ComboReceipt.Location = new System.Drawing.Point(442, 95);
+            this.ComboReceipt.Location = new System.Drawing.Point(442, 92);
             this.ComboReceipt.Name = "ComboReceipt";
             this.ComboReceipt.Size = new System.Drawing.Size(115, 24);
             this.ComboReceipt.TabIndex = 23;
@@ -376,7 +376,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboUser.FormattingEnabled = true;
-            this.ComboUser.Location = new System.Drawing.Point(705, 69);
+            this.ComboUser.Location = new System.Drawing.Point(705, 66);
             this.ComboUser.Name = "ComboUser";
             this.ComboUser.Size = new System.Drawing.Size(120, 24);
             this.ComboUser.TabIndex = 37;
@@ -385,7 +385,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtTotal.Enabled = false;
             this.TxtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTotal.Location = new System.Drawing.Point(705, 95);
+            this.TxtTotal.Location = new System.Drawing.Point(705, 92);
             this.TxtTotal.Name = "TxtTotal";
             this.TxtTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotal.Size = new System.Drawing.Size(120, 26);
@@ -396,7 +396,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioUser.AutoSize = true;
             this.RadioUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioUser.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioUser.Location = new System.Drawing.Point(587, 72);
+            this.RadioUser.Location = new System.Drawing.Point(587, 69);
             this.RadioUser.Name = "RadioUser";
             this.RadioUser.Size = new System.Drawing.Size(79, 22);
             this.RadioUser.TabIndex = 19;
@@ -410,20 +410,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnShowTransaction);
             this.groupBox2.Location = new System.Drawing.Point(879, 44);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(150, 130);
+            this.groupBox2.Size = new System.Drawing.Size(150, 123);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
             // BtnDeleteTransaction
             // 
             this.BtnDeleteTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnDeleteTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDeleteTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnDeleteTransaction.FlatAppearance.BorderSize = 2;
             this.BtnDeleteTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.BtnDeleteTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 69);
+            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 65);
             this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
             this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 48);
             this.BtnDeleteTransaction.TabIndex = 1;
@@ -434,13 +434,13 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnShowTransaction
             // 
             this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowTransaction.FlatAppearance.BorderSize = 2;
             this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnShowTransaction.Location = new System.Drawing.Point(10, 19);
+            this.BtnShowTransaction.Location = new System.Drawing.Point(10, 15);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(130, 48);
             this.BtnShowTransaction.TabIndex = 0;
@@ -463,34 +463,35 @@ namespace GrocerySupplyManagementApp.Forms
             // DataGridTransactionList
             // 
             this.DataGridTransactionList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridTransactionList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.DataGridTransactionList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridTransactionList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridTransactionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridTransactionList.DefaultCellStyle = dataGridViewCellStyle11;
-            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 180);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridTransactionList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 171);
             this.DataGridTransactionList.Name = "DataGridTransactionList";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.DataGridTransactionList.Size = new System.Drawing.Size(1015, 360);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DataGridTransactionList.Size = new System.Drawing.Size(1015, 365);
             this.DataGridTransactionList.TabIndex = 4;
             this.DataGridTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridTransactionList_DataBindingComplete);
             // 

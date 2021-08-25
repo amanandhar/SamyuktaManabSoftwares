@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.BtnDailyTransaction);
             this.groupBox1.Controls.Add(this.BtnShow);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(18, 46);
+            this.groupBox1.Location = new System.Drawing.Point(18, 47);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1010, 67);
             this.groupBox1.TabIndex = 0;
@@ -90,7 +90,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnDailyTransaction
             // 
             this.BtnDailyTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnDailyTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnDailyTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnDailyTransaction.FlatAppearance.BorderSize = 2;
             this.BtnDailyTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnDailyTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -107,7 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnShow
             // 
             this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShow.FlatAppearance.BorderSize = 2;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -265,9 +265,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Location = new System.Drawing.Point(652, 121);
+            this.groupBox3.Location = new System.Drawing.Point(652, 122);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(375, 385);
+            this.groupBox3.Size = new System.Drawing.Size(375, 380);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
@@ -415,7 +415,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridSummaryList
             // 
-            this.DataGridSummaryList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridSummaryList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridSummaryList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -434,7 +434,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridSummaryList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridSummaryList.Location = new System.Drawing.Point(16, 127);
+            this.DataGridSummaryList.Location = new System.Drawing.Point(16, 128);
             this.DataGridSummaryList.Name = "DataGridSummaryList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -444,7 +444,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridSummaryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridSummaryList.Size = new System.Drawing.Size(625, 380);
+            this.DataGridSummaryList.Size = new System.Drawing.Size(625, 375);
             this.DataGridSummaryList.TabIndex = 20;
             this.DataGridSummaryList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSummaryList_DataBindingComplete);
             // 
@@ -452,7 +452,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.DataGridSummaryList);
             this.Controls.Add(this.RichBalanceCredit);

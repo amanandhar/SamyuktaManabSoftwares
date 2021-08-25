@@ -98,14 +98,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(0, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 26);
+            this.textBox1.Size = new System.Drawing.Size(1045, 44);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "                                                                                 " +
-    "       Employee Information";
+            this.textBox1.Text = "Employee Management";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
@@ -406,7 +406,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Location = new System.Drawing.Point(453, 39);
+            this.groupBox1.Location = new System.Drawing.Point(453, 51);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(420, 460);
             this.groupBox1.TabIndex = 31;
@@ -563,7 +563,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(18, 39);
+            this.groupBox2.Location = new System.Drawing.Point(18, 51);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(425, 460);
             this.groupBox2.TabIndex = 32;
@@ -682,7 +682,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.PicBoxEmployeeImage);
-            this.groupBox3.Location = new System.Drawing.Point(882, 38);
+            this.groupBox3.Location = new System.Drawing.Point(885, 51);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(145, 160);
             this.groupBox3.TabIndex = 33;
@@ -705,7 +705,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnEdit);
             this.groupBox4.Controls.Add(this.BtnSave);
             this.groupBox4.Controls.Add(this.BtnAdd);
-            this.groupBox4.Location = new System.Drawing.Point(882, 249);
+            this.groupBox4.Location = new System.Drawing.Point(885, 261);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(145, 249);
             this.groupBox4.TabIndex = 34;
@@ -794,7 +794,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.Enabled = false;
             this.BtnDeleteImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteImage.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteImage.Location = new System.Drawing.Point(960, 206);
+            this.BtnDeleteImage.Location = new System.Drawing.Point(959, 218);
             this.BtnDeleteImage.Name = "BtnDeleteImage";
             this.BtnDeleteImage.Size = new System.Drawing.Size(50, 25);
             this.BtnDeleteImage.TabIndex = 35;
@@ -807,7 +807,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.Enabled = false;
             this.BtnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddImage.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnAddImage.Location = new System.Drawing.Point(893, 206);
+            this.BtnAddImage.Location = new System.Drawing.Point(905, 218);
             this.BtnAddImage.Name = "BtnAddImage";
             this.BtnAddImage.Size = new System.Drawing.Size(50, 25);
             this.BtnAddImage.TabIndex = 38;

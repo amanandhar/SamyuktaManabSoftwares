@@ -75,9 +75,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.RadioAll);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(18, 27);
+            this.groupBox3.Location = new System.Drawing.Point(18, 45);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(860, 120);
+            this.groupBox3.Size = new System.Drawing.Size(860, 109);
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
             // 
@@ -86,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(499, 73);
+            this.label4.Location = new System.Drawing.Point(499, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 20);
             this.label4.TabIndex = 18;
@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBank.FormattingEnabled = true;
-            this.ComboBank.Location = new System.Drawing.Point(594, 69);
+            this.ComboBank.Location = new System.Drawing.Point(594, 66);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(250, 28);
             this.ComboBank.TabIndex = 19;
@@ -156,7 +156,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtTotalAmount.Enabled = false;
             this.TxtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTotalAmount.Location = new System.Drawing.Point(356, 68);
+            this.TxtTotalAmount.Location = new System.Drawing.Point(356, 65);
             this.TxtTotalAmount.Name = "TxtTotalAmount";
             this.TxtTotalAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotalAmount.Size = new System.Drawing.Size(125, 29);
@@ -180,7 +180,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(282, 72);
+            this.label1.Location = new System.Drawing.Point(282, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 20);
             this.label1.TabIndex = 20;
@@ -206,7 +206,7 @@ namespace GrocerySupplyManagementApp.Forms
             "Member Fee",
             "Other Income",
             "Sales Profit"});
-            this.ComboFilteredBy.Location = new System.Drawing.Point(124, 69);
+            this.ComboFilteredBy.Location = new System.Drawing.Point(124, 66);
             this.ComboFilteredBy.Name = "ComboFilteredBy";
             this.ComboFilteredBy.Size = new System.Drawing.Size(150, 28);
             this.ComboFilteredBy.TabIndex = 8;
@@ -231,7 +231,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(35, 72);
+            this.label2.Location = new System.Drawing.Point(35, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(86, 20);
             this.label2.TabIndex = 7;
@@ -252,14 +252,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.BtnRemove.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnRemove.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
+            this.BtnRemove.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Salmon;
             this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRemove.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnRemove.Location = new System.Drawing.Point(7, 81);
+            this.BtnRemove.Location = new System.Drawing.Point(7, 73);
             this.BtnRemove.Name = "BtnRemove";
-            this.BtnRemove.Size = new System.Drawing.Size(120, 35);
+            this.BtnRemove.Size = new System.Drawing.Size(120, 30);
             this.BtnRemove.TabIndex = 15;
             this.BtnRemove.Text = "Remove";
             this.BtnRemove.UseVisualStyleBackColor = false;
@@ -269,14 +269,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.BtnAddIncome.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnAddIncome.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnAddIncome.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
+            this.BtnAddIncome.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnAddIncome.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnAddIncome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddIncome.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnAddIncome.Location = new System.Drawing.Point(7, 45);
+            this.BtnAddIncome.Location = new System.Drawing.Point(7, 41);
             this.BtnAddIncome.Name = "BtnAddIncome";
-            this.BtnAddIncome.Size = new System.Drawing.Size(120, 35);
+            this.BtnAddIncome.Size = new System.Drawing.Size(120, 30);
             this.BtnAddIncome.TabIndex = 16;
             this.BtnAddIncome.Text = "Save Income";
             this.BtnAddIncome.UseVisualStyleBackColor = false;
@@ -287,9 +287,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.BtnRemove);
             this.groupBox1.Controls.Add(this.BtnShow);
             this.groupBox1.Controls.Add(this.BtnAddIncome);
-            this.groupBox1.Location = new System.Drawing.Point(890, 27);
+            this.groupBox1.Location = new System.Drawing.Point(890, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(135, 120);
+            this.groupBox1.Size = new System.Drawing.Size(135, 109);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
             // 
@@ -297,14 +297,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
+            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShow.Location = new System.Drawing.Point(7, 9);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(120, 35);
+            this.BtnShow.Size = new System.Drawing.Size(120, 30);
             this.BtnShow.TabIndex = 2;
             this.BtnShow.Text = "Show ";
             this.BtnShow.UseVisualStyleBackColor = false;
@@ -313,18 +313,19 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(-1, -1);
+            this.textBox1.Location = new System.Drawing.Point(-1, 1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 26);
+            this.textBox1.Size = new System.Drawing.Size(1045, 44);
             this.textBox1.TabIndex = 26;
-            this.textBox1.Text = "                                                                                 " +
-    "     \r\n   \r\nDaily Income Details";
+            this.textBox1.Text = "Daily Income Management";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // DataGridIncomeList
             // 
             this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridIncomeList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -342,9 +343,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridIncomeList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridIncomeList.Location = new System.Drawing.Point(18, 156);
+            this.DataGridIncomeList.Location = new System.Drawing.Point(18, 161);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
-            this.DataGridIncomeList.Size = new System.Drawing.Size(1005, 377);
+            this.DataGridIncomeList.Size = new System.Drawing.Size(1005, 375);
             this.DataGridIncomeList.TabIndex = 32;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeView_DataBindingComplete);
             // 

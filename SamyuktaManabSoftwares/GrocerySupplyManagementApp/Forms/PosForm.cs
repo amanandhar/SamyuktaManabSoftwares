@@ -384,6 +384,17 @@ namespace GrocerySupplyManagementApp.Forms
 
             if(e.KeyChar == (char)Keys.Enter)
             {
+                var stock = Convert.ToInt32(TxtItemStock.Text);
+                var quantity = Convert.ToInt32(RichItemQuantity.Text);
+                if(quantity > stock)
+                {
+                    DialogResult result = MessageBox.Show("No sufficient stock!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+
                 AddItemInCart();
             }
         }
@@ -432,7 +443,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
                     if (stock < item.Threshold)
                     {
-                        DialogResult result = MessageBox.Show("Stock is low. \nPlease add more stock.",
+                        DialogResult result = MessageBox.Show("Low stock, add more!",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         if (result == DialogResult.OK)
                         {
@@ -683,9 +694,9 @@ namespace GrocerySupplyManagementApp.Forms
                 var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
                 if(stock < item.Threshold)
                 {
-                    DialogResult result = MessageBox.Show("Stock is low. \nPlease add more stock.", 
-                        "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if(result == DialogResult.OK)
+                    DialogResult result = MessageBox.Show("Low stock, add more!",
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (result == DialogResult.OK)
                     {
                         TxtItemStock.ForeColor = Color.Red;
                     }

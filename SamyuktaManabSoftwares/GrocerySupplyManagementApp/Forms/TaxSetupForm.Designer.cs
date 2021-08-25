@@ -47,13 +47,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(-2, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(687, 26);
+            this.textBox1.Size = new System.Drawing.Size(687, 31);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "                                                   Vat/Tax/Charge Set Up";
+            this.textBox1.Text = "Vat/Tax/Charge Set Up Management";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TextBoxDiscount
             // 
@@ -95,7 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.TextBoxDiscount);
-            this.groupBox1.Location = new System.Drawing.Point(53, 34);
+            this.groupBox1.Location = new System.Drawing.Point(53, 37);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(572, 223);
             this.groupBox1.TabIndex = 8;
@@ -136,7 +137,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox2.Controls.Add(this.BtnSave);
             this.groupBox2.Controls.Add(this.BtnEdit);
-            this.groupBox2.Location = new System.Drawing.Point(53, 261);
+            this.groupBox2.Location = new System.Drawing.Point(53, 263);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(572, 90);
             this.groupBox2.TabIndex = 9;

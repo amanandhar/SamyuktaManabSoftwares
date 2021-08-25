@@ -147,7 +147,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(17, 35);
+            this.groupBox1.Location = new System.Drawing.Point(17, 37);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(650, 204);
             this.groupBox1.TabIndex = 6;
@@ -206,13 +206,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox4
             // 
             this.textBox4.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.ForeColor = System.Drawing.Color.White;
             this.textBox4.Location = new System.Drawing.Point(-1, 0);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(685, 26);
+            this.textBox4.Size = new System.Drawing.Size(685, 35);
             this.textBox4.TabIndex = 8;
-            this.textBox4.Text = "                                                           Bank Transfer";
+            this.textBox4.Text = "Bank Transfer";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BankTransferForm
             // 

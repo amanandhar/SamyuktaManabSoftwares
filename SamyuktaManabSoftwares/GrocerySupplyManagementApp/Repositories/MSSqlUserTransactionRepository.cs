@@ -241,7 +241,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
                 "[InvoiceNo], [DueAmount], [ReceivedAmount], " +
                 "( " +
-                "SELECT SUM(ISNULL(b.[DueAmount], 0) - ISNULL(b.[ReceivedAmount], 0)) FROM UserTransaction b " +
+                "SELECT SUM(ISNULL(b.[DueAmount], 0) - ISNULL(b.[ReceivedAmount], 0)) FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
                 "WHERE 1 = 1 " +
                 "AND b.[AddedDate] <= a.[AddedDate] " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +

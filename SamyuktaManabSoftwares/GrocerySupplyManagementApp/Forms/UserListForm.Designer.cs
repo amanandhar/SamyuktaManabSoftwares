@@ -35,10 +35,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridUserList
             // 
+            this.DataGridUserList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridUserList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridUserList.Location = new System.Drawing.Point(12, 12);
+            this.DataGridUserList.Location = new System.Drawing.Point(12, 10);
             this.DataGridUserList.Name = "DataGridUserList";
-            this.DataGridUserList.Size = new System.Drawing.Size(510, 340);
+            this.DataGridUserList.Size = new System.Drawing.Size(510, 240);
             this.DataGridUserList.TabIndex = 0;
             this.DataGridUserList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridUserList_CellDoubleClick);
             this.DataGridUserList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridUserList_DataBindingComplete);
@@ -47,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 361);
+            this.ClientSize = new System.Drawing.Size(534, 261);
             this.Controls.Add(this.DataGridUserList);
             this.Name = "UserListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -41,6 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridItemList
             // 
+            this.DataGridItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridItemList.Location = new System.Drawing.Point(12, 57);
             this.DataGridItemList.Name = "DataGridItemList";

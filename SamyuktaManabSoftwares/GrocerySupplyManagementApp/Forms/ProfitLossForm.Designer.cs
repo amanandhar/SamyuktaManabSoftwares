@@ -91,14 +91,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.White;
             this.textBox2.Location = new System.Drawing.Point(0, 0);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(1045, 26);
+            this.textBox2.Size = new System.Drawing.Size(1045, 40);
             this.textBox2.TabIndex = 68;
-            this.textBox2.Text = "                                                                                 " +
-    "     Profit & Loss Report";
+            this.textBox2.Text = " Profit & Loss Report";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
@@ -113,23 +113,24 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.BtnShow);
-            this.groupBox3.Location = new System.Drawing.Point(860, 24);
+            this.groupBox3.Location = new System.Drawing.Point(860, 38);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(160, 65);
+            this.groupBox3.Size = new System.Drawing.Size(160, 55);
             this.groupBox3.TabIndex = 39;
             this.groupBox3.TabStop = false;
             // 
             // BtnShow
             // 
             this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
+            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
+            this.BtnShow.FlatAppearance.BorderSize = 2;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShow.Location = new System.Drawing.Point(18, 12);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 45);
+            this.BtnShow.Size = new System.Drawing.Size(125, 35);
             this.BtnShow.TabIndex = 0;
             this.BtnShow.Text = "Show";
             this.BtnShow.UseVisualStyleBackColor = false;
@@ -141,16 +142,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.MaskEndOfDayFrom);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(21, 25);
+            this.groupBox1.Location = new System.Drawing.Point(21, 38);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(820, 65);
+            this.groupBox1.Size = new System.Drawing.Size(820, 55);
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
             // 
             // MaskEndOfDayTo
             // 
             this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayTo.Location = new System.Drawing.Point(332, 22);
+            this.MaskEndOfDayTo.Location = new System.Drawing.Point(332, 16);
             this.MaskEndOfDayTo.Mask = "   0000-00-00";
             this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
             this.MaskEndOfDayTo.Size = new System.Drawing.Size(120, 26);
@@ -159,7 +160,7 @@ namespace GrocerySupplyManagementApp.Forms
             // MaskEndOfDayFrom
             // 
             this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(126, 22);
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(126, 16);
             this.MaskEndOfDayFrom.Mask = "   0000-00-00";
             this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
             this.MaskEndOfDayFrom.Size = new System.Drawing.Size(116, 26);
@@ -170,7 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(37, 25);
+            this.label5.Location = new System.Drawing.Point(37, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 20);
             this.label5.TabIndex = 101;
@@ -181,7 +182,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(262, 25);
+            this.label2.Location = new System.Drawing.Point(262, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 20);
             this.label2.TabIndex = 100;
@@ -278,11 +279,11 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(0, 95);
+            this.textBox1.Location = new System.Drawing.Point(0, 98);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 26);
+            this.textBox1.Size = new System.Drawing.Size(1045, 24);
             this.textBox1.TabIndex = 85;
             this.textBox1.Text = "                                                                                 " +
     "                          Profit & Loss : 2078/079";

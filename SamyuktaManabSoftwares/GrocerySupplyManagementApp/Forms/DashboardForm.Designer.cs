@@ -202,7 +202,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox2.Controls.Add(this.RichBoxFiscalYear);
             this.groupBox2.Controls.Add(this.RichBoxTime);
             this.groupBox2.Controls.Add(this.RichBoxUsername);
@@ -216,55 +216,60 @@
             // 
             // RichBoxFiscalYear
             // 
-            this.RichBoxFiscalYear.Enabled = false;
-            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxFiscalYear.BackColor = System.Drawing.Color.White;
+            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxFiscalYear.ForeColor = System.Drawing.Color.Black;
             this.RichBoxFiscalYear.Location = new System.Drawing.Point(1073, 6);
             this.RichBoxFiscalYear.Name = "RichBoxFiscalYear";
+            this.RichBoxFiscalYear.ReadOnly = true;
             this.RichBoxFiscalYear.Size = new System.Drawing.Size(260, 25);
             this.RichBoxFiscalYear.TabIndex = 5;
             this.RichBoxFiscalYear.Text = "";
             // 
             // RichBoxTime
             // 
-            this.RichBoxTime.Enabled = false;
-            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxTime.BackColor = System.Drawing.Color.White;
+            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxTime.ForeColor = System.Drawing.Color.Black;
             this.RichBoxTime.Location = new System.Drawing.Point(544, 7);
             this.RichBoxTime.Name = "RichBoxTime";
+            this.RichBoxTime.ReadOnly = true;
             this.RichBoxTime.Size = new System.Drawing.Size(260, 25);
             this.RichBoxTime.TabIndex = 4;
             this.RichBoxTime.Text = "";
             // 
             // RichBoxUsername
             // 
-            this.RichBoxUsername.Enabled = false;
-            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxUsername.BackColor = System.Drawing.Color.White;
+            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxUsername.ForeColor = System.Drawing.Color.Black;
             this.RichBoxUsername.Location = new System.Drawing.Point(809, 6);
             this.RichBoxUsername.Name = "RichBoxUsername";
+            this.RichBoxUsername.ReadOnly = true;
             this.RichBoxUsername.Size = new System.Drawing.Size(260, 25);
             this.RichBoxUsername.TabIndex = 3;
             this.RichBoxUsername.Text = "";
             // 
             // RichBoxDateInBs
             // 
-            this.RichBoxDateInBs.Enabled = false;
-            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInBs.BackColor = System.Drawing.Color.White;
+            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInBs.ForeColor = System.Drawing.Color.Black;
             this.RichBoxDateInBs.Location = new System.Drawing.Point(274, 7);
             this.RichBoxDateInBs.Name = "RichBoxDateInBs";
+            this.RichBoxDateInBs.ReadOnly = true;
             this.RichBoxDateInBs.Size = new System.Drawing.Size(265, 25);
             this.RichBoxDateInBs.TabIndex = 1;
             this.RichBoxDateInBs.Text = "";
             // 
             // RichBoxDateInAd
             // 
-            this.RichBoxDateInAd.Enabled = false;
-            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInAd.BackColor = System.Drawing.Color.White;
+            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInAd.ForeColor = System.Drawing.Color.Black;
             this.RichBoxDateInAd.Location = new System.Drawing.Point(7, 7);
             this.RichBoxDateInAd.Name = "RichBoxDateInAd";
+            this.RichBoxDateInAd.ReadOnly = true;
             this.RichBoxDateInAd.Size = new System.Drawing.Size(263, 25);
             this.RichBoxDateInAd.TabIndex = 0;
             this.RichBoxDateInAd.Text = "";
@@ -272,7 +277,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 80.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label1.Location = new System.Drawing.Point(70, 137);
@@ -305,7 +310,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.White;
+            this.groupBox3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);

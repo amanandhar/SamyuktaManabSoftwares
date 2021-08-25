@@ -29,9 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ComboAction = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnAddMember = new System.Windows.Forms.Button();
@@ -123,7 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnAddMember
             // 
             this.BtnAddMember.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnAddMember.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnAddMember.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnAddMember.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnAddMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -139,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnPaymentSave
             // 
             this.BtnPaymentSave.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnPaymentSave.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnPaymentSave.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnPaymentSave.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnPaymentSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnPaymentSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -155,8 +155,8 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnDelete
             // 
             this.BtnDelete.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnDelete.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
+            this.BtnDelete.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
+            this.BtnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.Transparent;
@@ -171,7 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnSave
             // 
             this.BtnSave.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnSave.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSave.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnSave.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -187,8 +187,8 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnEdit
             // 
             this.BtnEdit.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnEdit.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnEdit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
+            this.BtnEdit.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
+            this.BtnEdit.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.Transparent;
@@ -203,7 +203,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnUpdate
             // 
             this.BtnUpdate.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -219,7 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnShowSales
             // 
             this.BtnShowSales.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowSales.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowSales.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowSales.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowSales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -250,7 +250,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnShowTransaction
             // 
             this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -322,9 +322,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // RichEmail
             // 
+            this.RichEmail.BackColor = System.Drawing.Color.White;
             this.RichEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichEmail.Location = new System.Drawing.Point(574, 13);
             this.RichEmail.Name = "RichEmail";
+            this.RichEmail.ReadOnly = true;
             this.RichEmail.Size = new System.Drawing.Size(258, 26);
             this.RichEmail.TabIndex = 8;
             this.RichEmail.Text = "";
@@ -508,6 +510,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAccountNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichAccountNumber.Location = new System.Drawing.Point(238, 14);
             this.RichAccountNumber.Name = "RichAccountNumber";
+            this.RichAccountNumber.ReadOnly = true;
             this.RichAccountNumber.Size = new System.Drawing.Size(88, 26);
             this.RichAccountNumber.TabIndex = 2;
             this.RichAccountNumber.Text = "";
@@ -526,7 +529,7 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnShowMember
             // 
             this.BtnShowMember.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowMember.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowMember.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowMember.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -552,6 +555,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // RichContactNumber
             // 
+            this.RichContactNumber.BackColor = System.Drawing.Color.White;
             this.RichContactNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichContactNumber.Location = new System.Drawing.Point(574, 40);
             this.RichContactNumber.Name = "RichContactNumber";
@@ -561,64 +565,71 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // RichAddress
             // 
+            this.RichAddress.BackColor = System.Drawing.Color.White;
+            this.RichAddress.Enabled = false;
             this.RichAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichAddress.Location = new System.Drawing.Point(116, 68);
             this.RichAddress.Name = "RichAddress";
+            this.RichAddress.ReadOnly = true;
             this.RichAddress.Size = new System.Drawing.Size(330, 26);
             this.RichAddress.TabIndex = 4;
             this.RichAddress.Text = "";
             // 
             // RichName
             // 
+            this.RichName.BackColor = System.Drawing.Color.White;
+            this.RichName.Enabled = false;
             this.RichName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichName.Location = new System.Drawing.Point(116, 41);
             this.RichName.Name = "RichName";
+            this.RichName.ReadOnly = true;
             this.RichName.Size = new System.Drawing.Size(285, 26);
             this.RichName.TabIndex = 3;
             this.RichName.Text = "";
             // 
             // RichMemberId
             // 
-            this.RichMemberId.Enabled = false;
+            this.RichMemberId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.RichMemberId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichMemberId.Location = new System.Drawing.Point(116, 14);
             this.RichMemberId.MaxLength = 5;
             this.RichMemberId.Name = "RichMemberId";
+            this.RichMemberId.ReadOnly = true;
             this.RichMemberId.Size = new System.Drawing.Size(80, 26);
             this.RichMemberId.TabIndex = 1;
             this.RichMemberId.Text = "";
             // 
             // DataGridMemberList
             // 
-            this.DataGridMemberList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridMemberList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridMemberList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridMemberList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridMemberList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridMemberList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridMemberList.DefaultCellStyle = dataGridViewCellStyle5;
-            this.DataGridMemberList.Location = new System.Drawing.Point(16, 178);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridMemberList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridMemberList.Location = new System.Drawing.Point(16, 176);
             this.DataGridMemberList.Name = "DataGridMemberList";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridMemberList.Size = new System.Drawing.Size(858, 315);
             this.DataGridMemberList.TabIndex = 32;
             this.DataGridMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberTransactionList_DataBindingComplete);
@@ -711,7 +722,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
             this.Controls.Add(this.MaskEndOfDayTo);
             this.Controls.Add(this.MaskEndOfDayFrom);

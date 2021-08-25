@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox1.Controls.Add(this.RichFiscalYear);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(304, 147);
+            this.groupBox1.Location = new System.Drawing.Point(305, 152);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(370, 80);
             this.groupBox1.TabIndex = 0;
@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox2.Controls.Add(this.RichCompanyStartingDate);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(304, 43);
+            this.groupBox2.Location = new System.Drawing.Point(305, 53);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(370, 80);
             this.groupBox2.TabIndex = 2;
@@ -117,14 +117,14 @@ namespace GrocerySupplyManagementApp.Forms
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(685, 26);
+            this.textBox1.Size = new System.Drawing.Size(685, 31);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "                                   Updating Starting Date, Fiscal Year and Bill/I" +
-    "nvoice No";
+            this.textBox1.Text = "Date Fiscal Year Update Management";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox3
             // 
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.BtnSave.Location = new System.Drawing.Point(209, 27);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(130, 40);
+            this.BtnSave.Size = new System.Drawing.Size(130, 45);
             this.BtnSave.TabIndex = 2;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.ForeColor = System.Drawing.Color.Red;
             this.BtnEdit.Location = new System.Drawing.Point(78, 27);
             this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(130, 40);
+            this.BtnEdit.Size = new System.Drawing.Size(130, 45);
             this.BtnEdit.TabIndex = 0;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.UseVisualStyleBackColor = true;
@@ -166,7 +166,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.RichInvoiceNo);
-            this.groupBox4.Location = new System.Drawing.Point(8, 43);
+            this.groupBox4.Location = new System.Drawing.Point(9, 53);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(290, 80);
             this.groupBox4.TabIndex = 5;
@@ -197,7 +197,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox5.Controls.Add(this.RichBillNo);
             this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(8, 147);
+            this.groupBox5.Location = new System.Drawing.Point(9, 152);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(290, 80);
             this.groupBox5.TabIndex = 6;
