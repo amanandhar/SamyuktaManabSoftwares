@@ -567,6 +567,10 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 PicBoxMemberImage.ImageLocation = member.ImagePath;
             }
+            else
+            {
+                PicBoxMemberImage.Image = null;
+            }
 
             ComboReceipt.Enabled = true;
 

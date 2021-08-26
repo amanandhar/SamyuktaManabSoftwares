@@ -12,7 +12,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class PricedItemListForm : Form
     {
         private readonly IPricedItemService _pricedItemService;
-        private IPricedItemListForm _pricedItemListForm;
+        private readonly IPricedItemListForm _pricedItemListForm;
         private List<PricedItemView> _pricedItemViewList = new List<PricedItemView>();
 
         #region Constructor

@@ -9,11 +9,11 @@ namespace GrocerySupplyManagementApp.Shared
 {
     public static class UtilityService
     {
-        private static string[] units = { 
+        private readonly static string[] units = { 
             "Zero", "One", "Two", "Three","Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
             "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" 
         };
-        private static string[] tens = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+        private readonly static string[] tens = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
 
         public static string GetConnectionString()
         {

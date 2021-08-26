@@ -12,7 +12,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ItemListForm : Form
     {
         private readonly IItemService _itemService;
-        private IItemListForm _itemListForm;
+        private readonly IItemListForm _itemListForm;
         private List<Item> _items = new List<Item>();
 
         #region Constructor
@@ -61,11 +61,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["UpdatedDate"].Visible = false;
 
             DataGridItemList.Columns["Code"].HeaderText = "Code";
-            DataGridItemList.Columns["Code"].Width = 100;
+            DataGridItemList.Columns["Code"].Width = 150;
             DataGridItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridItemList.Columns["Name"].HeaderText = "Name";
-            DataGridItemList.Columns["Name"].Width = 250;
+            DataGridItemList.Columns["Name"].Width = 300;
             DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
             DataGridItemList.Columns["Brand"].HeaderText = "Brand";

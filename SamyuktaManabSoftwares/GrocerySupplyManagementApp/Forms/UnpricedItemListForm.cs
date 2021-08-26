@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridUnpricedItemList.Columns["Id"].Visible = false;
 
             DataGridUnpricedItemList.Columns["Code"].HeaderText = "Code";
-            DataGridUnpricedItemList.Columns["Code"].Width = 50;
+            DataGridUnpricedItemList.Columns["Code"].Width = 100;
             DataGridUnpricedItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridUnpricedItemList.Columns["Name"].HeaderText = "Name";

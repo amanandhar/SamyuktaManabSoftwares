@@ -240,7 +240,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
                 "[InvoiceNo], [DueAmount], " +
-                "CASE WHEN ([ReceivedAmount] - [DueAmount] >= 0) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
+                "CASE WHEN ([DueAmount] <> 0 AND ([ReceivedAmount] - [DueAmount] >= 0)) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
@@ -293,7 +293,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
                 "[InvoiceNo], [DueAmount], " +
-                "CASE WHEN ([ReceivedAmount] - [DueAmount] >= 0) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
+                "CASE WHEN ([DueAmount] <> 0 AND ([ReceivedAmount] - [DueAmount] >= 0)) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
@@ -779,15 +779,18 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " +
                 "( " +
                 "SELECT " +
-                "CASE WHEN ([ReceivedAmount] - [DueAmount] >= 0) THEN 0 ELSE ([DueAmount] - [ReceivedAmount]) END AS [Amount] " +
+                "CASE WHEN ([DueAmount] <> 0 AND ([ReceivedAmount] - [DueAmount] >= 0)) THEN 0 ELSE ([DueAmount] - [ReceivedAmount]) END AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [InvoiceNo] IS NOT NULL " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
 
             if(!string.IsNullOrWhiteSpace(memberId))
             {
                 query += "AND [MemberId] = @MemberId ";
+            }
+            else
+            {
+                query += "AND [InvoiceNo] IS NOT NULL ";
             }
 
             query += ") Temp";

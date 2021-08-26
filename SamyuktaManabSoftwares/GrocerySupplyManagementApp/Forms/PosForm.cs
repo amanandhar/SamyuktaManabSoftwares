@@ -29,6 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IReportService _reportService;
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IEmployeeService _employeeService;
+        private readonly IStockService _stockService;
+
 
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
@@ -42,7 +44,8 @@ namespace GrocerySupplyManagementApp.Forms
             IMemberService memberService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IReportService reportService,
-            ICompanyInfoService companyInfoService, IEmployeeService employeeService
+            ICompanyInfoService companyInfoService, IEmployeeService employeeService,
+            IStockService stockService
             )
         {
             InitializeComponent();
@@ -60,6 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
             _reportService = reportService;
             _companyInfoService = companyInfoService;
             _employeeService = employeeService;
+            _stockService = stockService;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
@@ -733,8 +737,23 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Text = item.Code + (string.IsNullOrWhiteSpace(pricedItem.ItemSubCode) ? "" : (separator + pricedItem.ItemSubCode));
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
-                TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
-                
+
+                // Start: Sales Price Logic
+                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
+                    .ToList();
+
+                var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
+                var quantity = pricedItem.Quantity;
+                var totalPrice = Math.Round(perUnitValue * quantity, 2);
+                var profitPercent = pricedItem.ProfitPercent;
+                var profitAmount = Math.Round(((totalPrice * profitPercent) / 100), 2);
+                var salesPrice = Math.Round((totalPrice + profitAmount), 2);
+                TxtItemPrice.Text = Math.Round((salesPrice / quantity), 2).ToString();
+                // End
+
                 TxtItemStock.Text = stock.ToString();
                 TxtItemUnit.Text = item.Unit;
                 TxtProfitAmount.Text = pricedItem.Profit.ToString();
