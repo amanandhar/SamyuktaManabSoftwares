@@ -141,7 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.DataGridMemberList);
             this.Name = "MemberListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "           Member Search";
+            this.Text = "Member Search";
             this.Load += new System.EventHandler(this.MemberListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).EndInit();
             this.groupBox1.ResumeLayout(false);

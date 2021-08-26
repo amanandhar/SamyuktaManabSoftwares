@@ -466,12 +466,56 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private List<MemberTransactionView> GetMemberTransactions(string memberId)
         {
-            return _userTransactionService.GetMemberTransactions(memberId).ToList();
+            var memberTransactions = _userTransactionService.GetMemberTransactions(memberId).ToList();
+
+            decimal balance = 0.00M;
+            var memberTransactionViews = memberTransactions
+                           .OrderBy(x => x.Id)
+                           .Select(x =>
+                           {
+                               balance += (x.DueAmount - x.ReceivedAmount);
+                               return new MemberTransactionView
+                               {
+                                   Id = x.Id,
+                                   EndOfDay = x.EndOfDay,
+                                   Action = x.Action,
+                                   ActionType = x.ActionType,
+                                   InvoiceNo = x.InvoiceNo,
+                                   DueAmount = x.DueAmount,
+                                   ReceivedAmount = x.ReceivedAmount,
+                                   Balance = balance
+                               };
+                           }
+             ).ToList();
+
+            return memberTransactionViews;
         }
 
         private List<MemberTransactionView> GetMemberTransactions(MemberFilter memberFilter)
         {
-            return _userTransactionService.GetMemberTransactions(memberFilter).ToList();
+            var memberTransactions = _userTransactionService.GetMemberTransactions(memberFilter).ToList();
+
+            decimal balance = 0.00M;
+            var memberTransactionViews = memberTransactions
+                           .OrderBy(x => x.Id)
+                           .Select(x =>
+                           {
+                               balance += (x.DueAmount - x.ReceivedAmount);
+                               return new MemberTransactionView
+                               {
+                                   Id = x.Id,
+                                   EndOfDay = x.EndOfDay,
+                                   Action = x.Action,
+                                   ActionType = x.ActionType,
+                                   InvoiceNo = x.InvoiceNo,
+                                   DueAmount = x.DueAmount,
+                                   ReceivedAmount = x.ReceivedAmount,
+                                   Balance = balance
+                               };
+                           }
+             ).ToList();
+
+            return memberTransactionViews;
         }
 
         private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)

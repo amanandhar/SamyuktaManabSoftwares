@@ -85,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             LoadItems(_soldItemViewList);
             LoadDeliveryPersons();
-            BtnAddSale.Focus();
+            BtnAddSale.Select();
         }
         #endregion
 
@@ -94,12 +94,14 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
             memberListForm.ShowDialog();
+            RichItemCode.Focus();
         }
 
         private void BtnShowItem_Click(object sender, EventArgs e)
         {
             PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
             pricedItemListForm.ShowDialog();
+            RichItemQuantity.Focus();
         }
 
         private void BtnDailySales_Click(object sender, EventArgs e)
@@ -131,6 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             BtnShowMember.Enabled = true;
             BtnShowItem.Enabled = true;
+            RichMemberId.Focus();
         }
 
         private void BtnSaveInvoice_Click(object sender, EventArgs e)
@@ -381,12 +384,21 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 e.Handled = true;
             }
+        }
 
-            if(e.KeyChar == (char)Keys.Enter)
+        private void RichItemQuantity_KeyUp(object sender, KeyEventArgs e)
+        {
+            BtnAddItem.Enabled = true;
+        }
+
+        private void RichItemQuantity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
             {
+                e.Handled = e.SuppressKeyPress = true;
                 var stock = Convert.ToInt32(TxtItemStock.Text);
                 var quantity = Convert.ToInt32(RichItemQuantity.Text);
-                if(quantity > stock)
+                if (quantity > stock)
                 {
                     DialogResult result = MessageBox.Show("No sufficient stock!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (result == DialogResult.OK)
@@ -399,17 +411,17 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void RichItemQuantity_KeyUp(object sender, KeyEventArgs e)
-        {
-            BtnAddItem.Enabled = true;
-        }
-
         private void RichMemberId_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
-            if (e.KeyChar == (char)Keys.Enter)
+        }
+
+        private void RichMemberId_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
             {
-                var memberId = RichMemberId.Text.Replace("\n", "");
+                e.Handled = e.SuppressKeyPress = true;
+                var memberId = RichMemberId.Text;
                 PopulateMember(memberId);
             }
         }
@@ -417,17 +429,23 @@ namespace GrocerySupplyManagementApp.Forms
         private void RichItemCode_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
-            if (e.KeyChar == (char)Keys.Enter)
+            
+        }
+
+        private void RichItemCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
             {
+                e.Handled = e.SuppressKeyPress = true;
                 try
                 {
                     var codes = RichItemCode.Text.Replace("\n", "").Split(separator);
                     var itemCode = codes[0];
                     var itemSubCode = codes.Length > 1 ? codes[1] : string.Empty;
                     var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
-                    if(pricedItem.ItemId == 0)
+                    if (pricedItem.ItemId == 0)
                     {
-                        DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text + "!",
+                        DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text,
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         if (result == DialogResult.OK)
                         {
@@ -471,7 +489,6 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     throw ex;
                 }
-
             }
         }
 
@@ -592,7 +609,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
                     Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
                     AddedDate = DateTime.Now
-                }); ;
+                });
 
                 LoadItems(_soldItemViewList);
 
@@ -601,6 +618,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearAllItemFields();
 
                 BtnSaveInvoice.Enabled = true;
+                PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
                 RichItemCode.Focus();
             }
             catch (Exception ex)
@@ -662,6 +680,15 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var member = _memberService.GetMember(memberId);
+                if(string.IsNullOrWhiteSpace(member?.MemberId))
+                {
+                    DialogResult result = MessageBox.Show("Invalid member id : " + memberId,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
 
                 RichMemberId.Text = member.MemberId;
                 TxtName.Text = member.Name;
@@ -673,6 +700,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
 
                 BtnPaymentIn.Enabled = true;
+                RichItemCode.Focus();
             }
             catch (Exception ex)
             {
@@ -694,7 +722,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
                 if(stock < item.Threshold)
                 {
-                    DialogResult result = MessageBox.Show("Low stock, add more!",
+                    DialogResult result = MessageBox.Show("Low stock, add more!O",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (result == DialogResult.OK)
                     {
@@ -801,6 +829,8 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+
         #endregion
+
     }
 }

@@ -239,15 +239,9 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[InvoiceNo], [DueAmount], [ReceivedAmount], " +
-                "( " +
-                "SELECT SUM(ISNULL(b.[DueAmount], 0) - ISNULL(b.[ReceivedAmount], 0)) FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "WHERE 1 = 1 " +
-                "AND b.[AddedDate] <= a.[AddedDate] " +
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
-                "AND [MemberId] = @MemberId " +
-                ")  AS Balance " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
+                "[InvoiceNo], [DueAmount], " +
+                "CASE WHEN ([ReceivedAmount] - [DueAmount] >= 0) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
                 "AND [MemberId] = @MemberId " +
@@ -275,7 +269,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
-                                    Balance = Convert.ToDecimal(reader["Balance"].ToString())
+                                    Balance = 0.00M
                                 };
 
                                 memberTransactionViews.Add(memberTransactionView);
@@ -298,15 +292,9 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[InvoiceNo], [DueAmount], [ReceivedAmount], " +
-                "( " +
-                "SELECT SUM(ISNULL(b.[DueAmount], 0) - ISNULL(b.[ReceivedAmount], 0)) FROM UserTransaction b " +
-                "WHERE 1 = 1 " +
-                "AND b.[AddedDate] <= a.[AddedDate] " +
-                "AND ISNULL(b.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
-                "AND b.[MemberId] IS NOT NULL " +
-                ")  AS Balance " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
+                "[InvoiceNo], [DueAmount], " +
+                "CASE WHEN ([ReceivedAmount] - [DueAmount] >= 0) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
                 "AND [MemberId] IS NOT NULL ";
@@ -787,7 +775,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal balance = 0.00m;
             string query = @"SELECT " +
-                "SUM([DueAmount]) - SUM([ReceivedAmount]) " +
+                "SUM(Temp.[Amount]) " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "CASE WHEN ([ReceivedAmount] - [DueAmount] >= 0) THEN 0 ELSE ([DueAmount] - [ReceivedAmount]) END AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [InvoiceNo] IS NOT NULL " +
@@ -797,6 +789,8 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += "AND [MemberId] = @MemberId ";
             }
+
+            query += ") Temp";
 
             try
             {
