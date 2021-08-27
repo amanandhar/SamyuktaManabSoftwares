@@ -39,7 +39,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PicBoxItemImage = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.TxtUnit = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.TxtItemSubCode = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -69,6 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd = new System.Windows.Forms.Button();
             this.BtnDeleteItemImage = new System.Windows.Forms.Button();
             this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
+            this.ComboItemUnit = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -179,7 +179,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.TxtUnit);
+            this.groupBox2.Controls.Add(this.ComboItemUnit);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.TxtItemSubCode);
             this.groupBox2.Controls.Add(this.label12);
@@ -211,15 +211,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(840, 485);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
-            // 
-            // TxtUnit
-            // 
-            this.TxtUnit.Enabled = false;
-            this.TxtUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtUnit.Location = new System.Drawing.Point(170, 226);
-            this.TxtUnit.Name = "TxtUnit";
-            this.TxtUnit.Size = new System.Drawing.Size(210, 29);
-            this.TxtUnit.TabIndex = 44;
             // 
             // label13
             // 
@@ -556,6 +547,16 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
             // 
+            // ComboItemUnit
+            // 
+            this.ComboItemUnit.Enabled = false;
+            this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboItemUnit.FormattingEnabled = true;
+            this.ComboItemUnit.Location = new System.Drawing.Point(170, 230);
+            this.ComboItemUnit.Name = "ComboItemUnit";
+            this.ComboItemUnit.Size = new System.Drawing.Size(209, 28);
+            this.ComboItemUnit.TabIndex = 44;
+            // 
             // PricedItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -620,6 +621,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnDeleteItemImage;
         private System.Windows.Forms.PictureBox PicBoxItemImage;
         private System.Windows.Forms.Button BtnDelete;
-        private System.Windows.Forms.TextBox TxtUnit;
+        private System.Windows.Forms.ComboBox ComboItemUnit;
     }
 }

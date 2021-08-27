@@ -79,5 +79,17 @@ namespace GrocerySupplyManagementApp.Shared
         public const string ADMIN = "Admin";
         public const string GENERAL = "General";
         public const string GUEST = "Guest";
+
+        //Item Unit
+        public const string KILOGRAM = "Kg";
+        public const string GRAM = "Grm";
+        public const string LITER = "Ltr";
+        public const string MILLI_LITER = "ML";
+        public const string PIECES = "Pcs";
+        public const string PACKET = "Pkt";
+        public const string BAG = "Bag";
+        public const string BOTTLE = "Btl";
+        public const string CAN = "Can";
+        public const string DOZEN = "Dzn";
     }
 }
