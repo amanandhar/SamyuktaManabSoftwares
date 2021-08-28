@@ -27,18 +27,18 @@ namespace GrocerySupplyManagementApp.Repositories
                         INTO #Temp
                         FROM 
                         (
-                        SELECT pi.[EndOfDay], 'Purchase' as [Description], 
+                        SELECT pi.[EndOfDay], 'Purchase' AS [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
-                        pi.[Quantity] as [PurchaseQuantity], 0 AS [SalesQuantity],
+                        pi.[Quantity] AS [PurchaseQuantity], 0 AS [SalesQuantity],
                         pi.[Price] AS [PurchasePrice], 0.0 AS [SalesPrice],
                         pi.[AddedDate] FROM [PurchasedItem] pi
                         INNER JOIN 
                         [Item] i
                         ON pi.[ItemId] = i.[Id]
                         UNION
-                        SELECT si.[EndOfDay], 'Sales' as [Description], 
+                        SELECT si.[EndOfDay], 'Sales' AS [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
-                        0 AS [PurchaseQuantity], si.[Quantity] as [SalesQuantity],
+                        0 AS [PurchaseQuantity], si.[Quantity] AS [SalesQuantity],
                         0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice],
                         si.[AddedDate] FROM [SoldItem] si
                         INNER JOIN 
@@ -96,9 +96,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Description = reader["Description"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
-                                    PurchaseQuantity = Convert.ToInt32(reader["PurchaseQuantity"].ToString()),
-                                    SalesQuantity = Convert.ToInt32(reader["SalesQuantity"].ToString()),
-                                    StockQuantity = Convert.ToInt32(reader["StockQuantity"].ToString()),
+                                    PurchaseQuantity = Convert.ToDecimal(reader["PurchaseQuantity"].ToString()),
+                                    SalesQuantity = Convert.ToDecimal(reader["SalesQuantity"].ToString()),
+                                    StockQuantity = Convert.ToDecimal(reader["StockQuantity"].ToString()),
                                     PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
                                     TotalPurchasePrice = Convert.ToDecimal(reader["TotalPurchasePrice"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())

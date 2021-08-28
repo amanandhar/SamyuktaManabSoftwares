@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
             this.BtnStockMgmt = new System.Windows.Forms.Button();
             this.BtnReportsMgmt = new System.Windows.Forms.Button();
             this.BtnSettingMgmt = new System.Windows.Forms.Button();
@@ -43,10 +44,6 @@
             this.RichBoxUsername = new System.Windows.Forms.RichTextBox();
             this.RichBoxDateInBs = new System.Windows.Forms.RichTextBox();
             this.RichBoxDateInAd = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnEmployeeMgmt = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnEndOfDayMgmt = new System.Windows.Forms.Button();
@@ -57,11 +54,13 @@
             this.lblCompanyShortName = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblCompanyName = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnStockMgmt
@@ -274,52 +273,6 @@
             this.RichBoxDateInAd.TabIndex = 0;
             this.RichBoxDateInAd.Text = "";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 80.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(70, 137);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(928, 120);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Samyukta Manab ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(223, 356);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(590, 31);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Nayabazar-16,Kathmandu,Mobile : 9841272950";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(187, 277);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(663, 55);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Grocery Management System";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Location = new System.Drawing.Point(286, 55);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1061, 588);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            // 
             // BtnEmployeeMgmt
             // 
             this.BtnEmployeeMgmt.BackColor = System.Drawing.SystemColors.Highlight;
@@ -458,11 +411,36 @@
             this.lblCompanyName.TabIndex = 0;
             this.lblCompanyName.Text = "Samyukta Manab Grocery Management";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox3.BackgroundImage")));
+            this.groupBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Location = new System.Drawing.Point(286, 55);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(1061, 588);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 23.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Cyan;
+            this.label1.Location = new System.Drawing.Point(13, 547);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1036, 35);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Samyukta Manab Grocery Management System,Nayabazar-16,Kathmandu";
+            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1354, 691);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -474,13 +452,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.DashboardForm_Load);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -496,9 +474,6 @@
         private System.Windows.Forms.Button BtnMemberMgmt;
         private System.Windows.Forms.Button BtnSummaryMgmt;
         private System.Windows.Forms.Button BtnPosMgmt;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnStockMgmt;
         private System.Windows.Forms.Button BtnEmployeeMgmt;
@@ -514,6 +489,7 @@
         private System.Windows.Forms.Label lblCompanyShortName;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label lblCompanyName;
+        private System.Windows.Forms.Label label1;
     }
 }
 

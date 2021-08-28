@@ -44,7 +44,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     SupplierId = reader["SupplierId"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
@@ -91,7 +91,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 purchasedItem.SupplierId = reader["SupplierId"].ToString();
                                 purchasedItem.BillNo = reader["BillNo"].ToString();
                                 purchasedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                purchasedItem.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
+                                purchasedItem.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
                                 purchasedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 purchasedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 purchasedItem.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
@@ -182,7 +182,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     SupplierId = reader["SupplierId"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                 };
@@ -393,7 +393,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.SupplierId = reader["SupplierId"].ToString();
                                 item.BillNo = reader["BillNo"].ToString();
                                 item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                item.Quantity = Convert.ToInt32(reader["Quantity"].ToString());
+                                item.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
                                 item.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                             }

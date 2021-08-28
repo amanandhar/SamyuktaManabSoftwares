@@ -8,9 +8,9 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string Description { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
-        public int PurchaseQuantity { get; set; }
-        public int SalesQuantity { get; set; }
-        public int StockQuantity { get; set; }
+        public decimal PurchaseQuantity { get; set; }
+        public decimal SalesQuantity { get; set; }
+        public decimal StockQuantity { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal TotalPurchasePrice { get; set; }
         public decimal SalesPrice { get; set; }

@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [MemberId], [InvoiceNo], " +
-                "[ItemId], [ItemSubCode], [Profit], [Quantity], [Price], " +
+                "[ItemId], [ItemSubCode], [Profit], [Unit], [Quantity], [Price], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
@@ -45,7 +45,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
-                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    Unit = reader["Unit"].ToString(),
+                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
@@ -107,7 +108,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Name"].ToString(),
                                     ItemBrand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
-                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
@@ -246,7 +247,6 @@ namespace GrocerySupplyManagementApp.Repositories
                             while (reader.Read())
                             {
                                 var itemCode = reader["Code"].ToString();
-
                                 itemCodes.Add(itemCode);
                             }
                         }
@@ -265,11 +265,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Quantity], [Price], [AddedDate], [UpdatedDate]  " +
+                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Quantity], [Price], [AddedDate], [UpdatedDate]  " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Quantity, @Price, @AddedDate, @UpdatedDate " +
+                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Quantity, @Price, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -283,6 +283,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@InvoiceNo", soldItem.InvoiceNo);
                         command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
                         command.Parameters.AddWithValue("@Profit", soldItem.Profit);
+                        command.Parameters.AddWithValue("@Unit", soldItem.Unit);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
                         command.Parameters.AddWithValue("@AddedDate", soldItem.AddedDate);

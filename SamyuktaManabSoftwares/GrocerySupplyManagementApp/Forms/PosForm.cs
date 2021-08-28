@@ -164,6 +164,7 @@ namespace GrocerySupplyManagementApp.Forms
                         InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         ItemId = _itemService.GetItem(x.ItemCode).Id,
                         Profit = x.Profit,
+                        Unit = x.Unit,
                         Quantity = x.Quantity,
                         Price = x.ItemPrice,
                         AddedDate = x.AddedDate,
@@ -724,9 +725,15 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
-                if(stock < item.Threshold)
+                var threshold = 0.00M;
+                if(pricedItem.Unit == Constants.GRAM || pricedItem.Unit == Constants.MILLI_LITER)
                 {
-                    DialogResult result = MessageBox.Show("Low stock, add more!O",
+                    stock = stock * 1000;
+                }
+
+                if(stock < threshold)
+                {
+                    DialogResult result = MessageBox.Show("Low stock, add more.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (result == DialogResult.OK)
                     {
@@ -751,11 +758,18 @@ namespace GrocerySupplyManagementApp.Forms
                 var profitPercent = pricedItem.ProfitPercent;
                 var profitAmount = Math.Round(((totalPrice * profitPercent) / 100), 2);
                 var salesPrice = Math.Round((totalPrice + profitAmount), 2);
-                TxtItemPrice.Text = Math.Round((salesPrice / quantity), 2).ToString();
+                if (pricedItem.Unit == Constants.GRAM || pricedItem.Unit == Constants.MILLI_LITER)
+                {
+                    TxtItemPrice.Text = Math.Round(salesPrice / (quantity * 1000), 2).ToString();
+                }
+                else
+                {
+                    TxtItemPrice.Text = Math.Round((salesPrice / quantity), 2).ToString();
+                }               
                 // End
 
                 TxtItemStock.Text = stock.ToString();
-                TxtItemUnit.Text = item.Unit;
+                TxtItemUnit.Text = pricedItem.Unit;
                 TxtProfitAmount.Text = pricedItem.Profit.ToString();
                 if (File.Exists(pricedItem.ImagePath))
                 {

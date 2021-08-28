@@ -343,7 +343,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridIncomeList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridIncomeList.Location = new System.Drawing.Point(18, 161);
+            this.DataGridIncomeList.Location = new System.Drawing.Point(18, 158);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
             this.DataGridIncomeList.Size = new System.Drawing.Size(1005, 375);
             this.DataGridIncomeList.TabIndex = 32;

@@ -127,6 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
+                    Unit = ComboItemUnit.Text,
                     Price = Convert.ToDecimal(TxtPerUnitValue.Text),
                     Quantity = Convert.ToInt32(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
@@ -214,8 +215,9 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemId = _selectedItemId,
                     ItemSubCode = TxtItemSubCode.Text,
+                    Unit = ComboItemUnit.Text,
                     Price = Convert.ToDecimal(TxtPerUnitValue.Text),
-                    Quantity = Convert.ToInt32(TxtQuantity.Text),
+                    Quantity = Convert.ToDecimal(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
@@ -527,7 +529,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemSubCode.Text = pricedItem.ItemSubCode;
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
-                ComboItemUnit.Text = item.Unit;
+                ComboItemUnit.Text = pricedItem.Unit;
                 StockFilter filter = new StockFilter
                 {
                     ItemCode = item.Code
@@ -541,14 +543,29 @@ namespace GrocerySupplyManagementApp.Forms
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();
                 
-                TxtPerUnitValue.Text = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)).ToString();
-
-                TxtQuantity.Text = pricedItem.Quantity.ToString();
-                TxtTotalPrice.Text = Math.Round((Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToInt64(TxtQuantity.Text)), 2).ToString();
-                TxtProfitPercent.Text = pricedItem.ProfitPercent.ToString();
-                TxtProfitAmount.Text = Math.Round((Convert.ToDecimal(TxtTotalPrice.Text) * (Convert.ToDecimal(TxtProfitPercent.Text) / 100)), 2).ToString();
-                TxtSalesPrice.Text = Math.Round((Convert.ToDecimal(TxtTotalPrice.Text) + Convert.ToDecimal(TxtProfitAmount.Text)), 2).ToString();
-                TxtSalesPricePerUnit.Text = Math.Round((Convert.ToDecimal(TxtSalesPrice.Text) / Convert.ToDecimal(TxtQuantity.Text)), 2).ToString();
+                var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
+                TxtPerUnitValue.Text = perUnitValue.ToString();
+                var quantity = pricedItem.Quantity;
+                TxtQuantity.Text = quantity.ToString();
+                var totalPrice = Math.Round((perUnitValue * quantity), 2);
+                TxtTotalPrice.Text = totalPrice.ToString();
+                var profitPercent = pricedItem.ProfitPercent;
+                TxtProfitPercent.Text = profitPercent.ToString();
+                var profitAmount = Math.Round(totalPrice * (profitPercent / 100), 2);
+                TxtProfitAmount.Text = profitAmount.ToString();
+                var salesPrice = totalPrice + profitAmount;
+                TxtSalesPrice.Text = Math.Round(salesPrice, 2).ToString();
+                if (quantity != 0.00M)
+                {
+                    if (ComboItemUnit.Text == Constants.GRAM || ComboItemUnit.Text == Constants.MILLI_LITER)
+                    {
+                        TxtSalesPricePerUnit.Text = (salesPrice / (quantity * 1000)).ToString("0.00");
+                    }
+                    else
+                    {
+                        TxtSalesPricePerUnit.Text = (salesPrice / quantity).ToString("0.00");
+                    }
+                }
 
                 if (File.Exists(pricedItem.ImagePath))
                 {

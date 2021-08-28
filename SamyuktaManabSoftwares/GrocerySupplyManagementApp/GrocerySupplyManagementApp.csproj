@@ -642,6 +642,8 @@
     <Content Include="Data\Scripts\CreateTables.sql" />
     <Content Include="Data\Scripts\TestScript.sql" />
     <Content Include="Data\Scripts\TruncateTables.sql" />
+    <None Include="Resources\images %2818%29.jpg" />
+    <None Include="Resources\images %2818%291.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

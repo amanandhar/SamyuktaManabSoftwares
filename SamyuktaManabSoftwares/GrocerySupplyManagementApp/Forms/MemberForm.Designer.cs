@@ -510,7 +510,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAccountNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichAccountNumber.Location = new System.Drawing.Point(238, 14);
             this.RichAccountNumber.Name = "RichAccountNumber";
-            this.RichAccountNumber.ReadOnly = true;
             this.RichAccountNumber.Size = new System.Drawing.Size(88, 26);
             this.RichAccountNumber.TabIndex = 2;
             this.RichAccountNumber.Text = "";
@@ -570,7 +569,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichAddress.Location = new System.Drawing.Point(116, 68);
             this.RichAddress.Name = "RichAddress";
-            this.RichAddress.ReadOnly = true;
             this.RichAddress.Size = new System.Drawing.Size(330, 26);
             this.RichAddress.TabIndex = 4;
             this.RichAddress.Text = "";
@@ -582,7 +580,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichName.Location = new System.Drawing.Point(116, 41);
             this.RichName.Name = "RichName";
-            this.RichName.ReadOnly = true;
             this.RichName.Size = new System.Drawing.Size(285, 26);
             this.RichName.TabIndex = 3;
             this.RichName.Text = "";
