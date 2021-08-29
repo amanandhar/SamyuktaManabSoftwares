@@ -20,7 +20,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly string _endOfDay;
         public SupplierForm _supplierForm;
-        private List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
+        private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
 
         #region Constructor
         public PurchaseForm(IFiscalYearService fiscalYearService, IItemService itemService,
@@ -84,9 +84,9 @@ namespace GrocerySupplyManagementApp.Forms
                     Name = RichItemName.Text,
                     Brand = RichItemBrand.Text,
                     Unit = RichUnit.Text,
-                    Quantity = Convert.ToInt32(RichQuantity.Text),
+                    Quantity = Convert.ToDecimal(RichQuantity.Text),
                     Price = Convert.ToDecimal(RichPurchasePrice.Text),
-                    Total = (Convert.ToInt64(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text))
+                    Total = (Convert.ToDecimal(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text))
                 };
                 
                 _purchasedItemViewList.Add(purchasedItemView);

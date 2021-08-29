@@ -21,7 +21,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var pricedItems = new List<PricedItem>();
             var query = @"SELECT " +
-                "[Id], [ItemId], [ItemSubCode], " +
+                "[Id], [ItemId], [WeightPiece], " +
                 "[Price], [Quantity], [TotalPrice], " +
                 "[ProfitPercent], [Profit], [SalesPrice], " + 
                 "[ImagePath], [SalesPricePerUnit], [AddedDate], [UpdatedDate] " +
@@ -43,7 +43,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                    ItemSubCode = reader["ItemSubCode"].ToString(),
+                                    WeightPiece = Convert.ToDecimal(reader["WeightPiece"].ToString()),
                                     Unit = reader["Unit"].ToString(),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
@@ -74,7 +74,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public PricedItem GetPricedItem(long id)
         {
             var query = @"SELECT " +
-                "[Id], [ItemId], [ItemSubCode], [Unit], " +
+                "[Id], [ItemId], [WeightPiece], [Unit], " +
                 "[Price], [Quantity], [TotalPrice], " +
                 "[ProfitPercent], [Profit], [SalesPrice], " +
                 "[ImagePath], [SalesPricePerUnit], [AddedDate], [UpdatedDate] " +
@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                pricedItem.ItemSubCode = reader["ItemSubCode"].ToString();
+                                pricedItem.WeightPiece = Convert.ToDecimal(reader["WeightPiece"].ToString());
                                 pricedItem.Unit = reader["Unit"].ToString();
                                 pricedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 pricedItem.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
@@ -121,10 +121,10 @@ namespace GrocerySupplyManagementApp.Repositories
             return pricedItem;
         }
         
-        public PricedItem GetPricedItem(string itemCode, string itemSubCode)
+        public PricedItem GetPricedItem(string itemCode, string WeightPiece)
         {
             var query = @"SELECT " +
-                "pi.[Id], pi.[ItemId], pi.[ItemSubCode], pi.[Unit], " +
+                "pi.[Id], pi.[ItemId], pi.[WeightPiece], pi.[Unit], " +
                 "pi.[Price], pi.[Quantity], pi.[TotalPrice], " +
                 "pi.[ProfitPercent], pi.[Profit], pi.[SalesPrice], " +
                 "pi.[ImagePath], pi.[SalesPricePerUnit], pi.[AddedDate], pi.[UpdatedDate] " +
@@ -138,9 +138,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND i.[Code] = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(itemSubCode))
+            if (!string.IsNullOrWhiteSpace(WeightPiece))
             {
-                query += "AND pi.[ItemSubCode] = @ItemSubCode ";
+                query += "AND pi.[WeightPiece] = @WeightPiece ";
             }
 
             var pricedItem = new PricedItem();
@@ -152,7 +152,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Code", itemCode);
-                        command.Parameters.AddWithValue("@ItemSubCode", itemSubCode);
+                        command.Parameters.AddWithValue("@WeightPiece", WeightPiece);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -160,7 +160,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                pricedItem.ItemSubCode = reader["ItemSubCode"].ToString();
+                                pricedItem.WeightPiece = Convert.ToDecimal(reader["WeightPiece"].ToString());
                                 pricedItem.Unit = reader["Unit"].ToString();
                                 pricedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 pricedItem.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
@@ -189,7 +189,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var pricedItemViewList = new List<PricedItemView>();
             var query = @"SELECT " +
-                "DISTINCT ci.[Id], i.[Code], ci.[ItemSubCode], i.[Name], i.[Brand] " +
+                "DISTINCT ci.[Id], i.[Code], ci.[WeightPiece], i.[Name], i.[Brand] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " ci " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ci.[ItemId] = i.[Id] " +
@@ -210,7 +210,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
-                                    SubCode = reader["ItemSubCode"].ToString(),
+                                    SubCode = reader["WeightPiece"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString()
                                 };
@@ -278,13 +278,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_PRICED_ITEM + " " +
                     "( " +
-                        "[ItemId], [ItemSubCode], [Unit], [Price], [Quantity], [TotalPrice], " +
+                        "[ItemId], [WeightPiece], [Unit], [Price], [Quantity], [TotalPrice], " +
                         "[ProfitPercent], [Profit], [SalesPrice], [SalesPricePerUnit], " + 
                         "[ImagePath], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@ItemId, @ItemSubCode, @Unit, @Price, @Quantity, @TotalPrice,  " +
+                        "@ItemId, @WeightPiece, @Unit, @Price, @Quantity, @TotalPrice,  " +
                         "@ProfitPercent, @Profit, @SalesPrice, @SalesPricePerUnit, " + 
                         "@ImagePath, @AddedDate, @UpdatedDate " +
                     ") ";
@@ -296,7 +296,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
-                        command.Parameters.AddWithValue("@ItemSubCode", pricedItem.ItemSubCode);
+                        command.Parameters.AddWithValue("@WeightPiece", pricedItem.WeightPiece);
                         command.Parameters.AddWithValue("@Unit", pricedItem.Unit);
                         command.Parameters.AddWithValue("@Price", pricedItem.Price);
                         command.Parameters.AddWithValue("@Quantity", pricedItem.Quantity);
@@ -325,7 +325,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_PRICED_ITEM + " " + 
                 "SET " +
-                "[ItemSubCode] = @ItemSubCode, " +
+                "[WeightPiece] = @WeightPiece, " +
                 "[Unit] = @Unit, " +
                 "[Price] = @Price, " +
                 "[Quantity] = @Quantity, " +
@@ -347,7 +347,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Id", id);
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
-                        command.Parameters.AddWithValue("@ItemSubCode", pricedItem.ItemSubCode);
+                        command.Parameters.AddWithValue("@WeightPiece", pricedItem.WeightPiece);
                         command.Parameters.AddWithValue("@Unit", pricedItem.Unit);
                         command.Parameters.AddWithValue("@Price", pricedItem.Price);
                         command.Parameters.AddWithValue("@Quantity", pricedItem.Quantity);

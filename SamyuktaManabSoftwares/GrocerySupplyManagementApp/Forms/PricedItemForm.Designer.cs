@@ -39,8 +39,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PicBoxItemImage = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ComboItemUnit = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.TxtItemSubCode = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.TxtSalesPricePerUnit = new System.Windows.Forms.TextBox();
             this.TxtQuantity = new System.Windows.Forms.TextBox();
@@ -68,7 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd = new System.Windows.Forms.Button();
             this.BtnDeleteItemImage = new System.Windows.Forms.Button();
             this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.ComboItemUnit = new System.Windows.Forms.ComboBox();
+            this.TxtWeightPiece = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -179,9 +179,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.TxtWeightPiece);
             this.groupBox2.Controls.Add(this.ComboItemUnit);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.TxtItemSubCode);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.TxtSalesPricePerUnit);
             this.groupBox2.Controls.Add(this.TxtQuantity);
@@ -212,6 +212,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
+            // ComboItemUnit
+            // 
+            this.ComboItemUnit.Enabled = false;
+            this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboItemUnit.FormattingEnabled = true;
+            this.ComboItemUnit.Location = new System.Drawing.Point(170, 230);
+            this.ComboItemUnit.Name = "ComboItemUnit";
+            this.ComboItemUnit.Size = new System.Drawing.Size(209, 28);
+            this.ComboItemUnit.TabIndex = 44;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -223,25 +233,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label13.TabIndex = 43;
             this.label13.Text = "Sales Price Per Unit";
             // 
-            // TxtItemSubCode
-            // 
-            this.TxtItemSubCode.Enabled = false;
-            this.TxtItemSubCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemSubCode.Location = new System.Drawing.Point(618, 53);
-            this.TxtItemSubCode.Name = "TxtItemSubCode";
-            this.TxtItemSubCode.Size = new System.Drawing.Size(184, 29);
-            this.TxtItemSubCode.TabIndex = 42;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(495, 58);
+            this.label12.Location = new System.Drawing.Point(517, 58);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(119, 18);
+            this.label12.Size = new System.Drawing.Size(95, 18);
             this.label12.TabIndex = 39;
-            this.label12.Text = "Item Sub Code";
+            this.label12.Text = "Weight/Piece";
             // 
             // TxtSalesPricePerUnit
             // 
@@ -547,15 +548,15 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
             // 
-            // ComboItemUnit
+            // TxtWeightPiece
             // 
-            this.ComboItemUnit.Enabled = false;
-            this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboItemUnit.FormattingEnabled = true;
-            this.ComboItemUnit.Location = new System.Drawing.Point(170, 230);
-            this.ComboItemUnit.Name = "ComboItemUnit";
-            this.ComboItemUnit.Size = new System.Drawing.Size(209, 28);
-            this.ComboItemUnit.TabIndex = 44;
+            this.TxtWeightPiece.Enabled = false;
+            this.TxtWeightPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtWeightPiece.Location = new System.Drawing.Point(618, 51);
+            this.TxtWeightPiece.Name = "TxtWeightPiece";
+            this.TxtWeightPiece.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtWeightPiece.Size = new System.Drawing.Size(184, 29);
+            this.TxtWeightPiece.TabIndex = 45;
             // 
             // PricedItemForm
             // 
@@ -614,7 +615,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.TextBox TxtQuantity;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox TxtItemSubCode;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox TxtSalesPricePerUnit;
         private System.Windows.Forms.Label label13;
@@ -622,5 +622,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.PictureBox PicBoxItemImage;
         private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.ComboBox ComboItemUnit;
+        private System.Windows.Forms.TextBox TxtWeightPiece;
     }
 }

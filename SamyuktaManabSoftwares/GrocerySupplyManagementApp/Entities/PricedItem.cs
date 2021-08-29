@@ -6,7 +6,7 @@ namespace GrocerySupplyManagementApp.Entities
     {
         public long Id { get; set; }
         public long ItemId { get; set; }
-        public string ItemSubCode { get; set; }
+        public decimal WeightPiece { get; set; }
         public string Unit { get; set; }
         public decimal Price { get; set; }
         public decimal Quantity { get; set; }

@@ -84,7 +84,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Edit);
-            TxtItemSubCode.Focus();
+            TxtWeightPiece.Focus();
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -112,7 +112,7 @@ namespace GrocerySupplyManagementApp.Forms
                             UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
                         }
 
-                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
+                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtWeightPiece.Text + ".jpg";
                         destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
                         File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
@@ -126,10 +126,10 @@ namespace GrocerySupplyManagementApp.Forms
                 var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
-                    ItemSubCode = TxtItemSubCode.Text,
+                    WeightPiece = Convert.ToDecimal(TxtWeightPiece.Text),
                     Unit = ComboItemUnit.Text,
                     Price = Convert.ToDecimal(TxtPerUnitValue.Text),
-                    Quantity = Convert.ToInt32(TxtQuantity.Text),
+                    Quantity = Convert.ToDecimal(TxtQuantity.Text),
                     TotalPrice = Convert.ToDecimal(TxtTotalPrice.Text),
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
@@ -140,7 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Add);
-            TxtItemSubCode.Focus();
+            TxtWeightPiece.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -197,7 +197,7 @@ namespace GrocerySupplyManagementApp.Forms
                             UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
                         }
 
-                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
+                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtWeightPiece.Text + ".jpg";
                         destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
                         if(!string.IsNullOrWhiteSpace(_uploadedImagePath))
                         {
@@ -214,7 +214,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
-                    ItemSubCode = TxtItemSubCode.Text,
+                    WeightPiece = Convert.ToDecimal(TxtWeightPiece.Text),
                     Unit = ComboItemUnit.Text,
                     Price = Convert.ToDecimal(TxtPerUnitValue.Text),
                     Quantity = Convert.ToDecimal(TxtQuantity.Text),
@@ -229,7 +229,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _pricedItemService.AddPricedItem(pricedItem);
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -249,18 +249,20 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if(deleteResult == DialogResult.Yes)
                 {
-                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtItemSubCode.Text + ".jpg";
+                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtWeightPiece.Text + ".jpg";
                     var filePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                    if(UtilityService.DeleteImage(filePath))
+                    if(File.Exists(filePath))
                     {
-                        if (_pricedItemService.DeletePricedItem(_selectedId))
+                        UtilityService.DeleteImage(filePath);
+                    }
+
+                    if (_pricedItemService.DeletePricedItem(_selectedId))
+                    {
+                        DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        if (result == DialogResult.OK)
                         {
-                            DialogResult result = MessageBox.Show(TxtItemCode.Text + "-" + TxtItemSubCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
-                            if (result == DialogResult.OK)
-                            {
-                                ClearAllFields();
-                                EnableFields();
-                            }
+                            ClearAllFields();
+                            EnableFields();
                         }
                     }
                 }
@@ -445,7 +447,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if(action == Action.Add)
             {
-                TxtItemSubCode.Enabled = true;
+                TxtWeightPiece.Enabled = true;
                 TxtItemName.Enabled = true;
                 ComboItemUnit.Enabled = true;
                 TxtPerUnitValue.Enabled = true;
@@ -459,7 +461,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
-                TxtItemSubCode.Enabled = true;
+                TxtWeightPiece.Enabled = true;
                 TxtItemName.Enabled = true;
                 ComboItemUnit.Enabled = true;
                 TxtPerUnitValue.Enabled = true;
@@ -474,7 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
             else
             {
                 TxtItemCode.Enabled = false;
-                TxtItemSubCode.Enabled = false;
+                TxtWeightPiece.Enabled = false;
                 TxtItemName.Enabled = false;
                 TxtItemBrand.Enabled = false;
                 ComboItemUnit.Enabled = false;
@@ -500,7 +502,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllFields()
         {
             TxtItemCode.Clear();
-            TxtItemSubCode.Clear();
+            TxtWeightPiece.Clear();
             TxtItemName.Clear();
             TxtItemBrand.Clear();
             ComboItemUnit.Text = string.Empty;
@@ -526,7 +528,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var item = _itemService.GetItem(_selectedItemId);
 
                 TxtItemCode.Text = item.Code;
-                TxtItemSubCode.Text = pricedItem.ItemSubCode;
+                TxtWeightPiece.Text = pricedItem.WeightPiece.ToString();
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 ComboItemUnit.Text = pricedItem.Unit;

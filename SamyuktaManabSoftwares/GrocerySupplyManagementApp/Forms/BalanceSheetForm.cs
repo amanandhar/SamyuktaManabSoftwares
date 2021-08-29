@@ -123,22 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Helper Methods
-        private void ClearAllFields()
-        {
-            RichShareCapital.Clear();
-            RichOwnerEquity.Clear();
-            RichLoanAmount.Clear();
-            RichPayableAmount.Clear();
-            RichNetProfit.Clear();
-            RichLiabilitiesBalance.Clear();
 
-            RichCashInHand.Clear();
-            RichBankAccount.Clear();
-            RichStockValue.Clear();
-            RichReceivableAmount.Clear();
-            RichNetLoss.Clear();
-            RichAssetsBalance.Clear();
-        }
         #endregion
 
     }

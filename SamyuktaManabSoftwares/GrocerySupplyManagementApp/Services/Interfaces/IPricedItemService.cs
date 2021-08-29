@@ -8,7 +8,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     {
         IEnumerable<PricedItem> GetPricedItems();
         PricedItem GetPricedItem(long id);
-        PricedItem GetPricedItem(string itemCode, string itemSubCode);
+        PricedItem GetPricedItem(string itemCode, string weightPiece);
         IEnumerable<PricedItemView> GetPricedItemViewList();
         IEnumerable<UnpricedItemView> GetUnpricedItemViewList();
 

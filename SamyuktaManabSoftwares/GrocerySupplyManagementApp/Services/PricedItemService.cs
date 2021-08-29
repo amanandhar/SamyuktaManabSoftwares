@@ -25,9 +25,9 @@ namespace GrocerySupplyManagementApp.Services
             return _pricedItemRepository.GetPricedItem(id);
         }
 
-        public PricedItem GetPricedItem(string itemCode, string itemSubCode)
+        public PricedItem GetPricedItem(string itemCode, string weightPiece)
         {
-            return _pricedItemRepository.GetPricedItem(itemCode, itemSubCode);
+            return _pricedItemRepository.GetPricedItem(itemCode, weightPiece);
         }
 
         public IEnumerable<PricedItemView> GetPricedItemViewList()

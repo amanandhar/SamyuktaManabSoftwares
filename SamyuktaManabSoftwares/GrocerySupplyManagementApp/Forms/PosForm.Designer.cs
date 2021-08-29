@@ -30,13 +30,15 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PosForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.BtnTransaction = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.RichItemQuantity = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.TxtWeightPiece = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.TxtItemUnit = new System.Windows.Forms.TextBox();
             this.TxtItemStock = new System.Windows.Forms.TextBox();
             this.TxtItemPrice = new System.Windows.Forms.TextBox();
@@ -168,6 +170,8 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox4.Controls.Add(this.TxtWeightPiece);
+            this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.TxtItemUnit);
             this.groupBox4.Controls.Add(this.TxtItemStock);
             this.groupBox4.Controls.Add(this.TxtItemPrice);
@@ -194,11 +198,33 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Item Details";
             // 
+            // TxtWeightPiece
+            // 
+            this.TxtWeightPiece.BackColor = System.Drawing.Color.White;
+            this.TxtWeightPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtWeightPiece.Location = new System.Drawing.Point(106, 111);
+            this.TxtWeightPiece.Name = "TxtWeightPiece";
+            this.TxtWeightPiece.ReadOnly = true;
+            this.TxtWeightPiece.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.TxtWeightPiece.Size = new System.Drawing.Size(83, 26);
+            this.TxtWeightPiece.TabIndex = 56;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label5.Location = new System.Drawing.Point(3, 114);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(102, 20);
+            this.label5.TabIndex = 55;
+            this.label5.Text = "Weight/Piece";
+            // 
             // TxtItemUnit
             // 
             this.TxtItemUnit.BackColor = System.Drawing.Color.White;
             this.TxtItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemUnit.Location = new System.Drawing.Point(278, 111);
+            this.TxtItemUnit.Location = new System.Drawing.Point(279, 82);
             this.TxtItemUnit.Name = "TxtItemUnit";
             this.TxtItemUnit.ReadOnly = true;
             this.TxtItemUnit.Size = new System.Drawing.Size(80, 26);
@@ -212,18 +238,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemStock.Name = "TxtItemStock";
             this.TxtItemStock.ReadOnly = true;
             this.TxtItemStock.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtItemStock.Size = new System.Drawing.Size(130, 26);
+            this.TxtItemStock.Size = new System.Drawing.Size(131, 26);
             this.TxtItemStock.TabIndex = 53;
             // 
             // TxtItemPrice
             // 
             this.TxtItemPrice.BackColor = System.Drawing.Color.White;
             this.TxtItemPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemPrice.Location = new System.Drawing.Point(106, 111);
+            this.TxtItemPrice.Location = new System.Drawing.Point(279, 111);
             this.TxtItemPrice.Name = "TxtItemPrice";
             this.TxtItemPrice.ReadOnly = true;
             this.TxtItemPrice.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtItemPrice.Size = new System.Drawing.Size(123, 26);
+            this.TxtItemPrice.Size = new System.Drawing.Size(80, 26);
             this.TxtItemPrice.TabIndex = 52;
             // 
             // TxtItemBrand
@@ -233,7 +259,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemBrand.Location = new System.Drawing.Point(106, 82);
             this.TxtItemBrand.Name = "TxtItemBrand";
             this.TxtItemBrand.ReadOnly = true;
-            this.TxtItemBrand.Size = new System.Drawing.Size(252, 26);
+            this.TxtItemBrand.Size = new System.Drawing.Size(123, 26);
             this.TxtItemBrand.TabIndex = 51;
             // 
             // TxtItemName
@@ -252,7 +278,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label19.Location = new System.Drawing.Point(237, 114);
+            this.label19.Location = new System.Drawing.Point(235, 88);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(38, 20);
             this.label19.TabIndex = 49;
@@ -295,7 +321,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label15.Location = new System.Drawing.Point(16, 114);
+            this.label15.Location = new System.Drawing.Point(193, 114);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(80, 20);
             this.label15.TabIndex = 45;
@@ -1107,33 +1133,33 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridSoldItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridSoldItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridSoldItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridSoldItemList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridSoldItemList.DefaultCellStyle = dataGridViewCellStyle5;
             this.DataGridSoldItemList.Location = new System.Drawing.Point(19, 253);
             this.DataGridSoldItemList.Name = "DataGridSoldItemList";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.DataGridSoldItemList.Size = new System.Drawing.Size(827, 287);
             this.DataGridSoldItemList.TabIndex = 31;
             this.DataGridSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
@@ -1248,5 +1274,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtDeliveryCharge;
         private System.Windows.Forms.TextBox TxtDiscount;
         private System.Windows.Forms.PictureBox PicBoxItemImage;
+        private System.Windows.Forms.TextBox TxtWeightPiece;
+        private System.Windows.Forms.Label label5;
     }
 }
