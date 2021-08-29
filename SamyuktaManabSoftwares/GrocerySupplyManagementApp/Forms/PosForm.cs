@@ -602,19 +602,41 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                _soldItemViewList.Add(new SoldItemView
+                if(TxtItemUnit.Text == Constants.GRAM || TxtItemUnit.Text == Constants.MILLI_LITER)
                 {
-                    Id = DataGridSoldItemList.RowCount,
-                    ItemCode = RichItemCode.Text.Split(separator)[0],
-                    ItemName = TxtItemName.Text,
-                    ItemBrand = TxtItemBrand.Text,
-                    Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
-                    Unit = TxtItemUnit.Text,
-                    ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text),
-                    Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text),
-                    Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0 : Convert.ToInt32(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
-                    AddedDate = DateTime.Now
-                });
+                    _soldItemViewList.Add(new SoldItemView
+                    {
+                        Id = DataGridSoldItemList.RowCount,
+                        ItemCode = RichItemCode.Text.Split(separator)[0],
+                        ItemName = TxtItemName.Text,
+                        ItemBrand = TxtItemBrand.Text,
+                        Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : (Convert.ToDecimal(TxtProfitAmount.Text)),
+                        Unit = TxtItemUnit.Text == Constants.GRAM
+                           ? Constants.KILOGRAM
+                           : (TxtItemUnit.Text == Constants.MILLI_LITER) ? Constants.LITER : TxtItemUnit.Text,
+                        ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : (Convert.ToDecimal(TxtItemPrice.Text)),
+                        Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : (Convert.ToDecimal(RichItemQuantity.Text)/1000),
+                        Total = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : (Convert.ToDecimal(RichItemQuantity.Text)/1000) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)),
+                        AddedDate = DateTime.Now
+                    });
+                }
+                else
+                {
+                    _soldItemViewList.Add(new SoldItemView
+                    {
+                        Id = DataGridSoldItemList.RowCount,
+                        ItemCode = RichItemCode.Text.Split(separator)[0],
+                        ItemName = TxtItemName.Text,
+                        ItemBrand = TxtItemBrand.Text,
+                        Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
+                        Unit = TxtItemUnit.Text,
+                        ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text),
+                        Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text),
+                        Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
+                        AddedDate = DateTime.Now
+                    });
+                }
+               
 
                 LoadItems(_soldItemViewList);
 
@@ -797,13 +819,19 @@ namespace GrocerySupplyManagementApp.Forms
                 if (soldItemGrid == null)
                 {
                     subTotal = string.IsNullOrWhiteSpace(TxtSubTotal.Text) ? 0.00m : Convert.ToDecimal(TxtSubTotal.Text);
-                    TxtSubTotal.Text = (subTotal + Math.Round((Convert.ToDecimal(TxtItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2)).ToString();
+                    if(TxtItemUnit.Text == Constants.GRAM || TxtItemUnit.Text == Constants.MILLI_LITER)
+                    {
+                        TxtSubTotal.Text = (subTotal + Math.Round((Convert.ToDecimal(TxtItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)/1000), 2)).ToString();
+                    }
+                    else
+                    {
+                        TxtSubTotal.Text = (subTotal + Math.Round((Convert.ToDecimal(TxtItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2)).ToString();
+                    }
                 }
                 else
                 {
                     subTotal = Convert.ToDecimal(TxtSubTotal.Text) - soldItemGrid.Total;
                     TxtSubTotal.Text = subTotal.ToString();
-
                 }
 
                 TxtDiscount.Text = Math.Round((Convert.ToDecimal(TxtSubTotal.Text) * (Convert.ToDecimal(TxtDiscountPercent.Text) / 100)), 2).ToString();

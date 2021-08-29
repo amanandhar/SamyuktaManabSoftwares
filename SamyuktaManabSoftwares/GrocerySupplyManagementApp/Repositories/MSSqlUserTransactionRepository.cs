@@ -1339,7 +1339,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceBillNo = reader.IsDBNull(5) ? string.Empty : reader["InvoiceBillNo"].ToString(),
                                     ItemCode = reader.IsDBNull(6) ? string.Empty : reader["Code"].ToString(),
                                     ItemName = reader.IsDBNull(7) ? string.Empty : reader["Name"].ToString(),
-                                    Quantity = reader.IsDBNull(8) ? 0 : Convert.ToInt32(reader["Quantity"].ToString()),
+                                    Quantity = reader.IsDBNull(8) ? 0 : Convert.ToDecimal(reader["Quantity"].ToString()),
                                     SalesPrice = reader.IsDBNull(9) ? 0.00m : Convert.ToDecimal(reader["SalesPrice"].ToString()),
                                     Amount = reader.IsDBNull(10) ? 0.00m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };
@@ -1408,7 +1408,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemCode = string.Empty,
                                     ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
-                                    Quantity = 0,
+                                    Quantity = 0.00m,
                                     Profit = 0.00m,
                                     Amount = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
@@ -1461,7 +1461,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
                                     ItemBrand = reader["ItemBrand"].ToString(),
-                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString())
                                 };

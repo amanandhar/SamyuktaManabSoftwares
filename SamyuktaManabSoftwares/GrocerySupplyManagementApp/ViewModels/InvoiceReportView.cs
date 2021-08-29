@@ -18,7 +18,7 @@
         public string ItemName { get; set; }
         public string Brand { get; set; }
         public string Unit { get; set; }
-        public long Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Amount { get; set; }
         public int ItemNo { get; set; }

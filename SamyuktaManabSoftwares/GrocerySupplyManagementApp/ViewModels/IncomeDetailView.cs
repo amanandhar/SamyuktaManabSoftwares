@@ -8,7 +8,7 @@
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public string ItemBrand { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal Profit { get; set; }
         public decimal Amount { get; set; }
     }

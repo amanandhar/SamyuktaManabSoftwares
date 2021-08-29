@@ -69,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                         ItemName = reader["ItemName"].ToString(),
                                         Brand = reader["Brand"].ToString(),
                                         Unit = reader["Unit"].ToString(),
-                                        Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
+                                        Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                         Price = Convert.ToDecimal(reader["Price"].ToString()),
                                         Amount = Convert.ToDecimal(reader["Amount"].ToString()),
                                         ItemNo = i
