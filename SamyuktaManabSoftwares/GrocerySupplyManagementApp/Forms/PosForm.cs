@@ -165,6 +165,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ItemId = _itemService.GetItem(x.ItemCode).Id,
                         Profit = x.Profit,
                         Unit = x.Unit,
+                        WeightPiece = x.WeightPiece,
                         Quantity = x.Quantity,
                         Price = x.ItemPrice,
                         AddedDate = x.AddedDate,
@@ -615,19 +616,13 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemName = TxtItemName.Text,
                     ItemBrand = TxtItemBrand.Text,
                     Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
-                    Unit = TxtItemUnit.Text == Constants.GRAM
-                        ? Constants.KILOGRAM
-                        : (TxtItemUnit.Text == Constants.MILLI_LITER) ? Constants.LITER : TxtItemUnit.Text,
+                    Unit = TxtItemUnit.Text,
                     ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text),
-                    WeightPiece = string.IsNullOrWhiteSpace(TxtWeightPiece.Text) 
-                        ? 0.00m 
-                        : (TxtItemUnit.Text == Constants.GRAM || TxtItemUnit.Text == Constants.MILLI_LITER) 
-                            ? Convert.ToDecimal(TxtWeightPiece.Text)/1000
-                            : Convert.ToDecimal(TxtWeightPiece.Text),
+                    WeightPiece = Convert.ToDecimal(TxtWeightPiece.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text),
                     Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
                     AddedDate = DateTime.Now
-                });
+                }); ;
 
 
                 LoadItems(_soldItemViewList);

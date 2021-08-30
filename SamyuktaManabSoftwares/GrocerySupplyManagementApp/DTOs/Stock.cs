@@ -8,6 +8,7 @@ namespace GrocerySupplyManagementApp.DTOs
         public string Description { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
+        public string ItemUnit { get; set; }
         public decimal PurchaseQuantity { get; set; }
         public decimal SalesQuantity { get; set; }
         public decimal StockQuantity { get; set; }

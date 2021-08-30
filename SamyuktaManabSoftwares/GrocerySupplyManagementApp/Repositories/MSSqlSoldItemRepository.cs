@@ -265,11 +265,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Quantity], [Price], [AddedDate], [UpdatedDate]  " +
+                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [WeightPiece], [Quantity], [Price], [AddedDate], [UpdatedDate]  " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Quantity, @Price, @AddedDate, @UpdatedDate " +
+                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @WeightPiece, @Quantity, @Price, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -284,6 +284,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
                         command.Parameters.AddWithValue("@Profit", soldItem.Profit);
                         command.Parameters.AddWithValue("@Unit", soldItem.Unit);
+                        command.Parameters.AddWithValue("@WeightPiece", soldItem.WeightPiece);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
                         command.Parameters.AddWithValue("@AddedDate", soldItem.AddedDate);

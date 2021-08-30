@@ -29,6 +29,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         (
                         SELECT pi.[EndOfDay], 'Purchase' AS [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
+                        i.[Unit] AS [Unit],
                         pi.[Quantity] AS [PurchaseQuantity], 0 AS [SalesQuantity],
                         pi.[Price] AS [PurchasePrice], 0.0 AS [SalesPrice],
                         pi.[AddedDate] FROM [PurchasedItem] pi
@@ -38,6 +39,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         UNION
                         SELECT si.[EndOfDay], 'Sales' AS [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
+                        si.[Unit] AS [Unit],
                         0 AS [PurchaseQuantity], si.[Quantity] AS [SalesQuantity],
                         0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice],
                         si.[AddedDate] FROM [SoldItem] si
@@ -96,6 +98,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Description = reader["Description"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
+                                    ItemUnit = reader["Unit"].ToString(),
                                     PurchaseQuantity = Convert.ToDecimal(reader["PurchaseQuantity"].ToString()),
                                     SalesQuantity = Convert.ToDecimal(reader["SalesQuantity"].ToString()),
                                     StockQuantity = Convert.ToDecimal(reader["StockQuantity"].ToString()),

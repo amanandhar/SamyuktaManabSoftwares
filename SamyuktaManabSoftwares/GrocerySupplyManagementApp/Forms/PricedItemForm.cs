@@ -561,10 +561,12 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     if (ComboItemUnit.Text == Constants.GRAM || ComboItemUnit.Text == Constants.MILLI_LITER)
                     {
+                        TxtSalesPerUnitValue.Text = ((perUnitValue * quantity) / 1000).ToString("0.00");
                         TxtSalesPricePerUnit.Text = (salesPrice / (quantity * 1000)).ToString("0.00");
                     }
                     else
                     {
+                        TxtSalesPerUnitValue.Text = perUnitValue.ToString("0.00");
                         TxtSalesPricePerUnit.Text = (salesPrice / quantity).ToString("0.00");
                     }
                 }
@@ -607,7 +609,13 @@ namespace GrocerySupplyManagementApp.Forms
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();
-                TxtPerUnitValue.Text = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)).ToString();
+                var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
+                TxtPerUnitValue.Text = perUnitValue.ToString();
+                
+                if((ComboItemUnit.Text == Constants.GRAM || ComboItemUnit.Text == Constants.MILLI_LITER) && !string.IsNullOrWhiteSpace(TxtWeightPiece.Text))
+                {
+                    TxtSalesPricePerUnit.Text = (perUnitValue * Convert.ToDecimal(TxtWeightPiece.Text) / 1000).ToString();
+                }
 
                 EnableFields();
                 EnableFields(Action.PopulateUnpricedItem);
