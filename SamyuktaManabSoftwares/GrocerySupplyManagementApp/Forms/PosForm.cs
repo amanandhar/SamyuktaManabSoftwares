@@ -736,7 +736,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
                 var threshold = 0.00M;
-                if(pricedItem.Unit == Constants.GRAM || pricedItem.Unit == Constants.MILLI_LITER)
+                if(pricedItem.CustomUnit == Constants.GRAM || pricedItem.CustomUnit == Constants.MILLI_LITER)
                 {
                     stock *= 1000;
                 }
@@ -754,7 +754,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Text = item.Code;
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
-                TxtItemUnit.Text = pricedItem.Unit;
+                TxtItemUnit.Text = item.Unit;
                 TxtWeightPiece.Text = pricedItem.WeightPiece.ToString();
 
                 // Start: Sales Price Logic
@@ -765,13 +765,11 @@ namespace GrocerySupplyManagementApp.Forms
                     .ToList();
 
                 var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
-                var quantity = pricedItem.Quantity;
-                var totalPrice = Math.Round(perUnitValue * quantity, 2);
                 var profitPercent = pricedItem.ProfitPercent;
-                var profitAmount = Math.Round(((totalPrice * profitPercent) / 100), 2);
-                var salesPrice = Math.Round((totalPrice + profitAmount), 2);
+                var profitAmount = Math.Round(((perUnitValue * profitPercent) / 100), 2);
+                var salesPrice = Math.Round((perUnitValue + profitAmount), 2);
 
-                if (pricedItem.Unit == Constants.GRAM || pricedItem.Unit == Constants.MILLI_LITER)
+                if (pricedItem.CustomUnit == Constants.GRAM || pricedItem.CustomUnit == Constants.MILLI_LITER)
                 {
                     TxtItemPrice.Text = Math.Round(salesPrice / 1000, 2).ToString();
                 }

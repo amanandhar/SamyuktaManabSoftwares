@@ -39,22 +39,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PicBoxItemImage = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ComboCustomItemUnit = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.TxtCustomPerUnitValue = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.TxtWeightPiece = new System.Windows.Forms.TextBox();
             this.ComboItemUnit = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.TxtSalesPricePerUnit = new System.Windows.Forms.TextBox();
-            this.TxtQuantity = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.BtnShowPricedItem = new System.Windows.Forms.Button();
-            this.TxtTotalPrice = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.TxtProfitPercent = new System.Windows.Forms.TextBox();
             this.TxtProfitAmount = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.TxtTotalStock = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.TxtSalesPrice = new System.Windows.Forms.TextBox();
+            this.TxtSalesPricePerUnit = new System.Windows.Forms.TextBox();
             this.TxtPerUnitValue = new System.Windows.Forms.TextBox();
             this.TxtItemName = new System.Windows.Forms.TextBox();
             this.TxtItemBrand = new System.Windows.Forms.TextBox();
@@ -69,8 +67,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd = new System.Windows.Forms.Button();
             this.BtnDeleteItemImage = new System.Windows.Forms.Button();
             this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.label11 = new System.Windows.Forms.Label();
-            this.TxtSalesPerUnitValue = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.TxtItemSubCode = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -131,7 +129,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.BackColor = System.Drawing.SystemColors.Control;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(88, 237);
+            this.label4.Location = new System.Drawing.Point(84, 237);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 20);
             this.label4.TabIndex = 4;
@@ -143,7 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.BackColor = System.Drawing.SystemColors.Control;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(48, 349);
+            this.label5.Location = new System.Drawing.Point(37, 362);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(115, 18);
             this.label5.TabIndex = 5;
@@ -155,11 +153,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.BackColor = System.Drawing.SystemColors.Control;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(475, 295);
+            this.label6.Location = new System.Drawing.Point(453, 363);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(137, 20);
+            this.label6.Size = new System.Drawing.Size(161, 20);
             this.label6.TabIndex = 6;
-            this.label6.Text = "Total Sales Price";
+            this.label6.Text = "Sales Price Per Unit";
             // 
             // groupBox1
             // 
@@ -181,24 +179,22 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.TxtSalesPerUnitValue);
+            this.groupBox2.Controls.Add(this.TxtItemSubCode);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.ComboCustomItemUnit);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.TxtCustomPerUnitValue);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.TxtWeightPiece);
             this.groupBox2.Controls.Add(this.ComboItemUnit);
-            this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.TxtSalesPricePerUnit);
-            this.groupBox2.Controls.Add(this.TxtQuantity);
-            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.BtnShowPricedItem);
-            this.groupBox2.Controls.Add(this.TxtTotalPrice);
-            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.TxtProfitPercent);
             this.groupBox2.Controls.Add(this.TxtProfitAmount);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.TxtTotalStock);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.TxtSalesPrice);
+            this.groupBox2.Controls.Add(this.TxtSalesPricePerUnit);
             this.groupBox2.Controls.Add(this.TxtPerUnitValue);
             this.groupBox2.Controls.Add(this.TxtItemName);
             this.groupBox2.Controls.Add(this.TxtItemBrand);
@@ -216,11 +212,56 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
+            // ComboCustomItemUnit
+            // 
+            this.ComboCustomItemUnit.Enabled = false;
+            this.ComboCustomItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboCustomItemUnit.FormattingEnabled = true;
+            this.ComboCustomItemUnit.Location = new System.Drawing.Point(616, 54);
+            this.ComboCustomItemUnit.Name = "ComboCustomItemUnit";
+            this.ComboCustomItemUnit.Size = new System.Drawing.Size(186, 28);
+            this.ComboCustomItemUnit.TabIndex = 49;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.SystemColors.Control;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label13.Location = new System.Drawing.Point(473, 58);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(139, 20);
+            this.label13.TabIndex = 48;
+            this.label13.Text = "Custom Item Unit";
+            // 
+            // TxtCustomPerUnitValue
+            // 
+            this.TxtCustomPerUnitValue.BackColor = System.Drawing.SystemColors.Window;
+            this.TxtCustomPerUnitValue.Enabled = false;
+            this.TxtCustomPerUnitValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCustomPerUnitValue.Location = new System.Drawing.Point(616, 138);
+            this.TxtCustomPerUnitValue.Name = "TxtCustomPerUnitValue";
+            this.TxtCustomPerUnitValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtCustomPerUnitValue.Size = new System.Drawing.Size(186, 29);
+            this.TxtCustomPerUnitValue.TabIndex = 47;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.SystemColors.Control;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label11.Location = new System.Drawing.Point(434, 136);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(179, 18);
+            this.label11.TabIndex = 46;
+            this.label11.Text = "Custom Per Unit Value";
+            // 
             // TxtWeightPiece
             // 
             this.TxtWeightPiece.Enabled = false;
             this.TxtWeightPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtWeightPiece.Location = new System.Drawing.Point(618, 51);
+            this.TxtWeightPiece.Location = new System.Drawing.Point(618, 96);
             this.TxtWeightPiece.Name = "TxtWeightPiece";
             this.TxtWeightPiece.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtWeightPiece.Size = new System.Drawing.Size(184, 29);
@@ -236,60 +277,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboItemUnit.Size = new System.Drawing.Size(209, 28);
             this.ComboItemUnit.TabIndex = 44;
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label13.Location = new System.Drawing.Point(453, 348);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(161, 20);
-            this.label13.TabIndex = 43;
-            this.label13.Text = "Sales Price Per Unit";
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(509, 58);
+            this.label12.Location = new System.Drawing.Point(509, 103);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(107, 18);
             this.label12.TabIndex = 39;
             this.label12.Text = "Weight/Piece";
-            // 
-            // TxtSalesPricePerUnit
-            // 
-            this.TxtSalesPricePerUnit.Enabled = false;
-            this.TxtSalesPricePerUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtSalesPricePerUnit.Location = new System.Drawing.Point(618, 340);
-            this.TxtSalesPricePerUnit.Name = "TxtSalesPricePerUnit";
-            this.TxtSalesPricePerUnit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtSalesPricePerUnit.Size = new System.Drawing.Size(184, 29);
-            this.TxtSalesPricePerUnit.TabIndex = 36;
-            // 
-            // TxtQuantity
-            // 
-            this.TxtQuantity.Enabled = false;
-            this.TxtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtQuantity.Location = new System.Drawing.Point(618, 111);
-            this.TxtQuantity.Name = "TxtQuantity";
-            this.TxtQuantity.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtQuantity.Size = new System.Drawing.Size(184, 29);
-            this.TxtQuantity.TabIndex = 34;
-            this.TxtQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtQuantity_KeyPress);
-            this.TxtQuantity.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtQuantity_KeyUp);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(505, 117);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(108, 20);
-            this.label9.TabIndex = 33;
-            this.label9.Text = "Item Quantity";
             // 
             // BtnShowPricedItem
             // 
@@ -307,36 +304,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowPricedItem.UseVisualStyleBackColor = false;
             this.BtnShowPricedItem.Click += new System.EventHandler(this.BtnShowPricedItem_Click);
             // 
-            // TxtTotalPrice
-            // 
-            this.TxtTotalPrice.Enabled = false;
-            this.TxtTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTotalPrice.Location = new System.Drawing.Point(618, 171);
-            this.TxtTotalPrice.Name = "TxtTotalPrice";
-            this.TxtTotalPrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtTotalPrice.Size = new System.Drawing.Size(184, 29);
-            this.TxtTotalPrice.TabIndex = 29;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label10.Location = new System.Drawing.Point(486, 181);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(127, 20);
-            this.label10.TabIndex = 28;
-            this.label10.Text = "Total Item Price";
-            // 
             // TxtProfitPercent
             // 
             this.TxtProfitPercent.Enabled = false;
             this.TxtProfitPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtProfitPercent.Location = new System.Drawing.Point(618, 228);
+            this.TxtProfitPercent.Location = new System.Drawing.Point(617, 297);
             this.TxtProfitPercent.Name = "TxtProfitPercent";
             this.TxtProfitPercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtProfitPercent.Size = new System.Drawing.Size(60, 29);
             this.TxtProfitPercent.TabIndex = 25;
+            this.TxtProfitPercent.Text = "1";
             this.TxtProfitPercent.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtProfitPercent_KeyPress);
             this.TxtProfitPercent.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtProfitPercent_KeyUp);
             // 
@@ -344,7 +321,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtProfitAmount.Enabled = false;
             this.TxtProfitAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtProfitAmount.Location = new System.Drawing.Point(682, 228);
+            this.TxtProfitAmount.Location = new System.Drawing.Point(682, 297);
             this.TxtProfitAmount.Name = "TxtProfitAmount";
             this.TxtProfitAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtProfitAmount.Size = new System.Drawing.Size(120, 29);
@@ -355,7 +332,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(453, 237);
+            this.label8.Location = new System.Drawing.Point(453, 295);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(159, 20);
             this.label8.TabIndex = 23;
@@ -366,7 +343,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtTotalStock.BackColor = System.Drawing.SystemColors.Window;
             this.TxtTotalStock.Enabled = false;
             this.TxtTotalStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTotalStock.Location = new System.Drawing.Point(169, 286);
+            this.TxtTotalStock.Location = new System.Drawing.Point(169, 293);
             this.TxtTotalStock.Name = "TxtTotalStock";
             this.TxtTotalStock.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotalStock.Size = new System.Drawing.Size(210, 29);
@@ -377,29 +354,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(70, 297);
+            this.label7.Location = new System.Drawing.Point(70, 299);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 20);
             this.label7.TabIndex = 21;
             this.label7.Text = "Total Stock";
             // 
-            // TxtSalesPrice
+            // TxtSalesPricePerUnit
             // 
-            this.TxtSalesPrice.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtSalesPrice.Enabled = false;
-            this.TxtSalesPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtSalesPrice.Location = new System.Drawing.Point(618, 288);
-            this.TxtSalesPrice.Name = "TxtSalesPrice";
-            this.TxtSalesPrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtSalesPrice.Size = new System.Drawing.Size(184, 29);
-            this.TxtSalesPrice.TabIndex = 20;
+            this.TxtSalesPricePerUnit.BackColor = System.Drawing.SystemColors.Window;
+            this.TxtSalesPricePerUnit.Enabled = false;
+            this.TxtSalesPricePerUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtSalesPricePerUnit.Location = new System.Drawing.Point(618, 356);
+            this.TxtSalesPricePerUnit.Name = "TxtSalesPricePerUnit";
+            this.TxtSalesPricePerUnit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtSalesPricePerUnit.Size = new System.Drawing.Size(184, 29);
+            this.TxtSalesPricePerUnit.TabIndex = 20;
             // 
             // TxtPerUnitValue
             // 
             this.TxtPerUnitValue.BackColor = System.Drawing.SystemColors.Window;
             this.TxtPerUnitValue.Enabled = false;
             this.TxtPerUnitValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtPerUnitValue.Location = new System.Drawing.Point(169, 338);
+            this.TxtPerUnitValue.Location = new System.Drawing.Point(169, 359);
             this.TxtPerUnitValue.Name = "TxtPerUnitValue";
             this.TxtPerUnitValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtPerUnitValue.Size = new System.Drawing.Size(210, 29);
@@ -430,7 +407,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtItemCode.Location = new System.Drawing.Point(169, 51);
             this.TxtItemCode.Name = "TxtItemCode";
-            this.TxtItemCode.Size = new System.Drawing.Size(136, 29);
+            this.TxtItemCode.Size = new System.Drawing.Size(79, 29);
             this.TxtItemCode.TabIndex = 9;
             // 
             // BtnShowUnpricedItem
@@ -562,28 +539,27 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
             // 
-            // label11
+            // label9
             // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.SystemColors.Control;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(3, 403);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(162, 18);
-            this.label11.TabIndex = 46;
-            this.label11.Text = "Sales Per Unit Value";
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.SystemColors.Control;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label9.Location = new System.Drawing.Point(527, 178);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(119, 20);
+            this.label9.TabIndex = 52;
+            this.label9.Text = "Item Sub Code";
             // 
-            // TxtSalesPerUnitValue
+            // TxtItemSubCode
             // 
-            this.TxtSalesPerUnitValue.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtSalesPerUnitValue.Enabled = false;
-            this.TxtSalesPerUnitValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtSalesPerUnitValue.Location = new System.Drawing.Point(169, 393);
-            this.TxtSalesPerUnitValue.Name = "TxtSalesPerUnitValue";
-            this.TxtSalesPerUnitValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtSalesPerUnitValue.Size = new System.Drawing.Size(210, 29);
-            this.TxtSalesPerUnitValue.TabIndex = 47;
+            this.TxtItemSubCode.BackColor = System.Drawing.Color.White;
+            this.TxtItemSubCode.Enabled = false;
+            this.TxtItemSubCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtItemSubCode.Location = new System.Drawing.Point(669, 174);
+            this.TxtItemSubCode.Name = "TxtItemSubCode";
+            this.TxtItemSubCode.Size = new System.Drawing.Size(79, 29);
+            this.TxtItemSubCode.TabIndex = 53;
             // 
             // PricedItemForm
             // 
@@ -619,7 +595,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox TxtSalesPrice;
+        private System.Windows.Forms.TextBox TxtSalesPricePerUnit;
         private System.Windows.Forms.TextBox TxtPerUnitValue;
         private System.Windows.Forms.TextBox TxtItemName;
         private System.Windows.Forms.TextBox TxtItemBrand;
@@ -635,22 +611,20 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtProfitPercent;
         private System.Windows.Forms.TextBox TxtProfitAmount;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox TxtTotalPrice;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button BtnAdd;
         private System.Windows.Forms.Button BtnShowPricedItem;
         private System.Windows.Forms.Button BtnSave;
-        private System.Windows.Forms.TextBox TxtQuantity;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox TxtSalesPricePerUnit;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button BtnDeleteItemImage;
         private System.Windows.Forms.PictureBox PicBoxItemImage;
         private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.ComboBox ComboItemUnit;
         private System.Windows.Forms.TextBox TxtWeightPiece;
-        private System.Windows.Forms.TextBox TxtSalesPerUnitValue;
+        private System.Windows.Forms.TextBox TxtCustomPerUnitValue;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox ComboCustomItemUnit;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox TxtItemSubCode;
+        private System.Windows.Forms.Label label9;
     }
 }
