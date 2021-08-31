@@ -29,6 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -61,11 +62,13 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnDeleteTransaction = new System.Windows.Forms.Button();
             this.BtnShowTransaction = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.DataGridTransactionList = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.GroupFilter.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridTransactionList)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // GroupFilter
@@ -417,15 +420,16 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnDeleteTransaction
             // 
             this.BtnDeleteTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnDeleteTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnDeleteTransaction.BackgroundImage")));
+            this.BtnDeleteTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDeleteTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnDeleteTransaction.FlatAppearance.BorderSize = 2;
             this.BtnDeleteTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.BtnDeleteTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 65);
+            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 63);
             this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
-            this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 48);
+            this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 45);
             this.BtnDeleteTransaction.TabIndex = 1;
             this.BtnDeleteTransaction.Text = "Delete Transaction";
             this.BtnDeleteTransaction.UseVisualStyleBackColor = false;
@@ -434,31 +438,20 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnShowTransaction
             // 
             this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShowTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowTransaction.BackgroundImage")));
+            this.BtnShowTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowTransaction.FlatAppearance.BorderSize = 2;
             this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnShowTransaction.Location = new System.Drawing.Point(10, 15);
+            this.BtnShowTransaction.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowTransaction.Location = new System.Drawing.Point(10, 17);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
-            this.BtnShowTransaction.Size = new System.Drawing.Size(130, 48);
+            this.BtnShowTransaction.Size = new System.Drawing.Size(130, 45);
             this.BtnShowTransaction.TabIndex = 0;
             this.BtnShowTransaction.Text = "Show Transaction";
             this.BtnShowTransaction.UseVisualStyleBackColor = false;
             this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(0, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 44);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "Daily Transaction Management";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // DataGridTransactionList
             // 
@@ -495,15 +488,38 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridTransactionList.TabIndex = 4;
             this.DataGridTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridTransactionList_DataBindingComplete);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox1.BackgroundImage")));
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(-3, -1);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1048, 45);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Cyan;
+            this.label1.Location = new System.Drawing.Point(329, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(417, 31);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Daily Transaction Management";
+            // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.GroupFilter);
             this.Controls.Add(this.DataGridTransactionList);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox2);
             this.Name = "TransactionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -512,8 +528,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridTransactionList)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -523,7 +540,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button BtnDeleteTransaction;
         private System.Windows.Forms.Button BtnShowTransaction;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton RadioReceipt;
         private System.Windows.Forms.RadioButton RadioSales;
         private System.Windows.Forms.RadioButton RadioAll;
@@ -549,5 +565,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RadioButton RadioBankTransfer;
         private System.Windows.Forms.RadioButton RadioService;
         private System.Windows.Forms.ComboBox ComboService;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
     }
 }

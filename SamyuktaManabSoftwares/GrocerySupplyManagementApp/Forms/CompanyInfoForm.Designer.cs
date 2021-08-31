@@ -29,6 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompanyInfoForm));
             this.label1 = new System.Windows.Forms.Label();
             this.BtnEdit = new System.Windows.Forms.Button();
             this.RichRegistrationNo = new System.Windows.Forms.RichTextBox();
@@ -59,15 +60,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAddress = new System.Windows.Forms.RichTextBox();
             this.RichCompanyType = new System.Windows.Forms.RichTextBox();
             this.RichCompanyName = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.OpenCompanyLogoDialog = new System.Windows.Forms.OpenFileDialog();
             this.BtnAddImage = new System.Windows.Forms.Button();
             this.BtnDeleteImage = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxCompanyLogo)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -84,6 +87,8 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnEdit
             // 
             this.BtnEdit.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnEdit.BackgroundImage")));
+            this.BtnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnEdit.Enabled = false;
             this.BtnEdit.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
@@ -204,6 +209,8 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnClearAll
             // 
             this.BtnClearAll.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnClearAll.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnClearAll.BackgroundImage")));
+            this.BtnClearAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnClearAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnClearAll.Enabled = false;
             this.BtnClearAll.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
@@ -222,6 +229,8 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnUpdate
             // 
             this.BtnUpdate.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnUpdate.BackgroundImage")));
+            this.BtnUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnUpdate.Enabled = false;
             this.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
@@ -433,18 +442,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichCompanyName.TabIndex = 13;
             this.RichCompanyName.Text = "";
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(1, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(683, 35);
-            this.textBox1.TabIndex = 14;
-            this.textBox1.Text = "Company Information";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // OpenCompanyLogoDialog
             // 
             this.OpenCompanyLogoDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenCompanyLogoDialog_FileOk);
@@ -475,15 +472,37 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.UseVisualStyleBackColor = true;
             this.BtnDeleteImage.Click += new System.EventHandler(this.BtnDeleteImage_Click);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox5.BackgroundImage")));
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Location = new System.Drawing.Point(-4, -1);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(689, 40);
+            this.groupBox5.TabIndex = 16;
+            this.groupBox5.TabStop = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.Cyan;
+            this.label12.Location = new System.Drawing.Point(228, 7);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(259, 29);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Company Information";
+            // 
             // CompanyInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(684, 549);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.BtnAddImage);
             this.Controls.Add(this.BtnDeleteImage);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -498,8 +517,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -531,7 +551,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichAddress;
         private System.Windows.Forms.RichTextBox RichCompanyType;
         private System.Windows.Forms.RichTextBox RichCompanyName;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button BtnClearAll;
         private System.Windows.Forms.PictureBox PicBoxCompanyLogo;
         private System.Windows.Forms.OpenFileDialog OpenCompanyLogoDialog;
@@ -539,5 +558,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnDeleteImage;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RichTextBox RichShortName;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label12;
     }
 }

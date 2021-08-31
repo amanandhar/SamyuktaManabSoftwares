@@ -29,6 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SummaryForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -37,7 +38,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailyTransaction = new System.Windows.Forms.Button();
             this.BtnShow = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -58,12 +58,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichSalesCredit = new System.Windows.Forms.RichTextBox();
             this.RichSalesCash = new System.Windows.Forms.RichTextBox();
             this.RichOpeningBalanceCredit = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.RichBalanceCredit = new System.Windows.Forms.RichTextBox();
             this.DataGridSummaryList = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridSummaryList)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -90,10 +95,11 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnDailyTransaction
             // 
             this.BtnDailyTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnDailyTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnDailyTransaction.BackgroundImage")));
+            this.BtnDailyTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDailyTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnDailyTransaction.FlatAppearance.BorderSize = 2;
             this.BtnDailyTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnDailyTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDailyTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDailyTransaction.ForeColor = System.Drawing.Color.Transparent;
             this.BtnDailyTransaction.Location = new System.Drawing.Point(839, 16);
@@ -107,13 +113,14 @@ namespace GrocerySupplyManagementApp.Forms
             // BtnShow
             // 
             this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShow.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShow.BackgroundImage")));
+            this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShow.FlatAppearance.BorderSize = 2;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnShow.Location = new System.Drawing.Point(726, 16);
+            this.BtnShow.Location = new System.Drawing.Point(728, 16);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(110, 40);
             this.BtnShow.TabIndex = 2;
@@ -131,17 +138,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.Size = new System.Drawing.Size(44, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Date";
-            // 
-            // textBox3
-            // 
-            this.textBox3.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.Transparent;
-            this.textBox3.Location = new System.Drawing.Point(17, 15);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(337, 29);
-            this.textBox3.TabIndex = 0;
-            this.textBox3.Text = "    CASH AND CREDIT IN HAND";
             // 
             // label2
             // 
@@ -245,6 +241,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.RichBalanceCash);
@@ -264,10 +261,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.textBox3);
             this.groupBox3.Location = new System.Drawing.Point(652, 122);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(375, 380);
+            this.groupBox3.Size = new System.Drawing.Size(375, 382);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
@@ -389,18 +385,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichOpeningBalanceCredit.TabIndex = 10;
             this.RichOpeningBalanceCredit.Text = "";
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(-1, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 44);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "      Daily Summary Management";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // RichBalanceCredit
             // 
             this.RichBalanceCredit.BackColor = System.Drawing.Color.White;
@@ -448,15 +432,61 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSummaryList.TabIndex = 20;
             this.DataGridSummaryList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSummaryList_DataBindingComplete);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox2.BackgroundImage")));
+            this.groupBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Location = new System.Drawing.Point(-4, -1);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1050, 45);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.Cyan;
+            this.label12.Location = new System.Drawing.Point(338, 8);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(385, 31);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Daily Summery Management";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox4.BackgroundImage")));
+            this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox4.Controls.Add(this.label13);
+            this.groupBox4.Location = new System.Drawing.Point(-5, 9);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(380, 35);
+            this.groupBox4.TabIndex = 20;
+            this.groupBox4.TabStop = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Cyan;
+            this.label13.Location = new System.Drawing.Point(81, 8);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(217, 24);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Cash && Credit In Hand";
+            // 
             // SummaryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.DataGridSummaryList);
             this.Controls.Add(this.RichBalanceCredit);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -468,8 +498,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridSummaryList)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -478,7 +511,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -498,11 +530,14 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichBalanceCash;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.RichTextBox RichPaymentCheque;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button BtnDailyTransaction;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RichTextBox RichBalanceCredit;
         private System.Windows.Forms.DataGridView DataGridSummaryList;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDay;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label12;
     }
 }

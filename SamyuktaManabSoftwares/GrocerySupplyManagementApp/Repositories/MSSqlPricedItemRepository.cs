@@ -272,7 +272,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@ItemId, @CustomUnit, @WeightPiece, " +
+                        "@ItemId, @SubCode, @CustomUnit, @WeightPiece, " +
                         "@ProfitPercent, @Profit, @SalesPricePerUnit, " + 
                         "@ImagePath, @AddedDate, @UpdatedDate " +
                     ") ";

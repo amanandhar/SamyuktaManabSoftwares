@@ -679,6 +679,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtDeliveryChargeTotal.Clear();
             TxtGrandTotal.Clear();
             RichReceivedAmount.Clear();
+
             RichBalanceAmount.Clear();
         }
 
@@ -751,10 +752,10 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                RichItemCode.Text = item.Code;
+                RichItemCode.Text = item.Code + separator + pricedItem.SubCode;
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
-                TxtItemUnit.Text = item.Unit;
+                TxtItemUnit.Text = pricedItem.CustomUnit;
                 TxtWeightPiece.Text = pricedItem.WeightPiece.ToString();
 
                 // Start: Sales Price Logic

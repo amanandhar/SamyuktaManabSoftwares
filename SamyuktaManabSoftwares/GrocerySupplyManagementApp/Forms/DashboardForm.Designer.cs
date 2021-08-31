@@ -65,13 +65,13 @@
             // 
             // BtnStockMgmt
             // 
-            this.BtnStockMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnStockMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnStockMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnStockMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnStockMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnStockMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnStockMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnStockMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnStockMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnStockMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnStockMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnStockMgmt.Location = new System.Drawing.Point(15, 255);
             this.BtnStockMgmt.Name = "BtnStockMgmt";
             this.BtnStockMgmt.Size = new System.Drawing.Size(240, 37);
@@ -82,13 +82,13 @@
             // 
             // BtnReportsMgmt
             // 
-            this.BtnReportsMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnReportsMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnReportsMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnReportsMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnReportsMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnReportsMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnReportsMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnReportsMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnReportsMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnReportsMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnReportsMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnReportsMgmt.Location = new System.Drawing.Point(15, 446);
             this.BtnReportsMgmt.Name = "BtnReportsMgmt";
             this.BtnReportsMgmt.Size = new System.Drawing.Size(240, 37);
@@ -99,13 +99,13 @@
             // 
             // BtnSettingMgmt
             // 
-            this.BtnSettingMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSettingMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnSettingMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnSettingMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnSettingMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSettingMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnSettingMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnSettingMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSettingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSettingMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnSettingMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnSettingMgmt.Location = new System.Drawing.Point(15, 399);
             this.BtnSettingMgmt.Name = "BtnSettingMgmt";
             this.BtnSettingMgmt.Size = new System.Drawing.Size(240, 37);
@@ -116,13 +116,13 @@
             // 
             // BtnItemMgmt
             // 
-            this.BtnItemMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnItemMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnItemMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnItemMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnItemMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnItemMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnItemMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnItemMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnItemMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnItemMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnItemMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnItemMgmt.Location = new System.Drawing.Point(15, 207);
             this.BtnItemMgmt.Name = "BtnItemMgmt";
             this.BtnItemMgmt.Size = new System.Drawing.Size(240, 37);
@@ -133,13 +133,13 @@
             // 
             // BtnSupplierMgmt
             // 
-            this.BtnSupplierMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSupplierMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnSupplierMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnSupplierMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnSupplierMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSupplierMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnSupplierMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnSupplierMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSupplierMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSupplierMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnSupplierMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnSupplierMgmt.Location = new System.Drawing.Point(15, 159);
             this.BtnSupplierMgmt.Name = "BtnSupplierMgmt";
             this.BtnSupplierMgmt.Size = new System.Drawing.Size(240, 37);
@@ -150,13 +150,13 @@
             // 
             // BtnMemberMgmt
             // 
-            this.BtnMemberMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnMemberMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnMemberMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnMemberMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnMemberMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnMemberMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnMemberMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnMemberMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnMemberMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnMemberMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnMemberMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnMemberMgmt.Location = new System.Drawing.Point(15, 111);
             this.BtnMemberMgmt.Name = "BtnMemberMgmt";
             this.BtnMemberMgmt.Size = new System.Drawing.Size(240, 37);
@@ -167,13 +167,13 @@
             // 
             // BtnSummaryMgmt
             // 
-            this.BtnSummaryMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSummaryMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnSummaryMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnSummaryMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnSummaryMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSummaryMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnSummaryMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnSummaryMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSummaryMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSummaryMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnSummaryMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnSummaryMgmt.Location = new System.Drawing.Point(15, 64);
             this.BtnSummaryMgmt.Name = "BtnSummaryMgmt";
             this.BtnSummaryMgmt.Size = new System.Drawing.Size(240, 37);
@@ -184,13 +184,13 @@
             // 
             // BtnPosMgmt
             // 
-            this.BtnPosMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnPosMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnPosMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnPosMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnPosMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnPosMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnPosMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnPosMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnPosMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPosMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnPosMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnPosMgmt.Location = new System.Drawing.Point(15, 19);
             this.BtnPosMgmt.Name = "BtnPosMgmt";
             this.BtnPosMgmt.Size = new System.Drawing.Size(240, 37);
@@ -275,13 +275,13 @@
             // 
             // BtnEmployeeMgmt
             // 
-            this.BtnEmployeeMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnEmployeeMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnEmployeeMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnEmployeeMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnEmployeeMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnEmployeeMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnEmployeeMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnEmployeeMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEmployeeMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEmployeeMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnEmployeeMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnEmployeeMgmt.Location = new System.Drawing.Point(15, 494);
             this.BtnEmployeeMgmt.Name = "BtnEmployeeMgmt";
             this.BtnEmployeeMgmt.Size = new System.Drawing.Size(240, 37);
@@ -293,6 +293,8 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.groupBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox1.BackgroundImage")));
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBox1.Controls.Add(this.BtnEndOfDayMgmt);
             this.groupBox1.Controls.Add(this.BtnIncomeExpenseMgmt);
             this.groupBox1.Controls.Add(this.BtnBankingMgmt);
@@ -313,13 +315,13 @@
             // 
             // BtnEndOfDayMgmt
             // 
-            this.BtnEndOfDayMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnEndOfDayMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnEndOfDayMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnEndOfDayMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnEndOfDayMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnEndOfDayMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnEndOfDayMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnEndOfDayMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEndOfDayMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEndOfDayMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnEndOfDayMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnEndOfDayMgmt.Location = new System.Drawing.Point(15, 539);
             this.BtnEndOfDayMgmt.Name = "BtnEndOfDayMgmt";
             this.BtnEndOfDayMgmt.Size = new System.Drawing.Size(240, 37);
@@ -330,13 +332,13 @@
             // 
             // BtnIncomeExpenseMgmt
             // 
-            this.BtnIncomeExpenseMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnIncomeExpenseMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnIncomeExpenseMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnIncomeExpenseMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnIncomeExpenseMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnIncomeExpenseMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnIncomeExpenseMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnIncomeExpenseMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnIncomeExpenseMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnIncomeExpenseMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnIncomeExpenseMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnIncomeExpenseMgmt.Location = new System.Drawing.Point(15, 303);
             this.BtnIncomeExpenseMgmt.Name = "BtnIncomeExpenseMgmt";
             this.BtnIncomeExpenseMgmt.Size = new System.Drawing.Size(240, 37);
@@ -347,13 +349,13 @@
             // 
             // BtnBankingMgmt
             // 
-            this.BtnBankingMgmt.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnBankingMgmt.BackColor = System.Drawing.Color.Transparent;
             this.BtnBankingMgmt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnBankingMgmt.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BtnBankingMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnBankingMgmt.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BtnBankingMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnBankingMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnBankingMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnBankingMgmt.ForeColor = System.Drawing.Color.White;
+            this.BtnBankingMgmt.ForeColor = System.Drawing.Color.Cyan;
             this.BtnBankingMgmt.Location = new System.Drawing.Point(15, 351);
             this.BtnBankingMgmt.Name = "BtnBankingMgmt";
             this.BtnBankingMgmt.Size = new System.Drawing.Size(240, 37);
@@ -371,6 +373,8 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.SystemColors.Highlight;
+            this.groupBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox4.BackgroundImage")));
+            this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBox4.Controls.Add(this.lblCompanyShortName);
             this.groupBox4.Location = new System.Drawing.Point(9, -2);
             this.groupBox4.Name = "groupBox4";
@@ -381,8 +385,9 @@
             // lblCompanyShortName
             // 
             this.lblCompanyShortName.AutoSize = true;
+            this.lblCompanyShortName.BackColor = System.Drawing.Color.Transparent;
             this.lblCompanyShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompanyShortName.ForeColor = System.Drawing.Color.White;
+            this.lblCompanyShortName.ForeColor = System.Drawing.Color.Cyan;
             this.lblCompanyShortName.Location = new System.Drawing.Point(64, 11);
             this.lblCompanyShortName.Name = "lblCompanyShortName";
             this.lblCompanyShortName.Size = new System.Drawing.Size(129, 39);
@@ -392,6 +397,8 @@
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.SystemColors.Highlight;
+            this.groupBox5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox5.BackgroundImage")));
+            this.groupBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBox5.Controls.Add(this.lblCompanyName);
             this.groupBox5.Location = new System.Drawing.Point(286, -2);
             this.groupBox5.Name = "groupBox5";
@@ -402,9 +409,9 @@
             // lblCompanyName
             // 
             this.lblCompanyName.AutoSize = true;
-            this.lblCompanyName.BackColor = System.Drawing.SystemColors.Highlight;
+            this.lblCompanyName.BackColor = System.Drawing.Color.Transparent;
             this.lblCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompanyName.ForeColor = System.Drawing.Color.White;
+            this.lblCompanyName.ForeColor = System.Drawing.Color.Cyan;
             this.lblCompanyName.Location = new System.Drawing.Point(210, 11);
             this.lblCompanyName.Name = "lblCompanyName";
             this.lblCompanyName.Size = new System.Drawing.Size(665, 39);
@@ -429,7 +436,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 23.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Cyan;
-            this.label1.Location = new System.Drawing.Point(13, 547);
+            this.label1.Location = new System.Drawing.Point(13, 550);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1036, 35);
             this.label1.TabIndex = 0;
@@ -488,8 +495,8 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label lblCompanyShortName;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Label lblCompanyName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCompanyName;
     }
 }
 

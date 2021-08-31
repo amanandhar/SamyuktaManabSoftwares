@@ -29,8 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
             this.BtnShareCapital = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.BtnBalanceSheetForm = new System.Windows.Forms.Button();
             this.BtnProfitLossForm = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -39,6 +39,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSalesReturn = new System.Windows.Forms.Button();
             this.BtnStockAdjustment = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnShareCapital
@@ -52,18 +55,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShareCapital.Text = "Share Capital";
             this.BtnShareCapital.UseVisualStyleBackColor = true;
             this.BtnShareCapital.Click += new System.EventHandler(this.BtnShareCapital_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.textBox1.Location = new System.Drawing.Point(-1, 1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1045, 44);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.Text = "All Report Management";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BtnBalanceSheetForm
             // 
@@ -157,12 +148,36 @@ namespace GrocerySupplyManagementApp.Forms
             this.button6.Text = "Report";
             this.button6.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox1.BackgroundImage")));
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1045, 45);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Cyan;
+            this.label1.Location = new System.Drawing.Point(380, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(277, 31);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Report Management";
+            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.BtnStockAdjustment);
             this.Controls.Add(this.BtnSalesReturn);
@@ -172,18 +187,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.BtnProfitLossForm);
             this.Controls.Add(this.BtnBalanceSheetForm);
             this.Controls.Add(this.BtnShareCapital);
-            this.Controls.Add(this.textBox1);
             this.Name = "ReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ReportForm_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button BtnShareCapital;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button BtnBalanceSheetForm;
         private System.Windows.Forms.Button BtnProfitLossForm;
         private System.Windows.Forms.Button button9;
@@ -192,5 +206,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnSalesReturn;
         private System.Windows.Forms.Button BtnStockAdjustment;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
