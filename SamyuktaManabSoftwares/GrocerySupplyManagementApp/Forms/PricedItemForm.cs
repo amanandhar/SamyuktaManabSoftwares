@@ -418,15 +418,15 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllFields()
         {
             TxtItemCode.Clear();
-            
             TxtItemName.Clear();
             TxtItemBrand.Clear();
             ComboItemUnit.Text = string.Empty;
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
+            TxtItemSubCode.Clear();
             ComboCustomItemUnit.Text = string.Empty;
             TxtWeightPiece.Clear();
-            TxtItemSubCode.Clear();
+            TxtCustomPerUnitValue.Clear();
             TxtProfitPercent.Clear();
             TxtProfitAmount.Clear();
             TxtSalesPricePerUnit.Clear();
@@ -463,14 +463,33 @@ namespace GrocerySupplyManagementApp.Forms
                 
                 var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
                 TxtPerUnitValue.Text = perUnitValue.ToString();
+
+                TxtItemSubCode.Text = pricedItem.SubCode;
                 ComboCustomItemUnit.Text = pricedItem.CustomUnit;
                 TxtWeightPiece.Text = pricedItem.WeightPiece.ToString();
-                TxtItemSubCode.Text = pricedItem.SubCode;
+
+                if (ComboCustomItemUnit.Text == Constants.GRAM || ComboCustomItemUnit.Text == Constants.MILLI_LITER)
+                {
+                    if (string.IsNullOrWhiteSpace(TxtWeightPiece.Text))
+                    {
+                        TxtCustomPerUnitValue.Text = string.Empty;
+                    }
+                    else
+                    {
+                        TxtCustomPerUnitValue.Text = ((perUnitValue * pricedItem.WeightPiece) / 1000).ToString();
+                    }
+                }
+                else
+                {
+                    TxtCustomPerUnitValue.Text = TxtPerUnitValue.Text;
+                }
+
                 var profitPercent = pricedItem.ProfitPercent;
                 TxtProfitPercent.Text = profitPercent.ToString();
-                var profitAmount = Math.Round(perUnitValue * (profitPercent / 100), 2);
+                var customPerUnitValue = string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text) ? 0.00M : Convert.ToDecimal(TxtCustomPerUnitValue.Text);
+                var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 TxtProfitAmount.Text = profitAmount.ToString();
-                var salesPrice = perUnitValue + profitAmount;
+                var salesPrice = customPerUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = Math.Round(salesPrice, 2).ToString();
 
                 if (File.Exists(pricedItem.ImagePath))
@@ -513,11 +532,6 @@ namespace GrocerySupplyManagementApp.Forms
                     .ToList();
                 var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
                 TxtPerUnitValue.Text = perUnitValue.ToString();
-                
-                if((ComboItemUnit.Text == Constants.GRAM || ComboItemUnit.Text == Constants.MILLI_LITER) && !string.IsNullOrWhiteSpace(TxtWeightPiece.Text))
-                {
-                    TxtSalesPricePerUnit.Text = (perUnitValue * Convert.ToDecimal(TxtWeightPiece.Text) / 1000).ToString();
-                }
 
                 EnableFields();
                 EnableFields(Action.PopulateUnpricedItem);
@@ -562,7 +576,5 @@ namespace GrocerySupplyManagementApp.Forms
             ComboCustomItemUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
         #endregion
-
-        
     }
 }

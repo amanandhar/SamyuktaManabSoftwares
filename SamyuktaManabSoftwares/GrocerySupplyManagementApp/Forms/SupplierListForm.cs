@@ -54,8 +54,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridSupplierList.Columns["Id"].Visible = false;
 
-            DataGridSupplierList.Columns["SupplierId"].HeaderText = "Id";
-            DataGridSupplierList.Columns["SupplierId"].Width = 50;
+            DataGridSupplierList.Columns["SupplierId"].HeaderText = "Suppl.Id";
+            DataGridSupplierList.Columns["SupplierId"].Width = 55;
             DataGridSupplierList.Columns["SupplierId"].DisplayIndex = 0;
 
             DataGridSupplierList.Columns["Name"].HeaderText = "Name";
@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.Columns["Name"].DisplayIndex = 1;
 
             DataGridSupplierList.Columns["Owner"].HeaderText = "Owner";
-            DataGridSupplierList.Columns["Owner"].Width = 175;
+            DataGridSupplierList.Columns["Owner"].Width = 160;
             DataGridSupplierList.Columns["Owner"].DisplayIndex = 2;
 
             DataGridSupplierList.Columns["Balance"].HeaderText = "Balance";
@@ -92,5 +92,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.DataSource = source;
         }
         #endregion
+
+        private void DataGridSupplierList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

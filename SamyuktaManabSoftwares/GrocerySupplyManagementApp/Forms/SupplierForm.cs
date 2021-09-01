@@ -455,5 +455,9 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        private void DataGridSupplierList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

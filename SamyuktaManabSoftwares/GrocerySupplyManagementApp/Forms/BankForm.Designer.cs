@@ -51,6 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtnShowTransaction = new System.Windows.Forms.Button();
             this.BtnSaveBank = new System.Windows.Forms.Button();
             this.BtnEditBank = new System.Windows.Forms.Button();
             this.BtnUpdateBank = new System.Windows.Forms.Button();
@@ -60,7 +61,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.DataGridBankList = new System.Windows.Forms.DataGridView();
-            this.BtnShowTransaction = new System.Windows.Forms.Button();
             this.ComboAction = new System.Windows.Forms.ComboBox();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
             this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
@@ -320,6 +320,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
+            // BtnShowTransaction
+            // 
+            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShowTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowTransaction.BackgroundImage")));
+            this.BtnShowTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnShowTransaction.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
+            this.BtnShowTransaction.FlatAppearance.BorderSize = 2;
+            this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowTransaction.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowTransaction.Location = new System.Drawing.Point(6, 304);
+            this.BtnShowTransaction.Name = "BtnShowTransaction";
+            this.BtnShowTransaction.Size = new System.Drawing.Size(125, 40);
+            this.BtnShowTransaction.TabIndex = 21;
+            this.BtnShowTransaction.Text = "Show Transaction";
+            this.BtnShowTransaction.UseVisualStyleBackColor = false;
+            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
+            // 
             // BtnSaveBank
             // 
             this.BtnSaveBank.BackColor = System.Drawing.SystemColors.Highlight;
@@ -451,7 +470,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridBankList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridBankList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -473,25 +492,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridBankList.Size = new System.Drawing.Size(870, 342);
             this.DataGridBankList.TabIndex = 0;
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
-            // 
-            // BtnShowTransaction
-            // 
-            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowTransaction.BackgroundImage")));
-            this.BtnShowTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnShowTransaction.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnShowTransaction.FlatAppearance.BorderSize = 2;
-            this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnShowTransaction.Location = new System.Drawing.Point(6, 304);
-            this.BtnShowTransaction.Name = "BtnShowTransaction";
-            this.BtnShowTransaction.Size = new System.Drawing.Size(125, 40);
-            this.BtnShowTransaction.TabIndex = 21;
-            this.BtnShowTransaction.Text = "Show Transaction";
-            this.BtnShowTransaction.UseVisualStyleBackColor = false;
-            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
             // 
             // ComboAction
             // 

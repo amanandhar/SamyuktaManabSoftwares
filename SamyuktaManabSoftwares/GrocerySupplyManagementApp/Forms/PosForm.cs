@@ -540,7 +540,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["AddedDate"].Visible = false;
 
                 DataGridSoldItemList.Columns["ItemCode"].HeaderText = "Code";
-                DataGridSoldItemList.Columns["ItemCode"].Width = 70;
+                DataGridSoldItemList.Columns["ItemCode"].Width = 90;
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
@@ -548,26 +548,26 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["ItemBrand"].HeaderText = "Brand";
-                DataGridSoldItemList.Columns["ItemBrand"].Width = 180;
+                DataGridSoldItemList.Columns["ItemBrand"].Width = 160;
                 DataGridSoldItemList.Columns["ItemBrand"].DisplayIndex = 2;
 
-                DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
-                DataGridSoldItemList.Columns["Unit"].Width = 50;
-                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 3;
-
-                DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
-                DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
-                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 4;
-                DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
                 DataGridSoldItemList.Columns["WeightPiece"].HeaderText = "Weight/Piece";
-                DataGridSoldItemList.Columns["WeightPiece"].Width = 80;
-                DataGridSoldItemList.Columns["WeightPiece"].DisplayIndex = 5;
+                DataGridSoldItemList.Columns["WeightPiece"].Width = 100;
+                DataGridSoldItemList.Columns["WeightPiece"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["WeightPiece"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 DataGridSoldItemList.Columns["WeightPiece"].DefaultCellStyle.Format = "N3";
 
+                DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
+                DataGridSoldItemList.Columns["Unit"].Width = 47;
+                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 4;
+
+                DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
+                DataGridSoldItemList.Columns["ItemPrice"].Width = 60;
+                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
+                DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
-                DataGridSoldItemList.Columns["Quantity"].Width = 70;
+                DataGridSoldItemList.Columns["Quantity"].Width = 63;
                 DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 6;
                 DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -766,18 +766,16 @@ namespace GrocerySupplyManagementApp.Forms
                     .ToList();
 
                 var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
-                var profitPercent = pricedItem.ProfitPercent;
-                var profitAmount = Math.Round(((perUnitValue * profitPercent) / 100), 2);
-                var salesPrice = Math.Round((perUnitValue + profitAmount), 2);
-
+                var customPerUnitValue = perUnitValue;
                 if (pricedItem.CustomUnit == Constants.GRAM || pricedItem.CustomUnit == Constants.MILLI_LITER)
                 {
-                    TxtItemPrice.Text = Math.Round(salesPrice / 1000, 2).ToString();
+                    customPerUnitValue = ((decimal)((perUnitValue * pricedItem.WeightPiece) / 1000));
                 }
-                else
-                {
-                    TxtItemPrice.Text = salesPrice.ToString();
-                }
+
+                var profitPercent = pricedItem.ProfitPercent;
+                var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
+                var salesPrice = customPerUnitValue + profitAmount;
+                TxtItemPrice.Text = Math.Round(salesPrice, 2).ToString();
                 // End
 
                 TxtItemStock.Text = stock.ToString();

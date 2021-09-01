@@ -598,7 +598,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridSupplierList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridSupplierList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -627,6 +627,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSupplierList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridSupplierList.Size = new System.Drawing.Size(881, 305);
             this.DataGridSupplierList.TabIndex = 42;
+            this.DataGridSupplierList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSupplierList_CellContentClick);
             this.DataGridSupplierList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSupplierTransaction_DataBindingComplete);
             // 
             // groupBox2

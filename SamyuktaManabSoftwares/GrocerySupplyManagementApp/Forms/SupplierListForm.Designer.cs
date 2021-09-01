@@ -37,6 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridSupplierList
             // 
+            this.DataGridSupplierList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridSupplierList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -56,8 +57,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridSupplierList.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridSupplierList.Size = new System.Drawing.Size(510, 340);
+            this.DataGridSupplierList.Size = new System.Drawing.Size(510, 287);
             this.DataGridSupplierList.TabIndex = 0;
+            this.DataGridSupplierList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSupplierList_CellContentClick);
             this.DataGridSupplierList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSupplierList_CellDoubleClick);
             this.DataGridSupplierList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSupplierList_DataBindingComplete);
             // 
@@ -65,7 +67,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 361);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.DataGridSupplierList);
             this.Name = "SupplierListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

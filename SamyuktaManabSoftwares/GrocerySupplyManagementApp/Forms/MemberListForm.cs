@@ -65,16 +65,16 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["Email"].Visible = false;
             DataGridMemberList.Columns["AddedDate"].Visible = false;
 
-            DataGridMemberList.Columns["MemberId"].HeaderText = "Member Id";
-            DataGridMemberList.Columns["MemberId"].Width = 100;
+            DataGridMemberList.Columns["MemberId"].HeaderText = "MemberId";
+            DataGridMemberList.Columns["MemberId"].Width = 85;
             DataGridMemberList.Columns["MemberId"].DisplayIndex = 0;
 
-            DataGridMemberList.Columns["AccountNo"].HeaderText = "Account No";
-            DataGridMemberList.Columns["AccountNo"].Width = 100;
+            DataGridMemberList.Columns["AccountNo"].HeaderText = "AccountNo";
+            DataGridMemberList.Columns["AccountNo"].Width = 85;
             DataGridMemberList.Columns["AccountNo"].DisplayIndex = 1;
 
             DataGridMemberList.Columns["Name"].HeaderText = "Name";
-            DataGridMemberList.Columns["Name"].Width = 180;
+            DataGridMemberList.Columns["Name"].Width = 200;
             DataGridMemberList.Columns["Name"].DisplayIndex = 2;
 
             DataGridMemberList.Columns["Balance"].HeaderText = "Balance";
@@ -141,5 +141,10 @@ namespace GrocerySupplyManagementApp.Forms
             SearchMembers();
         }
         #endregion
+
+        private void DataGridMemberList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

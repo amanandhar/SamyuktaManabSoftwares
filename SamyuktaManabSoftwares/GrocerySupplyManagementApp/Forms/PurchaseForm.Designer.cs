@@ -402,7 +402,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridPurchaseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridPurchaseList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -423,6 +423,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridPurchaseList.Name = "DataGridPurchaseList";
             this.DataGridPurchaseList.Size = new System.Drawing.Size(863, 360);
             this.DataGridPurchaseList.TabIndex = 60;
+            this.DataGridPurchaseList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPurchaseList_CellContentClick);
             this.DataGridPurchaseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseList_DataBindingComplete);
             // 
             // groupBox3

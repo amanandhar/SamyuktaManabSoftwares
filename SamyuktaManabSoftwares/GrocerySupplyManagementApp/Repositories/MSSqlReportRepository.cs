@@ -23,7 +23,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "m.[MemberId], m.[Name], m.[Address], m.[ContactNo], m.[AccountNo], " +
                 "ut.[InvoiceNo], ut.[ActionType], ut.[EndOfDay], " +
                 "ut.[SubTotal], ut.[Discount], ut.[DeliveryCharge], ut.[DueAmount], ut.[ReceivedAmount], " +
-                "i.[Name] AS [ItemName], i.[Brand], i.[Unit], " +
+                "i.[Name] AS [ItemName], i.[Brand], si.[WeightPiece], si.[Unit], " +
                 "si.[Quantity], si.[Price], (si.[Quantity] * si.[Price]) AS [Amount] " +
                 "FROM " + Constants.TABLE_MEMBER + " m " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
@@ -68,6 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                         ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                         ItemName = reader["ItemName"].ToString(),
                                         Brand = reader["Brand"].ToString(),
+                                        WeightPiece = Convert.ToDecimal(reader["WeightPiece"].ToString()),
                                         Unit = reader["Unit"].ToString(),
                                         Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                         Price = Convert.ToDecimal(reader["Price"].ToString()),

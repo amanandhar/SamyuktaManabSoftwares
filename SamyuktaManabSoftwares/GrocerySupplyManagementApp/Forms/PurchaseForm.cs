@@ -195,8 +195,8 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["BillNo"].Width = 80;
             DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
 
-            DataGridPurchaseList.Columns["Code"].HeaderText = "Item Code";
-            DataGridPurchaseList.Columns["Code"].Width = 100;
+            DataGridPurchaseList.Columns["Code"].HeaderText = "ItemCode";
+            DataGridPurchaseList.Columns["Code"].Width = 80;
             DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
@@ -208,16 +208,16 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
-            DataGridPurchaseList.Columns["Unit"].Width = 80;
+            DataGridPurchaseList.Columns["Unit"].Width = 50;
             DataGridPurchaseList.Columns["Unit"].DisplayIndex = 5;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridPurchaseList.Columns["Quantity"].Width = 80;
+            DataGridPurchaseList.Columns["Quantity"].Width = 60;
             DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 6;
             DataGridPurchaseList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Price"].HeaderText = "Price";
-            DataGridPurchaseList.Columns["Price"].Width = 100;
+            DataGridPurchaseList.Columns["Price"].Width = 70;
             DataGridPurchaseList.Columns["Price"].DisplayIndex = 7;
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -311,5 +311,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        private void DataGridPurchaseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

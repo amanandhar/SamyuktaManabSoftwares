@@ -424,11 +424,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["Id"].Visible = false;
 
             DataGridMemberList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridMemberList.Columns["EndOfDay"].Width = 100;
+            DataGridMemberList.Columns["EndOfDay"].Width = 90;
             DataGridMemberList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridMemberList.Columns["Action"].HeaderText = "Description";
-            DataGridMemberList.Columns["Action"].Width = 100;
+            DataGridMemberList.Columns["Action"].Width = 110;
             DataGridMemberList.Columns["Action"].DisplayIndex = 1;
 
             DataGridMemberList.Columns["ActionType"].HeaderText = "Type";
@@ -580,5 +580,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        private void DataGridMemberList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

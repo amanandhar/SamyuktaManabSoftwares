@@ -321,6 +321,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             private global::System.Data.DataColumn columnAccountNo;
             
+            private global::System.Data.DataColumn columnWeightPiece;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public InvoiceDataTable() {
@@ -524,6 +526,14 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WeightPieceColumn {
+                get {
+                    return this.columnWeightPiece;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -580,7 +590,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         string Amount, 
                         string ItemNo, 
                         string AmountInWords, 
-                        string AccountNo) {
+                        string AccountNo, 
+                        string WeightPiece) {
                 InvoiceRow rowInvoiceRow = ((InvoiceRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         MemberId,
@@ -603,7 +614,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         Amount,
                         ItemNo,
                         AmountInWords,
-                        AccountNo};
+                        AccountNo,
+                        WeightPiece};
                 rowInvoiceRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInvoiceRow);
                 return rowInvoiceRow;
@@ -647,6 +659,7 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 this.columnItemNo = base.Columns["ItemNo"];
                 this.columnAmountInWords = base.Columns["AmountInWords"];
                 this.columnAccountNo = base.Columns["AccountNo"];
+                this.columnWeightPiece = base.Columns["WeightPiece"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -694,6 +707,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 base.Columns.Add(this.columnAmountInWords);
                 this.columnAccountNo = new global::System.Data.DataColumn("AccountNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAccountNo);
+                this.columnWeightPiece = new global::System.Data.DataColumn("WeightPiece", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeightPiece);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1172,6 +1187,22 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string WeightPiece {
+                get {
+                    try {
+                        return ((string)(this[this.tableInvoice.WeightPieceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WeightPiece\' in table \'Invoice\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoice.WeightPieceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsMemberIdNull() {
                 return this.IsNull(this.tableInvoice.MemberIdColumn);
             }
@@ -1420,6 +1451,18 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetAccountNoNull() {
                 this[this.tableInvoice.AccountNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsWeightPieceNull() {
+                return this.IsNull(this.tableInvoice.WeightPieceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetWeightPieceNull() {
+                this[this.tableInvoice.WeightPieceColumn] = global::System.Convert.DBNull;
             }
         }
         

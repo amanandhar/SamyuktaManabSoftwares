@@ -108,6 +108,10 @@
           <DataField>AccountNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="WeightPiece">
+          <DataField>WeightPiece</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InvoiceDataSet</rd:DataSetName>
@@ -612,7 +616,10 @@
                   <Width>1.46295in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.48647in</Width>
+                  <Width>1.30829in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.56431in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.47136in</Width>
@@ -621,10 +628,10 @@
                   <Width>0.65405in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.93467in</Width>
+                  <Width>0.76196in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03937in</Width>
+                  <Width>0.82596in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -714,6 +721,38 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox36">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>W/P</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox36</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -962,6 +1001,36 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="WeightPiece">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!WeightPiece.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>WeightPiece</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Unit">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1101,6 +1170,7 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1117,7 +1187,7 @@
             <Top>0.06806in</Top>
             <Left>0.21124in</Left>
             <Height>0.5in</Height>
-            <Width>6.5139in</Width>
+            <Width>6.51391in</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
@@ -1243,7 +1313,7 @@
         <Height>3.68993in</Height>
         <Style />
       </Body>
-      <Width>7.32166in</Width>
+      <Width>7.72514in</Width>
       <Page>
         <PageHeader>
           <Height>2.82236in</Height>
