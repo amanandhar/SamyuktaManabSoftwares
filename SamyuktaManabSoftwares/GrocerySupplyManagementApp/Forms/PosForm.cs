@@ -402,7 +402,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (e.KeyData == Keys.Enter)
             {
                 e.Handled = e.SuppressKeyPress = true;
-                var stock = Convert.ToInt32(TxtItemStock.Text);
+                var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text) ? 0 : Convert.ToDecimal(TxtItemStock.Text);
                 var quantity = Convert.ToInt32(RichItemQuantity.Text);
                 if (quantity > stock)
                 {
@@ -540,36 +540,37 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["AddedDate"].Visible = false;
 
                 DataGridSoldItemList.Columns["ItemCode"].HeaderText = "Code";
-                DataGridSoldItemList.Columns["ItemCode"].Width = 90;
+                DataGridSoldItemList.Columns["ItemCode"].Width = 80;
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 180;
+                DataGridSoldItemList.Columns["ItemName"].Width = 185;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["ItemBrand"].HeaderText = "Brand";
-                DataGridSoldItemList.Columns["ItemBrand"].Width = 160;
+                DataGridSoldItemList.Columns["ItemBrand"].Width = 170;
                 DataGridSoldItemList.Columns["ItemBrand"].DisplayIndex = 2;
 
-                DataGridSoldItemList.Columns["WeightPiece"].HeaderText = "Weight/Piece";
-                DataGridSoldItemList.Columns["WeightPiece"].Width = 100;
+                DataGridSoldItemList.Columns["WeightPiece"].HeaderText = "Volume";
+                DataGridSoldItemList.Columns["WeightPiece"].Width = 75;
                 DataGridSoldItemList.Columns["WeightPiece"].DisplayIndex = 3;
-                DataGridSoldItemList.Columns["WeightPiece"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                DataGridSoldItemList.Columns["WeightPiece"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 DataGridSoldItemList.Columns["WeightPiece"].DefaultCellStyle.Format = "N3";
 
                 DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
                 DataGridSoldItemList.Columns["Unit"].Width = 47;
                 DataGridSoldItemList.Columns["Unit"].DisplayIndex = 4;
-
-                DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
-                DataGridSoldItemList.Columns["ItemPrice"].Width = 60;
-                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
-                DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
                 DataGridSoldItemList.Columns["Quantity"].Width = 63;
-                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 6;
-                DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 5;
+                DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
+                DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
+                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 6;
+                DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["Total"].HeaderText = "Total";
                 DataGridSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;

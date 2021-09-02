@@ -128,11 +128,15 @@ namespace GrocerySupplyManagementApp.Repositories
             return soldItemViewList;
         }
 
-        public long GetSoldItemTotalQuantity(StockFilter stockFilter)
+        public decimal GetSoldItemTotalQuantity(StockFilter stockFilter)
         {
-            long totalCount = 0;
+            decimal totalCount = 0.00m;
             var query = @"SELECT " +
-                "SUM(si.[Quantity]) AS 'Quantity' " +
+                "SUM(temp.[Quantity]) AS 'Quantity' " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "CASE WHEN si.[Unit] = '" + Constants.GRAM + "' OR si.[Unit] = '" + Constants.MILLI_LITER + "' THEN CAST((si.[WeightPiece] * si.[Quantity]/ 1000) AS Decimal(18,3)) ELSE si.[Quantity] END AS [Quantity] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
@@ -151,6 +155,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ut.[EndOfDay] >= @DateFrom AND ut.[EndOfDay] <= @DateTo ";
             }
 
+            query += ") temp ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -165,7 +171,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            totalCount = Convert.ToInt64(result);
+                            totalCount = Convert.ToDecimal(result);
                         }
                     }
                 }

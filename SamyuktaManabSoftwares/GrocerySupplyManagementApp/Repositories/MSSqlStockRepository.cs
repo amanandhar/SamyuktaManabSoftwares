@@ -30,7 +30,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         SELECT pi.[EndOfDay], 'Purchase' AS [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         i.[Unit] AS [Unit],
-                        pi.[Quantity] AS [PurchaseQuantity], 0 AS [SalesQuantity],
+                        pi.[Quantity] AS [PurchaseQuantity], 
+                        0 AS [SalesQuantity],
                         pi.[Price] AS [PurchasePrice], 0.0 AS [SalesPrice],
                         pi.[AddedDate] FROM [PurchasedItem] pi
                         INNER JOIN 
@@ -40,7 +41,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         SELECT si.[EndOfDay], 'Sales' AS [Description], 
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         si.[Unit] AS [Unit],
-                        0 AS [PurchaseQuantity], si.[Quantity] AS [SalesQuantity],
+                        0 AS [PurchaseQuantity], 
+                        CASE WHEN si.[Unit] = 'Grm' OR si.[Unit] = 'ML' THEN CAST((si.[WeightPiece] * si.[Quantity]/1000) AS Decimal(18,3)) ELSE si.[Quantity] END AS [SalesQuantity],
                         0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice],
                         si.[AddedDate] FROM [SoldItem] si
                         INNER JOIN 

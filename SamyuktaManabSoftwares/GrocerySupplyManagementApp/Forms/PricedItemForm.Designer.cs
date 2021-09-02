@@ -426,7 +426,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowUnpricedItem.FlatAppearance.BorderSize = 2;
             this.BtnShowUnpricedItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowUnpricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowUnpricedItem.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowUnpricedItem.ForeColor = System.Drawing.Color.White;
             this.BtnShowUnpricedItem.Location = new System.Drawing.Point(8, 13);
             this.BtnShowUnpricedItem.Name = "BtnShowUnpricedItem";
             this.BtnShowUnpricedItem.Size = new System.Drawing.Size(140, 38);

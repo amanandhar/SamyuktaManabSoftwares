@@ -359,7 +359,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowItem.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowItem.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowItem.ForeColor = System.Drawing.Color.White;
             this.BtnShowItem.Location = new System.Drawing.Point(332, 23);
             this.BtnShowItem.Name = "BtnShowItem";
             this.BtnShowItem.Size = new System.Drawing.Size(71, 28);
@@ -394,7 +394,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemoveItem.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.BtnRemoveItem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnRemoveItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRemoveItem.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnRemoveItem.ForeColor = System.Drawing.Color.White;
             this.BtnRemoveItem.Location = new System.Drawing.Point(670, 15);
             this.BtnRemoveItem.Name = "BtnRemoveItem";
             this.BtnRemoveItem.Size = new System.Drawing.Size(164, 45);
@@ -795,7 +795,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowMember.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowMember.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowMember.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowMember.ForeColor = System.Drawing.Color.White;
             this.BtnShowMember.Location = new System.Drawing.Point(310, 23);
             this.BtnShowMember.Name = "BtnShowMember";
             this.BtnShowMember.Size = new System.Drawing.Size(71, 28);

@@ -30,7 +30,7 @@ namespace GrocerySupplyManagementApp.Services
             return _soldItemRepository.GetSoldItemViewList(invoiceNo);
         }
 
-        public long GetSoldItemTotalQuantity(StockFilter stockFilter)
+        public decimal GetSoldItemTotalQuantity(StockFilter stockFilter)
         {
             return _soldItemRepository.GetSoldItemTotalQuantity(stockFilter);
         }

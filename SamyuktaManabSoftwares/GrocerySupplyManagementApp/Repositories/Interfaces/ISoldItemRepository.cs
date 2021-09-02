@@ -9,7 +9,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<SoldItem> GetSoldItems();
         SoldItem GetSoldItem(long soldItemId);
         IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo);
-        long GetSoldItemTotalQuantity(StockFilter stockFilter);
+        decimal GetSoldItemTotalQuantity(StockFilter stockFilter);
         decimal GetSoldItemTotalAmount(StockFilter stockFilter);
         IEnumerable<string> GetSoldItemCodes();
 
