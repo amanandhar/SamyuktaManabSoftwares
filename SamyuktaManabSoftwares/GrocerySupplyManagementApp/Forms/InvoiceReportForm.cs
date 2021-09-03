@@ -79,7 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceDataTable.Columns.Add("AmountInWords");
             invoiceDataTable.Columns.Add("ItemName");
             invoiceDataTable.Columns.Add("Brand");
-            invoiceDataTable.Columns.Add("WeightPiece");
+            invoiceDataTable.Columns.Add("Volume");
             invoiceDataTable.Columns.Add("Unit");
             invoiceDataTable.Columns.Add("Quantity");
             invoiceDataTable.Columns.Add("Price");
@@ -106,7 +106,7 @@ namespace GrocerySupplyManagementApp.Forms
                 invoiceRow["AmountInWords"] = UtilityService.ConvertAmount(report.DueAmount);
                 invoiceRow["ItemName"] = report.ItemName;
                 invoiceRow["Brand"] = report.Brand;
-                invoiceRow["WeightPiece"] = report.WeightPiece;
+                invoiceRow["Volume"] = report.Volume;
                 invoiceRow["Unit"] = report.Unit;
                 invoiceRow["Quantity"] = report.Quantity;
                 invoiceRow["Price"] = report.Price;

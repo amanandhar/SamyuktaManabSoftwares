@@ -36,7 +36,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnTransaction = new System.Windows.Forms.Button();
             this.RichItemQuantity = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.TxtWeightPiece = new System.Windows.Forms.TextBox();
+            this.TxtVolume = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtItemUnit = new System.Windows.Forms.TextBox();
             this.TxtItemStock = new System.Windows.Forms.TextBox();
@@ -160,7 +160,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.groupBox4.Controls.Add(this.TxtWeightPiece);
+            this.groupBox4.Controls.Add(this.TxtVolume);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.TxtItemUnit);
             this.groupBox4.Controls.Add(this.TxtItemStock);
@@ -187,16 +187,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Item Details";
             // 
-            // TxtWeightPiece
+            // TxtVolume
             // 
-            this.TxtWeightPiece.BackColor = System.Drawing.Color.White;
-            this.TxtWeightPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtWeightPiece.Location = new System.Drawing.Point(106, 111);
-            this.TxtWeightPiece.Name = "TxtWeightPiece";
-            this.TxtWeightPiece.ReadOnly = true;
-            this.TxtWeightPiece.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtWeightPiece.Size = new System.Drawing.Size(70, 26);
-            this.TxtWeightPiece.TabIndex = 56;
+            this.TxtVolume.BackColor = System.Drawing.Color.White;
+            this.TxtVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtVolume.Location = new System.Drawing.Point(106, 111);
+            this.TxtVolume.Name = "TxtVolume";
+            this.TxtVolume.ReadOnly = true;
+            this.TxtVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.TxtVolume.Size = new System.Drawing.Size(70, 26);
+            this.TxtVolume.TabIndex = 56;
             // 
             // label5
             // 
@@ -205,9 +205,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label5.Location = new System.Drawing.Point(13, 114);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 18);
+            this.label5.Size = new System.Drawing.Size(58, 18);
             this.label5.TabIndex = 55;
-            this.label5.Text = "Weight/Piece";
+            this.label5.Text = "Volume";
             // 
             // TxtItemUnit
             // 
@@ -1287,7 +1287,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtDeliveryCharge;
         private System.Windows.Forms.TextBox TxtDiscount;
         private System.Windows.Forms.PictureBox PicBoxItemImage;
-        private System.Windows.Forms.TextBox TxtWeightPiece;
+        private System.Windows.Forms.TextBox TxtVolume;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label26;

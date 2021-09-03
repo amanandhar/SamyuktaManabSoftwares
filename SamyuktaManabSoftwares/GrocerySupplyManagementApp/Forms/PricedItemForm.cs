@@ -113,7 +113,7 @@ namespace GrocerySupplyManagementApp.Forms
                             UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
                         }
 
-                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtWeightPiece.Text + ".jpg";
+                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
                         destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
                         File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
@@ -128,7 +128,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemId = _selectedItemId,
                     CustomUnit = ComboCustomItemUnit.Text,
-                    WeightPiece = Convert.ToDecimal(TxtWeightPiece.Text),
+                    Volume = Convert.ToInt64(TxtVolume.Text),
                     SubCode = TxtItemSubCode.Text,
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
@@ -195,7 +195,7 @@ namespace GrocerySupplyManagementApp.Forms
                             UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
                         }
 
-                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtWeightPiece.Text + ".jpg";
+                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
                         destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
                         if(!string.IsNullOrWhiteSpace(_uploadedImagePath))
                         {
@@ -213,7 +213,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemId = _selectedItemId,
                     CustomUnit = ComboCustomItemUnit.Text,
-                    WeightPiece = Convert.ToDecimal(TxtWeightPiece.Text),
+                    Volume = Convert.ToInt64(TxtVolume.Text),
                     SubCode = TxtItemSubCode.Text,
                     ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
@@ -244,7 +244,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if(deleteResult == DialogResult.Yes)
                 {
-                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtWeightPiece.Text + ".jpg";
+                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
                     var filePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
                     if(File.Exists(filePath))
                     {
@@ -289,7 +289,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Textbox Event
 
-        private void TxtWeightPiece_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtVolume_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -297,25 +297,22 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void TxtWeightPiece_KeyUp(object sender, KeyEventArgs e)
+        private void TxtVolume_KeyUp(object sender, KeyEventArgs e)
         {
-            if(ComboCustomItemUnit.Text == Constants.GRAM || ComboCustomItemUnit.Text == Constants.MILLI_LITER)
+            if (!string.IsNullOrWhiteSpace(TxtVolume.Text))
             {
-                if(string.IsNullOrWhiteSpace(TxtWeightPiece.Text))
+                if ((ComboItemUnit.Text == Constants.KILOGRAM && ComboCustomItemUnit.Text == Constants.GRAM)
+                    || (ComboItemUnit.Text == Constants.LITER && ComboCustomItemUnit.Text == Constants.MILLI_LITER))
                 {
-                    TxtCustomPerUnitValue.Text = string.Empty;
+                    TxtCustomPerUnitValue.Text = ((Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToDecimal(TxtVolume.Text)) / 1000).ToString();
                 }
                 else
                 {
-                    TxtCustomPerUnitValue.Text = ((Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToDecimal(TxtWeightPiece.Text)) / 1000).ToString();
+                    TxtCustomPerUnitValue.Text = (Convert.ToDecimal(TxtPerUnitValue.Text) * Convert.ToDecimal(TxtVolume.Text)).ToString();
                 }
-            }
-            else
-            {
-                TxtCustomPerUnitValue.Text = TxtPerUnitValue.Text;
-            }
 
-            CalculateProfit();
+                CalculateProfit();
+            }
         }
 
         private void TxtProfitPercent_KeyPress(object sender, KeyPressEventArgs e)
@@ -330,6 +327,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             CalculateProfit();
         }
+
         #endregion
 
         #region Helper Methods
@@ -368,7 +366,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if(action == Action.Add)
             {
                 ComboCustomItemUnit.Enabled = true;
-                TxtWeightPiece.Enabled = true;
+                TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtItemSubCode.Enabled = true;
 
@@ -380,7 +378,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Edit)
             {
                 ComboCustomItemUnit.Enabled = true;
-                TxtWeightPiece.Enabled = true;
+                TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtItemSubCode.Enabled = true;
 
@@ -398,7 +396,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtTotalStock.Enabled = false;
                 TxtPerUnitValue.Enabled = false;
                 ComboCustomItemUnit.Enabled = false;
-                TxtWeightPiece.Enabled = false;
+                TxtVolume.Enabled = false;
                 TxtCustomPerUnitValue.Enabled = false;
                 TxtItemSubCode.Enabled = false;
                 TxtProfitPercent.Enabled = false;
@@ -425,7 +423,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtPerUnitValue.Clear();
             TxtItemSubCode.Clear();
             ComboCustomItemUnit.Text = string.Empty;
-            TxtWeightPiece.Clear();
+            TxtVolume.Clear();
             TxtCustomPerUnitValue.Clear();
             TxtProfitPercent.Clear();
             TxtProfitAmount.Clear();
@@ -444,7 +442,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var item = _itemService.GetItem(_selectedItemId);
 
                 TxtItemCode.Text = item.Code;
-                TxtWeightPiece.Text = pricedItem.WeightPiece.ToString();
+                TxtVolume.Text = pricedItem.Volume.ToString();
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 ComboItemUnit.Text = item.Unit;
@@ -466,22 +464,16 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtItemSubCode.Text = pricedItem.SubCode;
                 ComboCustomItemUnit.Text = pricedItem.CustomUnit;
-                TxtWeightPiece.Text = pricedItem.WeightPiece.ToString();
+                TxtVolume.Text = pricedItem.Volume.ToString();
 
-                if (ComboCustomItemUnit.Text == Constants.GRAM || ComboCustomItemUnit.Text == Constants.MILLI_LITER)
+                if ((ComboItemUnit.Text == Constants.KILOGRAM && ComboCustomItemUnit.Text == Constants.GRAM)
+                || (ComboItemUnit.Text == Constants.LITER && ComboCustomItemUnit.Text == Constants.MILLI_LITER))
                 {
-                    if (string.IsNullOrWhiteSpace(TxtWeightPiece.Text))
-                    {
-                        TxtCustomPerUnitValue.Text = string.Empty;
-                    }
-                    else
-                    {
-                        TxtCustomPerUnitValue.Text = ((perUnitValue * pricedItem.WeightPiece) / 1000).ToString();
-                    }
+                    TxtCustomPerUnitValue.Text = ((perUnitValue * pricedItem.Volume) / 1000).ToString();
                 }
                 else
                 {
-                    TxtCustomPerUnitValue.Text = TxtPerUnitValue.Text;
+                    TxtCustomPerUnitValue.Text = (perUnitValue * pricedItem.Volume).ToString();
                 }
 
                 var profitPercent = pricedItem.ProfitPercent;
@@ -575,6 +567,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboCustomItemUnit.Items.Add(new ComboBoxItem { Id = Constants.CAN, Value = Constants.CAN });
             ComboCustomItemUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
+
         #endregion
     }
 }

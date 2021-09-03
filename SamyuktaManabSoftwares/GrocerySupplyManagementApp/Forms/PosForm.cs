@@ -165,7 +165,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ItemId = _itemService.GetItem(x.ItemCode).Id,
                         Profit = x.Profit,
                         Unit = x.Unit,
-                        WeightPiece = x.WeightPiece,
+                        Volume = x.Volume,
                         Quantity = x.Quantity,
                         Price = x.ItemPrice,
                         AddedDate = x.AddedDate,
@@ -551,11 +551,11 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemBrand"].Width = 170;
                 DataGridSoldItemList.Columns["ItemBrand"].DisplayIndex = 2;
 
-                DataGridSoldItemList.Columns["WeightPiece"].HeaderText = "Volume";
-                DataGridSoldItemList.Columns["WeightPiece"].Width = 75;
-                DataGridSoldItemList.Columns["WeightPiece"].DisplayIndex = 3;
-                DataGridSoldItemList.Columns["WeightPiece"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                DataGridSoldItemList.Columns["WeightPiece"].DefaultCellStyle.Format = "N3";
+                DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";
+                DataGridSoldItemList.Columns["Volume"].Width = 75;
+                DataGridSoldItemList.Columns["Volume"].DisplayIndex = 3;
+                DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Format = "N3";
 
                 DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
                 DataGridSoldItemList.Columns["Unit"].Width = 47;
@@ -619,7 +619,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
                     Unit = TxtItemUnit.Text,
                     ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text),
-                    WeightPiece = Convert.ToDecimal(TxtWeightPiece.Text),
+                    Volume = Convert.ToInt64(TxtVolume.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text),
                     Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
                     AddedDate = DateTime.Now
@@ -661,7 +661,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemPrice.Clear();
             RichItemQuantity.Clear();
             TxtItemUnit.Clear();
-            TxtWeightPiece.Clear();
+            TxtVolume.Clear();
             TxtProfitAmount.Clear();
             TxtItemStock.Clear();
             PicBoxItemImage.Image = null;
@@ -757,7 +757,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 TxtItemUnit.Text = pricedItem.CustomUnit;
-                TxtWeightPiece.Text = pricedItem.WeightPiece.ToString();
+                TxtVolume.Text = pricedItem.Volume.ToString();
 
                 // Start: Sales Price Logic
                 var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
@@ -768,9 +768,14 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
                 var customPerUnitValue = perUnitValue;
-                if (pricedItem.CustomUnit == Constants.GRAM || pricedItem.CustomUnit == Constants.MILLI_LITER)
+                if ((item.Unit == Constants.KILOGRAM && pricedItem.CustomUnit == Constants.GRAM)
+                    || (item.Unit == Constants.LITER && pricedItem.CustomUnit == Constants.MILLI_LITER))
                 {
-                    customPerUnitValue = ((decimal)((perUnitValue * pricedItem.WeightPiece) / 1000));
+                    customPerUnitValue = (perUnitValue * pricedItem.Volume) / 1000;
+                }
+                else
+                {
+                    customPerUnitValue = (perUnitValue * pricedItem.Volume);
                 }
 
                 var profitPercent = pricedItem.ProfitPercent;

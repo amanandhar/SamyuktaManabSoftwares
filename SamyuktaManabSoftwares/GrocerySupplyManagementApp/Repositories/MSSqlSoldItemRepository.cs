@@ -75,7 +75,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], c.[Code], c.[Name], c.[Brand], c.[Unit], a.[Quantity], a.[Price], " +
+                "a.[Id], c.[Code], c.[Name], c.[Brand], c.[Unit], a.[Volume], a.[Quantity], a.[Price], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
                 "b.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
@@ -108,6 +108,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Name"].ToString(),
                                     ItemBrand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
+                                    Volume = Convert.ToInt64(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
@@ -136,7 +137,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " +
                 "( " +
                 "SELECT " +
-                "CASE WHEN si.[Unit] = '" + Constants.GRAM + "' OR si.[Unit] = '" + Constants.MILLI_LITER + "' THEN CAST((si.[WeightPiece] * si.[Quantity]/ 1000) AS Decimal(18,3)) ELSE si.[Quantity] END AS [Quantity] " +
+                "CASE WHEN si.[Unit] = '" + Constants.GRAM + "' OR si.[Unit] = '" + Constants.MILLI_LITER + "' THEN CAST((si.[Volume] * si.[Quantity]/ 1000) AS Decimal(18,3)) ELSE si.[Quantity] END AS [Quantity] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
@@ -271,11 +272,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [WeightPiece], [Quantity], [Price], [AddedDate], [UpdatedDate]  " +
+                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], [AddedDate], [UpdatedDate]  " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @WeightPiece, @Quantity, @Price, @AddedDate, @UpdatedDate " +
+                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Volume, @Quantity, @Price, @AddedDate, @UpdatedDate " +
                     ") ";
             try
             {
@@ -290,7 +291,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
                         command.Parameters.AddWithValue("@Profit", soldItem.Profit);
                         command.Parameters.AddWithValue("@Unit", soldItem.Unit);
-                        command.Parameters.AddWithValue("@WeightPiece", soldItem.WeightPiece);
+                        command.Parameters.AddWithValue("@Volume", soldItem.Volume);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
                         command.Parameters.AddWithValue("@AddedDate", soldItem.AddedDate);

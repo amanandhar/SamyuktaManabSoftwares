@@ -53,7 +53,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label13 = new System.Windows.Forms.Label();
             this.TxtCustomPerUnitValue = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.TxtWeightPiece = new System.Windows.Forms.TextBox();
+            this.TxtVolume = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.TxtProfitPercent = new System.Windows.Forms.TextBox();
             this.TxtProfitAmount = new System.Windows.Forms.TextBox();
@@ -132,11 +132,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.Control;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(25, 369);
+            this.label5.Location = new System.Drawing.Point(3, 369);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(141, 18);
+            this.label5.Size = new System.Drawing.Size(162, 20);
             this.label5.TabIndex = 5;
             this.label5.Text = "Purchase Unit Value";
             // 
@@ -341,36 +341,36 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.SystemColors.Control;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(40, 235);
+            this.label11.Location = new System.Drawing.Point(16, 233);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(158, 18);
+            this.label11.Size = new System.Drawing.Size(180, 20);
             this.label11.TabIndex = 46;
             this.label11.Text = "Custom Per Unit Value";
             // 
-            // TxtWeightPiece
+            // TxtVolume
             // 
-            this.TxtWeightPiece.Enabled = false;
-            this.TxtWeightPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtWeightPiece.Location = new System.Drawing.Point(202, 164);
-            this.TxtWeightPiece.Name = "TxtWeightPiece";
-            this.TxtWeightPiece.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtWeightPiece.Size = new System.Drawing.Size(186, 29);
-            this.TxtWeightPiece.TabIndex = 45;
-            this.TxtWeightPiece.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtWeightPiece_KeyPress);
-            this.TxtWeightPiece.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtWeightPiece_KeyUp);
+            this.TxtVolume.Enabled = false;
+            this.TxtVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtVolume.Location = new System.Drawing.Point(202, 164);
+            this.TxtVolume.Name = "TxtVolume";
+            this.TxtVolume.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtVolume.Size = new System.Drawing.Size(186, 29);
+            this.TxtVolume.TabIndex = 45;
+            this.TxtVolume.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtVolume_KeyPress);
+            this.TxtVolume.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtVolume_KeyUp);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label12.Location = new System.Drawing.Point(104, 169);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(95, 18);
+            this.label12.Size = new System.Drawing.Size(65, 20);
             this.label12.TabIndex = 39;
-            this.label12.Text = "Weight/Piece";
+            this.label12.Text = "Volume";
             // 
             // TxtProfitPercent
             // 
@@ -594,7 +594,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox5.Controls.Add(this.TxtSalesPricePerUnit);
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.TxtWeightPiece);
+            this.groupBox5.Controls.Add(this.TxtVolume);
             this.groupBox5.Controls.Add(this.TxtCustomPerUnitValue);
             this.groupBox5.Controls.Add(this.TxtProfitPercent);
             this.groupBox5.Controls.Add(this.TxtProfitAmount);
@@ -667,7 +667,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.PictureBox PicBoxItemImage;
         private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.ComboBox ComboItemUnit;
-        private System.Windows.Forms.TextBox TxtWeightPiece;
+        private System.Windows.Forms.TextBox TxtVolume;
         private System.Windows.Forms.TextBox TxtCustomPerUnitValue;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox ComboCustomItemUnit;

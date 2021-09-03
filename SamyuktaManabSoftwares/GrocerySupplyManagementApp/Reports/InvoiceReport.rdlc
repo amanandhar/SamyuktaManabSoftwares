@@ -108,14 +108,14 @@
           <DataField>AccountNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="WeightPiece">
-          <DataField>WeightPiece</DataField>
+        <Field Name="Volume">
+          <DataField>Volume</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InvoiceDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\Application\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\DataSet\InvoiceDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\_adam\Github\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\DataSet\InvoiceDataSet.xsd</rd:SchemaPath>
         <rd:TableName>Invoice</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -743,7 +743,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>W/P</Value>
+                                  <Value>Vol</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1008,7 +1008,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!WeightPiece.Value</Value>
+                                  <Value>=Fields!Volume.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
