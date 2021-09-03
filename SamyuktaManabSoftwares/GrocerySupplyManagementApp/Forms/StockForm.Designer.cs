@@ -311,7 +311,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridStockList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridStockList.Size = new System.Drawing.Size(1018, 400);
             this.DataGridStockList.TabIndex = 17;
-            this.DataGridStockList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridStockList_CellContentClick);
             this.DataGridStockList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockList_DataBindingComplete);
             // 
             // groupBox3
@@ -335,7 +334,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(393, 31);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Stock Summery Management";
+            this.label5.Text = "Stock Summary Management";
             // 
             // StockForm
             // 

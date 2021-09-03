@@ -636,7 +636,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.PicBoxMemberImage.ErrorImage = null;
             this.PicBoxMemberImage.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxMemberImage.Image")));
-            this.PicBoxMemberImage.InitialImage = null;
+            this.PicBoxMemberImage.InitialImage = ((System.Drawing.Image)(resources.GetObject("PicBoxMemberImage.InitialImage")));
             this.PicBoxMemberImage.Location = new System.Drawing.Point(4, 9);
             this.PicBoxMemberImage.Name = "PicBoxMemberImage";
             this.PicBoxMemberImage.Size = new System.Drawing.Size(133, 133);

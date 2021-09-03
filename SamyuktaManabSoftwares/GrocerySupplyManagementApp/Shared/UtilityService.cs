@@ -66,6 +66,7 @@ namespace GrocerySupplyManagementApp.Shared
                     ItemName = stock.ItemName,
                     PurchaseQuantity = stock.PurchaseQuantity,
                     SalesQuantity = stock.SalesQuantity,
+                    Unit = stock.ItemUnit,
                     PurchasePrice = stock.PurchasePrice,
                     StockQuantity = stock.StockQuantity,
                     TotalPurchasePrice = stock.TotalPurchasePrice,

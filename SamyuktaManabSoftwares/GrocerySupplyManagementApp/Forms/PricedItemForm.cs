@@ -365,7 +365,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if(action == Action.Add)
             {
-                ComboCustomItemUnit.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtItemSubCode.Enabled = true;
@@ -377,7 +376,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
-                ComboCustomItemUnit.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtItemSubCode.Enabled = true;
@@ -510,6 +508,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 ComboItemUnit.Text = item.Unit;
+                ComboCustomItemUnit.Text = item.Unit;
                 StockFilter filter = new StockFilter
                 {
                     ItemCode = item.Code

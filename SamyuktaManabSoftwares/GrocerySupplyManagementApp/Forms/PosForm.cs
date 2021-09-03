@@ -738,10 +738,6 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
                 var threshold = 0.00M;
-                if(pricedItem.CustomUnit == Constants.GRAM || pricedItem.CustomUnit == Constants.MILLI_LITER)
-                {
-                    stock *= 1000;
-                }
 
                 if(stock < threshold)
                 {
@@ -759,7 +755,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemUnit.Text = pricedItem.CustomUnit;
                 TxtVolume.Text = pricedItem.Volume.ToString();
 
-                // Start: Sales Price Logic
+                // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
                 var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var stockViewList = UtilityService.CalculateStock(stocks.ToList());
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
@@ -790,7 +786,7 @@ namespace GrocerySupplyManagementApp.Forms
                     PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
                 }
 
-                TxtProfitAmount.Text = pricedItem.Profit.ToString();
+                TxtProfitAmount.Text = profitAmount.ToString();
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }

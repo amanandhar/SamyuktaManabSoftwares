@@ -133,11 +133,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalCount = 0.00m;
             var query = @"SELECT " +
-                "SUM(temp.[Quantity]) AS 'Quantity' " +
-                "FROM " +
-                "( " +
-                "SELECT " +
-                "CASE WHEN si.[Unit] = '" + Constants.GRAM + "' OR si.[Unit] = '" + Constants.MILLI_LITER + "' THEN CAST((si.[Volume] * si.[Quantity]/ 1000) AS Decimal(18,3)) ELSE si.[Quantity] END AS [Quantity] " +
+                "SUM(si.[Volume] * si.[Quantity]) " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
@@ -155,8 +151,6 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += "AND ut.[EndOfDay] >= @DateFrom AND ut.[EndOfDay] <= @DateTo ";
             }
-
-            query += ") temp ";
 
             try
             {

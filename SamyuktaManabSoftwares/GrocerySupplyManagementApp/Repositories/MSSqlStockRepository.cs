@@ -42,7 +42,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         i.[Code] AS [ItemCode], i.[Name] AS [ItemName],
                         si.[Unit] AS [Unit],
                         0 AS [PurchaseQuantity], 
-                        CASE WHEN si.[Unit] = 'Grm' OR si.[Unit] = 'ML' THEN CAST((si.[Volume] * si.[Quantity]/1000) AS Decimal(18,3)) ELSE si.[Quantity] END AS [SalesQuantity],
+                        (si.[Volume] * si.[Quantity]) AS [SalesQuantity],
                         0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice],
                         si.[AddedDate] FROM [SoldItem] si
                         INNER JOIN 

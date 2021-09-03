@@ -119,27 +119,32 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["SalesQuantity"].DisplayIndex = 5;
             DataGridStockList.Columns["SalesQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
+            DataGridStockList.Columns["Unit"].HeaderText = "Unit";
+            DataGridStockList.Columns["Unit"].Width = 60;
+            DataGridStockList.Columns["Unit"].DisplayIndex = 6;
+            DataGridStockList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             DataGridStockList.Columns["PurchasePrice"].HeaderText = "PurchasePrice";
             DataGridStockList.Columns["PurchasePrice"].Width = 90;
-            DataGridStockList.Columns["PurchasePrice"].DisplayIndex = 6;
+            DataGridStockList.Columns["PurchasePrice"].DisplayIndex = 7;
             DataGridStockList.Columns["PurchasePrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["PurchasePrice"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["SalesPrice"].HeaderText = "SalesPrice";
             DataGridStockList.Columns["SalesPrice"].Width = 90;
-            DataGridStockList.Columns["SalesPrice"].DisplayIndex = 7;
+            DataGridStockList.Columns["SalesPrice"].DisplayIndex = 8;
             DataGridStockList.Columns["SalesPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["SalesPrice"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["StockValue"].HeaderText = "StockValue";
             DataGridStockList.Columns["StockValue"].Width = 100;
-            DataGridStockList.Columns["StockValue"].DisplayIndex = 8;
+            DataGridStockList.Columns["StockValue"].DisplayIndex = 9;
             DataGridStockList.Columns["StockValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["StockValue"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["PerUnitValue"].HeaderText = "PerUnitValue";
             DataGridStockList.Columns["PerUnitValue"].Width = 90;
-            DataGridStockList.Columns["PerUnitValue"].DisplayIndex = 9;
+            DataGridStockList.Columns["PerUnitValue"].DisplayIndex = 10;
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Format = "0.00";
 
@@ -198,10 +203,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridStockList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

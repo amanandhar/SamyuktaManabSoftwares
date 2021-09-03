@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string ItemName { get; set; }
         public decimal PurchaseQuantity { get; set; }
         public decimal SalesQuantity { get; set; }
+        public string Unit { get; set; }
         public decimal StockQuantity { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal TotalPurchasePrice { get; set; }

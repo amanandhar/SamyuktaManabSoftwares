@@ -128,6 +128,32 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (selectedItemId != 0)
+                {
+                    DialogResult questionResult = MessageBox.Show("Do you want to delete?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (questionResult == DialogResult.Yes)
+                    {
+                        _itemService.DeleteItem(selectedItemId);
+                        DialogResult actionResult = MessageBox.Show("Item has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        if (actionResult == DialogResult.OK)
+                        {
+                            ClearAllFields();
+                            EnableFields(Action.None);
+                            LoadItems();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
 
         #region Data Grid Event
@@ -267,5 +293,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
         #endregion
+
+       
     }
 }

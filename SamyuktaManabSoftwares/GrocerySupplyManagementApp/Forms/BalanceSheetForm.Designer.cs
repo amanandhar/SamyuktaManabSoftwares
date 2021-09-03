@@ -497,9 +497,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label15.ForeColor = System.Drawing.Color.Cyan;
             this.label15.Location = new System.Drawing.Point(336, 6);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(385, 31);
+            this.label15.Size = new System.Drawing.Size(378, 31);
             this.label15.TabIndex = 0;
-            this.label15.Text = "Daily Summery Management";
+            this.label15.Text = "Balance Sheet Management";
             // 
             // groupBox6
             // 
