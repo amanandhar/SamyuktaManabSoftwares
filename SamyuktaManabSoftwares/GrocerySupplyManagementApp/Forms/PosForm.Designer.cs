@@ -30,12 +30,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PosForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.BtnTransaction = new System.Windows.Forms.Button();
             this.RichItemQuantity = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.TxtPricedUnit = new System.Windows.Forms.TextBox();
             this.TxtVolume = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtItemUnit = new System.Windows.Forms.TextBox();
@@ -150,7 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemQuantity.Location = new System.Drawing.Point(106, 140);
             this.RichItemQuantity.Name = "RichItemQuantity";
             this.RichItemQuantity.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.RichItemQuantity.Size = new System.Drawing.Size(71, 26);
+            this.RichItemQuantity.Size = new System.Drawing.Size(61, 26);
             this.RichItemQuantity.TabIndex = 22;
             this.RichItemQuantity.Text = "";
             this.RichItemQuantity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichItemQuantity_KeyDown);
@@ -160,6 +161,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox4.Controls.Add(this.TxtPricedUnit);
             this.groupBox4.Controls.Add(this.TxtVolume);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.TxtItemUnit);
@@ -180,12 +182,22 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.RichItemCode);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Red;
-            this.groupBox4.Location = new System.Drawing.Point(431, 47);
+            this.groupBox4.Location = new System.Drawing.Point(441, 47);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(430, 195);
+            this.groupBox4.Size = new System.Drawing.Size(423, 195);
             this.groupBox4.TabIndex = 22;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Item Details";
+            // 
+            // TxtPricedUnit
+            // 
+            this.TxtPricedUnit.BackColor = System.Drawing.Color.White;
+            this.TxtPricedUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtPricedUnit.Location = new System.Drawing.Point(346, 140);
+            this.TxtPricedUnit.Name = "TxtPricedUnit";
+            this.TxtPricedUnit.ReadOnly = true;
+            this.TxtPricedUnit.Size = new System.Drawing.Size(50, 26);
+            this.TxtPricedUnit.TabIndex = 57;
             // 
             // TxtVolume
             // 
@@ -194,8 +206,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtVolume.Location = new System.Drawing.Point(106, 111);
             this.TxtVolume.Name = "TxtVolume";
             this.TxtVolume.ReadOnly = true;
-            this.TxtVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtVolume.Size = new System.Drawing.Size(70, 26);
+            this.TxtVolume.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtVolume.Size = new System.Drawing.Size(87, 26);
             this.TxtVolume.TabIndex = 56;
             // 
             // label5
@@ -203,42 +215,42 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(13, 114);
+            this.label5.Location = new System.Drawing.Point(15, 114);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 18);
+            this.label5.Size = new System.Drawing.Size(88, 18);
             this.label5.TabIndex = 55;
-            this.label5.Text = "Volume";
+            this.label5.Text = "Volume/Unit";
             // 
             // TxtItemUnit
             // 
             this.TxtItemUnit.BackColor = System.Drawing.Color.White;
             this.TxtItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemUnit.Location = new System.Drawing.Point(260, 111);
+            this.TxtItemUnit.Location = new System.Drawing.Point(195, 111);
             this.TxtItemUnit.Name = "TxtItemUnit";
             this.TxtItemUnit.ReadOnly = true;
-            this.TxtItemUnit.Size = new System.Drawing.Size(54, 26);
+            this.TxtItemUnit.Size = new System.Drawing.Size(50, 26);
             this.TxtItemUnit.TabIndex = 54;
             // 
             // TxtItemStock
             // 
             this.TxtItemStock.BackColor = System.Drawing.Color.White;
             this.TxtItemStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemStock.Location = new System.Drawing.Point(260, 141);
+            this.TxtItemStock.Location = new System.Drawing.Point(244, 140);
             this.TxtItemStock.Name = "TxtItemStock";
             this.TxtItemStock.ReadOnly = true;
-            this.TxtItemStock.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtItemStock.Size = new System.Drawing.Size(141, 26);
+            this.TxtItemStock.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtItemStock.Size = new System.Drawing.Size(100, 26);
             this.TxtItemStock.TabIndex = 53;
             // 
             // TxtItemPrice
             // 
             this.TxtItemPrice.BackColor = System.Drawing.Color.White;
             this.TxtItemPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemPrice.Location = new System.Drawing.Point(316, 111);
+            this.TxtItemPrice.Location = new System.Drawing.Point(301, 111);
             this.TxtItemPrice.Name = "TxtItemPrice";
             this.TxtItemPrice.ReadOnly = true;
-            this.TxtItemPrice.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtItemPrice.Size = new System.Drawing.Size(85, 26);
+            this.TxtItemPrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtItemPrice.Size = new System.Drawing.Size(95, 26);
             this.TxtItemPrice.TabIndex = 52;
             // 
             // TxtItemBrand
@@ -248,7 +260,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemBrand.Location = new System.Drawing.Point(106, 82);
             this.TxtItemBrand.Name = "TxtItemBrand";
             this.TxtItemBrand.ReadOnly = true;
-            this.TxtItemBrand.Size = new System.Drawing.Size(295, 26);
+            this.TxtItemBrand.Size = new System.Drawing.Size(290, 26);
             this.TxtItemBrand.TabIndex = 51;
             // 
             // TxtItemName
@@ -259,7 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemName.Location = new System.Drawing.Point(106, 53);
             this.TxtItemName.Name = "TxtItemName";
             this.TxtItemName.ReadOnly = true;
-            this.TxtItemName.Size = new System.Drawing.Size(295, 26);
+            this.TxtItemName.Size = new System.Drawing.Size(290, 26);
             this.TxtItemName.TabIndex = 50;
             // 
             // label18
@@ -267,11 +279,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label18.Location = new System.Drawing.Point(210, 143);
+            this.label18.Location = new System.Drawing.Point(166, 143);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(47, 18);
+            this.label18.Size = new System.Drawing.Size(77, 18);
             this.label18.TabIndex = 48;
-            this.label18.Text = "Stock";
+            this.label18.Text = "Stock/Unit";
             // 
             // label17
             // 
@@ -299,11 +311,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label15.Location = new System.Drawing.Point(178, 115);
+            this.label15.Location = new System.Drawing.Point(256, 115);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(80, 18);
+            this.label15.Size = new System.Drawing.Size(42, 18);
             this.label15.TabIndex = 45;
-            this.label15.Text = "Unit / Price";
+            this.label15.Text = "Price";
             // 
             // label14
             // 
@@ -341,12 +353,12 @@ namespace GrocerySupplyManagementApp.Forms
             // TxtProfitAmount
             // 
             this.TxtProfitAmount.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TxtProfitAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtProfitAmount.ForeColor = System.Drawing.Color.White;
-            this.TxtProfitAmount.Location = new System.Drawing.Point(327, 24);
+            this.TxtProfitAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtProfitAmount.ForeColor = System.Drawing.Color.Black;
+            this.TxtProfitAmount.Location = new System.Drawing.Point(246, 23);
             this.TxtProfitAmount.Name = "TxtProfitAmount";
             this.TxtProfitAmount.ReadOnly = true;
-            this.TxtProfitAmount.Size = new System.Drawing.Size(5, 26);
+            this.TxtProfitAmount.Size = new System.Drawing.Size(78, 27);
             this.TxtProfitAmount.TabIndex = 38;
             // 
             // BtnShowItem
@@ -360,9 +372,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowItem.ForeColor = System.Drawing.Color.White;
-            this.BtnShowItem.Location = new System.Drawing.Point(332, 23);
+            this.BtnShowItem.Location = new System.Drawing.Point(325, 22);
             this.BtnShowItem.Name = "BtnShowItem";
-            this.BtnShowItem.Size = new System.Drawing.Size(71, 28);
+            this.BtnShowItem.Size = new System.Drawing.Size(72, 29);
             this.BtnShowItem.TabIndex = 16;
             this.BtnShowItem.Text = "Search";
             this.BtnShowItem.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -377,7 +389,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemCode.ForeColor = System.Drawing.SystemColors.ControlText;
             this.RichItemCode.Location = new System.Drawing.Point(106, 23);
             this.RichItemCode.Name = "RichItemCode";
-            this.RichItemCode.Size = new System.Drawing.Size(220, 28);
+            this.RichItemCode.Size = new System.Drawing.Size(139, 28);
             this.RichItemCode.TabIndex = 14;
             this.RichItemCode.Text = "";
             this.RichItemCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichItemCode_KeyDown);
@@ -451,7 +463,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichReceivedAmount.Enabled = false;
             this.RichReceivedAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichReceivedAmount.ForeColor = System.Drawing.Color.Black;
-            this.RichReceivedAmount.Location = new System.Drawing.Point(163, 186);
+            this.RichReceivedAmount.Location = new System.Drawing.Point(158, 186);
             this.RichReceivedAmount.Name = "RichReceivedAmount";
             this.RichReceivedAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichReceivedAmount.Size = new System.Drawing.Size(280, 56);
@@ -501,9 +513,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox5.Controls.Add(this.RichReceivedAmount);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.ForeColor = System.Drawing.Color.Red;
-            this.groupBox5.Location = new System.Drawing.Point(870, 244);
+            this.groupBox5.Location = new System.Drawing.Point(873, 244);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(468, 294);
+            this.groupBox5.Size = new System.Drawing.Size(465, 294);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Calculation Details";
@@ -512,51 +524,51 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtDiscount.BackColor = System.Drawing.Color.White;
             this.TxtDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDiscount.Location = new System.Drawing.Point(228, 59);
+            this.TxtDiscount.Location = new System.Drawing.Point(221, 59);
             this.TxtDiscount.Name = "TxtDiscount";
             this.TxtDiscount.ReadOnly = true;
             this.TxtDiscount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtDiscount.Size = new System.Drawing.Size(82, 31);
+            this.TxtDiscount.Size = new System.Drawing.Size(84, 31);
             this.TxtDiscount.TabIndex = 43;
             // 
             // TxtDeliveryCharge
             // 
             this.TxtDeliveryCharge.BackColor = System.Drawing.Color.White;
             this.TxtDeliveryCharge.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDeliveryCharge.Location = new System.Drawing.Point(228, 93);
+            this.TxtDeliveryCharge.Location = new System.Drawing.Point(221, 93);
             this.TxtDeliveryCharge.Name = "TxtDeliveryCharge";
             this.TxtDeliveryCharge.ReadOnly = true;
             this.TxtDeliveryCharge.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtDeliveryCharge.Size = new System.Drawing.Size(82, 31);
+            this.TxtDeliveryCharge.Size = new System.Drawing.Size(84, 31);
             this.TxtDeliveryCharge.TabIndex = 42;
             // 
             // TxtDeliveryChargePercent
             // 
             this.TxtDeliveryChargePercent.BackColor = System.Drawing.Color.White;
             this.TxtDeliveryChargePercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDeliveryChargePercent.Location = new System.Drawing.Point(163, 93);
+            this.TxtDeliveryChargePercent.Location = new System.Drawing.Point(158, 93);
             this.TxtDeliveryChargePercent.Name = "TxtDeliveryChargePercent";
             this.TxtDeliveryChargePercent.ReadOnly = true;
             this.TxtDeliveryChargePercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtDeliveryChargePercent.Size = new System.Drawing.Size(62, 31);
+            this.TxtDeliveryChargePercent.Size = new System.Drawing.Size(60, 31);
             this.TxtDeliveryChargePercent.TabIndex = 41;
             // 
             // TxtDiscountPercent
             // 
             this.TxtDiscountPercent.BackColor = System.Drawing.Color.White;
             this.TxtDiscountPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDiscountPercent.Location = new System.Drawing.Point(163, 59);
+            this.TxtDiscountPercent.Location = new System.Drawing.Point(158, 59);
             this.TxtDiscountPercent.Name = "TxtDiscountPercent";
             this.TxtDiscountPercent.ReadOnly = true;
             this.TxtDiscountPercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtDiscountPercent.Size = new System.Drawing.Size(62, 31);
+            this.TxtDiscountPercent.Size = new System.Drawing.Size(60, 31);
             this.TxtDiscountPercent.TabIndex = 40;
             // 
             // TxtDeliveryChargeTotal
             // 
             this.TxtDeliveryChargeTotal.BackColor = System.Drawing.Color.White;
             this.TxtDeliveryChargeTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDeliveryChargeTotal.Location = new System.Drawing.Point(313, 93);
+            this.TxtDeliveryChargeTotal.Location = new System.Drawing.Point(308, 93);
             this.TxtDeliveryChargeTotal.Name = "TxtDeliveryChargeTotal";
             this.TxtDeliveryChargeTotal.ReadOnly = true;
             this.TxtDeliveryChargeTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -567,7 +579,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtDiscountTotal.BackColor = System.Drawing.Color.White;
             this.TxtDiscountTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDiscountTotal.Location = new System.Drawing.Point(313, 59);
+            this.TxtDiscountTotal.Location = new System.Drawing.Point(308, 59);
             this.TxtDiscountTotal.Name = "TxtDiscountTotal";
             this.TxtDiscountTotal.ReadOnly = true;
             this.TxtDiscountTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -578,7 +590,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtGrandTotal.BackColor = System.Drawing.Color.White;
             this.TxtGrandTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtGrandTotal.Location = new System.Drawing.Point(163, 127);
+            this.TxtGrandTotal.Location = new System.Drawing.Point(158, 127);
             this.TxtGrandTotal.Name = "TxtGrandTotal";
             this.TxtGrandTotal.ReadOnly = true;
             this.TxtGrandTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -589,7 +601,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtSubTotal.BackColor = System.Drawing.Color.White;
             this.TxtSubTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtSubTotal.Location = new System.Drawing.Point(163, 25);
+            this.TxtSubTotal.Location = new System.Drawing.Point(158, 25);
             this.TxtSubTotal.Name = "TxtSubTotal";
             this.TxtSubTotal.ReadOnly = true;
             this.TxtSubTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -601,7 +613,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBalanceAmount.BackColor = System.Drawing.Color.White;
             this.RichBalanceAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBalanceAmount.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.RichBalanceAmount.Location = new System.Drawing.Point(163, 245);
+            this.RichBalanceAmount.Location = new System.Drawing.Point(158, 245);
             this.RichBalanceAmount.Name = "RichBalanceAmount";
             this.RichBalanceAmount.ReadOnly = true;
             this.RichBalanceAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -613,7 +625,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label10.Location = new System.Drawing.Point(84, 32);
+            this.label10.Location = new System.Drawing.Point(79, 32);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(75, 18);
             this.label10.TabIndex = 35;
@@ -624,7 +636,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(44, 252);
+            this.label9.Location = new System.Drawing.Point(39, 252);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(116, 18);
             this.label9.TabIndex = 34;
@@ -635,7 +647,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(23, 204);
+            this.label8.Location = new System.Drawing.Point(18, 204);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(139, 18);
             this.label8.TabIndex = 33;
@@ -646,7 +658,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(62, 147);
+            this.label7.Location = new System.Drawing.Point(57, 147);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(97, 18);
             this.label7.TabIndex = 32;
@@ -658,7 +670,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(48, 99);
+            this.label6.Location = new System.Drawing.Point(43, 99);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(112, 18);
             this.label6.TabIndex = 31;
@@ -669,7 +681,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(89, 65);
+            this.label4.Location = new System.Drawing.Point(84, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 18);
             this.label4.TabIndex = 29;
@@ -778,10 +790,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichPayment.Enabled = false;
             this.RichPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichPayment.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.RichPayment.Location = new System.Drawing.Point(274, 140);
+            this.RichPayment.Location = new System.Drawing.Point(281, 140);
             this.RichPayment.Name = "RichPayment";
             this.RichPayment.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichPayment.Size = new System.Drawing.Size(106, 28);
+            this.RichPayment.Size = new System.Drawing.Size(105, 28);
             this.RichPayment.TabIndex = 23;
             this.RichPayment.Text = "";
             // 
@@ -796,9 +808,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowMember.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowMember.ForeColor = System.Drawing.Color.White;
-            this.BtnShowMember.Location = new System.Drawing.Point(310, 23);
+            this.BtnShowMember.Location = new System.Drawing.Point(315, 22);
             this.BtnShowMember.Name = "BtnShowMember";
-            this.BtnShowMember.Size = new System.Drawing.Size(71, 28);
+            this.BtnShowMember.Size = new System.Drawing.Size(72, 29);
             this.BtnShowMember.TabIndex = 6;
             this.BtnShowMember.Text = "Search";
             this.BtnShowMember.UseVisualStyleBackColor = false;
@@ -818,9 +830,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
-            this.groupBox2.Location = new System.Drawing.Point(870, 47);
+            this.groupBox2.Location = new System.Drawing.Point(873, 47);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(468, 195);
+            this.groupBox2.Size = new System.Drawing.Size(465, 195);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sales Details";
@@ -943,7 +955,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
             this.groupBox1.Location = new System.Drawing.Point(18, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(405, 195);
+            this.groupBox1.Size = new System.Drawing.Size(415, 195);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Member Details";
@@ -955,7 +967,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtContactNo.Location = new System.Drawing.Point(95, 111);
             this.TxtContactNo.Name = "TxtContactNo";
             this.TxtContactNo.ReadOnly = true;
-            this.TxtContactNo.Size = new System.Drawing.Size(211, 26);
+            this.TxtContactNo.Size = new System.Drawing.Size(218, 26);
             this.TxtContactNo.TabIndex = 57;
             // 
             // TxtAddress
@@ -965,7 +977,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtAddress.Location = new System.Drawing.Point(95, 82);
             this.TxtAddress.Name = "TxtAddress";
             this.TxtAddress.ReadOnly = true;
-            this.TxtAddress.Size = new System.Drawing.Size(284, 26);
+            this.TxtAddress.Size = new System.Drawing.Size(290, 26);
             this.TxtAddress.TabIndex = 56;
             // 
             // TxtName
@@ -975,17 +987,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtName.Location = new System.Drawing.Point(95, 53);
             this.TxtName.Name = "TxtName";
             this.TxtName.ReadOnly = true;
-            this.TxtName.Size = new System.Drawing.Size(284, 26);
+            this.TxtName.Size = new System.Drawing.Size(290, 26);
             this.TxtName.TabIndex = 55;
             // 
             // TxtAccNo
             // 
             this.TxtAccNo.BackColor = System.Drawing.Color.White;
-            this.TxtAccNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAccNo.Location = new System.Drawing.Point(218, 24);
+            this.TxtAccNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAccNo.Location = new System.Drawing.Point(220, 23);
             this.TxtAccNo.Name = "TxtAccNo";
             this.TxtAccNo.ReadOnly = true;
-            this.TxtAccNo.Size = new System.Drawing.Size(90, 26);
+            this.TxtAccNo.Size = new System.Drawing.Size(94, 27);
             this.TxtAccNo.TabIndex = 54;
             this.TxtAccNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1007,7 +1019,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label25.Location = new System.Drawing.Point(214, 144);
+            this.label25.Location = new System.Drawing.Point(220, 144);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(58, 18);
             this.label25.TabIndex = 52;
@@ -1062,7 +1074,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label20.Location = new System.Drawing.Point(178, 27);
+            this.label20.Location = new System.Drawing.Point(181, 27);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(36, 18);
             this.label20.TabIndex = 47;
@@ -1100,7 +1112,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSavePayment.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnSavePayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSavePayment.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnSavePayment.Location = new System.Drawing.Point(308, 110);
+            this.BtnSavePayment.Location = new System.Drawing.Point(314, 110);
             this.BtnSavePayment.Name = "BtnSavePayment";
             this.BtnSavePayment.Size = new System.Drawing.Size(72, 29);
             this.BtnSavePayment.TabIndex = 30;
@@ -1124,34 +1136,34 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridSoldItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridSoldItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridSoldItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridSoldItemList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridSoldItemList.DefaultCellStyle = dataGridViewCellStyle5;
             this.DataGridSoldItemList.Location = new System.Drawing.Point(17, 251);
             this.DataGridSoldItemList.Name = "DataGridSoldItemList";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridSoldItemList.Size = new System.Drawing.Size(844, 287);
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.DataGridSoldItemList.Size = new System.Drawing.Size(847, 287);
             this.DataGridSoldItemList.TabIndex = 31;
             this.DataGridSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
             // 
@@ -1291,5 +1303,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox TxtPricedUnit;
     }
 }

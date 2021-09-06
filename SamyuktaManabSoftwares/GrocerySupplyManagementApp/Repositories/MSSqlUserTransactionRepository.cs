@@ -782,7 +782,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE WHEN ([DueAmount] <> 0 AND ([ReceivedAmount] - [DueAmount] >= 0)) THEN 0 ELSE ([DueAmount] - [ReceivedAmount]) END AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
+                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') ";
 
             if(!string.IsNullOrWhiteSpace(memberId))
             {
@@ -790,7 +791,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             else
             {
-                query += "AND [InvoiceNo] IS NOT NULL ";
+                query += "AND [MemberId] IS NOT NULL ";
             }
 
             query += ") Temp";

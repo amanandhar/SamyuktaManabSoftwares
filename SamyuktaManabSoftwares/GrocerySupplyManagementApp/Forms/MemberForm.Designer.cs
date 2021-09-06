@@ -42,7 +42,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
             this.BtnShowSales = new System.Windows.Forms.Button();
-            this.BtnClearAll = new System.Windows.Forms.Button();
             this.BtnShowTransaction = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -165,7 +164,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDelete.ForeColor = System.Drawing.Color.Red;
+            this.BtnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.BtnDelete.Location = new System.Drawing.Point(5, 233);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(130, 35);
@@ -199,7 +198,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnEdit.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEdit.ForeColor = System.Drawing.Color.Red;
+            this.BtnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.BtnEdit.Location = new System.Drawing.Point(5, 160);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(130, 35);
@@ -241,21 +240,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowSales.Text = "Show Sales";
             this.BtnShowSales.UseVisualStyleBackColor = false;
             this.BtnShowSales.Click += new System.EventHandler(this.BtnShowSales_Click);
-            // 
-            // BtnClearAll
-            // 
-            this.BtnClearAll.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnClearAll.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnClearAll.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnClearAll.ForeColor = System.Drawing.Color.Transparent;
-            this.BtnClearAll.Location = new System.Drawing.Point(771, 96);
-            this.BtnClearAll.Name = "BtnClearAll";
-            this.BtnClearAll.Size = new System.Drawing.Size(81, 28);
-            this.BtnClearAll.TabIndex = 18;
-            this.BtnClearAll.Text = "Clear All";
-            this.BtnClearAll.UseVisualStyleBackColor = false;
-            this.BtnClearAll.Click += new System.EventHandler(this.BtnClearAll_Click);
             // 
             // BtnShowTransaction
             // 
@@ -325,7 +309,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichEmail.Location = new System.Drawing.Point(574, 13);
             this.RichEmail.Name = "RichEmail";
-            this.RichEmail.ReadOnly = true;
             this.RichEmail.Size = new System.Drawing.Size(258, 26);
             this.RichEmail.TabIndex = 8;
             this.RichEmail.Text = "";
@@ -390,7 +373,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.TxtBalance);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.ComboReceipt);
-            this.groupBox1.Controls.Add(this.BtnClearAll);
             this.groupBox1.Controls.Add(this.RichAmount);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.ComboBank);
@@ -787,7 +769,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnAddMember;
         private System.Windows.Forms.Button BtnDelete;
-        private System.Windows.Forms.Button BtnClearAll;
         private System.Windows.Forms.Button BtnShowTransaction;
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.Button BtnEdit;

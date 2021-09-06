@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " + 
                     "FROM " + Constants.TABLE_BANK + " " +
                     "WHERE 1 = 1 " +
-                    "[Id] = @Id";
+                    "AND [Id] = @Id";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

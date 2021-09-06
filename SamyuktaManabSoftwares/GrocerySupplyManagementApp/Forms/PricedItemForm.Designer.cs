@@ -192,7 +192,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(415, 465);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Purchase Details";
+            this.groupBox2.Text = "Stock Details";
             // 
             // ComboItemUnit
             // 

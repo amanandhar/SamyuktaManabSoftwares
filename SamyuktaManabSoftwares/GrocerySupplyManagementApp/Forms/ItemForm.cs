@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class ItemForm : Form, IItemListForm
     {
         private readonly IItemService _itemService;
+        private readonly IItemCategoryService _itemCategoryService;
         private long selectedItemId = 0;
 
         #region Enum
@@ -29,11 +30,12 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Constructor
-        public ItemForm(IItemService itemService)
+        public ItemForm(IItemService itemService, IItemCategoryService itemCategoryService)
         {
             InitializeComponent();
 
             _itemService = itemService;
+            _itemCategoryService = itemCategoryService;
         }
         #endregion
 
@@ -41,8 +43,10 @@ namespace GrocerySupplyManagementApp.Forms
         private void AddNewCodeForm_Load(object sender, EventArgs e)
         {
             EnableFields(Action.None);
-            LoadItems();
+            
+            LoadItemCategoris();
             LoadItemUnits();
+            LoadItems();
         }
         #endregion
 
@@ -55,8 +59,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddNew_Click(object sender, EventArgs e)
         {
+            EnableFields(Action.None);
             EnableFields(Action.Add);
-            RichItemCode.Focus();
+            ComboCategory.Select();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -76,6 +81,19 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _itemService.AddItem(item);
+
+                var itemCode = item.Code.ToString(); 
+                var formattedItemCode = itemCode.Substring(1, itemCode.Length - 1);
+                var counter = formattedItemCode.TrimStart(new Char[] { '0' });
+                var itemCategory = new ItemCategory
+                {
+                    Counter = Convert.ToInt64(counter),
+                    Name = ComboCategory.Text,
+                    ItemCode = RichItemCode.Text
+                };
+
+                _itemCategoryService.AddItemCategory(itemCategory);
+
                 DialogResult result = MessageBox.Show(item.Code + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -92,6 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
+            EnableFields(Action.None);
             EnableFields(Action.Edit);
             RichItemCode.Focus();
         }
@@ -156,12 +175,58 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Combobox Event
+        private void ComboCategory_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBoxItem selectedCategory = (ComboBoxItem)ComboCategory.SelectedItem;
+            var category = selectedCategory?.Value; 
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                var itemCategory = _itemCategoryService.GetItemCategory(category);
+                if (itemCategory == null || string.IsNullOrWhiteSpace(itemCategory.ItemCode))
+                {
+                    RichItemCode.Text = category + "000101";
+                }
+                else
+                {
+                    var itemCode = itemCategory.ItemCode;
+                    var formattedItemCode = itemCode.Substring(1, itemCode.Length - 1);
+                    formattedItemCode = formattedItemCode.TrimStart(new Char[] { '0' });
+                    var newItemCode = Convert.ToInt64(formattedItemCode) + 1;
+                    var finalItemCode = newItemCode.ToString();
+
+                    if (finalItemCode.Length == 1)
+                    {
+                        finalItemCode = "00000" + finalItemCode;
+                    }
+                    else if (finalItemCode.Length == 2)
+                    {
+                        finalItemCode = "0000" + finalItemCode;
+                    }
+                    else if (finalItemCode.Length == 3)
+                    {
+                        finalItemCode = "000" + finalItemCode;
+                    }
+                    else if (finalItemCode.Length == 4)
+                    {
+                        finalItemCode = "00" + finalItemCode;
+                    }
+                    else if (finalItemCode.Length == 5)
+                    {
+                        finalItemCode = "0" + finalItemCode;
+                    }
+
+                    RichItemCode.Text = category + finalItemCode;
+                }
+            }
+        }
+
+        #endregion
+
         #region Data Grid Event
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridItemList.Columns["Id"].Visible = false;
-            DataGridItemList.Columns["Unit"].Visible = false;
-            DataGridItemList.Columns["Threshold"].Visible = false;
             DataGridItemList.Columns["AddedDate"].Visible = false;
             DataGridItemList.Columns["UpdatedDate"].Visible = false;
 
@@ -174,8 +239,16 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
             DataGridItemList.Columns["Brand"].HeaderText = "Brand";
-            DataGridItemList.Columns["Brand"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridItemList.Columns["Brand"].Width = 250;
             DataGridItemList.Columns["Brand"].DisplayIndex = 2;
+
+            DataGridItemList.Columns["Unit"].HeaderText = "Unit";
+            DataGridItemList.Columns["Unit"].Width = 80;
+            DataGridItemList.Columns["Unit"].DisplayIndex = 3;
+
+            DataGridItemList.Columns["Threshold"].HeaderText = "Threshold";
+            DataGridItemList.Columns["Threshold"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridItemList.Columns["Threshold"].DisplayIndex = 4;
 
             foreach (DataGridViewRow row in DataGridItemList.Rows)
             {
@@ -199,42 +272,30 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if (action == Action.Show)
             {
-                RichItemCode.Enabled = false;
-                RichItemName.Enabled = false;
-                RichItemBrand.Enabled = false;
-                ComboUnit.Enabled = false;
-                RichThreshold.Enabled = false;
-                BtnAddNew.Enabled = false;
-                BtnSave.Enabled = false;
                 BtnEdit.Enabled = true;
-                BtnUpdate.Enabled = false;
             }
             else if (action == Action.Add)
             {
-                RichItemCode.Enabled = true;
+                ComboCategory.Enabled = true;
                 RichItemName.Enabled = true;
                 RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
                 BtnAddNew.Enabled = true;
                 BtnSave.Enabled = true;
-                BtnEdit.Enabled = false;
-                BtnUpdate.Enabled = false;
+
             }
             else if (action == Action.Edit)
             {
-                RichItemCode.Enabled = true;
+                ComboCategory.Enabled = true;
                 RichItemName.Enabled = true;
                 RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
-                BtnAddNew.Enabled = false;
-                BtnSave.Enabled = false;
-                BtnEdit.Enabled = true;
-                BtnUpdate.Enabled = true;
             }
             else
             {
+                ComboCategory.Enabled = false;
                 RichItemCode.Enabled = false;
                 RichItemName.Enabled = false;
                 RichItemBrand.Enabled = false;
@@ -249,6 +310,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllFields()
         {
+            ComboCategory.Text = string.Empty;
             RichItemCode.Clear();
             RichItemName.Clear();
             RichItemBrand.Clear();
@@ -292,8 +354,39 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.CAN, Value = Constants.CAN });
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
-        #endregion
+        private void LoadItemCategoris()
+        {
+            ComboCategory.ValueMember = "Id";
+            ComboCategory.DisplayMember = "Value";
 
-       
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_A, Value = Constants.CATEGORY_A });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_B, Value = Constants.CATEGORY_B });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_C, Value = Constants.CATEGORY_C });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_D, Value = Constants.CATEGORY_D });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_E, Value = Constants.CATEGORY_E });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_F, Value = Constants.CATEGORY_F });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_G, Value = Constants.CATEGORY_G });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_H, Value = Constants.CATEGORY_H });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_I, Value = Constants.CATEGORY_I });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_J, Value = Constants.CATEGORY_J });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_K, Value = Constants.CATEGORY_K });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_L, Value = Constants.CATEGORY_L });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_M, Value = Constants.CATEGORY_M });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_N, Value = Constants.CATEGORY_N });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_O, Value = Constants.CATEGORY_O });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_P, Value = Constants.CATEGORY_P });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Q, Value = Constants.CATEGORY_Q });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_R, Value = Constants.CATEGORY_R });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_S, Value = Constants.CATEGORY_S });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_T, Value = Constants.CATEGORY_T });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_U, Value = Constants.CATEGORY_U });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_V, Value = Constants.CATEGORY_V });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_W, Value = Constants.CATEGORY_W });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_X, Value = Constants.CATEGORY_X });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Y, Value = Constants.CATEGORY_Y });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Z, Value = Constants.CATEGORY_Z });
+        }
+        #endregion
+        
     }
 }

@@ -110,6 +110,7 @@
     <Compile Include="DTOs\TransactionFilter.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
+    <Compile Include="Entities\ItemCategory.cs" />
     <Compile Include="Entities\CompanyInfo.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\FiscalYear.cs" />
@@ -374,6 +375,7 @@
     </Compile>
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IItemCategoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyInfoRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEndOfDayRepository.cs" />
@@ -391,6 +393,7 @@
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlItemCategoryRepository.cs" />
     <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
     <Compile Include="Repositories\MSSqlEmployeeRepository.cs" />
     <Compile Include="Repositories\MSSqlEndOfDayRepository.cs" />
@@ -417,6 +420,7 @@
     <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
     <Compile Include="Services\Interfaces\IEmployeeService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
+    <Compile Include="Services\Interfaces\IItemCategoryService.cs" />
     <Compile Include="Services\Interfaces\IPricedItemService.cs" />
     <Compile Include="Services\Interfaces\IFiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IItemService.cs" />
@@ -429,6 +433,7 @@
     <Compile Include="Services\Interfaces\ITaxService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\Interfaces\IUserTransactionService.cs" />
+    <Compile Include="Services\ItemCategoryService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\PurchasedItemService.cs" />

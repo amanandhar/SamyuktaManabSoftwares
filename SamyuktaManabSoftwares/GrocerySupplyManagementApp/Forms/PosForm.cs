@@ -617,7 +617,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemName = TxtItemName.Text,
                     ItemBrand = TxtItemBrand.Text,
                     Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
-                    Unit = TxtItemUnit.Text,
+                    Unit = TxtPricedUnit.Text,
                     ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text),
                     Volume = Convert.ToInt64(TxtVolume.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text),
@@ -664,6 +664,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtVolume.Clear();
             TxtProfitAmount.Clear();
             TxtItemStock.Clear();
+            TxtPricedUnit.Clear();
             PicBoxItemImage.Image = null;
         }
 
@@ -737,9 +738,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
-                var threshold = 0.00M;
-
-                if(stock < threshold)
+                if(stock < item.Threshold)
                 {
                     DialogResult result = MessageBox.Show("Low stock, add more.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -752,7 +751,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Text = item.Code + separator + pricedItem.SubCode;
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
-                TxtItemUnit.Text = pricedItem.CustomUnit;
+                TxtItemUnit.Text = item.Unit;
                 TxtVolume.Text = pricedItem.Volume.ToString();
 
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
@@ -778,6 +777,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 var salesPrice = customPerUnitValue + profitAmount;
                 TxtItemPrice.Text = Math.Round(salesPrice, 2).ToString();
+                TxtPricedUnit.Text = pricedItem.CustomUnit;
                 // End
 
                 TxtItemStock.Text = stock.ToString();

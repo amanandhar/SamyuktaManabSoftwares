@@ -58,7 +58,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnAddBank_Click(object sender, EventArgs e)
         {
-            EnableFields(Action.Add, true);
+            //EnableFields(Action.Add, true);
             RichBankName.Focus();
         }
 
@@ -66,22 +66,35 @@ namespace GrocerySupplyManagementApp.Forms
         { 
             try 
             {
-                var date = DateTime.Now;
-                var bank = new Bank
+                var name = RichBankName.Text;
+                var accountNo = RichAccountNo.Text;
+                if(string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(accountNo))
                 {
-                    Name = RichBankName.Text,
-                    AccountNo = RichAccountNo.Text,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-
-                _bankService.AddBank(bank);
-
-                DialogResult result = MessageBox.Show(bank.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
+                    DialogResult result = MessageBox.Show("Bank name and account number are required.", "Warning", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+                else
                 {
-                    ClearAllFields();
-                    EnableFields(Action.None, false);
+                    var date = DateTime.Now;
+                    var bank = new Bank
+                    {
+                        Name = RichBankName.Text,
+                        AccountNo = RichAccountNo.Text,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+
+                    _bankService.AddBank(bank);
+
+                    DialogResult result = MessageBox.Show(bank.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields(Action.None, false);
+                    }
                 }
             }
             catch(Exception ex)

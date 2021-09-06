@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridEmployeeList
             // 
+            this.DataGridEmployeeList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -65,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridEmployeeList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridEmployeeList.Size = new System.Drawing.Size(510, 337);
+            this.DataGridEmployeeList.Size = new System.Drawing.Size(510, 330);
             this.DataGridEmployeeList.TabIndex = 0;
             this.DataGridEmployeeList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridEmployeeList_CellDoubleClick);
             this.DataGridEmployeeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridEmployeeList_DataBindingComplete);
@@ -74,7 +75,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 361);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(534, 351);
             this.Controls.Add(this.DataGridEmployeeList);
             this.Name = "EmployeeListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

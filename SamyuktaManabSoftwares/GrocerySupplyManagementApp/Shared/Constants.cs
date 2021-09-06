@@ -27,6 +27,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_END_OF_DAY = "EndOfDay";
         public const string TABLE_FISCAL_YEAR = "FiscalYear";
         public const string TABLE_ITEM = "Item";
+        public const string TABLE_ITEM_CATEGORY = "ItemCategory";
         public const string TABLE_MEMBER = "Member";
         public const string TABLE_PRICED_ITEM = "PricedItem";
         public const string TABLE_PURCHASED_ITEM = "PurchasedItem";
@@ -91,5 +92,33 @@ namespace GrocerySupplyManagementApp.Shared
         public const string BOTTLE = "Btl";
         public const string CAN = "Can";
         public const string DOZEN = "Dzn";
+
+        //Item Unit
+        public const string CATEGORY_A = "A";
+        public const string CATEGORY_B = "B";
+        public const string CATEGORY_C = "C";
+        public const string CATEGORY_D = "D";
+        public const string CATEGORY_E = "E";
+        public const string CATEGORY_F = "F";
+        public const string CATEGORY_G = "G";
+        public const string CATEGORY_H = "H";
+        public const string CATEGORY_I = "I";
+        public const string CATEGORY_J = "J";
+        public const string CATEGORY_K = "K";
+        public const string CATEGORY_L = "L";
+        public const string CATEGORY_M = "M";
+        public const string CATEGORY_N = "N";
+        public const string CATEGORY_O = "O";
+        public const string CATEGORY_P = "P";
+        public const string CATEGORY_Q = "Q";
+        public const string CATEGORY_R = "R";
+        public const string CATEGORY_S = "S";
+        public const string CATEGORY_T = "T";
+        public const string CATEGORY_U = "U";
+        public const string CATEGORY_V = "V";
+        public const string CATEGORY_W = "W";
+        public const string CATEGORY_X = "X";
+        public const string CATEGORY_Y = "Y";
+        public const string CATEGORY_Z = "Z";
     }
 }

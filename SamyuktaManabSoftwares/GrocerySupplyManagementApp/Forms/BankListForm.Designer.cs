@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridBankList
             // 
+            this.DataGridBankList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -65,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridBankList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridBankList.Size = new System.Drawing.Size(510, 437);
+            this.DataGridBankList.Size = new System.Drawing.Size(510, 287);
             this.DataGridBankList.TabIndex = 0;
             this.DataGridBankList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridBankDetails_CellDoubleClick);
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
@@ -74,7 +75,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 461);
+            this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.DataGridBankList);
             this.Name = "BankListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

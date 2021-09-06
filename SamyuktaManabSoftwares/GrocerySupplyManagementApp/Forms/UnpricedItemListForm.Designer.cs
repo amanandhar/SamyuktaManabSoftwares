@@ -35,10 +35,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridUnpricedItemList
             // 
+            this.DataGridUnpricedItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridUnpricedItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridUnpricedItemList.Location = new System.Drawing.Point(12, 12);
             this.DataGridUnpricedItemList.Name = "DataGridUnpricedItemList";
-            this.DataGridUnpricedItemList.Size = new System.Drawing.Size(510, 437);
+            this.DataGridUnpricedItemList.Size = new System.Drawing.Size(510, 287);
             this.DataGridUnpricedItemList.TabIndex = 0;
             this.DataGridUnpricedItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridUnpricedItemList_CellDoubleClick);
             this.DataGridUnpricedItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridUnpricedItemList_DataBindingComplete);
@@ -47,7 +48,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 461);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.DataGridUnpricedItemList);
             this.Name = "UnpricedItemListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
