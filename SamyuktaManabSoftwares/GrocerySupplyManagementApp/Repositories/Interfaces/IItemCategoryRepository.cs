@@ -14,5 +14,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         ItemCategory UpdateItemCategory(long id, ItemCategory itemCategory);
 
         bool DeleteItemCategory(long id);
+        bool DeleteItemCategory(string itemCode);
     }
 }

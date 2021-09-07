@@ -179,5 +179,33 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public bool DeleteItemCategory(string itemCode)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                    "FROM " + Constants.TABLE_ITEM_CATEGORY + " " +
+                    "WHERE 1 = 1 " +
+                    "AND [ItemCode] = @ItemCode";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ItemCode", ((object)itemCode) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
     }
 }

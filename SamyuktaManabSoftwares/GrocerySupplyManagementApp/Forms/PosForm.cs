@@ -254,7 +254,6 @@ namespace GrocerySupplyManagementApp.Forms
                     _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);
                 }
                     
-
                 ClearAllMemberFields();
                 ClearAllItemFields();
                 ClearAllInvoiceFields();
@@ -435,7 +434,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void RichItemCode_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
-            
         }
 
         private void RichItemCode_KeyDown(object sender, KeyEventArgs e)
@@ -448,6 +446,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var codes = RichItemCode.Text.Replace("\n", "").Split(separator);
                     var itemCode = codes[0];
                     var itemSubCode = codes.Length > 1 ? codes[1] : string.Empty;
+                    
                     var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
                     if (pricedItem.ItemId == 0)
                     {
@@ -458,38 +457,8 @@ namespace GrocerySupplyManagementApp.Forms
                             return;
                         }
                     }
-                    var item = _itemService.GetItem(pricedItem.ItemId);
-                    StockFilter filter = new StockFilter
-                    {
-                        ItemCode = item.Code
-                    };
 
-                    var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
-                    if (stock < item.Threshold)
-                    {
-                        DialogResult result = MessageBox.Show("Low stock, add more!",
-                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        if (result == DialogResult.OK)
-                        {
-                            TxtItemStock.ForeColor = Color.Red;
-                        }
-                    }
-
-                    RichItemCode.Text = item.Code;
-                    TxtItemName.Text = item.Name;
-                    TxtItemBrand.Text = item.Brand;
-                    TxtItemPrice.Text = pricedItem.SalesPricePerUnit.ToString();
-
-                    TxtItemStock.Text = stock.ToString();
-                    TxtItemUnit.Text = item.Unit;
-                    TxtProfitAmount.Text = pricedItem.Profit.ToString();
-                    if (File.Exists(pricedItem.ImagePath))
-                    {
-                        PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
-                    }
-
-                    RichItemQuantity.Enabled = true;
-                    RichItemQuantity.Focus();
+                    CalculatePricedItem(pricedItem);
                 }
                 catch (Exception ex)
                 {
@@ -731,6 +700,18 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var pricedItem = _pricedItemService.GetPricedItem(pricedId);
+                CalculatePricedItem(pricedItem);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void CalculatePricedItem(PricedItem pricedItem)
+        {
+            try
+            {
                 var item = _itemService.GetItem(pricedItem.ItemId);
                 StockFilter filter = new StockFilter
                 {
@@ -790,12 +771,11 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw ex;
             }
         }
-
         private void LoadPosDetails(SoldItemView soldItemGrid = null)
         {
             try

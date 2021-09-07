@@ -157,6 +157,7 @@ namespace GrocerySupplyManagementApp.Forms
                     if (questionResult == DialogResult.Yes)
                     {
                         _itemService.DeleteItem(selectedItemId);
+                        _itemCategoryService.DeleteItemCategory(RichItemCode.Text);
                         DialogResult actionResult = MessageBox.Show("Item has been deleted successfully.", "Message", MessageBoxButtons.OK);
                         if (actionResult == DialogResult.OK)
                         {

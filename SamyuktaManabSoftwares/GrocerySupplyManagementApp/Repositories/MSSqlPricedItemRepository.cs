@@ -113,10 +113,10 @@ namespace GrocerySupplyManagementApp.Repositories
             return pricedItem;
         }
         
-        public PricedItem GetPricedItem(string itemCode, string subCode)
+        public PricedItem GetPricedItem(string itemCode, string itemSubCode)
         {
             var query = @"SELECT " +
-                "pi.[Id], pi.[ItemId], pi.[SubCode],  pi.[Unit], pi.[Volume], " +
+                "pi.[Id], pi.[ItemId], pi.[SubCode],  pi.[CustomUnit], pi.[Volume], " +
                 "pi.[ProfitPercent], pi.[Profit], pi.[SalesPricePerUnit], " +
                 "pi.[ImagePath], pi.[AddedDate], pi.[UpdatedDate] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
@@ -129,7 +129,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND i.[Code] = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(subCode))
+            if (!string.IsNullOrWhiteSpace(itemSubCode))
             {
                 query += "AND pi.[SubCode] = @SubCode ";
             }
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Code", itemCode);
-                        command.Parameters.AddWithValue("@SubCode", subCode);
+                        command.Parameters.AddWithValue("@SubCode", itemSubCode);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
