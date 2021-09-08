@@ -44,19 +44,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                StockFilter filter = new StockFilter();
-                var dateFrom = MaskEndOfDay.Text;
-                var dateTo = MaskEndOfDay.Text;
-                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-                {
-                    filter.DateFrom = dateFrom.Trim();
-                }
-
-                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-                {
-                    filter.DateTo = dateTo.Trim();
-                }
-
                 var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE}).ToList().Sum(x => x.Amount);
                 var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Amount);
                 var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Amount);
@@ -90,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
                 var bankAccount = _bankTransactionService.GetTotalBalance();
 
-                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stocks = _stockService.GetStocks(new StockFilter()).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var stockViewList = UtilityService.CalculateStock(stocks.ToList());
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
@@ -121,10 +108,5 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion 
-
-        #region Helper Methods
-
-        #endregion
-
     }
 }

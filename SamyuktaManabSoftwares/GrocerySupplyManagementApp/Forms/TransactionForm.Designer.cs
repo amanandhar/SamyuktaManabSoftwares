@@ -426,7 +426,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteTransaction.FlatAppearance.BorderSize = 2;
             this.BtnDeleteTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Red;
             this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 63);
             this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
             this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 45);
@@ -444,7 +444,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.FlatAppearance.BorderSize = 2;
             this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowTransaction.ForeColor = System.Drawing.Color.White;
             this.BtnShowTransaction.Location = new System.Drawing.Point(10, 17);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(130, 45);

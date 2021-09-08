@@ -102,11 +102,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailyTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnDailyTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDailyTransaction.ForeColor = System.Drawing.Color.Transparent;
-            this.BtnDailyTransaction.Location = new System.Drawing.Point(839, 16);
+            this.BtnDailyTransaction.Location = new System.Drawing.Point(845, 16);
             this.BtnDailyTransaction.Name = "BtnDailyTransaction";
-            this.BtnDailyTransaction.Size = new System.Drawing.Size(152, 40);
+            this.BtnDailyTransaction.Size = new System.Drawing.Size(145, 40);
             this.BtnDailyTransaction.TabIndex = 3;
-            this.BtnDailyTransaction.Text = "Daily Transaction";
+            this.BtnDailyTransaction.Text = "DailyTransaction";
             this.BtnDailyTransaction.UseVisualStyleBackColor = false;
             this.BtnDailyTransaction.Click += new System.EventHandler(this.BtnDailyTransactions_Click);
             // 
@@ -122,7 +122,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BtnShow.Location = new System.Drawing.Point(728, 16);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(110, 40);
+            this.BtnShow.Size = new System.Drawing.Size(115, 40);
             this.BtnShow.TabIndex = 2;
             this.BtnShow.Text = "Show";
             this.BtnShow.UseVisualStyleBackColor = false;
@@ -272,6 +272,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox4.BackgroundImage")));
             this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBox4.Controls.Add(this.label13);
+            this.groupBox4.ForeColor = System.Drawing.Color.Cyan;
             this.groupBox4.Location = new System.Drawing.Point(-5, 9);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(380, 35);

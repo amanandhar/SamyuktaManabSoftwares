@@ -434,13 +434,14 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 23.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Cyan;
-            this.label1.Location = new System.Drawing.Point(13, 550);
+            this.label1.Location = new System.Drawing.Point(-2, 557);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1036, 35);
+            this.label1.Size = new System.Drawing.Size(1066, 29);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Samyukta Manab Grocery Management System,Nayabazar-16,Kathmandu";
+            this.label1.Text = "Samyukta Manab Grocery Management System,Nayabazar-16,Kathmandu Contact No. 98412" +
+    "72950";
             // 
             // DashboardForm
             // 

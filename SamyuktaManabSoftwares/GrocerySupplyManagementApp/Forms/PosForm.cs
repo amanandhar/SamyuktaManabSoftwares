@@ -154,6 +154,18 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
+                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? 0.00M : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
+                var grandTotal = string.IsNullOrWhiteSpace(TxtGrandTotal.Text) ? 0.00M : Convert.ToDecimal(TxtGrandTotal.Text.Trim());
+                if (RadioBtnCash.Checked && (receivedAmount < grandTotal))
+                {
+                    DialogResult dialogResult = MessageBox.Show("Insufficient received amount.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+
                 var date = DateTime.Now;
                 _soldItemViewList.ForEach(x =>
                 {

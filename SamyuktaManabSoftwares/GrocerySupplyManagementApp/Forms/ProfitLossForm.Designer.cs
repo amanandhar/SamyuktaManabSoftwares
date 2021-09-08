@@ -121,7 +121,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.FlatAppearance.BorderSize = 2;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
             this.BtnShow.Location = new System.Drawing.Point(18, 12);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(125, 40);

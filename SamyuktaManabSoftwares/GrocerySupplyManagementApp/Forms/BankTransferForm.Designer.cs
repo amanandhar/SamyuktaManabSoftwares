@@ -66,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnClear.BackgroundImage")));
             this.BtnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnClear.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnClear.ForeColor = System.Drawing.Color.White;
             this.BtnClear.Location = new System.Drawing.Point(165, 23);
             this.BtnClear.Name = "BtnClear";
             this.BtnClear.Size = new System.Drawing.Size(140, 45);
@@ -80,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnSave.BackgroundImage")));
             this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSave.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnSave.ForeColor = System.Drawing.Color.White;
             this.BtnSave.Location = new System.Drawing.Point(311, 23);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(140, 45);

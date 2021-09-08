@@ -133,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSave.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnSave.ForeColor = System.Drawing.Color.White;
             this.BtnSave.Location = new System.Drawing.Point(209, 27);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(130, 40);
@@ -148,7 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEdit.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnEdit.ForeColor = System.Drawing.Color.Red;
             this.BtnEdit.Location = new System.Drawing.Point(78, 27);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(130, 40);
@@ -225,7 +225,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Location = new System.Drawing.Point(-5, -1);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(692, 40);
+            this.groupBox6.Size = new System.Drawing.Size(692, 38);
             this.groupBox6.TabIndex = 7;
             this.groupBox6.TabStop = false;
             // 
@@ -233,11 +233,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Cyan;
-            this.label5.Location = new System.Drawing.Point(183, 10);
+            this.label5.Location = new System.Drawing.Point(183, 7);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(352, 25);
+            this.label5.Size = new System.Drawing.Size(322, 25);
             this.label5.TabIndex = 0;
             this.label5.Text = "Date && Fiscal Year Management";
             // 

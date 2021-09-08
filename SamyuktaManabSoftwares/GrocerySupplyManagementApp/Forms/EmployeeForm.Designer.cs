@@ -455,8 +455,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchSalaryDetails.Enabled = false;
             this.BtnSearchSalaryDetails.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnSearchSalaryDetails.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnSearchSalaryDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearchSalaryDetails.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnSearchSalaryDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearchSalaryDetails.ForeColor = System.Drawing.Color.White;
             this.BtnSearchSalaryDetails.Location = new System.Drawing.Point(128, 320);
             this.BtnSearchSalaryDetails.Name = "BtnSearchSalaryDetails";
             this.BtnSearchSalaryDetails.Size = new System.Drawing.Size(260, 35);
@@ -621,7 +621,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShow.BackgroundImage")));
             this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
             this.BtnShow.Location = new System.Drawing.Point(255, 27);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(70, 31);
@@ -710,7 +710,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnClear.BackgroundImage")));
             this.BtnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnClear.Enabled = false;
-            this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnClear.ForeColor = System.Drawing.Color.Cyan;
             this.BtnClear.Location = new System.Drawing.Point(7, 161);
             this.BtnClear.Name = "BtnClear";
@@ -725,8 +725,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnDelete.BackgroundImage")));
             this.BtnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDelete.Enabled = false;
-            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDelete.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDelete.ForeColor = System.Drawing.Color.Red;
             this.BtnDelete.Location = new System.Drawing.Point(7, 198);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(130, 35);
@@ -740,7 +740,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnUpdate.BackgroundImage")));
             this.BtnUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnUpdate.Enabled = false;
-            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.Cyan;
             this.BtnUpdate.Location = new System.Drawing.Point(7, 124);
             this.BtnUpdate.Name = "BtnUpdate";
@@ -755,8 +755,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnEdit.BackgroundImage")));
             this.BtnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnEdit.Enabled = false;
-            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEdit.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEdit.ForeColor = System.Drawing.Color.Red;
             this.BtnEdit.Location = new System.Drawing.Point(7, 87);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(130, 35);
@@ -770,7 +770,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnSave.BackgroundImage")));
             this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSave.Enabled = false;
-            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.Cyan;
             this.BtnSave.Location = new System.Drawing.Point(7, 50);
             this.BtnSave.Name = "BtnSave";
@@ -785,7 +785,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnAdd.BackgroundImage")));
             this.BtnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnAdd.Enabled = false;
-            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAdd.ForeColor = System.Drawing.Color.Cyan;
             this.BtnAdd.Location = new System.Drawing.Point(7, 13);
             this.BtnAdd.Name = "BtnAdd";

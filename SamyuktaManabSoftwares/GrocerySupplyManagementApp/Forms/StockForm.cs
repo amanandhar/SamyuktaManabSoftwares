@@ -41,39 +41,8 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ComboItemCode.Items.Add(purchasedItem.Code);
             });
-        }
 
-        #endregion
-
-        #region Checkbox Event
-        private void CheckAllTransactions_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CheckAllTransactions.Checked)
-            {
-                MaskEndOfDayFrom.Text = string.Empty;
-                MaskEndOfDayTo.Text = string.Empty;
-                ComboItemCode.Text = string.Empty;
-            }
-        }
-
-        #endregion
-
-        #region Combobox Event
-        private void ComboFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ChangeCheckState(false);
-        }
-        #endregion
-
-        #region Mask Text Box Event
-        private void MaskTextBoxDateFrom_KeyDown(object sender, KeyEventArgs e)
-        {
-            ChangeCheckState(false);
-        }
-
-        private void MaskDateTo_KeyDown(object sender, KeyEventArgs e)
-        {
-            ChangeCheckState(false);
+            LoadTotalStock();
         }
 
         #endregion
@@ -162,9 +131,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItems()
         {
-
             StockFilter stockFilter = new StockFilter();
-
             var dateFrom = MaskEndOfDayFrom.Text;
             var dateTo = MaskEndOfDayTo.Text;
 
@@ -179,11 +146,29 @@ namespace GrocerySupplyManagementApp.Forms
             }
 
             stockFilter.ItemCode = ComboItemCode.Text;
- 
 
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter).ToString();
             TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter).ToString();
-            TxtTotalStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
+            TxtStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
+
+            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+            var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+            var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
+                .ToList();
+            TxtValue.Text = latestStockView.Sum(x => Math.Round(x.StockValue, 2)).ToString();
+
+            var bindingList = new BindingList<StockView>(stockViewList);
+            var source = new BindingSource(bindingList, null);
+            DataGridStockList.DataSource = source;
+        }
+
+        private void LoadTotalStock()
+        {
+            StockFilter stockFilter = new StockFilter();
+            var totalPurchase = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter);
+            var totalSales = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter);
+            TxtTotalStock.Text = (totalPurchase - totalSales).ToString();
 
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var stockViewList = UtilityService.CalculateStock(stocks.ToList());
@@ -191,15 +176,6 @@ namespace GrocerySupplyManagementApp.Forms
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
             TxtTotalValue.Text = latestStockView.Sum(x => Math.Round(x.StockValue, 2)).ToString();
-
-            var bindingList = new BindingList<StockView>(stockViewList);
-            var source = new BindingSource(bindingList, null);
-            DataGridStockList.DataSource = source;
-        }
-
-        private void ChangeCheckState(bool option)
-        {
-            CheckAllTransactions.Checked = option;
         }
 
         #endregion

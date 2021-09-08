@@ -202,7 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemove.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Salmon;
             this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRemove.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnRemove.ForeColor = System.Drawing.Color.Red;
             this.BtnRemove.Location = new System.Drawing.Point(8, 84);
             this.BtnRemove.Name = "BtnRemove";
             this.BtnRemove.Size = new System.Drawing.Size(125, 35);
@@ -220,7 +220,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
             this.BtnShow.Location = new System.Drawing.Point(8, 12);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(125, 35);
@@ -353,7 +353,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveExpense.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnSaveExpense.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnSaveExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSaveExpense.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnSaveExpense.ForeColor = System.Drawing.Color.White;
             this.BtnSaveExpense.Location = new System.Drawing.Point(8, 48);
             this.BtnSaveExpense.Name = "BtnSaveExpense";
             this.BtnSaveExpense.Size = new System.Drawing.Size(125, 35);

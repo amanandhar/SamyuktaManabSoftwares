@@ -131,9 +131,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowTransaction.ForeColor = System.Drawing.Color.White;
             this.BtnShowTransaction.Location = new System.Drawing.Point(512, 10);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(135, 35);
@@ -147,10 +146,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShow.BackgroundImage")));
             this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
             this.BtnShow.Location = new System.Drawing.Point(358, 46);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(70, 28);
+            this.BtnShow.Size = new System.Drawing.Size(70, 29);
             this.BtnShow.TabIndex = 6;
             this.BtnShow.Text = "Search";
             this.BtnShow.UseVisualStyleBackColor = true;

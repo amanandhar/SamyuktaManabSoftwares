@@ -78,7 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Red;
-            this.button2.Location = new System.Drawing.Point(960, 199);
+            this.button2.Location = new System.Drawing.Point(960, 201);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 25);
             this.button2.TabIndex = 51;
@@ -202,7 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.richTextBox1.Location = new System.Drawing.Point(79, 45);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox1.Size = new System.Drawing.Size(318, 28);
+            this.richTextBox1.Size = new System.Drawing.Size(316, 28);
             this.richTextBox1.TabIndex = 34;
             this.richTextBox1.Text = "";
             // 
@@ -223,7 +223,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(79, 15);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(229, 26);
+            this.comboBox1.Size = new System.Drawing.Size(225, 26);
             this.comboBox1.TabIndex = 32;
             // 
             // label5
@@ -256,7 +256,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBalance.Location = new System.Drawing.Point(79, 76);
             this.RichBalance.Name = "RichBalance";
             this.RichBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichBalance.Size = new System.Drawing.Size(229, 28);
+            this.RichBalance.Size = new System.Drawing.Size(225, 28);
             this.RichBalance.TabIndex = 5;
             this.RichBalance.Text = "";
             // 
@@ -281,7 +281,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Location = new System.Drawing.Point(903, 199);
+            this.button1.Location = new System.Drawing.Point(903, 201);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 25);
             this.button1.TabIndex = 50;
@@ -329,7 +329,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Controls.Add(this.BtnUpdate);
-            this.groupBox3.Location = new System.Drawing.Point(890, 233);
+            this.groupBox3.Location = new System.Drawing.Point(890, 240);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(140, 209);
             this.groupBox3.TabIndex = 43;
@@ -409,9 +409,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowTransaction.ForeColor = System.Drawing.Color.White;
-            this.BtnShowTransaction.Location = new System.Drawing.Point(310, 75);
+            this.BtnShowTransaction.Location = new System.Drawing.Point(305, 75);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
-            this.BtnShowTransaction.Size = new System.Drawing.Size(85, 29);
+            this.BtnShowTransaction.Size = new System.Drawing.Size(90, 29);
             this.BtnShowTransaction.TabIndex = 37;
             this.BtnShowTransaction.Text = "Shave";
             this.BtnShowTransaction.UseVisualStyleBackColor = false;
@@ -441,9 +441,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(310, 14);
+            this.button3.Location = new System.Drawing.Point(305, 13);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(85, 29);
+            this.button3.Size = new System.Drawing.Size(90, 29);
             this.button3.TabIndex = 12;
             this.button3.Text = "Show";
             this.button3.UseVisualStyleBackColor = false;

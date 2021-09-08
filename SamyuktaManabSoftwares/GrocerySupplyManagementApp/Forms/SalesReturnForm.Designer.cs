@@ -301,7 +301,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(-6, -1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(692, 35);
+            this.groupBox2.Size = new System.Drawing.Size(692, 34);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             // 
@@ -309,11 +309,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Aqua;
-            this.label3.Location = new System.Drawing.Point(211, 7);
+            this.label3.Location = new System.Drawing.Point(211, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(290, 25);
+            this.label3.Size = new System.Drawing.Size(267, 25);
             this.label3.TabIndex = 0;
             this.label3.Text = "Sales Return Management";
             // 

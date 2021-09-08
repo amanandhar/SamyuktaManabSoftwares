@@ -427,9 +427,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowUnpricedItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowUnpricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowUnpricedItem.ForeColor = System.Drawing.Color.White;
-            this.BtnShowUnpricedItem.Location = new System.Drawing.Point(8, 13);
+            this.BtnShowUnpricedItem.Location = new System.Drawing.Point(8, 14);
             this.BtnShowUnpricedItem.Name = "BtnShowUnpricedItem";
-            this.BtnShowUnpricedItem.Size = new System.Drawing.Size(140, 38);
+            this.BtnShowUnpricedItem.Size = new System.Drawing.Size(140, 36);
             this.BtnShowUnpricedItem.TabIndex = 22;
             this.BtnShowUnpricedItem.Text = "Search Stock";
             this.BtnShowUnpricedItem.UseVisualStyleBackColor = false;
@@ -442,7 +442,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddItemImage.Enabled = false;
             this.BtnAddItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddItemImage.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnAddItemImage.Location = new System.Drawing.Point(8, 250);
+            this.BtnAddItemImage.Location = new System.Drawing.Point(8, 246);
             this.BtnAddItemImage.Name = "BtnAddItemImage";
             this.BtnAddItemImage.Size = new System.Drawing.Size(67, 40);
             this.BtnAddItemImage.TabIndex = 0;
@@ -457,9 +457,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.Enabled = false;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnUpdate.Location = new System.Drawing.Point(8, 168);
+            this.BtnUpdate.Location = new System.Drawing.Point(8, 165);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(140, 38);
+            this.BtnUpdate.Size = new System.Drawing.Size(140, 36);
             this.BtnUpdate.TabIndex = 2;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.UseVisualStyleBackColor = true;
@@ -472,9 +472,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Enabled = false;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.Red;
-            this.BtnEdit.Location = new System.Drawing.Point(8, 129);
+            this.BtnEdit.Location = new System.Drawing.Point(8, 127);
             this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(140, 38);
+            this.BtnEdit.Size = new System.Drawing.Size(140, 36);
             this.BtnEdit.TabIndex = 21;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.UseVisualStyleBackColor = true;
@@ -492,7 +492,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnAddItemImage);
             this.groupBox3.Location = new System.Drawing.Point(872, 58);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(155, 300);
+            this.groupBox3.Size = new System.Drawing.Size(155, 295);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             // 
@@ -503,9 +503,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Enabled = false;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.Red;
-            this.BtnDelete.Location = new System.Drawing.Point(8, 207);
+            this.BtnDelete.Location = new System.Drawing.Point(8, 203);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(140, 38);
+            this.BtnDelete.Size = new System.Drawing.Size(140, 36);
             this.BtnDelete.TabIndex = 44;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.UseVisualStyleBackColor = true;
@@ -518,9 +518,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Enabled = false;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnSave.Location = new System.Drawing.Point(8, 90);
+            this.BtnSave.Location = new System.Drawing.Point(8, 89);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(140, 38);
+            this.BtnSave.Size = new System.Drawing.Size(140, 36);
             this.BtnSave.TabIndex = 23;
             this.BtnSave.Text = "Save";
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -535,7 +535,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.ForeColor = System.Drawing.Color.Cyan;
             this.BtnAdd.Location = new System.Drawing.Point(8, 52);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(140, 38);
+            this.BtnAdd.Size = new System.Drawing.Size(140, 36);
             this.BtnAdd.TabIndex = 22;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.UseVisualStyleBackColor = true;
@@ -548,7 +548,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteItemImage.Enabled = false;
             this.BtnDeleteItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteItemImage.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteItemImage.Location = new System.Drawing.Point(81, 250);
+            this.BtnDeleteItemImage.Location = new System.Drawing.Point(81, 246);
             this.BtnDeleteItemImage.Name = "BtnDeleteItemImage";
             this.BtnDeleteItemImage.Size = new System.Drawing.Size(67, 40);
             this.BtnDeleteItemImage.TabIndex = 21;
