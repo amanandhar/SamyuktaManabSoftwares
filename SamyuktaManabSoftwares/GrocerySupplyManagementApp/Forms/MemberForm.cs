@@ -39,6 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
             Edit,
             Update,
             Delete,
+            Load,
             PopulateMember,
             None
         }
@@ -72,7 +73,8 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
-            EnableFields(false); 
+            EnableFields(Action.None);
+            EnableFields(Action.Load);
             var memberId = RichMemberId.Text;
             var memberTransactionViewList = GetMemberTransactions(memberId);
             LoadMemberTransactions(memberTransactionViewList);
@@ -90,7 +92,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddMember_Click(object sender, System.EventArgs e)
         {
             ClearAllFields();
-            EnableFields(true);
+            EnableFields(Action.None);
+            EnableFields(Action.Add);
             RichMemberId.Text = _memberService.GetNewMemberId();
         }
 
@@ -147,6 +150,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ClearAllFields();
                     var memberTransactionViewList = GetMemberTransactions(member.MemberId);
                     LoadMemberTransactions(memberTransactionViewList);
+                    EnableFields(Action.None);
+                    EnableFields(Action.Save);
                 }
             }
             catch (Exception ex)
@@ -157,7 +162,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            EnableFields(true);
+            EnableFields(Action.None);
+            EnableFields(Action.Edit);
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -211,6 +217,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ClearAllFields();
                     var memberTransactionViewList = GetMemberTransactions(memberId);
                     LoadMemberTransactions(memberTransactionViewList);
+                    EnableFields(Action.None);
+                    EnableFields(Action.Update);
                 }
             }
             catch (Exception ex)
@@ -239,6 +247,8 @@ namespace GrocerySupplyManagementApp.Forms
                                 ClearAllFields();
                                 var memberTransactionViewList = GetMemberTransactions(memberId);
                                 LoadMemberTransactions(memberTransactionViewList);
+                                EnableFields(Action.None);
+                                EnableFields(Action.Delete);
                             }
                         }
                     }
@@ -528,13 +538,67 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.DataSource = source;
         }
 
-        private void EnableFields(bool option = true)
+        private void EnableFields(Action action)
         {
-            RichName.Enabled = option;
-            RichAddress.Enabled = option;
-            RichContactNumber.Enabled = option;
-            RichEmail.Enabled = option;
-            RichAccountNumber.Enabled = option;
+            if(action == Action.Add)
+            {
+                RichMemberId.Enabled = true;
+                RichAccountNumber.Enabled = true;
+                RichName.Enabled = true;
+                RichAddress.Enabled = true;
+                RichEmail.Enabled = true;
+                RichContactNumber.Enabled = true;
+
+                BtnSave.Enabled = true;
+            }
+            else if (action == Action.Save)
+            {
+                BtnAddMember.Enabled = true;
+            }
+            else if (action == Action.Edit)
+            {
+                RichAccountNumber.Enabled = true;
+                RichName.Enabled = true;
+                RichAddress.Enabled = true;
+                RichEmail.Enabled = true;
+                RichContactNumber.Enabled = true;
+
+                BtnUpdate.Enabled = true;
+                BtnDelete.Enabled = true;
+            }
+            else if (action == Action.Update)
+            {
+                BtnAddMember.Enabled = true;
+            }
+            else if (action == Action.Delete)
+            {
+                BtnAddMember.Enabled = true;
+            }
+            else if (action == Action.Load)
+            {
+                BtnAddMember.Enabled = true;
+            }
+            else if(action == Action.PopulateMember)
+            {
+                BtnAddMember.Enabled = true;
+                BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
+            }
+            else
+            {
+                RichMemberId.Enabled = false;
+                RichAccountNumber.Enabled = false;
+                RichName.Enabled = false;
+                RichAddress.Enabled = false;
+                RichEmail.Enabled = false;
+                RichContactNumber.Enabled = false;
+
+                BtnAddMember.Enabled = false;
+                BtnSave.Enabled = false;
+                BtnEdit.Enabled = false;
+                BtnUpdate.Enabled = false;
+                BtnDelete.Enabled = false;
+            }
         }
 
         private void ClearAllFields()
@@ -574,16 +638,12 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboReceipt.Enabled = true;
 
-            EnableFields(false);
+            EnableFields(Action.None);
+            EnableFields(Action.PopulateMember);
             var memberTransactionViewList = GetMemberTransactions(memberId);
             LoadMemberTransactions(memberTransactionViewList);
         }
 
         #endregion
-
-        private void DataGridMemberList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

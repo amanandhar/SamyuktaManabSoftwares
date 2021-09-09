@@ -176,7 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.ClientSize = new System.Drawing.Size(1045, 549);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.BtnStockAdjustment);
@@ -187,8 +187,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.BtnProfitLossForm);
             this.Controls.Add(this.BtnBalanceSheetForm);
             this.Controls.Add(this.BtnShareCapital);
+            this.Location = new System.Drawing.Point(569, 241);
             this.Name = "ReportForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.ReportForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

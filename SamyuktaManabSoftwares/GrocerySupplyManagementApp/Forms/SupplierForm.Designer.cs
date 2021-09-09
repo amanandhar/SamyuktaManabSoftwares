@@ -61,17 +61,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TxtBalance = new System.Windows.Forms.TextBox();
             this.RichSupplierId = new System.Windows.Forms.RichTextBox();
-            this.BtnShowPurchase = new System.Windows.Forms.Button();
             this.TxtBillNo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.BtnPurchase = new System.Windows.Forms.Button();
-            this.BtnPaymentSave = new System.Windows.Forms.Button();
             this.TextBoxDebitCredit = new System.Windows.Forms.TextBox();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.RichEmail = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.RichAddress = new System.Windows.Forms.RichTextBox();
+            this.BtnShowPurchase = new System.Windows.Forms.Button();
+            this.BtnPurchase = new System.Windows.Forms.Button();
+            this.BtnPaymentSave = new System.Windows.Forms.Button();
             this.DataGridSupplierList = new System.Windows.Forms.DataGridView();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
             this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
@@ -92,7 +92,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.Red;
-            this.BtnDelete.Location = new System.Drawing.Point(9, 169);
+            this.BtnDelete.Location = new System.Drawing.Point(9, 177);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(130, 38);
             this.BtnDelete.TabIndex = 6;
@@ -109,7 +109,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnDelete);
             this.groupBox3.Location = new System.Drawing.Point(887, 223);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(145, 215);
+            this.groupBox3.Size = new System.Drawing.Size(145, 225);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
             // 
@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnUpdate.Location = new System.Drawing.Point(8, 130);
+            this.BtnUpdate.Location = new System.Drawing.Point(8, 136);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(130, 38);
             this.BtnUpdate.TabIndex = 11;
@@ -147,7 +147,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnSave.Location = new System.Drawing.Point(8, 52);
+            this.BtnSave.Location = new System.Drawing.Point(8, 54);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(130, 38);
             this.BtnSave.TabIndex = 9;
@@ -161,7 +161,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.Red;
-            this.BtnEdit.Location = new System.Drawing.Point(8, 91);
+            this.BtnEdit.Location = new System.Drawing.Point(8, 95);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(130, 38);
             this.BtnEdit.TabIndex = 8;
@@ -436,25 +436,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichSupplierId.TabIndex = 42;
             this.RichSupplierId.Text = "";
             // 
-            // BtnShowPurchase
-            // 
-            this.BtnShowPurchase.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowPurchase.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowPurchase.BackgroundImage")));
-            this.BtnShowPurchase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnShowPurchase.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnShowPurchase.Enabled = false;
-            this.BtnShowPurchase.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
-            this.BtnShowPurchase.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShowPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowPurchase.ForeColor = System.Drawing.Color.White;
-            this.BtnShowPurchase.Location = new System.Drawing.Point(8, 52);
-            this.BtnShowPurchase.Name = "BtnShowPurchase";
-            this.BtnShowPurchase.Size = new System.Drawing.Size(130, 38);
-            this.BtnShowPurchase.TabIndex = 40;
-            this.BtnShowPurchase.Text = "Show Purchas";
-            this.BtnShowPurchase.UseVisualStyleBackColor = false;
-            this.BtnShowPurchase.Click += new System.EventHandler(this.BtnShowPurchase_Click);
-            // 
             // TxtBillNo
             // 
             this.TxtBillNo.BackColor = System.Drawing.Color.White;
@@ -475,41 +456,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.Size = new System.Drawing.Size(58, 18);
             this.label7.TabIndex = 38;
             this.label7.Text = "Bill No";
-            // 
-            // BtnPurchase
-            // 
-            this.BtnPurchase.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnPurchase.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnPurchase.BackgroundImage")));
-            this.BtnPurchase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnPurchase.Enabled = false;
-            this.BtnPurchase.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
-            this.BtnPurchase.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPurchase.ForeColor = System.Drawing.Color.White;
-            this.BtnPurchase.Location = new System.Drawing.Point(9, 13);
-            this.BtnPurchase.Name = "BtnPurchase";
-            this.BtnPurchase.Size = new System.Drawing.Size(130, 38);
-            this.BtnPurchase.TabIndex = 37;
-            this.BtnPurchase.Text = "Add Purchase";
-            this.BtnPurchase.UseVisualStyleBackColor = false;
-            this.BtnPurchase.Click += new System.EventHandler(this.BtnPurchase_Click);
-            // 
-            // BtnPaymentSave
-            // 
-            this.BtnPaymentSave.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnPaymentSave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnPaymentSave.BackgroundImage")));
-            this.BtnPaymentSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnPaymentSave.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
-            this.BtnPaymentSave.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnPaymentSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPaymentSave.ForeColor = System.Drawing.Color.White;
-            this.BtnPaymentSave.Location = new System.Drawing.Point(9, 91);
-            this.BtnPaymentSave.Name = "BtnPaymentSave";
-            this.BtnPaymentSave.Size = new System.Drawing.Size(130, 38);
-            this.BtnPaymentSave.TabIndex = 36;
-            this.BtnPaymentSave.Text = "Save Payment";
-            this.BtnPaymentSave.UseVisualStyleBackColor = false;
-            this.BtnPaymentSave.Click += new System.EventHandler(this.BtnPaymentSave_Click);
             // 
             // TextBoxDebitCredit
             // 
@@ -574,6 +520,60 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAddress.Size = new System.Drawing.Size(334, 28);
             this.RichAddress.TabIndex = 1;
             this.RichAddress.Text = "";
+            // 
+            // BtnShowPurchase
+            // 
+            this.BtnShowPurchase.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShowPurchase.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowPurchase.BackgroundImage")));
+            this.BtnShowPurchase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnShowPurchase.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnShowPurchase.Enabled = false;
+            this.BtnShowPurchase.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
+            this.BtnShowPurchase.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnShowPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowPurchase.ForeColor = System.Drawing.Color.White;
+            this.BtnShowPurchase.Location = new System.Drawing.Point(8, 54);
+            this.BtnShowPurchase.Name = "BtnShowPurchase";
+            this.BtnShowPurchase.Size = new System.Drawing.Size(130, 38);
+            this.BtnShowPurchase.TabIndex = 40;
+            this.BtnShowPurchase.Text = "Show Purchas";
+            this.BtnShowPurchase.UseVisualStyleBackColor = false;
+            this.BtnShowPurchase.Click += new System.EventHandler(this.BtnShowPurchase_Click);
+            // 
+            // BtnPurchase
+            // 
+            this.BtnPurchase.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnPurchase.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnPurchase.BackgroundImage")));
+            this.BtnPurchase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnPurchase.Enabled = false;
+            this.BtnPurchase.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
+            this.BtnPurchase.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnPurchase.ForeColor = System.Drawing.Color.White;
+            this.BtnPurchase.Location = new System.Drawing.Point(9, 13);
+            this.BtnPurchase.Name = "BtnPurchase";
+            this.BtnPurchase.Size = new System.Drawing.Size(130, 38);
+            this.BtnPurchase.TabIndex = 37;
+            this.BtnPurchase.Text = "Add Purchase";
+            this.BtnPurchase.UseVisualStyleBackColor = false;
+            this.BtnPurchase.Click += new System.EventHandler(this.BtnPurchase_Click);
+            // 
+            // BtnPaymentSave
+            // 
+            this.BtnPaymentSave.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnPaymentSave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnPaymentSave.BackgroundImage")));
+            this.BtnPaymentSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnPaymentSave.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
+            this.BtnPaymentSave.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnPaymentSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnPaymentSave.ForeColor = System.Drawing.Color.White;
+            this.BtnPaymentSave.Location = new System.Drawing.Point(9, 95);
+            this.BtnPaymentSave.Name = "BtnPaymentSave";
+            this.BtnPaymentSave.Size = new System.Drawing.Size(130, 38);
+            this.BtnPaymentSave.TabIndex = 36;
+            this.BtnPaymentSave.Text = "Save Payment";
+            this.BtnPaymentSave.UseVisualStyleBackColor = false;
+            this.BtnPaymentSave.Click += new System.EventHandler(this.BtnPaymentSave_Click);
             // 
             // DataGridSupplierList
             // 
@@ -678,7 +678,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnPaymentSave);
             this.groupBox2.Location = new System.Drawing.Point(887, 44);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(145, 135);
+            this.groupBox2.Size = new System.Drawing.Size(145, 140);
             this.groupBox2.TabIndex = 46;
             this.groupBox2.TabStop = false;
             // 
@@ -687,7 +687,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.ClientSize = new System.Drawing.Size(1045, 549);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.BtnShowTransaction);
             this.Controls.Add(this.groupBox4);
@@ -702,8 +702,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ComboAction);
             this.Controls.Add(this.groupBox1);
+            this.Location = new System.Drawing.Point(569, 241);
             this.Name = "SupplierForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.SupplierForm_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

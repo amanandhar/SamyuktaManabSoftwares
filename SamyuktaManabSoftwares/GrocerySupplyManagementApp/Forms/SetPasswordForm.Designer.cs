@@ -186,8 +186,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
+            this.Location = new System.Drawing.Point(750, 313);
             this.Name = "SetPasswordForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.SetPasswordForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

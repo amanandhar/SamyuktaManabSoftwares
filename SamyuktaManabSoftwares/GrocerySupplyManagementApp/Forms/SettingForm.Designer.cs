@@ -179,7 +179,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.ClientSize = new System.Drawing.Size(1045, 549);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BtnSetup);
             this.Controls.Add(this.button2);
@@ -190,8 +190,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.BtnCompanyInfo);
             this.Controls.Add(this.BtnSetPassword);
             this.Controls.Add(this.button1);
+            this.Location = new System.Drawing.Point(569, 241);
             this.Name = "SettingForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.SettingForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

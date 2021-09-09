@@ -321,7 +321,7 @@
             this.BtnEndOfDayMgmt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.BtnEndOfDayMgmt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEndOfDayMgmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEndOfDayMgmt.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnEndOfDayMgmt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.BtnEndOfDayMgmt.Location = new System.Drawing.Point(15, 539);
             this.BtnEndOfDayMgmt.Name = "BtnEndOfDayMgmt";
             this.BtnEndOfDayMgmt.Size = new System.Drawing.Size(240, 37);

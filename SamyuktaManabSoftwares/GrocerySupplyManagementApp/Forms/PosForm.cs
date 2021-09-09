@@ -725,12 +725,12 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var item = _itemService.GetItem(pricedItem.ItemId);
-                StockFilter filter = new StockFilter
+                StockFilter stockFilter = new StockFilter
                 {
                     ItemCode = item.Code
                 };
 
-                var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter);
+                var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter) - _soldItemService.GetSoldItemTotalQuantity(stockFilter);
                 if(stock < item.Threshold)
                 {
                     DialogResult result = MessageBox.Show("Low stock, add more.",
@@ -748,8 +748,19 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtVolume.Text = pricedItem.Volume.ToString();
 
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
-                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = new List<StockView>();
+                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList())
+                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
+                        .ToList();
+                }
+                else
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                }
+
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();

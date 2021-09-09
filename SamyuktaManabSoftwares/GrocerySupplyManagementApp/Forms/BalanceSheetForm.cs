@@ -3,6 +3,7 @@ using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -77,8 +78,20 @@ namespace GrocerySupplyManagementApp.Forms
                 var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
                 var bankAccount = _bankTransactionService.GetTotalBalance();
 
-                var stocks = _stockService.GetStocks(new StockFilter()).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var stockFilter = new StockFilter();
+                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = new List<StockView>();
+                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList())
+                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
+                        .ToList();
+                }
+                else
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                }
+
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();

@@ -78,8 +78,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(534, 351);
             this.Controls.Add(this.DataGridEmployeeList);
+            this.Location = new System.Drawing.Point(825, 313);
             this.Name = "EmployeeListForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.EmployeeListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridEmployeeList)).EndInit();
             this.ResumeLayout(false);

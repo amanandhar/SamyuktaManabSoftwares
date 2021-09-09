@@ -5,6 +5,7 @@ using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
@@ -444,15 +445,26 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemName.Text = item.Name;
                 TxtItemBrand.Text = item.Brand;
                 ComboItemUnit.Text = item.Unit;
-                StockFilter filter = new StockFilter
+                StockFilter stockFilter = new StockFilter
                 {
                     ItemCode = item.Code
                 };
 
-                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
+                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter) - _soldItemService.GetSoldItemTotalQuantity(stockFilter)).ToString();
 
-                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = new List<StockView>();
+                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList())
+                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
+                        .ToList();
+                }
+                else
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                }
+
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();
@@ -509,15 +521,26 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemBrand.Text = item.Brand;
                 ComboItemUnit.Text = item.Unit;
                 ComboCustomItemUnit.Text = item.Unit;
-                StockFilter filter = new StockFilter
+                StockFilter stockFilter = new StockFilter
                 {
                     ItemCode = item.Code
                 };
 
-                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(filter) - _soldItemService.GetSoldItemTotalQuantity(filter)).ToString();
+                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter) - _soldItemService.GetSoldItemTotalQuantity(stockFilter)).ToString();
 
-                var stocks = _stockService.GetStocks(filter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = new List<StockView>();
+                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList())
+                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
+                        .ToList();
+                }
+                else
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                }
+
                 var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                     .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                     .ToList();

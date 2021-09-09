@@ -427,7 +427,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 63);
+            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 65);
             this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
             this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 45);
             this.BtnDeleteTransaction.TabIndex = 1;
@@ -517,13 +517,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1044, 549);
+            this.ClientSize = new System.Drawing.Size(1045, 549);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.GroupFilter);
             this.Controls.Add(this.DataGridTransactionList);
             this.Controls.Add(this.groupBox2);
+            this.Location = new System.Drawing.Point(569, 241);
             this.Name = "TransactionForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.TransactionForm_Load);
             this.GroupFilter.ResumeLayout(false);
             this.GroupFilter.PerformLayout();

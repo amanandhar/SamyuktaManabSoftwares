@@ -67,15 +67,15 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND t.[ItemCode] = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
-            {
-                query += "AND t.[EndOfDay] >= @DateFrom ";
-            }
+            //if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
+            //{
+            //    query += "AND t.[EndOfDay] >= @DateFrom ";
+            //}
 
-            if(!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
-            {
-                query += "AND t.[EndOfDay] <= @DateTo ";
-            }
+            //if(!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            //{
+            //    query += "AND t.[EndOfDay] <= @DateTo ";
+            //}
 
             query += "ORDER BY t.[ItemCode], t.[AddedDate]";
 
