@@ -51,8 +51,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.DataGridUnpricedItemList);
+            this.Location = new System.Drawing.Point(825, 312);
             this.Name = "UnpricedItemListForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.UnpricedItemListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridUnpricedItemList)).EndInit();
             this.ResumeLayout(false);

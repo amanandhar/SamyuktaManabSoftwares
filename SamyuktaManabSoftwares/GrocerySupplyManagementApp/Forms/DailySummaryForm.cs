@@ -83,17 +83,17 @@ namespace GrocerySupplyManagementApp.Forms
             var paymentCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CHEQUE);
             var expenseCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CHEQUE);
 
-            RichOpeningBalanceCash.Text = openingBalanceCash.ToString();
-            RichOpeningBalanceCredit.Text = openingBalanceCredit.ToString();
-            RichSalesCash.Text = salesCash.ToString();
-            RichSalesCredit.Text = salesCredit.ToString();
-            RichReceiptCash.Text = receiptCash.ToString();
-            RichReceiptCheque.Text = receiptCheque.ToString();
-            RichPaymentCash.Text = (paymentCash + expenseCash + transferCash).ToString();
-            RichPaymentCheque.Text = (paymentCheque + expenseCheque).ToString();
+            TxtOpeningCashBalance.Text = openingBalanceCash.ToString();
+            TxtOpeningCreditBalance.Text = openingBalanceCredit.ToString();
+            TxtCashSales.Text = salesCash.ToString();
+            TxtCreditSales.Text = salesCredit.ToString();
+            TxtCashReceipt.Text = receiptCash.ToString();
+            TxtChequeReceipt.Text = receiptCheque.ToString();
+            TxtCashPayment.Text = (paymentCash + expenseCash + transferCash).ToString();
+            TxtChequePayment.Text = (paymentCheque + expenseCheque).ToString();
 
-            RichBalanceCash.Text = (openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash)).ToString();
-            RichBalanceCredit.Text = (openingBalanceCredit + salesCredit - (receiptCash + receiptCheque)).ToString();
+            TxtCashBalance.Text = (openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash)).ToString();
+            TxtCreditBalance.Text = (openingBalanceCredit + salesCredit - (receiptCash + receiptCheque)).ToString();
 
             var dailySummaryViewList = new List<DailySummaryView>() {
                 new DailySummaryView() { Description = "Sales Cash", Debit = 0.00M, Credit = salesCash },

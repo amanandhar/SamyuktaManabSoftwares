@@ -132,11 +132,11 @@ namespace GrocerySupplyManagementApp.Forms
                 var member = new Member
                 {
                     MemberId = RichMemberId.Text,
-                    Name = RichName.Text,
-                    Address = RichAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                    Email = RichEmail.Text,
-                    AccountNo = RichAccountNumber.Text,
+                    Name = TxtName.Text,
+                    Address = TxtAddress.Text,
+                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                    Email = TxtEmail.Text,
+                    AccountNo = TxtAccountNumber.Text,
                     ImagePath = destinationFilePath,
                     AddedDate = date,
                     UpdatedDate = date
@@ -201,11 +201,11 @@ namespace GrocerySupplyManagementApp.Forms
                 var member = new Member
                 {
                     MemberId = RichMemberId.Text,
-                    Name = RichName.Text,
-                    Address = RichAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                    Email = RichEmail.Text,
-                    AccountNo = RichAccountNumber.Text,
+                    Name = TxtName.Text,
+                    Address = TxtAddress.Text,
+                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                    Email = TxtEmail.Text,
+                    AccountNo = TxtAccountNumber.Text,
                     ImagePath = destinationFilePath,
                     UpdatedDate = DateTime.Now
                 };
@@ -317,7 +317,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = '1',
                         Debit = Convert.ToDecimal(RichAmount.Text),
                         Credit = 0.0m,
-                        Narration = RichMemberId.Text + " - " + RichName.Text,
+                        Narration = RichMemberId.Text + " - " + TxtName.Text,
                         AddedDate = date,
                         UpdatedDate = date
                     };
@@ -543,11 +543,11 @@ namespace GrocerySupplyManagementApp.Forms
             if(action == Action.Add)
             {
                 RichMemberId.Enabled = true;
-                RichAccountNumber.Enabled = true;
-                RichName.Enabled = true;
-                RichAddress.Enabled = true;
-                RichEmail.Enabled = true;
-                RichContactNumber.Enabled = true;
+                TxtAccountNumber.Enabled = true;
+                TxtName.Enabled = true;
+                TxtAddress.Enabled = true;
+                TxtEmail.Enabled = true;
+                TxtContactNumber.Enabled = true;
 
                 BtnSave.Enabled = true;
             }
@@ -557,11 +557,11 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
-                RichAccountNumber.Enabled = true;
-                RichName.Enabled = true;
-                RichAddress.Enabled = true;
-                RichEmail.Enabled = true;
-                RichContactNumber.Enabled = true;
+                TxtAccountNumber.Enabled = true;
+                TxtName.Enabled = true;
+                TxtAddress.Enabled = true;
+                TxtEmail.Enabled = true;
+                TxtContactNumber.Enabled = true;
 
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -587,11 +587,11 @@ namespace GrocerySupplyManagementApp.Forms
             else
             {
                 RichMemberId.Enabled = false;
-                RichAccountNumber.Enabled = false;
-                RichName.Enabled = false;
-                RichAddress.Enabled = false;
-                RichEmail.Enabled = false;
-                RichContactNumber.Enabled = false;
+                TxtAccountNumber.Enabled = false;
+                TxtName.Enabled = false;
+                TxtAddress.Enabled = false;
+                TxtEmail.Enabled = false;
+                TxtContactNumber.Enabled = false;
 
                 BtnAddMember.Enabled = false;
                 BtnSave.Enabled = false;
@@ -604,11 +604,11 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllFields()
         {
             RichMemberId.Clear();
-            RichAccountNumber.Clear();
-            RichName.Clear();
-            RichAddress.Clear();
-            RichContactNumber.Clear();
-            RichEmail.Clear();
+            TxtAccountNumber.Clear();
+            TxtName.Clear();
+            TxtAddress.Clear();
+            TxtContactNumber.Clear();
+            TxtEmail.Clear();
             TxtBalance.Clear();
             ComboReceipt.Text = string.Empty;
             ComboBank.Text = string.Empty;
@@ -621,11 +621,11 @@ namespace GrocerySupplyManagementApp.Forms
             var member = _memberService.GetMember(memberId);
 
             RichMemberId.Text = member.MemberId;
-            RichName.Text = member.Name;
-            RichAddress.Text = member.Address;
-            RichContactNumber.Text = member.ContactNo.ToString();
-            RichEmail.Text = member.Email;
-            RichAccountNumber.Text = member.AccountNo;
+            TxtName.Text = member.Name;
+            TxtAddress.Text = member.Address;
+            TxtContactNumber.Text = member.ContactNo.ToString();
+            TxtEmail.Text = member.Email;
+            TxtAccountNumber.Text = member.AccountNo;
 
             if (File.Exists(member.ImagePath))
             {

@@ -419,21 +419,33 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[BillNo], [DueAmount], [ReceivedAmount], " +
                 "(SELECT SUM(ISNULL(b.[DueAmount], 0) - ISNULL(b.[ReceivedAmount], 0)) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "WHERE b.[AddedDate] <= a.[AddedDate]) AS Balance " +
+                "WHERE 1 = 1 " +
+                "AND b.[AddedDate] <= a.[AddedDate] ";
+            if (!string.IsNullOrWhiteSpace(supplierFilter.SupplierId))
+            {
+                query += "AND [SupplierId] = @SupplierId ";
+            }
+
+            query += ") AS Balance " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
                 "WHERE 1 = 1 ";
 
-            if (!string.IsNullOrEmpty(supplierFilter?.Action))
+            if(!string.IsNullOrWhiteSpace(supplierFilter.SupplierId))
+            {
+                query += "AND [SupplierId] = @SupplierId ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(supplierFilter?.Action))
             {
                 query += "AND [Action] = @Action ";
             }
 
-            if (!string.IsNullOrEmpty(supplierFilter?.DateFrom))
+            if (!string.IsNullOrWhiteSpace(supplierFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
             }
 
-            if (!string.IsNullOrEmpty(supplierFilter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(supplierFilter?.DateTo))
             {
                 query += "AND [EndOfDay] <= @DateTo ";
             }
@@ -447,6 +459,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierFilter.SupplierId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateFrom", ((object)supplierFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)supplierFilter.DateTo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)supplierFilter.Action) ?? DBNull.Value);
@@ -508,7 +521,6 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " AND [IncomeExpense] = @IncomeExpense ";
             }
-       
 
             query += "ORDER BY [Id] ";
 

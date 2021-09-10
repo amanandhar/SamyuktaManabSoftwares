@@ -51,8 +51,6 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
             EnableFields(false);
-            var supplierTransactionViewList = GetSupplierTransaction();
-            LoadSupplierTransaction(supplierTransactionViewList);
         }
         #endregion
 
@@ -267,6 +265,10 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
             var supplierFilter = new SupplierFilter();
+            if(!string.IsNullOrWhiteSpace(RichSupplierId.Text))
+            {
+                supplierFilter.SupplierId = RichSupplierId.Text;
+            }
 
             var dateFrom = MaskEndOfDayFrom.Text;
             var dateTo = MaskEndOfDayTo.Text;
@@ -283,7 +285,9 @@ namespace GrocerySupplyManagementApp.Forms
             supplierFilter.Action = ComboAction.Text;
 
             var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
-            TxtAmount.Text = supplierTransactionViewList.Sum(x => x.Balance).ToString();
+            var balance = supplierTransactionViewList.Sum(x => x.Balance);
+            TxtTotalAmount.Text = balance.ToString();
+            TxtBalance.Text = balance.ToString();
             LoadSupplierTransaction(supplierTransactionViewList);
         }
 
@@ -428,6 +432,9 @@ namespace GrocerySupplyManagementApp.Forms
             RichAddress.Text = supplier.Address;
             RichContactNumber.Text = supplier.ContactNo.ToString();
             RichEmail.Text = supplier.Email;
+            
+            TxtTotalAmount.Clear();
+            ComboAction.Text = string.Empty;
 
             BtnPurchase.Enabled = true;
             BtnShowPurchase.Enabled = true;
@@ -454,10 +461,5 @@ namespace GrocerySupplyManagementApp.Forms
             return RichSupplierId.Text;
         }
         #endregion
-
-        private void DataGridSupplierList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

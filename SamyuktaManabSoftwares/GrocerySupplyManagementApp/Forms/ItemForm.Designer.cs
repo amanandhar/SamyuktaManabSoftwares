@@ -369,12 +369,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1045, 549);
+            this.ClientSize = new System.Drawing.Size(1045, 551);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.DataGridItemList);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Location = new System.Drawing.Point(569, 241);
+            this.Location = new System.Drawing.Point(569, 240);
             this.Name = "ItemForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.AddNewCodeForm_Load);
