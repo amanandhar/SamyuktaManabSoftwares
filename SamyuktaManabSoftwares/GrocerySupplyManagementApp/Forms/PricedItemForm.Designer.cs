@@ -206,13 +206,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShowPricedItem
             // 
-            this.BtnShowPricedItem.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowPricedItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowPricedItem.BackgroundImage")));
+            this.BtnShowPricedItem.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnShowPricedItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShowPricedItem.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowPricedItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowPricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowPricedItem.ForeColor = System.Drawing.Color.White;
+            this.BtnShowPricedItem.ForeColor = System.Drawing.Color.Cyan;
             this.BtnShowPricedItem.Location = new System.Drawing.Point(307, 40);
             this.BtnShowPricedItem.Name = "BtnShowPricedItem";
             this.BtnShowPricedItem.Size = new System.Drawing.Size(74, 32);
@@ -418,16 +417,15 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShowUnpricedItem
             // 
-            this.BtnShowUnpricedItem.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowUnpricedItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowUnpricedItem.BackgroundImage")));
+            this.BtnShowUnpricedItem.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnShowUnpricedItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShowUnpricedItem.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnShowUnpricedItem.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
             this.BtnShowUnpricedItem.FlatAppearance.BorderSize = 2;
             this.BtnShowUnpricedItem.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowUnpricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowUnpricedItem.ForeColor = System.Drawing.Color.White;
-            this.BtnShowUnpricedItem.Location = new System.Drawing.Point(12, 12);
+            this.BtnShowUnpricedItem.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShowUnpricedItem.Location = new System.Drawing.Point(12, 13);
             this.BtnShowUnpricedItem.Name = "BtnShowUnpricedItem";
             this.BtnShowUnpricedItem.Size = new System.Drawing.Size(130, 38);
             this.BtnShowUnpricedItem.TabIndex = 22;
@@ -437,47 +435,47 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnAddItemImage
             // 
-            this.BtnAddItemImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnAddItemImage.BackgroundImage")));
+            this.BtnAddItemImage.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnAddItemImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnAddItemImage.Enabled = false;
             this.BtnAddItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddItemImage.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnAddItemImage.Location = new System.Drawing.Point(12, 256);
+            this.BtnAddItemImage.Location = new System.Drawing.Point(12, 254);
             this.BtnAddItemImage.Name = "BtnAddItemImage";
             this.BtnAddItemImage.Size = new System.Drawing.Size(63, 40);
             this.BtnAddItemImage.TabIndex = 0;
             this.BtnAddItemImage.Text = "Add Image";
-            this.BtnAddItemImage.UseVisualStyleBackColor = true;
+            this.BtnAddItemImage.UseVisualStyleBackColor = false;
             this.BtnAddItemImage.Click += new System.EventHandler(this.BtnAddItemImage_Click);
             // 
             // BtnUpdate
             // 
-            this.BtnUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnUpdate.BackgroundImage")));
+            this.BtnUpdate.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnUpdate.Enabled = false;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnUpdate.Location = new System.Drawing.Point(12, 172);
+            this.BtnUpdate.Location = new System.Drawing.Point(12, 169);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(130, 38);
             this.BtnUpdate.TabIndex = 2;
             this.BtnUpdate.Text = "Update";
-            this.BtnUpdate.UseVisualStyleBackColor = true;
+            this.BtnUpdate.UseVisualStyleBackColor = false;
             this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // BtnEdit
             // 
-            this.BtnEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnEdit.BackgroundImage")));
+            this.BtnEdit.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnEdit.Enabled = false;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEdit.ForeColor = System.Drawing.Color.Red;
-            this.BtnEdit.Location = new System.Drawing.Point(12, 132);
+            this.BtnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.BtnEdit.Location = new System.Drawing.Point(12, 130);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(130, 38);
             this.BtnEdit.TabIndex = 21;
             this.BtnEdit.Text = "Edit";
-            this.BtnEdit.UseVisualStyleBackColor = true;
+            this.BtnEdit.UseVisualStyleBackColor = false;
             this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
             // groupBox3
@@ -498,37 +496,37 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnDelete
             // 
-            this.BtnDelete.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnDelete.BackgroundImage")));
+            this.BtnDelete.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDelete.Enabled = false;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDelete.ForeColor = System.Drawing.Color.Red;
-            this.BtnDelete.Location = new System.Drawing.Point(12, 212);
+            this.BtnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.BtnDelete.Location = new System.Drawing.Point(12, 208);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(130, 38);
             this.BtnDelete.TabIndex = 44;
             this.BtnDelete.Text = "Delete";
-            this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.UseVisualStyleBackColor = false;
             this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // BtnSave
             // 
-            this.BtnSave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnSave.BackgroundImage")));
+            this.BtnSave.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSave.Enabled = false;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnSave.Location = new System.Drawing.Point(12, 92);
+            this.BtnSave.Location = new System.Drawing.Point(12, 91);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(130, 38);
             this.BtnSave.TabIndex = 23;
             this.BtnSave.Text = "Save";
-            this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.UseVisualStyleBackColor = false;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnAdd
             // 
-            this.BtnAdd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnAdd.BackgroundImage")));
+            this.BtnAdd.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnAdd.Enabled = false;
             this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -538,22 +536,22 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.Size = new System.Drawing.Size(130, 38);
             this.BtnAdd.TabIndex = 22;
             this.BtnAdd.Text = "Add";
-            this.BtnAdd.UseVisualStyleBackColor = true;
+            this.BtnAdd.UseVisualStyleBackColor = false;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAddNew_Click);
             // 
             // BtnDeleteItemImage
             // 
-            this.BtnDeleteItemImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnDeleteItemImage.BackgroundImage")));
+            this.BtnDeleteItemImage.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnDeleteItemImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDeleteItemImage.Enabled = false;
             this.BtnDeleteItemImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteItemImage.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteItemImage.Location = new System.Drawing.Point(79, 256);
+            this.BtnDeleteItemImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.BtnDeleteItemImage.Location = new System.Drawing.Point(79, 254);
             this.BtnDeleteItemImage.Name = "BtnDeleteItemImage";
             this.BtnDeleteItemImage.Size = new System.Drawing.Size(63, 40);
             this.BtnDeleteItemImage.TabIndex = 21;
             this.BtnDeleteItemImage.Text = "Delete Image";
-            this.BtnDeleteItemImage.UseVisualStyleBackColor = true;
+            this.BtnDeleteItemImage.UseVisualStyleBackColor = false;
             this.BtnDeleteItemImage.Click += new System.EventHandler(this.BtnDeleteItemImage_Click);
             // 
             // OpenItemImageDialog

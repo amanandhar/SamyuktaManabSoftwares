@@ -47,6 +47,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.TxtCreditBalance = new System.Windows.Forms.TextBox();
             this.TxtCashBalance = new System.Windows.Forms.TextBox();
             this.TxtChequePayment = new System.Windows.Forms.TextBox();
@@ -60,11 +61,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.DataGridSummaryList = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -95,14 +95,13 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnDailyTransaction
             // 
-            this.BtnDailyTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnDailyTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnDailyTransaction.BackgroundImage")));
+            this.BtnDailyTransaction.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnDailyTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDailyTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnDailyTransaction.FlatAppearance.BorderSize = 2;
             this.BtnDailyTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnDailyTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDailyTransaction.ForeColor = System.Drawing.Color.Transparent;
+            this.BtnDailyTransaction.ForeColor = System.Drawing.Color.Cyan;
             this.BtnDailyTransaction.Location = new System.Drawing.Point(836, 16);
             this.BtnDailyTransaction.Name = "BtnDailyTransaction";
             this.BtnDailyTransaction.Size = new System.Drawing.Size(145, 40);
@@ -113,14 +112,13 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShow
             // 
-            this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShow.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShow.BackgroundImage")));
+            this.BtnShow.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShow.FlatAppearance.BorderSize = 2;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
             this.BtnShow.Location = new System.Drawing.Point(719, 16);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(115, 40);
@@ -257,6 +255,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.BlueViolet;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.Color.Cyan;
+            this.textBox1.Location = new System.Drawing.Point(0, 7);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(375, 26);
+            this.textBox1.TabIndex = 31;
+            this.textBox1.Text = "           Cash & Credit Balance In Hand";
+            // 
             // TxtCreditBalance
             // 
             this.TxtCreditBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -371,6 +380,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox4
             // 
+            this.groupBox4.BackColor = System.Drawing.Color.BlueViolet;
             this.groupBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox4.BackgroundImage")));
             this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBox4.Controls.Add(this.label14);
@@ -380,6 +390,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Size = new System.Drawing.Size(1050, 30);
             this.groupBox4.TabIndex = 20;
             this.groupBox4.TabStop = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(436, 8);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(187, 20);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Daily Summery Report";
             // 
             // DataGridSummaryList
             // 
@@ -419,6 +440,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.BlueViolet;
             this.groupBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox2.BackgroundImage")));
             this.groupBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBox2.Controls.Add(this.label12);
@@ -439,28 +461,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label12.Size = new System.Drawing.Size(385, 31);
             this.label12.TabIndex = 0;
             this.label12.Text = "Daily Summery Management";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(436, 8);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(187, 20);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "Daily Summery Report";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.BlueViolet;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox1.Location = new System.Drawing.Point(0, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(375, 26);
-            this.textBox1.TabIndex = 31;
-            this.textBox1.Text = "           Cash & Credit Balance In Hand";
             // 
             // SummaryForm
             // 

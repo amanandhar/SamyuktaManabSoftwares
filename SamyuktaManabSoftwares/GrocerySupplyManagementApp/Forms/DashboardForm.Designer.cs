@@ -307,7 +307,7 @@
             this.groupBox1.Controls.Add(this.BtnSummaryMgmt);
             this.groupBox1.Controls.Add(this.BtnSupplierMgmt);
             this.groupBox1.Controls.Add(this.BtnItemMgmt);
-            this.groupBox1.Location = new System.Drawing.Point(8, 54);
+            this.groupBox1.Location = new System.Drawing.Point(8, 55);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 588);
             this.groupBox1.TabIndex = 0;
@@ -424,7 +424,7 @@
             this.groupBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox3.BackgroundImage")));
             this.groupBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Location = new System.Drawing.Point(286, 54);
+            this.groupBox3.Location = new System.Drawing.Point(286, 55);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(1061, 588);
             this.groupBox3.TabIndex = 2;

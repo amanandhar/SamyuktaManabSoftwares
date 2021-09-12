@@ -45,17 +45,17 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE}).ToList().Sum(x => x.Amount);
+                var totalDeliveryChargeIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE}).ToList().Sum(x => x.Amount);
                 var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Amount);
                 var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Amount);
                 var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Amount);
-                var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
+                var totalIncome = totalDeliveryChargeIncome + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
+                var totalDeliveryChargeExpense = _userTransactionService.GetTotalExpense(Constants.DELIVERY_CHARGE);
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
                 var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);
-                var totalLoanFeeInterest = _userTransactionService.GetTotalExpense(Constants.LOAN_FEE_INTEREST);
                 var totalMiscellaneous = _userTransactionService.GetTotalExpense(Constants.MISCELLANEOUS);
                 var totalOfficeRent = _userTransactionService.GetTotalExpense(Constants.OFFICE_RENT);
                 var totalRepairMaintenance = _userTransactionService.GetTotalExpense(Constants.REPAIR_MAINTENANCE);
@@ -63,8 +63,8 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalStaffAllowance = _userTransactionService.GetTotalExpense(Constants.STAFF_ALLOWANCE);
                 var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
                 var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
-                var totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
-                    + totalLoanFeeInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
+                var totalExpense = totalAsset + totalDeliveryChargeExpense + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                    + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
                     + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 
                 var shareCapital = _bankTransactionService.GetTotalDeposit(Constants.SHARE_CAPITAL);

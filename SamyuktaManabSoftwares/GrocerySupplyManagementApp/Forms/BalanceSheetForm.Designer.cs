@@ -120,18 +120,17 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShow
             // 
-            this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShow.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShow.BackgroundImage")));
+            this.BtnShow.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShow.FlatAppearance.BorderSize = 2;
             this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(16, 14);
+            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
+            this.BtnShow.Location = new System.Drawing.Point(16, 13);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 38);
+            this.BtnShow.Size = new System.Drawing.Size(125, 40);
             this.BtnShow.TabIndex = 0;
             this.BtnShow.Text = "Show";
             this.BtnShow.UseVisualStyleBackColor = false;

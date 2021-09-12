@@ -1024,6 +1024,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE 1 = 1 " +
                     "AND [EndOfDay] < @endOfDay " +
                     "AND [Action] = @Action " +
+                    "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
                     "( " +
                     "SELECT [Id] " +

@@ -29,10 +29,10 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionForm));
             this.GroupFilter = new System.Windows.Forms.GroupBox();
             this.RadioService = new System.Windows.Forms.RadioButton();
             this.ComboService = new System.Windows.Forms.ComboBox();
@@ -419,17 +419,16 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnDeleteTransaction
             // 
-            this.BtnDeleteTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnDeleteTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnDeleteTransaction.BackgroundImage")));
+            this.BtnDeleteTransaction.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnDeleteTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnDeleteTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnDeleteTransaction.FlatAppearance.BorderSize = 2;
             this.BtnDeleteTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.BtnDeleteTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 65);
+            this.BtnDeleteTransaction.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.BtnDeleteTransaction.Location = new System.Drawing.Point(10, 64);
             this.BtnDeleteTransaction.Name = "BtnDeleteTransaction";
-            this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 45);
+            this.BtnDeleteTransaction.Size = new System.Drawing.Size(130, 46);
             this.BtnDeleteTransaction.TabIndex = 1;
             this.BtnDeleteTransaction.Text = "Delete Transaction";
             this.BtnDeleteTransaction.UseVisualStyleBackColor = false;
@@ -437,17 +436,16 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShowTransaction
             // 
-            this.BtnShowTransaction.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShowTransaction.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnShowTransaction.BackgroundImage")));
+            this.BtnShowTransaction.BackColor = System.Drawing.Color.BlueViolet;
             this.BtnShowTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnShowTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
             this.BtnShowTransaction.FlatAppearance.BorderSize = 2;
             this.BtnShowTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.Color.White;
+            this.BtnShowTransaction.ForeColor = System.Drawing.Color.Cyan;
             this.BtnShowTransaction.Location = new System.Drawing.Point(10, 17);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
-            this.BtnShowTransaction.Size = new System.Drawing.Size(130, 45);
+            this.BtnShowTransaction.Size = new System.Drawing.Size(130, 46);
             this.BtnShowTransaction.TabIndex = 0;
             this.BtnShowTransaction.Text = "Show Transaction";
             this.BtnShowTransaction.UseVisualStyleBackColor = false;

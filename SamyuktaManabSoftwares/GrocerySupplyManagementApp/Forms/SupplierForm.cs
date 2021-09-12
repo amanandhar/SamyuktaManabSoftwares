@@ -71,7 +71,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 if (action.ToLower() == Constants.PURCHASE.ToLower())
                 {
-                    var supplierId = RichSupplierId.Text;
+                    var supplierId = TxtSupplierId.Text;
                     var billNo = selectedRow.Cells["BillNo"].Value.ToString();
                     PurchaseForm purchaseForm = new PurchaseForm(_itemService, _purchasedItemService, supplierId, billNo);
                     purchaseForm.Show();
@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ClearAllFields();
             EnableFields(true);
-            RichSupplierId.Text = _supplierService.GetNewSupplierId();
+            TxtSupplierId.Text = _supplierService.GetNewSupplierId();
         }
         
         private void BtnSave_Click(object sender, System.EventArgs e)
@@ -99,12 +99,12 @@ namespace GrocerySupplyManagementApp.Forms
                 var date = DateTime.Now;
                 var supplier = new Supplier
                 {
-                    SupplierId = RichSupplierId.Text,
-                    Name = RichSupplierName.Text,
-                    Address = RichAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                    Email = RichEmail.Text,
-                    Owner = RichOwner.Text,
+                    SupplierId = TxtSupplierId.Text,
+                    Name = TxtSupplierName.Text,
+                    Address = TxtAddress.Text,
+                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                    Email = TxtEmail.Text,
+                    Owner = TxtOwner.Text,
                     AddedDate = date,
                     UpdatedDate = date
                 };
@@ -129,21 +129,21 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdate_Click(object sender, System.EventArgs e)
         {
-            var supplierId = RichSupplierId.Text;
+            var supplierId = TxtSupplierId.Text;
             try
             {
                 var supplier = _supplierService.UpdateSupplier(supplierId, new Supplier
                 {
-                    SupplierId = RichSupplierId.Text,
-                    Name = RichSupplierName.Text,
-                    Owner = RichOwner.Text,
-                    Address = RichAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                    Email = RichEmail.Text,
+                    SupplierId = TxtSupplierId.Text,
+                    Name = TxtSupplierName.Text,
+                    Owner = TxtOwner.Text,
+                    Address = TxtAddress.Text,
+                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                    Email = TxtEmail.Text,
                     UpdatedDate = DateTime.Now
                 }); 
 
-                DialogResult result = MessageBox.Show(RichSupplierName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -158,7 +158,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelete_Click(object sender, System.EventArgs e)
         {
-            var supplierName = RichSupplierName.Text;
+            var supplierName = TxtSupplierName.Text;
             _supplierService.DeleteSupplier(supplierName);
 
             DialogResult result = MessageBox.Show(supplierName + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
@@ -178,7 +178,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EndOfDay = _endOfDay,
                     BillNo = TxtBillNo.Text,
-                    SupplierId = RichSupplierId.Text,
+                    SupplierId = TxtSupplierId.Text,
                     Action = Constants.PAYMENT,
                     ActionType = ComboPayment.Text,
                     Bank = ComboBank.Text,
@@ -209,7 +209,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = '0',
                         Debit = 0.0m,
                         Credit = Convert.ToDecimal(RichAmount.Text),
-                        Narration = RichSupplierId.Text + " - " + RichSupplierName.Text,
+                        Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
                         AddedDate = date,
                         UpdatedDate = date
                     };
@@ -239,7 +239,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DataGridSupplierList.SelectedRows.Count == 1)
                 {
-                    var supplierName = RichSupplierName.Text;
+                    var supplierName = TxtSupplierName.Text;
                     var id = Convert.ToInt64(DataGridSupplierList.SelectedCells[0].Value.ToString());
                     var particulars = DataGridSupplierList.SelectedCells[2].Value.ToString();
                     if (particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
@@ -265,9 +265,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
             var supplierFilter = new SupplierFilter();
-            if(!string.IsNullOrWhiteSpace(RichSupplierId.Text))
+            if(!string.IsNullOrWhiteSpace(TxtSupplierId.Text))
             {
-                supplierFilter.SupplierId = RichSupplierId.Text;
+                supplierFilter.SupplierId = TxtSupplierId.Text;
             }
 
             var dateFrom = MaskEndOfDayFrom.Text;
@@ -377,7 +377,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private List<SupplierTransactionView> GetSupplierTransaction()
         {
-            var balance = _userTransactionService.GetSupplierTotalBalance(RichSupplierId.Text);
+            var balance = _userTransactionService.GetSupplierTotalBalance(TxtSupplierId.Text);
             TxtBalance.Text = decimal.Negate(balance).ToString();
             if (balance < 0)
             {
@@ -388,7 +388,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TextBoxDebitCredit.Text = "Clear";
             }
 
-            return _userTransactionService.GetSupplierTransactions(RichSupplierId.Text).ToList();
+            return _userTransactionService.GetSupplierTransactions(TxtSupplierId.Text).ToList();
         }
 
         private List<SupplierTransactionView> GetSupplierTransaction(SupplierFilter supplierFilter)
@@ -405,33 +405,33 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(bool option = true)
         {
-            RichSupplierName.Enabled = option;
-            RichOwner.Enabled = option;
-            RichAddress.Enabled = option;
-            RichContactNumber.Enabled = option;
-            RichEmail.Enabled = option;
+            TxtSupplierName.Enabled = option;
+            TxtOwner.Enabled = option;
+            TxtAddress.Enabled = option;
+            TxtContactNumber.Enabled = option;
+            TxtEmail.Enabled = option;
         }
 
         private void ClearAllFields()
         {
-            RichSupplierId.Clear();
-            RichSupplierName.Clear();
-            RichOwner.Clear();
-            RichAddress.Clear();
-            RichContactNumber.Clear();
-            RichEmail.Clear();
+            TxtSupplierId.Clear();
+            TxtSupplierName.Clear();
+            TxtOwner.Clear();
+            TxtAddress.Clear();
+            TxtContactNumber.Clear();
+            TxtEmail.Clear();
         }
 
         public void PopulateSupplier(string supplierName)
         {
             var supplier = _supplierService.GetSupplier(supplierName);
 
-            RichSupplierId.Text = supplier.SupplierId;
-            RichSupplierName.Text = supplier.Name;
-            RichOwner.Text = supplier.Owner;
-            RichAddress.Text = supplier.Address;
-            RichContactNumber.Text = supplier.ContactNo.ToString();
-            RichEmail.Text = supplier.Email;
+            TxtSupplierId.Text = supplier.SupplierId;
+            TxtSupplierName.Text = supplier.Name;
+            TxtOwner.Text = supplier.Owner;
+            TxtAddress.Text = supplier.Address;
+            TxtContactNumber.Text = supplier.ContactNo.ToString();
+            TxtEmail.Text = supplier.Email;
             
             TxtTotalAmount.Clear();
             ComboAction.Text = string.Empty;
@@ -453,12 +453,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         public string GetSupplierName()
         {
-            return RichSupplierName.Text;
+            return TxtSupplierName.Text;
         }
 
         public string GetSupplierId()
         {
-            return RichSupplierId.Text;
+            return TxtSupplierId.Text;
         }
         #endregion
     }

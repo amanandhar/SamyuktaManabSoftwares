@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["Amount"].HeaderText = "Amount";
             DataGridIncomeList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridIncomeList.Columns["Amount"].DisplayIndex = 1;
-
+            DataGridIncomeList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             foreach (DataGridViewRow row in DataGridIncomeList.Rows)
             {
                 DataGridIncomeList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
@@ -90,7 +90,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Amount"].HeaderText = "Amount";
             DataGridExpenseList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridExpenseList.Columns["Amount"].DisplayIndex = 1;
-
+            DataGridExpenseList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             foreach (DataGridViewRow row in DataGridExpenseList.Rows)
             {
                 DataGridExpenseList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
@@ -183,8 +183,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalDeliveryCharge = _userTransactionService.GetTotalExpense(Constants.DELIVERY_CHARGE);
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
-                var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);
-                var totalLoanFeeInterest = _userTransactionService.GetTotalExpense(Constants.LOAN_FEE_INTEREST);
+                var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);               
                 var totalMiscellaneous = _userTransactionService.GetTotalExpense(Constants.MISCELLANEOUS);
                 var totalOfficeRent = _userTransactionService.GetTotalExpense(Constants.OFFICE_RENT);
                 var totalRepairMaintenance = _userTransactionService.GetTotalExpense(Constants.REPAIR_MAINTENANCE);
@@ -194,7 +193,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
 
                 _totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
-                    + totalLoanFeeInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
+                     + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
                     + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 
                 List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
@@ -222,12 +221,7 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.GUEST_HOSPITALITY,
-                        Amount = totalGuestHospitality
-                    },
-                    new IncomeExpenseView
-                    {
-                        Name = Constants.LOAN_FEE_INTEREST,
-                        Amount = totalLoanFeeInterest
+                        Amount = totalGuestHospitality                  
                     },
                     new IncomeExpenseView
                     {
@@ -282,15 +276,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridExpenseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void DataGridIncomeList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

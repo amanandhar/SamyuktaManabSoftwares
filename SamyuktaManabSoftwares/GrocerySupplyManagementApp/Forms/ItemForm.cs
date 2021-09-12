@@ -186,7 +186,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var itemCategory = _itemCategoryService.GetItemCategory(category);
                 if (itemCategory == null || string.IsNullOrWhiteSpace(itemCategory.ItemCode))
                 {
-                    RichItemCode.Text = category + "000101";
+                    RichItemCode.Text = category + "00101";
                 }
                 else
                 {
