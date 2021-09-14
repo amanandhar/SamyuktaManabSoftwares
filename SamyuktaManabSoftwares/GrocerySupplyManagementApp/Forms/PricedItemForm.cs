@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IStockService _stockService;
 
-        public DashboardForm _dashboard;
+        public DashboardForm1 _dashboard;
         private string _baseImageFolder;
         private const string ITEM_IMAGE_FOLDER = "Items";
         private string _uploadedImagePath = string.Empty;
@@ -46,7 +46,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public PricedItemForm(IItemService itemService, IPricedItemService pricedItemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
-            IStockService stockService, DashboardForm dashboardForm)
+            IStockService stockService, DashboardForm1 dashboardForm)
         {
             InitializeComponent();
 

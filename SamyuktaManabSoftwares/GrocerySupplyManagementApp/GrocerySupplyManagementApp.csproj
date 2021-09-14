@@ -124,6 +124,12 @@
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
     <Compile Include="Entities\Tax.cs" />
+    <Compile Include="Forms\DashboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DashboardForm.Designer.cs">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DeliveryPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,11 +257,11 @@
     <Compile Include="Forms\CompanyInfoForm.Designer.cs">
       <DependentUpon>CompanyInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForm.cs">
+    <Compile Include="Forms\DashboardForm1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForm.Designer.cs">
-      <DependentUpon>DashboardForm.cs</DependentUpon>
+    <Compile Include="Forms\DashboardForm1.Designer.cs">
+      <DependentUpon>DashboardForm1.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FiscalYearForm.cs">
       <SubType>Form</SubType>
@@ -466,6 +472,9 @@
     <Compile Include="ViewModels\SupplierView.cs" />
     <Compile Include="ViewModels\TransactionView.cs" />
     <Compile Include="ViewModels\UnpricedItemView.cs" />
+    <EmbeddedResource Include="Forms\DashboardForm.resx">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DeliveryPersonForm.resx">
       <DependentUpon>DeliveryPersonForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -529,8 +538,8 @@
     <EmbeddedResource Include="Forms\CompanyInfoForm.resx">
       <DependentUpon>CompanyInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForm.resx">
-      <DependentUpon>DashboardForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DashboardForm1.resx">
+      <DependentUpon>DashboardForm1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FiscalYearForm.resx">
       <DependentUpon>FiscalYearForm.cs</DependentUpon>

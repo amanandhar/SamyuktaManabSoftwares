@@ -26,7 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IEmployeeService _employeeService;
 
         private readonly string _endOfDay;
-        public DashboardForm _dashboard;
+        public DashboardForm1 _dashboard;
         private string _baseImageFolder;
         private const string MEMBER_IMAGE_FOLDER = "Members";
         private string _uploadedImagePath = string.Empty;
@@ -50,7 +50,7 @@ namespace GrocerySupplyManagementApp.Forms
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IMemberService memberService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IEmployeeService employeeService,
-            DashboardForm dashboardForm)
+            DashboardForm1 dashboardForm)
         {
             InitializeComponent();
 

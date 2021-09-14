@@ -13,7 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class EmployeeForm : Form, IEmployeeListForm
     {
         private readonly IEmployeeService _employeeService;
-        public DashboardForm _dashboard;
+        public DashboardForm1 _dashboard;
         private string _baseImageFolder;
         private const string EMPLOYEE_IMAGE_FOLDER = "Employees";
         private string _uploadedImagePath = string.Empty;
