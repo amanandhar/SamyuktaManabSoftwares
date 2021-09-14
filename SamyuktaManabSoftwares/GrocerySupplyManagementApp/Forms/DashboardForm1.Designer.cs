@@ -38,12 +38,6 @@
             this.BtnMemberMgmt = new System.Windows.Forms.Button();
             this.BtnSummaryMgmt = new System.Windows.Forms.Button();
             this.BtnPosMgmt = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.RichBoxFiscalYear = new System.Windows.Forms.RichTextBox();
-            this.RichBoxTime = new System.Windows.Forms.RichTextBox();
-            this.RichBoxUsername = new System.Windows.Forms.RichTextBox();
-            this.RichBoxDateInBs = new System.Windows.Forms.RichTextBox();
-            this.RichBoxDateInAd = new System.Windows.Forms.RichTextBox();
             this.BtnEmployeeMgmt = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnEndOfDayMgmt = new System.Windows.Forms.Button();
@@ -56,11 +50,17 @@
             this.lblCompanyName = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2.SuspendLayout();
+            this.RichBoxDateInAd = new System.Windows.Forms.RichTextBox();
+            this.RichBoxDateInBs = new System.Windows.Forms.RichTextBox();
+            this.RichBoxUsername = new System.Windows.Forms.RichTextBox();
+            this.RichBoxTime = new System.Windows.Forms.RichTextBox();
+            this.RichBoxFiscalYear = new System.Windows.Forms.RichTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnStockMgmt
@@ -198,80 +198,6 @@
             this.BtnPosMgmt.Text = "Point of Sales Management";
             this.BtnPosMgmt.UseVisualStyleBackColor = false;
             this.BtnPosMgmt.Click += new System.EventHandler(this.BtnPosMgmt_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.groupBox2.Controls.Add(this.RichBoxFiscalYear);
-            this.groupBox2.Controls.Add(this.RichBoxTime);
-            this.groupBox2.Controls.Add(this.RichBoxUsername);
-            this.groupBox2.Controls.Add(this.RichBoxDateInBs);
-            this.groupBox2.Controls.Add(this.RichBoxDateInAd);
-            this.groupBox2.Location = new System.Drawing.Point(7, 649);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1340, 34);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            // 
-            // RichBoxFiscalYear
-            // 
-            this.RichBoxFiscalYear.BackColor = System.Drawing.Color.White;
-            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBoxFiscalYear.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxFiscalYear.Location = new System.Drawing.Point(1070, 5);
-            this.RichBoxFiscalYear.Name = "RichBoxFiscalYear";
-            this.RichBoxFiscalYear.ReadOnly = true;
-            this.RichBoxFiscalYear.Size = new System.Drawing.Size(267, 25);
-            this.RichBoxFiscalYear.TabIndex = 5;
-            this.RichBoxFiscalYear.Text = "";
-            // 
-            // RichBoxTime
-            // 
-            this.RichBoxTime.BackColor = System.Drawing.Color.White;
-            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBoxTime.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxTime.Location = new System.Drawing.Point(536, 5);
-            this.RichBoxTime.Name = "RichBoxTime";
-            this.RichBoxTime.ReadOnly = true;
-            this.RichBoxTime.Size = new System.Drawing.Size(265, 25);
-            this.RichBoxTime.TabIndex = 4;
-            this.RichBoxTime.Text = "";
-            // 
-            // RichBoxUsername
-            // 
-            this.RichBoxUsername.BackColor = System.Drawing.Color.White;
-            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBoxUsername.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxUsername.Location = new System.Drawing.Point(802, 5);
-            this.RichBoxUsername.Name = "RichBoxUsername";
-            this.RichBoxUsername.ReadOnly = true;
-            this.RichBoxUsername.Size = new System.Drawing.Size(267, 25);
-            this.RichBoxUsername.TabIndex = 3;
-            this.RichBoxUsername.Text = "";
-            // 
-            // RichBoxDateInBs
-            // 
-            this.RichBoxDateInBs.BackColor = System.Drawing.Color.White;
-            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBoxDateInBs.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxDateInBs.Location = new System.Drawing.Point(270, 5);
-            this.RichBoxDateInBs.Name = "RichBoxDateInBs";
-            this.RichBoxDateInBs.ReadOnly = true;
-            this.RichBoxDateInBs.Size = new System.Drawing.Size(265, 25);
-            this.RichBoxDateInBs.TabIndex = 1;
-            this.RichBoxDateInBs.Text = "";
-            // 
-            // RichBoxDateInAd
-            // 
-            this.RichBoxDateInAd.BackColor = System.Drawing.Color.White;
-            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBoxDateInAd.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxDateInAd.Location = new System.Drawing.Point(4, 5);
-            this.RichBoxDateInAd.Name = "RichBoxDateInAd";
-            this.RichBoxDateInAd.ReadOnly = true;
-            this.RichBoxDateInAd.Size = new System.Drawing.Size(265, 25);
-            this.RichBoxDateInAd.TabIndex = 0;
-            this.RichBoxDateInAd.Text = "";
             // 
             // BtnEmployeeMgmt
             // 
@@ -443,7 +369,81 @@
             this.label1.Text = "Samyukta Manab Grocery Management System,Nayabazar-16,Kathmandu Contact No. 98412" +
     "72950";
             // 
-            // DashboardForm
+            // RichBoxDateInAd
+            // 
+            this.RichBoxDateInAd.BackColor = System.Drawing.Color.White;
+            this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInAd.ForeColor = System.Drawing.Color.Black;
+            this.RichBoxDateInAd.Location = new System.Drawing.Point(4, 5);
+            this.RichBoxDateInAd.Name = "RichBoxDateInAd";
+            this.RichBoxDateInAd.ReadOnly = true;
+            this.RichBoxDateInAd.Size = new System.Drawing.Size(265, 25);
+            this.RichBoxDateInAd.TabIndex = 0;
+            this.RichBoxDateInAd.Text = "";
+            // 
+            // RichBoxDateInBs
+            // 
+            this.RichBoxDateInBs.BackColor = System.Drawing.Color.White;
+            this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxDateInBs.ForeColor = System.Drawing.Color.Black;
+            this.RichBoxDateInBs.Location = new System.Drawing.Point(270, 5);
+            this.RichBoxDateInBs.Name = "RichBoxDateInBs";
+            this.RichBoxDateInBs.ReadOnly = true;
+            this.RichBoxDateInBs.Size = new System.Drawing.Size(265, 25);
+            this.RichBoxDateInBs.TabIndex = 1;
+            this.RichBoxDateInBs.Text = "";
+            // 
+            // RichBoxUsername
+            // 
+            this.RichBoxUsername.BackColor = System.Drawing.Color.White;
+            this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxUsername.ForeColor = System.Drawing.Color.Black;
+            this.RichBoxUsername.Location = new System.Drawing.Point(802, 5);
+            this.RichBoxUsername.Name = "RichBoxUsername";
+            this.RichBoxUsername.ReadOnly = true;
+            this.RichBoxUsername.Size = new System.Drawing.Size(267, 25);
+            this.RichBoxUsername.TabIndex = 3;
+            this.RichBoxUsername.Text = "";
+            // 
+            // RichBoxTime
+            // 
+            this.RichBoxTime.BackColor = System.Drawing.Color.White;
+            this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxTime.ForeColor = System.Drawing.Color.Black;
+            this.RichBoxTime.Location = new System.Drawing.Point(536, 5);
+            this.RichBoxTime.Name = "RichBoxTime";
+            this.RichBoxTime.ReadOnly = true;
+            this.RichBoxTime.Size = new System.Drawing.Size(265, 25);
+            this.RichBoxTime.TabIndex = 4;
+            this.RichBoxTime.Text = "";
+            // 
+            // RichBoxFiscalYear
+            // 
+            this.RichBoxFiscalYear.BackColor = System.Drawing.Color.White;
+            this.RichBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxFiscalYear.ForeColor = System.Drawing.Color.Black;
+            this.RichBoxFiscalYear.Location = new System.Drawing.Point(1070, 5);
+            this.RichBoxFiscalYear.Name = "RichBoxFiscalYear";
+            this.RichBoxFiscalYear.ReadOnly = true;
+            this.RichBoxFiscalYear.Size = new System.Drawing.Size(267, 25);
+            this.RichBoxFiscalYear.TabIndex = 5;
+            this.RichBoxFiscalYear.Text = "";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox2.Controls.Add(this.RichBoxFiscalYear);
+            this.groupBox2.Controls.Add(this.RichBoxTime);
+            this.groupBox2.Controls.Add(this.RichBoxUsername);
+            this.groupBox2.Controls.Add(this.RichBoxDateInBs);
+            this.groupBox2.Controls.Add(this.RichBoxDateInAd);
+            this.groupBox2.Location = new System.Drawing.Point(7, 649);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1340, 34);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            // 
+            // DashboardForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -455,11 +455,10 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "DashboardForm";
+            this.Name = "DashboardForm1";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.DashboardForm_Load);
-            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -467,14 +466,12 @@
             this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RichTextBox RichBoxDateInBs;
-        private System.Windows.Forms.RichTextBox RichBoxDateInAd;
         private System.Windows.Forms.Button BtnReportsMgmt;
         private System.Windows.Forms.Button BtnSettingMgmt;
         private System.Windows.Forms.Button BtnItemMgmt;
@@ -486,9 +483,6 @@
         private System.Windows.Forms.Button BtnStockMgmt;
         private System.Windows.Forms.Button BtnEmployeeMgmt;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox RichBoxFiscalYear;
-        private System.Windows.Forms.RichTextBox RichBoxTime;
-        private System.Windows.Forms.RichTextBox RichBoxUsername;
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Button BtnBankingMgmt;
         private System.Windows.Forms.Button BtnIncomeExpenseMgmt;
@@ -498,6 +492,12 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblCompanyName;
+        private System.Windows.Forms.RichTextBox RichBoxDateInAd;
+        private System.Windows.Forms.RichTextBox RichBoxDateInBs;
+        private System.Windows.Forms.RichTextBox RichBoxUsername;
+        private System.Windows.Forms.RichTextBox RichBoxTime;
+        private System.Windows.Forms.RichTextBox RichBoxFiscalYear;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

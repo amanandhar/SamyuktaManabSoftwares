@@ -964,7 +964,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     "( " +
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
+                    "WHERE 1 = 1 " +
+                    "AND [IncomeExpense] IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') " +
                     ") " ;
             }
 
