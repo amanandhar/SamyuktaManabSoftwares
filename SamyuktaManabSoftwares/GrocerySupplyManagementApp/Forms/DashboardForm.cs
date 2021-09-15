@@ -180,7 +180,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnPointOfSales_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new PosForm(
+            PosForm posForm = new PosForm(
                 _fiscalYearService, _taxService,
                 _bankService, _bankTransactionService,
                 _itemService, _pricedItemService,
@@ -189,7 +189,19 @@ namespace GrocerySupplyManagementApp.Forms
                 _userTransactionService, _reportService,
                 _companyInfoService, _employeeService,
                 _stockService
-                 ));
+                 );
+            posForm.ShowDialog();
+
+            //OpenChildForm(new PosForm(
+            //    _fiscalYearService, _taxService,
+            //    _bankService, _bankTransactionService,
+            //    _itemService, _pricedItemService,
+            //    _memberService,
+            //    _purchasedItemService, _soldItemService,
+            //    _userTransactionService, _reportService,
+            //    _companyInfoService, _employeeService,
+            //    _stockService
+            //     ));
             HideSubMenu();
             SelectButton(sender as Button);
         }

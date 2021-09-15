@@ -105,7 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.PanelSideMenu.Name = "PanelSideMenu";
-            this.PanelSideMenu.Size = new System.Drawing.Size(250, 761);
+            this.PanelSideMenu.Size = new System.Drawing.Size(250, 691);
             this.PanelSideMenu.TabIndex = 0;
             // 
             // PanelSettingsSubMenu
@@ -826,7 +826,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxUsername.Margin = new System.Windows.Forms.Padding(0);
             this.RichBoxUsername.Name = "RichBoxUsername";
             this.RichBoxUsername.ReadOnly = true;
-            this.RichBoxUsername.Size = new System.Drawing.Size(224, 28);
+            this.RichBoxUsername.Size = new System.Drawing.Size(222, 28);
             this.RichBoxUsername.TabIndex = 3;
             this.RichBoxUsername.Text = "";
             // 
@@ -862,22 +862,24 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.PanelBody.AutoSize = true;
             this.PanelBody.BackColor = System.Drawing.Color.White;
+            this.PanelBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelBody.Controls.Add(this.PictureBoxLogo);
             this.PanelBody.Controls.Add(this.tableLayoutPanel1);
             this.PanelBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelBody.Location = new System.Drawing.Point(250, 55);
             this.PanelBody.Name = "PanelBody";
-            this.PanelBody.Size = new System.Drawing.Size(1104, 706);
+            this.PanelBody.Size = new System.Drawing.Size(1104, 636);
             this.PanelBody.TabIndex = 3;
             // 
             // PictureBoxLogo
             // 
             this.PictureBoxLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PictureBoxLogo.BackColor = System.Drawing.Color.Black;
-            this.PictureBoxLogo.Location = new System.Drawing.Point(492, 109);
+            this.PictureBoxLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureBoxLogo.Image")));
+            this.PictureBoxLogo.Location = new System.Drawing.Point(242, 9);
             this.PictureBoxLogo.Name = "PictureBoxLogo";
-            this.PictureBoxLogo.Size = new System.Drawing.Size(100, 108);
-            this.PictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PictureBoxLogo.Size = new System.Drawing.Size(615, 582);
+            this.PictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PictureBoxLogo.TabIndex = 7;
             this.PictureBoxLogo.TabStop = false;
             // 
@@ -895,12 +897,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.tableLayoutPanel1.Controls.Add(this.RichBoxUsername, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.RichBoxDateInBs, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 678);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 606);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1104, 28);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1102, 28);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // Timer
@@ -913,7 +915,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 761);
+            this.ClientSize = new System.Drawing.Size(1354, 691);
             this.Controls.Add(this.PanelBody);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.PanelSideMenu);
@@ -929,7 +931,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelHeader.ResumeLayout(false);
             this.PanelHeader.PerformLayout();
             this.PanelBody.ResumeLayout(false);
-            this.PanelBody.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxLogo)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

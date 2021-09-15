@@ -83,6 +83,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControls\Button\CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\ComboBox\CustomComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\TextBox\CustomTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\TextBox\CustomTextBox.Designer.cs">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\DataSet\CompanyDataSet.cs">
       <DependentUpon>CompanyDataSet.xsd</DependentUpon>
     </Compile>
@@ -472,6 +484,9 @@
     <Compile Include="ViewModels\SupplierView.cs" />
     <Compile Include="ViewModels\TransactionView.cs" />
     <Compile Include="ViewModels\UnpricedItemView.cs" />
+    <EmbeddedResource Include="CustomControls\TextBox\CustomTextBox.resx">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DashboardForm.resx">
       <DependentUpon>DashboardForm.cs</DependentUpon>
     </EmbeddedResource>
