@@ -364,7 +364,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1045, 551);
+            this.ClientSize = new System.Drawing.Size(1088, 667);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.DataGridStockList);
             this.Controls.Add(this.groupBox2);

@@ -106,12 +106,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnMemberMgmt_Click(object sender, EventArgs e)
         {
-            MemberForm memberForm = new MemberForm(_fiscalYearService,   
-                _bankService, _bankTransactionService, 
-                _memberService, _soldItemService,
-                _userTransactionService, _employeeService,
-                this);
-            memberForm.Show();
+            //MemberForm memberForm = new MemberForm(_fiscalYearService,   
+            //    _bankService, _bankTransactionService, 
+            //    _memberService, _soldItemService,
+            //    _userTransactionService, _employeeService,
+            //    this);
+            //memberForm.Show();
         }
 
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
@@ -125,10 +125,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnItemMgmt_Click(object sender, EventArgs e)
         {
-            PricedItemForm pricedItemForm = new PricedItemForm(_itemService, _pricedItemService, 
-                _purchasedItemService, _soldItemService,
-                _stockService, this);
-            pricedItemForm.Show();
+            //PricedItemForm pricedItemForm = new PricedItemForm(_itemService, _pricedItemService, 
+            //    _purchasedItemService, _soldItemService,
+            //    _stockService, this);
+            //pricedItemForm.Show();
         }
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
