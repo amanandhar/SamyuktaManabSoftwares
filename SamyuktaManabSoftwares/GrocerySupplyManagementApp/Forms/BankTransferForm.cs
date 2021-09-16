@@ -43,6 +43,18 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ClearAllFields();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private void BtnSave_Click(object sender, EventArgs e)
         {
             try
@@ -84,7 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
                     UpdatedDate = date
                 };
                 _bankTransactionService.AddBankTransaction(bankTransaction);
-                
+
                 DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -92,18 +104,6 @@ namespace GrocerySupplyManagementApp.Forms
                 }
             }
             catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ClearAllFields();
-            }
-            catch(Exception ex)
             {
                 throw ex;
             }
@@ -143,7 +143,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
-            
         }
 
         private void ClearAllFields()
@@ -161,7 +160,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
         #endregion
     }
 }

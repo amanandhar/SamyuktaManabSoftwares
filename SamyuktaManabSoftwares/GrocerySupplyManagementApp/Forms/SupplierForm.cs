@@ -55,7 +55,14 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Event
-        private void BtnPurchase_Click(object sender, System.EventArgs e)
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            SupplierListForm supplierListForm = new SupplierListForm(_supplierService, _userTransactionService, this);
+            supplierListForm.ShowDialog();
+        }
+
+        private void BtnAddPurchase_Click(object sender, EventArgs e)
         {
             PurchaseForm purchaseForm = new PurchaseForm(_fiscalYearService, _itemService,
                 _purchasedItemService, _userTransactionService, this);
@@ -64,7 +71,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowPurchase_Click(object sender, EventArgs e)
         {
-            if(DataGridSupplierList.SelectedRows.Count == 1)
+            if (DataGridSupplierList.SelectedRows.Count == 1)
             {
                 var selectedRow = DataGridSupplierList.SelectedRows[0];
                 var action = selectedRow.Cells["Action"].Value.ToString();
@@ -79,97 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnShowSupplier_Click(object sender, System.EventArgs e)
-        {
-            SupplierListForm supplierListForm = new SupplierListForm(_supplierService, _userTransactionService, this);
-            supplierListForm.ShowDialog();
-        }
-
-        private void BtnAddSupplier_Click(object sender, System.EventArgs e)
-        {
-            ClearAllFields();
-            EnableFields(true);
-            TxtSupplierId.Text = _supplierService.GetNewSupplierId();
-        }
-        
-        private void BtnSave_Click(object sender, System.EventArgs e)
-        {
-            try
-            {
-                var date = DateTime.Now;
-                var supplier = new Supplier
-                {
-                    SupplierId = TxtSupplierId.Text,
-                    Name = TxtSupplierName.Text,
-                    Address = TxtAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
-                    Email = TxtEmail.Text,
-                    Owner = TxtOwner.Text,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-
-                _supplierService.AddSupplier(supplier);
-                DialogResult result = MessageBox.Show(supplier.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnEdit_Click(object sender, System.EventArgs e)
-        {
-            EnableFields(true);
-        }
-
-        private void BtnUpdate_Click(object sender, System.EventArgs e)
-        {
-            var supplierId = TxtSupplierId.Text;
-            try
-            {
-                var supplier = _supplierService.UpdateSupplier(supplierId, new Supplier
-                {
-                    SupplierId = TxtSupplierId.Text,
-                    Name = TxtSupplierName.Text,
-                    Owner = TxtOwner.Text,
-                    Address = TxtAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
-                    Email = TxtEmail.Text,
-                    UpdatedDate = DateTime.Now
-                }); 
-
-                DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    DataGridSupplierList.DataSource = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnDelete_Click(object sender, System.EventArgs e)
-        {
-            var supplierName = TxtSupplierName.Text;
-            _supplierService.DeleteSupplier(supplierName);
-
-            DialogResult result = MessageBox.Show(supplierName + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
-            if (result == DialogResult.OK)
-            {
-                ClearAllFields();
-                DataGridSupplierList.DataSource = null;
-            }
-        }
-
-        private void BtnPaymentSave_Click(object sender, EventArgs e)
+        private void BtnSavePayment_Click(object sender, EventArgs e)
         {
             try
             {
@@ -196,7 +113,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
                 _userTransactionService.AddUserTransaction(userTransaction);
 
-                if(ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
+                if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                 {
                     var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
@@ -233,6 +150,119 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnAddSuppliers_Click(object sender, EventArgs e)
+        {
+            ClearAllFields();
+            EnableFields(true);
+            TxtSupplierId.Text = _supplierService.GetNewSupplierId();
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var date = DateTime.Now;
+                var supplier = new Supplier
+                {
+                    SupplierId = TxtSupplierId.Text,
+                    Name = TxtSupplierName.Text,
+                    Address = TxtAddress.Text,
+                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                    Email = TxtEmail.Text,
+                    Owner = TxtOwner.Text,
+                    AddedDate = date,
+                    UpdatedDate = date
+                };
+
+                _supplierService.AddSupplier(supplier);
+                DialogResult result = MessageBox.Show(supplier.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnEdit_Click(object sender, EventArgs e)
+        {
+            EnableFields(true);
+        }
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            var supplierId = TxtSupplierId.Text;
+            try
+            {
+                var supplier = _supplierService.UpdateSupplier(supplierId, new Supplier
+                {
+                    SupplierId = TxtSupplierId.Text,
+                    Name = TxtSupplierName.Text,
+                    Owner = TxtOwner.Text,
+                    Address = TxtAddress.Text,
+                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                    Email = TxtEmail.Text,
+                    UpdatedDate = DateTime.Now
+                });
+
+                DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    DataGridSupplierList.DataSource = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            var supplierName = TxtSupplierName.Text;
+            _supplierService.DeleteSupplier(supplierName);
+
+            DialogResult result = MessageBox.Show(supplierName + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+            if (result == DialogResult.OK)
+            {
+                ClearAllFields();
+                DataGridSupplierList.DataSource = null;
+            }
+        }
+
+        private void BtnShowTransaction_Click(object sender, EventArgs e)
+        {
+            var supplierFilter = new SupplierFilter();
+            if (!string.IsNullOrWhiteSpace(TxtSupplierId.Text))
+            {
+                supplierFilter.SupplierId = TxtSupplierId.Text;
+            }
+
+            var dateFrom = MaskEndOfDayFrom.Text;
+            var dateTo = MaskEndOfDayTo.Text;
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                supplierFilter.DateFrom = dateFrom.Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            {
+                supplierFilter.DateTo = dateTo.Trim();
+            }
+
+            supplierFilter.Action = ComboAction.Text;
+
+            var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
+            var balance = supplierTransactionViewList.Sum(x => x.Balance);
+            TxtTotalAmount.Text = balance.ToString();
+            TxtBalance.Text = balance.ToString();
+            LoadSupplierTransaction(supplierTransactionViewList);
+        }
+
         private void BtnRemove_Click(object sender, EventArgs e)
         {
             try
@@ -261,36 +291,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
-        private void BtnShowTransaction_Click(object sender, EventArgs e)
-        {
-            var supplierFilter = new SupplierFilter();
-            if(!string.IsNullOrWhiteSpace(TxtSupplierId.Text))
-            {
-                supplierFilter.SupplierId = TxtSupplierId.Text;
-            }
-
-            var dateFrom = MaskEndOfDayFrom.Text;
-            var dateTo = MaskEndOfDayTo.Text;
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                supplierFilter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                supplierFilter.DateTo = dateTo.Trim();
-            }
-
-            supplierFilter.Action = ComboAction.Text;
-
-            var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
-            var balance = supplierTransactionViewList.Sum(x => x.Balance);
-            TxtTotalAmount.Text = balance.ToString();
-            TxtBalance.Text = balance.ToString();
-            LoadSupplierTransaction(supplierTransactionViewList);
-        }
-
         #endregion
 
         #region Combo Events
@@ -436,7 +436,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtTotalAmount.Clear();
             ComboAction.Text = string.Empty;
 
-            BtnPurchase.Enabled = true;
+            BtnAddPurchase.Enabled = true;
             BtnShowPurchase.Enabled = true;
 
             EnableFields(false);

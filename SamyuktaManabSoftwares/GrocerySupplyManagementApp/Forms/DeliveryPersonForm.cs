@@ -40,7 +40,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShow_Click(object sender, System.EventArgs e)
+        private void BtnSearch_Click(object sender, System.EventArgs e)
         {
             DeliveryPersonListForm deliveryPersonListForm = new DeliveryPersonListForm(_employeeService, this);
             deliveryPersonListForm.ShowDialog();
@@ -133,8 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
             var source = new BindingSource(bindingList, null);
             DataGridDeliveryPersonList.DataSource = source;
         }
-        #endregion
 
-        
+        #endregion
     }
 }

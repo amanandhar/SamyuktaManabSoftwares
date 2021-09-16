@@ -47,13 +47,13 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -241,49 +241,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 0;
             this.label1.Text = "Member ID";
             // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button3.Location = new System.Drawing.Point(5, 42);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 32);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Return";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.button2.Location = new System.Drawing.Point(5, 9);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(105, 32);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Add Item";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button5);
-            this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Controls.Add(this.BtnAdd);
+            this.groupBox3.Controls.Add(this.BtnReturn);
+            this.groupBox3.Controls.Add(this.BtnDelete);
             this.groupBox3.Location = new System.Drawing.Point(559, 31);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(115, 110);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
-            // 
-            // button5
-            // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Red;
-            this.button5.Location = new System.Drawing.Point(5, 75);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(105, 32);
-            this.button5.TabIndex = 18;
-            this.button5.Text = "Delete";
-            this.button5.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
@@ -316,6 +283,60 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.Size = new System.Drawing.Size(267, 25);
             this.label3.TabIndex = 0;
             this.label3.Text = "Sales Return Management";
+            // 
+            // BtnAdd
+            // 
+            this.BtnAdd.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnAdd.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAdd.BorderRadius = 31;
+            this.BtnAdd.BorderSize = 0;
+            this.BtnAdd.FlatAppearance.BorderSize = 0;
+            this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAdd.ForeColor = System.Drawing.Color.White;
+            this.BtnAdd.Location = new System.Drawing.Point(4, 13);
+            this.BtnAdd.Name = "BtnAdd";
+            this.BtnAdd.Size = new System.Drawing.Size(96, 31);
+            this.BtnAdd.TabIndex = 19;
+            this.BtnAdd.Text = "Add";
+            this.BtnAdd.TextColor = System.Drawing.Color.White;
+            this.BtnAdd.UseVisualStyleBackColor = false;
+            // 
+            // BtnDelete
+            // 
+            this.BtnDelete.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDelete.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDelete.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnDelete.BorderRadius = 29;
+            this.BtnDelete.BorderSize = 0;
+            this.BtnDelete.FlatAppearance.BorderSize = 0;
+            this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDelete.ForeColor = System.Drawing.Color.White;
+            this.BtnDelete.Location = new System.Drawing.Point(6, 80);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(94, 29);
+            this.BtnDelete.TabIndex = 23;
+            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.TextColor = System.Drawing.Color.White;
+            this.BtnDelete.UseVisualStyleBackColor = false;
+            // 
+            // BtnReturn
+            // 
+            this.BtnReturn.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnReturn.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnReturn.BorderRadius = 31;
+            this.BtnReturn.BorderSize = 0;
+            this.BtnReturn.FlatAppearance.BorderSize = 0;
+            this.BtnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnReturn.ForeColor = System.Drawing.Color.White;
+            this.BtnReturn.Location = new System.Drawing.Point(5, 47);
+            this.BtnReturn.Name = "BtnReturn";
+            this.BtnReturn.Size = new System.Drawing.Size(96, 31);
+            this.BtnReturn.TabIndex = 24;
+            this.BtnReturn.Text = "Return";
+            this.BtnReturn.TextColor = System.Drawing.Color.White;
+            this.BtnReturn.UseVisualStyleBackColor = false;
             // 
             // SalesReturnForm
             // 
@@ -354,18 +375,18 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
+        private CustomControls.Button.CustomButton BtnAdd;
+        private CustomControls.Button.CustomButton BtnReturn;
+        private CustomControls.Button.CustomButton BtnDelete;
     }
 }

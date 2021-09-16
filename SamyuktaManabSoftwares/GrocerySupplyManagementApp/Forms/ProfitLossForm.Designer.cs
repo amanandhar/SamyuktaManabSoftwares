@@ -38,7 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.BtnShow = new System.Windows.Forms.Button();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
@@ -117,18 +117,20 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShow
             // 
-            this.BtnShow.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnShow.FlatAppearance.BorderSize = 2;
-            this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnShow.Location = new System.Drawing.Point(18, 10);
+            this.BtnShow.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 40;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(1, 11);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 40);
+            this.BtnShow.Size = new System.Drawing.Size(150, 40);
             this.BtnShow.TabIndex = 0;
             this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
             this.BtnShow.UseVisualStyleBackColor = false;
             this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
@@ -387,7 +389,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
@@ -405,5 +406,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label8;
+        private CustomControls.Button.CustomButton BtnShow;
     }
 }

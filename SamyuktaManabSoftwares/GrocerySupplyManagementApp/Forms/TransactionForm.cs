@@ -47,12 +47,12 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShowTransaction_Click(object sender, EventArgs e)
+        private void BtnShow_Click(object sender, EventArgs e)
         {
             LoadTransactions();
         }
 
-        private void BtnDeleteTransaction_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             try
             {
@@ -120,7 +120,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
         #endregion
 
         #region Radio Button Event
@@ -439,10 +438,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridTransactionList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

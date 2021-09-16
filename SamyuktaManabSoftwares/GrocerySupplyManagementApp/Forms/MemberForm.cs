@@ -83,13 +83,99 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Event
-        private void BtnShowMember_Click(object sender, EventArgs e)
+        private void BtnSearchMember_Click(object sender, EventArgs e)
         {
             MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
             memberListForm.ShowDialog();
         }
 
-        private void BtnAddMember_Click(object sender, System.EventArgs e)
+        private void BtnShowSales_Click(object sender, EventArgs e)
+        {
+            if (DataGridMemberList.SelectedRows.Count == 1)
+            {
+                var selectedRow = DataGridMemberList.SelectedRows[0];
+                var invoiceNo = selectedRow.Cells["InvoiceNo"].Value.ToString();
+                if (!string.IsNullOrWhiteSpace(invoiceNo))
+                {
+                    PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, _employeeService, invoiceNo);
+                    posForm.Show();
+                }
+            }
+        }
+
+        private void BtnSaveReceipt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var date = DateTime.Now;
+                var userTransaction = new UserTransaction
+                {
+                    EndOfDay = _endOfDay,
+                    MemberId = RichMemberId.Text,
+                    Action = Constants.RECEIPT,
+                    ActionType = ComboReceipt.Text,
+                    Bank = ComboBank.Text,
+                    SubTotal = 0.0m,
+                    DiscountPercent = 0.0m,
+                    Discount = 0.0m,
+                    VatPercent = 0.0m,
+                    Vat = 0.0m,
+                    DeliveryChargePercent = 0.0m,
+                    DeliveryCharge = 0.0m,
+                    DueAmount = 0.0m,
+                    ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
+                    AddedDate = date,
+                    UpdatedDate = date
+                };
+                _userTransactionService.AddUserTransaction(userTransaction);
+
+                if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
+                {
+                    var lastPosTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                    var bankTransaction = new BankTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        BankId = Convert.ToInt64(selectedItem.Id),
+                        TransactionId = lastPosTransaction.Id,
+                        Action = '1',
+                        Debit = Convert.ToDecimal(RichAmount.Text),
+                        Credit = 0.0m,
+                        Narration = RichMemberId.Text + " - " + TxtName.Text,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+
+                    _bankTransactionService.AddBankTransaction(bankTransaction);
+                }
+
+                DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    var memberTransactionViewList = GetMemberTransactions(RichMemberId.Text);
+                    LoadMemberTransactions(memberTransactionViewList);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnAddImage_Click(object sender, EventArgs e)
+        {
+            OpenMemberImageDialog.InitialDirectory = _baseImageFolder;
+            OpenMemberImageDialog.Filter = "All files |*.*";
+            OpenMemberImageDialog.ShowDialog();
+        }
+
+        private void BtnDeleteImage_Click(object sender, EventArgs e)
+        {
+            PicBoxMemberImage.Image = null;
+        }
+
+        private void BtnAddMember_Click(object sender, EventArgs e)
         {
             ClearAllFields();
             EnableFields(Action.None);
@@ -239,7 +325,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var filePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
                     if (UtilityService.DeleteImage(filePath))
                     {
-                        if(_memberService.DeleteMember(memberId))
+                        if (_memberService.DeleteMember(memberId))
                         {
                             DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
                             if (result == DialogResult.OK)
@@ -258,97 +344,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
-        }
-
-        private void BtnClearAll_Click(object sender, System.EventArgs e)
-        {
-            ClearAllFields();
-        }
-
-        private void BtnShowSales_Click(object sender, EventArgs e)
-        {
-            if (DataGridMemberList.SelectedRows.Count == 1)
-            {
-                var selectedRow = DataGridMemberList.SelectedRows[0];
-                var invoiceNo = selectedRow.Cells["InvoiceNo"].Value.ToString();
-                if(!string.IsNullOrWhiteSpace(invoiceNo))
-                {
-                    PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, _employeeService, invoiceNo);
-                    posForm.Show();
-                }
-            }
-        }
-
-        private void BtnPaymentSave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var date = DateTime.Now;
-                var userTransaction = new UserTransaction
-                {
-                    EndOfDay = _endOfDay,
-                    MemberId = RichMemberId.Text,
-                    Action = Constants.RECEIPT,
-                    ActionType = ComboReceipt.Text,
-                    Bank = ComboBank.Text,
-                    SubTotal = 0.0m,
-                    DiscountPercent = 0.0m,
-                    Discount = 0.0m,
-                    VatPercent = 0.0m,
-                    Vat = 0.0m,
-                    DeliveryChargePercent = 0.0m,
-                    DeliveryCharge = 0.0m,
-                    DueAmount = 0.0m,
-                    ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-                _userTransactionService.AddUserTransaction(userTransaction);
-
-                if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
-                {
-                    var lastPosTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
-                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                    var bankTransaction = new BankTransaction
-                    {
-                        EndOfDay = _endOfDay,
-                        BankId = Convert.ToInt64(selectedItem.Id),
-                        TransactionId = lastPosTransaction.Id,
-                        Action = '1',
-                        Debit = Convert.ToDecimal(RichAmount.Text),
-                        Credit = 0.0m,
-                        Narration = RichMemberId.Text + " - " + TxtName.Text,
-                        AddedDate = date,
-                        UpdatedDate = date
-                    };
-
-                    _bankTransactionService.AddBankTransaction(bankTransaction);
-                }
-                    
-                DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    var memberTransactionViewList = GetMemberTransactions(RichMemberId.Text);
-                    LoadMemberTransactions(memberTransactionViewList);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnAddImage_Click(object sender, EventArgs e)
-        {
-            OpenMemberImageDialog.InitialDirectory = _baseImageFolder;
-            OpenMemberImageDialog.Filter = "All files |*.*";
-            OpenMemberImageDialog.ShowDialog();
-        }
-
-        private void BtnDeleteImage_Click(object sender, EventArgs e)
-        {
-            PicBoxMemberImage.Image = null;
         }
 
         private void BtnShowTransaction_Click(object sender, EventArgs e)
@@ -373,7 +368,6 @@ namespace GrocerySupplyManagementApp.Forms
             TxtAmount.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
             LoadMemberTransactions(memberTransactionViewList);
         }
-
         #endregion
 
         #region OpenFileDialog Event

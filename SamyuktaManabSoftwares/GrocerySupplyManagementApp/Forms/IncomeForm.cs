@@ -51,7 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
             LoadIncomeDetails();
         }
 
-        private void BtnAddIncome_Click(object sender, EventArgs e)
+        private void BtnSaveIncome_Click(object sender, EventArgs e)
         {
             var date = DateTime.Now;
             var userTransaction = new UserTransaction
@@ -74,7 +74,7 @@ namespace GrocerySupplyManagementApp.Forms
                 UpdatedDate = date
             };
 
-            if(_userTransactionService.AddUserTransaction(userTransaction) != null)
+            if (_userTransactionService.AddUserTransaction(userTransaction) != null)
             {
                 var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
@@ -110,9 +110,9 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var selectedRow = DataGridIncomeList.SelectedRows[0];
                     var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    if(_userTransactionService.DeleteUserTransaction(id))
+                    if (_userTransactionService.DeleteUserTransaction(id))
                     {
-                        if(_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
+                        if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
                         {
                             DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Message", MessageBoxButtons.OK);
                             if (result == DialogResult.OK)
@@ -124,12 +124,11 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
-
         #endregion
 
         #region Combo Box Event

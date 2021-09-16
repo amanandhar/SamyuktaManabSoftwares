@@ -48,13 +48,13 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.BtnRemove = new System.Windows.Forms.Button();
-            this.BtnAddIncome = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtnShow = new System.Windows.Forms.Button();
             this.DataGridIncomeList = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSaveIncome = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnRemove = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridIncomeList)).BeginInit();
@@ -253,67 +253,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.TabIndex = 7;
             this.label3.Text = "Date From";
             // 
-            // BtnRemove
-            // 
-            this.BtnRemove.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnRemove.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Salmon;
-            this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRemove.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.BtnRemove.Location = new System.Drawing.Point(7, 80);
-            this.BtnRemove.Name = "BtnRemove";
-            this.BtnRemove.Size = new System.Drawing.Size(120, 35);
-            this.BtnRemove.TabIndex = 15;
-            this.BtnRemove.Text = "Remove";
-            this.BtnRemove.UseVisualStyleBackColor = false;
-            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
-            // 
-            // BtnAddIncome
-            // 
-            this.BtnAddIncome.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnAddIncome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnAddIncome.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnAddIncome.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnAddIncome.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnAddIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddIncome.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnAddIncome.Location = new System.Drawing.Point(7, 45);
-            this.BtnAddIncome.Name = "BtnAddIncome";
-            this.BtnAddIncome.Size = new System.Drawing.Size(120, 35);
-            this.BtnAddIncome.TabIndex = 16;
-            this.BtnAddIncome.Text = "Save Income";
-            this.BtnAddIncome.UseVisualStyleBackColor = false;
-            this.BtnAddIncome.Click += new System.EventHandler(this.BtnAddIncome_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.BtnRemove);
+            this.groupBox1.Controls.Add(this.BtnSaveIncome);
             this.groupBox1.Controls.Add(this.BtnShow);
-            this.groupBox1.Controls.Add(this.BtnAddIncome);
             this.groupBox1.Location = new System.Drawing.Point(890, 45);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(135, 118);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnShow.Location = new System.Drawing.Point(7, 9);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(120, 35);
-            this.BtnShow.TabIndex = 2;
-            this.BtnShow.Text = "Show ";
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // DataGridIncomeList
             // 
@@ -365,6 +314,63 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.TabIndex = 0;
             this.label6.Text = "Daily Income Management";
             // 
+            // BtnShow
+            // 
+            this.BtnShow.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 34;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(16, 12);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(93, 34);
+            this.BtnShow.TabIndex = 17;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
+            // 
+            // BtnSaveIncome
+            // 
+            this.BtnSaveIncome.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSaveIncome.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSaveIncome.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSaveIncome.BorderRadius = 34;
+            this.BtnSaveIncome.BorderSize = 0;
+            this.BtnSaveIncome.FlatAppearance.BorderSize = 0;
+            this.BtnSaveIncome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSaveIncome.ForeColor = System.Drawing.Color.White;
+            this.BtnSaveIncome.Location = new System.Drawing.Point(21, 42);
+            this.BtnSaveIncome.Name = "BtnSaveIncome";
+            this.BtnSaveIncome.Size = new System.Drawing.Size(93, 34);
+            this.BtnSaveIncome.TabIndex = 18;
+            this.BtnSaveIncome.Text = "Save Income";
+            this.BtnSaveIncome.TextColor = System.Drawing.Color.White;
+            this.BtnSaveIncome.UseVisualStyleBackColor = false;
+            this.BtnSaveIncome.Click += new System.EventHandler(this.BtnSaveIncome_Click);
+            // 
+            // BtnRemove
+            // 
+            this.BtnRemove.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnRemove.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnRemove.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnRemove.BorderRadius = 34;
+            this.BtnRemove.BorderSize = 0;
+            this.BtnRemove.FlatAppearance.BorderSize = 0;
+            this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemove.ForeColor = System.Drawing.Color.White;
+            this.BtnRemove.Location = new System.Drawing.Point(21, 78);
+            this.BtnRemove.Name = "BtnRemove";
+            this.BtnRemove.Size = new System.Drawing.Size(93, 34);
+            this.BtnRemove.TabIndex = 19;
+            this.BtnRemove.Text = "Remove";
+            this.BtnRemove.TextColor = System.Drawing.Color.White;
+            this.BtnRemove.UseVisualStyleBackColor = false;
+            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
+            // 
             // IncomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,9 +397,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button BtnRemove;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button BtnAddIncome;
         private System.Windows.Forms.ComboBox ComboAddIncome;
         private System.Windows.Forms.RichTextBox RichAddAmount;
         private System.Windows.Forms.Label label3;
@@ -401,7 +405,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox ComboFilteredBy;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox TxtTotalAmount;
         private System.Windows.Forms.Label label1;
@@ -413,5 +416,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label6;
+        private CustomControls.Button.CustomButton BtnShow;
+        private CustomControls.Button.CustomButton BtnSaveIncome;
+        private CustomControls.Button.CustomButton BtnRemove;
     }
 }

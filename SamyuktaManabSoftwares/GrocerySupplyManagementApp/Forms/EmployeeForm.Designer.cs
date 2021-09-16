@@ -57,21 +57,21 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichMotherName = new System.Windows.Forms.RichTextBox();
             this.RichSpouseName = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnSearchSalaryDetails = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.MaskAppointedDate = new System.Windows.Forms.MaskedTextBox();
             this.MaskResignedDate = new System.Windows.Forms.MaskedTextBox();
             this.ComboPost = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.BtnSearchSalaryDetails = new System.Windows.Forms.Button();
             this.ComboMaritalStatus = new System.Windows.Forms.ComboBox();
             this.ComboPostStatus = new System.Windows.Forms.ComboBox();
             this.ComboGender = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.MaskDateOfBirth = new System.Windows.Forms.MaskedTextBox();
             this.ComboEducation = new System.Windows.Forms.ComboBox();
             this.ComboBloodGroup = new System.Windows.Forms.ComboBox();
-            this.BtnShow = new System.Windows.Forms.Button();
             this.RichAge = new System.Windows.Forms.RichTextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -79,17 +79,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.PicBoxEmployeeImage = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.BtnClear = new System.Windows.Forms.Button();
-            this.BtnDelete = new System.Windows.Forms.Button();
-            this.BtnUpdate = new System.Windows.Forms.Button();
-            this.BtnEdit = new System.Windows.Forms.Button();
-            this.BtnSave = new System.Windows.Forms.Button();
-            this.BtnAdd = new System.Windows.Forms.Button();
-            this.BtnDeleteImage = new System.Windows.Forms.Button();
-            this.BtnAddImage = new System.Windows.Forms.Button();
+            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.OpenEmployeeImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.BtnAddImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnUpdate = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnClear = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -376,11 +376,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtnSearchSalaryDetails);
             this.groupBox1.Controls.Add(this.MaskAppointedDate);
             this.groupBox1.Controls.Add(this.MaskResignedDate);
             this.groupBox1.Controls.Add(this.ComboPost);
             this.groupBox1.Controls.Add(this.label22);
-            this.groupBox1.Controls.Add(this.BtnSearchSalaryDetails);
             this.groupBox1.Controls.Add(this.ComboMaritalStatus);
             this.groupBox1.Controls.Add(this.ComboPostStatus);
             this.groupBox1.Controls.Add(this.ComboGender);
@@ -402,6 +402,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(420, 460);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
+            // 
+            // BtnSearchSalaryDetails
+            // 
+            this.BtnSearchSalaryDetails.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSearchSalaryDetails.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSearchSalaryDetails.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSearchSalaryDetails.BorderRadius = 40;
+            this.BtnSearchSalaryDetails.BorderSize = 0;
+            this.BtnSearchSalaryDetails.FlatAppearance.BorderSize = 0;
+            this.BtnSearchSalaryDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearchSalaryDetails.ForeColor = System.Drawing.Color.White;
+            this.BtnSearchSalaryDetails.Location = new System.Drawing.Point(128, 318);
+            this.BtnSearchSalaryDetails.Name = "BtnSearchSalaryDetails";
+            this.BtnSearchSalaryDetails.Size = new System.Drawing.Size(260, 40);
+            this.BtnSearchSalaryDetails.TabIndex = 43;
+            this.BtnSearchSalaryDetails.Text = "Search Salary Details";
+            this.BtnSearchSalaryDetails.TextColor = System.Drawing.Color.White;
+            this.BtnSearchSalaryDetails.UseVisualStyleBackColor = false;
+            this.BtnSearchSalaryDetails.Click += new System.EventHandler(this.BtnSearchSalaryDetails_Click);
             // 
             // MaskAppointedDate
             // 
@@ -446,23 +465,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label22.Size = new System.Drawing.Size(173, 20);
             this.label22.TabIndex = 37;
             this.label22.Text = "Post and Salary Details";
-            // 
-            // BtnSearchSalaryDetails
-            // 
-            this.BtnSearchSalaryDetails.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnSearchSalaryDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSearchSalaryDetails.Enabled = false;
-            this.BtnSearchSalaryDetails.FlatAppearance.BorderColor = System.Drawing.Color.Salmon;
-            this.BtnSearchSalaryDetails.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnSearchSalaryDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearchSalaryDetails.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnSearchSalaryDetails.Location = new System.Drawing.Point(128, 320);
-            this.BtnSearchSalaryDetails.Name = "BtnSearchSalaryDetails";
-            this.BtnSearchSalaryDetails.Size = new System.Drawing.Size(260, 35);
-            this.BtnSearchSalaryDetails.TabIndex = 36;
-            this.BtnSearchSalaryDetails.Text = "Search Salary Details";
-            this.BtnSearchSalaryDetails.UseVisualStyleBackColor = false;
-            this.BtnSearchSalaryDetails.Click += new System.EventHandler(this.BtnSearchSalaryDetails_Click);
             // 
             // ComboMaritalStatus
             // 
@@ -531,10 +533,10 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtnSearch);
             this.groupBox2.Controls.Add(this.MaskDateOfBirth);
             this.groupBox2.Controls.Add(this.ComboEducation);
             this.groupBox2.Controls.Add(this.ComboBloodGroup);
-            this.groupBox2.Controls.Add(this.BtnShow);
             this.groupBox2.Controls.Add(this.RichAge);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.label19);
@@ -559,6 +561,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(425, 460);
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
+            // 
+            // BtnSearch
+            // 
+            this.BtnSearch.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSearch.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSearch.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSearch.BorderRadius = 40;
+            this.BtnSearch.BorderSize = 0;
+            this.BtnSearch.FlatAppearance.BorderSize = 0;
+            this.BtnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearch.ForeColor = System.Drawing.Color.White;
+            this.BtnSearch.Location = new System.Drawing.Point(261, 19);
+            this.BtnSearch.Name = "BtnSearch";
+            this.BtnSearch.Size = new System.Drawing.Size(129, 40);
+            this.BtnSearch.TabIndex = 42;
+            this.BtnSearch.Text = "Show";
+            this.BtnSearch.TextColor = System.Drawing.Color.White;
+            this.BtnSearch.UseVisualStyleBackColor = false;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // MaskDateOfBirth
             // 
@@ -614,20 +635,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBloodGroup.Name = "ComboBloodGroup";
             this.ComboBloodGroup.Size = new System.Drawing.Size(125, 28);
             this.ComboBloodGroup.TabIndex = 35;
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnShow.Location = new System.Drawing.Point(255, 27);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(70, 31);
-            this.BtnShow.TabIndex = 33;
-            this.BtnShow.Text = "Search";
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // RichAge
             // 
@@ -692,8 +699,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.BtnClear);
             this.groupBox4.Controls.Add(this.BtnDelete);
+            this.groupBox4.Controls.Add(this.BtnClear);
             this.groupBox4.Controls.Add(this.BtnUpdate);
             this.groupBox4.Controls.Add(this.BtnEdit);
             this.groupBox4.Controls.Add(this.BtnSave);
@@ -704,123 +711,43 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabIndex = 34;
             this.groupBox4.TabStop = false;
             // 
-            // BtnClear
-            // 
-            this.BtnClear.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnClear.Enabled = false;
-            this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnClear.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnClear.Location = new System.Drawing.Point(7, 158);
-            this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(130, 35);
-            this.BtnClear.TabIndex = 5;
-            this.BtnClear.Text = "Clear";
-            this.BtnClear.UseVisualStyleBackColor = false;
-            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
-            // 
-            // BtnDelete
-            // 
-            this.BtnDelete.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnDelete.Enabled = false;
-            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.BtnDelete.Location = new System.Drawing.Point(7, 194);
-            this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(130, 35);
-            this.BtnDelete.TabIndex = 4;
-            this.BtnDelete.Text = "Delete";
-            this.BtnDelete.UseVisualStyleBackColor = false;
-            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
-            // 
-            // BtnUpdate
-            // 
-            this.BtnUpdate.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnUpdate.Enabled = false;
-            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnUpdate.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnUpdate.Location = new System.Drawing.Point(7, 122);
-            this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(130, 35);
-            this.BtnUpdate.TabIndex = 3;
-            this.BtnUpdate.Text = "Update";
-            this.BtnUpdate.UseVisualStyleBackColor = false;
-            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
-            // 
-            // BtnEdit
-            // 
-            this.BtnEdit.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnEdit.Enabled = false;
-            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.BtnEdit.Location = new System.Drawing.Point(7, 86);
-            this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(130, 35);
-            this.BtnEdit.TabIndex = 2;
-            this.BtnEdit.Text = "Edit";
-            this.BtnEdit.UseVisualStyleBackColor = false;
-            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
-            // 
             // BtnSave
             // 
-            this.BtnSave.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSave.Enabled = false;
-            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSave.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnSave.Location = new System.Drawing.Point(7, 50);
+            this.BtnSave.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSave.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSave.BorderRadius = 40;
+            this.BtnSave.BorderSize = 0;
+            this.BtnSave.FlatAppearance.BorderSize = 0;
+            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSave.ForeColor = System.Drawing.Color.White;
+            this.BtnSave.Location = new System.Drawing.Point(6, 47);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(130, 35);
-            this.BtnSave.TabIndex = 1;
+            this.BtnSave.Size = new System.Drawing.Size(129, 40);
+            this.BtnSave.TabIndex = 44;
             this.BtnSave.Text = "Save";
+            this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnAdd
             // 
-            this.BtnAdd.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnAdd.Enabled = false;
-            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAdd.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnAdd.Location = new System.Drawing.Point(7, 14);
+            this.BtnAdd.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnAdd.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAdd.BorderRadius = 40;
+            this.BtnAdd.BorderSize = 0;
+            this.BtnAdd.FlatAppearance.BorderSize = 0;
+            this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAdd.ForeColor = System.Drawing.Color.White;
+            this.BtnAdd.Location = new System.Drawing.Point(6, 6);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(130, 35);
-            this.BtnAdd.TabIndex = 0;
+            this.BtnAdd.Size = new System.Drawing.Size(129, 40);
+            this.BtnAdd.TabIndex = 43;
             this.BtnAdd.Text = "Add";
+            this.BtnAdd.TextColor = System.Drawing.Color.White;
             this.BtnAdd.UseVisualStyleBackColor = false;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
-            // 
-            // BtnDeleteImage
-            // 
-            this.BtnDeleteImage.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnDeleteImage.Enabled = false;
-            this.BtnDeleteImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.BtnDeleteImage.Location = new System.Drawing.Point(959, 218);
-            this.BtnDeleteImage.Name = "BtnDeleteImage";
-            this.BtnDeleteImage.Size = new System.Drawing.Size(50, 25);
-            this.BtnDeleteImage.TabIndex = 35;
-            this.BtnDeleteImage.Text = "Delete";
-            this.BtnDeleteImage.UseVisualStyleBackColor = false;
-            this.BtnDeleteImage.Click += new System.EventHandler(this.BtnDeleteImage_Click);
-            // 
-            // BtnAddImage
-            // 
-            this.BtnAddImage.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnAddImage.Enabled = false;
-            this.BtnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddImage.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnAddImage.Location = new System.Drawing.Point(905, 218);
-            this.BtnAddImage.Name = "BtnAddImage";
-            this.BtnAddImage.Size = new System.Drawing.Size(50, 25);
-            this.BtnAddImage.TabIndex = 38;
-            this.BtnAddImage.Text = "Add ";
-            this.BtnAddImage.UseVisualStyleBackColor = false;
-            this.BtnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
             // 
             // OpenEmployeeImageDialog
             // 
@@ -850,15 +777,129 @@ namespace GrocerySupplyManagementApp.Forms
             this.label23.TabIndex = 0;
             this.label23.Text = "Employee Management";
             // 
+            // BtnAddImage
+            // 
+            this.BtnAddImage.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnAddImage.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnAddImage.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAddImage.BorderRadius = 32;
+            this.BtnAddImage.BorderSize = 0;
+            this.BtnAddImage.FlatAppearance.BorderSize = 0;
+            this.BtnAddImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAddImage.ForeColor = System.Drawing.Color.White;
+            this.BtnAddImage.Location = new System.Drawing.Point(889, 217);
+            this.BtnAddImage.Name = "BtnAddImage";
+            this.BtnAddImage.Size = new System.Drawing.Size(67, 32);
+            this.BtnAddImage.TabIndex = 43;
+            this.BtnAddImage.Text = "Add";
+            this.BtnAddImage.TextColor = System.Drawing.Color.White;
+            this.BtnAddImage.UseVisualStyleBackColor = false;
+            this.BtnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
+            // 
+            // BtnDeleteImage
+            // 
+            this.BtnDeleteImage.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDeleteImage.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDeleteImage.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnDeleteImage.BorderRadius = 32;
+            this.BtnDeleteImage.BorderSize = 0;
+            this.BtnDeleteImage.FlatAppearance.BorderSize = 0;
+            this.BtnDeleteImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDeleteImage.ForeColor = System.Drawing.Color.White;
+            this.BtnDeleteImage.Location = new System.Drawing.Point(958, 217);
+            this.BtnDeleteImage.Name = "BtnDeleteImage";
+            this.BtnDeleteImage.Size = new System.Drawing.Size(67, 32);
+            this.BtnDeleteImage.TabIndex = 44;
+            this.BtnDeleteImage.Text = "Delete";
+            this.BtnDeleteImage.TextColor = System.Drawing.Color.White;
+            this.BtnDeleteImage.UseVisualStyleBackColor = false;
+            this.BtnDeleteImage.Click += new System.EventHandler(this.BtnDeleteImage_Click);
+            // 
+            // BtnEdit
+            // 
+            this.BtnEdit.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnEdit.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnEdit.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnEdit.BorderRadius = 40;
+            this.BtnEdit.BorderSize = 0;
+            this.BtnEdit.FlatAppearance.BorderSize = 0;
+            this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEdit.ForeColor = System.Drawing.Color.White;
+            this.BtnEdit.Location = new System.Drawing.Point(7, 86);
+            this.BtnEdit.Name = "BtnEdit";
+            this.BtnEdit.Size = new System.Drawing.Size(129, 40);
+            this.BtnEdit.TabIndex = 45;
+            this.BtnEdit.Text = "Edit";
+            this.BtnEdit.TextColor = System.Drawing.Color.White;
+            this.BtnEdit.UseVisualStyleBackColor = false;
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
+            // 
+            // BtnUpdate
+            // 
+            this.BtnUpdate.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnUpdate.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnUpdate.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnUpdate.BorderRadius = 40;
+            this.BtnUpdate.BorderSize = 0;
+            this.BtnUpdate.FlatAppearance.BorderSize = 0;
+            this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnUpdate.ForeColor = System.Drawing.Color.White;
+            this.BtnUpdate.Location = new System.Drawing.Point(8, 124);
+            this.BtnUpdate.Name = "BtnUpdate";
+            this.BtnUpdate.Size = new System.Drawing.Size(129, 40);
+            this.BtnUpdate.TabIndex = 46;
+            this.BtnUpdate.Text = "Update";
+            this.BtnUpdate.TextColor = System.Drawing.Color.White;
+            this.BtnUpdate.UseVisualStyleBackColor = false;
+            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
+            // 
+            // BtnClear
+            // 
+            this.BtnClear.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnClear.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnClear.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnClear.BorderRadius = 40;
+            this.BtnClear.BorderSize = 0;
+            this.BtnClear.FlatAppearance.BorderSize = 0;
+            this.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnClear.ForeColor = System.Drawing.Color.White;
+            this.BtnClear.Location = new System.Drawing.Point(10, 157);
+            this.BtnClear.Name = "BtnClear";
+            this.BtnClear.Size = new System.Drawing.Size(129, 40);
+            this.BtnClear.TabIndex = 47;
+            this.BtnClear.Text = "Clear";
+            this.BtnClear.TextColor = System.Drawing.Color.White;
+            this.BtnClear.UseVisualStyleBackColor = false;
+            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
+            // 
+            // BtnDelete
+            // 
+            this.BtnDelete.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDelete.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDelete.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnDelete.BorderRadius = 40;
+            this.BtnDelete.BorderSize = 0;
+            this.BtnDelete.FlatAppearance.BorderSize = 0;
+            this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDelete.ForeColor = System.Drawing.Color.White;
+            this.BtnDelete.Location = new System.Drawing.Point(7, 203);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(129, 40);
+            this.BtnDelete.TabIndex = 48;
+            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.TextColor = System.Drawing.Color.White;
+            this.BtnDelete.UseVisualStyleBackColor = false;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
             // EmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1045, 551);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.BtnAddImage);
             this.Controls.Add(this.BtnDeleteImage);
+            this.Controls.Add(this.BtnAddImage);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -909,14 +950,12 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichSpouseName;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Button BtnSearchSalaryDetails;
         private System.Windows.Forms.ComboBox ComboMaritalStatus;
         private System.Windows.Forms.ComboBox ComboPostStatus;
         private System.Windows.Forms.ComboBox ComboGender;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.RichTextBox RichAge;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
@@ -924,15 +963,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.PictureBox PicBoxEmployeeImage;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button BtnDelete;
-        private System.Windows.Forms.Button BtnUpdate;
-        private System.Windows.Forms.Button BtnEdit;
-        private System.Windows.Forms.Button BtnSave;
-        private System.Windows.Forms.Button BtnAdd;
         private System.Windows.Forms.ComboBox ComboBloodGroup;
-        private System.Windows.Forms.Button BtnDeleteImage;
-        private System.Windows.Forms.Button BtnAddImage;
-        private System.Windows.Forms.Button BtnClear;
         private System.Windows.Forms.ComboBox ComboPost;
         private System.Windows.Forms.OpenFileDialog OpenEmployeeImageDialog;
         private System.Windows.Forms.ComboBox ComboEducation;
@@ -941,5 +972,15 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.MaskedTextBox MaskResignedDate;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label23;
+        private CustomControls.Button.CustomButton BtnSearch;
+        private CustomControls.Button.CustomButton BtnSearchSalaryDetails;
+        private CustomControls.Button.CustomButton BtnAddImage;
+        private CustomControls.Button.CustomButton BtnDeleteImage;
+        private CustomControls.Button.CustomButton BtnAdd;
+        private CustomControls.Button.CustomButton BtnSave;
+        private CustomControls.Button.CustomButton BtnEdit;
+        private CustomControls.Button.CustomButton BtnUpdate;
+        private CustomControls.Button.CustomButton BtnClear;
+        private CustomControls.Button.CustomButton BtnDelete;
     }
 }

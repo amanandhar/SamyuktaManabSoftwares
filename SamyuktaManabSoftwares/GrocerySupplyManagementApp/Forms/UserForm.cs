@@ -44,7 +44,13 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnAdd_Click(object sender, System.EventArgs e)
+        private void BtnShow_Click(object sender, EventArgs e)
+        {
+            UserListForm userListForm = new UserListForm(_userService, this);
+            userListForm.ShowDialog();
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             ClearAllFields();
             EnableFields();
@@ -52,7 +58,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichUsername.Focus();
         }
 
-        private void BtnSave_Click(object sender, System.EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             try
             {
@@ -95,13 +101,13 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnEdit_Click(object sender, System.EventArgs e)
+        private void BtnEdit_Click(object sender, EventArgs e)
         {
             EnableFields();
             EnableFields(Action.Edit);
         }
 
-        private void BtnUpdate_Click(object sender, System.EventArgs e)
+        private void BtnUpdate_Click(object sender, EventArgs e)
         {
             var username = RichUsername.Text;
             try
@@ -143,7 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnDelete_Click(object sender, System.EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             try
             {
@@ -167,12 +173,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
-        }
-
-        private void BtnShow_Click(object sender, System.EventArgs e)
-        {
-            UserListForm userListForm = new UserListForm(_userService, this);
-            userListForm.ShowDialog();
         }
         #endregion
 

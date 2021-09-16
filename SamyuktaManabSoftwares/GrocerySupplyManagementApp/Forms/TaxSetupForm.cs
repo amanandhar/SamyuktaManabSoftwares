@@ -59,8 +59,8 @@ namespace GrocerySupplyManagementApp.Forms
                     EnableFields(false);
                 }
             }
-            catch(Exception ex)
-            { 
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

@@ -34,7 +34,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
             this.linkLabel15 = new System.Windows.Forms.LinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.BtnShow = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.RichReceivableAmount = new System.Windows.Forms.RichTextBox();
             this.RichShareCapital = new System.Windows.Forms.RichTextBox();
@@ -69,6 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -117,24 +117,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Size = new System.Drawing.Size(160, 60);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnShow.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnShow.FlatAppearance.BorderSize = 2;
-            this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnShow.Location = new System.Drawing.Point(16, 13);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 40);
-            this.BtnShow.TabIndex = 0;
-            this.BtnShow.Text = "Show";
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // label4
             // 
@@ -523,6 +505,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.label16.TabIndex = 0;
             this.label16.Text = "Summery 2078/079";
             // 
+            // BtnShow
+            // 
+            this.BtnShow.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 40;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(4, 14);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(150, 40);
+            this.BtnShow.TabIndex = 0;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
+            // 
             // BalanceSheetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -563,7 +564,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox RichReceivableAmount;
         private System.Windows.Forms.RichTextBox RichShareCapital;
@@ -600,5 +600,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label16;
+        private CustomControls.Button.CustomButton BtnShow;
     }
 }

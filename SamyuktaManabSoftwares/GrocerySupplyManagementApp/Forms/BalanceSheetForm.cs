@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalDeliveryChargeIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE}).ToList().Sum(x => x.Amount);
+                var totalDeliveryChargeIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE }).ToList().Sum(x => x.Amount);
                 var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Amount);
                 var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Amount);
                 var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Amount);
@@ -115,11 +115,11 @@ namespace GrocerySupplyManagementApp.Forms
                 RichReceivableAmount.Text = receivableAmount.ToString();
                 RichAssetsBalance.Text = assetsBalance.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
-        #endregion 
+        #endregion
     }
 }

@@ -35,8 +35,6 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
-            this.BtnDailyTransaction = new System.Windows.Forms.Button();
-            this.BtnShow = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,6 +63,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSummaryList = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnDailyTransactions = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -74,9 +74,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.MaskEndOfDay);
-            this.groupBox1.Controls.Add(this.BtnDailyTransaction);
+            this.groupBox1.Controls.Add(this.BtnDailyTransactions);
             this.groupBox1.Controls.Add(this.BtnShow);
+            this.groupBox1.Controls.Add(this.MaskEndOfDay);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(18, 45);
             this.groupBox1.Name = "groupBox1";
@@ -92,40 +92,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskEndOfDay.Name = "MaskEndOfDay";
             this.MaskEndOfDay.Size = new System.Drawing.Size(125, 26);
             this.MaskEndOfDay.TabIndex = 4;
-            // 
-            // BtnDailyTransaction
-            // 
-            this.BtnDailyTransaction.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnDailyTransaction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnDailyTransaction.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnDailyTransaction.FlatAppearance.BorderSize = 2;
-            this.BtnDailyTransaction.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnDailyTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDailyTransaction.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnDailyTransaction.Location = new System.Drawing.Point(836, 16);
-            this.BtnDailyTransaction.Name = "BtnDailyTransaction";
-            this.BtnDailyTransaction.Size = new System.Drawing.Size(145, 40);
-            this.BtnDailyTransaction.TabIndex = 3;
-            this.BtnDailyTransaction.Text = "DailyTransaction";
-            this.BtnDailyTransaction.UseVisualStyleBackColor = false;
-            this.BtnDailyTransaction.Click += new System.EventHandler(this.BtnDailyTransactions_Click);
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.BlueViolet;
-            this.BtnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnShow.FlatAppearance.BorderColor = System.Drawing.Color.IndianRed;
-            this.BtnShow.FlatAppearance.BorderSize = 2;
-            this.BtnShow.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.Cyan;
-            this.BtnShow.Location = new System.Drawing.Point(719, 16);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(115, 40);
-            this.BtnShow.TabIndex = 2;
-            this.BtnShow.Text = "Show";
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // label1
             // 
@@ -435,7 +401,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSummaryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridSummaryList.Size = new System.Drawing.Size(625, 367);
             this.DataGridSummaryList.TabIndex = 20;
-            this.DataGridSummaryList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSummaryList_CellContentClick);
             this.DataGridSummaryList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSummaryList_DataBindingComplete);
             // 
             // groupBox2
@@ -461,6 +426,44 @@ namespace GrocerySupplyManagementApp.Forms
             this.label12.Size = new System.Drawing.Size(385, 31);
             this.label12.TabIndex = 0;
             this.label12.Text = "Daily Summery Management";
+            // 
+            // BtnShow
+            // 
+            this.BtnShow.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 40;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(669, 16);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(150, 40);
+            this.BtnShow.TabIndex = 5;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
+            // 
+            // BtnDailyTransactions
+            // 
+            this.BtnDailyTransactions.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDailyTransactions.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnDailyTransactions.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnDailyTransactions.BorderRadius = 40;
+            this.BtnDailyTransactions.BorderSize = 0;
+            this.BtnDailyTransactions.FlatAppearance.BorderSize = 0;
+            this.BtnDailyTransactions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDailyTransactions.ForeColor = System.Drawing.Color.White;
+            this.BtnDailyTransactions.Location = new System.Drawing.Point(838, 16);
+            this.BtnDailyTransactions.Name = "BtnDailyTransactions";
+            this.BtnDailyTransactions.Size = new System.Drawing.Size(150, 40);
+            this.BtnDailyTransactions.TabIndex = 6;
+            this.BtnDailyTransactions.Text = "Daily Transactions";
+            this.BtnDailyTransactions.TextColor = System.Drawing.Color.White;
+            this.BtnDailyTransactions.UseVisualStyleBackColor = false;
+            this.BtnDailyTransactions.Click += new System.EventHandler(this.BtnDailyTransactions_Click);
             // 
             // SummaryForm
             // 
@@ -494,7 +497,6 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -506,7 +508,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button BtnDailyTransaction;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridView DataGridSummaryList;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDay;
@@ -525,5 +526,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtCreditBalance;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label14;
+        private CustomControls.Button.CustomButton BtnShow;
+        private CustomControls.Button.CustomButton BtnDailyTransactions;
     }
 }

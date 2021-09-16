@@ -22,7 +22,8 @@ namespace GrocerySupplyManagementApp.Forms
         private long selectedBankId = 0;
 
         #region Enum
-        private enum Action {
+        private enum Action
+        {
             Add,
             Save,
             Edit,
@@ -34,7 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public BankForm(IFiscalYearService fiscalYearService, IBankService bankService, 
+        public BankForm(IFiscalYearService fiscalYearService, IBankService bankService,
             IBankTransactionService bankTransactionService)
         {
             InitializeComponent();
@@ -56,93 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Button Click Event
-        private void BtnAddBank_Click(object sender, EventArgs e)
-        {
-            //EnableFields(Action.Add, true);
-            RichBankName.Focus();
-        }
-
-        private void BtnSaveBank_Click(object sender, EventArgs e)
-        { 
-            try 
-            {
-                var name = RichBankName.Text;
-                var accountNo = RichAccountNo.Text;
-                if(string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(accountNo))
-                {
-                    DialogResult result = MessageBox.Show("Bank name and account number are required.", "Warning", MessageBoxButtons.OK);
-                    if (result == DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    var date = DateTime.Now;
-                    var bank = new Bank
-                    {
-                        Name = RichBankName.Text,
-                        AccountNo = RichAccountNo.Text,
-                        AddedDate = date,
-                        UpdatedDate = date
-                    };
-
-                    _bankService.AddBank(bank);
-
-                    DialogResult result = MessageBox.Show(bank.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                    if (result == DialogResult.OK)
-                    {
-                        ClearAllFields();
-                        EnableFields(Action.None, false);
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnEditBank_Click(object sender, EventArgs e)
-        {
-            EnableFields(Action.Edit, true);
-        }
-
-        private void BtnUpdateBank_Click(object sender, EventArgs e)
-        {
-            var bank = new Bank
-            {
-                Name = RichBankName.Text,
-                AccountNo = RichAccountNo.Text,
-                UpdatedDate = DateTime.Now
-            };
-
-            _bankService.UpdateBank(selectedBankId, bank);
-            MessageBox.Show(RichBankName.Text + " is updated successfully.", "Message", MessageBoxButtons.OK);
-        }
-
-        private void BtnDeleteTransaction_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (DataGridBankList.SelectedRows.Count == 1)
-                {
-                    var selectedRow = DataGridBankList.SelectedRows[0];
-                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    _bankTransactionService.DeleteBankTransaction(id);
-                    var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
-                    TxtBalance.Text = totalBalance.ToString();
-                    var bankTransactionViewList = GetBankTransaction();
-                    LoadBankTransaction(bankTransactionViewList);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnShowBank_Click(object sender, EventArgs e)
+        private void BtnSearchBank_Click(object sender, EventArgs e)
         {
             BankListForm bankListForm = new BankListForm(_bankService, this);
             bankListForm.ShowDialog();
@@ -179,10 +94,96 @@ namespace GrocerySupplyManagementApp.Forms
                     LoadBankTransaction(bankTransactionViewList);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        private void BtnRemoveTransaction_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridBankList.SelectedRows.Count == 1)
+                {
+                    var selectedRow = DataGridBankList.SelectedRows[0];
+                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    _bankTransactionService.DeleteBankTransaction(id);
+                    var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
+                    TxtBalance.Text = totalBalance.ToString();
+                    var bankTransactionViewList = GetBankTransaction();
+                    LoadBankTransaction(bankTransactionViewList);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnAddBank_Click(object sender, EventArgs e)
+        {
+            //EnableFields(Action.Add, true);
+            RichBankName.Focus();
+        }
+
+        private void BtnSaveBank_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var name = RichBankName.Text;
+                var accountNo = RichAccountNo.Text;
+                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(accountNo))
+                {
+                    DialogResult result = MessageBox.Show("Bank name and account number are required.", "Warning", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    var date = DateTime.Now;
+                    var bank = new Bank
+                    {
+                        Name = RichBankName.Text,
+                        AccountNo = RichAccountNo.Text,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+
+                    _bankService.AddBank(bank);
+
+                    DialogResult result = MessageBox.Show(bank.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields(Action.None, false);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnEditBank_Click(object sender, EventArgs e)
+        {
+            EnableFields(Action.Edit, true);
+        }
+
+        private void BtnUpdateBank_Click(object sender, EventArgs e)
+        {
+            var bank = new Bank
+            {
+                Name = RichBankName.Text,
+                AccountNo = RichAccountNo.Text,
+                UpdatedDate = DateTime.Now
+            };
+
+            _bankService.UpdateBank(selectedBankId, bank);
+            MessageBox.Show(RichBankName.Text + " is updated successfully.", "Message", MessageBoxButtons.OK);
         }
 
         private void BtnDeleteBank_Click(object sender, EventArgs e)
@@ -215,7 +216,7 @@ namespace GrocerySupplyManagementApp.Forms
             var dateTo = MaskEndOfDayTo.Text;
             var bankTransactionFilter = new BankTransactionFilter();
 
-            if(!string.IsNullOrWhiteSpace(action))
+            if (!string.IsNullOrWhiteSpace(action))
             {
                 bankTransactionFilter.Action = action.Equals(Constants.DEPOSIT) ? '1' : '0';
             }

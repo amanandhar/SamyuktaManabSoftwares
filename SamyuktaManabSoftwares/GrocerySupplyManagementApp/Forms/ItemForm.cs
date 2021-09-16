@@ -51,13 +51,13 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Event
-        private void BtnShowCode_Click(object sender, EventArgs e)
+        private void BtnSearch_Click(object sender, EventArgs e)
         {
             ItemListForm itemListForm = new ItemListForm(_itemService, this);
             itemListForm.ShowDialog();
         }
 
-        private void BtnAddNew_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             EnableFields(Action.None);
             EnableFields(Action.Add);
@@ -82,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _itemService.AddItem(item);
 
-                var itemCode = item.Code.ToString(); 
+                var itemCode = item.Code.ToString();
                 var formattedItemCode = itemCode.Substring(1, itemCode.Length - 1);
                 var counter = formattedItemCode.TrimStart(new Char[] { '0' });
                 var itemCategory = new ItemCategory
@@ -102,7 +102,7 @@ namespace GrocerySupplyManagementApp.Forms
                     LoadItems();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -141,7 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -173,7 +173,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
         #endregion
 
         #region Combobox Event
@@ -282,7 +281,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
-                BtnAddNew.Enabled = true;
+                BtnAdd.Enabled = true;
                 BtnSave.Enabled = true;
 
             }
@@ -302,7 +301,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemBrand.Enabled = false;
                 ComboUnit.Enabled = false;
                 RichThreshold.Enabled = false;
-                BtnAddNew.Enabled = true;
+                BtnAdd.Enabled = true;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
@@ -388,6 +387,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Z, Value = Constants.CATEGORY_Z });
         }
         #endregion
+
         
     }
 }

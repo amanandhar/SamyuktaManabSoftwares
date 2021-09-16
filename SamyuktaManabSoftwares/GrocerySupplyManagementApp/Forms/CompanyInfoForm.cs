@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnClearAll_Click(object sender, EventArgs e)
+        private void BtnClear_Click(object sender, EventArgs e)
         {
             ClearAllFields();
         }
@@ -135,7 +135,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             PicBoxCompanyLogo.Image = null;
         }
-
         #endregion
 
         #region Rich Textbox Event
@@ -211,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Edit)
             {
                 BtnUpdate.Enabled = true;
-                BtnClearAll.Enabled = true;
+                BtnClear.Enabled = true;
                 BtnAddImage.Enabled = true;
                 BtnDeleteImage.Enabled = true;
 
@@ -231,7 +230,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
-                BtnClearAll.Enabled = false;
+                BtnClear.Enabled = false;
                 BtnAddImage.Enabled = false;
                 BtnDeleteImage.Enabled = false;
 

@@ -58,13 +58,13 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShowItem_Click(object sender, EventArgs e)
+        private void BtnSearchItem_Click(object sender, EventArgs e)
         {
             ItemListForm itemListForm = new ItemListForm(_itemService, this);
             itemListForm.ShowDialog();
         }
 
-        private void BtnAddNew_Click(object sender, EventArgs e)
+        private void BtnAddNewBill_Click(object sender, EventArgs e)
         {
             RichBillNo.Text = _purchasedItemService.GetLastBillNo();
             EnableFields(true);
@@ -88,12 +88,12 @@ namespace GrocerySupplyManagementApp.Forms
                     Price = Convert.ToDecimal(RichPurchasePrice.Text),
                     Total = (Convert.ToDecimal(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text))
                 };
-                
+
                 _purchasedItemViewList.Add(purchasedItemView);
                 TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
                 ClearAllFields();
                 LoadPurchasedItemViewList(_purchasedItemViewList);
-                
+
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void BtnSaveItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -148,11 +148,15 @@ namespace GrocerySupplyManagementApp.Forms
                 _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
                 Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            ClearAllFields();
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -174,12 +178,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            ClearAllFields();
-        }
-
         #endregion
 
         #region DataGrid Event
@@ -247,7 +245,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(bool option)
         {
-            BtnShowItem.Enabled = option;
+            BtnSearchItem.Enabled = option;
             RichItemCode.Enabled = option;
             RichItemName.Enabled = option;
             RichItemBrand.Enabled = option;
@@ -285,12 +283,12 @@ namespace GrocerySupplyManagementApp.Forms
             TxtTotalAmount.Text = _purchasedItemService.GetPurchasedItemTotalAmount(supplierId, billNo).ToString();
             RichBillNo.Text = billNo;
 
-            BtnShowItem.Enabled = false;
-            BtnAddNew.Enabled = false;
+            BtnSearchItem.Enabled = false;
+            BtnAddItem.Enabled = false;
             BtnAddBonus.Enabled = false;
             BtnDelete.Enabled = false;
             BtnClear.Enabled = false;
-            BtnSave.Enabled = false;
+            BtnSaveItem.Enabled = false;
             BtnAddItem.Enabled = false;
         }
 
@@ -311,10 +309,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridPurchaseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

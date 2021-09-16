@@ -43,17 +43,6 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnDailyTransactions_Click(object sender, EventArgs e)
-        {
-            TransactionForm transactionForm = new TransactionForm(_fiscalYearService,
-                _bankTransactionService,
-                _purchasedItemService, _soldItemService, 
-                _userTransactionService
-                );
-
-            transactionForm.Show();
-        }
-
         private void BtnShow_Click(object sender, EventArgs e)
         {
             string endOfDay = null;
@@ -78,7 +67,7 @@ namespace GrocerySupplyManagementApp.Forms
             var receiptCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CASH);
             var receiptCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
             var paymentCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CASH);
-            var expenseCash  = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
+            var expenseCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
             var transferCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.TRANSFER, Constants.CASH);
             var paymentCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CHEQUE);
             var expenseCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CHEQUE);
@@ -105,6 +94,17 @@ namespace GrocerySupplyManagementApp.Forms
             };
 
             LoadDailySummary(dailySummaryViewList);
+        }
+
+        private void BtnDailyTransactions_Click(object sender, EventArgs e)
+        {
+            TransactionForm transactionForm = new TransactionForm(_fiscalYearService,
+                _bankTransactionService,
+                _purchasedItemService, _soldItemService,
+                _userTransactionService
+                );
+
+            transactionForm.Show();
         }
         #endregion
 
@@ -134,7 +134,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region DataGrid Event 
+        #region Helper Methods 
         private void LoadDailySummary(List<DailySummaryView> dailySummaryViewList)
         {
             var bindingList = new BindingList<DailySummaryView>(dailySummaryViewList);
@@ -142,10 +142,5 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSummaryList.DataSource = source;
         }
         #endregion
-
-        private void DataGridSummaryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

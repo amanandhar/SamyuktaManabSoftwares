@@ -31,7 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Form Load Event
-        private void ProfitLossForm_Load(object sender, System.EventArgs e)
+        private void ProfitLossForm_Load(object sender, EventArgs e)
         {
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
@@ -39,7 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShow_Click(object sender, System.EventArgs e)
+        private void BtnShow_Click(object sender, EventArgs e)
         {
             LoadIncome();
             LoadExpense();
@@ -54,7 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtNetIncome.Text = 0.0m.ToString();
                 TxtNetLoss.Text = (_totalExpense - _totalIncome).ToString();
             }
-            else 
+            else
             {
                 TxtNetIncome.Text = 0.0m.ToString();
                 TxtNetLoss.Text = 0.0m.ToString();
@@ -274,7 +274,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
         #endregion
     }
 }

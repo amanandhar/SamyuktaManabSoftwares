@@ -70,16 +70,90 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShowPricedItem_Click(object sender, EventArgs e)
+        private void BtnSearchPricedItem_Click(object sender, EventArgs e)
         {
             PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
             pricedItemListForm.ShowDialog();
         }
 
-        private void BtnShowUnpricedItem_Click(object sender, EventArgs e)
+        private void BtnSearchUnpricedItem_Click(object sender, EventArgs e)
         {
             UnpricedItemListForm unpricedItemListForm = new UnpricedItemListForm(_pricedItemService, this);
             unpricedItemListForm.ShowDialog();
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            EnableFields();
+            EnableFields(Action.Add);
+            TxtItemSubCode.Focus();
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string destinationFilePath = null;
+                if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
+                {
+                    if (!Directory.Exists(_baseImageFolder))
+                    {
+                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            return;
+                        }
+
+                        return;
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                        {
+                            UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                        }
+
+                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
+                        destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                        if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                        {
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
+                        }
+                        else
+                        {
+                            File.Copy(PicBoxItemImage.ImageLocation, destinationFilePath, true);
+                        }
+                    }
+                }
+
+                var date = DateTime.Now;
+                var pricedItem = new PricedItem
+                {
+                    ItemId = _selectedItemId,
+                    CustomUnit = ComboCustomItemUnit.Text,
+                    Volume = Convert.ToInt64(TxtVolume.Text),
+                    SubCode = TxtItemSubCode.Text,
+                    ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
+                    Profit = Convert.ToDecimal(TxtProfitAmount.Text),
+                    SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
+                    ImagePath = destinationFilePath,
+                    AddedDate = date,
+                    UpdatedDate = date
+                };
+
+                _pricedItemService.AddPricedItem(pricedItem);
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    EnableFields();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void BtnEdit_Click(object sender, EventArgs e)
@@ -152,102 +226,16 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnAddItemImage_Click(object sender, EventArgs e)
-        {
-            OpenItemImageDialog.InitialDirectory = _baseImageFolder;
-            OpenItemImageDialog.Filter = "All files |*.*";
-            OpenItemImageDialog.ShowDialog();
-        }
-
-        private void BtnDeleteItemImage_Click(object sender, EventArgs e)
-        {
-            PicBoxItemImage.Image = null;
-        }
-
-        private void BtnAddNew_Click(object sender, EventArgs e)
-        {
-            EnableFields();
-            EnableFields(Action.Add);
-            TxtItemSubCode.Focus();
-        }
-
-        private void BtnSave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
-                {
-                    if (!Directory.Exists(_baseImageFolder))
-                    {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
-                        {
-                            return;
-                        }
-
-                        return;
-                    }
-                    else
-                    {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
-                        {
-                            UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
-                        }
-
-                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                        if(!string.IsNullOrWhiteSpace(_uploadedImagePath))
-                        {
-                            File.Copy(_uploadedImagePath, destinationFilePath, true);
-                        }
-                        else
-                        {
-                            File.Copy(PicBoxItemImage.ImageLocation, destinationFilePath, true);
-                        }
-                    }
-                }
-
-                var date = DateTime.Now;
-                var pricedItem = new PricedItem
-                {
-                    ItemId = _selectedItemId,
-                    CustomUnit = ComboCustomItemUnit.Text,
-                    Volume = Convert.ToInt64(TxtVolume.Text),
-                    SubCode = TxtItemSubCode.Text,
-                    ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
-                    Profit = Convert.ToDecimal(TxtProfitAmount.Text),
-                    SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                    ImagePath = destinationFilePath,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-
-                _pricedItemService.AddPricedItem(pricedItem);
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             try
             {
                 DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if(deleteResult == DialogResult.Yes)
+                if (deleteResult == DialogResult.Yes)
                 {
                     var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
                     var filePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                    if(File.Exists(filePath))
+                    if (File.Exists(filePath))
                     {
                         UtilityService.DeleteImage(filePath);
                     }
@@ -269,6 +257,17 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnAddImage_Click(object sender, EventArgs e)
+        {
+            OpenItemImageDialog.InitialDirectory = _baseImageFolder;
+            OpenItemImageDialog.Filter = "All files |*.*";
+            OpenItemImageDialog.ShowDialog();
+        }
+
+        private void BtnDeleteImage_Click(object sender, EventArgs e)
+        {
+            PicBoxItemImage.Image = null;
+        }
         #endregion
 
         #region OpenFileDialog Event
@@ -372,8 +371,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnSave.Enabled = true;
                 BtnDelete.Enabled = true;
-                BtnAddItemImage.Enabled = true;
-                BtnDeleteItemImage.Enabled = true;
+                BtnAddImage.Enabled = true;
+                BtnDeleteImage.Enabled = true;
             }
             else if (action == Action.Edit)
             {
@@ -383,8 +382,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
-                BtnAddItemImage.Enabled = true;
-                BtnDeleteItemImage.Enabled = true;
+                BtnAddImage.Enabled = true;
+                BtnDeleteImage.Enabled = true;
             }
             else
             {
@@ -407,8 +406,8 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
                 BtnDelete.Enabled = false;
-                BtnAddItemImage.Enabled = false;
-                BtnDeleteItemImage.Enabled = false;
+                BtnAddImage.Enabled = false;
+                BtnDeleteImage.Enabled = false;
             }
         }
 
@@ -591,5 +590,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        
     }
 }

@@ -51,10 +51,27 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShow_Click(object sender, EventArgs e)
+        private void BtnSearch_Click(object sender, EventArgs e)
         {
             EmployeeListForm employeeListForm = new EmployeeListForm(_employeeService, this);
             employeeListForm.ShowDialog();
+        }
+
+        private void BtnSearchSalaryDetails_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(_baseImageFolder);
+        }
+
+        private void BtnAddImage_Click(object sender, EventArgs e)
+        {
+            OpenEmployeeImageDialog.InitialDirectory = _baseImageFolder;
+            OpenEmployeeImageDialog.Filter = "All files |*.*";
+            OpenEmployeeImageDialog.ShowDialog();
+        }
+
+        private void BtnDeleteImage_Click(object sender, EventArgs e)
+        {
+            PicBoxEmployeeImage.Image = null;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
@@ -256,24 +273,6 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
-        private void BtnAddImage_Click(object sender, EventArgs e)
-        {
-            OpenEmployeeImageDialog.InitialDirectory = _baseImageFolder;
-            OpenEmployeeImageDialog.Filter = "All files |*.*";
-            OpenEmployeeImageDialog.ShowDialog();
-        }
-
-        private void BtnDeleteImage_Click(object sender, EventArgs e)
-        {
-            PicBoxEmployeeImage.Image = null;
-        }
-
-        private void BtnSearchSalaryDetails_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(_baseImageFolder);
-        }
-
         #endregion
 
         #region OpenFileDialog Event

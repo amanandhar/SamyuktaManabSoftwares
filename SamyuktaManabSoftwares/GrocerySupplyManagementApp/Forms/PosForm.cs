@@ -94,28 +94,114 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
-        private void BtnShowMember_Click(object sender, EventArgs e)
+
+        private void BtnSearchMember_Click(object sender, EventArgs e)
         {
             MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
             memberListForm.ShowDialog();
             RichItemCode.Focus();
         }
 
-        private void BtnShowItem_Click(object sender, EventArgs e)
+        private void BtnSaveReceipt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var date = DateTime.Now;
+                var userTransaction = new UserTransaction
+                {
+                    EndOfDay = TxtInvoiceDate.Text,
+                    MemberId = RichMemberId.Text,
+                    Action = Constants.RECEIPT,
+                    ActionType = Constants.CASH,
+                    SubTotal = 0.00m,
+                    DiscountPercent = 0.00m,
+                    Discount = 0.00m,
+                    VatPercent = 0.00m,
+                    Vat = 0.00m,
+                    DeliveryChargePercent = 0.00m,
+                    DeliveryCharge = 0.00m,
+                    DueAmount = 0.00m,
+                    ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
+                    AddedDate = date,
+                    UpdatedDate = date
+                };
+
+                _userTransactionService.AddUserTransaction(userTransaction);
+                DialogResult result = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllMemberFields();
+                    ClearAllItemFields();
+                    ClearAllInvoiceFields();
+                    _soldItemViewList.Clear();
+                    LoadItems(_soldItemViewList);
+                    EnableFields(false);
+                    RadioBtnCash.Checked = false;
+                    RadioBtnCredit.Checked = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnSearchItem_Click(object sender, EventArgs e)
         {
             PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
             pricedItemListForm.ShowDialog();
             RichItemQuantity.Focus();
         }
 
-        private void BtnDailySales_Click(object sender, EventArgs e)
+        private void BtnTransaction_Click(object sender, EventArgs e)
         {
             TransactionForm transactionForm = new TransactionForm(_fiscalYearService, _bankTransactionService, _purchasedItemService,
-                _soldItemService, _userTransactionService);
+               _soldItemService, _userTransactionService);
             transactionForm.Show();
         }
 
-        private void BtnAddItem_Click(object sender, EventArgs e)
+        private void BtnAddReceipt_Click(object sender, EventArgs e)
+        {
+            RichPayment.Enabled = true;
+            BtnSaveReceipt.Enabled = true;
+            RichPayment.Focus();
+        }
+
+        private void BtnAddExpense_Click(object sender, EventArgs e)
+        {
+            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
+    _bankService, _bankTransactionService,
+    _userTransactionService);
+            expenseForm.Show();
+        }
+
+        private void BtnBankTransfer_Click(object sender, EventArgs e)
+        {
+            BankTransferForm bankTransferForm = new BankTransferForm(_fiscalYearService, _bankService, _bankTransactionService, _userTransactionService);
+            bankTransferForm.Show();
+        }
+
+        private void BtnRemoveItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridSoldItemList.SelectedRows.Count == 1)
+                {
+                    var selectedRow = DataGridSoldItemList.SelectedRows[0];
+                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    var itemToRemove = _soldItemViewList.Single(x => x.Id == id);
+                    _soldItemViewList.Remove(itemToRemove);
+                    LoadItems(_soldItemViewList);
+                    LoadPosDetails(itemToRemove);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void BtnAddToCart_Click(object sender, EventArgs e)
         {
             try
             {
@@ -127,28 +213,15 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnAddSale_Click(object sender, EventArgs e)
-        {
-            _selectedInvoiceNo = _userTransactionService.GetInvoiceNo();
-            TxtInvoiceNo.Text = _selectedInvoiceNo;
-            TxtInvoiceDate.Text = _endOfDay;
-            RichMemberId.Enabled = true;
-            RichItemCode.Enabled = true;
-
-            BtnShowMember.Enabled = true;
-            BtnShowItem.Enabled = true;
-            RichMemberId.Focus();
-        }
-
         private void BtnSaveInvoice_Click(object sender, EventArgs e)
         {
             try
             {
-                if(string.IsNullOrWhiteSpace(ComboDeliveryPerson.Text) && TxtDeliveryChargePercent.Text != "0.00")
+                if (string.IsNullOrWhiteSpace(ComboDeliveryPerson.Text) && TxtDeliveryChargePercent.Text != "0.00")
                 {
                     DialogResult dialogResult = MessageBox.Show("Please fill the following fields: \n Delivery Person",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if(dialogResult == DialogResult.OK)
+                    if (dialogResult == DialogResult.OK)
                     {
                         return;
                     }
@@ -212,7 +285,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
                 // Add Sales Discount
-                if(Convert.ToDecimal(TxtDiscount.Text) != 0.00m)
+                if (Convert.ToDecimal(TxtDiscount.Text) != 0.00m)
                 {
                     var userTransactionForSalesDiscount = new UserTransaction
                     {
@@ -265,7 +338,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);
                 }
-                    
+
                 ClearAllMemberFields();
                 ClearAllItemFields();
                 ClearAllInvoiceFields();
@@ -276,7 +349,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RadioBtnCredit.Checked = true;
                 ComboDeliveryPerson.Text = string.Empty;
 
-                DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?", 
+                DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?",
                     "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
@@ -288,96 +361,26 @@ namespace GrocerySupplyManagementApp.Forms
                     return;
                 }
             }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private void BtnPaymentIn_Click(object sender, EventArgs e)
-        {
-            RichPayment.Enabled = true;
-            BtnSavePayment.Enabled = true;
-            RichPayment.Focus();
-        }
-
-        private void BtnRemoveItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (DataGridSoldItemList.SelectedRows.Count == 1)
-                {
-                    var selectedRow = DataGridSoldItemList.SelectedRows[0];
-                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    var itemToRemove = _soldItemViewList.Single(x => x.Id == id);
-                    _soldItemViewList.Remove(itemToRemove);
-                    LoadItems(_soldItemViewList);
-                    LoadPosDetails(itemToRemove);
-                }
-            }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-        private void BtnSavePayment_Click(object sender, EventArgs e)
+        private void BtnAddSale_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var date = DateTime.Now;
-                var userTransaction = new UserTransaction
-                {
-                    EndOfDay = TxtInvoiceDate.Text,
-                    MemberId = RichMemberId.Text,
-                    Action = Constants.RECEIPT,
-                    ActionType = Constants.CASH,
-                    SubTotal = 0.00m,
-                    DiscountPercent = 0.00m,
-                    Discount = 0.00m,
-                    VatPercent = 0.00m,
-                    Vat = 0.00m,
-                    DeliveryChargePercent = 0.00m,
-                    DeliveryCharge = 0.00m,
-                    DueAmount = 0.00m,
-                    ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
+            _selectedInvoiceNo = _userTransactionService.GetInvoiceNo();
+            TxtInvoiceNo.Text = _selectedInvoiceNo;
+            TxtInvoiceDate.Text = _endOfDay;
+            RichMemberId.Enabled = true;
+            RichItemCode.Enabled = true;
 
-                _userTransactionService.AddUserTransaction(userTransaction);
-                DialogResult result = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllMemberFields();
-                    ClearAllItemFields();
-                    ClearAllInvoiceFields();
-                    _soldItemViewList.Clear();
-                    LoadItems(_soldItemViewList);
-                    EnableFields(false);
-                    RadioBtnCash.Checked = false;
-                    RadioBtnCredit.Checked = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            BtnSearchMember.Enabled = true;
+            BtnSearchItem.Enabled = true;
+            RichMemberId.Focus();
         }
 
-        private void BtnBankTransfer_Click(object sender, EventArgs e)
-        {
-            BankTransferForm bankTransferForm = new BankTransferForm(_fiscalYearService, _bankService, _bankTransactionService, _userTransactionService);
-            bankTransferForm.Show();
-        }
 
-        private void BtnAddExpense_Click(object sender, EventArgs e)
-        {
-            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
-                _bankService, _bankTransactionService,
-                _userTransactionService);
-            expenseForm.Show();
-        }
 
         #endregion
 
@@ -405,7 +408,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RichItemQuantity_KeyUp(object sender, KeyEventArgs e)
         {
-            BtnAddItem.Enabled = true;
+            BtnAddToCart.Enabled = true;
         }
 
         private void RichItemQuantity_KeyDown(object sender, KeyEventArgs e)
@@ -505,7 +508,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
         {
             RichPayment.Enabled = true;
-            BtnSavePayment.Enabled = true;
+            BtnSaveReceipt.Enabled = true;
             RichPayment.Focus();
         }
 
@@ -668,9 +671,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(bool option)
         {
-            BtnShowMember.Enabled = option;
-            BtnShowItem.Enabled = option;
-            BtnAddItem.Enabled = option;
+            BtnSearchMember.Enabled = option;
+            BtnSearchItem.Enabled = option;
+            BtnAddToCart.Enabled = option;
             BtnSaveInvoice.Enabled = option;
         }
 
@@ -698,7 +701,7 @@ namespace GrocerySupplyManagementApp.Forms
                 List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(memberId).ToList();
                 TxtBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
 
-                BtnPaymentIn.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 RichItemCode.Focus();
             }
             catch (Exception ex)
@@ -877,6 +880,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
     }
 }
