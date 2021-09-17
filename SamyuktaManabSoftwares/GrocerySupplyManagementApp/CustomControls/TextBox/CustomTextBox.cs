@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.CustomControls.TextBox
@@ -19,6 +15,11 @@ namespace GrocerySupplyManagementApp.CustomControls.TextBox
         private bool underlinedStyle = false;
         private Color borderFocusColor = Color.HotPink;
         private bool isFocused = false;
+        private int borderRadius = 0;
+        private Color placeholderColor = Color.DarkGray;
+        private string placeholderText = string.Empty;
+        private bool isPlaceholder = false;
+        private bool isPasswordChar = false;
 
         public CustomTextBox()
         {
@@ -67,10 +68,11 @@ namespace GrocerySupplyManagementApp.CustomControls.TextBox
         {
             get
             {
-                return textBox1.UseSystemPasswordChar;
+                return isPasswordChar;
             }
             set 
             {
+                isPasswordChar = value;
                 textBox1.UseSystemPasswordChar = value;
             }
         }
@@ -139,11 +141,19 @@ namespace GrocerySupplyManagementApp.CustomControls.TextBox
         {
             get
             {
-                return textBox1.Text;
+                if(IsPlaceholder)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return textBox1.Text;
+                }
             }
             set
             {
                 textBox1.Text = value;
+                SetPlaceHolder();
             }
         }
 
@@ -159,34 +169,150 @@ namespace GrocerySupplyManagementApp.CustomControls.TextBox
                 borderFocusColor = value;
             }
         }
+
+        [Category("Custom TextBox")]
+        public int BorderRadius
+        {
+            get
+            {
+                return borderRadius;
+            }
+            set
+            {
+                if(value >= 0)
+                {
+                    borderRadius = value;
+                    this.Invalidate(); // Redraw Control
+                }
+            }
+        }
+
+        [Category("Custom TextBox")]
+        public Color PlaceholderColor
+        {
+            get
+            {
+                return placeholderColor;
+            }
+            set
+            {
+                placeholderColor = value;
+                if(isPlaceholder)
+                {
+                    textBox1.ForeColor = value;
+                }
+            }
+        }
+
+        [Category("Custom TextBox")]
+        public string PlaceholderText
+        {
+            get
+            {
+                return placeholderText;
+            }
+            set
+            {
+                placeholderText = value;
+                textBox1.Text = string.Empty;
+                SetPlaceHolder();
+            }
+        }
+
+        [Category("Custom TextBox")]
+        public bool IsPlaceholder { get => isPlaceholder; set => isPlaceholder = value; }
+
+        [Category("Custom TextBox")]
+        public bool IsPasswordChar { get => isPasswordChar; set => isPasswordChar = value; }
         #endregion
+
+        private void SetPlaceHolder()
+        {
+            if(string.IsNullOrWhiteSpace(textBox1.Text) && placeholderText != string.Empty)
+            {
+                isPlaceholder = true;
+                textBox1.Text = placeholderText;
+                textBox1.ForeColor = placeholderColor;
+                if(isPasswordChar)
+                {
+                    textBox1.UseSystemPasswordChar = false;
+                }
+            }
+        }
+
+        private void RemovePlaceHolder()
+        {
+            if (isPlaceholder && placeholderText != string.Empty)
+            {
+                isPlaceholder = false;
+                textBox1.Text = string.Empty;
+                textBox1.ForeColor = this.ForeColor;
+                if (isPasswordChar)
+                {
+                    textBox1.UseSystemPasswordChar = true;
+                }
+            }
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             Graphics graphics = e.Graphics;
 
-            // Draw border
-            using (Pen penBorder = new Pen(BorderColor, borderSize))
+            if(borderRadius > 1) 
             {
-                penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                //Rounded Textbox
+                var rectBorderSmooth = this.ClientRectangle;
+                var rectBorder = Rectangle.Inflate(rectBorderSmooth, -borderSize, -borderSize);
+                int smoothSize = borderSize > 0 ? borderSize : 1;
 
-                if(!isFocused)
+                using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, borderRadius))
+                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
+                using (Pen penBorderSmooth = new Pen(this.Parent.BackColor, smoothSize))
+                using (Pen penBorder = new Pen(borderColor, borderSize))
                 {
-                    if (underlinedStyle)
+                    // - Drawing
+                    this.Region = new Region(pathBorderSmooth); // set the rounded region of UserControl
+                    if (borderRadius > 15)
                     {
-                        // Line Style
+                        SetTextBoxRoundedRegion();
+                    }
+
+                    graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+                    penBorder.Alignment = PenAlignment.Center;
+                    if (isFocused) penBorder.Color = borderFocusColor;
+
+                    if(underlinedStyle)
+                    {
+                        // Draw border smoothing
+                        graphics.DrawPath(penBorderSmooth, pathBorderSmooth);
+                        // Draw border
+                        graphics.SmoothingMode = SmoothingMode.None;
                         graphics.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
                     }
                     else
                     {
-                        // Normal Style
-                        graphics.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
+                        // Draw border smoothing
+                        graphics.DrawPath(penBorderSmooth, pathBorderSmooth);
+                        // Draw border
+                        graphics.DrawPath(penBorder, pathBorder);
                     }
                 }
-                else
+            }
+            else 
+            {
+                // Squared, Normal Textbox
+                // Draw border
+                using (Pen penBorder = new Pen(BorderColor, borderSize))
                 {
-                    penBorder.Color = borderFocusColor;
+                    this.Region = new Region(this.ClientRectangle);
+                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+
+                    if (isFocused)
+                    {
+                        penBorder.Color = borderFocusColor;
+                    }
 
                     if (underlinedStyle)
                     {
@@ -200,6 +326,36 @@ namespace GrocerySupplyManagementApp.CustomControls.TextBox
                     }
                 }
             }
+        }
+
+        private void SetTextBoxRoundedRegion()
+        {
+            GraphicsPath pathTxt;
+            if(Multiline)
+            {
+                pathTxt = GetFigurePath(textBox1.ClientRectangle, borderRadius - borderSize);
+                textBox1.Region = new Region(pathTxt);
+            }
+            else
+            {
+                pathTxt = GetFigurePath(textBox1.ClientRectangle, borderSize * 2);
+                textBox1.Region = new Region(pathTxt);
+            }
+        }
+
+        private GraphicsPath GetFigurePath(RectangleF rect, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            float curveSize = radius * 2F;
+
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
+            path.AddArc(rect.Width - radius, rect.Y, radius, radius, 270, 90);
+            path.AddArc(rect.Width - radius, rect.Height - radius, radius, radius, 0, 90);
+            path.AddArc(rect.X, rect.Height - radius, radius, radius, 90, 90);
+            path.CloseFigure();
+
+            return path;
         }
 
         protected override void OnResize(EventArgs e)
@@ -272,12 +428,14 @@ namespace GrocerySupplyManagementApp.CustomControls.TextBox
         {
             isFocused = true;
             this.Invalidate();
+            RemovePlaceHolder();
         }
 
         private void textBox1_Leave(object sender, EventArgs e)
         {
             isFocused = false;
             this.Invalidate();
+            SetPlaceHolder();
         }
     }
 }

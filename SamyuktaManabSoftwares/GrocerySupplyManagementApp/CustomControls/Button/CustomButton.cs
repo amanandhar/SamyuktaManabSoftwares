@@ -81,7 +81,7 @@ namespace GrocerySupplyManagementApp.CustomControls.Button
             }
         }
 
-        //Constructor
+        // Constructor
         public CustomButton()
         {
             this.FlatStyle = FlatStyle.Flat;
@@ -92,6 +92,7 @@ namespace GrocerySupplyManagementApp.CustomControls.Button
             this.Resize += new EventHandler(Button_Resize);
         }
 
+        // Methods
         private GraphicsPath GetFigurePath(RectangleF rect, float radius)
         {
             GraphicsPath path = new GraphicsPath();
