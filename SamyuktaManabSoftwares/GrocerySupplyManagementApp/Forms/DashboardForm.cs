@@ -120,6 +120,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IReportService _reportService;
         private readonly IUserService _userService;
         private readonly IItemCategoryService _itemCategoryService;
+        private readonly IShareMemberService _shareMemberService;
 
         #region Constructor
         public DashboardForm(IFiscalYearService fiscalYearService,
@@ -131,7 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
             IUserTransactionService userTransactionService, IStockService stockService,
             IEndOfDayService endOfDateService, IEmployeeService employeeService,
             IReportService reportService, IUserService userService,
-            IItemCategoryService itemCategoryService)
+            IItemCategoryService itemCategoryService, IShareMemberService shareMemberService)
         {
             InitializeComponent();
             CustomizeDesign();
@@ -154,6 +155,7 @@ namespace GrocerySupplyManagementApp.Forms
             _reportService = reportService;
             _userService = userService;
             _itemCategoryService = itemCategoryService;
+            _shareMemberService = shareMemberService;
         }
         #endregion
 
@@ -315,7 +317,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShareCapital_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ShareMemberForm());
+            OpenChildForm(new ShareMemberForm(_shareMemberService));
             SelectButton(sender as Button, true);
         }
 

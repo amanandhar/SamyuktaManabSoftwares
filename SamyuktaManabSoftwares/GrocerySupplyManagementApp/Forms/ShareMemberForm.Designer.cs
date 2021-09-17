@@ -34,21 +34,21 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.RichName = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.RichContactNumber = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.RichAddress = new System.Windows.Forms.RichTextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.TxtShareAmount = new System.Windows.Forms.TextBox();
+            this.RichNarration = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ComboBank = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.RichBalance = new System.Windows.Forms.RichTextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.RichAmount = new System.Windows.Forms.RichTextBox();
+            this.PicBoxShareMember = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DataGridMemberList = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -66,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxShareMember)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -77,14 +77,14 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.BtnSearch);
-            this.groupBox1.Controls.Add(this.richTextBox2);
+            this.groupBox1.Controls.Add(this.RichName);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.RichContactNumber);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.RichAddress);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.TxtShareAmount);
             this.groupBox1.Location = new System.Drawing.Point(23, 47);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(465, 112);
@@ -109,15 +109,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.Text = "Search";
             this.BtnSearch.TextColor = System.Drawing.Color.White;
             this.BtnSearch.UseVisualStyleBackColor = false;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // richTextBox2
+            // RichName
             // 
-            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.Location = new System.Drawing.Point(89, 15);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(280, 28);
-            this.richTextBox2.TabIndex = 31;
-            this.richTextBox2.Text = "";
+            this.RichName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichName.Location = new System.Drawing.Point(89, 15);
+            this.RichName.Name = "RichName";
+            this.RichName.Size = new System.Drawing.Size(280, 28);
+            this.RichName.TabIndex = 31;
+            this.RichName.Text = "";
             // 
             // label2
             // 
@@ -181,25 +182,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAddress.TabIndex = 1;
             this.RichAddress.Text = "";
             // 
-            // textBox2
+            // TxtShareAmount
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(322, 76);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(119, 26);
-            this.textBox2.TabIndex = 30;
+            this.TxtShareAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtShareAmount.Location = new System.Drawing.Point(322, 76);
+            this.TxtShareAmount.Name = "TxtShareAmount";
+            this.TxtShareAmount.Size = new System.Drawing.Size(119, 26);
+            this.TxtShareAmount.TabIndex = 30;
             // 
-            // richTextBox1
+            // RichNarration
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.White;
-            this.richTextBox1.Enabled = false;
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(87, 45);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.richTextBox1.Size = new System.Drawing.Size(320, 28);
-            this.richTextBox1.TabIndex = 34;
-            this.richTextBox1.Text = "";
+            this.RichNarration.BackColor = System.Drawing.Color.White;
+            this.RichNarration.Enabled = false;
+            this.RichNarration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichNarration.Location = new System.Drawing.Point(87, 45);
+            this.RichNarration.Name = "RichNarration";
+            this.RichNarration.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichNarration.Size = new System.Drawing.Size(320, 28);
+            this.RichNarration.TabIndex = 34;
+            this.RichNarration.Text = "";
             // 
             // label6
             // 
@@ -212,14 +213,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.TabIndex = 33;
             this.label6.Text = "Narration";
             // 
-            // comboBox1
+            // ComboBank
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(87, 15);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(225, 26);
-            this.comboBox1.TabIndex = 32;
+            this.ComboBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBank.FormattingEnabled = true;
+            this.ComboBank.Location = new System.Drawing.Point(87, 15);
+            this.ComboBank.Name = "ComboBank";
+            this.ComboBank.Size = new System.Drawing.Size(225, 26);
+            this.ComboBank.TabIndex = 32;
             // 
             // label5
             // 
@@ -243,29 +244,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.TabIndex = 28;
             this.label8.Text = "Amount";
             // 
-            // RichBalance
+            // RichAmount
             // 
-            this.RichBalance.BackColor = System.Drawing.Color.White;
-            this.RichBalance.Enabled = false;
-            this.RichBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBalance.Location = new System.Drawing.Point(87, 76);
-            this.RichBalance.Name = "RichBalance";
-            this.RichBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichBalance.Size = new System.Drawing.Size(225, 28);
-            this.RichBalance.TabIndex = 5;
-            this.RichBalance.Text = "";
+            this.RichAmount.BackColor = System.Drawing.Color.White;
+            this.RichAmount.Enabled = false;
+            this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichAmount.Location = new System.Drawing.Point(87, 76);
+            this.RichAmount.Name = "RichAmount";
+            this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichAmount.Size = new System.Drawing.Size(225, 28);
+            this.RichAmount.TabIndex = 5;
+            this.RichAmount.Text = "";
             // 
-            // pictureBox1
+            // PicBoxShareMember
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 9);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(133, 135);
-            this.pictureBox1.TabIndex = 33;
-            this.pictureBox1.TabStop = false;
+            this.PicBoxShareMember.Location = new System.Drawing.Point(3, 9);
+            this.PicBoxShareMember.Name = "PicBoxShareMember";
+            this.PicBoxShareMember.Size = new System.Drawing.Size(133, 135);
+            this.PicBoxShareMember.TabIndex = 33;
+            this.PicBoxShareMember.TabStop = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.pictureBox1);
+            this.groupBox2.Controls.Add(this.PicBoxShareMember);
             this.groupBox2.Location = new System.Drawing.Point(945, 45);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(140, 147);
@@ -337,6 +338,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
             this.BtnDelete.UseVisualStyleBackColor = false;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // BtnUpdate
             // 
@@ -356,6 +358,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
             this.BtnUpdate.UseVisualStyleBackColor = false;
+            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // BtnEdit
             // 
@@ -375,6 +378,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
             // BtnSave
             // 
@@ -394,6 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnAdd
             // 
@@ -413,15 +418,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
             this.BtnAdd.UseVisualStyleBackColor = false;
+            this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.richTextBox1);
-            this.groupBox4.Controls.Add(this.comboBox1);
+            this.groupBox4.Controls.Add(this.RichNarration);
+            this.groupBox4.Controls.Add(this.ComboBank);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.RichBalance);
+            this.groupBox4.Controls.Add(this.RichAmount);
             this.groupBox4.Location = new System.Drawing.Point(500, 47);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(430, 112);
@@ -446,6 +452,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveAmount.Text = "Save";
             this.BtnSaveAmount.TextColor = System.Drawing.Color.White;
             this.BtnSaveAmount.UseVisualStyleBackColor = false;
+            this.BtnSaveAmount.Click += new System.EventHandler(this.BtnSaveAmount_Click);
             // 
             // BtnShow
             // 
@@ -465,6 +472,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
             this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // BtnAddImage
             // 
@@ -484,6 +492,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.Text = "Add";
             this.BtnAddImage.TextColor = System.Drawing.Color.White;
             this.BtnAddImage.UseVisualStyleBackColor = false;
+            this.BtnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
             // 
             // BtnDeleteImage
             // 
@@ -502,6 +511,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.Text = "Delete";
             this.BtnDeleteImage.TextColor = System.Drawing.Color.White;
             this.BtnDeleteImage.UseVisualStyleBackColor = false;
+            this.BtnDeleteImage.Click += new System.EventHandler(this.BtnDeleteImage_Click);
             // 
             // textBox1
             // 
@@ -556,7 +566,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Load += new System.EventHandler(this.SalesReport_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxShareMember)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -576,19 +586,19 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox RichContactNumber;
         private System.Windows.Forms.RichTextBox RichAddress;
-        private System.Windows.Forms.RichTextBox RichBalance;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.RichTextBox RichAmount;
+        private System.Windows.Forms.PictureBox PicBoxShareMember;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView DataGridMemberList;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox TxtShareAmount;
+        private System.Windows.Forms.RichTextBox RichNarration;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboBank;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox RichName;
         private CustomControls.Button.CustomButton BtnSearch;
         private CustomControls.Button.CustomButton BtnDelete;
         private CustomControls.Button.CustomButton BtnUpdate;

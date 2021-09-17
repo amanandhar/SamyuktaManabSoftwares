@@ -131,6 +131,7 @@
     <Compile Include="Entities\PricedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\ShareMember.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserTransaction.cs" />
     <Compile Include="Entities\SoldItem.cs" />
@@ -403,6 +404,7 @@
     <Compile Include="Repositories\Interfaces\IMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPurchasedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IShareMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISoldItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IStockRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISupplierRepository.cs" />
@@ -427,6 +429,7 @@
     <Compile Include="Repositories\MSSqlPricedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlTaxRepository.cs" />
+    <Compile Include="Repositories\MSSqlShareMemberRepository.cs" />
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\CompanyInfoService.cs" />
@@ -445,6 +448,7 @@
     <Compile Include="Services\Interfaces\IMemberService.cs" />
     <Compile Include="Services\Interfaces\IPurchasedItemService.cs" />
     <Compile Include="Services\Interfaces\IReportService.cs" />
+    <Compile Include="Services\Interfaces\IShareMemberService.cs" />
     <Compile Include="Services\Interfaces\ISoldItemService.cs" />
     <Compile Include="Services\Interfaces\IStockService.cs" />
     <Compile Include="Services\Interfaces\ISupplierService.cs" />
@@ -456,6 +460,7 @@
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\PurchasedItemService.cs" />
     <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\ShareMemberService.cs" />
     <Compile Include="Services\StockService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserTransactionService.cs" />

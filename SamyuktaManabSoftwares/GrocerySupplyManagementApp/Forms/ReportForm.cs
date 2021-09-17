@@ -11,11 +11,13 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
+        private readonly IShareMemberService _shareMemberService;
 
         #region Constructor
         public ReportForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
-            IUserTransactionService userTransactionService, IStockService stockService
+            IUserTransactionService userTransactionService, IStockService stockService,
+            IShareMemberService shareMemberService
             )
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
+            _shareMemberService = shareMemberService;
         }
         #endregion
 
@@ -39,7 +42,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShareCapital_Click(object sender, EventArgs e)
         {
-            ShareMemberForm shareMemberForm = new ShareMemberForm();
+            ShareMemberForm shareMemberForm = new ShareMemberForm(_shareMemberService);
             shareMemberForm.ShowDialog();
         }
 
