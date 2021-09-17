@@ -29,7 +29,6 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FiscalYearForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.RichFiscalYear = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,29 +36,28 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichCompanyStartingDate = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.RichInvoiceNo = new System.Windows.Forms.RichTextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.RichBillNo = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.RichFiscalYear);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(305, 152);
+            this.groupBox1.Location = new System.Drawing.Point(511, 152);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(370, 80);
             this.groupBox1.TabIndex = 0;
@@ -111,7 +109,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox2.Controls.Add(this.RichCompanyStartingDate);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(305, 53);
+            this.groupBox2.Location = new System.Drawing.Point(513, 53);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(370, 80);
             this.groupBox2.TabIndex = 2;
@@ -121,17 +119,57 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnEdit);
-            this.groupBox3.Location = new System.Drawing.Point(125, 250);
+            this.groupBox3.Location = new System.Drawing.Point(320, 239);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(424, 90);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             // 
+            // BtnSave
+            // 
+            this.BtnSave.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSave.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSave.BorderRadius = 40;
+            this.BtnSave.BorderSize = 0;
+            this.BtnSave.FlatAppearance.BorderSize = 0;
+            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSave.ForeColor = System.Drawing.Color.White;
+            this.BtnSave.Location = new System.Drawing.Point(225, 28);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(150, 40);
+            this.BtnSave.TabIndex = 4;
+            this.BtnSave.Text = "Save";
+            this.BtnSave.TextColor = System.Drawing.Color.White;
+            this.BtnSave.UseVisualStyleBackColor = false;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            // 
+            // BtnEdit
+            // 
+            this.BtnEdit.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnEdit.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnEdit.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnEdit.BorderRadius = 40;
+            this.BtnEdit.BorderSize = 0;
+            this.BtnEdit.FlatAppearance.BorderSize = 0;
+            this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEdit.ForeColor = System.Drawing.Color.White;
+            this.BtnEdit.Location = new System.Drawing.Point(41, 28);
+            this.BtnEdit.Name = "BtnEdit";
+            this.BtnEdit.Size = new System.Drawing.Size(150, 40);
+            this.BtnEdit.TabIndex = 3;
+            this.BtnEdit.Text = "Edit";
+            this.BtnEdit.TextColor = System.Drawing.Color.White;
+            this.BtnEdit.UseVisualStyleBackColor = false;
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.RichInvoiceNo);
-            this.groupBox4.Location = new System.Drawing.Point(9, 53);
+            this.groupBox4.Location = new System.Drawing.Point(217, 53);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(290, 80);
             this.groupBox4.TabIndex = 5;
@@ -162,7 +200,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox5.Controls.Add(this.RichBillNo);
             this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(9, 152);
+            this.groupBox5.Location = new System.Drawing.Point(215, 152);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(290, 80);
             this.groupBox5.TabIndex = 6;
@@ -189,73 +227,35 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.TabIndex = 0;
             this.label4.Text = "Starting Bill No.";
             // 
-            // groupBox6
+            // textBox1
             // 
-            this.groupBox6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox6.BackgroundImage")));
-            this.groupBox6.Controls.Add(this.label5);
-            this.groupBox6.Location = new System.Drawing.Point(-5, -1);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(692, 38);
-            this.groupBox6.TabIndex = 7;
-            this.groupBox6.TabStop = false;
+            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(-1, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1103, 44);
+            this.textBox1.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.BackColor = System.Drawing.SystemColors.Highlight;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Cyan;
-            this.label5.Location = new System.Drawing.Point(183, 7);
+            this.label5.Location = new System.Drawing.Point(285, 3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(322, 25);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Date && Fiscal Year Management";
-            // 
-            // BtnEdit
-            // 
-            this.BtnEdit.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnEdit.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnEdit.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnEdit.BorderRadius = 40;
-            this.BtnEdit.BorderSize = 0;
-            this.BtnEdit.FlatAppearance.BorderSize = 0;
-            this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnEdit.ForeColor = System.Drawing.Color.White;
-            this.BtnEdit.Location = new System.Drawing.Point(41, 28);
-            this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(150, 40);
-            this.BtnEdit.TabIndex = 3;
-            this.BtnEdit.Text = "Edit";
-            this.BtnEdit.TextColor = System.Drawing.Color.White;
-            this.BtnEdit.UseVisualStyleBackColor = false;
-            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
-            // 
-            // BtnSave
-            // 
-            this.BtnSave.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnSave.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSave.BorderRadius = 40;
-            this.BtnSave.BorderSize = 0;
-            this.BtnSave.FlatAppearance.BorderSize = 0;
-            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSave.ForeColor = System.Drawing.Color.White;
-            this.BtnSave.Location = new System.Drawing.Point(225, 28);
-            this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(150, 40);
-            this.BtnSave.TabIndex = 4;
-            this.BtnSave.Text = "Save";
-            this.BtnSave.TextColor = System.Drawing.Color.White;
-            this.BtnSave.UseVisualStyleBackColor = false;
-            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            this.label5.Size = new System.Drawing.Size(554, 33);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Date && Fiscal Year Setup Management";
             // 
             // FiscalYearForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(684, 361);
-            this.Controls.Add(this.groupBox6);
+            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -263,7 +263,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox1);
             this.Location = new System.Drawing.Point(750, 313);
             this.Name = "FiscalYearForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FiscalYearForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -274,9 +274,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -295,9 +294,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.RichTextBox RichBillNo;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label5;
         private CustomControls.Button.CustomButton BtnEdit;
         private CustomControls.Button.CustomButton BtnSave;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label5;
     }
 }

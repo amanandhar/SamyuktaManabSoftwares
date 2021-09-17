@@ -29,8 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BankTransferForm));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnClear = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,13 +43,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.TxtAccountNo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.BtnClear = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -60,6 +58,46 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(650, 90);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
+            // 
+            // BtnSave
+            // 
+            this.BtnSave.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSave.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSave.BorderRadius = 25;
+            this.BtnSave.BorderSize = 0;
+            this.BtnSave.FlatAppearance.BorderSize = 0;
+            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSave.ForeColor = System.Drawing.Color.White;
+            this.BtnSave.Location = new System.Drawing.Point(320, 23);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(125, 35);
+            this.BtnSave.TabIndex = 3;
+            this.BtnSave.Text = "Save";
+            this.BtnSave.TextColor = System.Drawing.Color.White;
+            this.BtnSave.UseVisualStyleBackColor = false;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            // 
+            // BtnClear
+            // 
+            this.BtnClear.BackColor = System.Drawing.SystemColors.Highlight;
+            this.BtnClear.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnClear.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnClear.BorderRadius = 25;
+            this.BtnClear.BorderSize = 0;
+            this.BtnClear.FlatAppearance.BorderSize = 0;
+            this.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnClear.ForeColor = System.Drawing.Color.White;
+            this.BtnClear.Location = new System.Drawing.Point(190, 23);
+            this.BtnClear.Name = "BtnClear";
+            this.BtnClear.Size = new System.Drawing.Size(125, 35);
+            this.BtnClear.TabIndex = 2;
+            this.BtnClear.Text = "Clear";
+            this.BtnClear.TextColor = System.Drawing.Color.White;
+            this.BtnClear.UseVisualStyleBackColor = false;
+            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // label4
             // 
@@ -182,65 +220,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 0;
             this.label1.Text = "Account ";
             // 
-            // groupBox3
+            // textBox1
             // 
-            this.groupBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox3.BackgroundImage")));
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(-2, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(687, 40);
-            this.groupBox3.TabIndex = 8;
-            this.groupBox3.TabStop = false;
+            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(0, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(685, 35);
+            this.textBox1.TabIndex = 8;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.BackColor = System.Drawing.SystemColors.Highlight;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Cyan;
-            this.label6.Location = new System.Drawing.Point(261, 9);
+            this.label6.ForeColor = System.Drawing.Color.Aqua;
+            this.label6.Location = new System.Drawing.Point(263, 4);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(160, 25);
-            this.label6.TabIndex = 0;
+            this.label6.TabIndex = 9;
             this.label6.Text = "Bank Transfer";
-            // 
-            // BtnClear
-            // 
-            this.BtnClear.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnClear.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnClear.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnClear.BorderRadius = 40;
-            this.BtnClear.BorderSize = 0;
-            this.BtnClear.FlatAppearance.BorderSize = 0;
-            this.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnClear.ForeColor = System.Drawing.Color.White;
-            this.BtnClear.Location = new System.Drawing.Point(134, 23);
-            this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(150, 40);
-            this.BtnClear.TabIndex = 2;
-            this.BtnClear.Text = "Clear";
-            this.BtnClear.TextColor = System.Drawing.Color.White;
-            this.BtnClear.UseVisualStyleBackColor = false;
-            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
-            // 
-            // BtnSave
-            // 
-            this.BtnSave.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnSave.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSave.BorderRadius = 40;
-            this.BtnSave.BorderSize = 0;
-            this.BtnSave.FlatAppearance.BorderSize = 0;
-            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSave.ForeColor = System.Drawing.Color.White;
-            this.BtnSave.Location = new System.Drawing.Point(327, 23);
-            this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(150, 40);
-            this.BtnSave.TabIndex = 3;
-            this.BtnSave.Text = "Save";
-            this.BtnSave.TextColor = System.Drawing.Color.White;
-            this.BtnSave.UseVisualStyleBackColor = false;
-            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BankTransferForm
             // 
@@ -248,7 +247,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(684, 361);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -258,9 +258,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -278,9 +277,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichDepositAmount;
         private System.Windows.Forms.TextBox TxtAccountNo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label6;
         private CustomControls.Button.CustomButton BtnClear;
         private CustomControls.Button.CustomButton BtnSave;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label6;
     }
 }
