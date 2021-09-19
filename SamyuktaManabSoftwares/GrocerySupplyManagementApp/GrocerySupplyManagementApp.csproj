@@ -162,6 +162,7 @@
       <DependentUpon>EmployeeListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Interfaces\IEmployeeListForm.cs" />
+    <Compile Include="Forms\Interfaces\IShareMemberListForm.cs" />
     <Compile Include="Forms\Interfaces\IUnpricedItemListForm.cs" />
     <Compile Include="Forms\Interfaces\IUserListForm.cs" />
     <Compile Include="Forms\ItemForm.cs">
@@ -225,6 +226,12 @@
     </Compile>
     <Compile Include="Forms\ExpenseForm.Designer.cs">
       <DependentUpon>ExpenseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ShareMemberListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ShareMemberListForm.Designer.cs">
+      <DependentUpon>ShareMemberListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\StockAdjustmentForm.cs">
       <SubType>Form</SubType>
@@ -530,6 +537,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ShareMemberForm.resx">
       <DependentUpon>ShareMemberForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ShareMemberListForm.resx">
+      <DependentUpon>ShareMemberListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StockAdjustmentForm.resx">
       <DependentUpon>StockAdjustmentForm.cs</DependentUpon>

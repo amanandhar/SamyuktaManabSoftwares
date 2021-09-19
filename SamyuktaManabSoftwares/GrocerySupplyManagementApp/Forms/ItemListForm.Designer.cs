@@ -125,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.DataGridItemList);
             this.Location = new System.Drawing.Point(725, 312);
             this.Name = "ItemListForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ItemListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridItemList)).EndInit();
             this.groupBox1.ResumeLayout(false);

@@ -453,7 +453,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox3);
             this.Location = new System.Drawing.Point(569, 240);
             this.Name = "ExpenseForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ExpenseForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

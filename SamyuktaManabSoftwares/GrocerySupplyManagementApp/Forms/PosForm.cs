@@ -170,8 +170,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddExpense_Click(object sender, EventArgs e)
         {
             ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
-    _bankService, _bankTransactionService,
-    _userTransactionService);
+                _bankService, _bankTransactionService, _userTransactionService);
             expenseForm.Show();
         }
 

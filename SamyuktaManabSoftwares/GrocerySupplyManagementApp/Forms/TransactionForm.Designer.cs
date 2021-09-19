@@ -524,7 +524,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox2);
             this.Location = new System.Drawing.Point(532, 241);
             this.Name = "TransactionForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.TransactionForm_Load);
             this.GroupFilter.ResumeLayout(false);
             this.GroupFilter.PerformLayout();

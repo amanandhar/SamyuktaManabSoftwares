@@ -80,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.DataGridEmployeeList);
             this.Location = new System.Drawing.Point(825, 313);
             this.Name = "EmployeeListForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.EmployeeListForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridEmployeeList)).EndInit();
             this.ResumeLayout(false);

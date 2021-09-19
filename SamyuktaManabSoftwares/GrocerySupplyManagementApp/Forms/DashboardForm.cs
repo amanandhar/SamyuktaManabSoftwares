@@ -217,6 +217,17 @@ namespace GrocerySupplyManagementApp.Forms
             SelectButton(sender as Button);
         }
 
+        private void BtnDailyTransaction_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new TransactionForm(_fiscalYearService,
+               _bankTransactionService,
+               _purchasedItemService, _soldItemService,
+               _userTransactionService
+               ));
+            HideSubMenu();
+            SelectButton(sender as Button);
+        }
+
         private void BtnStockSummary_Click(object sender, EventArgs e)
         {
            OpenChildForm(new StockForm(_fiscalYearService, _purchasedItemService,
@@ -317,7 +328,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShareCapital_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ShareMemberForm(_shareMemberService));
+            OpenChildForm(new ShareMemberForm(_fiscalYearService, _bankService, 
+                _bankTransactionService, _shareMemberService, 
+                _userTransactionService, this));
             SelectButton(sender as Button, true);
         }
 
@@ -423,6 +436,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Label Click Event
+        private void lblCompanyShortName_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(null);
+        }
+        #endregion
+
         #region Helper Methods
         private void LoadFiscalYear()
         {
@@ -441,9 +461,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        private void lblCompanyShortName_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(null);
-        }
     }
 }

@@ -64,6 +64,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TOTAL = "Total";
         public const string DEPOSIT = "Deposit";
         public const string WITHDRAWL = "Withdrawl";
+        public const string BONUS = "Bonus";
 
         //Images
         public const string BASE_IMAGE_FOLDER = "BaseImageFolder";

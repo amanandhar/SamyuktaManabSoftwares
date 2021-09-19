@@ -189,7 +189,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.BtnShareCapital);
             this.Location = new System.Drawing.Point(569, 241);
             this.Name = "ReportForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ReportForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

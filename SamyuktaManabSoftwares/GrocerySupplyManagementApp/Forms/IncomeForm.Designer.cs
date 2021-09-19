@@ -400,7 +400,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox1);
             this.Location = new System.Drawing.Point(569, 240);
             this.Name = "IncomeForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.IncomeDetailForm_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();

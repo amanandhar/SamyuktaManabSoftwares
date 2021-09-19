@@ -42,8 +42,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShareCapital_Click(object sender, EventArgs e)
         {
-            ShareMemberForm shareMemberForm = new ShareMemberForm(_shareMemberService);
-            shareMemberForm.ShowDialog();
+            //ShareMemberForm shareMemberForm = new ShareMemberForm(_fiscalYearService, _bankService,
+            //    _bankTransactionService, _shareMemberService,
+            //    _userTransactionService, this);
+            //shareMemberForm.ShowDialog();
         }
 
         private void BtnProfitLossForm_Click(object sender, EventArgs e)

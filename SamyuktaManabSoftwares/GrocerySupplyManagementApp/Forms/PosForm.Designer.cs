@@ -1205,7 +1205,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox1);
             this.Location = new System.Drawing.Point(276, 156);
             this.Name = "PosForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.PosForm_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

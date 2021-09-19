@@ -110,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EndOfDay = _endOfDay,
                     SupplierId = _supplierForm.GetSupplierId(),
-                    BillNo = item.BillNo,
+                    BillNo = item.BillNo == Constants.BONUS ? null : item.BillNo,
                     ItemId = _itemService.GetItem(item.Code).Id,
                     Quantity = item.Quantity,
                     Price = item.Price,
@@ -126,10 +126,10 @@ namespace GrocerySupplyManagementApp.Forms
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
-                    BillNo = RichBillNo.Text,
+                    BillNo = RichBillNo.Text == Constants.BONUS ? null : RichBillNo.Text,
                     SupplierId = _supplierForm.GetSupplierId(),
                     Action = Constants.PURCHASE,
-                    ActionType = Constants.CREDIT,
+                    ActionType = Constants.BONUS,
                     SubTotal = 0.0m,
                     DiscountPercent = 0.0m,
                     Discount = 0.0m,
@@ -138,7 +138,7 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryChargePercent = 0.0m,
                     DeliveryCharge = 0.0m,
                     DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
-                    ReceivedAmount = 0.0m,
+                    ReceivedAmount = Convert.ToDecimal(TxtTotalAmount.Text),
                     AddedDate = date,
                     UpdatedDate = date
                 };
@@ -309,5 +309,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        private void BtnAddBonus_Click(object sender, EventArgs e)
+        {
+            RichBillNo.Text = _purchasedItemService.GetLastBillNo();
+        }
     }
 }

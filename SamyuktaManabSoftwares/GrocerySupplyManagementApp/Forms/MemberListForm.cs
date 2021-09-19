@@ -1,5 +1,4 @@
-﻿using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
@@ -141,10 +140,5 @@ namespace GrocerySupplyManagementApp.Forms
             SearchMembers();
         }
         #endregion
-
-        private void DataGridMemberList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

@@ -370,7 +370,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox2);
             this.Location = new System.Drawing.Point(569, 240);
             this.Name = "StockForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.StockForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
