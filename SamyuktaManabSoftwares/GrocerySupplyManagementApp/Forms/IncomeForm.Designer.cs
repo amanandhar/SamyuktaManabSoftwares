@@ -242,6 +242,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboAddIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboAddIncome.FormattingEnabled = true;
             this.ComboAddIncome.Items.AddRange(new object[] {
+            "Bonus",
             "Member Fee",
             "Other Income",
             "Sales Profit"});

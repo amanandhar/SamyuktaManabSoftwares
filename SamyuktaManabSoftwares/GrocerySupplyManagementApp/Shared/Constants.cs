@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Shared
         // Action Type
         public const string CASH = "Cash";
         public const string CREDIT = "Credit";
+        public const string DEBIT = "DEBIT";
         public const string CHEQUE = "Cheque";
 
         public const string CLEAR = "Clear";

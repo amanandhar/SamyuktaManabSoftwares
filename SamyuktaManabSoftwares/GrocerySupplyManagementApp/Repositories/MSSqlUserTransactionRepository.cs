@@ -1496,17 +1496,69 @@ namespace GrocerySupplyManagementApp.Repositories
             return incomeDetails;
         }
 
+        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
+        {
+            var shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
+            var query = @"SELECT " +
+                "bt.[Id], bt.[EndOfDay], bt.[Narration] AS [Description], " +
+                "CASE WHEN bt.[Action] = 1 THEN '" + Constants.DEPOSIT + "' ELSE '" + Constants.WITHDRAWL + "' END AS [Type], " +
+                "bt.[Debit], bt.[Credit], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "INNER JOIN " + 
+                Constants.TABLE_BANK_TRANSACTION + " bt " +
+                "ON ut.[id] = bt.[TransactionId] " + 
+                "WHERE 1 = 1 " +
+                "AND ut.[ShareMemberId] = @ShareMemberId ";
+                
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ShareMemberId", ((object)shareMemberId) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var shareMemberTransactionView = new ShareMemberTransactionView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    Type = reader["Type"].ToString(),
+                                    Debit = Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = Convert.ToDecimal(reader["Balance"].ToString())
+                                };
+
+                                shareMemberTransactionViewList.Add(shareMemberTransactionView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return shareMemberTransactionViewList;
+        }
+
         public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
-                        "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
+                        "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
                         "[IncomeExpense], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
                         "[DeliveryCharge], [DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
+                        "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @ShareMemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
                         "@IncomeExpense, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
                         "@DeliveryCharge, @DueAmount, @ReceivedAmount, @AddedDate, @UpdatedDate " +
                     ") ";
@@ -1521,6 +1573,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)userTransaction.InvoiceNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BillNo", ((object)userTransaction.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@MemberId", ((object)userTransaction.MemberId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ShareMemberId", ((object)userTransaction.ShareMemberId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SupplierId", ((object)userTransaction.SupplierId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DeliveryPersonId", ((object)userTransaction.DeliveryPersonId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", userTransaction.Action);

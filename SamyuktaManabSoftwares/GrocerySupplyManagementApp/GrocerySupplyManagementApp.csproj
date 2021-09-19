@@ -489,6 +489,7 @@
     <Compile Include="ViewModels\MemberTransactionView.cs" />
     <Compile Include="ViewModels\MemberView.cs" />
     <Compile Include="ViewModels\PurchasedItemListView.cs" />
+    <Compile Include="ViewModels\ShareMemberTransactionView.cs" />
     <Compile Include="ViewModels\SoldItemView.cs" />
     <Compile Include="ViewModels\StockFilter.cs" />
     <Compile Include="ViewModels\StockView.cs" />

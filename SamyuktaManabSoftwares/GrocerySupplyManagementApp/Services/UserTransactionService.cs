@@ -169,6 +169,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetSalesProfit();
         }
 
+        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
+        {
+            return _userTransactionRepository.GetShareMemberTransactions(shareMemberId);
+        }
+
         public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
             return _userTransactionRepository.AddUserTransaction(userTransaction);

@@ -3,7 +3,10 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
@@ -94,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            //LoadShareMemberTransactions();
+            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
         }
 
         private void BtnSaveAmount_Click(object sender, EventArgs e)
@@ -105,6 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
+                    ShareMemberId = _selectedShareMemberId,
                     Action = Constants.TRANSFER,
                     ActionType = Constants.CASH,
                     Bank = ComboBank.Text,
@@ -128,10 +132,11 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EndOfDay = _endOfDay,
                     BankId = Convert.ToInt64(selectedItem.Id),
+                    TransactionId = lastUserTransaction.Id,
                     Action = '1',
                     Debit = Convert.ToDecimal(RichAmount.Text),
                     Credit =  0.0m,
-                    Narration = RichNarration.Text,
+                    Narration = ComboNarration.Text,
                     AddedDate = date,
                     UpdatedDate = date
                 };
@@ -140,7 +145,10 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show("Amount has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    //LoadShareMemberTransactions();
+                    ClearAmountFields();
+                    EnableFields(Action.None);
+                    EnableFields(Action.PopulateShareMember);
+                    LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
                 }
             }
             catch (Exception ex)
@@ -205,7 +213,6 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    //LoadShareMemberTransactions(shareMemberTransactionViewList);
                     EnableFields(Action.None);
                     EnableFields(Action.Save);
                 }
@@ -364,70 +371,21 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-        /*
-        private List<ShareMember> GetMemberTransactions(long shareMemberId)
+        
+        private List<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
         {
-            var memberTransactions = _userTransactionService.GetMemberTransactions(memberId).ToList();
-
-            decimal balance = 0.00M;
-            var memberTransactionViews = memberTransactions
-                           .OrderBy(x => x.Id)
-                           .Select(x =>
-                           {
-                               balance += (x.DueAmount - x.ReceivedAmount);
-                               return new MemberTransactionView
-                               {
-                                   Id = x.Id,
-                                   EndOfDay = x.EndOfDay,
-                                   Action = x.Action,
-                                   ActionType = x.ActionType,
-                                   InvoiceNo = x.InvoiceNo,
-                                   DueAmount = x.DueAmount,
-                                   ReceivedAmount = x.ReceivedAmount,
-                                   Balance = balance
-                               };
-                           }
-             ).ToList();
-
-            return memberTransactionViews;
+            var shareMemberTransactionViewList = _userTransactionService.GetShareMemberTransactions(shareMemberId).ToList();
+            return shareMemberTransactionViewList;
         }
 
-        private List<ShareMember> GetShareMemberTransactions()
+        private void LoadShareMemberTransactions(List<ShareMemberTransactionView> shareMemberTransactionViewList)
         {
-            var memberTransactions = _userTransactionService.GetMemberTransactions(memberFilter).ToList();
+            TxtShareAmount.Text = shareMemberTransactionViewList.Sum(x => x.Balance).ToString();
 
-            decimal balance = 0.00M;
-            var memberTransactionViews = memberTransactions
-                           .OrderBy(x => x.Id)
-                           .Select(x =>
-                           {
-                               balance += (x.DueAmount - x.ReceivedAmount);
-                               return new MemberTransactionView
-                               {
-                                   Id = x.Id,
-                                   EndOfDay = x.EndOfDay,
-                                   Action = x.Action,
-                                   ActionType = x.ActionType,
-                                   InvoiceNo = x.InvoiceNo,
-                                   DueAmount = x.DueAmount,
-                                   ReceivedAmount = x.ReceivedAmount,
-                                   Balance = balance
-                               };
-                           }
-             ).ToList();
-
-            return memberTransactionViews;
-        }
-
-        private void LoadShareMemberTransactions(List<ShareMember> memberTransactionViewList)
-        {
-            TxtShareAmount.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
-
-            var bindingList = new BindingList<ShareMember>(memberTransactionViewList);
+            var bindingList = new BindingList<ShareMemberTransactionView>(shareMemberTransactionViewList);
             var source = new BindingSource(bindingList, null);
-            DataGridMemberList.DataSource = source;
+            DataGridShareMemberList.DataSource = source;
         }
-        */
 
         private void EnableFields(Action action)
         {
@@ -436,9 +394,6 @@ namespace GrocerySupplyManagementApp.Forms
                 RichName.Enabled = true;
                 RichAddress.Enabled = true;
                 RichContactNumber.Enabled = true;
-                ComboBank.Enabled = true;
-                RichNarration.Enabled = true;
-                RichAmount.Enabled = true;
 
                 BtnAddImage.Enabled = true;
                 BtnDeleteImage.Enabled = true;
@@ -453,9 +408,6 @@ namespace GrocerySupplyManagementApp.Forms
                 RichName.Enabled = true;
                 RichAddress.Enabled = true;
                 RichContactNumber.Enabled = true;
-                ComboBank.Enabled = true;
-                RichNarration.Enabled = true;
-                RichAmount.Enabled = true;
 
                 BtnAddImage.Enabled = true;
                 BtnDeleteImage.Enabled = true;
@@ -476,7 +428,12 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.PopulateShareMember)
             {
-                BtnAdd.Enabled = true;
+                ComboBank.Enabled = true;
+                ComboNarration.Enabled = true;
+                RichAmount.Enabled = true;
+
+                BtnShow.Enabled = true;
+                BtnSaveAmount.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
@@ -486,13 +443,16 @@ namespace GrocerySupplyManagementApp.Forms
                 RichAddress.Enabled = false;
                 RichContactNumber.Enabled = false;
                 TxtShareAmount.Enabled = false;
-                RichNarration.Enabled = false;
+
                 ComboBank.Enabled = false;
+                ComboNarration.Enabled = false;
                 RichAmount.Enabled = false;
                 PicBoxShareMember.Enabled = false;
 
                 BtnAddImage.Enabled = false;
                 BtnDeleteImage.Enabled = false;
+                BtnShow.Enabled = false;
+                BtnSaveAmount.Enabled = false;
                 BtnAdd.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
@@ -507,10 +467,17 @@ namespace GrocerySupplyManagementApp.Forms
             RichAddress.Clear();
             RichContactNumber.Clear();
             TxtShareAmount.Clear();
-            RichNarration.Clear();
+            ComboNarration.Text = string.Empty;
             ComboBank.Text = string.Empty;
             RichAmount.Clear();
             PicBoxShareMember.Image = PicBoxShareMember.InitialImage;
+        }
+
+        private void ClearAmountFields()
+        {
+            ComboNarration.Text = string.Empty;
+            ComboBank.Text = string.Empty;
+            RichAmount.Clear();
         }
 
         public void PopulateShareMember(long shareMemberId)
@@ -533,10 +500,48 @@ namespace GrocerySupplyManagementApp.Forms
 
             EnableFields(Action.None);
             EnableFields(Action.PopulateShareMember);
-            //var shareMemberTransactionViewList = GetShareMemberTransactions(shareMemberId);
-            //LoadShareMemberTransactions(shareMemberTransactionViewList);
+            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
         }
 
         #endregion
+
+        private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridShareMemberList.Columns["Id"].Visible = false;
+
+            DataGridShareMemberList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridShareMemberList.Columns["EndOfDay"].Width = 100;
+            DataGridShareMemberList.Columns["EndOfDay"].DisplayIndex = 0;
+
+            DataGridShareMemberList.Columns["Description"].HeaderText = "Description";
+            DataGridShareMemberList.Columns["Description"].Width = 200;
+            DataGridShareMemberList.Columns["Description"].DisplayIndex = 1;
+
+            DataGridShareMemberList.Columns["Type"].HeaderText = "Type";
+            DataGridShareMemberList.Columns["Type"].Width = 200;
+            DataGridShareMemberList.Columns["Type"].DisplayIndex = 2;
+
+            DataGridShareMemberList.Columns["Debit"].HeaderText = "Debit";
+            DataGridShareMemberList.Columns["Debit"].Width = 100;
+            DataGridShareMemberList.Columns["Debit"].DisplayIndex = 4;
+            DataGridShareMemberList.Columns["Debit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridShareMemberList.Columns["Credit"].HeaderText = "Credit";
+            DataGridShareMemberList.Columns["Credit"].Width = 100;
+            DataGridShareMemberList.Columns["Credit"].DisplayIndex = 5;
+            DataGridShareMemberList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridShareMemberList.Columns["Balance"].HeaderText = "Balance";
+            DataGridShareMemberList.Columns["Balance"].DisplayIndex = 6;
+            DataGridShareMemberList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridShareMemberList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridShareMemberList.Rows)
+            {
+                DataGridShareMemberList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridShareMemberList.RowHeadersWidth = 50;
+                DataGridShareMemberList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
     }
 }

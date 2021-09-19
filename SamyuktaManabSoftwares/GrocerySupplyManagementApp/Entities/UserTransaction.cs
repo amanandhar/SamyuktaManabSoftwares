@@ -9,6 +9,7 @@ namespace GrocerySupplyManagementApp.Entities
         public string InvoiceNo { get; set; }
         public string BillNo { get; set; }
         public string MemberId { get; set; }
+        public long ShareMemberId { get; set; }
         public string SupplierId { get; set; }
         public string DeliveryPersonId { get; set; }
         public string Action { get; set; }
