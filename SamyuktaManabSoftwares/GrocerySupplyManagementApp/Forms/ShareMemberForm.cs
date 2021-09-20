@@ -109,8 +109,8 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EndOfDay = _endOfDay,
                     ShareMemberId = _selectedShareMemberId,
-                    Action = Constants.TRANSFER,
-                    ActionType = Constants.CASH,
+                    Action = Constants.RECEIPT,
+                    ActionType = Constants.SHARE_CHEQUE,
                     Bank = ComboBank.Text,
                     SubTotal = 0.0m,
                     DiscountPercent = 0.0m,
@@ -119,8 +119,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Vat = 0.0m,
                     DeliveryChargePercent = 0.0m,
                     DeliveryCharge = 0.0m,
-                    DueAmount = Convert.ToDecimal(RichAmount.Text),
-                    ReceivedAmount = 0.0m,
+                    DueAmount = 0.00m,
+                    ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                     AddedDate = date,
                     UpdatedDate = date
                 };

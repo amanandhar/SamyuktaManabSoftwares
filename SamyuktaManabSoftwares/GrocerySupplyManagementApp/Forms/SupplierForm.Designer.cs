@@ -656,7 +656,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowPurchase.Name = "BtnShowPurchase";
             this.BtnShowPurchase.Size = new System.Drawing.Size(125, 35);
             this.BtnShowPurchase.TabIndex = 42;
-            this.BtnShowPurchase.Text = "Show Purchas";
+            this.BtnShowPurchase.Text = "Show ";
             this.BtnShowPurchase.TextColor = System.Drawing.Color.White;
             this.BtnShowPurchase.UseVisualStyleBackColor = false;
             this.BtnShowPurchase.Click += new System.EventHandler(this.BtnShowPurchase_Click);

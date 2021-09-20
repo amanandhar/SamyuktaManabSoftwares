@@ -224,6 +224,10 @@ namespace GrocerySupplyManagementApp.Forms
 
             List<IncomeDetailView> incomeDetails;
 
+            if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.BONUS.ToLower()))
+            {
+                incomeDetails = _userTransactionService.GetPurchaseBonus(incomeTransactionFilter).ToList();
+            }
             if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
             {
                 incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
@@ -238,12 +242,13 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
             {
-                incomeDetails = _userTransactionService.GetSalesProfit().ToList();
+                incomeDetails = _userTransactionService.GetSalesProfit(incomeTransactionFilter).ToList();
             }
             else
             {
                 incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
-                incomeDetails.AddRange(_userTransactionService.GetSalesProfit().ToList());
+                incomeDetails.AddRange(_userTransactionService.GetSalesProfit(incomeTransactionFilter).ToList());
+                incomeDetails.AddRange(_userTransactionService.GetPurchaseBonus(incomeTransactionFilter).ToList());
             }
 
             TxtTotalAmount.Text = (incomeDetails.Sum(x => x.Amount)).ToString();

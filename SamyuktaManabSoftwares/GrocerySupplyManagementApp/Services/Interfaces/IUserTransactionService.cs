@@ -30,7 +30,8 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         decimal GetUserTransactionBalance(TransactionFilter transactionFilter);
         IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter);
         IEnumerable<IncomeDetailView> GetIncome(IncomeTransactionFilter incomeTransactionFilter);
-        IEnumerable<IncomeDetailView> GetSalesProfit();
+        IEnumerable<IncomeDetailView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter);
+        IEnumerable<IncomeDetailView> GetPurchaseBonus(IncomeTransactionFilter incomeTransactionFilter);
         IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId);
 
         UserTransaction AddUserTransaction(UserTransaction userTransaction);

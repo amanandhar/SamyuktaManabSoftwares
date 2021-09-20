@@ -1267,6 +1267,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
+                "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.SHARE_CHEQUE + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
                 "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
@@ -1443,7 +1444,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return incomeDetails;
         }
 
-        public IEnumerable<IncomeDetailView> GetSalesProfit()
+        public IEnumerable<IncomeDetailView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter)
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
@@ -1456,6 +1457,16 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON i.[Id] = si.[ItemId] " +
                 "WHERE 1 = 1 ";
 
+            if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateFrom))
+            {
+                query += "AND si.[EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateTo))
+            {
+                query += "AND si.[EndOfDay] <= @DateTo ";
+            }
+
             query += "ORDER BY si.[AddedDate] DESC ";
 
             try
@@ -1465,6 +1476,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -1480,6 +1494,70 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString())
+                                };
+
+                                incomeDetails.Add(incomeDetail);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return incomeDetails;
+        }
+
+        public IEnumerable<IncomeDetailView> GetPurchaseBonus(IncomeTransactionFilter incomeTransactionFilter)
+        {
+            var incomeDetails = new List<IncomeDetailView>();
+            var query = @"SELECT " +
+                "[Id], [EndOfDay], [Bank], [IncomeExpense], [ReceivedAmount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [Action] = '" + Constants.PURCHASE + "' " +
+                "AND [IncomeExpense] = '" + Constants.BONUS +"' ";
+
+            if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            query += "ORDER BY [Id] ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var incomeDetail = new IncomeDetailView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    InvoiceNo = reader["IncomeExpense"].ToString(),
+                                    ItemCode = string.Empty,
+                                    ItemName = reader["Bank"].ToString(),
+                                    ItemBrand = string.Empty,
+                                    Quantity = 0.00m,
+                                    Profit = 0.00m,
+                                    Amount = Convert.ToDecimal(reader["ReceivedAmount"].ToString())
                                 };
 
                                 incomeDetails.Add(incomeDetail);

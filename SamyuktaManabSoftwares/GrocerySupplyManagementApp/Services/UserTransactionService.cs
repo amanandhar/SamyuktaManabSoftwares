@@ -164,9 +164,14 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetIncome(filter);
         }
 
-        public IEnumerable<IncomeDetailView> GetSalesProfit()
+        public IEnumerable<IncomeDetailView> GetSalesProfit(IncomeTransactionFilter filter)
         {
-            return _userTransactionRepository.GetSalesProfit();
+            return _userTransactionRepository.GetSalesProfit(filter);
+        }
+
+        public IEnumerable<IncomeDetailView> GetPurchaseBonus(IncomeTransactionFilter filter)
+        {
+            return _userTransactionRepository.GetPurchaseBonus(filter);
         }
 
         public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)

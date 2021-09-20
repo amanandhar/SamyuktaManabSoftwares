@@ -98,7 +98,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
-            TransactionForm transactionForm = new TransactionForm(_fiscalYearService,
+            DailyTransactionForm transactionForm = new DailyTransactionForm(_fiscalYearService,
                 _bankTransactionService,
                 _purchasedItemService, _soldItemService,
                 _userTransactionService

@@ -45,11 +45,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalDeliveryChargeIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE }).ToList().Sum(x => x.Amount);
+                var totalPurchaseBonus = _userTransactionService.GetPurchaseBonus(new IncomeTransactionFilter()).ToList().Sum(x => x.Amount);
+                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE }).ToList().Sum(x => x.Amount);
                 var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Amount);
                 var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Amount);
-                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Amount);
-                var totalIncome = totalDeliveryChargeIncome + totalMemberFee + totalOtherIncome + totalSalesProfit;
+                var totalSalesProfit = _userTransactionService.GetSalesProfit(new IncomeTransactionFilter()).ToList().Sum(x => x.Amount);
+                var totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
                 var totalDeliveryChargeExpense = _userTransactionService.GetTotalExpense(Constants.DELIVERY_CHARGE);

@@ -57,11 +57,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridShareMemberList.Columns["UpdatedDate"].Visible = false;
 
             DataGridShareMemberList.Columns["Name"].HeaderText = "Name";
-            DataGridShareMemberList.Columns["Name"].Width = 85;
+            DataGridShareMemberList.Columns["Name"].Width = 150;
             DataGridShareMemberList.Columns["Name"].DisplayIndex = 0;
 
             DataGridShareMemberList.Columns["Address"].HeaderText = "Address";
-            DataGridShareMemberList.Columns["Address"].Width = 85;
+            DataGridShareMemberList.Columns["Address"].Width = 150;
             DataGridShareMemberList.Columns["Address"].DisplayIndex = 1;
 
             DataGridShareMemberList.Columns["ContactNo"].HeaderText = "ContactNo";

@@ -393,11 +393,11 @@
     <Compile Include="Forms\ReportForm.Designer.cs">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TransactionForm.cs">
+    <Compile Include="Forms\DailyTransactionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TransactionForm.Designer.cs">
-      <DependentUpon>TransactionForm.cs</DependentUpon>
+    <Compile Include="Forms\DailyTransactionForm.Designer.cs">
+      <DependentUpon>DailyTransactionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
@@ -636,8 +636,8 @@
     <EmbeddedResource Include="Forms\ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TransactionForm.resx">
-      <DependentUpon>TransactionForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DailyTransactionForm.resx">
+      <DependentUpon>DailyTransactionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\BalanceSheet.rdlc" />
     <EmbeddedResource Include="Reports\InvoiceReport.rdlc" />

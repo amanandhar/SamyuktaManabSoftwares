@@ -118,6 +118,11 @@ namespace GrocerySupplyManagementApp.Forms
                     dateTo = dateTo.Trim();
                 }
 
+                var totalPurchaseBonus = _userTransactionService.GetPurchaseBonus(new IncomeTransactionFilter()
+                {
+                    DateFrom = dateFrom,
+                    DateTo = dateTo
+                }).ToList().Sum(x => x.Amount);
                 var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter(){ 
                     DateFrom = dateFrom,
                     DateTo = dateTo,
@@ -133,11 +138,20 @@ namespace GrocerySupplyManagementApp.Forms
                     DateTo = dateTo,
                     Income = Constants.OTHER_INCOME
                 }).ToList().Sum(x => x.Amount);
-                var totalSalesProfit = _userTransactionService.GetSalesProfit().ToList().Sum(x => x.Amount);
-                _totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
+                var totalSalesProfit = _userTransactionService.GetSalesProfit(new IncomeTransactionFilter()
+                {
+                    DateFrom = dateFrom,
+                    DateTo = dateTo
+                }).ToList().Sum(x => x.Amount);
+                _totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
                 {
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.BONUS,
+                        Amount = totalPurchaseBonus
+                    },
                     new IncomeExpenseView
                     {
                         Name = Constants.DELIVERY_CHARGE,

@@ -219,7 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyTransaction_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new TransactionForm(_fiscalYearService,
+            OpenChildForm(new DailyTransactionForm(_fiscalYearService,
                _bankTransactionService,
                _purchasedItemService, _soldItemService,
                _userTransactionService

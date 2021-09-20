@@ -53,6 +53,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
+            LoadDepositTypes();
+            LoadActionTypes();
         }
         #endregion 
 
@@ -75,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
                     Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
                     Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.0m : Convert.ToDecimal(RichAmount.Text),
-                    Narration = ComboType.Text,
+                    Narration = ComboDepositType.Text,
                     AddedDate = date,
                     UpdatedDate = date
                 };
@@ -88,7 +90,7 @@ namespace GrocerySupplyManagementApp.Forms
                     TxtBalance.Text = totalBalance.ToString();
                     ComboActionType.Text = string.Empty;
                     RichAmount.Clear();
-                    ComboType.Text = string.Empty;
+                    ComboDepositType.Text = string.Empty;
                     EnableFields(Action.Save, true);
                     var bankTransactionViewList = GetBankTransaction();
                     LoadBankTransaction(bankTransactionViewList);
@@ -328,19 +330,19 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
-                ComboType.Enabled = option;
+                ComboDepositType.Enabled = option;
             }
             else if (action == Action.Save)
             {
                 ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
-                ComboType.Enabled = option;
+                ComboDepositType.Enabled = option;
             }
             else if (action == Action.Populate)
             {
                 ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
-                ComboType.Enabled = option;
+                ComboDepositType.Enabled = option;
             }
             else
             {
@@ -349,7 +351,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
-                ComboType.Enabled = option;
+                ComboDepositType.Enabled = option;
             }
         }
 
@@ -360,7 +362,24 @@ namespace GrocerySupplyManagementApp.Forms
             ComboActionType.Text = string.Empty;
             RichAmount.Clear();
             TxtBalance.Clear();
-            ComboType.Text = string.Empty;
+            ComboDepositType.Text = string.Empty;
+        }
+
+        private void LoadDepositTypes()
+        {
+            ComboDepositType.ValueMember = "Id";
+            ComboDepositType.DisplayMember = "Value";
+
+            ComboDepositType.Items.Add(new ComboBoxItem { Id = Constants.OWNER_EQUITY, Value = Constants.OWNER_EQUITY });
+        }
+
+        private void LoadActionTypes()
+        {
+            ComboDepositType.ValueMember = "Id";
+            ComboDepositType.DisplayMember = "Value";
+
+            ComboDepositType.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
+            ComboDepositType.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
         }
         #endregion
     }
