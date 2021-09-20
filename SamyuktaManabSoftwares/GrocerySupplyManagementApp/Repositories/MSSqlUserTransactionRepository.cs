@@ -965,7 +965,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND [IncomeExpense] IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') " +
+                    "AND [IncomeExpense] IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "', '" + Constants.BONUS + "') " +
                     ") " ;
             }
 
@@ -1281,7 +1281,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "LEFT JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') ";
+                "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "', '" + Constants.BONUS + "') ";
 
             if (transactionFilter.Date != null)
             {

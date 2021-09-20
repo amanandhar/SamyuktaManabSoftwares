@@ -44,6 +44,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string MEMBER_FEE = "Member Fee";
         public const string OTHER_INCOME = "Other Income";
         public const string SALES_PROFIT = "Sales Profit";
+        public const string BONUS = "Bonus";
 
         public const string SHARE_CAPITAL = "Share Capital";
         public const string OWNER_EQUITY = "Owner Equity";
@@ -65,7 +66,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TOTAL = "Total";
         public const string DEPOSIT = "Deposit";
         public const string WITHDRAWL = "Withdrawl";
-        public const string BONUS = "Bonus";
 
         //Images
         public const string BASE_IMAGE_FOLDER = "BaseImageFolder";

@@ -247,7 +247,6 @@ namespace GrocerySupplyManagementApp.Forms
                 RichFacebookPage.Enabled = false;
             }
         }
-
         #endregion
     }
 }

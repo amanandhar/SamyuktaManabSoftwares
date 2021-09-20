@@ -354,6 +354,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.CAN, Value = Constants.CAN });
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
+
         private void LoadItemCategoris()
         {
             ComboCategory.ValueMember = "Id";
@@ -387,7 +388,5 @@ namespace GrocerySupplyManagementApp.Forms
             ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Z, Value = Constants.CATEGORY_Z });
         }
         #endregion
-
-        
     }
 }

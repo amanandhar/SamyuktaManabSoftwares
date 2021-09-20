@@ -219,9 +219,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboPayment.FormattingEnabled = true;
-            this.ComboPayment.Items.AddRange(new object[] {
-            "Cash",
-            "Cheque"});
             this.ComboPayment.Location = new System.Drawing.Point(96, 51);
             this.ComboPayment.Name = "ComboPayment";
             this.ComboPayment.Size = new System.Drawing.Size(100, 28);
@@ -243,18 +240,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboExpense.FormattingEnabled = true;
-            this.ComboExpense.Items.AddRange(new object[] {
-            "Asset (Computer, Furniture etc.)",
-            "Delivery Charge",
-            "Electricity",
-            "Fuel & Transportation",
-            "Guest & Hospitality",
-            "Miscellaneous",
-            "Office Rent ",
-            "Repair & Maintenance",
-            "Staff  Allowance",
-            "Staff Salary ",
-            "Telephone & Internet"});
             this.ComboExpense.Location = new System.Drawing.Point(96, 15);
             this.ComboExpense.Name = "ComboExpense";
             this.ComboExpense.Size = new System.Drawing.Size(293, 28);
@@ -264,7 +249,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label7.Location = new System.Drawing.Point(18, 18);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 20);
@@ -275,7 +260,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label5.Location = new System.Drawing.Point(197, 55);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 20);

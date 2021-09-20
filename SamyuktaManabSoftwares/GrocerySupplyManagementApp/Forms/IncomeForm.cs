@@ -41,6 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
+            LoadIncomes();
             LoadBanks();
         }
         #endregion
@@ -60,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Action = Constants.RECEIPT,
                 ActionType = Constants.CHEQUE,
                 Bank = ComboBank.Text,
-                IncomeExpense = ComboAddIncome.Text,
+                IncomeExpense = ComboIncome.Text,
                 SubTotal = 0.0m,
                 DiscountPercent = 0.0m,
                 Discount = 0.0m,
@@ -86,7 +87,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Action = '1',
                     Debit = Convert.ToDecimal(RichAddAmount.Text),
                     Credit = 0.0m,
-                    Narration = ComboAddIncome.Text,
+                    Narration = ComboIncome.Text,
                     AddedDate = date,
                     UpdatedDate = date
                 };
@@ -94,7 +95,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _bankTransactionService.AddBankTransaction(bankTransaction);
             }
 
-            DialogResult result = MessageBox.Show(ComboAddIncome.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+            DialogResult result = MessageBox.Show(ComboIncome.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
             if (result == DialogResult.OK)
             {
                 ClearAllFields();
@@ -254,9 +255,20 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllFields()
         {
-            ComboAddIncome.Text = string.Empty;
+            ComboIncome.Text = string.Empty;
             RichAddAmount.Clear();
             ComboBank.Text = string.Empty;
+        }
+
+        private void LoadIncomes()
+        {
+            ComboIncome.ValueMember = "Id";
+            ComboIncome.DisplayMember = "Value";
+
+            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.BONUS, Value = Constants.BONUS });
+            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
+            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
+            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
         }
 
         private void LoadBanks()
