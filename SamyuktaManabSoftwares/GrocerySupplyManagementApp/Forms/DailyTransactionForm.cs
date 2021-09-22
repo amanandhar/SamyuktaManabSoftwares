@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                     var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
 
-                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith("BN") || billInvoiceNo.Equals(Constants.BONUS)))
+                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith("BN") || billInvoiceNo.StartsWith(Constants.BONUS)))
                     {
                         var posTransaction = _userTransactionService.GetLastUserTransaction(billInvoiceNo);
                         {

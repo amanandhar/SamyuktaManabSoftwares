@@ -1282,7 +1282,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "LEFT JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "', '" + Constants.BONUS + "') ";
+                "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') ";
 
             if (transactionFilter.Date != null)
             {

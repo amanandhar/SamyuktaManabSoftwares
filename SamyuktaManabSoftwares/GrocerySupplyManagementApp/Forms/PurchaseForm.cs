@@ -73,7 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddBonus_Click(object sender, EventArgs e)
         {
-            RichBillNo.Text = Constants.BONUS;
+            RichBillNo.Text = _purchasedItemService.GetLastBonusNo();
             EnableFields(true);
             RichItemCode.Focus();
         }
@@ -136,8 +136,8 @@ namespace GrocerySupplyManagementApp.Forms
                     BillNo = RichBillNo.Text,
                     SupplierId = _supplierForm.GetSupplierId(),
                     Action = Constants.PURCHASE,
-                    ActionType = RichBillNo.Text == Constants.BONUS ? Constants.BONUS : Constants.CREDIT,
-                    IncomeExpense = RichBillNo.Text == Constants.BONUS ? Constants.BONUS : null,
+                    ActionType = RichBillNo.Text.StartsWith(Constants.BONUS) ? Constants.BONUS : Constants.CREDIT,
+                    IncomeExpense = RichBillNo.Text.StartsWith(Constants.BONUS) ? Constants.BONUS : null,
                     SubTotal = 0.0m,
                     DiscountPercent = 0.0m,
                     Discount = 0.0m,
@@ -146,7 +146,7 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryChargePercent = 0.0m,
                     DeliveryCharge = 0.0m,
                     DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
-                    ReceivedAmount = RichBillNo.Text == Constants.BONUS ? Convert.ToDecimal(TxtTotalAmount.Text) : 0.00M,
+                    ReceivedAmount = RichBillNo.Text.StartsWith(Constants.BONUS) ? Convert.ToDecimal(TxtTotalAmount.Text) : 0.00M,
                     AddedDate = date,
                     UpdatedDate = date
                 };

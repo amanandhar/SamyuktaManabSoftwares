@@ -451,6 +451,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"SELECT " + 
                 "TOP 1 [BillNo] " + 
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
+                "WHERE [BillNo] NOT LIKE '" + Constants.BONUS + "%' " +
                 "ORDER BY Id DESC";
             
             try
@@ -474,6 +475,38 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return billNo;
+        }
+
+        public string GetLastBonusNo()
+        {
+            string bonusNo = string.Empty;
+            string query = @"SELECT " +
+                "TOP 1 [BillNo] " +
+                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
+                "WHERE [BillNo] LIKE '" + Constants.BONUS + "%' " +
+                "ORDER BY Id DESC";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            bonusNo = result.ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return bonusNo;
         }
 
         public decimal GetLatestPurchasePrice(long itemId)

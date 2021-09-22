@@ -427,9 +427,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(9, 54);
+            this.BtnDelete.Location = new System.Drawing.Point(9, 56);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(125, 35);
+            this.BtnDelete.Size = new System.Drawing.Size(125, 38);
             this.BtnDelete.TabIndex = 1;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
@@ -438,8 +438,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShow
             // 
-            this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShow.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnShow.BorderRadius = 35;
             this.BtnShow.BorderSize = 0;
@@ -449,7 +449,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.ForeColor = System.Drawing.Color.White;
             this.BtnShow.Location = new System.Drawing.Point(9, 16);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 35);
+            this.BtnShow.Size = new System.Drawing.Size(125, 38);
             this.BtnShow.TabIndex = 0;
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
@@ -493,7 +493,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
@@ -503,12 +503,12 @@ namespace GrocerySupplyManagementApp.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Cyan;
-            this.label1.Location = new System.Drawing.Point(343, 4);
+            this.label1.Location = new System.Drawing.Point(349, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(447, 33);
+            this.label1.Size = new System.Drawing.Size(417, 31);
             this.label1.TabIndex = 7;
             this.label1.Text = "Daily Transaction Management";
             // 

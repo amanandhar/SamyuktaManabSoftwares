@@ -37,6 +37,25 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
         private const char separator = '.';
 
+        #region Enum
+        private enum Action
+        {
+            AddExpense,
+            AddReceipt,
+            AddSale,
+            AddToCart,
+            BankTransfer,
+            Load,
+            None,
+            RemoveItem,
+            SaveAndPrint,
+            SaveReceipt,
+            SearchMember,
+            SearchPricedItem,
+            Transaction    
+        }
+        #endregion 
+
         #region Constructor
         public PosForm(IFiscalYearService fiscalYearService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
@@ -89,6 +108,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             LoadItems(_soldItemViewList);
             LoadDeliveryPersons();
+            EnableFields();
+            EnableFields(Action.Load);
             BtnAddSale.Select();
         }
         #endregion
@@ -99,6 +120,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
             memberListForm.ShowDialog();
+            EnableFields();
+            EnableFields(Action.SearchMember);
             RichItemCode.Focus();
         }
 
@@ -135,9 +158,10 @@ namespace GrocerySupplyManagementApp.Forms
                     ClearAllInvoiceFields();
                     _soldItemViewList.Clear();
                     LoadItems(_soldItemViewList);
-                    EnableFields(false);
                     RadioBtnCash.Checked = false;
                     RadioBtnCredit.Checked = true;
+                    EnableFields();
+                    EnableFields(Action.SaveReceipt);
                 }
             }
             catch (Exception ex)
@@ -150,6 +174,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
             pricedItemListForm.ShowDialog();
+            EnableFields();
+            EnableFields(Action.SearchPricedItem);
             RichItemQuantity.Focus();
         }
 
@@ -158,12 +184,15 @@ namespace GrocerySupplyManagementApp.Forms
             DailyTransactionForm transactionForm = new DailyTransactionForm(_fiscalYearService, _bankTransactionService, _purchasedItemService,
                _soldItemService, _userTransactionService);
             transactionForm.Show();
+            EnableFields();
+            EnableFields(Action.Transaction);
         }
 
         private void BtnAddReceipt_Click(object sender, EventArgs e)
         {
             RichPayment.Enabled = true;
-            BtnSaveReceipt.Enabled = true;
+            EnableFields();
+            EnableFields(Action.AddReceipt);
             RichPayment.Focus();
         }
 
@@ -172,12 +201,16 @@ namespace GrocerySupplyManagementApp.Forms
             ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
                 _bankService, _bankTransactionService, _userTransactionService);
             expenseForm.Show();
+            EnableFields();
+            EnableFields(Action.AddExpense);
         }
 
         private void BtnBankTransfer_Click(object sender, EventArgs e)
         {
             BankTransferForm bankTransferForm = new BankTransferForm(_fiscalYearService, _bankService, _bankTransactionService, _userTransactionService);
             bankTransferForm.Show();
+            EnableFields();
+            EnableFields(Action.BankTransfer);
         }
 
         private void BtnRemoveItem_Click(object sender, EventArgs e)
@@ -192,6 +225,8 @@ namespace GrocerySupplyManagementApp.Forms
                     _soldItemViewList.Remove(itemToRemove);
                     LoadItems(_soldItemViewList);
                     LoadPosDetails(itemToRemove);
+                    EnableFields();
+                    EnableFields(Action.RemoveItem);
                 }
             }
             catch (Exception ex)
@@ -343,7 +378,8 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearAllInvoiceFields();
                 _soldItemViewList.Clear();
                 LoadItems(_soldItemViewList);
-                EnableFields(false);
+                EnableFields();
+                EnableFields(Action.SaveAndPrint);
                 RadioBtnCash.Checked = false;
                 RadioBtnCredit.Checked = true;
                 ComboDeliveryPerson.Text = string.Empty;
@@ -374,13 +410,10 @@ namespace GrocerySupplyManagementApp.Forms
             RichMemberId.Enabled = true;
             RichItemCode.Enabled = true;
 
-            BtnSearchMember.Enabled = true;
-            BtnSearchItem.Enabled = true;
+            EnableFields();
+            EnableFields(Action.AddSale);
             RichMemberId.Focus();
         }
-
-
-
         #endregion
 
         #region RichTextBox Events
@@ -615,7 +648,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 ClearAllItemFields();
 
-                BtnSaveInvoice.Enabled = true;
+                EnableFields();
+                EnableFields(Action.AddToCart);
                 PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
                 RichItemCode.Focus();
             }
@@ -668,12 +702,133 @@ namespace GrocerySupplyManagementApp.Forms
             RichBalanceAmount.Clear();
         }
 
-        private void EnableFields(bool option)
+        private void EnableFields(Action action = Action.None)
         {
-            BtnSearchMember.Enabled = option;
-            BtnSearchItem.Enabled = option;
-            BtnAddToCart.Enabled = option;
-            BtnSaveInvoice.Enabled = option;
+            if(action == Action.AddExpense)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if(action == Action.AddReceipt)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnSaveReceipt.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.AddSale)
+            {
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnAddSale.Enabled = true;
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+            }
+            else if (action == Action.AddToCart)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnRemoveItem.Enabled = true;
+                BtnAddToCart.Enabled = true;
+                BtnSaveInvoice.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.BankTransfer)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnRemoveItem.Enabled = true;
+                BtnAddToCart.Enabled = true;
+                BtnSaveInvoice.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.Load)
+            {
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.RemoveItem)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnRemoveItem.Enabled = true;
+                BtnAddToCart.Enabled = true;
+                BtnSaveInvoice.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.SaveAndPrint)
+            {
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.SearchMember)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.SearchPricedItem)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnRemoveItem.Enabled = true;
+                BtnAddToCart.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else if (action == Action.Transaction)
+            {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnRemoveItem.Enabled = true;
+                BtnAddToCart.Enabled = true;
+                BtnSaveInvoice.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
+            else 
+            {
+                BtnSearchMember.Enabled = false;
+                BtnSearchItem.Enabled = false;
+                BtnSaveReceipt.Enabled = false;
+                BtnTransaction.Enabled = false;
+                BtnAddReceipt.Enabled = false;
+                BtnAddExpense.Enabled = false;
+                BtnBankTransfer.Enabled = false;
+                BtnRemoveItem.Enabled = false;
+                BtnAddToCart.Enabled = false;
+                BtnSaveInvoice.Enabled = false;
+                BtnAddSale.Enabled = false;
+            }
         }
 
         public void PopulateMember(string memberId)

@@ -60,7 +60,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskAppointedDate = new System.Windows.Forms.MaskedTextBox();
             this.MaskResignedDate = new System.Windows.Forms.MaskedTextBox();
             this.ComboPost = new System.Windows.Forms.ComboBox();
-            this.label22 = new System.Windows.Forms.Label();
             this.ComboMaritalStatus = new System.Windows.Forms.ComboBox();
             this.ComboPostStatus = new System.Windows.Forms.ComboBox();
             this.ComboGender = new System.Windows.Forms.ComboBox();
@@ -89,186 +88,188 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxEmployeeImage)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(8, 68);
+            this.label1.Location = new System.Drawing.Point(18, 68);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(125, 20);
+            this.label1.Size = new System.Drawing.Size(118, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "Employee Name";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(9, 104);
+            this.label2.Location = new System.Drawing.Point(19, 104);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 20);
+            this.label2.Size = new System.Drawing.Size(104, 18);
             this.label2.TabIndex = 2;
             this.label2.Text = "Temp.Address";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(9, 140);
+            this.label3.Location = new System.Drawing.Point(19, 140);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 20);
+            this.label3.Size = new System.Drawing.Size(102, 18);
             this.label3.TabIndex = 3;
             this.label3.Text = "Perm.Address";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(9, 178);
+            this.label4.Location = new System.Drawing.Point(19, 178);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 20);
+            this.label4.Size = new System.Drawing.Size(88, 18);
             this.label4.TabIndex = 4;
             this.label4.Text = "Contact No.";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(9, 216);
+            this.label5.Location = new System.Drawing.Point(19, 216);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 20);
+            this.label5.Size = new System.Drawing.Size(63, 18);
             this.label5.TabIndex = 5;
             this.label5.Text = "Email ID";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(9, 251);
+            this.label6.Location = new System.Drawing.Point(19, 251);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 20);
+            this.label6.Size = new System.Drawing.Size(108, 18);
             this.label6.TabIndex = 6;
             this.label6.Text = "Citizenship No.";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(9, 289);
+            this.label7.Location = new System.Drawing.Point(19, 289);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(81, 20);
+            this.label7.Size = new System.Drawing.Size(74, 18);
             this.label7.TabIndex = 7;
             this.label7.Text = "Education";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(8, 32);
+            this.label8.Location = new System.Drawing.Point(18, 32);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(100, 20);
+            this.label8.Size = new System.Drawing.Size(92, 18);
             this.label8.TabIndex = 8;
             this.label8.Text = "Employee ID";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(11, 31);
+            this.label9.Location = new System.Drawing.Point(31, 31);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(113, 20);
+            this.label9.Size = new System.Drawing.Size(105, 18);
             this.label9.TabIndex = 9;
             this.label9.Text = "Father\'s Name";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label10.Location = new System.Drawing.Point(9, 66);
+            this.label10.Location = new System.Drawing.Point(30, 66);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(116, 20);
+            this.label10.Size = new System.Drawing.Size(110, 18);
             this.label10.TabIndex = 10;
             this.label10.Text = "Mother\'s Name";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(13, 104);
+            this.label11.Location = new System.Drawing.Point(32, 104);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(63, 20);
+            this.label11.Size = new System.Drawing.Size(57, 18);
             this.label11.TabIndex = 11;
             this.label11.Text = "Gender";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(13, 141);
+            this.label12.Location = new System.Drawing.Point(32, 141);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(107, 20);
+            this.label12.Size = new System.Drawing.Size(98, 18);
             this.label12.TabIndex = 12;
             this.label12.Text = "Marital Status";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label13.Location = new System.Drawing.Point(15, 250);
+            this.label13.Location = new System.Drawing.Point(31, 28);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 20);
+            this.label13.Size = new System.Drawing.Size(39, 18);
             this.label13.TabIndex = 13;
             this.label13.Text = "Post";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label14.Location = new System.Drawing.Point(15, 288);
+            this.label14.Location = new System.Drawing.Point(31, 66);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(92, 20);
+            this.label14.Size = new System.Drawing.Size(85, 18);
             this.label14.TabIndex = 14;
             this.label14.Text = "Post Status";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label15.Location = new System.Drawing.Point(14, 326);
+            this.label15.Location = new System.Drawing.Point(30, 104);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(106, 20);
+            this.label15.Size = new System.Drawing.Size(98, 18);
             this.label15.TabIndex = 15;
             this.label15.Text = "Salary Details";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label16.Location = new System.Drawing.Point(7, 367);
+            this.label16.Location = new System.Drawing.Point(29, 145);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(121, 20);
+            this.label16.Size = new System.Drawing.Size(108, 18);
             this.label16.TabIndex = 16;
             this.label16.Text = "Appointed Date";
             // 
@@ -346,7 +347,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichFatherName.Enabled = false;
             this.RichFatherName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichFatherName.Location = new System.Drawing.Point(128, 26);
+            this.RichFatherName.Location = new System.Drawing.Point(139, 26);
             this.RichFatherName.Name = "RichFatherName";
             this.RichFatherName.Size = new System.Drawing.Size(260, 30);
             this.RichFatherName.TabIndex = 24;
@@ -356,7 +357,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichMotherName.Enabled = false;
             this.RichMotherName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichMotherName.Location = new System.Drawing.Point(128, 62);
+            this.RichMotherName.Location = new System.Drawing.Point(139, 62);
             this.RichMotherName.Name = "RichMotherName";
             this.RichMotherName.Size = new System.Drawing.Size(260, 30);
             this.RichMotherName.TabIndex = 25;
@@ -366,7 +367,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichSpouseName.Enabled = false;
             this.RichSpouseName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichSpouseName.Location = new System.Drawing.Point(128, 173);
+            this.RichSpouseName.Location = new System.Drawing.Point(139, 173);
             this.RichSpouseName.Name = "RichSpouseName";
             this.RichSpouseName.Size = new System.Drawing.Size(260, 30);
             this.RichSpouseName.TabIndex = 28;
@@ -374,37 +375,28 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.BtnSearchSalaryDetails);
-            this.groupBox1.Controls.Add(this.MaskAppointedDate);
-            this.groupBox1.Controls.Add(this.MaskResignedDate);
-            this.groupBox1.Controls.Add(this.ComboPost);
-            this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Controls.Add(this.ComboMaritalStatus);
-            this.groupBox1.Controls.Add(this.ComboPostStatus);
             this.groupBox1.Controls.Add(this.ComboGender);
-            this.groupBox1.Controls.Add(this.label21);
             this.groupBox1.Controls.Add(this.RichFatherName);
             this.groupBox1.Controls.Add(this.label18);
-            this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.RichMotherName);
             this.groupBox1.Controls.Add(this.RichSpouseName);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.ForeColor = System.Drawing.Color.Red;
             this.groupBox1.Location = new System.Drawing.Point(478, 51);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 460);
+            this.groupBox1.Size = new System.Drawing.Size(450, 219);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Family Details";
             // 
             // BtnSearchSalaryDetails
             // 
-            this.BtnSearchSalaryDetails.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnSearchSalaryDetails.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSearchSalaryDetails.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchSalaryDetails.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnSearchSalaryDetails.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnSearchSalaryDetails.BorderRadius = 35;
             this.BtnSearchSalaryDetails.BorderSize = 0;
@@ -412,7 +404,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchSalaryDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSearchSalaryDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSearchSalaryDetails.ForeColor = System.Drawing.Color.White;
-            this.BtnSearchSalaryDetails.Location = new System.Drawing.Point(128, 317);
+            this.BtnSearchSalaryDetails.Location = new System.Drawing.Point(140, 95);
             this.BtnSearchSalaryDetails.Name = "BtnSearchSalaryDetails";
             this.BtnSearchSalaryDetails.Size = new System.Drawing.Size(260, 40);
             this.BtnSearchSalaryDetails.TabIndex = 43;
@@ -425,7 +417,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.MaskAppointedDate.Enabled = false;
             this.MaskAppointedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskAppointedDate.Location = new System.Drawing.Point(128, 364);
+            this.MaskAppointedDate.Location = new System.Drawing.Point(140, 142);
             this.MaskAppointedDate.Mask = "   0000-00-00";
             this.MaskAppointedDate.Name = "MaskAppointedDate";
             this.MaskAppointedDate.Size = new System.Drawing.Size(117, 24);
@@ -435,7 +427,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.MaskResignedDate.Enabled = false;
             this.MaskResignedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskResignedDate.Location = new System.Drawing.Point(128, 397);
+            this.MaskResignedDate.Location = new System.Drawing.Point(140, 175);
             this.MaskResignedDate.Mask = "   0000-00-00";
             this.MaskResignedDate.Name = "MaskResignedDate";
             this.MaskResignedDate.Size = new System.Drawing.Size(117, 24);
@@ -449,21 +441,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPost.Items.AddRange(new object[] {
             "Please Select ",
             "Delivery Person"});
-            this.ComboPost.Location = new System.Drawing.Point(128, 248);
+            this.ComboPost.Location = new System.Drawing.Point(140, 26);
             this.ComboPost.Name = "ComboPost";
             this.ComboPost.Size = new System.Drawing.Size(260, 28);
             this.ComboPost.TabIndex = 38;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.Red;
-            this.label22.Location = new System.Drawing.Point(13, 216);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(173, 20);
-            this.label22.TabIndex = 37;
-            this.label22.Text = "Post and Salary Details";
             // 
             // ComboMaritalStatus
             // 
@@ -474,7 +455,7 @@ namespace GrocerySupplyManagementApp.Forms
             "Please Select ",
             "Single",
             "Married"});
-            this.ComboMaritalStatus.Location = new System.Drawing.Point(128, 137);
+            this.ComboMaritalStatus.Location = new System.Drawing.Point(139, 137);
             this.ComboMaritalStatus.Name = "ComboMaritalStatus";
             this.ComboMaritalStatus.Size = new System.Drawing.Size(260, 28);
             this.ComboMaritalStatus.TabIndex = 35;
@@ -489,7 +470,7 @@ namespace GrocerySupplyManagementApp.Forms
             "Dailyways",
             "Temporary",
             "Permanent"});
-            this.ComboPostStatus.Location = new System.Drawing.Point(128, 284);
+            this.ComboPostStatus.Location = new System.Drawing.Point(140, 62);
             this.ComboPostStatus.Name = "ComboPostStatus";
             this.ComboPostStatus.Size = new System.Drawing.Size(260, 28);
             this.ComboPostStatus.TabIndex = 34;
@@ -503,7 +484,7 @@ namespace GrocerySupplyManagementApp.Forms
             "Please Select ",
             "Male",
             "Female"});
-            this.ComboGender.Location = new System.Drawing.Point(128, 99);
+            this.ComboGender.Location = new System.Drawing.Point(139, 99);
             this.ComboGender.Name = "ComboGender";
             this.ComboGender.Size = new System.Drawing.Size(260, 28);
             this.ComboGender.TabIndex = 33;
@@ -511,22 +492,22 @@ namespace GrocerySupplyManagementApp.Forms
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label21.Location = new System.Drawing.Point(8, 399);
+            this.label21.Location = new System.Drawing.Point(30, 177);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(116, 20);
+            this.label21.Size = new System.Drawing.Size(105, 18);
             this.label21.TabIndex = 32;
             this.label21.Text = "Resigned Date";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label18.Location = new System.Drawing.Point(13, 178);
+            this.label18.Location = new System.Drawing.Point(31, 178);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(110, 20);
+            this.label18.Size = new System.Drawing.Size(103, 18);
             this.label18.TabIndex = 25;
             this.label18.Text = "Spouse Name";
             // 
@@ -555,16 +536,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.ForeColor = System.Drawing.Color.Red;
             this.groupBox2.Location = new System.Drawing.Point(18, 51);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(450, 460);
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Employee Details";
             // 
             // BtnSearch
             // 
-            this.BtnSearch.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnSearch.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSearch.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearch.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnSearch.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnSearch.BorderRadius = 10;
             this.BtnSearch.BorderSize = 0;
@@ -649,33 +632,33 @@ namespace GrocerySupplyManagementApp.Forms
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label20.Location = new System.Drawing.Point(10, 365);
+            this.label20.Location = new System.Drawing.Point(20, 365);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(38, 20);
+            this.label20.Size = new System.Drawing.Size(33, 18);
             this.label20.TabIndex = 27;
             this.label20.Text = "Age";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label19.Location = new System.Drawing.Point(9, 399);
+            this.label19.Location = new System.Drawing.Point(19, 399);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(99, 20);
+            this.label19.Size = new System.Drawing.Size(93, 18);
             this.label19.TabIndex = 26;
             this.label19.Text = "Blood Group";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label17.Location = new System.Drawing.Point(9, 326);
+            this.label17.Location = new System.Drawing.Point(19, 326);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(99, 20);
+            this.label17.Size = new System.Drawing.Size(90, 18);
             this.label17.TabIndex = 24;
             this.label17.Text = "Date of Birth";
             // 
@@ -705,9 +688,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnEdit);
             this.groupBox4.Controls.Add(this.BtnSave);
             this.groupBox4.Controls.Add(this.BtnAdd);
-            this.groupBox4.Location = new System.Drawing.Point(943, 258);
+            this.groupBox4.Location = new System.Drawing.Point(943, 256);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(145, 245);
+            this.groupBox4.Size = new System.Drawing.Size(145, 255);
             this.groupBox4.TabIndex = 34;
             this.groupBox4.TabStop = false;
             // 
@@ -722,9 +705,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(10, 198);
+            this.BtnDelete.Location = new System.Drawing.Point(10, 206);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(125, 35);
+            this.BtnDelete.Size = new System.Drawing.Size(125, 38);
             this.BtnDelete.TabIndex = 48;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
@@ -733,8 +716,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnClear
             // 
-            this.BtnClear.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnClear.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnClear.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnClear.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnClear.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnClear.BorderRadius = 35;
             this.BtnClear.BorderSize = 0;
@@ -742,9 +725,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnClear.ForeColor = System.Drawing.Color.White;
-            this.BtnClear.Location = new System.Drawing.Point(10, 161);
+            this.BtnClear.Location = new System.Drawing.Point(10, 167);
             this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(125, 35);
+            this.BtnClear.Size = new System.Drawing.Size(125, 38);
             this.BtnClear.TabIndex = 47;
             this.BtnClear.Text = "Clear";
             this.BtnClear.TextColor = System.Drawing.Color.White;
@@ -753,8 +736,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnUpdate
             // 
-            this.BtnUpdate.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnUpdate.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnUpdate.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnUpdate.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnUpdate.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnUpdate.BorderRadius = 35;
             this.BtnUpdate.BorderSize = 0;
@@ -762,9 +745,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(10, 124);
+            this.BtnUpdate.Location = new System.Drawing.Point(10, 128);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(125, 35);
+            this.BtnUpdate.Size = new System.Drawing.Size(125, 38);
             this.BtnUpdate.TabIndex = 46;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
@@ -782,9 +765,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.White;
-            this.BtnEdit.Location = new System.Drawing.Point(10, 87);
+            this.BtnEdit.Location = new System.Drawing.Point(10, 89);
             this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(125, 35);
+            this.BtnEdit.Size = new System.Drawing.Size(125, 38);
             this.BtnEdit.TabIndex = 45;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
@@ -793,8 +776,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnSave
             // 
-            this.BtnSave.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnSave.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnSave.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSave.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnSave.BorderRadius = 35;
             this.BtnSave.BorderSize = 0;
@@ -804,7 +787,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.ForeColor = System.Drawing.Color.White;
             this.BtnSave.Location = new System.Drawing.Point(10, 50);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(125, 35);
+            this.BtnSave.Size = new System.Drawing.Size(125, 38);
             this.BtnSave.TabIndex = 44;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
@@ -813,8 +796,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnAdd
             // 
-            this.BtnAdd.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnAdd.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnAdd.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAdd.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnAdd.BorderRadius = 35;
             this.BtnAdd.BorderSize = 0;
@@ -822,9 +805,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAdd.ForeColor = System.Drawing.Color.White;
-            this.BtnAdd.Location = new System.Drawing.Point(10, 13);
+            this.BtnAdd.Location = new System.Drawing.Point(10, 11);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(125, 35);
+            this.BtnAdd.Size = new System.Drawing.Size(125, 38);
             this.BtnAdd.TabIndex = 43;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
@@ -838,8 +821,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnAddImage
             // 
-            this.BtnAddImage.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnAddImage.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnAddImage.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddImage.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnAddImage.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnAddImage.BorderRadius = 20;
             this.BtnAddImage.BorderSize = 0;
@@ -876,7 +859,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
@@ -886,7 +869,7 @@ namespace GrocerySupplyManagementApp.Forms
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.SystemColors.Highlight;
+            this.label23.BackColor = System.Drawing.Color.DodgerBlue;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Cyan;
             this.label23.Location = new System.Drawing.Point(407, 4);
@@ -895,12 +878,33 @@ namespace GrocerySupplyManagementApp.Forms
             this.label23.TabIndex = 46;
             this.label23.Text = "Employee Management";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.ComboPost);
+            this.groupBox5.Controls.Add(this.BtnSearchSalaryDetails);
+            this.groupBox5.Controls.Add(this.label16);
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.MaskAppointedDate);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Controls.Add(this.MaskResignedDate);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Controls.Add(this.ComboPostStatus);
+            this.groupBox5.ForeColor = System.Drawing.Color.Red;
+            this.groupBox5.Location = new System.Drawing.Point(477, 276);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(451, 235);
+            this.groupBox5.TabIndex = 47;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Post && Salary Details";
+            // 
             // EmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.BtnDeleteImage);
@@ -920,6 +924,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxEmployeeImage)).EndInit();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -953,7 +959,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichMotherName;
         private System.Windows.Forms.RichTextBox RichSpouseName;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox ComboMaritalStatus;
         private System.Windows.Forms.ComboBox ComboPostStatus;
         private System.Windows.Forms.ComboBox ComboGender;
@@ -986,5 +991,6 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnDelete;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }

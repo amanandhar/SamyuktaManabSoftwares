@@ -275,8 +275,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnAdd
             // 
-            this.BtnAdd.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnAdd.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnAdd.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAdd.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnAdd.BorderRadius = 31;
             this.BtnAdd.BorderSize = 0;
@@ -294,8 +294,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnReturn
             // 
-            this.BtnReturn.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnReturn.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnReturn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnReturn.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnReturn.BorderRadius = 31;
             this.BtnReturn.BorderSize = 0;
@@ -342,7 +342,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // textBox4
             // 
-            this.textBox4.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox4.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.Location = new System.Drawing.Point(-1, -1);
             this.textBox4.Name = "textBox4";
@@ -352,12 +352,12 @@ namespace GrocerySupplyManagementApp.Forms
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.SystemColors.Highlight;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Cyan;
-            this.label8.Location = new System.Drawing.Point(358, 3);
+            this.label8.Location = new System.Drawing.Point(387, 4);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(383, 33);
+            this.label8.Size = new System.Drawing.Size(358, 31);
             this.label8.TabIndex = 23;
             this.label8.Text = "Sales Return Management";
             // 

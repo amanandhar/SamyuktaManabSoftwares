@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -112,6 +113,42 @@ namespace GrocerySupplyManagementApp.Services
             }
 
             return billNo;
+        }
+
+        public string GetLastBonusNo()
+        {
+            string bonusNo;
+            try
+            {
+                var lastBonusNo = _purchasedItemRepository.GetLastBonusNo();
+                if (string.IsNullOrWhiteSpace(lastBonusNo))
+                {
+                    var fiscalYear = _fiscalYearRepository.GetFiscalYear();
+                    var formats = fiscalYear.StartingBillNo.Split('-');
+                    bonusNo = Constants.BONUS + "-" + formats[1] + "-" + formats[2];
+                }
+                else
+                {
+                    var formats = lastBonusNo.Split('-');
+                    var prefix = Constants.BONUS;
+                    var year = formats[1];
+                    var value = formats[2];
+                    var trimmedValue = (Convert.ToInt64(value.TrimStart(new char[] { '0' })) + 1).ToString();
+
+                    while (trimmedValue.Length < value.Length)
+                    {
+                        trimmedValue = "0" + trimmedValue;
+                    }
+
+                    bonusNo = prefix + "-" + year + "-" + trimmedValue;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return bonusNo;
         }
 
         public decimal GetLatestPurchasePrice(long itemId)

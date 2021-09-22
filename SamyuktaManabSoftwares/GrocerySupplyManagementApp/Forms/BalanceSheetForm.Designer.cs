@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
             this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnShow.BorderRadius = 25;
+            this.BtnShow.BorderRadius = 35;
             this.BtnShow.BorderSize = 0;
             this.BtnShow.FlatAppearance.BorderSize = 0;
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -488,17 +488,17 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.Aqua;
-            this.label15.Location = new System.Drawing.Point(361, 5);
+            this.label15.Location = new System.Drawing.Point(369, 5);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(404, 33);
+            this.label15.Size = new System.Drawing.Size(378, 31);
             this.label15.TabIndex = 49;
             this.label15.Text = "Balance Sheet Management";
             // 
             // textBox2
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox2.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.Aqua;
             this.textBox2.Location = new System.Drawing.Point(-1, 112);

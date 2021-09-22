@@ -113,11 +113,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnShow
             // 
-            this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
-            this.BtnShow.BackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
             this.BtnShow.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnShow.BorderRadius = 30;
-            this.BtnShow.BorderSize = 1;
+            this.BtnShow.BorderRadius = 35;
+            this.BtnShow.BorderSize = 0;
             this.BtnShow.FlatAppearance.BorderSize = 0;
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -295,7 +295,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
@@ -304,7 +304,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // textBox2
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Highlight;
+            this.textBox2.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.Cyan;
             this.textBox2.Location = new System.Drawing.Point(-1, 109);
@@ -317,12 +317,12 @@ namespace GrocerySupplyManagementApp.Forms
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.SystemColors.Highlight;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Cyan;
-            this.label7.Location = new System.Drawing.Point(378, 4);
+            this.label7.Location = new System.Drawing.Point(392, 4);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(381, 33);
+            this.label7.Size = new System.Drawing.Size(356, 31);
             this.label7.TabIndex = 90;
             this.label7.Text = "Profit && Loss Management";
             // 

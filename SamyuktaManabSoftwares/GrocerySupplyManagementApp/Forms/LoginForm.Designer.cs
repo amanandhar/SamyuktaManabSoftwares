@@ -29,7 +29,6 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,11 +43,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(32, 52);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Cyan;
+            this.label3.Location = new System.Drawing.Point(38, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 18);
+            this.label3.Size = new System.Drawing.Size(84, 18);
             this.label3.TabIndex = 2;
             this.label3.Text = "User Name";
             // 
@@ -56,11 +55,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(32, 84);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Cyan;
+            this.label4.Location = new System.Drawing.Point(38, 85);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 18);
+            this.label4.Size = new System.Drawing.Size(75, 18);
             this.label4.TabIndex = 3;
             this.label4.Text = "Password";
             // 
@@ -78,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox1.BackColor = System.Drawing.Color.Azure;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(127, 80);
             this.textBox1.Name = "textBox1";
@@ -87,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // textBox2
             // 
-            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox2.BackColor = System.Drawing.Color.Azure;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(127, 48);
             this.textBox2.Name = "textBox2";
@@ -98,28 +97,29 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(35, 127);
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.ForeColor = System.Drawing.Color.Cyan;
+            this.checkBox1.Location = new System.Drawing.Point(38, 126);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(74, 22);
+            this.checkBox1.Size = new System.Drawing.Size(69, 22);
             this.checkBox1.TabIndex = 11;
             this.checkBox1.Text = "Show ";
             this.checkBox1.UseVisualStyleBackColor = false;
             // 
             // BtnLogin
             // 
-            this.BtnLogin.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnLogin.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnLogin.BackColor = System.Drawing.Color.Violet;
+            this.BtnLogin.BackgroundColor = System.Drawing.Color.Violet;
             this.BtnLogin.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnLogin.BorderRadius = 40;
+            this.BtnLogin.BorderRadius = 35;
             this.BtnLogin.BorderSize = 0;
             this.BtnLogin.FlatAppearance.BorderSize = 0;
             this.BtnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnLogin.ForeColor = System.Drawing.Color.White;
             this.BtnLogin.Location = new System.Drawing.Point(127, 118);
             this.BtnLogin.Name = "BtnLogin";
-            this.BtnLogin.Size = new System.Drawing.Size(111, 40);
+            this.BtnLogin.Size = new System.Drawing.Size(110, 38);
             this.BtnLogin.TabIndex = 18;
             this.BtnLogin.Text = "Login";
             this.BtnLogin.TextColor = System.Drawing.Color.White;
@@ -127,17 +127,18 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // BtnCancel
             // 
-            this.BtnCancel.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.BtnCancel.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.BtnCancel.BackColor = System.Drawing.Color.Violet;
+            this.BtnCancel.BackgroundColor = System.Drawing.Color.Violet;
             this.BtnCancel.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnCancel.BorderRadius = 40;
+            this.BtnCancel.BorderRadius = 35;
             this.BtnCancel.BorderSize = 0;
             this.BtnCancel.FlatAppearance.BorderSize = 0;
             this.BtnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCancel.ForeColor = System.Drawing.Color.White;
             this.BtnCancel.Location = new System.Drawing.Point(244, 118);
             this.BtnCancel.Name = "BtnCancel";
-            this.BtnCancel.Size = new System.Drawing.Size(111, 40);
+            this.BtnCancel.Size = new System.Drawing.Size(110, 38);
             this.BtnCancel.TabIndex = 19;
             this.BtnCancel.Text = "Cancel";
             this.BtnCancel.TextColor = System.Drawing.Color.White;
@@ -147,8 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackColor = System.Drawing.Color.DodgerBlue;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(402, 186);
             this.Controls.Add(this.BtnCancel);
