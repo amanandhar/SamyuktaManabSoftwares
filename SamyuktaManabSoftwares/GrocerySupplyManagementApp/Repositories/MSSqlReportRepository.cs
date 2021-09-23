@@ -24,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ut.[InvoiceNo], ut.[ActionType], ut.[EndOfDay], " +
                 "ut.[SubTotal], ut.[Discount], ut.[DeliveryCharge], ut.[DueAmount], ut.[ReceivedAmount], " +
                 "i.[Name] AS [ItemName], i.[Brand], si.[Volume], si.[Unit], " +
-                "si.[Quantity], si.[Price], (si.[Quantity] * si.[Price]) AS [Amount] " +
+                "si.[Quantity], si.[Price], CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) AS [Amount] " +
                 "FROM " + Constants.TABLE_MEMBER + " m " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON m.[MemberId] = ut.[MemberId] " +

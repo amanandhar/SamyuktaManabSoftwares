@@ -52,7 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(535, 28);
+            this.label1.Location = new System.Drawing.Point(539, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 18);
             this.label1.TabIndex = 12;
@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(337, 26);
+            this.label7.Location = new System.Drawing.Point(340, 26);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(61, 18);
             this.label7.TabIndex = 13;
@@ -83,7 +83,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(115, 26);
+            this.label8.Location = new System.Drawing.Point(117, 26);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(79, 18);
             this.label8.TabIndex = 14;
@@ -122,7 +122,7 @@ namespace GrocerySupplyManagementApp.Forms
             // customComboBox1
             // 
             this.customComboBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.customComboBox1.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.customComboBox1.BorderColor = System.Drawing.Color.DodgerBlue;
             this.customComboBox1.BorderSize = 1;
             this.customComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.customComboBox1.ForeColor = System.Drawing.Color.DimGray;

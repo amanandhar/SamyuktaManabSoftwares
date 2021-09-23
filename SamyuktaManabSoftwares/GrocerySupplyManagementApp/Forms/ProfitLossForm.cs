@@ -198,17 +198,19 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
                 var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);               
+                var totalLoanInterest = _userTransactionService.GetTotalExpense(Constants.LOAN_INTEREST);
                 var totalMiscellaneous = _userTransactionService.GetTotalExpense(Constants.MISCELLANEOUS);
                 var totalOfficeRent = _userTransactionService.GetTotalExpense(Constants.OFFICE_RENT);
                 var totalRepairMaintenance = _userTransactionService.GetTotalExpense(Constants.REPAIR_MAINTENANCE);
                 var totalSalesDiscount = _userTransactionService.GetTotalExpense(Constants.SALES_DISCOUNT);
+                var totalSalesReturn = _userTransactionService.GetTotalExpense(Constants.SALES_RETURN);
                 var totalStaffAllowance = _userTransactionService.GetTotalExpense(Constants.STAFF_ALLOWANCE);
                 var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
                 var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
 
                 _totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
-                     + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
-                    + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
+                     + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance + totalSalesDiscount
+                    + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 
                 List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
                 {
@@ -239,6 +241,11 @@ namespace GrocerySupplyManagementApp.Forms
                     },
                     new IncomeExpenseView
                     {
+                        Name = Constants.LOAN_INTEREST,
+                        Amount = totalLoanInterest
+                    },
+                    new IncomeExpenseView
+                    {
                         Name = Constants.MISCELLANEOUS,
                         Amount = totalMiscellaneous
                     },
@@ -256,6 +263,11 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Name = Constants.SALES_DISCOUNT,
                         Amount = totalSalesDiscount
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.SALES_RETURN,
+                        Amount = totalSalesReturn
                     },
                     new IncomeExpenseView
                     {

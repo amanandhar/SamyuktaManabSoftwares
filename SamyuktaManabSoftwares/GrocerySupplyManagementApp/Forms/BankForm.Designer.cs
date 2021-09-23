@@ -524,9 +524,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowTransaction.ForeColor = System.Drawing.Color.White;
-            this.BtnShowTransaction.Location = new System.Drawing.Point(762, 13);
+            this.BtnShowTransaction.Location = new System.Drawing.Point(771, 13);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
-            this.BtnShowTransaction.Size = new System.Drawing.Size(150, 35);
+            this.BtnShowTransaction.Size = new System.Drawing.Size(140, 35);
             this.BtnShowTransaction.TabIndex = 37;
             this.BtnShowTransaction.Text = "Show Transaction";
             this.BtnShowTransaction.TextColor = System.Drawing.Color.White;

@@ -152,7 +152,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], " +
+                "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], [ShareMemberId], " +
                 "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [IncomeExpense], " +
                 "[SubTotal], [DiscountPercent], [Discount], [VatPercent], " +
                 "[Vat], [DeliveryChargePercent], [DeliveryCharge], " +
@@ -200,6 +200,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
                                     MemberId = reader["MemberId"].ToString(),
+                                    ShareMemberId = Convert.ToInt64(reader["ShareMemberId"].ToString()),
                                     SupplierId = reader["SupplierId"].ToString(),
                                     DeliveryPersonId = reader["DeliveryPersonId"].ToString(),
                                     Action = reader["Action"].ToString(),
@@ -1262,8 +1263,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE " +
                 "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
                 "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
-                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN (si.[Quantity] * si.[Price]) " +
-                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN (si.[Quantity] * si.[Price]) " +
+                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
+                "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +

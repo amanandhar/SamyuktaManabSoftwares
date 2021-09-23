@@ -73,6 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["Id"].Visible = false;
             DataGridDeliveryPersonList.Columns["BillNo"].Visible = false;
             DataGridDeliveryPersonList.Columns["MemberId"].Visible = false;
+            DataGridDeliveryPersonList.Columns["ShareMemberId"].Visible = false;
             DataGridDeliveryPersonList.Columns["SupplierId"].Visible = false;
             DataGridDeliveryPersonList.Columns["Action"].Visible = false;
             DataGridDeliveryPersonList.Columns["ActionType"].Visible = false;
@@ -94,7 +95,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridDeliveryPersonList.Columns["DeliveryPersonId"].HeaderText = "Employee Id";
-            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].Width = 100;
+            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].Width = 150;
             DataGridDeliveryPersonList.Columns["DeliveryPersonId"].DisplayIndex = 1;
 
             DataGridDeliveryPersonList.Columns["InvoiceNo"].HeaderText = "Invoice No";

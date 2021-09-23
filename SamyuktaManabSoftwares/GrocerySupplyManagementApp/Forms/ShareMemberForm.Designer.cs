@@ -58,6 +58,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.ComboNarration = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -66,7 +67,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.OpenShareMemberImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.ComboNarration = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxShareMember)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -297,7 +297,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridShareMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridShareMemberList.Size = new System.Drawing.Size(908, 405);
+            this.DataGridShareMemberList.Size = new System.Drawing.Size(908, 415);
             this.DataGridShareMemberList.TabIndex = 49;
             this.DataGridShareMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridShareMemberList_DataBindingComplete);
             // 
@@ -308,27 +308,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnAdd);
-            this.groupBox3.Location = new System.Drawing.Point(942, 325);
+            this.groupBox3.ForeColor = System.Drawing.Color.Red;
+            this.groupBox3.Location = new System.Drawing.Point(942, 335);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(145, 209);
             this.groupBox3.TabIndex = 43;
             this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Add Member";
             // 
             // BtnDelete
             // 
             this.BtnDelete.BackColor = System.Drawing.Color.Red;
             this.BtnDelete.BackgroundColor = System.Drawing.Color.Red;
             this.BtnDelete.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnDelete.BorderRadius = 30;
+            this.BtnDelete.BorderRadius = 35;
             this.BtnDelete.BorderSize = 0;
             this.BtnDelete.Enabled = false;
             this.BtnDelete.FlatAppearance.BorderSize = 0;
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(10, 161);
+            this.BtnDelete.Location = new System.Drawing.Point(15, 161);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(125, 35);
+            this.BtnDelete.Size = new System.Drawing.Size(120, 35);
             this.BtnDelete.TabIndex = 62;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
@@ -340,16 +342,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnUpdate.BackgroundColor = System.Drawing.SystemColors.Highlight;
             this.BtnUpdate.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnUpdate.BorderRadius = 30;
+            this.BtnUpdate.BorderRadius = 35;
             this.BtnUpdate.BorderSize = 0;
             this.BtnUpdate.Enabled = false;
             this.BtnUpdate.FlatAppearance.BorderSize = 0;
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(10, 124);
+            this.BtnUpdate.Location = new System.Drawing.Point(15, 125);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(125, 35);
+            this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
             this.BtnUpdate.TabIndex = 61;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
@@ -361,16 +363,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.BackColor = System.Drawing.Color.Red;
             this.BtnEdit.BackgroundColor = System.Drawing.Color.Red;
             this.BtnEdit.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnEdit.BorderRadius = 30;
+            this.BtnEdit.BorderRadius = 35;
             this.BtnEdit.BorderSize = 0;
             this.BtnEdit.Enabled = false;
             this.BtnEdit.FlatAppearance.BorderSize = 0;
             this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.White;
-            this.BtnEdit.Location = new System.Drawing.Point(10, 87);
+            this.BtnEdit.Location = new System.Drawing.Point(15, 89);
             this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(125, 35);
+            this.BtnEdit.Size = new System.Drawing.Size(120, 35);
             this.BtnEdit.TabIndex = 60;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
@@ -382,16 +384,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnSave.BackgroundColor = System.Drawing.SystemColors.Highlight;
             this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSave.BorderRadius = 30;
+            this.BtnSave.BorderRadius = 35;
             this.BtnSave.BorderSize = 0;
             this.BtnSave.Enabled = false;
             this.BtnSave.FlatAppearance.BorderSize = 0;
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.White;
-            this.BtnSave.Location = new System.Drawing.Point(9, 50);
+            this.BtnSave.Location = new System.Drawing.Point(14, 53);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(125, 35);
+            this.BtnSave.Size = new System.Drawing.Size(120, 35);
             this.BtnSave.TabIndex = 59;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
@@ -403,16 +405,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnAdd.BackgroundColor = System.Drawing.SystemColors.Highlight;
             this.BtnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnAdd.BorderRadius = 30;
+            this.BtnAdd.BorderRadius = 35;
             this.BtnAdd.BorderSize = 0;
             this.BtnAdd.Enabled = false;
             this.BtnAdd.FlatAppearance.BorderSize = 0;
             this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAdd.ForeColor = System.Drawing.Color.White;
-            this.BtnAdd.Location = new System.Drawing.Point(9, 13);
+            this.BtnAdd.Location = new System.Drawing.Point(14, 17);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(125, 35);
+            this.BtnAdd.Size = new System.Drawing.Size(120, 35);
             this.BtnAdd.TabIndex = 58;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
@@ -432,6 +434,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Size = new System.Drawing.Size(430, 112);
             this.groupBox4.TabIndex = 53;
             this.groupBox4.TabStop = false;
+            // 
+            // ComboNarration
+            // 
+            this.ComboNarration.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboNarration.FormattingEnabled = true;
+            this.ComboNarration.Items.AddRange(new object[] {
+            "Share Capital"});
+            this.ComboNarration.Location = new System.Drawing.Point(87, 44);
+            this.ComboNarration.Name = "ComboNarration";
+            this.ComboNarration.Size = new System.Drawing.Size(225, 26);
+            this.ComboNarration.TabIndex = 34;
             // 
             // textBox1
             // 
@@ -458,27 +471,29 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox5.Controls.Add(this.BtnSaveAmount);
             this.groupBox5.Controls.Add(this.BtnShow);
-            this.groupBox5.Location = new System.Drawing.Point(942, 228);
+            this.groupBox5.ForeColor = System.Drawing.Color.Red;
+            this.groupBox5.Location = new System.Drawing.Point(942, 230);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(145, 90);
+            this.groupBox5.Size = new System.Drawing.Size(145, 95);
             this.groupBox5.TabIndex = 62;
             this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Transaction";
             // 
             // BtnSaveAmount
             // 
             this.BtnSaveAmount.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnSaveAmount.BackgroundColor = System.Drawing.SystemColors.Highlight;
             this.BtnSaveAmount.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSaveAmount.BorderRadius = 30;
+            this.BtnSaveAmount.BorderRadius = 35;
             this.BtnSaveAmount.BorderSize = 0;
             this.BtnSaveAmount.Enabled = false;
             this.BtnSaveAmount.FlatAppearance.BorderSize = 0;
             this.BtnSaveAmount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSaveAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSaveAmount.ForeColor = System.Drawing.Color.White;
-            this.BtnSaveAmount.Location = new System.Drawing.Point(8, 48);
+            this.BtnSaveAmount.Location = new System.Drawing.Point(13, 53);
             this.BtnSaveAmount.Name = "BtnSaveAmount";
-            this.BtnSaveAmount.Size = new System.Drawing.Size(125, 35);
+            this.BtnSaveAmount.Size = new System.Drawing.Size(120, 35);
             this.BtnSaveAmount.TabIndex = 57;
             this.BtnSaveAmount.Text = "Save";
             this.BtnSaveAmount.TextColor = System.Drawing.Color.White;
@@ -490,16 +505,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnShow.BackgroundColor = System.Drawing.SystemColors.Highlight;
             this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnShow.BorderRadius = 30;
+            this.BtnShow.BorderRadius = 35;
             this.BtnShow.BorderSize = 0;
             this.BtnShow.Enabled = false;
             this.BtnShow.FlatAppearance.BorderSize = 0;
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(8, 11);
+            this.BtnShow.Location = new System.Drawing.Point(13, 17);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 35);
+            this.BtnShow.Size = new System.Drawing.Size(120, 35);
             this.BtnShow.TabIndex = 56;
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
@@ -515,11 +530,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.BackColor = System.Drawing.Color.Red;
             this.BtnDeleteImage.BackgroundColor = System.Drawing.Color.Red;
             this.BtnDeleteImage.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnDeleteImage.BorderRadius = 22;
+            this.BtnDeleteImage.BorderRadius = 20;
             this.BtnDeleteImage.BorderSize = 0;
             this.BtnDeleteImage.Enabled = false;
             this.BtnDeleteImage.FlatAppearance.BorderSize = 0;
             this.BtnDeleteImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDeleteImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteImage.ForeColor = System.Drawing.Color.White;
             this.BtnDeleteImage.Location = new System.Drawing.Point(1016, 198);
             this.BtnDeleteImage.Name = "BtnDeleteImage";
@@ -535,12 +551,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.BackColor = System.Drawing.SystemColors.Highlight;
             this.BtnAddImage.BackgroundColor = System.Drawing.SystemColors.Highlight;
             this.BtnAddImage.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnAddImage.BorderRadius = 22;
+            this.BtnAddImage.BorderRadius = 20;
             this.BtnAddImage.BorderSize = 0;
             this.BtnAddImage.Enabled = false;
             this.BtnAddImage.FlatAppearance.BorderSize = 0;
             this.BtnAddImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddImage.ForeColor = System.Drawing.Color.White;
             this.BtnAddImage.Location = new System.Drawing.Point(963, 198);
             this.BtnAddImage.Name = "BtnAddImage";
@@ -550,17 +566,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.TextColor = System.Drawing.Color.White;
             this.BtnAddImage.UseVisualStyleBackColor = false;
             this.BtnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
-            // 
-            // ComboNarration
-            // 
-            this.ComboNarration.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboNarration.FormattingEnabled = true;
-            this.ComboNarration.Items.AddRange(new object[] {
-            "Share Capital"});
-            this.ComboNarration.Location = new System.Drawing.Point(87, 44);
-            this.ComboNarration.Name = "ComboNarration";
-            this.ComboNarration.Size = new System.Drawing.Size(225, 26);
-            this.ComboNarration.TabIndex = 34;
             // 
             // ShareMemberForm
             // 

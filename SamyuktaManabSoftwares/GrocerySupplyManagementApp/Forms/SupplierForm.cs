@@ -23,6 +23,25 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly string _endOfDay;
 
+        #region Enum
+        private enum Action
+        {
+            AddPurchase,
+            AddSupplier,
+            DeleteSupplier,
+            EditSupplier,
+            PopulateSupplier,
+            SavePayment,
+            ShowPurchase,
+            SaveSupplier,
+            SearchSupplier,
+            ShowTransaction,
+            UpdateSupplier,
+            Load,
+            None
+        }
+        #endregion 
+
         #region Constructor
         public SupplierForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
@@ -50,7 +69,8 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
-            EnableFields(false);
+            EnableFields();
+            EnableFields(Action.Load);
         }
         #endregion
 
@@ -153,7 +173,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddSuppliers_Click(object sender, EventArgs e)
         {
             ClearAllFields();
-            EnableFields(true);
+            EnableFields();
+            EnableFields(Action.AddSupplier);
             TxtSupplierId.Text = _supplierService.GetNewSupplierId();
         }
 
@@ -179,6 +200,8 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
+                    EnableFields();
+                    EnableFields(Action.SaveSupplier);
                 }
             }
             catch (Exception ex)
@@ -189,7 +212,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            EnableFields(true);
+            EnableFields();
+            EnableFields(Action.EditSupplier);
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -213,6 +237,8 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ClearAllFields();
                     DataGridSupplierList.DataSource = null;
+                    EnableFields();
+                    EnableFields(Action.UpdateSupplier);
                 }
             }
             catch (Exception ex)
@@ -231,6 +257,8 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ClearAllFields();
                 DataGridSupplierList.DataSource = null;
+                EnableFields();
+                EnableFields(Action.DeleteSupplier);
             }
         }
 
@@ -403,13 +431,95 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.DataSource = source;
         }
 
-        private void EnableFields(bool option = true)
+        private void EnableFields(Action action = Action.None)
         {
-            TxtSupplierName.Enabled = option;
-            TxtOwner.Enabled = option;
-            TxtAddress.Enabled = option;
-            TxtContactNumber.Enabled = option;
-            TxtEmail.Enabled = option;
+            if(action == Action.AddPurchase)
+            {
+            }
+            else if (action == Action.AddSupplier)
+            {
+                TxtSupplierName.Enabled = true;
+                TxtOwner.Enabled = true;
+                TxtAddress.Enabled = true;
+                TxtContactNumber.Enabled = true;
+                TxtEmail.Enabled = true;
+
+                BtnSave.Enabled = true;
+                BtnDelete.Enabled = true;
+            }
+            else if (action == Action.DeleteSupplier)
+            {
+                BtnAddSupplier.Enabled = true;
+            }
+            else if (action == Action.EditSupplier)
+            {
+                TxtSupplierName.Enabled = true;
+                TxtOwner.Enabled = true;
+                TxtAddress.Enabled = true;
+                TxtContactNumber.Enabled = true;
+                TxtEmail.Enabled = true;
+
+                BtnUpdate.Enabled = true;
+                BtnDelete.Enabled = true;
+            }
+            else if (action == Action.PopulateSupplier)
+            {
+                BtnAddSupplier.Enabled = true;
+                BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
+                BtnAddPurchase.Enabled = true;
+                BtnShowPurchase.Enabled = true;
+                BtnSavePayment.Enabled = true;
+            }
+            else if (action == Action.Load)
+            {
+                BtnAddSupplier.Enabled = true;
+            }
+            else if (action == Action.SavePayment)
+            {
+
+            }
+            else if (action == Action.SaveSupplier)
+            {
+                BtnAddSupplier.Enabled = true;
+            }
+            else if (action == Action.ShowPurchase)
+            {
+
+            }
+            else if (action == Action.SearchSupplier)
+            {
+                BtnAddSupplier.Enabled = true;
+                BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
+            }
+            else if (action == Action.ShowTransaction)
+            {
+
+            }
+            else if (action == Action.UpdateSupplier)
+            {
+                BtnAddSupplier.Enabled = true;
+            }
+            else
+            {
+                BtnSearchSupplier.Enabled = true;
+                BtnAddPurchase.Enabled = false;
+                BtnShowPurchase.Enabled = false;
+                BtnSavePayment.Enabled = false;
+                BtnAddSupplier.Enabled = false;
+                BtnSave.Enabled = false;
+                BtnEdit.Enabled = false;
+                BtnUpdate.Enabled = false;
+                BtnDelete.Enabled = false;
+                BtnShowTransaction.Enabled = true;
+
+                TxtSupplierName.Enabled = false;
+                TxtOwner.Enabled = false;
+                TxtAddress.Enabled = false;
+                TxtContactNumber.Enabled = false;
+                TxtEmail.Enabled = false;
+            }
         }
 
         private void ClearAllFields()
@@ -439,7 +549,8 @@ namespace GrocerySupplyManagementApp.Forms
             BtnAddPurchase.Enabled = true;
             BtnShowPurchase.Enabled = true;
 
-            EnableFields(false);
+            EnableFields();
+            EnableFields(Action.PopulateSupplier);
             var supplierTransactionViewList = GetSupplierTransaction();
             LoadSupplierTransaction(supplierTransactionViewList);
         }

@@ -427,9 +427,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(9, 56);
+            this.BtnDelete.Location = new System.Drawing.Point(9, 60);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(125, 38);
+            this.BtnDelete.Size = new System.Drawing.Size(125, 40);
             this.BtnDelete.TabIndex = 1;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
@@ -447,9 +447,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(9, 16);
+            this.BtnShow.Location = new System.Drawing.Point(9, 18);
             this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 38);
+            this.BtnShow.Size = new System.Drawing.Size(125, 40);
             this.BtnShow.TabIndex = 0;
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
@@ -477,7 +477,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridTransactionList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 171);
+            this.DataGridTransactionList.Location = new System.Drawing.Point(14, 173);
             this.DataGridTransactionList.Name = "DataGridTransactionList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -487,7 +487,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridTransactionList.Size = new System.Drawing.Size(1072, 378);
+            this.DataGridTransactionList.Size = new System.Drawing.Size(1072, 435);
             this.DataGridTransactionList.TabIndex = 4;
             this.DataGridTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridTransactionList_DataBindingComplete);
             // 
@@ -517,7 +517,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 566);
+            this.ClientSize = new System.Drawing.Size(1088, 597);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.GroupFilter);

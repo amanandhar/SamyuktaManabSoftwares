@@ -395,9 +395,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(506, 23);
+            this.BtnDelete.Location = new System.Drawing.Point(497, 23);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(125, 38);
+            this.BtnDelete.Size = new System.Drawing.Size(120, 35);
             this.BtnDelete.TabIndex = 9;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
@@ -415,9 +415,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(381, 24);
+            this.BtnUpdate.Location = new System.Drawing.Point(376, 24);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(125, 38);
+            this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
             this.BtnUpdate.TabIndex = 8;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
@@ -437,7 +437,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.ForeColor = System.Drawing.Color.White;
             this.BtnEdit.Location = new System.Drawing.Point(255, 23);
             this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(125, 38);
+            this.BtnEdit.Size = new System.Drawing.Size(120, 35);
             this.BtnEdit.TabIndex = 7;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
@@ -455,9 +455,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.White;
-            this.BtnSave.Location = new System.Drawing.Point(129, 23);
+            this.BtnSave.Location = new System.Drawing.Point(134, 23);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(125, 38);
+            this.BtnSave.Size = new System.Drawing.Size(120, 35);
             this.BtnSave.TabIndex = 6;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
@@ -475,9 +475,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAdd.ForeColor = System.Drawing.Color.White;
-            this.BtnAdd.Location = new System.Drawing.Point(4, 24);
+            this.BtnAdd.Location = new System.Drawing.Point(13, 24);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(125, 38);
+            this.BtnAdd.Size = new System.Drawing.Size(120, 35);
             this.BtnAdd.TabIndex = 5;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;

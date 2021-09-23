@@ -249,11 +249,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridBankList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridBankList.Columns["Description"].HeaderText = "Descriptions";
-            DataGridBankList.Columns["Description"].Width = 100;
+            DataGridBankList.Columns["Description"].Width = 120;
             DataGridBankList.Columns["Description"].DisplayIndex = 1;
 
             DataGridBankList.Columns["Narration"].HeaderText = "Narration";
-            DataGridBankList.Columns["Narration"].Width = 260;
+            DataGridBankList.Columns["Narration"].Width = 270;
             DataGridBankList.Columns["Narration"].DisplayIndex = 2;
 
             DataGridBankList.Columns["Debit"].HeaderText = "Debit";

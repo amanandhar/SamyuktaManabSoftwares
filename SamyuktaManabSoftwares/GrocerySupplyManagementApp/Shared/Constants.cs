@@ -56,10 +56,12 @@ namespace GrocerySupplyManagementApp.Shared
         public const string FUEL_TRANSPORTATION = "Fuel & Transportation";
         public const string GUEST_HOSPITALITY = "Guest & Hospitality";
         public const string LOAN_FEE_INTEREST = "Loan Fee & Interest";
+        public const string LOAN_INTEREST = "Loan Interest";
         public const string MISCELLANEOUS = "Miscellaneous";
         public const string OFFICE_RENT = "Office Rent";
         public const string REPAIR_MAINTENANCE = "Repair & Maintenance";
         public const string SALES_DISCOUNT = "Sales Discount";
+        public const string SALES_RETURN = "Sales Return";
         public const string STAFF_ALLOWANCE = "Staff Allowance";
         public const string STAFF_SALARY = "Staff Salary";
         public const string TELEPHONE_INTERNET = "Telephone & Internet";

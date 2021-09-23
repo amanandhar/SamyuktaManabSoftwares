@@ -205,7 +205,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " +
-                "SUM([Quantity] * [Price]) AS 'TotalPrice' " +
+                "CAST(SUM([Quantity] * [Price]) AS DECIMAL(18, 2)) AS 'TotalPrice' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] = @SupplierId " +
@@ -241,7 +241,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " +
-                "SUM(CAST((pi.[Quantity] * pi.[Price]) AS DECIMAL(18,2))) AS 'Total' " +
+                "CAST(SUM(pi.[Quantity] * pi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +

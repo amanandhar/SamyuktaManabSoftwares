@@ -56,15 +56,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichMotherName = new System.Windows.Forms.RichTextBox();
             this.RichSpouseName = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ComboMaritalStatus = new System.Windows.Forms.ComboBox();
+            this.ComboGender = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.BtnSearchSalaryDetails = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.MaskAppointedDate = new System.Windows.Forms.MaskedTextBox();
             this.MaskResignedDate = new System.Windows.Forms.MaskedTextBox();
             this.ComboPost = new System.Windows.Forms.ComboBox();
-            this.ComboMaritalStatus = new System.Windows.Forms.ComboBox();
             this.ComboPostStatus = new System.Windows.Forms.ComboBox();
-            this.ComboGender = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.MaskDateOfBirth = new System.Windows.Forms.MaskedTextBox();
@@ -393,6 +393,45 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Family Details";
             // 
+            // ComboMaritalStatus
+            // 
+            this.ComboMaritalStatus.Enabled = false;
+            this.ComboMaritalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboMaritalStatus.FormattingEnabled = true;
+            this.ComboMaritalStatus.Items.AddRange(new object[] {
+            "Please Select ",
+            "Single",
+            "Married"});
+            this.ComboMaritalStatus.Location = new System.Drawing.Point(139, 137);
+            this.ComboMaritalStatus.Name = "ComboMaritalStatus";
+            this.ComboMaritalStatus.Size = new System.Drawing.Size(260, 28);
+            this.ComboMaritalStatus.TabIndex = 35;
+            // 
+            // ComboGender
+            // 
+            this.ComboGender.Enabled = false;
+            this.ComboGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboGender.FormattingEnabled = true;
+            this.ComboGender.Items.AddRange(new object[] {
+            "Please Select ",
+            "Male",
+            "Female"});
+            this.ComboGender.Location = new System.Drawing.Point(139, 99);
+            this.ComboGender.Name = "ComboGender";
+            this.ComboGender.Size = new System.Drawing.Size(260, 28);
+            this.ComboGender.TabIndex = 33;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label18.Location = new System.Drawing.Point(31, 178);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(103, 18);
+            this.label18.TabIndex = 25;
+            this.label18.Text = "Spouse Name";
+            // 
             // BtnSearchSalaryDetails
             // 
             this.BtnSearchSalaryDetails.BackColor = System.Drawing.Color.DodgerBlue;
@@ -446,20 +485,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPost.Size = new System.Drawing.Size(260, 28);
             this.ComboPost.TabIndex = 38;
             // 
-            // ComboMaritalStatus
-            // 
-            this.ComboMaritalStatus.Enabled = false;
-            this.ComboMaritalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboMaritalStatus.FormattingEnabled = true;
-            this.ComboMaritalStatus.Items.AddRange(new object[] {
-            "Please Select ",
-            "Single",
-            "Married"});
-            this.ComboMaritalStatus.Location = new System.Drawing.Point(139, 137);
-            this.ComboMaritalStatus.Name = "ComboMaritalStatus";
-            this.ComboMaritalStatus.Size = new System.Drawing.Size(260, 28);
-            this.ComboMaritalStatus.TabIndex = 35;
-            // 
             // ComboPostStatus
             // 
             this.ComboPostStatus.Enabled = false;
@@ -475,20 +500,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPostStatus.Size = new System.Drawing.Size(260, 28);
             this.ComboPostStatus.TabIndex = 34;
             // 
-            // ComboGender
-            // 
-            this.ComboGender.Enabled = false;
-            this.ComboGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboGender.FormattingEnabled = true;
-            this.ComboGender.Items.AddRange(new object[] {
-            "Please Select ",
-            "Male",
-            "Female"});
-            this.ComboGender.Location = new System.Drawing.Point(139, 99);
-            this.ComboGender.Name = "ComboGender";
-            this.ComboGender.Size = new System.Drawing.Size(260, 28);
-            this.ComboGender.TabIndex = 33;
-            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -499,17 +510,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label21.Size = new System.Drawing.Size(105, 18);
             this.label21.TabIndex = 32;
             this.label21.Text = "Resigned Date";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label18.Location = new System.Drawing.Point(31, 178);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(103, 18);
-            this.label18.TabIndex = 25;
-            this.label18.Text = "Spouse Name";
             // 
             // groupBox2
             // 
@@ -688,9 +688,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnEdit);
             this.groupBox4.Controls.Add(this.BtnSave);
             this.groupBox4.Controls.Add(this.BtnAdd);
-            this.groupBox4.Location = new System.Drawing.Point(943, 256);
+            this.groupBox4.Location = new System.Drawing.Point(943, 268);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(145, 255);
+            this.groupBox4.Size = new System.Drawing.Size(145, 240);
             this.groupBox4.TabIndex = 34;
             this.groupBox4.TabStop = false;
             // 
@@ -705,9 +705,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(10, 206);
+            this.BtnDelete.Location = new System.Drawing.Point(10, 194);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(125, 38);
+            this.BtnDelete.Size = new System.Drawing.Size(120, 35);
             this.BtnDelete.TabIndex = 48;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
@@ -725,9 +725,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnClear.ForeColor = System.Drawing.Color.White;
-            this.BtnClear.Location = new System.Drawing.Point(10, 167);
+            this.BtnClear.Location = new System.Drawing.Point(10, 158);
             this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(125, 38);
+            this.BtnClear.Size = new System.Drawing.Size(120, 35);
             this.BtnClear.TabIndex = 47;
             this.BtnClear.Text = "Clear";
             this.BtnClear.TextColor = System.Drawing.Color.White;
@@ -745,9 +745,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(10, 128);
+            this.BtnUpdate.Location = new System.Drawing.Point(10, 122);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(125, 38);
+            this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
             this.BtnUpdate.TabIndex = 46;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
@@ -765,9 +765,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.White;
-            this.BtnEdit.Location = new System.Drawing.Point(10, 89);
+            this.BtnEdit.Location = new System.Drawing.Point(10, 86);
             this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(125, 38);
+            this.BtnEdit.Size = new System.Drawing.Size(120, 35);
             this.BtnEdit.TabIndex = 45;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
@@ -787,7 +787,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.ForeColor = System.Drawing.Color.White;
             this.BtnSave.Location = new System.Drawing.Point(10, 50);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(125, 38);
+            this.BtnSave.Size = new System.Drawing.Size(120, 35);
             this.BtnSave.TabIndex = 44;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
@@ -805,9 +805,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAdd.ForeColor = System.Drawing.Color.White;
-            this.BtnAdd.Location = new System.Drawing.Point(10, 11);
+            this.BtnAdd.Location = new System.Drawing.Point(10, 14);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(125, 38);
+            this.BtnAdd.Size = new System.Drawing.Size(120, 35);
             this.BtnAdd.TabIndex = 43;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
@@ -870,11 +870,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.label23.AutoSize = true;
             this.label23.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Cyan;
-            this.label23.Location = new System.Drawing.Point(407, 4);
+            this.label23.Location = new System.Drawing.Point(409, 6);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(341, 33);
+            this.label23.Size = new System.Drawing.Size(317, 31);
             this.label23.TabIndex = 46;
             this.label23.Text = "Employee Management";
             // 

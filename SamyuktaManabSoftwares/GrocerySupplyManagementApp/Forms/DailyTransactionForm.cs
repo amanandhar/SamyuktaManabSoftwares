@@ -272,31 +272,31 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Id"].Visible = false;
 
             DataGridTransactionList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridTransactionList.Columns["EndOfDay"].Width = 75;
+            DataGridTransactionList.Columns["EndOfDay"].Width = 80;
             DataGridTransactionList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Mem/Supp";
-            DataGridTransactionList.Columns["MemberSupplierId"].Width = 80;
+            DataGridTransactionList.Columns["MemberSupplierId"].Width = 90;
             DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
 
             DataGridTransactionList.Columns["Action"].HeaderText = "Description";
-            DataGridTransactionList.Columns["Action"].Width = 80;
+            DataGridTransactionList.Columns["Action"].Width = 95;
             DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
 
             DataGridTransactionList.Columns["ActionType"].HeaderText = "Type";
             DataGridTransactionList.Columns["ActionType"].Width = 180;
             DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
-            DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "InvoiceBill";
-            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 80;
+            DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
+            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 95;
             DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 4;
 
             DataGridTransactionList.Columns["ItemCode"].HeaderText = "Code";
-            DataGridTransactionList.Columns["ItemCode"].Width = 85;
+            DataGridTransactionList.Columns["ItemCode"].Width = 95;
             DataGridTransactionList.Columns["ItemCode"].DisplayIndex = 5;
 
             DataGridTransactionList.Columns["ItemName"].HeaderText = "ItemName";
-            DataGridTransactionList.Columns["ItemName"].Width = 155;
+            DataGridTransactionList.Columns["ItemName"].Width = 165;
             DataGridTransactionList.Columns["ItemName"].DisplayIndex = 6;
 
             DataGridTransactionList.Columns["Quantity"].HeaderText = "Quantity";

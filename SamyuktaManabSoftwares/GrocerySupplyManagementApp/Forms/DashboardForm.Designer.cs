@@ -72,10 +72,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxDateInBs = new System.Windows.Forms.RichTextBox();
             this.RichBoxDateInAd = new System.Windows.Forms.RichTextBox();
             this.PanelBody = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.PictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Timer = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.PanelSideMenu.SuspendLayout();
             this.PanelSettingsSubMenu.SuspendLayout();
             this.PanelReportsSubMenu.SuspendLayout();
@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.PanelSideMenu.Name = "PanelSideMenu";
-            this.PanelSideMenu.Size = new System.Drawing.Size(250, 704);
+            this.PanelSideMenu.Size = new System.Drawing.Size(250, 699);
             this.PanelSideMenu.TabIndex = 0;
             // 
             // BtnEOD
@@ -124,7 +124,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEOD.ForeColor = System.Drawing.Color.White;
             this.BtnEOD.Image = ((System.Drawing.Image)(resources.GetObject("BtnEOD.Image")));
             this.BtnEOD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnEOD.Location = new System.Drawing.Point(0, 1143);
+            this.BtnEOD.Location = new System.Drawing.Point(0, 1138);
             this.BtnEOD.Name = "BtnEOD";
             this.BtnEOD.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnEOD.Size = new System.Drawing.Size(233, 40);
@@ -146,7 +146,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelSettingsSubMenu.Controls.Add(this.BtnDeliveryPerson);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnCompanyInformation);
             this.PanelSettingsSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelSettingsSubMenu.Location = new System.Drawing.Point(0, 816);
+            this.PanelSettingsSubMenu.Location = new System.Drawing.Point(0, 811);
             this.PanelSettingsSubMenu.Name = "PanelSettingsSubMenu";
             this.PanelSettingsSubMenu.Size = new System.Drawing.Size(233, 327);
             this.PanelSettingsSubMenu.TabIndex = 14;
@@ -332,7 +332,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSettings.ForeColor = System.Drawing.Color.White;
             this.BtnSettings.Image = ((System.Drawing.Image)(resources.GetObject("BtnSettings.Image")));
             this.BtnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSettings.Location = new System.Drawing.Point(0, 776);
+            this.BtnSettings.Location = new System.Drawing.Point(0, 771);
             this.BtnSettings.Name = "BtnSettings";
             this.BtnSettings.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnSettings.Size = new System.Drawing.Size(233, 40);
@@ -355,7 +355,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelReportsSubMenu.Controls.Add(this.BtnDailyIncome);
             this.PanelReportsSubMenu.Controls.Add(this.BtnBalanceSheet);
             this.PanelReportsSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelReportsSubMenu.Location = new System.Drawing.Point(0, 455);
+            this.PanelReportsSubMenu.Location = new System.Drawing.Point(0, 450);
             this.PanelReportsSubMenu.Name = "PanelReportsSubMenu";
             this.PanelReportsSubMenu.Size = new System.Drawing.Size(233, 321);
             this.PanelReportsSubMenu.TabIndex = 12;
@@ -541,7 +541,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnReports.ForeColor = System.Drawing.Color.White;
             this.BtnReports.Image = ((System.Drawing.Image)(resources.GetObject("BtnReports.Image")));
             this.BtnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnReports.Location = new System.Drawing.Point(0, 415);
+            this.BtnReports.Location = new System.Drawing.Point(0, 410);
             this.BtnReports.Name = "BtnReports";
             this.BtnReports.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnReports.Size = new System.Drawing.Size(233, 40);
@@ -565,7 +565,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEmployee.ForeColor = System.Drawing.Color.White;
             this.BtnEmployee.Image = ((System.Drawing.Image)(resources.GetObject("BtnEmployee.Image")));
             this.BtnEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnEmployee.Location = new System.Drawing.Point(0, 375);
+            this.BtnEmployee.Location = new System.Drawing.Point(0, 370);
             this.BtnEmployee.Name = "BtnEmployee";
             this.BtnEmployee.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnEmployee.Size = new System.Drawing.Size(233, 40);
@@ -589,7 +589,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnBank.ForeColor = System.Drawing.Color.White;
             this.BtnBank.Image = ((System.Drawing.Image)(resources.GetObject("BtnBank.Image")));
             this.BtnBank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnBank.Location = new System.Drawing.Point(0, 335);
+            this.BtnBank.Location = new System.Drawing.Point(0, 330);
             this.BtnBank.Name = "BtnBank";
             this.BtnBank.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnBank.Size = new System.Drawing.Size(233, 40);
@@ -613,7 +613,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnItemPricing.ForeColor = System.Drawing.Color.White;
             this.BtnItemPricing.Image = ((System.Drawing.Image)(resources.GetObject("BtnItemPricing.Image")));
             this.BtnItemPricing.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnItemPricing.Location = new System.Drawing.Point(0, 295);
+            this.BtnItemPricing.Location = new System.Drawing.Point(0, 290);
             this.BtnItemPricing.Name = "BtnItemPricing";
             this.BtnItemPricing.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnItemPricing.Size = new System.Drawing.Size(233, 40);
@@ -637,7 +637,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSupplier.ForeColor = System.Drawing.Color.White;
             this.BtnSupplier.Image = ((System.Drawing.Image)(resources.GetObject("BtnSupplier.Image")));
             this.BtnSupplier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSupplier.Location = new System.Drawing.Point(0, 255);
+            this.BtnSupplier.Location = new System.Drawing.Point(0, 250);
             this.BtnSupplier.Name = "BtnSupplier";
             this.BtnSupplier.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnSupplier.Size = new System.Drawing.Size(233, 40);
@@ -661,7 +661,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnMember.ForeColor = System.Drawing.Color.White;
             this.BtnMember.Image = ((System.Drawing.Image)(resources.GetObject("BtnMember.Image")));
             this.BtnMember.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnMember.Location = new System.Drawing.Point(0, 215);
+            this.BtnMember.Location = new System.Drawing.Point(0, 210);
             this.BtnMember.Name = "BtnMember";
             this.BtnMember.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnMember.Size = new System.Drawing.Size(233, 40);
@@ -685,7 +685,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnStockSummary.ForeColor = System.Drawing.Color.White;
             this.BtnStockSummary.Image = ((System.Drawing.Image)(resources.GetObject("BtnStockSummary.Image")));
             this.BtnStockSummary.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnStockSummary.Location = new System.Drawing.Point(0, 175);
+            this.BtnStockSummary.Location = new System.Drawing.Point(0, 170);
             this.BtnStockSummary.Name = "BtnStockSummary";
             this.BtnStockSummary.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnStockSummary.Size = new System.Drawing.Size(233, 40);
@@ -709,7 +709,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailyTransaction.ForeColor = System.Drawing.Color.White;
             this.BtnDailyTransaction.Image = ((System.Drawing.Image)(resources.GetObject("BtnDailyTransaction.Image")));
             this.BtnDailyTransaction.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDailyTransaction.Location = new System.Drawing.Point(0, 135);
+            this.BtnDailyTransaction.Location = new System.Drawing.Point(0, 130);
             this.BtnDailyTransaction.Name = "BtnDailyTransaction";
             this.BtnDailyTransaction.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnDailyTransaction.Size = new System.Drawing.Size(233, 40);
@@ -733,7 +733,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailySummary.ForeColor = System.Drawing.Color.White;
             this.BtnDailySummary.Image = ((System.Drawing.Image)(resources.GetObject("BtnDailySummary.Image")));
             this.BtnDailySummary.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDailySummary.Location = new System.Drawing.Point(0, 95);
+            this.BtnDailySummary.Location = new System.Drawing.Point(0, 90);
             this.BtnDailySummary.Name = "BtnDailySummary";
             this.BtnDailySummary.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnDailySummary.Size = new System.Drawing.Size(233, 40);
@@ -757,7 +757,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnPointOfSales.ForeColor = System.Drawing.Color.White;
             this.BtnPointOfSales.Image = ((System.Drawing.Image)(resources.GetObject("BtnPointOfSales.Image")));
             this.BtnPointOfSales.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnPointOfSales.Location = new System.Drawing.Point(0, 55);
+            this.BtnPointOfSales.Location = new System.Drawing.Point(0, 50);
             this.BtnPointOfSales.Name = "BtnPointOfSales";
             this.BtnPointOfSales.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnPointOfSales.Size = new System.Drawing.Size(233, 40);
@@ -775,7 +775,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelLogo.Location = new System.Drawing.Point(0, 0);
             this.PanelLogo.Name = "PanelLogo";
-            this.PanelLogo.Size = new System.Drawing.Size(233, 55);
+            this.PanelLogo.Size = new System.Drawing.Size(233, 50);
             this.PanelLogo.TabIndex = 0;
             // 
             // lblCompanyShortName
@@ -785,7 +785,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.lblCompanyShortName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCompanyShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompanyShortName.ForeColor = System.Drawing.Color.White;
-            this.lblCompanyShortName.Location = new System.Drawing.Point(55, 8);
+            this.lblCompanyShortName.Location = new System.Drawing.Point(55, 6);
             this.lblCompanyShortName.Name = "lblCompanyShortName";
             this.lblCompanyShortName.Size = new System.Drawing.Size(129, 39);
             this.lblCompanyShortName.TabIndex = 0;
@@ -800,7 +800,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(250, 0);
             this.PanelHeader.Name = "PanelHeader";
-            this.PanelHeader.Size = new System.Drawing.Size(1104, 55);
+            this.PanelHeader.Size = new System.Drawing.Size(1104, 50);
             this.PanelHeader.TabIndex = 1;
             // 
             // lblCompanyName
@@ -809,7 +809,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.lblCompanyName.AutoSize = true;
             this.lblCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompanyName.ForeColor = System.Drawing.Color.White;
-            this.lblCompanyName.Location = new System.Drawing.Point(217, 8);
+            this.lblCompanyName.Location = new System.Drawing.Point(220, 6);
             this.lblCompanyName.Name = "lblCompanyName";
             this.lblCompanyName.Size = new System.Drawing.Size(665, 39);
             this.lblCompanyName.TabIndex = 0;
@@ -894,10 +894,21 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelBody.Controls.Add(this.PictureBoxLogo);
             this.PanelBody.Controls.Add(this.tableLayoutPanel1);
             this.PanelBody.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelBody.Location = new System.Drawing.Point(250, 55);
+            this.PanelBody.Location = new System.Drawing.Point(250, 50);
             this.PanelBody.Name = "PanelBody";
             this.PanelBody.Size = new System.Drawing.Size(1104, 649);
             this.PanelBody.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label1.Location = new System.Drawing.Point(294, 553);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(518, 29);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Samyukta Manab Grocery Management System";
             // 
             // PictureBoxLogo
             // 
@@ -939,26 +950,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label1.Location = new System.Drawing.Point(294, 553);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(518, 29);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Samyukta Manab Grocery Management System";
-            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 704);
+            this.ClientSize = new System.Drawing.Size(1354, 699);
             this.Controls.Add(this.PanelBody);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.PanelSideMenu);
-            this.MinimumSize = new System.Drawing.Size(1370, 730);
+            this.MinimumSize = new System.Drawing.Size(1364, 726);
             this.Name = "DashboardForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.DashboardForm_Load);

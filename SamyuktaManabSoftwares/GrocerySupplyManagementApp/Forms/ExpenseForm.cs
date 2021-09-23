@@ -280,9 +280,11 @@ namespace GrocerySupplyManagementApp.Forms
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.ELECTRICITY, Value = Constants.ELECTRICITY });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.FUEL_TRANSPORTATION, Value = Constants.FUEL_TRANSPORTATION });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.GUEST_HOSPITALITY, Value = Constants.GUEST_HOSPITALITY });
+            ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.LOAN_INTEREST, Value = Constants.LOAN_INTEREST });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.MISCELLANEOUS, Value = Constants.MISCELLANEOUS });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.OFFICE_RENT, Value = Constants.OFFICE_RENT });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.REPAIR_MAINTENANCE, Value = Constants.REPAIR_MAINTENANCE });
+            ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.SALES_RETURN, Value = Constants.SALES_RETURN });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.STAFF_ALLOWANCE, Value = Constants.STAFF_ALLOWANCE });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.STAFF_SALARY, Value = Constants.STAFF_SALARY });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.TELEPHONE_INTERNET, Value = Constants.TELEPHONE_INTERNET });

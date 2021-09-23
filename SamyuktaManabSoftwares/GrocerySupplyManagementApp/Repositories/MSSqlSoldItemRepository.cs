@@ -133,7 +133,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalCount = 0.00m;
             var query = @"SELECT " +
-                "SUM(si.[Volume] * si.[Quantity]) " +
+                "CAST(SUM(si.[Volume] * si.[Quantity]) AS DECIMAL(18,2)) " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
@@ -183,7 +183,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalAmount = 0.0m;
             var query = @"SELECT " +
-                "SUM(CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2))) AS 'Total' " +
+                "CAST(SUM(si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
