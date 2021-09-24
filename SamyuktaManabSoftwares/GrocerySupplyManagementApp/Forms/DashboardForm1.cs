@@ -169,7 +169,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
             ReportForm reportForm = new ReportForm(_fiscalYearService, _bankService, 
-                _bankTransactionService, _userTransactionService,
+                _bankTransactionService, _itemService, 
+                _purchasedItemService, _userTransactionService,
                 _stockService, _shareMemberService
                 );
             reportForm.Show();

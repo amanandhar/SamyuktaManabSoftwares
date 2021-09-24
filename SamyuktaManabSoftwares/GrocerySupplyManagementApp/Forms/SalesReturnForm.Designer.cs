@@ -30,56 +30,56 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.customTextBox5 = new GrocerySupplyManagementApp.CustomControls.TextBox.CustomTextBox();
-            this.customTextBox4 = new GrocerySupplyManagementApp.CustomControls.TextBox.CustomTextBox();
+            this.TxtQuantity = new System.Windows.Forms.TextBox();
+            this.TxtItemPrice = new System.Windows.Forms.TextBox();
+            this.TxtItemName = new System.Windows.Forms.TextBox();
+            this.ComboItemCode = new System.Windows.Forms.ComboBox();
+            this.TxtTotalAmount = new System.Windows.Forms.TextBox();
+            this.TxtSalesProfit = new System.Windows.Forms.TextBox();
+            this.ComboInvoiceNo = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.customTextBox3 = new GrocerySupplyManagementApp.CustomControls.TextBox.CustomTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.customComboBox2 = new GrocerySupplyManagementApp.CustomControls.ComboBox.CustomComboBox();
-            this.customTextBox2 = new GrocerySupplyManagementApp.CustomControls.TextBox.CustomTextBox();
-            this.customTextBox1 = new GrocerySupplyManagementApp.CustomControls.TextBox.CustomTextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
-            this.customComboBox1 = new GrocerySupplyManagementApp.CustomControls.ComboBox.CustomComboBox();
+            this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.RadioAllTransaction = new System.Windows.Forms.RadioButton();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.customButton1 = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DateGridSalesReturnList = new System.Windows.Forms.DataGridView();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DateGridSalesReturnList)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.customTextBox5);
-            this.groupBox1.Controls.Add(this.customTextBox4);
+            this.groupBox1.Controls.Add(this.TxtQuantity);
+            this.groupBox1.Controls.Add(this.TxtItemPrice);
+            this.groupBox1.Controls.Add(this.TxtItemName);
+            this.groupBox1.Controls.Add(this.ComboItemCode);
+            this.groupBox1.Controls.Add(this.TxtTotalAmount);
+            this.groupBox1.Controls.Add(this.TxtSalesProfit);
+            this.groupBox1.Controls.Add(this.ComboInvoiceNo);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.customTextBox3);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.customComboBox2);
-            this.groupBox1.Controls.Add(this.customTextBox2);
-            this.groupBox1.Controls.Add(this.customTextBox1);
-            this.groupBox1.Controls.Add(this.maskedTextBox1);
-            this.groupBox1.Controls.Add(this.MaskEndOfDayTo);
-            this.groupBox1.Controls.Add(this.customComboBox1);
+            this.groupBox1.Controls.Add(this.MaskDtEODTo);
+            this.groupBox1.Controls.Add(this.MaskDtEODFrom);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.RadioAllTransaction);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label6);
@@ -91,89 +91,82 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // customTextBox5
+            // TxtQuantity
             // 
-            this.customTextBox5.BackColor = System.Drawing.SystemColors.Window;
-            this.customTextBox5.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.customTextBox5.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.customTextBox5.BorderRadius = 0;
-            this.customTextBox5.BorderSize = 1;
-            this.customTextBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTextBox5.ForeColor = System.Drawing.Color.DimGray;
-            this.customTextBox5.IsPasswordChar = false;
-            this.customTextBox5.IsPlaceholder = false;
-            this.customTextBox5.Location = new System.Drawing.Point(673, 94);
-            this.customTextBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.customTextBox5.Multiline = false;
-            this.customTextBox5.Name = "customTextBox5";
-            this.customTextBox5.Padding = new System.Windows.Forms.Padding(7);
-            this.customTextBox5.PasswordChar = false;
-            this.customTextBox5.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customTextBox5.PlaceholderText = "";
-            this.customTextBox5.Size = new System.Drawing.Size(100, 33);
-            this.customTextBox5.TabIndex = 114;
-            this.customTextBox5.Texts = "";
-            this.customTextBox5.UnderlinedStyle = false;
+            this.TxtQuantity.Enabled = false;
+            this.TxtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtQuantity.Location = new System.Drawing.Point(831, 96);
+            this.TxtQuantity.Name = "TxtQuantity";
+            this.TxtQuantity.Size = new System.Drawing.Size(69, 29);
+            this.TxtQuantity.TabIndex = 122;
             // 
-            // customTextBox4
+            // TxtItemPrice
             // 
-            this.customTextBox4.BackColor = System.Drawing.SystemColors.Window;
-            this.customTextBox4.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.customTextBox4.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.customTextBox4.BorderRadius = 0;
-            this.customTextBox4.BorderSize = 1;
-            this.customTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTextBox4.ForeColor = System.Drawing.Color.DimGray;
-            this.customTextBox4.IsPasswordChar = false;
-            this.customTextBox4.IsPlaceholder = false;
-            this.customTextBox4.Location = new System.Drawing.Point(824, 94);
-            this.customTextBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.customTextBox4.Multiline = false;
-            this.customTextBox4.Name = "customTextBox4";
-            this.customTextBox4.Padding = new System.Windows.Forms.Padding(7);
-            this.customTextBox4.PasswordChar = false;
-            this.customTextBox4.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customTextBox4.PlaceholderText = "";
-            this.customTextBox4.Size = new System.Drawing.Size(79, 33);
-            this.customTextBox4.TabIndex = 113;
-            this.customTextBox4.Texts = "";
-            this.customTextBox4.UnderlinedStyle = false;
+            this.TxtItemPrice.Enabled = false;
+            this.TxtItemPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtItemPrice.Location = new System.Drawing.Point(694, 96);
+            this.TxtItemPrice.Name = "TxtItemPrice";
+            this.TxtItemPrice.Size = new System.Drawing.Size(96, 29);
+            this.TxtItemPrice.TabIndex = 121;
+            // 
+            // TxtItemName
+            // 
+            this.TxtItemName.Enabled = false;
+            this.TxtItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtItemName.Location = new System.Drawing.Point(694, 60);
+            this.TxtItemName.Name = "TxtItemName";
+            this.TxtItemName.Size = new System.Drawing.Size(175, 29);
+            this.TxtItemName.TabIndex = 120;
+            // 
+            // ComboItemCode
+            // 
+            this.ComboItemCode.Enabled = false;
+            this.ComboItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboItemCode.FormattingEnabled = true;
+            this.ComboItemCode.Location = new System.Drawing.Point(694, 17);
+            this.ComboItemCode.Name = "ComboItemCode";
+            this.ComboItemCode.Size = new System.Drawing.Size(176, 32);
+            this.ComboItemCode.TabIndex = 119;
+            // 
+            // TxtTotalAmount
+            // 
+            this.TxtTotalAmount.Enabled = false;
+            this.TxtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTotalAmount.Location = new System.Drawing.Point(381, 97);
+            this.TxtTotalAmount.Name = "TxtTotalAmount";
+            this.TxtTotalAmount.Size = new System.Drawing.Size(175, 29);
+            this.TxtTotalAmount.TabIndex = 118;
+            // 
+            // TxtSalesProfit
+            // 
+            this.TxtSalesProfit.Enabled = false;
+            this.TxtSalesProfit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtSalesProfit.Location = new System.Drawing.Point(381, 59);
+            this.TxtSalesProfit.Name = "TxtSalesProfit";
+            this.TxtSalesProfit.Size = new System.Drawing.Size(175, 29);
+            this.TxtSalesProfit.TabIndex = 117;
+            // 
+            // ComboInvoiceNo
+            // 
+            this.ComboInvoiceNo.Enabled = false;
+            this.ComboInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboInvoiceNo.FormattingEnabled = true;
+            this.ComboInvoiceNo.Location = new System.Drawing.Point(380, 17);
+            this.ComboInvoiceNo.Name = "ComboInvoiceNo";
+            this.ComboInvoiceNo.Size = new System.Drawing.Size(176, 32);
+            this.ComboInvoiceNo.TabIndex = 115;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(787, 99);
+            this.label9.Location = new System.Drawing.Point(792, 99);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(33, 20);
             this.label9.TabIndex = 112;
             this.label9.Text = "Qty";
             this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // customTextBox3
-            // 
-            this.customTextBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.customTextBox3.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.customTextBox3.BorderFocusColor = System.Drawing.Color.DodgerBlue;
-            this.customTextBox3.BorderRadius = 0;
-            this.customTextBox3.BorderSize = 1;
-            this.customTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTextBox3.ForeColor = System.Drawing.Color.DimGray;
-            this.customTextBox3.IsPasswordChar = false;
-            this.customTextBox3.IsPlaceholder = false;
-            this.customTextBox3.Location = new System.Drawing.Point(673, 56);
-            this.customTextBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.customTextBox3.Multiline = false;
-            this.customTextBox3.Name = "customTextBox3";
-            this.customTextBox3.Padding = new System.Windows.Forms.Padding(7);
-            this.customTextBox3.PasswordChar = false;
-            this.customTextBox3.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customTextBox3.PlaceholderText = "";
-            this.customTextBox3.Size = new System.Drawing.Size(230, 33);
-            this.customTextBox3.TabIndex = 111;
-            this.customTextBox3.Texts = "";
-            this.customTextBox3.UnderlinedStyle = false;
             // 
             // label7
             // 
@@ -194,116 +187,30 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label5.Location = new System.Drawing.Point(586, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 20);
+            this.label5.Size = new System.Drawing.Size(83, 20);
             this.label5.TabIndex = 109;
-            this.label5.Text = "Item code";
+            this.label5.Text = "Item Code";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // customComboBox2
+            // MaskDtEODTo
             // 
-            this.customComboBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.customComboBox2.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.customComboBox2.BorderSize = 1;
-            this.customComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.customComboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customComboBox2.ForeColor = System.Drawing.Color.DimGray;
-            this.customComboBox2.IconColor = System.Drawing.Color.MediumSlateBlue;
-            this.customComboBox2.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
-            this.customComboBox2.ListTextColor = System.Drawing.Color.DimGray;
-            this.customComboBox2.Location = new System.Drawing.Point(673, 19);
-            this.customComboBox2.MinimumSize = new System.Drawing.Size(200, 30);
-            this.customComboBox2.Name = "customComboBox2";
-            this.customComboBox2.Padding = new System.Windows.Forms.Padding(1);
-            this.customComboBox2.Size = new System.Drawing.Size(230, 30);
-            this.customComboBox2.TabIndex = 108;
-            this.customComboBox2.Texts = "";
+            this.MaskDtEODTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MaskDtEODTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODTo.Location = new System.Drawing.Point(117, 96);
+            this.MaskDtEODTo.Mask = "   0000-00-00";
+            this.MaskDtEODTo.Name = "MaskDtEODTo";
+            this.MaskDtEODTo.Size = new System.Drawing.Size(120, 26);
+            this.MaskDtEODTo.TabIndex = 105;
             // 
-            // customTextBox2
+            // MaskDtEODFrom
             // 
-            this.customTextBox2.BackColor = System.Drawing.SystemColors.Window;
-            this.customTextBox2.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.customTextBox2.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.customTextBox2.BorderRadius = 0;
-            this.customTextBox2.BorderSize = 1;
-            this.customTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTextBox2.ForeColor = System.Drawing.Color.DimGray;
-            this.customTextBox2.IsPasswordChar = false;
-            this.customTextBox2.IsPlaceholder = false;
-            this.customTextBox2.Location = new System.Drawing.Point(372, 94);
-            this.customTextBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.customTextBox2.Multiline = false;
-            this.customTextBox2.Name = "customTextBox2";
-            this.customTextBox2.Padding = new System.Windows.Forms.Padding(7);
-            this.customTextBox2.PasswordChar = false;
-            this.customTextBox2.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customTextBox2.PlaceholderText = "";
-            this.customTextBox2.Size = new System.Drawing.Size(200, 33);
-            this.customTextBox2.TabIndex = 107;
-            this.customTextBox2.Texts = "";
-            this.customTextBox2.UnderlinedStyle = false;
-            // 
-            // customTextBox1
-            // 
-            this.customTextBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.customTextBox1.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.customTextBox1.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.customTextBox1.BorderRadius = 0;
-            this.customTextBox1.BorderSize = 1;
-            this.customTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTextBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.customTextBox1.IsPasswordChar = false;
-            this.customTextBox1.IsPlaceholder = false;
-            this.customTextBox1.Location = new System.Drawing.Point(372, 56);
-            this.customTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.customTextBox1.Multiline = false;
-            this.customTextBox1.Name = "customTextBox1";
-            this.customTextBox1.Padding = new System.Windows.Forms.Padding(7);
-            this.customTextBox1.PasswordChar = false;
-            this.customTextBox1.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customTextBox1.PlaceholderText = "";
-            this.customTextBox1.Size = new System.Drawing.Size(200, 33);
-            this.customTextBox1.TabIndex = 106;
-            this.customTextBox1.Texts = "";
-            this.customTextBox1.UnderlinedStyle = false;
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.maskedTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maskedTextBox1.Location = new System.Drawing.Point(117, 96);
-            this.maskedTextBox1.Mask = "   0000-00-00";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(120, 26);
-            this.maskedTextBox1.TabIndex = 105;
-            // 
-            // MaskEndOfDayTo
-            // 
-            this.MaskEndOfDayTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayTo.Location = new System.Drawing.Point(117, 56);
-            this.MaskEndOfDayTo.Mask = "   0000-00-00";
-            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
-            this.MaskEndOfDayTo.Size = new System.Drawing.Size(120, 26);
-            this.MaskEndOfDayTo.TabIndex = 104;
-            // 
-            // customComboBox1
-            // 
-            this.customComboBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.customComboBox1.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.customComboBox1.BorderSize = 1;
-            this.customComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.customComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customComboBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.customComboBox1.IconColor = System.Drawing.Color.MediumSlateBlue;
-            this.customComboBox1.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
-            this.customComboBox1.ListTextColor = System.Drawing.Color.DimGray;
-            this.customComboBox1.Location = new System.Drawing.Point(372, 19);
-            this.customComboBox1.MinimumSize = new System.Drawing.Size(200, 30);
-            this.customComboBox1.Name = "customComboBox1";
-            this.customComboBox1.Padding = new System.Windows.Forms.Padding(1);
-            this.customComboBox1.Size = new System.Drawing.Size(200, 30);
-            this.customComboBox1.TabIndex = 23;
-            this.customComboBox1.Texts = "";
+            this.MaskDtEODFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MaskDtEODFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODFrom.Location = new System.Drawing.Point(117, 56);
+            this.MaskDtEODFrom.Mask = "   0000-00-00";
+            this.MaskDtEODFrom.Name = "MaskDtEODFrom";
+            this.MaskDtEODFrom.Size = new System.Drawing.Size(120, 26);
+            this.MaskDtEODFrom.TabIndex = 104;
             // 
             // label3
             // 
@@ -327,18 +234,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.TabIndex = 21;
             this.label2.Text = "Date From";
             // 
-            // radioButton1
+            // RadioAllTransaction
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton1.Location = new System.Drawing.Point(34, 21);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(131, 24);
-            this.radioButton1.TabIndex = 20;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "All Transaction";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.RadioAllTransaction.AutoSize = true;
+            this.RadioAllTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioAllTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioAllTransaction.Location = new System.Drawing.Point(34, 21);
+            this.RadioAllTransaction.Name = "RadioAllTransaction";
+            this.RadioAllTransaction.Size = new System.Drawing.Size(131, 24);
+            this.RadioAllTransaction.TabIndex = 20;
+            this.RadioAllTransaction.TabStop = true;
+            this.RadioAllTransaction.Text = "All Transaction";
+            this.RadioAllTransaction.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
@@ -347,9 +254,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label10.Location = new System.Drawing.Point(587, 99);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(44, 20);
+            this.label10.Size = new System.Drawing.Size(80, 20);
             this.label10.TabIndex = 13;
-            this.label10.Text = "Price";
+            this.label10.Text = "Item Price";
             this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label11
@@ -397,9 +304,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.customButton1);
+            this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnAdd);
-            this.groupBox3.Controls.Add(this.BtnReturn);
+            this.groupBox3.Controls.Add(this.BtnShow);
             this.groupBox3.Controls.Add(this.BtnDelete);
             this.groupBox3.Location = new System.Drawing.Point(945, 46);
             this.groupBox3.Name = "groupBox3";
@@ -407,24 +314,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             // 
-            // customButton1
+            // BtnSave
             // 
-            this.customButton1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.customButton1.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.customButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.customButton1.BorderRadius = 35;
-            this.customButton1.BorderSize = 0;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.Location = new System.Drawing.Point(12, 82);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(120, 35);
-            this.customButton1.TabIndex = 25;
-            this.customButton1.Text = "Save";
-            this.customButton1.TextColor = System.Drawing.Color.White;
-            this.customButton1.UseVisualStyleBackColor = false;
+            this.BtnSave.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSave.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSave.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSave.BorderRadius = 35;
+            this.BtnSave.BorderSize = 0;
+            this.BtnSave.FlatAppearance.BorderSize = 0;
+            this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSave.ForeColor = System.Drawing.Color.White;
+            this.BtnSave.Location = new System.Drawing.Point(12, 82);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(120, 35);
+            this.BtnSave.TabIndex = 25;
+            this.BtnSave.Text = "Save";
+            this.BtnSave.TextColor = System.Drawing.Color.White;
+            this.BtnSave.UseVisualStyleBackColor = false;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnAdd
             // 
@@ -444,25 +352,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
             this.BtnAdd.UseVisualStyleBackColor = false;
+            this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
-            // BtnReturn
+            // BtnShow
             // 
-            this.BtnReturn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnReturn.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnReturn.BorderRadius = 35;
-            this.BtnReturn.BorderSize = 0;
-            this.BtnReturn.FlatAppearance.BorderSize = 0;
-            this.BtnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnReturn.ForeColor = System.Drawing.Color.White;
-            this.BtnReturn.Location = new System.Drawing.Point(12, 10);
-            this.BtnReturn.Name = "BtnReturn";
-            this.BtnReturn.Size = new System.Drawing.Size(120, 35);
-            this.BtnReturn.TabIndex = 24;
-            this.BtnReturn.Text = "Show";
-            this.BtnReturn.TextColor = System.Drawing.Color.White;
-            this.BtnReturn.UseVisualStyleBackColor = false;
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 35;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(12, 10);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(120, 35);
+            this.BtnShow.TabIndex = 24;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // BtnDelete
             // 
@@ -482,16 +392,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
             this.BtnDelete.UseVisualStyleBackColor = false;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
-            // dataGridView1
+            // DateGridSalesReturnList
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 210);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1075, 380);
-            this.dataGridView1.TabIndex = 21;
+            this.DateGridSalesReturnList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DateGridSalesReturnList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DateGridSalesReturnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DateGridSalesReturnList.Location = new System.Drawing.Point(15, 210);
+            this.DateGridSalesReturnList.Name = "DateGridSalesReturnList";
+            this.DateGridSalesReturnList.Size = new System.Drawing.Size(1075, 380);
+            this.DateGridSalesReturnList.TabIndex = 21;
+            this.DateGridSalesReturnList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DateGridSalesReturnList_DataBindingComplete);
             // 
             // textBox4
             // 
@@ -522,7 +434,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(1088, 597);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DateGridSalesReturnList);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Location = new System.Drawing.Point(750, 313);
@@ -532,7 +444,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DateGridSalesReturnList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -547,27 +459,27 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DateGridSalesReturnList;
         private CustomControls.Button.CustomButton BtnAdd;
-        private CustomControls.Button.CustomButton BtnReturn;
+        private CustomControls.Button.CustomButton BtnShow;
         private CustomControls.Button.CustomButton BtnDelete;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label8;
-        private CustomControls.ComboBox.CustomComboBox customComboBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private CustomControls.TextBox.CustomTextBox customTextBox5;
-        private CustomControls.TextBox.CustomTextBox customTextBox4;
+        private System.Windows.Forms.RadioButton RadioAllTransaction;
         private System.Windows.Forms.Label label9;
-        private CustomControls.TextBox.CustomTextBox customTextBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
-        private CustomControls.ComboBox.CustomComboBox customComboBox2;
-        private CustomControls.TextBox.CustomTextBox customTextBox2;
-        private CustomControls.TextBox.CustomTextBox customTextBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
-        private CustomControls.Button.CustomButton customButton1;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODTo;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODFrom;
+        private CustomControls.Button.CustomButton BtnSave;
+        private System.Windows.Forms.ComboBox ComboInvoiceNo;
+        private System.Windows.Forms.TextBox TxtQuantity;
+        private System.Windows.Forms.TextBox TxtItemPrice;
+        private System.Windows.Forms.TextBox TxtItemName;
+        private System.Windows.Forms.ComboBox ComboItemCode;
+        private System.Windows.Forms.TextBox TxtTotalAmount;
+        private System.Windows.Forms.TextBox TxtSalesProfit;
     }
 }
