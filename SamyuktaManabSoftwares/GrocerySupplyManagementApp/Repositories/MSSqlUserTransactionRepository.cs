@@ -501,7 +501,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[IncomeExpense], [DueAmount], [ReceivedAmount], " +
+                "[IncomeExpense], [Narration], [DueAmount], [ReceivedAmount], " +
                 "(ISNULL([DueAmount], 0) - ISNULL([ReceivedAmount], 0)) AS Amount " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
@@ -547,6 +547,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Expense = reader["IncomeExpense"].ToString(),
+                                    Narration = reader["Narration"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString())
@@ -897,7 +898,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ISNULL(SUM([DueAmount]), 0) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [Action] IN ('" + Constants.TRANSFER + "', '" + Constants.EXPENSE + "') " +
+                "AND [Action] IN ('" + Constants.BANK_TRANSFER + "', '" + Constants.EXPENSE + "') " +
                 "AND [ActionType] = '" + Constants.CASH + "' " +
                 "AND [Id] NOT IN " +
                 "( " +
@@ -936,7 +937,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query;
             if (action?.ToLower() == Constants.SALES.ToLower()
                 || action?.ToLower() == Constants.EXPENSE.ToLower()
-                || action?.ToLower() == Constants.TRANSFER.ToLower())
+                || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
             {
                 query = @"SELECT " +
                     "SUM([DueAmount])" +
@@ -1002,7 +1003,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query;
             if (action?.ToLower() == Constants.SALES.ToLower()
                 || action?.ToLower() == Constants.EXPENSE.ToLower()
-                || action?.ToLower() == Constants.TRANSFER.ToLower())
+                || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
             {
                 query = @"SELECT " +
                     "SUM([DueAmount])" +
@@ -1274,8 +1275,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
                 "WHEN ut.[Action]='" + Constants.EXPENSE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
                 "WHEN ut.[Action]='" + Constants.EXPENSE + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='" + Constants.TRANSFER + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[DueAmount] " +
-                "WHEN ut.[Action]='" + Constants.TRANSFER + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.BANK_TRANSFER + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[DueAmount] " +
+                "WHEN ut.[Action]='" + Constants.BANK_TRANSFER + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[DueAmount] " +
                 "ELSE ut.[DueAmount] END  AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
                 "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
@@ -1316,7 +1317,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             else if (transactionFilter.BankTransfer != null)
             {
-                query += " AND ut.[Action] = '" + Constants.TRANSFER + "' AND ut.[ActionType] = '" + transactionFilter.BankTransfer + "' ";
+                query += " AND ut.[Action] = '" + Constants.BANK_TRANSFER + "' AND ut.[ActionType] = '" + transactionFilter.BankTransfer + "' ";
             }
             else if (transactionFilter.ItemCode != null)
             {
@@ -1335,7 +1336,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += " ";
             }
 
-            query += "ORDER BY ut.[EndOfDay] ";
+            query += "ORDER BY ut.[AddedDate] DESC";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -1632,13 +1633,13 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
                         "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
-                        "[IncomeExpense], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
+                        "[IncomeExpense], [Narration], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
                         "[DeliveryCharge], [DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @ShareMemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
-                        "@IncomeExpense, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
+                        "@IncomeExpense, @Narration, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
                         "@DeliveryCharge, @DueAmount, @ReceivedAmount, @AddedDate, @UpdatedDate " +
                     ") ";
             try
@@ -1659,6 +1660,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ActionType", userTransaction.ActionType);
                         command.Parameters.AddWithValue("@Bank", ((object)userTransaction.Bank) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@IncomeExpense", ((object)userTransaction.IncomeExpense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Narration", ((object)userTransaction.Narration) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SubTotal", userTransaction.SubTotal);
                         command.Parameters.AddWithValue("@DiscountPercent", userTransaction.DiscountPercent);
                         command.Parameters.AddWithValue("@Discount", userTransaction.Discount);

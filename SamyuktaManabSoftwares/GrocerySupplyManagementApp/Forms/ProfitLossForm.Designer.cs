@@ -39,10 +39,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
-            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEOD = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.TxtNetLoss = new System.Windows.Forms.TextBox();
@@ -133,10 +131,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.MaskEndOfDayTo);
-            this.groupBox1.Controls.Add(this.MaskEndOfDayFrom);
+            this.groupBox1.Controls.Add(this.MaskDtEOD);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBox3);
@@ -146,23 +142,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
             // 
-            // MaskEndOfDayTo
+            // MaskDtEOD
             // 
-            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayTo.Location = new System.Drawing.Point(313, 17);
-            this.MaskEndOfDayTo.Mask = "   0000-00-00";
-            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
-            this.MaskEndOfDayTo.Size = new System.Drawing.Size(120, 26);
-            this.MaskEndOfDayTo.TabIndex = 103;
-            // 
-            // MaskEndOfDayFrom
-            // 
-            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(111, 16);
-            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
-            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
-            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(116, 26);
-            this.MaskEndOfDayFrom.TabIndex = 102;
+            this.MaskDtEOD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEOD.Location = new System.Drawing.Point(111, 16);
+            this.MaskDtEOD.Mask = "   0000-00-00";
+            this.MaskDtEOD.Name = "MaskDtEOD";
+            this.MaskDtEOD.Size = new System.Drawing.Size(116, 26);
+            this.MaskDtEOD.TabIndex = 102;
             // 
             // label5
             // 
@@ -171,20 +158,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label5.Location = new System.Drawing.Point(28, 19);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 18);
+            this.label5.Size = new System.Drawing.Size(39, 18);
             this.label5.TabIndex = 101;
-            this.label5.Text = "Date From";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(249, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 18);
-            this.label2.TabIndex = 100;
-            this.label2.Text = "Date To";
+            this.label5.Text = "Date";
             // 
             // label3
             // 
@@ -378,11 +354,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView DataGridExpenseList;
         private System.Windows.Forms.DataGridView DataGridIncomeList;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
+        private System.Windows.Forms.MaskedTextBox MaskDtEOD;
         private CustomControls.Button.CustomButton BtnShow;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;

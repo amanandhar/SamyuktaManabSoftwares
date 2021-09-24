@@ -8,7 +8,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string RECEIPT = "Receipt";
         public const string PAYMENT = "Payment";
         public const string EXPENSE = "Expense";
-        public const string TRANSFER = "Transfer";
+        public const string BANK_TRANSFER = "Bank Transfer";
 
         // Action Type
         public const string CASH = "Cash";
@@ -51,7 +51,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string OWNER_EQUITY = "Owner Equity";
 
         // Expense 
-        public const string ASSET = "Asset (Computer, Furniture etc.)";
+        public const string ASSET = "Asset";
         public const string ELECTRICITY = "Electricity";
         public const string FUEL_TRANSPORTATION = "Fuel & Transportation";
         public const string GUEST_HOSPITALITY = "Guest & Hospitality";

@@ -57,7 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
             var previousReceiptCheque = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
             var previousPaymentCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.PAYMENT, Constants.CASH);
             var previousExpenseCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
-            var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.TRANSFER, Constants.CASH);
+            var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
 
             var openingBalanceCash = previousSalesCash + previousReceiptCash - (previousPaymentCash + previousExpenseCash + previousTransferCash);
             var openingBalanceCredit = previousSalesCredit - (previousReceiptCash + previousReceiptCheque);
@@ -68,7 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
             var receiptCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
             var paymentCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CASH);
             var expenseCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
-            var transferCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.TRANSFER, Constants.CASH);
+            var transferCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
             var paymentCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CHEQUE);
             var expenseCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CHEQUE);
 

@@ -79,6 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["ActionType"].Visible = false;
             DataGridDeliveryPersonList.Columns["Bank"].Visible = false;
             DataGridDeliveryPersonList.Columns["IncomeExpense"].Visible = false;
+            DataGridDeliveryPersonList.Columns["Narration"].Visible = false;
             DataGridDeliveryPersonList.Columns["SubTotal"].Visible = false;
             DataGridDeliveryPersonList.Columns["DiscountPercent"].Visible = false;
             DataGridDeliveryPersonList.Columns["Discount"].Visible = false;

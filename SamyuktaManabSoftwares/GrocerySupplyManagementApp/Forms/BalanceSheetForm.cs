@@ -45,7 +45,15 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalPurchaseBonus = _userTransactionService.GetPurchaseBonus(new IncomeTransactionFilter()).ToList().Sum(x => x.Amount);
+                var endOfDay = MaskEndOfDay.Text;
+                if (!string.IsNullOrWhiteSpace(endOfDay.Replace("-", string.Empty).Trim()))
+                {
+                    endOfDay = endOfDay.Trim();
+                }
+
+                var totalPurchaseBonus = _userTransactionService
+                    .GetPurchaseBonus(new IncomeTransactionFilter() { DateFrom = null, DateTo = endOfDay, Income = null })
+                    .ToList().Sum(x => x.Amount);
                 var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.DELIVERY_CHARGE }).ToList().Sum(x => x.Amount);
                 var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.MEMBER_FEE }).ToList().Sum(x => x.Amount);
                 var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter() { Income = Constants.OTHER_INCOME }).ToList().Sum(x => x.Amount);
@@ -57,23 +65,25 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
                 var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
                 var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);
+                var totalLoanInterest = _userTransactionService.GetTotalExpense(Constants.LOAN_INTEREST);
                 var totalMiscellaneous = _userTransactionService.GetTotalExpense(Constants.MISCELLANEOUS);
                 var totalOfficeRent = _userTransactionService.GetTotalExpense(Constants.OFFICE_RENT);
                 var totalRepairMaintenance = _userTransactionService.GetTotalExpense(Constants.REPAIR_MAINTENANCE);
                 var totalSalesDiscount = _userTransactionService.GetTotalExpense(Constants.SALES_DISCOUNT);
+                var totalSalesReturn = _userTransactionService.GetTotalExpense(Constants.SALES_RETURN);
                 var totalStaffAllowance = _userTransactionService.GetTotalExpense(Constants.STAFF_ALLOWANCE);
                 var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
                 var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
                 var totalExpense = totalAsset + totalDeliveryChargeExpense + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
-                    + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
-                    + totalSalesDiscount + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
+                    + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
+                    + totalSalesDiscount + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 
                 var shareCapital = _bankTransactionService.GetTotalDeposit(Constants.SHARE_CAPITAL);
                 var ownerEquity = _bankTransactionService.GetTotalDeposit(Constants.OWNER_EQUITY);
-                var loadAmount = 0.00m;
+                var loanAmount = 0.00m; // ToDo : Add loan form later
                 var payableAmount = Math.Abs(_userTransactionService.GetSupplierTotalBalance(string.Empty));
                 var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.00m;
-                var libilitiesBalance = shareCapital + ownerEquity + loadAmount
+                var libilitiesBalance = shareCapital + ownerEquity + loanAmount
                     + payableAmount + netProfit;
 
                 var cashInHand = Math.Abs(_userTransactionService.GetCashInHand());
@@ -104,7 +114,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 RichShareCapital.Text = shareCapital.ToString();
                 RichOwnerEquity.Text = ownerEquity.ToString();
-                RichLoanAmount.Text = loadAmount.ToString();
+                RichLoanAmount.Text = loanAmount.ToString();
                 RichPayableAmount.Text = payableAmount.ToString();
                 RichNetProfit.Text = netProfit.ToString();
                 RichNetLoss.Text = netLoss.ToString();

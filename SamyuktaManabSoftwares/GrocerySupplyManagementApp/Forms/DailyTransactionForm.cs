@@ -66,21 +66,19 @@ namespace GrocerySupplyManagementApp.Forms
                     if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith("BN") || billInvoiceNo.StartsWith(Constants.BONUS)))
                     {
                         var posTransaction = _userTransactionService.GetLastUserTransaction(billInvoiceNo);
+                        if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
                         {
-                            if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
+                            _userTransactionService.DeleteUserTransaction(id);
+                            _purchasedItemService.DeletePurchasedItem(billInvoiceNo);
+                            _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
+                        }
+                        else
+                        {
+                            DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Message", MessageBoxButtons.OK);
+                            if (billResult == DialogResult.OK)
                             {
-                                _userTransactionService.DeleteUserTransaction(id);
-                                _purchasedItemService.DeletePurchasedItem(billInvoiceNo);
-                                _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
-                            }
-                            else
-                            {
-                                DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Message", MessageBoxButtons.OK);
-                                if (billResult == DialogResult.OK)
-                                {
-                                    LoadTransactions();
-                                    return;
-                                }
+                                LoadTransactions();
+                                return;
                             }
                         }
                     }

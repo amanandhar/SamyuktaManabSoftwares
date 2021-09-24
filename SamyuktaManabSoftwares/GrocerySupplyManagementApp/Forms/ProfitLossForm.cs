@@ -33,8 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void ProfitLossForm_Load(object sender, EventArgs e)
         {
-            MaskEndOfDayFrom.Text = _endOfDay;
-            MaskEndOfDayTo.Text = _endOfDay;
+            MaskDtEOD.Text = _endOfDay;
         }
         #endregion
 
@@ -105,43 +104,35 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var dateFrom = MaskEndOfDayFrom.Text;
-                var dateTo = MaskEndOfDayTo.Text;
+                var endOfDay = MaskDtEOD.Text;
 
-                if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+                if (!string.IsNullOrWhiteSpace(endOfDay.Replace("-", string.Empty).Trim()))
                 {
-                    dateFrom = dateFrom.Trim();
-                }
-
-                if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
-                {
-                    dateTo = dateTo.Trim();
+                    endOfDay = endOfDay.Trim();
                 }
 
                 var totalPurchaseBonus = _userTransactionService.GetPurchaseBonus(new IncomeTransactionFilter()
                 {
-                    DateFrom = dateFrom,
-                    DateTo = dateTo
+                    DateTo = endOfDay
                 }).ToList().Sum(x => x.Amount);
-                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter(){ 
-                    DateFrom = dateFrom,
-                    DateTo = dateTo,
+                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter()
+                { 
+                    DateTo = endOfDay,
                     Income = Constants.DELIVERY_CHARGE
                 }).ToList().Sum(x => x.Amount);
-                var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter(){
-                    DateFrom = dateFrom,
-                    DateTo = dateTo,
+                var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter()
+                {
+                    DateTo = endOfDay,
                     Income = Constants.MEMBER_FEE
                 }).ToList().Sum(x => x.Amount);
-                var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter(){
-                    DateFrom = dateFrom,
-                    DateTo = dateTo,
+                var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter()
+                {
+                    DateTo = endOfDay,
                     Income = Constants.OTHER_INCOME
                 }).ToList().Sum(x => x.Amount);
                 var totalSalesProfit = _userTransactionService.GetSalesProfit(new IncomeTransactionFilter()
                 {
-                    DateFrom = dateFrom,
-                    DateTo = dateTo
+                    DateTo = endOfDay
                 }).ToList().Sum(x => x.Amount);
                 _totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 

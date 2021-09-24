@@ -78,6 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ActionType = ComboPayment.Text,
                     Bank = ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower() ? ComboBank.Text : null,
                     IncomeExpense = ComboExpense.Text,
+                    Narration = TxtNarration.Text,
                     SubTotal = 0.0m,
                     DiscountPercent = 0.0m,
                     Discount = 0.0m,
@@ -211,25 +212,29 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Action"].DisplayIndex = 1;
 
             DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
-            DataGridExpenseList.Columns["ActionType"].Width = 300;
+            DataGridExpenseList.Columns["ActionType"].Width = 150;
             DataGridExpenseList.Columns["ActionType"].DisplayIndex = 2;
 
             DataGridExpenseList.Columns["Expense"].HeaderText = "Expense";
             DataGridExpenseList.Columns["Expense"].Width = 150;
             DataGridExpenseList.Columns["Expense"].DisplayIndex = 3;
 
+            DataGridExpenseList.Columns["Narration"].HeaderText = "Narration";
+            DataGridExpenseList.Columns["Narration"].Width = 150;
+            DataGridExpenseList.Columns["Narration"].DisplayIndex = 4;
+
             DataGridExpenseList.Columns["DueAmount"].HeaderText = "Debit";
             DataGridExpenseList.Columns["DueAmount"].Width = 100;
-            DataGridExpenseList.Columns["DueAmount"].DisplayIndex = 4;
+            DataGridExpenseList.Columns["DueAmount"].DisplayIndex = 5;
             DataGridExpenseList.Columns["DueAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridExpenseList.Columns["ReceivedAmount"].HeaderText = "Credit";
             DataGridExpenseList.Columns["ReceivedAmount"].Width = 100;
-            DataGridExpenseList.Columns["ReceivedAmount"].DisplayIndex = 5;
+            DataGridExpenseList.Columns["ReceivedAmount"].DisplayIndex = 6;
             DataGridExpenseList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridExpenseList.Columns["Amount"].HeaderText = "Amount";
-            DataGridExpenseList.Columns["Amount"].DisplayIndex = 6;
+            DataGridExpenseList.Columns["Amount"].DisplayIndex = 7;
             DataGridExpenseList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridExpenseList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -265,6 +270,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllFields()
         {
             ComboExpense.Text = string.Empty;
+            TxtNarration.Clear();
             ComboPayment.Text = string.Empty;
             RichAmount.Clear();
             ComboBank.Text = string.Empty;

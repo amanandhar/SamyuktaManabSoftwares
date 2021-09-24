@@ -375,11 +375,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadActionTypes()
         {
-            ComboDepositType.ValueMember = "Id";
-            ComboDepositType.DisplayMember = "Value";
+            ComboActionType.ValueMember = "Id";
+            ComboActionType.DisplayMember = "Value";
 
-            ComboDepositType.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
-            ComboDepositType.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
+            ComboActionType.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
+            ComboActionType.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
         }
         #endregion
     }
