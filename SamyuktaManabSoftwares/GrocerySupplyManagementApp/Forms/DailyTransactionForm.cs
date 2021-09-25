@@ -128,6 +128,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearCombos();
                 EnableCombos(false);
                 ComboService.Enabled = true;
+                LoadServices();
             }
             else
             {
@@ -142,6 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearCombos();
                 EnableCombos(false);
                 ComboPurchase.Enabled = true;
+                LoadPurchases();
             }
             else
             {
@@ -156,6 +158,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearCombos();
                 EnableCombos(false);
                 ComboSales.Enabled = true;
+                LoadSales();
             }
             else
             {
@@ -165,43 +168,31 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RadioPayment_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioPayment.Checked)
+            if (RadioPurchasePayment.Checked)
             {
                 ClearCombos();
                 EnableCombos(false);
-                ComboPayment.Enabled = true;
+                ComboPurchasePayment.Enabled = true;
+                LoadPurchasePayments();
             }
             else
             {
-                ComboPayment.Enabled = false;
-            }
-        }
-
-        private void RadioReceipt_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioReceipt.Checked)
-            {
-                ClearCombos();
-                EnableCombos(false);
-                ComboReceipt.Enabled = true;
-            }
-            else
-            {
-                ComboReceipt.Enabled = false;
+                ComboPurchasePayment.Enabled = false;
             }
         }
 
         private void RadioExpense_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioExpense.Checked)
+            if (RadioExpensePayment.Checked)
             {
                 ClearCombos();
                 EnableCombos(false);
-                ComboExpense.Enabled = true;
+                ComboExpensePayment.Enabled = true;
+                LoadExpensePayments();
             }
             else
             { 
-                ComboExpense.Enabled = false;
+                ComboExpensePayment.Enabled = false;
             }
         }
 
@@ -212,10 +203,26 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearCombos();
                 EnableCombos(false);
                 ComboBankTransfer.Enabled = true;
+                LoadBankTransfers();
             }
             else
             {
                 ComboBankTransfer.Enabled = false;
+            }
+        }
+
+        private void RadioReceipt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioReceipt.Checked)
+            {
+                ClearCombos();
+                EnableCombos(false);
+                ComboReceipt.Enabled = true;
+                LoadReceipts();
+            }
+            else
+            {
+                ComboReceipt.Enabled = false;
             }
         }
 
@@ -256,6 +263,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ClearCombos();
                 EnableCombos(false);
                 ComboUser.Enabled = true;
+                LoadUsers();
             }
             else
             {
@@ -326,11 +334,11 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadTransactions()
         {
             MaskEndOfDay.Focus();
-            var transactionFilter = new TransactionFilter();
+            var dailyTransactionFilter = new DailyTransactionFilter();
 
             if (!string.IsNullOrWhiteSpace(MaskEndOfDay.Text.Replace("-", string.Empty).Trim()))
             {
-                transactionFilter.Date = MaskEndOfDay.Text.Trim();
+                dailyTransactionFilter.Date = MaskEndOfDay.Text.Trim();
             }
 
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
@@ -338,50 +346,50 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (selectedFilter.Name.Equals("RadioService"))
             {
-                transactionFilter.Service = ComboService.Text;
+                dailyTransactionFilter.Service = ComboService.Text;
             }
             else if (selectedFilter.Name.Equals("RadioPurchase"))
             {
-                transactionFilter.Purchase = ComboPurchase.Text;
+                dailyTransactionFilter.Purchase = ComboPurchase.Text;
             }
             else if (selectedFilter.Name.Equals("RadioSales"))
             {
-                transactionFilter.Sales = ComboSales.Text;
+                dailyTransactionFilter.Sales = ComboSales.Text;
             }
             else if (selectedFilter.Name.Equals("RadioReceipt"))
             {
-                transactionFilter.Receipt = ComboReceipt.Text;
+                dailyTransactionFilter.Receipt = ComboReceipt.Text;
             }
             else if (selectedFilter.Name.Equals("RadioPayment"))
             {
-                transactionFilter.Payment = ComboPayment.Text;
+                dailyTransactionFilter.Payment = ComboPurchasePayment.Text;
             }
             else if (selectedFilter.Name.Equals("RadioExpense"))
             {
-                transactionFilter.Expense = ComboExpense.Text;
+                dailyTransactionFilter.Expense = ComboExpensePayment.Text;
             }
             else if (selectedFilter.Name.Equals("RadioBankTransfer"))
             {
-                transactionFilter.BankTransfer = ComboBankTransfer.Text;
+                dailyTransactionFilter.BankTransfer = ComboBankTransfer.Text;
             }
             else if (selectedFilter.Name.Equals("RadioItemCode"))
             {
-                transactionFilter.ItemCode = ComboItemCode.Text;
+                dailyTransactionFilter.ItemCode = ComboItemCode.Text;
             }
             else if (selectedFilter.Name.Equals("RadioUser"))
             {
-                transactionFilter.User = ComboUser.Text;
+                dailyTransactionFilter.User = ComboUser.Text;
             }
             else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
             {
-                transactionFilter.InvoiceNo = ComboInvoiceNo.Text;
+                dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
             }
             else
             {
-                transactionFilter.IsAll = true;
+                dailyTransactionFilter.IsAll = true;
             }
 
-            List<TransactionView> transactionViewList = _userTransactionService.GetTransactionViewList(transactionFilter).ToList();
+            List<TransactionView> transactionViewList = _userTransactionService.GetTransactionViewList(dailyTransactionFilter).ToList();
             TxtTotal.Text = transactionViewList.Sum(x => x.Amount).ToString();
 
             var bindingList = new BindingList<TransactionView>(transactionViewList);
@@ -394,9 +402,9 @@ namespace GrocerySupplyManagementApp.Forms
             ComboService.Text = string.Empty;
             ComboPurchase.Text = string.Empty;
             ComboSales.Text = string.Empty;
-            ComboPayment.Text = string.Empty;
+            ComboPurchasePayment.Text = string.Empty;
             ComboReceipt.Text = string.Empty;
-            ComboExpense.Text = string.Empty;
+            ComboExpensePayment.Text = string.Empty;
             ComboBankTransfer.Text = string.Empty;
             ComboItemCode.Text = string.Empty;
             ComboUser.Text = string.Empty;
@@ -408,13 +416,77 @@ namespace GrocerySupplyManagementApp.Forms
             ComboService.Enabled = option;
             ComboPurchase.Enabled = option;
             ComboSales.Enabled = option;
-            ComboPayment.Enabled = option;
+            ComboPurchasePayment.Enabled = option;
             ComboReceipt.Enabled = option;
-            ComboExpense.Enabled = option;
+            ComboExpensePayment.Enabled = option;
             ComboBankTransfer.Enabled = option;
             ComboItemCode.Enabled = option;
             ComboUser.Enabled = option;
             ComboInvoiceNo.Enabled = option;
+        }
+
+        private void LoadServices()
+        {
+            ComboService.ValueMember = "Id";
+            ComboService.DisplayMember = "Value";
+
+            ComboService.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_CHARGE, Value = Constants.DELIVERY_CHARGE });
+            ComboService.Items.Add(new ComboBoxItem { Id = Constants.SALES_DISCOUNT, Value = Constants.SALES_DISCOUNT });
+        }
+
+        private void LoadPurchases()
+        {
+            ComboPurchase.ValueMember = "Id";
+            ComboPurchase.DisplayMember = "Value";
+
+            ComboPurchase.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboPurchase.Items.Add(new ComboBoxItem { Id = Constants.CREDIT, Value = Constants.CREDIT });
+        }
+
+        private void LoadSales()
+        {
+            ComboSales.ValueMember = "Id";
+            ComboSales.DisplayMember = "Value";
+
+            ComboSales.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboSales.Items.Add(new ComboBoxItem { Id = Constants.CREDIT, Value = Constants.CREDIT });
+        }
+
+        private void LoadPurchasePayments()
+        {
+            ComboPurchasePayment.ValueMember = "Id";
+            ComboPurchasePayment.DisplayMember = "Value";
+
+            ComboPurchasePayment.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboPurchasePayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
+        }
+
+        private void LoadExpensePayments()
+        {
+            ComboExpensePayment.ValueMember = "Id";
+            ComboExpensePayment.DisplayMember = "Value";
+
+            ComboExpensePayment.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboExpensePayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
+        }
+
+        private void LoadBankTransfers()
+        {
+            ComboBankTransfer.ValueMember = "Id";
+            ComboBankTransfer.DisplayMember = "Value";
+
+            ComboBankTransfer.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboBankTransfer.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
+        }
+
+        private void LoadReceipts()
+        {
+            ComboReceipt.ValueMember = "Id";
+            ComboReceipt.DisplayMember = "Value";
+
+            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
+            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CHEQUE, Value = Constants.SHARE_CHEQUE });
         }
 
         private void LoadItemCodes()
@@ -433,6 +505,11 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ComboInvoiceNo.Items.Add(invoice);
             }
+        }
+
+        private void LoadUsers()
+        {
+
         }
 
         #endregion

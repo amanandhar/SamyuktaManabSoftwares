@@ -170,8 +170,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ReportForm reportForm = new ReportForm(_fiscalYearService, _bankService, 
                 _bankTransactionService, _itemService, 
-                _purchasedItemService, _userTransactionService,
-                _stockService, _shareMemberService
+                _purchasedItemService, _soldItemService, 
+                _userTransactionService, _stockService, 
+                _shareMemberService
                 );
             reportForm.Show();
         }
@@ -237,7 +238,5 @@ namespace GrocerySupplyManagementApp.Forms
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
         }
         #endregion
-
-        
     }
 }

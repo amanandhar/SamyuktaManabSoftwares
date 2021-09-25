@@ -137,7 +137,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
                 });
 
-                TxtCash.Text = _userTransactionService.GetCashInHand().ToString();
+                TxtCash.Text = _userTransactionService.GetCashInHand(new UserTransactionFilter()).ToString();
             }
             catch(Exception ex)
             {
@@ -150,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 ComboBank.Text = string.Empty;
-                TxtCash.Text = _userTransactionService.GetCashInHand().ToString();
+                TxtCash.Text = _userTransactionService.GetCashInHand(new UserTransactionFilter()).ToString();
                 TxtAccountNo.Clear();
                 RichDepositAmount.Clear();
                 RichNarration.Clear();

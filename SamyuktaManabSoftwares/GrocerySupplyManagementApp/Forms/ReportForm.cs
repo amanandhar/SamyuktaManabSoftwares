@@ -11,6 +11,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
         private readonly IShareMemberService _shareMemberService;
@@ -19,8 +20,8 @@ namespace GrocerySupplyManagementApp.Forms
         public ReportForm(IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IItemService itemService, IPurchasedItemService purchasedItemService,
-            IUserTransactionService userTransactionService, IStockService stockService,
-            IShareMemberService shareMemberService
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService, 
+            IStockService stockService, IShareMemberService shareMemberService
             )
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
             _shareMemberService = shareMemberService;
@@ -83,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSalesReturn_Click(object sender, EventArgs e)
         {
-            SalesReturnForm salesReturnForm = new SalesReturnForm(_fiscalYearService, _itemService, _purchasedItemService, _userTransactionService);
+            SalesReturnForm salesReturnForm = new SalesReturnForm(_fiscalYearService, _itemService, _purchasedItemService, _soldItemService, _userTransactionService);
             salesReturnForm.Show();
         }
 
@@ -94,6 +96,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
     }
 }

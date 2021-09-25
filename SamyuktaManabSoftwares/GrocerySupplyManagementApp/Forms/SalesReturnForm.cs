@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IFiscalYearService _fiscalYearService;
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _endOfDay;
@@ -33,12 +34,14 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public SalesReturnForm(IFiscalYearService fiscalYearService, IItemService itemService, 
-            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService)
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
+            IUserTransactionService userTransactionService)
         {
             InitializeComponent();
             _fiscalYearService = fiscalYearService;
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
@@ -234,6 +237,11 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemName.Clear();
             TxtItemPrice.Clear();
             TxtQuantity.Clear();
+        }
+
+        private void LoadInvoiceNumbers()
+        {
+            var soldITems = _soldItemService.GetSoldItems();
         }
 
         #endregion

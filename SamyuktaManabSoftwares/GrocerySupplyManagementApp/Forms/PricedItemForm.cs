@@ -590,7 +590,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        
     }
 }

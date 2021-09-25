@@ -349,6 +349,47 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Data Grid Event
+        private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridShareMemberList.Columns["Id"].Visible = false;
+
+            DataGridShareMemberList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridShareMemberList.Columns["EndOfDay"].Width = 100;
+            DataGridShareMemberList.Columns["EndOfDay"].DisplayIndex = 0;
+
+            DataGridShareMemberList.Columns["Description"].HeaderText = "Description";
+            DataGridShareMemberList.Columns["Description"].Width = 200;
+            DataGridShareMemberList.Columns["Description"].DisplayIndex = 1;
+
+            DataGridShareMemberList.Columns["Type"].HeaderText = "Type";
+            DataGridShareMemberList.Columns["Type"].Width = 200;
+            DataGridShareMemberList.Columns["Type"].DisplayIndex = 2;
+
+            DataGridShareMemberList.Columns["Debit"].HeaderText = "Debit";
+            DataGridShareMemberList.Columns["Debit"].Width = 100;
+            DataGridShareMemberList.Columns["Debit"].DisplayIndex = 4;
+            DataGridShareMemberList.Columns["Debit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridShareMemberList.Columns["Credit"].HeaderText = "Credit";
+            DataGridShareMemberList.Columns["Credit"].Width = 100;
+            DataGridShareMemberList.Columns["Credit"].DisplayIndex = 5;
+            DataGridShareMemberList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridShareMemberList.Columns["Balance"].HeaderText = "Balance";
+            DataGridShareMemberList.Columns["Balance"].DisplayIndex = 6;
+            DataGridShareMemberList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridShareMemberList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridShareMemberList.Rows)
+            {
+                DataGridShareMemberList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridShareMemberList.RowHeadersWidth = 50;
+                DataGridShareMemberList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+        #endregion
+
         #region Helper Methods
 
         private void LoadBanks()
@@ -504,44 +545,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            DataGridShareMemberList.Columns["Id"].Visible = false;
-
-            DataGridShareMemberList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridShareMemberList.Columns["EndOfDay"].Width = 100;
-            DataGridShareMemberList.Columns["EndOfDay"].DisplayIndex = 0;
-
-            DataGridShareMemberList.Columns["Description"].HeaderText = "Description";
-            DataGridShareMemberList.Columns["Description"].Width = 200;
-            DataGridShareMemberList.Columns["Description"].DisplayIndex = 1;
-
-            DataGridShareMemberList.Columns["Type"].HeaderText = "Type";
-            DataGridShareMemberList.Columns["Type"].Width = 200;
-            DataGridShareMemberList.Columns["Type"].DisplayIndex = 2;
-
-            DataGridShareMemberList.Columns["Debit"].HeaderText = "Debit";
-            DataGridShareMemberList.Columns["Debit"].Width = 100;
-            DataGridShareMemberList.Columns["Debit"].DisplayIndex = 4;
-            DataGridShareMemberList.Columns["Debit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridShareMemberList.Columns["Credit"].HeaderText = "Credit";
-            DataGridShareMemberList.Columns["Credit"].Width = 100;
-            DataGridShareMemberList.Columns["Credit"].DisplayIndex = 5;
-            DataGridShareMemberList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridShareMemberList.Columns["Balance"].HeaderText = "Balance";
-            DataGridShareMemberList.Columns["Balance"].DisplayIndex = 6;
-            DataGridShareMemberList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridShareMemberList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            foreach (DataGridViewRow row in DataGridShareMemberList.Rows)
-            {
-                DataGridShareMemberList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
-                DataGridShareMemberList.RowHeadersWidth = 50;
-                DataGridShareMemberList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            }
-        }
     }
 }

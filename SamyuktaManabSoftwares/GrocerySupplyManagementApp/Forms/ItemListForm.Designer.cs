@@ -56,7 +56,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridItemList.Name = "DataGridItemList";
             this.DataGridItemList.Size = new System.Drawing.Size(510, 242);
             this.DataGridItemList.TabIndex = 0;
-            this.DataGridItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridItemList_CellContentClick);
             this.DataGridItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridItemList_CellDoubleClick);
             this.DataGridItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridItemList_DataBindingComplete);
             // 

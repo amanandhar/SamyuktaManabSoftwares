@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
@@ -106,7 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Email = x.Email,
                 AccountNo = x.AccountNo,
                 AddedDate = x.AddedDate,
-                Balance = _userTransactionService.GetMemberTotalBalance(x.MemberId),
+                Balance = _userTransactionService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = x.MemberId }),
             }).ToList();
 
             return _memberViewList;

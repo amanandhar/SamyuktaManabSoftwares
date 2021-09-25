@@ -41,9 +41,9 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetBankTransactionViews(bankTransactionFilter);
         }
 
-        public decimal GetTotalBalance()
+        public decimal GetTotalBalance(BankTransactionFilter bankTransactionFilter)
         {
-            return _bankTransactionRepository.GetTotalBalance();
+            return _bankTransactionRepository.GetTotalBalance(bankTransactionFilter);
         }
 
         public decimal GetTotalBalance(long bankId)
@@ -51,9 +51,9 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetTotalBalance(bankId);
         }
 
-        public decimal GetTotalDeposit(string incomeType)
+        public decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter)
         {
-            return _bankTransactionRepository.GetTotalDeposit(incomeType);
+            return _bankTransactionRepository.GetTotalDeposit(bankTransactionFilter);
         }
 
         public BankTransaction AddBankTransaction(BankTransaction bankTransaction)

@@ -1,10 +1,9 @@
 ﻿namespace GrocerySupplyManagementApp.DTOs
 {
-    public class SupplierFilter
+    public class UserTransactionFilter
     {
-        public string SupplierId { get; set; }
         public string DateFrom { get; set; }
         public string DateTo { get; set; }
-        public string Action { get; set; }
+        public string MemberId { get; set; }
     }
 }

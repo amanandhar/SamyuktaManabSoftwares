@@ -59,7 +59,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSupplierList.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridSupplierList.Size = new System.Drawing.Size(510, 287);
             this.DataGridSupplierList.TabIndex = 0;
-            this.DataGridSupplierList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSupplierList_CellContentClick);
             this.DataGridSupplierList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSupplierList_CellDoubleClick);
             this.DataGridSupplierList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSupplierList_DataBindingComplete);
             // 

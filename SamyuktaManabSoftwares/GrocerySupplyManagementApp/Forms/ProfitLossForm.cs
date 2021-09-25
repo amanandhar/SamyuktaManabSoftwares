@@ -111,29 +111,22 @@ namespace GrocerySupplyManagementApp.Forms
                     endOfDay = endOfDay.Trim();
                 }
 
-                var totalPurchaseBonus = _userTransactionService.GetPurchaseBonus(new IncomeTransactionFilter()
-                {
-                    DateTo = endOfDay
-                }).ToList().Sum(x => x.Amount);
-                var totalDeliveryCharge = _userTransactionService.GetIncome(new IncomeTransactionFilter()
-                { 
-                    DateTo = endOfDay,
-                    Income = Constants.DELIVERY_CHARGE
-                }).ToList().Sum(x => x.Amount);
-                var totalMemberFee = _userTransactionService.GetIncome(new IncomeTransactionFilter()
-                {
-                    DateTo = endOfDay,
-                    Income = Constants.MEMBER_FEE
-                }).ToList().Sum(x => x.Amount);
-                var totalOtherIncome = _userTransactionService.GetIncome(new IncomeTransactionFilter()
-                {
-                    DateTo = endOfDay,
-                    Income = Constants.OTHER_INCOME
-                }).ToList().Sum(x => x.Amount);
-                var totalSalesProfit = _userTransactionService.GetSalesProfit(new IncomeTransactionFilter()
-                {
-                    DateTo = endOfDay
-                }).ToList().Sum(x => x.Amount);
+                var totalPurchaseBonus = _userTransactionService
+                    .GetPurchaseBonus(new IncomeTransactionFilter() { DateTo = endOfDay })
+                    .ToList().Sum(x => x.Amount);
+                var totalDeliveryCharge = _userTransactionService
+                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.DELIVERY_CHARGE })
+                    .ToList().Sum(x => x.Amount);
+                var totalMemberFee = _userTransactionService
+                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.MEMBER_FEE })
+                    .ToList().Sum(x => x.Amount);
+                var totalOtherIncome = _userTransactionService
+                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.OTHER_INCOME})
+                    .ToList().Sum(x => x.Amount);
+                var totalSalesProfit = _userTransactionService
+                    .GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay })
+                    .ToList().Sum(x => x.Amount);
+                
                 _totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
                 List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
@@ -184,20 +177,36 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var totalAsset = _userTransactionService.GetTotalExpense(Constants.ASSET);
-                var totalDeliveryCharge = _userTransactionService.GetTotalExpense(Constants.DELIVERY_CHARGE);
-                var totalElectricity = _userTransactionService.GetTotalExpense(Constants.ELECTRICITY);
-                var totalFuelAndTransportation = _userTransactionService.GetTotalExpense(Constants.FUEL_TRANSPORTATION);
-                var totalGuestHospitality = _userTransactionService.GetTotalExpense(Constants.GUEST_HOSPITALITY);               
-                var totalLoanInterest = _userTransactionService.GetTotalExpense(Constants.LOAN_INTEREST);
-                var totalMiscellaneous = _userTransactionService.GetTotalExpense(Constants.MISCELLANEOUS);
-                var totalOfficeRent = _userTransactionService.GetTotalExpense(Constants.OFFICE_RENT);
-                var totalRepairMaintenance = _userTransactionService.GetTotalExpense(Constants.REPAIR_MAINTENANCE);
-                var totalSalesDiscount = _userTransactionService.GetTotalExpense(Constants.SALES_DISCOUNT);
-                var totalSalesReturn = _userTransactionService.GetTotalExpense(Constants.SALES_RETURN);
-                var totalStaffAllowance = _userTransactionService.GetTotalExpense(Constants.STAFF_ALLOWANCE);
-                var totalStaffSalary = _userTransactionService.GetTotalExpense(Constants.STAFF_SALARY);
-                var totalTelephoneInternet = _userTransactionService.GetTotalExpense(Constants.TELEPHONE_INTERNET);
+                var endOfDay = MaskDtEOD.Text;
+
+                var totalAsset = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET });
+                var totalDeliveryCharge = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.DELIVERY_CHARGE });
+                var totalElectricity = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ELECTRICITY });
+                var totalFuelAndTransportation = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.FUEL_TRANSPORTATION });
+                var totalGuestHospitality = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.GUEST_HOSPITALITY });
+                var totalLoanInterest = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.LOAN_INTEREST });
+                var totalMiscellaneous = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.MISCELLANEOUS });
+                var totalOfficeRent = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.OFFICE_RENT });
+                var totalRepairMaintenance = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.REPAIR_MAINTENANCE });
+                var totalSalesDiscount = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_DISCOUNT });
+                var totalSalesReturn = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_RETURN });
+                var totalStaffAllowance = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_ALLOWANCE });
+                var totalStaffSalary = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_SALARY });
+                var totalTelephoneInternet = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.TELEPHONE_INTERNET });
 
                 _totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                      + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance + totalSalesDiscount

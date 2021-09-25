@@ -264,7 +264,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
-            var supplierFilter = new SupplierFilter();
+            var supplierFilter = new SupplierTransactionFilter();
             if (!string.IsNullOrWhiteSpace(TxtSupplierId.Text))
             {
                 supplierFilter.SupplierId = TxtSupplierId.Text;
@@ -405,7 +405,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private List<SupplierTransactionView> GetSupplierTransaction()
         {
-            var balance = _userTransactionService.GetSupplierTotalBalance(TxtSupplierId.Text);
+            var balance = _userTransactionService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = TxtSupplierId.Text });
             TxtBalance.Text = decimal.Negate(balance).ToString();
             if (balance < 0)
             {
@@ -419,7 +419,7 @@ namespace GrocerySupplyManagementApp.Forms
             return _userTransactionService.GetSupplierTransactions(TxtSupplierId.Text).ToList();
         }
 
-        private List<SupplierTransactionView> GetSupplierTransaction(SupplierFilter supplierFilter)
+        private List<SupplierTransactionView> GetSupplierTransaction(SupplierTransactionFilter supplierFilter)
         {
             return _userTransactionService.GetSupplierTransactions(supplierFilter).ToList();
         }

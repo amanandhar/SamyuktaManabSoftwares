@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
                 SupplierId = x.SupplierId,
                 Name = x.Name,
                 Owner = x.Owner,
-                Balance = _userTransactionService.GetSupplierTotalBalance(x.SupplierId),
+                Balance = _userTransactionService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = x.SupplierId }),
             }).ToList();
 
             var bindingList = new BindingList<SupplierView>(supplierViewList.ToList());
@@ -92,10 +93,5 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.DataSource = source;
         }
         #endregion
-
-        private void DataGridSupplierList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

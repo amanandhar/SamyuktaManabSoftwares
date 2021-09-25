@@ -1,11 +1,11 @@
-﻿using GrocerySupplyManagementApp.ViewModels;
+﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using GrocerySupplyManagementApp.DTOs;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
@@ -411,7 +411,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplierTransactionViews;
         }
 
-        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierFilter supplierFilter)
+        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter)
         {
             var supplierTransactionViews = new List<SupplierTransactionView>();
             var query = @"SELECT " +
@@ -785,7 +785,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return invoiceNo;
         }
 
-        public decimal GetMemberTotalBalance(string memberId)
+        public decimal GetMemberTotalBalance(UserTransactionFilter userTransactionFilter)
         {
             decimal balance = 0.00m;
             string query = @"SELECT " +
@@ -799,7 +799,17 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
                 "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') ";
 
-            if(!string.IsNullOrWhiteSpace(memberId))
+            if(!string.IsNullOrWhiteSpace(userTransactionFilter.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter.DateFrom))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter.MemberId))
             {
                 query += "AND [MemberId] = @MemberId ";
             }
@@ -817,7 +827,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberId", ((object)memberId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)userTransactionFilter.DateFrom) ?? DBNull.Value); 
+                        command.Parameters.AddWithValue("@DateTo", ((object)userTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@MemberId", ((object)userTransactionFilter.MemberId) ?? DBNull.Value);
+
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
@@ -834,22 +847,34 @@ namespace GrocerySupplyManagementApp.Repositories
             return balance;
         }
 
-        public decimal GetSupplierTotalBalance(string supplierId)
+        public decimal GetSupplierTotalBalance(SupplierTransactionFilter supplierTransactionFilter)
         {
             decimal balance = 0.00m;
             string query = @"SELECT " +
                 "SUM([ReceivedAmount]) - SUM([DueAmount]) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 ";
-            if(!string.IsNullOrWhiteSpace(supplierId))
+            
+            if(!string.IsNullOrWhiteSpace(supplierTransactionFilter.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter.DateFrom))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter.SupplierId))
             {
                 query += "AND [SupplierId] = @SupplierId ";
             }
-            else
+
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter.DateFrom))
             {
-                query += "AND [SupplierId] IS NOT NULL ";
-            }  
-            
+                query += "AND [Action] = @Action ";
+            }
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -857,7 +882,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)supplierTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)supplierTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierTransactionFilter.SupplierId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)supplierTransactionFilter.Action) ?? DBNull.Value);
+
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
@@ -874,7 +903,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return balance;
         }
 
-        public decimal GetCashInHand()
+        public decimal GetCashInHand(UserTransactionFilter userTransactionFilter)
         {
             decimal cashInHand = 0.00m;
             string query = @"SELECT " +
@@ -889,9 +918,21 @@ namespace GrocerySupplyManagementApp.Repositories
                 "( " +
                 "SELECT [Id] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
-                ") " +
-                ") " +
+                "WHERE 1 = 1 " +
+                "[IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
+                ") ";
+
+            if(!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] >= @DateTo ";
+            }
+
+            query += ") " +
                 "- " +
                 "( " +
                 "SELECT " +
@@ -904,9 +945,20 @@ namespace GrocerySupplyManagementApp.Repositories
                 "( " +
                 "SELECT [Id] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
-                ") " +
+                "WHERE 1 = 1 " +
+                "[IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
                 ") ";
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] >= @DateTo ";
+            }
+
+            query += ") ";
 
             try
             {
@@ -915,6 +967,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)userTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)userTransactionFilter.DateTo) ?? DBNull.Value);
+
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
@@ -1062,15 +1117,30 @@ namespace GrocerySupplyManagementApp.Repositories
             return balance;
         }
 
-        public decimal GetTotalExpense(string expense)
+        public decimal GetTotalExpense(ExpenseTransactionFilter expenseTransactionFilter)
         {
             decimal balance = 0.00m;
             string query = @"SELECT " +
                     "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND [Action] = '" + Constants.EXPENSE + "' " +
-                    "AND [IncomeExpense] = @Expense ";
+                    "AND [Action] = '" + Constants.EXPENSE + "' ";
+
+            if(!string.IsNullOrWhiteSpace(expenseTransactionFilter?.DateFrom))
+            {
+                query += " AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.DateTo))
+            {
+                query += " AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.Expense))
+            {
+                query += " AND [IncomeExpense] = @Expense ";
+            }
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -1078,7 +1148,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Expense", ((object)expense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)expenseTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)expenseTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Expense", ((object)expenseTransactionFilter?.Expense) ?? DBNull.Value);
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
@@ -1166,7 +1238,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return memberIds;
         }
 
-        public decimal GetUserTransactionBalance(TransactionFilter transactionFilter)
+        public decimal GetUserTransactionBalance(DailyTransactionFilter dailyTransactionFilter)
         {
             decimal total = 0.00m;
             var query = @"SELECT " +
@@ -1178,40 +1250,40 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
 
-            if (transactionFilter.Date != null)
+            if (dailyTransactionFilter.Date != null)
             {
-                query += " AND ut.[EndOfDay] = '" + transactionFilter.Date + "' ";
+                query += " AND ut.[EndOfDay] = '" + dailyTransactionFilter.Date + "' ";
             }
 
-            if (transactionFilter.Purchase != null)
+            if (dailyTransactionFilter.Purchase != null)
             {
-                query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + transactionFilter.Purchase + "' ";
+                query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Purchase + "' ";
             }
-            else if (transactionFilter.Sales != null)
+            else if (dailyTransactionFilter.Sales != null)
             {
-                query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + transactionFilter.Sales + "' ";
+                query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Sales + "' ";
             }
-            else if (transactionFilter.Payment != null)
+            else if (dailyTransactionFilter.Payment != null)
             {
-                query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + transactionFilter.Payment + "' ";
+                query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Payment + "' ";
             }
-            else if (transactionFilter.Receipt != null)
+            else if (dailyTransactionFilter.Receipt != null)
             {
-                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + transactionFilter.Receipt + "' ";
+                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "' ";
             }
-            else if (transactionFilter.Expense != null)
+            else if (dailyTransactionFilter.Expense != null)
             {
-                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + transactionFilter.Expense + "' ";
+                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' ";
             }
-            else if (transactionFilter.ItemCode != null)
+            else if (dailyTransactionFilter.ItemCode != null)
             {
-                query += " AND i.[ItemCode] = '" + transactionFilter.ItemCode + "' ";
+                query += " AND i.[ItemCode] = '" + dailyTransactionFilter.ItemCode + "' ";
             }
-            else if (transactionFilter.InvoiceNo != null)
+            else if (dailyTransactionFilter.InvoiceNo != null)
             {
-                query += " AND ut.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+                query += " AND ut.[InvoiceNo] = '" + dailyTransactionFilter.InvoiceNo + "' ";
             }
-            else if (transactionFilter.User != null)
+            else if (dailyTransactionFilter.User != null)
             {
                 query += " AND 1 = 2 ";
             }
@@ -1243,7 +1315,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return total;
         }
 
-        public IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter)
+        public IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter)
         {
             var transactionViewList = new List<TransactionView>();
             var query = @"SELECT " +
@@ -1286,48 +1358,48 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHERE 1 = 1 " +
                 "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') ";
 
-            if (transactionFilter.Date != null)
+            if (dailyTransactionFilter.Date != null)
             {
-                query += "AND ut.[EndOfDay] = '" + transactionFilter.Date + "' ";
+                query += "AND ut.[EndOfDay] = '" + dailyTransactionFilter.Date + "' ";
             }
 
-            if (transactionFilter.Service != null)
+            if (dailyTransactionFilter.Service != null)
             {
-                query += " AND ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] = '" + transactionFilter.Service + "' ";
+                query += " AND ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] = '" + dailyTransactionFilter.Service + "' ";
             }
-            else if (transactionFilter.Purchase != null)
+            else if (dailyTransactionFilter.Purchase != null)
             {
-                query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + transactionFilter.Purchase + "' ";
+                query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Purchase + "' ";
             }
-            else if (transactionFilter.Sales != null)
+            else if (dailyTransactionFilter.Sales != null)
             {
-                query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + transactionFilter.Sales + "' ";
+                query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Sales + "' ";
             }
-            else if (transactionFilter.Receipt != null)
+            else if (dailyTransactionFilter.Receipt != null)
             {
-                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + transactionFilter.Receipt + "' ";
+                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "' ";
             }
-            else if (transactionFilter.Payment != null)
+            else if (dailyTransactionFilter.Payment != null)
             {
-                query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + transactionFilter.Payment + "' ";
+                query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Payment + "' ";
             }
-            else if (transactionFilter.Expense != null)
+            else if (dailyTransactionFilter.Expense != null)
             {
-                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + transactionFilter.Expense + "' ";
+                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' ";
             }
-            else if (transactionFilter.BankTransfer != null)
+            else if (dailyTransactionFilter.BankTransfer != null)
             {
-                query += " AND ut.[Action] = '" + Constants.BANK_TRANSFER + "' AND ut.[ActionType] = '" + transactionFilter.BankTransfer + "' ";
+                query += " AND ut.[Action] = '" + Constants.BANK_TRANSFER + "' AND ut.[ActionType] = '" + dailyTransactionFilter.BankTransfer + "' ";
             }
-            else if (transactionFilter.ItemCode != null)
+            else if (dailyTransactionFilter.ItemCode != null)
             {
-                query += " AND i.[Code] = '" + transactionFilter.ItemCode + "' ";
+                query += " AND i.[Code] = '" + dailyTransactionFilter.ItemCode + "' ";
             }
-            else if (transactionFilter.InvoiceNo != null)
+            else if (dailyTransactionFilter.InvoiceNo != null)
             {
-                query += " AND ut.[InvoiceNo] = '" + transactionFilter.InvoiceNo + "' ";
+                query += " AND ut.[InvoiceNo] = '" + dailyTransactionFilter.InvoiceNo + "' ";
             }
-            else if (transactionFilter.User != null)
+            else if (dailyTransactionFilter.User != null)
             {
                 query += " AND 1 = 2 ";
             }

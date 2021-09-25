@@ -6,7 +6,7 @@ using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Windows.Forms;
 
-namespace GrocerySupplyManagementApp.Forms                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+namespace GrocerySupplyManagementApp.Forms
 {
     public partial class UserForm : Form, IUserListForm
     {

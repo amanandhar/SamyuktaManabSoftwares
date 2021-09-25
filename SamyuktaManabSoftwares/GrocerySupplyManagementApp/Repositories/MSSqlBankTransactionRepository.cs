@@ -278,7 +278,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankTransactionViews;
         }
 
-        public decimal GetTotalBalance()
+        public decimal GetTotalBalance(BankTransactionFilter bankTransactionFilter)
         {
             decimal bankBalance = 0.0m;
             var query = @"SELECT " +
@@ -286,14 +286,26 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 ";
 
+            if(!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter.DateTo) ?? DBNull.Value);
+
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
@@ -345,15 +357,33 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankBalance;
         }
 
-        public decimal GetTotalDeposit(string incomeType)
+        public decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter)
         {
             decimal total = 0.0m;
             var query = @"SELECT " +
                 "ISNUll(SUM(ISNULL([Debit], 0)), 0) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [Action] = '1' " +
-                "AND [Narration] = @IncomeType ";
+                "WHERE 1 = 1 ";
+
+            if(!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!char.IsWhiteSpace((char)(bankTransactionFilter?.Action)) || bankTransactionFilter?.Action != null)
+            {
+                query += "AND [Action] = @Action ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.Narration))
+            {
+                query += "AND [Narration] = @Narration ";
+            }
 
             try
             {
@@ -362,7 +392,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@IncomeType", ((object)incomeType) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)bankTransactionFilter.Action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Narration", ((object)bankTransactionFilter.Narration) ?? DBNull.Value);
+
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {

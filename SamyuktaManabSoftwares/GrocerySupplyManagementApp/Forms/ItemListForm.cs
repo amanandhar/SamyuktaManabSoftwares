@@ -1,11 +1,11 @@
-﻿using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
-using GrocerySupplyManagementApp.Entities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -118,10 +118,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridItemList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

@@ -853,7 +853,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtAccNo.Text = member.AccountNo;
 
                 List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(memberId).ToList();
-                TxtBalance.Text = _userTransactionService.GetMemberTotalBalance(memberId).ToString();
+                TxtBalance.Text = _userTransactionService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = memberId }).ToString();
 
                 BtnAddReceipt.Enabled = true;
                 RichItemCode.Focus();

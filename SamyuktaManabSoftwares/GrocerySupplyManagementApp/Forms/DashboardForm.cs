@@ -322,7 +322,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSalesReturn_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SalesReturnForm(_fiscalYearService, _itemService, _purchasedItemService, _userTransactionService));
+            OpenChildForm(new SalesReturnForm(_fiscalYearService, _itemService, _purchasedItemService, _soldItemService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 

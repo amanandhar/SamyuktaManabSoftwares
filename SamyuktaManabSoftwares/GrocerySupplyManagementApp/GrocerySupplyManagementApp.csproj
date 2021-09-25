@@ -118,8 +118,10 @@
     <Compile Include="DTOs\IncomeTransactionFilter.cs" />
     <Compile Include="DTOs\MemberFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
-    <Compile Include="DTOs\SupplierFilter.cs" />
-    <Compile Include="DTOs\TransactionFilter.cs" />
+    <Compile Include="DTOs\StockFilter.cs" />
+    <Compile Include="DTOs\SupplierTransactionFilter.cs" />
+    <Compile Include="DTOs\UserTransactionFilter.cs" />
+    <Compile Include="DTOs\DailyTransactionFilter.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
     <Compile Include="Entities\ItemCategory.cs" />
@@ -491,7 +493,6 @@
     <Compile Include="ViewModels\PurchasedItemListView.cs" />
     <Compile Include="ViewModels\ShareMemberTransactionView.cs" />
     <Compile Include="ViewModels\SoldItemView.cs" />
-    <Compile Include="ViewModels\StockFilter.cs" />
     <Compile Include="ViewModels\StockView.cs" />
     <Compile Include="ViewModels\SupplierTransactionView.cs" />
     <Compile Include="ViewModels\SupplierView.cs" />

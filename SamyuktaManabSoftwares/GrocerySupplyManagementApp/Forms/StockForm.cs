@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
@@ -132,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItems()
         {
-            StockFilter stockFilter = new StockFilter();
+            var stockFilter = new StockFilter();
             var dateFrom = MaskEndOfDayFrom.Text;
             var dateTo = MaskEndOfDayTo.Text;
 

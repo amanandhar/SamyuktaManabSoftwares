@@ -49,7 +49,7 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetSupplierTransactions(supplierId);
         }
 
-        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierFilter supplierFilter)
+        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter)
         {
             return _userTransactionRepository.GetSupplierTransactions(supplierFilter);
         }
@@ -109,19 +109,19 @@ namespace GrocerySupplyManagementApp.Services
             return invoiceNo;
         }
 
-        public decimal GetMemberTotalBalance(string memberId)
+        public decimal GetMemberTotalBalance(UserTransactionFilter userTransactionFilter)
         {
-            return _userTransactionRepository.GetMemberTotalBalance(memberId);
+            return _userTransactionRepository.GetMemberTotalBalance(userTransactionFilter);
         }
 
-        public decimal GetSupplierTotalBalance(string supplierId)
+        public decimal GetSupplierTotalBalance(SupplierTransactionFilter supplierTransactionFilter)
         {
-            return _userTransactionRepository.GetSupplierTotalBalance(supplierId);
+            return _userTransactionRepository.GetSupplierTotalBalance(supplierTransactionFilter);
         }
 
-        public decimal GetCashInHand()
+        public decimal GetCashInHand(UserTransactionFilter userTransactionFilter)
         {
-            return _userTransactionRepository.GetCashInHand();
+            return _userTransactionRepository.GetCashInHand(userTransactionFilter);
         }
 
         public decimal GetTotalBalance(string endOfDay, string action, string actionType)
@@ -134,9 +134,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetPreviousTotalBalance(endOfDay, action, actionType);
         }
 
-        public decimal GetTotalExpense(string expense)
+        public decimal GetTotalExpense(ExpenseTransactionFilter expenseTransactionFilter)
         {
-            return _userTransactionRepository.GetTotalExpense(expense);
+            return _userTransactionRepository.GetTotalExpense(expenseTransactionFilter);
         }
 
         public IEnumerable<string> GetInvoices()
@@ -149,14 +149,14 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetMemberIds();
         }
 
-        public decimal GetUserTransactionBalance(TransactionFilter transactionFilter)
+        public decimal GetUserTransactionBalance(DailyTransactionFilter dailyTransactionFilter)
         {
-            return _userTransactionRepository.GetUserTransactionBalance(transactionFilter);
+            return _userTransactionRepository.GetUserTransactionBalance(dailyTransactionFilter);
         }
 
-        public IEnumerable<TransactionView> GetTransactionViewList(TransactionFilter transactionFilter)
+        public IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter)
         {
-            return _userTransactionRepository.GetTransactionViewList(transactionFilter);
+            return _userTransactionRepository.GetTransactionViewList(dailyTransactionFilter);
         }
 
         public IEnumerable<IncomeDetailView> GetIncome(IncomeTransactionFilter filter)

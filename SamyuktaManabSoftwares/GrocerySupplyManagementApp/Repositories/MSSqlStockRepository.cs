@@ -1,7 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

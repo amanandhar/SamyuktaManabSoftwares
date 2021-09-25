@@ -1,6 +1,6 @@
 ﻿namespace GrocerySupplyManagementApp.DTOs
 {
-    public class TransactionFilter
+    public class DailyTransactionFilter
     {
         public string Date { get; set; }
         public bool IsAll { get; set; }

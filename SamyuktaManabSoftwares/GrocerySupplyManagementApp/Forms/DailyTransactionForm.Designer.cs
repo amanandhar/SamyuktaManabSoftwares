@@ -40,11 +40,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioItemCode = new System.Windows.Forms.RadioButton();
             this.ComboPurchase = new System.Windows.Forms.ComboBox();
             this.RadioInvoiceNo = new System.Windows.Forms.RadioButton();
-            this.ComboExpense = new System.Windows.Forms.ComboBox();
+            this.ComboExpensePayment = new System.Windows.Forms.ComboBox();
             this.ComboItemCode = new System.Windows.Forms.ComboBox();
-            this.RadioExpense = new System.Windows.Forms.RadioButton();
+            this.RadioExpensePayment = new System.Windows.Forms.RadioButton();
             this.RadioAll = new System.Windows.Forms.RadioButton();
-            this.RadioPayment = new System.Windows.Forms.RadioButton();
+            this.RadioPurchasePayment = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.RadioSales = new System.Windows.Forms.RadioButton();
             this.ComboInvoiceNo = new System.Windows.Forms.ComboBox();
@@ -53,7 +53,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.RadioPurchase = new System.Windows.Forms.RadioButton();
-            this.ComboPayment = new System.Windows.Forms.ComboBox();
+            this.ComboPurchasePayment = new System.Windows.Forms.ComboBox();
             this.ComboReceipt = new System.Windows.Forms.ComboBox();
             this.ComboUser = new System.Windows.Forms.ComboBox();
             this.TxtTotal = new System.Windows.Forms.TextBox();
@@ -78,11 +78,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.Controls.Add(this.RadioItemCode);
             this.GroupFilter.Controls.Add(this.ComboPurchase);
             this.GroupFilter.Controls.Add(this.RadioInvoiceNo);
-            this.GroupFilter.Controls.Add(this.ComboExpense);
+            this.GroupFilter.Controls.Add(this.ComboExpensePayment);
             this.GroupFilter.Controls.Add(this.ComboItemCode);
-            this.GroupFilter.Controls.Add(this.RadioExpense);
+            this.GroupFilter.Controls.Add(this.RadioExpensePayment);
             this.GroupFilter.Controls.Add(this.RadioAll);
-            this.GroupFilter.Controls.Add(this.RadioPayment);
+            this.GroupFilter.Controls.Add(this.RadioPurchasePayment);
             this.GroupFilter.Controls.Add(this.label2);
             this.GroupFilter.Controls.Add(this.RadioSales);
             this.GroupFilter.Controls.Add(this.ComboInvoiceNo);
@@ -91,7 +91,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.Controls.Add(this.MaskEndOfDay);
             this.GroupFilter.Controls.Add(this.label3);
             this.GroupFilter.Controls.Add(this.RadioPurchase);
-            this.GroupFilter.Controls.Add(this.ComboPayment);
+            this.GroupFilter.Controls.Add(this.ComboPurchasePayment);
             this.GroupFilter.Controls.Add(this.ComboReceipt);
             this.GroupFilter.Controls.Add(this.ComboUser);
             this.GroupFilter.Controls.Add(this.TxtTotal);
@@ -122,9 +122,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboService.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboService.FormattingEnabled = true;
-            this.ComboService.Items.AddRange(new object[] {
-            "Delivery Charge",
-            "Sales Discount"});
             this.ComboService.Location = new System.Drawing.Point(142, 42);
             this.ComboService.Name = "ComboService";
             this.ComboService.Size = new System.Drawing.Size(125, 24);
@@ -135,8 +132,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBankTransfer.Enabled = false;
             this.ComboBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBankTransfer.FormattingEnabled = true;
-            this.ComboBankTransfer.Items.AddRange(new object[] {
-            "Cash"});
             this.ComboBankTransfer.Location = new System.Drawing.Point(482, 66);
             this.ComboBankTransfer.Name = "ComboBankTransfer";
             this.ComboBankTransfer.Size = new System.Drawing.Size(125, 24);
@@ -174,9 +169,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboPurchase.FormattingEnabled = true;
-            this.ComboPurchase.Items.AddRange(new object[] {
-            "Cash",
-            "Credit"});
             this.ComboPurchase.Location = new System.Drawing.Point(142, 68);
             this.ComboPurchase.Name = "ComboPurchase";
             this.ComboPurchase.Size = new System.Drawing.Size(125, 24);
@@ -195,17 +187,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioInvoiceNo.UseVisualStyleBackColor = true;
             this.RadioInvoiceNo.CheckedChanged += new System.EventHandler(this.RadioInvoiceNo_CheckedChanged);
             // 
-            // ComboExpense
+            // ComboExpensePayment
             // 
-            this.ComboExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboExpense.FormattingEnabled = true;
-            this.ComboExpense.Items.AddRange(new object[] {
-            "Cash",
-            "Cheque"});
-            this.ComboExpense.Location = new System.Drawing.Point(482, 40);
-            this.ComboExpense.Name = "ComboExpense";
-            this.ComboExpense.Size = new System.Drawing.Size(125, 24);
-            this.ComboExpense.TabIndex = 41;
+            this.ComboExpensePayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboExpensePayment.FormattingEnabled = true;
+            this.ComboExpensePayment.Location = new System.Drawing.Point(482, 40);
+            this.ComboExpensePayment.Name = "ComboExpensePayment";
+            this.ComboExpensePayment.Size = new System.Drawing.Size(125, 24);
+            this.ComboExpensePayment.TabIndex = 41;
             // 
             // ComboItemCode
             // 
@@ -216,19 +205,19 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboItemCode.Size = new System.Drawing.Size(125, 24);
             this.ComboItemCode.TabIndex = 31;
             // 
-            // RadioExpense
+            // RadioExpensePayment
             // 
-            this.RadioExpense.AutoSize = true;
-            this.RadioExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioExpense.Location = new System.Drawing.Point(310, 42);
-            this.RadioExpense.Name = "RadioExpense";
-            this.RadioExpense.Size = new System.Drawing.Size(166, 22);
-            this.RadioExpense.TabIndex = 40;
-            this.RadioExpense.TabStop = true;
-            this.RadioExpense.Text = "By Expense Payment";
-            this.RadioExpense.UseVisualStyleBackColor = true;
-            this.RadioExpense.CheckedChanged += new System.EventHandler(this.RadioExpense_CheckedChanged);
+            this.RadioExpensePayment.AutoSize = true;
+            this.RadioExpensePayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioExpensePayment.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioExpensePayment.Location = new System.Drawing.Point(310, 42);
+            this.RadioExpensePayment.Name = "RadioExpensePayment";
+            this.RadioExpensePayment.Size = new System.Drawing.Size(166, 22);
+            this.RadioExpensePayment.TabIndex = 40;
+            this.RadioExpensePayment.TabStop = true;
+            this.RadioExpensePayment.Text = "By Expense Payment";
+            this.RadioExpensePayment.UseVisualStyleBackColor = true;
+            this.RadioExpensePayment.CheckedChanged += new System.EventHandler(this.RadioExpense_CheckedChanged);
             // 
             // RadioAll
             // 
@@ -244,19 +233,19 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.Text = "All  ";
             this.RadioAll.UseVisualStyleBackColor = true;
             // 
-            // RadioPayment
+            // RadioPurchasePayment
             // 
-            this.RadioPayment.AutoSize = true;
-            this.RadioPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioPayment.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioPayment.Location = new System.Drawing.Point(310, 15);
-            this.RadioPayment.Name = "RadioPayment";
-            this.RadioPayment.Size = new System.Drawing.Size(172, 22);
-            this.RadioPayment.TabIndex = 39;
-            this.RadioPayment.TabStop = true;
-            this.RadioPayment.Text = "By Purchase Payment";
-            this.RadioPayment.UseVisualStyleBackColor = true;
-            this.RadioPayment.CheckedChanged += new System.EventHandler(this.RadioPayment_CheckedChanged);
+            this.RadioPurchasePayment.AutoSize = true;
+            this.RadioPurchasePayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioPurchasePayment.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioPurchasePayment.Location = new System.Drawing.Point(310, 15);
+            this.RadioPurchasePayment.Name = "RadioPurchasePayment";
+            this.RadioPurchasePayment.Size = new System.Drawing.Size(172, 22);
+            this.RadioPurchasePayment.TabIndex = 39;
+            this.RadioPurchasePayment.TabStop = true;
+            this.RadioPurchasePayment.Text = "By Purchase Payment";
+            this.RadioPurchasePayment.UseVisualStyleBackColor = true;
+            this.RadioPurchasePayment.CheckedChanged += new System.EventHandler(this.RadioPayment_CheckedChanged);
             // 
             // label2
             // 
@@ -295,9 +284,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboSales.FormattingEnabled = true;
-            this.ComboSales.Items.AddRange(new object[] {
-            "Cash",
-            "Credit"});
             this.ComboSales.Location = new System.Drawing.Point(142, 94);
             this.ComboSales.Name = "ComboSales";
             this.ComboSales.Size = new System.Drawing.Size(125, 24);
@@ -349,17 +335,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPurchase.UseVisualStyleBackColor = true;
             this.RadioPurchase.CheckedChanged += new System.EventHandler(this.RadioPurchase_CheckedChanged);
             // 
-            // ComboPayment
+            // ComboPurchasePayment
             // 
-            this.ComboPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboPayment.FormattingEnabled = true;
-            this.ComboPayment.Items.AddRange(new object[] {
-            "Cash",
-            "Cheque"});
-            this.ComboPayment.Location = new System.Drawing.Point(482, 14);
-            this.ComboPayment.Name = "ComboPayment";
-            this.ComboPayment.Size = new System.Drawing.Size(125, 24);
-            this.ComboPayment.TabIndex = 22;
+            this.ComboPurchasePayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboPurchasePayment.FormattingEnabled = true;
+            this.ComboPurchasePayment.Location = new System.Drawing.Point(482, 14);
+            this.ComboPurchasePayment.Name = "ComboPurchasePayment";
+            this.ComboPurchasePayment.Size = new System.Drawing.Size(125, 24);
+            this.ComboPurchasePayment.TabIndex = 22;
             // 
             // ComboReceipt
             // 
@@ -544,7 +527,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RadioButton RadioSales;
         private System.Windows.Forms.RadioButton RadioAll;
         private System.Windows.Forms.ComboBox ComboReceipt;
-        private System.Windows.Forms.ComboBox ComboPayment;
+        private System.Windows.Forms.ComboBox ComboPurchasePayment;
         private System.Windows.Forms.RadioButton RadioUser;
         private System.Windows.Forms.RadioButton RadioPurchase;
         private System.Windows.Forms.TextBox TxtTotal;
@@ -557,9 +540,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox ComboInvoiceNo;
         private System.Windows.Forms.ComboBox ComboUser;
         private System.Windows.Forms.ComboBox ComboSales;
-        private System.Windows.Forms.ComboBox ComboExpense;
-        private System.Windows.Forms.RadioButton RadioExpense;
-        private System.Windows.Forms.RadioButton RadioPayment;
+        private System.Windows.Forms.ComboBox ComboExpensePayment;
+        private System.Windows.Forms.RadioButton RadioExpensePayment;
+        private System.Windows.Forms.RadioButton RadioPurchasePayment;
         private System.Windows.Forms.ComboBox ComboPurchase;
         private System.Windows.Forms.ComboBox ComboBankTransfer;
         private System.Windows.Forms.RadioButton RadioBankTransfer;

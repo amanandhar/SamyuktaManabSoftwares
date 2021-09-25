@@ -12,9 +12,9 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<BankTransaction> GetBankTransactions(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(BankTransactionFilter bankTransactionFilter);
-        decimal GetTotalBalance();
+        decimal GetTotalBalance(BankTransactionFilter bankTransactionFilter);
         decimal GetTotalBalance(long bankId);
-        decimal GetTotalDeposit(string incomeType);
+        decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter);
 
         BankTransaction AddBankTransaction(BankTransaction bankTransaction);
 
