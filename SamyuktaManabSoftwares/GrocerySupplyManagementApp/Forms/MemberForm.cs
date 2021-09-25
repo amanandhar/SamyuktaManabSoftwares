@@ -180,7 +180,7 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
             EnableFields(Action.None);
             EnableFields(Action.Add);
-            RichMemberId.Text = _memberService.GetNewMemberId();
+            RichMemberId.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -321,21 +321,23 @@ namespace GrocerySupplyManagementApp.Forms
                 if (deleteResult == DialogResult.Yes)
                 {
                     var memberId = RichMemberId.Text;
-                    var fileName = memberId + ".jpg";
-                    var filePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
-                    if (UtilityService.DeleteImage(filePath))
+                    var member = _memberService.GetMember(memberId);
+
+                    if (!string.IsNullOrWhiteSpace(member.ImagePath) && File.Exists(member.ImagePath))
                     {
-                        if (_memberService.DeleteMember(memberId))
+                        UtilityService.DeleteImage(member.ImagePath);
+                    }
+
+                    if (_memberService.DeleteMember(memberId))
+                    {
+                        DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        if (result == DialogResult.OK)
                         {
-                            DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
-                            if (result == DialogResult.OK)
-                            {
-                                ClearAllFields();
-                                var memberTransactionViewList = GetMemberTransactions(memberId);
-                                LoadMemberTransactions(memberTransactionViewList);
-                                EnableFields(Action.None);
-                                EnableFields(Action.Delete);
-                            }
+                            ClearAllFields();
+                            var memberTransactionViewList = GetMemberTransactions(memberId);
+                            LoadMemberTransactions(memberTransactionViewList);
+                            EnableFields(Action.None);
+                            EnableFields(Action.Delete);
                         }
                     }
                 }
@@ -367,6 +369,22 @@ namespace GrocerySupplyManagementApp.Forms
             var memberTransactionViewList = GetMemberTransactions(filter);
             TxtAmount.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
             LoadMemberTransactions(memberTransactionViewList);
+        }
+        #endregion
+
+        #region RichTextBox Events
+        private void RichMemberId_KeyUp(object sender, KeyEventArgs e)
+        {
+            var member = _memberService.GetMember(RichMemberId.Text);
+            if (member?.MemberId?.ToLower() == RichMemberId.Text.ToLower())
+            {
+                DialogResult result = MessageBox.Show(RichMemberId.Text + " already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (result == DialogResult.OK)
+                {
+                    RichMemberId.Clear();
+                    return;
+                }
+            }
         }
         #endregion
 
@@ -639,5 +657,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
     }
 }

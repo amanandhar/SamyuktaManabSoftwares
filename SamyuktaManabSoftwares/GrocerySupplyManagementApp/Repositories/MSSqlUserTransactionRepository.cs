@@ -171,7 +171,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
-            if (deliveryPersonFilter?.EmployeeId != null)
+            if (!string.IsNullOrWhiteSpace(deliveryPersonFilter?.EmployeeId))
             {
                 query += "AND [DeliveryPersonId] = @DeliveryPersonId ";
             }
@@ -299,12 +299,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHERE 1 = 1 " +
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
                 "AND [MemberId] IS NOT NULL ";
-
-            if (!string.IsNullOrEmpty(memberFilter?.Action))
-            {
-                query += "AND [Action] = @Action ";
-            }
-                
+            
             if(!string.IsNullOrEmpty(memberFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
@@ -313,6 +308,11 @@ namespace GrocerySupplyManagementApp.Repositories
             if (!string.IsNullOrEmpty(memberFilter?.DateTo))
             {
                 query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrEmpty(memberFilter?.Action))
+            {
+                query += "AND [Action] = @Action ";
             }
 
             query += "ORDER BY [Id] ";
@@ -324,9 +324,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Action", ((object)memberFilter?.Action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateFrom", ((object)memberFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)memberFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)memberFilter?.Action) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -431,16 +431,6 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
                 "WHERE 1 = 1 ";
 
-            if(!string.IsNullOrWhiteSpace(supplierFilter.SupplierId))
-            {
-                query += "AND [SupplierId] = @SupplierId ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(supplierFilter?.Action))
-            {
-                query += "AND [Action] = @Action ";
-            }
-
             if (!string.IsNullOrWhiteSpace(supplierFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
@@ -449,6 +439,16 @@ namespace GrocerySupplyManagementApp.Repositories
             if (!string.IsNullOrWhiteSpace(supplierFilter?.DateTo))
             {
                 query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(supplierFilter.SupplierId))
+            {
+                query += "AND [SupplierId] = @SupplierId ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(supplierFilter?.Action))
+            {
+                query += "AND [Action] = @Action ";
             }
 
             query += "ORDER BY [Id] ";
@@ -460,9 +460,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierFilter.SupplierId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateFrom", ((object)supplierFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)supplierFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierFilter.SupplierId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)supplierFilter.Action) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -799,17 +799,17 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
                 "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') ";
 
-            if(!string.IsNullOrWhiteSpace(userTransactionFilter.DateFrom))
+            if(!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
             }
 
-            if (!string.IsNullOrWhiteSpace(userTransactionFilter.DateFrom))
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
             {
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
-            if (!string.IsNullOrWhiteSpace(userTransactionFilter.MemberId))
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.MemberId))
             {
                 query += "AND [MemberId] = @MemberId ";
             }
@@ -827,9 +827,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)userTransactionFilter.DateFrom) ?? DBNull.Value); 
-                        command.Parameters.AddWithValue("@DateTo", ((object)userTransactionFilter.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@MemberId", ((object)userTransactionFilter.MemberId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)userTransactionFilter?.DateFrom) ?? DBNull.Value); 
+                        command.Parameters.AddWithValue("@DateTo", ((object)userTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@MemberId", ((object)userTransactionFilter?.MemberId) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
@@ -855,22 +855,26 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 ";
             
-            if(!string.IsNullOrWhiteSpace(supplierTransactionFilter.DateFrom))
+            if(!string.IsNullOrWhiteSpace(supplierTransactionFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
             }
 
-            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter.DateFrom))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.DateTo))
             {
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
-            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter.SupplierId))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.SupplierId))
             {
                 query += "AND [SupplierId] = @SupplierId ";
             }
+            else
+            {
+                query += "AND [SupplierId] IS NOT NULL ";
+            }
 
-            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter.DateFrom))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.Action))
             {
                 query += "AND [Action] = @Action ";
             }
@@ -882,10 +886,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)supplierTransactionFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)supplierTransactionFilter.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierTransactionFilter.SupplierId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)supplierTransactionFilter.Action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)supplierTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)supplierTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierTransactionFilter?.SupplierId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)supplierTransactionFilter?.Action) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
@@ -919,8 +923,19 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SELECT [Id] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "[IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
-                ") ";
+                "AND [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' ";
+            
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            query += ") ";
 
             if(!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
@@ -929,7 +944,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
             {
-                query += "AND [EndOfDay] >= @DateTo ";
+                query += "AND [EndOfDay] <= @DateTo ";
             }
 
             query += ") " +
@@ -946,8 +961,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SELECT [Id] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "[IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
-                ") ";
+                "AND [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' ";
+
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
@@ -955,7 +970,19 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
             {
-                query += "AND [EndOfDay] >= @DateTo ";
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            query += ") ";
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
             }
 
             query += ") ";
@@ -967,8 +994,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)userTransactionFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)userTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)userTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)userTransactionFilter?.DateTo) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
@@ -1459,11 +1486,6 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND [Action] = '" + Constants.RECEIPT + "' " +
                 "AND [IncomeExpense] IS NOT NULL ";
 
-            if (!string.IsNullOrEmpty(incomeTransactionFilter?.Income))
-            {
-                query += "AND [IncomeExpense] = @IncomeExpense ";
-            }
-
             if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
@@ -1472,6 +1494,11 @@ namespace GrocerySupplyManagementApp.Repositories
             if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateTo))
             {
                 query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrEmpty(incomeTransactionFilter?.Income))
+            {
+                query += "AND [IncomeExpense] = @IncomeExpense ";
             }
 
             query += "ORDER BY [Id] ";
@@ -1483,9 +1510,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@IncomeExpense", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -1550,8 +1577,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter?.DateTo) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -1613,9 +1640,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@IncomeExpense", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter?.DateTo) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

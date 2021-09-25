@@ -478,6 +478,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichMemberId.Size = new System.Drawing.Size(77, 26);
             this.RichMemberId.TabIndex = 1;
             this.RichMemberId.Text = "";
+            this.RichMemberId.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichMemberId_KeyUp);
             // 
             // label12
             // 

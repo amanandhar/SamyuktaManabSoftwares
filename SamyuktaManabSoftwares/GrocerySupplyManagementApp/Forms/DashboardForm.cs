@@ -393,7 +393,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SetupForm());
+            OpenChildForm(new SalesPurchaseForm());
             SelectButton(sender as Button, true);
         }
 

@@ -286,8 +286,6 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    //var memberTransactionViewList = GetShareMemberTransactions(shareMemberId);
-                    //LoadShareMemberTransactions(memberTransactionViewList);
                     EnableFields(Action.None);
                     EnableFields(Action.Update);
                 }
@@ -307,19 +305,19 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var shareMemberId = _selectedShareMemberId;
                     var shareMember = _shareMemberService.GetShareMember(shareMemberId); 
-                    if (!string.IsNullOrWhiteSpace(shareMember.ImagePath) && File.Exists(shareMember.ImagePath) && UtilityService.DeleteImage(shareMember.ImagePath))
+                    if (!string.IsNullOrWhiteSpace(shareMember.ImagePath) && File.Exists(shareMember.ImagePath)) 
                     {
-                        if (_shareMemberService.DeleteShareMember(shareMemberId))
+                        UtilityService.DeleteImage(shareMember.ImagePath);
+                    }
+
+                    if (_shareMemberService.DeleteShareMember(shareMemberId))
+                    {
+                        DialogResult result = MessageBox.Show(RichName.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        if (result == DialogResult.OK)
                         {
-                            DialogResult result = MessageBox.Show(RichName.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
-                            if (result == DialogResult.OK)
-                            {
-                                ClearAllFields();
-                                //var memberTransactionViewList = GetMemberTransactions(shareMemberId);
-                                //LoadMemberTransactions(memberTransactionViewList);
-                                EnableFields(Action.None);
-                                EnableFields(Action.Delete);
-                            }
+                            ClearAllFields();
+                            EnableFields(Action.None);
+                            EnableFields(Action.Delete);
                         }
                     }
                 }

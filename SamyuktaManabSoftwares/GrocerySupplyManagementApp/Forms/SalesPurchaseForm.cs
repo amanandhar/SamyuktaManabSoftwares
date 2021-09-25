@@ -2,9 +2,9 @@
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class SetupForm : Form
+    public partial class SalesPurchaseForm : Form
     {
-        public SetupForm()
+        public SalesPurchaseForm()
         {
             InitializeComponent();
         }

@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
                 AccountNo = x.AccountNo,
                 AddedDate = x.AddedDate,
                 Balance = _userTransactionService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = x.MemberId }),
-            }).ToList();
+            }).OrderBy(x => x.MemberId).ToList();
 
             return _memberViewList;
         }

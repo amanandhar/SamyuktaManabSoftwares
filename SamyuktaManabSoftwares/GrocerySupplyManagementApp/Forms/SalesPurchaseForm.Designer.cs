@@ -1,7 +1,7 @@
 ﻿
 namespace GrocerySupplyManagementApp.Forms
 {
-    partial class SetupForm
+    partial class SalesPurchaseForm
     {
         /// <summary>
         /// Required designer variable.
