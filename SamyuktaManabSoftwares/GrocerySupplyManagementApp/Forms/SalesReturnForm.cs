@@ -1,9 +1,11 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -18,6 +20,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _endOfDay;
+        private readonly List<SoldItem> _soldItems;
         private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
 
         #region Enum Action
@@ -45,7 +48,8 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
-
+            _soldItems = _soldItemService.GetSoldItems().ToList();
+            LoadInvoiceNumbers();
         }
         #endregion
 
@@ -60,7 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            LoadSalesTransactions();
+            //LoadSalesReturnTransactions();
             EnableFields();
             EnableFields(Action.ShowReturn);
         }
@@ -145,7 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    LoadSalesTransactions();
+                    //LoadSalesReturnTransactions();
                     EnableFields();
                     EnableFields(Action.SaveReturn);
                 }
@@ -166,15 +170,57 @@ namespace GrocerySupplyManagementApp.Forms
         #region Grid Event
         private void DateGridSalesReturnList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            DateGridSalesReturnList.Columns["Id"].Visible = false;
 
+            DateGridSalesReturnList.Columns["EndOfDay"].HeaderText = "Date";
+            DateGridSalesReturnList.Columns["EndOfDay"].Width = 100;
+            DateGridSalesReturnList.Columns["EndOfDay"].DisplayIndex = 0;
+
+            DateGridSalesReturnList.Columns["Description"].HeaderText = "Description";
+            DateGridSalesReturnList.Columns["Description"].Width = 120;
+            DateGridSalesReturnList.Columns["Description"].DisplayIndex = 1;
+
+            DateGridSalesReturnList.Columns["Narration"].HeaderText = "Narration";
+            DateGridSalesReturnList.Columns["Narration"].Width = 270;
+            DateGridSalesReturnList.Columns["Narration"].DisplayIndex = 2;
+
+            DateGridSalesReturnList.Columns["Debit"].HeaderText = "Debit";
+            DateGridSalesReturnList.Columns["Debit"].Width = 100;
+            DateGridSalesReturnList.Columns["Debit"].DisplayIndex = 3;
+            DateGridSalesReturnList.Columns["Debit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DateGridSalesReturnList.Columns["Credit"].HeaderText = "Credit";
+            DateGridSalesReturnList.Columns["Credit"].Width = 100;
+            DateGridSalesReturnList.Columns["Credit"].DisplayIndex = 4;
+            DateGridSalesReturnList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DateGridSalesReturnList.Columns["Balance"].HeaderText = "Balance";
+            DateGridSalesReturnList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DateGridSalesReturnList.Columns["Balance"].DisplayIndex = 5;
+            DateGridSalesReturnList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DateGridSalesReturnList.Rows)
+            {
+                DateGridSalesReturnList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DateGridSalesReturnList.RowHeadersWidth = 50;
+                DateGridSalesReturnList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
         }
         #endregion
 
         #region Helper Methods
 
-        private void LoadSalesTransactions()
-        {
+        //private List<SalesReturnTransactionView> GetSalesReturnTransactions()
+        //{
+        //    var salesReturnTransactionViewList = _userTransactionService.GetSalesReturnTransactionList().ToList();
+        //    return salesReturnTransactionViewList;
+        //}
 
+        private void LoadSalesReturnTransactions(List<SalesReturnTransactionView> salesReturnTransactionViewList)
+        {
+            var bindingList = new BindingList<SalesReturnTransactionView>(salesReturnTransactionViewList);
+            var source = new BindingSource(bindingList, null);
+            DateGridSalesReturnList.DataSource = source;
         }
 
         private void EnableFields(Action action = Action.None)
@@ -241,9 +287,38 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadInvoiceNumbers()
         {
-            var soldITems = _soldItemService.GetSoldItems();
+            ComboInvoiceNo.ValueMember = "Id";
+            ComboInvoiceNo.DisplayMember = "Value";
+
+            _soldItems.OrderBy(x => x.InvoiceNo).ToList().ForEach(x =>
+            {
+                ComboInvoiceNo.Items.Add(new ComboBoxItem { Id = x.InvoiceNo, Value = x.InvoiceNo });
+            });
         }
 
         #endregion
+
+        private void ComboInvoiceNo_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var invoiceNo = ComboInvoiceNo.Text;
+            var itemIds = _soldItems.Where(x => x.InvoiceNo == invoiceNo).Select(x => x.ItemId);
+            var items = _itemService.GetItems();
+
+            itemIds.OrderBy(x => x).ToList().ForEach(x =>
+            {
+                ComboItemCode.Items.Add(new ComboBoxItem { Id = x.ToString(), Value = items.Where(y => y.Id == x).Select(y => y.Code).FirstOrDefault() });
+            });
+        }
+
+        private void ComboItemCode_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBoxItem selectedItemCode = (ComboBoxItem)ComboItemCode.SelectedItem;
+
+            var item = _itemService.GetItem(selectedItemCode?.Id);
+            if(item != null)
+            {
+                TxtItemName.Text = item.Name;
+            }
+        }
     }
 }

@@ -291,7 +291,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2.Size = new System.Drawing.Size(1102, 26);
             this.textBox2.TabIndex = 89;
             this.textBox2.Text = "                                                                                 " +
-    "                                 Profit && Loss 2078/079";
+    "                                 Profit & Loss 2078/079";
             // 
             // label7
             // 
