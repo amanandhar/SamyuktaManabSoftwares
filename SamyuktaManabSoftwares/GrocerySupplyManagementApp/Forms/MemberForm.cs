@@ -658,5 +658,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RichAmount.Focus();
+        }
     }
 }

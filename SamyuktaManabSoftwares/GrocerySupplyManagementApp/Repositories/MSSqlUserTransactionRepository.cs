@@ -341,7 +341,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
-                                    Balance = Convert.ToDecimal(reader["Balance"].ToString())
+                                    Balance = 0.00M
                                 };
 
                                 memberTransactionViews.Add(memberTransactionView);
@@ -697,11 +697,11 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if(!string.IsNullOrWhiteSpace(option))
             {
-                if(option.StartsWith("IN"))
+                if(option.StartsWith(Constants.INVOICE_NO_PREFIX))
                 {
                     query += "WHERE 1 = 1 AND ([InvoiceNo] IS NOT NULL AND DATALENGTH([InvoiceNo]) > 0) ";
                 }
-                else if(option.StartsWith("BN"))
+                else if(option.StartsWith(Constants.BILL_NO_PREFIX))
                 {
                     query += "WHERE 1 = 1 AND ([BillNo] IS NOT NULL AND DATALENGTH([BillNo]) > 0) ";
                 }

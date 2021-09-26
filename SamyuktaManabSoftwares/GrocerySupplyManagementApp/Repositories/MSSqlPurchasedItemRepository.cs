@@ -452,7 +452,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"SELECT " + 
                 "TOP 1 [BillNo] " + 
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE [BillNo] NOT LIKE '" + Constants.BONUS + "%' " +
+                "WHERE [BillNo] LIKE '" + Constants.BILL_NO_PREFIX + "%' " +
                 "ORDER BY Id DESC";
             
             try
@@ -484,7 +484,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"SELECT " +
                 "TOP 1 [BillNo] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE [BillNo] LIKE '" + Constants.BONUS + "%' " +
+                "WHERE [BillNo] LIKE '" + Constants.BONUS_PREFIX + "%' " +
                 "ORDER BY Id DESC";
 
             try

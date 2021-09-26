@@ -88,7 +88,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 18);
             this.label7.TabIndex = 14;
-            this.label7.Text = "Catogery";
+            this.label7.Text = "Category";
             // 
             // ComboCategory
             // 

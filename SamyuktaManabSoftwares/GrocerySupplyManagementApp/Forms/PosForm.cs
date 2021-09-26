@@ -782,6 +782,13 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
             }
+            else if (action == Action.SaveReceipt)
+            {
+                BtnTransaction.Enabled = true;
+                BtnAddExpense.Enabled = true;
+                BtnBankTransfer.Enabled = true;
+                BtnAddSale.Enabled = true;
+            }
             else if (action == Action.SearchMember)
             {
                 BtnSearchMember.Enabled = true;

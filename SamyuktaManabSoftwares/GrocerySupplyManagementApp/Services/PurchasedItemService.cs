@@ -126,12 +126,12 @@ namespace GrocerySupplyManagementApp.Services
                 {
                     var fiscalYear = _fiscalYearRepository.GetFiscalYear();
                     var formats = fiscalYear.StartingBillNo.Split('-');
-                    bonusNo = Constants.BONUS + "-" + formats[1] + "-" + formats[2];
+                    bonusNo =  Constants.BONUS_PREFIX + "-" + formats[1] + "-" + formats[2];
                 }
                 else
                 {
                     var formats = lastBonusNo.Split('-');
-                    var prefix = Constants.BONUS;
+                    var prefix = Constants.BONUS_PREFIX;
                     var year = formats[1];
                     var value = formats[2];
                     var trimmedValue = (Convert.ToInt64(value.TrimStart(new char[] { '0' })) + 1).ToString();

@@ -179,6 +179,11 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var endOfDay = MaskDtEOD.Text;
 
+                if (!string.IsNullOrWhiteSpace(endOfDay.Replace("-", string.Empty).Trim()))
+                {
+                    endOfDay = endOfDay.Trim();
+                }
+
                 var totalAsset = _userTransactionService
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET });
                 var totalDeliveryCharge = _userTransactionService

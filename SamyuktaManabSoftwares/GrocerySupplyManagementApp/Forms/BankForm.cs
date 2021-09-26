@@ -239,6 +239,18 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Combo Box Event
+        private void ComboDepositType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboActionType.Focus();
+        }
+
+        private void ComboActionType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RichAmount.Focus();
+        }
+        #endregion
+
         #region Data Grid Event
         private void DataGridBankDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {

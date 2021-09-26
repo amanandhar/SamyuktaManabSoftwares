@@ -25,13 +25,18 @@ namespace GrocerySupplyManagementApp.Repositories
                 "INTO #Temp " +
                 "FROM " +
                 "( " +
-                "SELECT pi.[EndOfDay], '" + Constants.PURCHASE + "' AS [Description], " +
+                "SELECT pi.[EndOfDay], " + 
+                "'" + Constants.PURCHASE + "' AS [Description], " +
+                "ut.[ActionType] as [Type], " +
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "i.[Unit] AS [Unit], " +
                 "pi.[Quantity] AS [PurchaseQuantity], " +
                 "0 AS [SalesQuantity], " +
                 "pi.[Price] AS [PurchasePrice], 0.0 AS [SalesPrice], " +
                 "pi.[AddedDate] FROM [PurchasedItem] pi " +
+                "INNER JOIN " + 
+                "[UserTransaction] ut " +
+                "ON pi.[BillNo] = ut.[BillNo] " +
                 "INNER JOIN " +
                 "[Item] i " +
                 "ON pi.[ItemId] = i.[Id] " +
@@ -48,13 +53,18 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             query += "UNION " +
-                "SELECT si.[EndOfDay], '" + Constants.SALES + "' AS [Description], " +
+                "SELECT si.[EndOfDay], " + 
+                "'" + Constants.SALES + "' AS [Description], " +
+                "ut.[ActionType] as [Type], " +
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "si.[Unit] AS [Unit], " +
                 "0 AS [PurchaseQuantity], " +
                 "(si.[Volume] * si.[Quantity]) AS [SalesQuantity], " +
                 "0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice], " +
                 "si.[AddedDate] FROM [SoldItem] si " +
+                "INNER JOIN " +
+                "[UserTransaction] ut " +
+                "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
                 "INNER JOIN " +
                 "[Item] i " +
                 "ON si.[ItemId] = i.[Id] " +
@@ -122,6 +132,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Description = reader["Description"].ToString(),
+                                    Type = reader["Type"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
                                     ItemUnit = reader["Unit"].ToString(),

@@ -197,21 +197,17 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (finalItemCode.Length == 1)
                     {
-                        finalItemCode = "00000" + finalItemCode;
+                        finalItemCode = "0000" + finalItemCode;
                     }
                     else if (finalItemCode.Length == 2)
                     {
-                        finalItemCode = "0000" + finalItemCode;
+                        finalItemCode = "000" + finalItemCode;
                     }
                     else if (finalItemCode.Length == 3)
                     {
-                        finalItemCode = "000" + finalItemCode;
-                    }
-                    else if (finalItemCode.Length == 4)
-                    {
                         finalItemCode = "00" + finalItemCode;
                     }
-                    else if (finalItemCode.Length == 5)
+                    else if (finalItemCode.Length == 4)
                     {
                         finalItemCode = "0" + finalItemCode;
                     }

@@ -537,6 +537,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(192, 26);
             this.ComboBank.TabIndex = 6;
+            this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
             // 
             // label6
             // 

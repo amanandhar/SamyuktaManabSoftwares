@@ -72,50 +72,54 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["Description"].Width = 105;
             DataGridStockList.Columns["Description"].DisplayIndex = 1;
 
+            DataGridStockList.Columns["Type"].HeaderText = "Type";
+            DataGridStockList.Columns["Type"].Width = 60;
+            DataGridStockList.Columns["Type"].DisplayIndex = 2;
+
             DataGridStockList.Columns["ItemCode"].HeaderText = "ItemCode";
             DataGridStockList.Columns["ItemCode"].Width = 85;
-            DataGridStockList.Columns["ItemCode"].DisplayIndex = 2;
+            DataGridStockList.Columns["ItemCode"].DisplayIndex = 3;
 
             DataGridStockList.Columns["ItemName"].HeaderText = "ItemName";
-            DataGridStockList.Columns["ItemName"].Width = 180;
-            DataGridStockList.Columns["ItemName"].DisplayIndex = 3;
+            DataGridStockList.Columns["ItemName"].Width = 120;
+            DataGridStockList.Columns["ItemName"].DisplayIndex = 4;
 
             DataGridStockList.Columns["PurchaseQuantity"].HeaderText = "Purchase";
             DataGridStockList.Columns["PurchaseQuantity"].Width = 75;
-            DataGridStockList.Columns["PurchaseQuantity"].DisplayIndex = 4;
+            DataGridStockList.Columns["PurchaseQuantity"].DisplayIndex = 5;
             DataGridStockList.Columns["PurchaseQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridStockList.Columns["SalesQuantity"].HeaderText = "Sales";
             DataGridStockList.Columns["SalesQuantity"].Width = 60;
-            DataGridStockList.Columns["SalesQuantity"].DisplayIndex = 5;
+            DataGridStockList.Columns["SalesQuantity"].DisplayIndex = 6;
             DataGridStockList.Columns["SalesQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridStockList.Columns["Unit"].HeaderText = "Unit";
             DataGridStockList.Columns["Unit"].Width = 60;
-            DataGridStockList.Columns["Unit"].DisplayIndex = 6;
+            DataGridStockList.Columns["Unit"].DisplayIndex = 7;
             DataGridStockList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            DataGridStockList.Columns["PurchasePrice"].HeaderText = "PurchasPrice";
+            DataGridStockList.Columns["PurchasePrice"].HeaderText = "PurchasePrice";
             DataGridStockList.Columns["PurchasePrice"].Width = 90;
-            DataGridStockList.Columns["PurchasePrice"].DisplayIndex = 7;
+            DataGridStockList.Columns["PurchasePrice"].DisplayIndex = 8;
             DataGridStockList.Columns["PurchasePrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["PurchasePrice"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["SalesPrice"].HeaderText = "SalesPrice";
             DataGridStockList.Columns["SalesPrice"].Width = 80;
-            DataGridStockList.Columns["SalesPrice"].DisplayIndex = 8;
+            DataGridStockList.Columns["SalesPrice"].DisplayIndex = 9;
             DataGridStockList.Columns["SalesPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["SalesPrice"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["StockValue"].HeaderText = "Stock Value";
             DataGridStockList.Columns["StockValue"].Width = 115;
-            DataGridStockList.Columns["StockValue"].DisplayIndex = 9;
+            DataGridStockList.Columns["StockValue"].DisplayIndex = 10;
             DataGridStockList.Columns["StockValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["StockValue"].DefaultCellStyle.Format = "0.00";
 
             DataGridStockList.Columns["PerUnitValue"].HeaderText = "PerUnitValue";
             DataGridStockList.Columns["PerUnitValue"].Width = 90;
-            DataGridStockList.Columns["PerUnitValue"].DisplayIndex = 10;
+            DataGridStockList.Columns["PerUnitValue"].DisplayIndex = 11;
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Format = "0.00";
 

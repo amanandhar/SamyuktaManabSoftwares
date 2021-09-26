@@ -62,6 +62,7 @@ namespace GrocerySupplyManagementApp.Shared
                 {
                     EndOfDay = stock.EndOfDay,
                     Description = stock.Description,
+                    Type = stock.Type,
                     ItemCode = stock.ItemCode,
                     ItemName = stock.ItemName,
                     PurchaseQuantity = stock.PurchaseQuantity,

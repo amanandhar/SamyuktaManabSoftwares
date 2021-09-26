@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                     var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
 
-                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith("BN") || billInvoiceNo.StartsWith(Constants.BONUS)))
+                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
                     {
                         var posTransaction = _userTransactionService.GetLastUserTransaction(billInvoiceNo);
                         if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
@@ -82,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                         }
                     }
-                    else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith("IN"))
+                    else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
                     {
                         var posTransaction = _userTransactionService.GetLastUserTransaction(billInvoiceNo);
                         if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
