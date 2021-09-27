@@ -1733,7 +1733,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ut.[Id], ut.[EndOfDay], ut.[BillNo] AS [Description], " +
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "pi.[Quantity] AS [ItemQuantity], pi.[Price] AS [ItemPrice], " +
-                "ut.[DueAmount] AS [SalesProfit], CAST((pi.[Price] * ut.[DueAmount]) AS DECIMAL(18,2)) AS [Amount] " +
+                "ut.[DueAmount] AS [SalesProfit], (CAST((pi.[Quantity] * pi.[Price]) AS DECIMAL(18,2)) + ut.[DueAmount]) AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "INNER JOIN " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "ON ut.[BillNo] = pi.[BillNo] " +
@@ -1775,7 +1775,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Description = reader["Description"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
-                                    ItemQuantity = Convert.ToInt32(reader["ItemQuantity"].ToString()),
+                                    ItemQuantity = Convert.ToDecimal(reader["ItemQuantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["ItemPrice"].ToString()),
                                     SalesProfit = Convert.ToDecimal(reader["SalesProfit"].ToString()),
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString())

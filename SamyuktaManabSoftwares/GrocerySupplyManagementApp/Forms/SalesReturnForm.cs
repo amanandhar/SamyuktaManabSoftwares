@@ -21,7 +21,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly string _endOfDay;
         private readonly List<SoldItem> _soldItems;
-        private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
+        private readonly List<SalesReturnTransactionView> _salesReturnTransactionViewList = new List<SalesReturnTransactionView>();
 
         #region Enum Action
         private enum Action
@@ -73,8 +73,33 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            EnableFields();
-            EnableFields(Action.AddReturn);
+            try
+            {
+                var salesReturnTransactionView = new SalesReturnTransactionView
+                {
+                    Id = _salesReturnTransactionViewList.Count + 1,
+                    EndOfDay = _endOfDay,
+                    Description = ComboInvoiceNo.Text,
+                    ItemCode = ComboItemCode.Text,
+                    ItemName = TxtItemName.Text,
+                    ItemQuantity = Convert.ToDecimal(TxtQuantity.Text),
+                    ItemPrice = Convert.ToDecimal(TxtItemPrice.Text),
+                    SalesProfit = Convert.ToDecimal(TxtSalesProfit.Text),
+                    Amount = Math.Round(Convert.ToDecimal(TxtQuantity.Text) * Convert.ToDecimal(TxtItemPrice.Text), 2) + Convert.ToDecimal(TxtSalesProfit.Text)
+                };
+
+                _salesReturnTransactionViewList.Add(salesReturnTransactionView);
+                TxtTotalAmount.Text = _salesReturnTransactionViewList.Sum(x => (x.Amount)).ToString();
+                ClearAllFields();
+                LoadSalesReturnTransactions(_salesReturnTransactionViewList);
+                EnableFields();
+                EnableFields(Action.AddReturn);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -93,31 +118,30 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         Action = Constants.EXPENSE,
                         ActionType = Constants.CASH,
-                        Bank = null,
                         IncomeExpense = Constants.SALES_RETURN,
-                        SubTotal = 0.0m,
-                        DiscountPercent = 0.0m,
-                        Discount = 0.0m,
-                        VatPercent = 0.0m,
-                        Vat = 0.0m,
-                        DeliveryChargePercent = 0.0m,
-                        DeliveryCharge = 0.0m,
-                        DueAmount = Convert.ToDecimal(TxtItemPrice.Text),
-                        ReceivedAmount = 0.0m,
+                        SubTotal = 0.00m,
+                        DiscountPercent = 0.00m,
+                        Discount = 0.00m,
+                        VatPercent = 0.00m,
+                        Vat = 0.00m,
+                        DeliveryChargePercent = 0.00m,
+                        DeliveryCharge = 0.00m,
+                        DueAmount = _salesReturnTransactionViewList.Sum(x => x.SalesProfit),
+                        ReceivedAmount = 0.00m,
                         AddedDate = date,
                         UpdatedDate = date
                     };
                     _userTransactionService.AddUserTransaction(userTransactionExpense);
 
                     // Add Purchase
-                    List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
+                    List<PurchasedItem> purchasedItems = _salesReturnTransactionViewList.Select(salesReturn => new PurchasedItem
                     {
                         EndOfDay = _endOfDay,
                         SupplierId = purchasedItem.SupplierId,
-                        BillNo = item.BillNo,
-                        ItemId = _itemService.GetItem(item.Code).Id,
-                        Quantity = item.Quantity,
-                        Price = item.Price,
+                        BillNo = salesReturn.Description,
+                        ItemId = Convert.ToInt64(selectedItem.Id),
+                        Quantity = salesReturn.ItemQuantity,
+                        Price = salesReturn.ItemPrice,
                         AddedDate = date,
                         UpdatedDate = date
                     }).ToList();
@@ -135,15 +159,15 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = Constants.PURCHASE,
                         ActionType = Constants.CASH,
                         IncomeExpense = Constants.SALES_RETURN,
-                        SubTotal = 0.0m,
-                        DiscountPercent = 0.0m,
-                        Discount = 0.0m,
-                        VatPercent = 0.0m,
-                        Vat = 0.0m,
-                        DeliveryChargePercent = 0.0m,
-                        DeliveryCharge = 0.0m,
-                        DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
-                        ReceivedAmount = 0.00M,
+                        SubTotal = 0.00m,
+                        DiscountPercent = 0.00m,
+                        Discount = 0.00m,
+                        VatPercent = 0.00m,
+                        Vat = 0.00m,
+                        DeliveryChargePercent = 0.00m,
+                        DeliveryCharge = 0.00m,
+                        DueAmount = _salesReturnTransactionViewList.Sum(x => x.ItemPrice),
+                        ReceivedAmount = 0.00m,
                         AddedDate = date,
                         UpdatedDate = date
                     };
@@ -154,11 +178,11 @@ namespace GrocerySupplyManagementApp.Forms
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
-                        var salesReturnTransactionViewList = GetSalesReturnTransactions();
-                        TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString();
-                        LoadSalesReturnTransactions(salesReturnTransactionViewList);
                         EnableFields();
                         EnableFields(Action.SaveReturn);
+                        ComboInvoiceNo.Text = string.Empty;
+                        TxtTotalAmount.Clear();
+                        DateGridSalesReturnList.DataSource = null;
                     }
                 }
             }
@@ -277,12 +301,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if(action == Action.AddReturn)
             {
-                ComboInvoiceNo.Enabled = true;
-                TxtSalesProfit.Enabled = true;
-                ComboItemCode.Enabled = true;
-                TxtItemPrice.Enabled = true;
-                TxtQuantity.Enabled = true;
-
                 BtnSave.Enabled = true;
             }
             else if(action == Action.DeleteReturn)
@@ -291,6 +309,12 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if(action == Action.Load)
             {
+                ComboInvoiceNo.Enabled = true;
+                TxtSalesProfit.Enabled = true;
+                ComboItemCode.Enabled = true;
+                TxtItemPrice.Enabled = true;
+                TxtQuantity.Enabled = true;
+
                 BtnAdd.Enabled = true;
             }
             else if(action == Action.SaveReturn)
@@ -324,9 +348,9 @@ namespace GrocerySupplyManagementApp.Forms
             MaskDtEODFrom.Clear();
             MaskDtEODTo.Clear();
 
-            ComboInvoiceNo.Text = string.Empty;
+            //ComboInvoiceNo.Text = string.Empty;
             TxtSalesProfit.Clear();
-            TxtTotalAmount.Clear();
+            //TxtTotalAmount.Clear();
             ComboItemCode.Text = string.Empty;
             TxtItemName.Clear();
             TxtItemPrice.Clear();
