@@ -64,7 +64,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            //LoadSalesReturnTransactions();
+            var salesReturnTransactionViewList = GetSalesReturnTransactions();
+            TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString("#0.00");
+            LoadSalesReturnTransactions(salesReturnTransactionViewList);
             EnableFields();
             EnableFields(Action.ShowReturn);
         }
@@ -79,79 +81,85 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-
-                // Start Expense
-                var date = DateTime.Now;
-                var userTransactionExpense = new UserTransaction
+                var selectedItem = (ComboBoxItem)ComboItemCode.SelectedItem;
+                var itemCode = selectedItem?.Id;
+                var purchasedItem = _purchasedItemService.GetPurchasedItemByItemId(Convert.ToInt64(itemCode));
+                if(purchasedItem != null && !string.IsNullOrWhiteSpace(purchasedItem?.SupplierId))
                 {
-                    EndOfDay = _endOfDay,
-                    Action = Constants.EXPENSE,
-                    ActionType = Constants.CASH,
-                    Bank = null,
-                    IncomeExpense = Constants.SALES_RETURN,
-                    SubTotal = 0.0m,
-                    DiscountPercent = 0.0m,
-                    Discount = 0.0m,
-                    VatPercent = 0.0m,
-                    Vat = 0.0m,
-                    DeliveryChargePercent = 0.0m,
-                    DeliveryCharge = 0.0m,
-                    DueAmount = Convert.ToDecimal(TxtItemPrice.Text),
-                    ReceivedAmount = 0.0m,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-                _userTransactionService.AddUserTransaction(userTransactionExpense);
+                    // Add Expense
+                    var date = DateTime.Now;
+                    var userTransactionExpense = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        Action = Constants.EXPENSE,
+                        ActionType = Constants.CASH,
+                        Bank = null,
+                        IncomeExpense = Constants.SALES_RETURN,
+                        SubTotal = 0.0m,
+                        DiscountPercent = 0.0m,
+                        Discount = 0.0m,
+                        VatPercent = 0.0m,
+                        Vat = 0.0m,
+                        DeliveryChargePercent = 0.0m,
+                        DeliveryCharge = 0.0m,
+                        DueAmount = Convert.ToDecimal(TxtItemPrice.Text),
+                        ReceivedAmount = 0.0m,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+                    _userTransactionService.AddUserTransaction(userTransactionExpense);
 
-                // End of the expense
+                    // Add Purchase
+                    List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
+                    {
+                        EndOfDay = _endOfDay,
+                        SupplierId = purchasedItem.SupplierId,
+                        BillNo = item.BillNo,
+                        ItemId = _itemService.GetItem(item.Code).Id,
+                        Quantity = item.Quantity,
+                        Price = item.Price,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    }).ToList();
 
-                List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
-                {
-                    EndOfDay = _endOfDay,
-                    SupplierId = null,
-                    BillNo = item.BillNo,
-                    ItemId = _itemService.GetItem(item.Code).Id,
-                    Quantity = item.Quantity,
-                    Price = item.Price,
-                    AddedDate = date,
-                    UpdatedDate = date
-                }).ToList();
+                    purchasedItems.ForEach(x =>
+                    {
+                        _purchasedItemService.AddPurchasedItem(x);
+                    });
 
-                purchasedItems.ForEach(purchasedItem =>
-                {
-                    _purchasedItemService.AddPurchasedItem(purchasedItem);
-                });
+                    var userTransactionPurchase = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        BillNo = ComboInvoiceNo.Text,
+                        SupplierId = purchasedItem.SupplierId,
+                        Action = Constants.PURCHASE,
+                        ActionType = Constants.CASH,
+                        IncomeExpense = Constants.SALES_RETURN,
+                        SubTotal = 0.0m,
+                        DiscountPercent = 0.0m,
+                        Discount = 0.0m,
+                        VatPercent = 0.0m,
+                        Vat = 0.0m,
+                        DeliveryChargePercent = 0.0m,
+                        DeliveryCharge = 0.0m,
+                        DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
+                        ReceivedAmount = 0.00M,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
 
-                var userTransactionPurchase = new UserTransaction
-                {
-                    EndOfDay = _endOfDay,
-                    BillNo = ComboInvoiceNo.Text,
-                    SupplierId = null,
-                    Action = Constants.PURCHASE,
-                    ActionType = Constants.CASH,
-                    IncomeExpense = Constants.SALES_RETURN,
-                    SubTotal = 0.0m,
-                    DiscountPercent = 0.0m,
-                    Discount = 0.0m,
-                    VatPercent = 0.0m,
-                    Vat = 0.0m,
-                    DeliveryChargePercent = 0.0m,
-                    DeliveryCharge = 0.0m,
-                    DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
-                    ReceivedAmount = 0.00M,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
+                    _userTransactionService.AddUserTransaction(userTransactionPurchase);
 
-                _userTransactionService.AddUserTransaction(userTransactionPurchase);
-
-                DialogResult result = MessageBox.Show("Item/s have been returned successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    //LoadSalesReturnTransactions();
-                    EnableFields();
-                    EnableFields(Action.SaveReturn);
+                    DialogResult result = MessageBox.Show("Item/s have been returned successfully.", "Message", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        var salesReturnTransactionViewList = GetSalesReturnTransactions();
+                        TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString();
+                        LoadSalesReturnTransactions(salesReturnTransactionViewList);
+                        EnableFields();
+                        EnableFields(Action.SaveReturn);
+                    }
                 }
             }
             catch (Exception ex)
@@ -162,8 +170,30 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            EnableFields();
-            EnableFields(Action.DeleteReturn);
+            try
+            {
+                if (DateGridSalesReturnList.SelectedRows.Count == 1)
+                {
+                    var selectedRow = DateGridSalesReturnList.SelectedRows[0];
+                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+
+                    //_userTransactionService.DeleteUserTransaction();
+                    //_purchasedItemService.DeletePurchasedItem();
+                    //_userTransactionService.DeleteUserTransaction();
+                    //var totalAmount = _userTransactionService.GetTotalBalance();
+                    //TxtTotalAmount.Text = totalBalance.ToString();
+
+                    var salesReturnTransactionViewList = GetSalesReturnTransactions();
+                    TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString();
+                    LoadSalesReturnTransactions(salesReturnTransactionViewList);
+                    EnableFields();
+                    EnableFields(Action.DeleteReturn);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
@@ -173,31 +203,40 @@ namespace GrocerySupplyManagementApp.Forms
             DateGridSalesReturnList.Columns["Id"].Visible = false;
 
             DateGridSalesReturnList.Columns["EndOfDay"].HeaderText = "Date";
-            DateGridSalesReturnList.Columns["EndOfDay"].Width = 100;
+            DateGridSalesReturnList.Columns["EndOfDay"].Width = 120;
             DateGridSalesReturnList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DateGridSalesReturnList.Columns["Description"].HeaderText = "Description";
             DateGridSalesReturnList.Columns["Description"].Width = 120;
             DateGridSalesReturnList.Columns["Description"].DisplayIndex = 1;
 
-            DateGridSalesReturnList.Columns["Narration"].HeaderText = "Narration";
-            DateGridSalesReturnList.Columns["Narration"].Width = 270;
-            DateGridSalesReturnList.Columns["Narration"].DisplayIndex = 2;
+            DateGridSalesReturnList.Columns["ItemCode"].HeaderText = "Code";
+            DateGridSalesReturnList.Columns["ItemCode"].Width = 120;
+            DateGridSalesReturnList.Columns["ItemCode"].DisplayIndex = 2;
 
-            DateGridSalesReturnList.Columns["Debit"].HeaderText = "Debit";
-            DateGridSalesReturnList.Columns["Debit"].Width = 100;
-            DateGridSalesReturnList.Columns["Debit"].DisplayIndex = 3;
-            DateGridSalesReturnList.Columns["Debit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DateGridSalesReturnList.Columns["ItemName"].HeaderText = "Name";
+            DateGridSalesReturnList.Columns["ItemName"].Width = 150;
+            DateGridSalesReturnList.Columns["ItemName"].DisplayIndex = 3;
 
-            DateGridSalesReturnList.Columns["Credit"].HeaderText = "Credit";
-            DateGridSalesReturnList.Columns["Credit"].Width = 100;
-            DateGridSalesReturnList.Columns["Credit"].DisplayIndex = 4;
-            DateGridSalesReturnList.Columns["Credit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DateGridSalesReturnList.Columns["ItemQuantity"].HeaderText = "Quantity";
+            DateGridSalesReturnList.Columns["ItemQuantity"].Width = 120;
+            DateGridSalesReturnList.Columns["ItemQuantity"].DisplayIndex = 4;
+            DateGridSalesReturnList.Columns["ItemQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DateGridSalesReturnList.Columns["Balance"].HeaderText = "Balance";
-            DateGridSalesReturnList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DateGridSalesReturnList.Columns["Balance"].DisplayIndex = 5;
-            DateGridSalesReturnList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DateGridSalesReturnList.Columns["ItemPrice"].HeaderText = "Price";
+            DateGridSalesReturnList.Columns["ItemPrice"].Width = 120;
+            DateGridSalesReturnList.Columns["ItemPrice"].DisplayIndex = 5;
+            DateGridSalesReturnList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DateGridSalesReturnList.Columns["SalesProfit"].HeaderText = "Profit";
+            DateGridSalesReturnList.Columns["SalesProfit"].Width = 120;
+            DateGridSalesReturnList.Columns["SalesProfit"].DisplayIndex = 6;
+            DateGridSalesReturnList.Columns["SalesProfit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DateGridSalesReturnList.Columns["Amount"].HeaderText = "Amount";
+            DateGridSalesReturnList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DateGridSalesReturnList.Columns["Amount"].DisplayIndex = 7;
+            DateGridSalesReturnList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DateGridSalesReturnList.Rows)
             {
@@ -210,11 +249,22 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Helper Methods
 
-        //private List<SalesReturnTransactionView> GetSalesReturnTransactions()
-        //{
-        //    var salesReturnTransactionViewList = _userTransactionService.GetSalesReturnTransactionList().ToList();
-        //    return salesReturnTransactionViewList;
-        //}
+        private List<SalesReturnTransactionView> GetSalesReturnTransactions()
+        {
+            var salesReturnTransactionFilter = new SalesReturnTransactionFilter();
+            if (!string.IsNullOrWhiteSpace(MaskDtEODFrom.Text.Replace("-", string.Empty).Trim()))
+            {
+                salesReturnTransactionFilter.DateFrom = MaskDtEODFrom.Text.Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(MaskDtEODTo.Text.Replace("-", string.Empty).Trim()))
+            {
+                salesReturnTransactionFilter.DateTo = MaskDtEODTo.Text.Trim();
+            }
+
+            var salesReturnTransactionViewList = _userTransactionService.GetSalesReturnTransactions(salesReturnTransactionFilter).ToList();
+            return salesReturnTransactionViewList;
+        }
 
         private void LoadSalesReturnTransactions(List<SalesReturnTransactionView> salesReturnTransactionViewList)
         {
@@ -229,9 +279,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ComboInvoiceNo.Enabled = true;
                 TxtSalesProfit.Enabled = true;
-                TxtTotalAmount.Enabled = true;
                 ComboItemCode.Enabled = true;
-                TxtItemName.Enabled = true;
                 TxtItemPrice.Enabled = true;
                 TxtQuantity.Enabled = true;
 
@@ -304,21 +352,32 @@ namespace GrocerySupplyManagementApp.Forms
             var itemIds = _soldItems.Where(x => x.InvoiceNo == invoiceNo).Select(x => x.ItemId);
             var items = _itemService.GetItems();
 
+            ComboItemCode.ValueMember = "Id";
+            ComboItemCode.DisplayMember = "Value";
+            ComboItemCode.Items.Clear();
             itemIds.OrderBy(x => x).ToList().ForEach(x =>
             {
-                ComboItemCode.Items.Add(new ComboBoxItem { Id = x.ToString(), Value = items.Where(y => y.Id == x).Select(y => y.Code).FirstOrDefault() });
+                var item = items.Where(y => y.Id == x).FirstOrDefault();
+                ComboItemCode.Items.Add(new ComboBoxItem { Id = x.ToString(), Value = item.Code });
             });
+
+            ComboItemCode.Focus();
         }
 
         private void ComboItemCode_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBoxItem selectedItemCode = (ComboBoxItem)ComboItemCode.SelectedItem;
 
-            var item = _itemService.GetItem(selectedItemCode?.Id);
-            if(item != null)
+            if(!string.IsNullOrWhiteSpace(selectedItemCode?.Value))
             {
-                TxtItemName.Text = item.Name;
+                var item = _itemService.GetItem(selectedItemCode.Value); ;
+                if (item != null)
+                {
+                    TxtItemName.Text = item.Name;
+                }
             }
+
+            TxtSalesProfit.Focus();
         }
     }
 }

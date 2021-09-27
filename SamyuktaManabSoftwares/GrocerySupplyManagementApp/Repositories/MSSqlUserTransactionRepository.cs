@@ -1726,6 +1726,75 @@ namespace GrocerySupplyManagementApp.Repositories
             return shareMemberTransactionViewList;
         }
 
+        public IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter)
+        {
+            var salesReturnTransactionViewList = new List<SalesReturnTransactionView>();
+            var query = @"SELECT " +
+                "ut.[Id], ut.[EndOfDay], ut.[BillNo] AS [Description], " +
+                "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
+                "pi.[Quantity] AS [ItemQuantity], pi.[Price] AS [ItemPrice], " +
+                "ut.[DueAmount] AS [SalesProfit], CAST((pi.[Price] * ut.[DueAmount]) AS DECIMAL(18,2)) AS [Amount] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "INNER JOIN " + Constants.TABLE_PURCHASED_ITEM + " pi " +
+                "ON ut.[BillNo] = pi.[BillNo] " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON pi.[ItemId] = i.[Id] " +
+                "WHERE 1 = 1 " +
+                "AND ut.[Action] = '" + Constants.PURCHASE + "' " +
+                "AND ut.[ActionType] = '" + Constants.CASH + "' " +
+                "AND ut.[IncomeExpense] = '" + Constants.SALES_RETURN + "' ";
+
+            if (!string.IsNullOrWhiteSpace(salesReturnTransactionFilter?.DateFrom))
+            {
+                query += "AND ut.[EndOfDay] >= @DateFrom ";
+            }
+
+            if(!string.IsNullOrWhiteSpace(salesReturnTransactionFilter?.DateTo))
+            {
+                query += "AND ut.[EndOfDay] <= @DateTo ";
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)salesReturnTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)salesReturnTransactionFilter?.DateTo) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var salesReturnTransactionView = new SalesReturnTransactionView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    ItemCode = reader["ItemCode"].ToString(),
+                                    ItemName = reader["ItemName"].ToString(),
+                                    ItemQuantity = Convert.ToInt32(reader["ItemQuantity"].ToString()),
+                                    ItemPrice = Convert.ToDecimal(reader["ItemPrice"].ToString()),
+                                    SalesProfit = Convert.ToDecimal(reader["SalesProfit"].ToString()),
+                                    Amount = Convert.ToDecimal(reader["Amount"].ToString())
+                                };
+
+                                salesReturnTransactionViewList.Add(salesReturnTransactionView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return salesReturnTransactionViewList;
+        }
+
         public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +

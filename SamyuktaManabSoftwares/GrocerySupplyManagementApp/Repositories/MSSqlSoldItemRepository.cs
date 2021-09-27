@@ -23,7 +23,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [MemberId], [InvoiceNo], " +
-                "[ItemId], [ItemSubCode], [Profit], [Unit], [Quantity], [Price], " +
+                "[ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
@@ -47,6 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Unit = reader["Unit"].ToString(),
+                                    Volume = Convert.ToInt64(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),

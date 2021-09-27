@@ -33,6 +33,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         IEnumerable<IncomeDetailView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter);
         IEnumerable<IncomeDetailView> GetPurchaseBonus(IncomeTransactionFilter incomeTransactionFilter);
         IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId);
+        IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);
 
         UserTransaction AddUserTransaction(UserTransaction userTransaction);
 
