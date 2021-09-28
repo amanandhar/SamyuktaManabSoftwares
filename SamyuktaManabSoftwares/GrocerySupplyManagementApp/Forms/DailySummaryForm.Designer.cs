@@ -74,7 +74,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.BtnShow);
             this.groupBox1.Controls.Add(this.MaskEndOfDay);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(18, 45);
+            this.groupBox1.Location = new System.Drawing.Point(18, 49);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1063, 67);
             this.groupBox1.TabIndex = 0;
@@ -251,7 +251,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(657, 163);
+            this.groupBox3.Location = new System.Drawing.Point(657, 170);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(424, 375);
             this.groupBox3.TabIndex = 2;
@@ -401,7 +401,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridSummaryList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridSummaryList.Location = new System.Drawing.Point(16, 171);
+            this.DataGridSummaryList.Location = new System.Drawing.Point(16, 178);
             this.DataGridSummaryList.Name = "DataGridSummaryList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -413,6 +413,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSummaryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridSummaryList.Size = new System.Drawing.Size(625, 367);
             this.DataGridSummaryList.TabIndex = 20;
+            this.DataGridSummaryList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSummaryList_CellContentClick);
             this.DataGridSummaryList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSummaryList_DataBindingComplete);
             // 
             // textBox2
@@ -441,7 +442,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox3.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox3.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox3.Location = new System.Drawing.Point(-1, 122);
+            this.textBox3.Location = new System.Drawing.Point(-1, 129);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(1088, 26);
             this.textBox3.TabIndex = 23;
@@ -453,7 +454,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1088, 602);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBox2);

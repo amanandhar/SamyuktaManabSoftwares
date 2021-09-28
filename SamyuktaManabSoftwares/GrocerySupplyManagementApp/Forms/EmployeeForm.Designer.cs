@@ -386,7 +386,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
-            this.groupBox1.Location = new System.Drawing.Point(478, 51);
+            this.groupBox1.Location = new System.Drawing.Point(480, 51);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(450, 219);
             this.groupBox1.TabIndex = 31;
@@ -539,7 +539,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
             this.groupBox2.Location = new System.Drawing.Point(18, 51);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(450, 460);
+            this.groupBox2.Size = new System.Drawing.Size(450, 465);
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Employee Details";
@@ -688,7 +688,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnEdit);
             this.groupBox4.Controls.Add(this.BtnSave);
             this.groupBox4.Controls.Add(this.BtnAdd);
-            this.groupBox4.Location = new System.Drawing.Point(943, 268);
+            this.groupBox4.Location = new System.Drawing.Point(943, 276);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(145, 240);
             this.groupBox4.TabIndex = 34;
@@ -891,9 +891,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox5.Controls.Add(this.label21);
             this.groupBox5.Controls.Add(this.ComboPostStatus);
             this.groupBox5.ForeColor = System.Drawing.Color.Red;
-            this.groupBox5.Location = new System.Drawing.Point(477, 276);
+            this.groupBox5.Location = new System.Drawing.Point(479, 276);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(451, 235);
+            this.groupBox5.Size = new System.Drawing.Size(451, 240);
             this.groupBox5.TabIndex = 47;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Post && Salary Details";

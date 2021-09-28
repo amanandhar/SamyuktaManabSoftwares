@@ -110,9 +110,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox1.Location = new System.Drawing.Point(236, 53);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.Red;
+            this.groupBox1.Location = new System.Drawing.Point(236, 58);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(640, 110);
             this.groupBox1.TabIndex = 4;
@@ -124,7 +124,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtConfirmPassword.Enabled = false;
             this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 66);
             this.TxtConfirmPassword.Name = "TxtConfirmPassword";
-            this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 26);
+            this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 22);
             this.TxtConfirmPassword.TabIndex = 39;
             this.TxtConfirmPassword.UseSystemPasswordChar = true;
             // 
@@ -133,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtPassword.Enabled = false;
             this.TxtPassword.Location = new System.Drawing.Point(112, 66);
             this.TxtPassword.Name = "TxtPassword";
-            this.TxtPassword.Size = new System.Drawing.Size(170, 26);
+            this.TxtPassword.Size = new System.Drawing.Size(170, 22);
             this.TxtPassword.TabIndex = 38;
             this.TxtPassword.UseSystemPasswordChar = true;
             // 
@@ -194,9 +194,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.ChkPOS);
             this.groupBox2.Controls.Add(this.ChkSetting);
             this.groupBox2.Controls.Add(this.ChkReport);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox2.Location = new System.Drawing.Point(236, 168);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.Color.Red;
+            this.groupBox2.Location = new System.Drawing.Point(236, 178);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(640, 300);
             this.groupBox2.TabIndex = 5;
@@ -209,7 +209,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkReadOnly.Enabled = false;
             this.ChkReadOnly.Location = new System.Drawing.Point(226, 38);
             this.ChkReadOnly.Name = "ChkReadOnly";
-            this.ChkReadOnly.Size = new System.Drawing.Size(102, 24);
+            this.ChkReadOnly.Size = new System.Drawing.Size(91, 20);
             this.ChkReadOnly.TabIndex = 37;
             this.ChkReadOnly.Text = "Read Only";
             this.ChkReadOnly.UseVisualStyleBackColor = true;
@@ -222,7 +222,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkEOD.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkEOD.Location = new System.Drawing.Point(354, 261);
             this.ChkEOD.Name = "ChkEOD";
-            this.ChkEOD.Size = new System.Drawing.Size(208, 24);
+            this.ChkEOD.Size = new System.Drawing.Size(177, 20);
             this.ChkEOD.TabIndex = 36;
             this.ChkEOD.Text = "End Of Day Management";
             this.ChkEOD.UseVisualStyleBackColor = true;
@@ -235,7 +235,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkBank.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkBank.Location = new System.Drawing.Point(354, 80);
             this.ChkBank.Name = "ChkBank";
-            this.ChkBank.Size = new System.Drawing.Size(167, 24);
+            this.ChkBank.Size = new System.Drawing.Size(143, 20);
             this.ChkBank.TabIndex = 35;
             this.ChkBank.Text = "Bank  Management";
             this.ChkBank.UseVisualStyleBackColor = true;
@@ -248,7 +248,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkEmployee.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkEmployee.Location = new System.Drawing.Point(354, 214);
             this.ChkEmployee.Name = "ChkEmployee";
-            this.ChkEmployee.Size = new System.Drawing.Size(196, 24);
+            this.ChkEmployee.Size = new System.Drawing.Size(171, 20);
             this.ChkEmployee.TabIndex = 34;
             this.ChkEmployee.Text = "Employee Management";
             this.ChkEmployee.UseVisualStyleBackColor = true;
@@ -261,7 +261,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkMember.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkMember.Location = new System.Drawing.Point(62, 124);
             this.ChkMember.Name = "ChkMember";
-            this.ChkMember.Size = new System.Drawing.Size(213, 24);
+            this.ChkMember.Size = new System.Drawing.Size(184, 20);
             this.ChkMember.TabIndex = 33;
             this.ChkMember.Text = "Membership Management";
             this.ChkMember.UseVisualStyleBackColor = true;
@@ -274,7 +274,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkStock.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkStock.Location = new System.Drawing.Point(62, 261);
             this.ChkStock.Name = "ChkStock";
-            this.ChkStock.Size = new System.Drawing.Size(236, 24);
+            this.ChkStock.Size = new System.Drawing.Size(200, 20);
             this.ChkStock.TabIndex = 32;
             this.ChkStock.Text = "Stock Inventary Management";
             this.ChkStock.UseVisualStyleBackColor = true;
@@ -287,7 +287,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkItemPricing.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkItemPricing.Location = new System.Drawing.Point(62, 214);
             this.ChkItemPricing.Name = "ChkItemPricing";
-            this.ChkItemPricing.Size = new System.Drawing.Size(209, 24);
+            this.ChkItemPricing.Size = new System.Drawing.Size(178, 20);
             this.ChkItemPricing.TabIndex = 31;
             this.ChkItemPricing.Text = "Item Pricing Management";
             this.ChkItemPricing.UseVisualStyleBackColor = true;
@@ -300,7 +300,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkDailyExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkDailyExpense.Location = new System.Drawing.Point(354, 38);
             this.ChkDailyExpense.Name = "ChkDailyExpense";
-            this.ChkDailyExpense.Size = new System.Drawing.Size(226, 24);
+            this.ChkDailyExpense.Size = new System.Drawing.Size(196, 20);
             this.ChkDailyExpense.TabIndex = 30;
             this.ChkDailyExpense.Text = "Daily Expense Management";
             this.ChkDailyExpense.UseVisualStyleBackColor = true;
@@ -313,7 +313,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkSupplier.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkSupplier.Location = new System.Drawing.Point(62, 168);
             this.ChkSupplier.Name = "ChkSupplier";
-            this.ChkSupplier.Size = new System.Drawing.Size(213, 24);
+            this.ChkSupplier.Size = new System.Drawing.Size(184, 20);
             this.ChkSupplier.TabIndex = 29;
             this.ChkSupplier.Text = "Suppliership Management";
             this.ChkSupplier.UseVisualStyleBackColor = true;
@@ -326,7 +326,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkDailySummary.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkDailySummary.Location = new System.Drawing.Point(62, 80);
             this.ChkDailySummary.Name = "ChkDailySummary";
-            this.ChkDailySummary.Size = new System.Drawing.Size(231, 24);
+            this.ChkDailySummary.Size = new System.Drawing.Size(200, 20);
             this.ChkDailySummary.TabIndex = 28;
             this.ChkDailySummary.Text = "Daily Summary Management";
             this.ChkDailySummary.UseVisualStyleBackColor = true;
@@ -339,7 +339,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkPOS.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkPOS.Location = new System.Drawing.Point(62, 38);
             this.ChkPOS.Name = "ChkPOS";
-            this.ChkPOS.Size = new System.Drawing.Size(159, 24);
+            this.ChkPOS.Size = new System.Drawing.Size(137, 20);
             this.ChkPOS.TabIndex = 27;
             this.ChkPOS.Text = "POS Management";
             this.ChkPOS.UseVisualStyleBackColor = true;
@@ -352,7 +352,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkSetting.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkSetting.Location = new System.Drawing.Point(354, 124);
             this.ChkSetting.Name = "ChkSetting";
-            this.ChkSetting.Size = new System.Drawing.Size(198, 24);
+            this.ChkSetting.Size = new System.Drawing.Size(168, 20);
             this.ChkSetting.TabIndex = 26;
             this.ChkSetting.Text = "All Setting Management";
             this.ChkSetting.UseVisualStyleBackColor = true;
@@ -365,7 +365,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkReport.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkReport.Location = new System.Drawing.Point(354, 168);
             this.ChkReport.Name = "ChkReport";
-            this.ChkReport.Size = new System.Drawing.Size(196, 24);
+            this.ChkReport.Size = new System.Drawing.Size(168, 20);
             this.ChkReport.TabIndex = 25;
             this.ChkReport.Text = "All Report Management";
             this.ChkReport.UseVisualStyleBackColor = true;
@@ -378,7 +378,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnAdd);
-            this.groupBox3.Location = new System.Drawing.Point(236, 473);
+            this.groupBox3.Location = new System.Drawing.Point(236, 487);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(640, 79);
             this.groupBox3.TabIndex = 6;

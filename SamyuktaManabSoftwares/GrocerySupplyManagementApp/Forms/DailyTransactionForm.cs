@@ -282,27 +282,27 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Mem/Supp";
-            DataGridTransactionList.Columns["MemberSupplierId"].Width = 90;
+            DataGridTransactionList.Columns["MemberSupplierId"].Width = 75;
             DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
 
             DataGridTransactionList.Columns["Action"].HeaderText = "Description";
-            DataGridTransactionList.Columns["Action"].Width = 95;
+            DataGridTransactionList.Columns["Action"].Width = 100;
             DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
 
             DataGridTransactionList.Columns["ActionType"].HeaderText = "Type";
-            DataGridTransactionList.Columns["ActionType"].Width = 180;
+            DataGridTransactionList.Columns["ActionType"].Width = 220;
             DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
             DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
-            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 95;
+            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 85;
             DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 4;
 
-            DataGridTransactionList.Columns["ItemCode"].HeaderText = "Code";
-            DataGridTransactionList.Columns["ItemCode"].Width = 95;
+            DataGridTransactionList.Columns["ItemCode"].HeaderText = "ItemCode";
+            DataGridTransactionList.Columns["ItemCode"].Width = 85;
             DataGridTransactionList.Columns["ItemCode"].DisplayIndex = 5;
 
             DataGridTransactionList.Columns["ItemName"].HeaderText = "ItemName";
-            DataGridTransactionList.Columns["ItemName"].Width = 165;
+            DataGridTransactionList.Columns["ItemName"].Width = 150;
             DataGridTransactionList.Columns["ItemName"].DisplayIndex = 6;
 
             DataGridTransactionList.Columns["Quantity"].HeaderText = "Quantity";
@@ -513,5 +513,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        private void DataGridTransactionList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -112,49 +112,61 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
-                List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
+                var confirmation = MessageBox.Show("Do you want to save?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirmation == DialogResult.Yes)
                 {
-                    EndOfDay = _endOfDay,
-                    SupplierId = _supplierForm.GetSupplierId(),
-                    BillNo = item.BillNo,
-                    ItemId = _itemService.GetItem(item.Code).Id,
-                    Quantity = item.Quantity,
-                    Price = item.Price,
-                    AddedDate = date,
-                    UpdatedDate = date
-                }).ToList();
+                    var date = DateTime.Now;
+                    List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
+                    {
+                        EndOfDay = _endOfDay,
+                        SupplierId = _supplierForm.GetSupplierId(),
+                        BillNo = item.BillNo,
+                        ItemId = _itemService.GetItem(item.Code).Id,
+                        Quantity = item.Quantity,
+                        Price = item.Price,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    }).ToList();
 
-                purchasedItems.ForEach(purchasedItem =>
+                    purchasedItems.ForEach(purchasedItem =>
+                    {
+                        _purchasedItemService.AddPurchasedItem(purchasedItem);
+                    });
+
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        BillNo = RichBillNo.Text,
+                        SupplierId = _supplierForm.GetSupplierId(),
+                        Action = Constants.PURCHASE,
+                        ActionType = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.BONUS : Constants.CREDIT,
+                        IncomeExpense = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.BONUS : null,
+                        SubTotal = 0.00m,
+                        DiscountPercent = 0.00m,
+                        Discount = 0.00m,
+                        VatPercent = 0.00m,
+                        Vat = 0.00m,
+                        DeliveryChargePercent = 0.00m,
+                        DeliveryCharge = 0.00m,
+                        DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
+                        ReceivedAmount = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Convert.ToDecimal(TxtTotalAmount.Text) : 0.00m,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+
+                    _userTransactionService.AddUserTransaction(userTransaction);
+
+                    _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
+                    DialogResult result = MessageBox.Show("Purchased successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        Close();
+                    }
+                }
+                else
                 {
-                    _purchasedItemService.AddPurchasedItem(purchasedItem);
-                });
-
-                var userTransaction = new UserTransaction
-                {
-                    EndOfDay = _endOfDay,
-                    BillNo = RichBillNo.Text,
-                    SupplierId = _supplierForm.GetSupplierId(),
-                    Action = Constants.PURCHASE,
-                    ActionType = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.BONUS : Constants.CREDIT,
-                    IncomeExpense = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.BONUS : null,
-                    SubTotal = 0.00m,
-                    DiscountPercent = 0.00m,
-                    Discount = 0.00m,
-                    VatPercent = 0.00m,
-                    Vat = 0.00m,
-                    DeliveryChargePercent = 0.00m,
-                    DeliveryCharge = 0.00m,
-                    DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
-                    ReceivedAmount = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Convert.ToDecimal(TxtTotalAmount.Text) : 0.00m,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-
-                _userTransactionService.AddUserTransaction(userTransaction);
-
-                _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
-                Close();
+                    return;
+                }
             }
             catch (Exception ex)
             {
@@ -198,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridPurchaseList.Columns["BillNo"].HeaderText = "Bill No";
-            DataGridPurchaseList.Columns["BillNo"].Width = 80;
+            DataGridPurchaseList.Columns["BillNo"].Width = 90;
             DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
 
             DataGridPurchaseList.Columns["Code"].HeaderText = "ItemCode";
@@ -206,11 +218,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
-            DataGridPurchaseList.Columns["Name"].Width = 150;
+            DataGridPurchaseList.Columns["Name"].Width = 170;
             DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
 
             DataGridPurchaseList.Columns["Brand"].HeaderText = "Item Brand";
-            DataGridPurchaseList.Columns["Brand"].Width = 150;
+            DataGridPurchaseList.Columns["Brand"].Width = 140;
             DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
@@ -317,5 +329,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        private void DataGridPurchaseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

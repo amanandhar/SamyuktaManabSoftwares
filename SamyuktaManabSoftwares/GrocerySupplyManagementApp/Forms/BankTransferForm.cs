@@ -59,48 +59,57 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
-                var userTransaction = new UserTransaction
+                var confirmation = MessageBox.Show("Do you want to save?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(confirmation == DialogResult.Yes)
                 {
-                    EndOfDay = _endOfDay,
-                    Action = Constants.BANK_TRANSFER,
-                    ActionType = Constants.CASH,
-                    Bank = ComboBank.Text,
-                    SubTotal = 0.0m,
-                    DiscountPercent = 0.0m,
-                    Discount = 0.0m,
-                    VatPercent = 0.0m,
-                    Vat = 0.0m,
-                    DeliveryChargePercent = 0.0m,
-                    DeliveryCharge = 0.0m,
-                    DueAmount = Convert.ToDecimal(RichDepositAmount.Text),
-                    ReceivedAmount = 0.0m,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-                _userTransactionService.AddUserTransaction(userTransaction);
+                    var date = DateTime.Now;
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        Action = Constants.BANK_TRANSFER,
+                        ActionType = Constants.CASH,
+                        Bank = ComboBank.Text,
+                        SubTotal = 0.0m,
+                        DiscountPercent = 0.0m,
+                        Discount = 0.0m,
+                        VatPercent = 0.0m,
+                        Vat = 0.0m,
+                        DeliveryChargePercent = 0.0m,
+                        DeliveryCharge = 0.0m,
+                        DueAmount = Convert.ToDecimal(RichDepositAmount.Text),
+                        ReceivedAmount = 0.0m,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+                    _userTransactionService.AddUserTransaction(userTransaction);
 
-                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
-                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                var bankTransaction = new BankTransaction
+                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                    var bankTransaction = new BankTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        BankId = Convert.ToInt64(selectedItem.Id),
+                        TransactionId = lastUserTransaction.Id,
+                        Action = '1',
+                        Debit = Convert.ToDecimal(RichDepositAmount.Text),
+                        Credit = 0.0m,
+                        Narration = RichNarration.Text,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+                    _bankTransactionService.AddBankTransaction(bankTransaction);
+
+                    DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        Close();
+                    }
+                }
+                else
                 {
-                    EndOfDay = _endOfDay,
-                    BankId = Convert.ToInt64(selectedItem.Id),
-                    TransactionId = lastUserTransaction.Id,
-                    Action = '1',
-                    Debit = Convert.ToDecimal(RichDepositAmount.Text),
-                    Credit = 0.0m,
-                    Narration = RichNarration.Text,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-                _bankTransactionService.AddBankTransaction(bankTransaction);
-
-                DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
+                    return;
                 }
             }
             catch (Exception ex)

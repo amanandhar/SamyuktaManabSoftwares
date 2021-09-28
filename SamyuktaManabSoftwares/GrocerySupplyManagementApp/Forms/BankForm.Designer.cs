@@ -29,8 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnSearchBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label7 = new System.Windows.Forms.Label();
@@ -145,7 +145,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboDepositType.FormattingEnabled = true;
             this.ComboDepositType.Location = new System.Drawing.Point(540, 17);
             this.ComboDepositType.Name = "ComboDepositType";
-            this.ComboDepositType.Size = new System.Drawing.Size(187, 26);
+            this.ComboDepositType.Size = new System.Drawing.Size(188, 26);
             this.ComboDepositType.TabIndex = 30;
             this.ComboDepositType.SelectedValueChanged += new System.EventHandler(this.ComboDepositType_SelectedValueChanged);
             // 
@@ -179,7 +179,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Location = new System.Drawing.Point(540, 50);
             this.RichAmount.Name = "RichAmount";
             this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichAmount.Size = new System.Drawing.Size(187, 28);
+            this.RichAmount.Size = new System.Drawing.Size(189, 28);
             this.RichAmount.TabIndex = 19;
             this.RichAmount.Text = "";
             // 
@@ -277,7 +277,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnSaveBank);
             this.groupBox2.Controls.Add(this.BtnAddBank);
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
-            this.groupBox2.Location = new System.Drawing.Point(948, 271);
+            this.groupBox2.Location = new System.Drawing.Point(947, 271);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(140, 215);
             this.groupBox2.TabIndex = 2;
@@ -411,7 +411,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnRemoveTransaction);
             this.groupBox4.Controls.Add(this.BtnSaveTransaction);
             this.groupBox4.ForeColor = System.Drawing.Color.Red;
-            this.groupBox4.Location = new System.Drawing.Point(948, 146);
+            this.groupBox4.Location = new System.Drawing.Point(947, 146);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(140, 105);
             this.groupBox4.TabIndex = 13;
@@ -462,26 +462,26 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridBankList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridBankList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridBankList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridBankList.Location = new System.Drawing.Point(14, 140);
             this.DataGridBankList.Name = "DataGridBankList";
-            this.DataGridBankList.Size = new System.Drawing.Size(920, 391);
+            this.DataGridBankList.Size = new System.Drawing.Size(920, 400);
             this.DataGridBankList.TabIndex = 0;
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
             // 
@@ -568,7 +568,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.MaskEndOfDayFrom);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.Red;
-            this.groupBox3.Location = new System.Drawing.Point(15, 537);
+            this.groupBox3.Location = new System.Drawing.Point(15, 547);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(920, 55);
             this.groupBox3.TabIndex = 40;
@@ -580,7 +580,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1088, 602);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox1);

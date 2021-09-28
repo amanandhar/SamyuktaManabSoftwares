@@ -66,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var user = new User
                 {
                     Username = RichUsername.Text,
-                    Password = TxtPassword.Text,
+                    Password = Cryptography.Encrypt(TxtPassword.Text),
                     Type = ComboUserType.Text,
                     Bank = ChkBank.Checked,
                     DailyExpense = ChkDailyExpense.Checked,
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var user = new User
                 {
                     Username = RichUsername.Text,
-                    Password = TxtPassword.Text,
+                    Password = Cryptography.Encrypt(TxtPassword.Text),
                     Type = ComboUserType.Text,
                     Bank = ChkBank.Checked,
                     DailyExpense = ChkDailyExpense.Checked,

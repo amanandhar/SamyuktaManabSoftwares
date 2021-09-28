@@ -333,8 +333,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridStockList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridStockList.Size = new System.Drawing.Size(1079, 465);
+            this.DataGridStockList.Size = new System.Drawing.Size(1079, 455);
             this.DataGridStockList.TabIndex = 17;
+            this.DataGridStockList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridStockList_CellContentClick);
             this.DataGridStockList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockList_DataBindingComplete);
             // 
             // textBox1

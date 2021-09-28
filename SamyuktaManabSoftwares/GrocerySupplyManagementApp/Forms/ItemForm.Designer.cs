@@ -212,7 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnSave);
             this.groupBox2.Controls.Add(this.BtnAdd);
             this.groupBox2.Controls.Add(this.BtnSearch);
-            this.groupBox2.Location = new System.Drawing.Point(937, 148);
+            this.groupBox2.Location = new System.Drawing.Point(937, 146);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(150, 250);
             this.groupBox2.TabIndex = 2;
@@ -360,9 +360,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridItemList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridItemList.GridColor = System.Drawing.Color.DarkGray;
-            this.DataGridItemList.Location = new System.Drawing.Point(16, 152);
+            this.DataGridItemList.Location = new System.Drawing.Point(16, 150);
             this.DataGridItemList.Name = "DataGridItemList";
-            this.DataGridItemList.Size = new System.Drawing.Size(910, 430);
+            this.DataGridItemList.Size = new System.Drawing.Size(910, 445);
             this.DataGridItemList.TabIndex = 3;
             this.DataGridItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridItemList_DataBindingComplete);
             // 
@@ -392,7 +392,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1088, 602);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.DataGridItemList);

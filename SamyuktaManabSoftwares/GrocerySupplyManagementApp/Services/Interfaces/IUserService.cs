@@ -11,6 +11,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     {
         IEnumerable<User> GetUsers();
         User GetUser(long id);
+        bool IsUserExist(string username, string password);
 
         User AddUser(User user);
 

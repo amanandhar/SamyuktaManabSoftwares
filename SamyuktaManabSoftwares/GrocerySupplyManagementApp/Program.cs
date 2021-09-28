@@ -20,27 +20,49 @@ namespace GrocerySupplyManagementApp
             var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DashboardForm(
-                container.Resolve<IFiscalYearService>(),
-                container.Resolve<ICompanyInfoService>(),
-                container.Resolve<ITaxService>(),
-                container.Resolve<IBankService>(),
-                container.Resolve<IBankTransactionService>(),
-                container.Resolve<IItemService>(),
-                container.Resolve<IPricedItemService>(),
-                container.Resolve<IMemberService>(),
-                container.Resolve<ISupplierService>(),
-                container.Resolve<IPurchasedItemService>(),
-                container.Resolve<ISoldItemService>(),
-                container.Resolve<IUserTransactionService>(),
-                container.Resolve<IStockService>(),
-                container.Resolve<IEndOfDayService>(),
-                container.Resolve<IEmployeeService>(),
-                container.Resolve<IReportService>(),
-                container.Resolve<IUserService>(),
-                container.Resolve<IItemCategoryService>(),
-                container.Resolve<IShareMemberService>()
-                ));
+            //Application.Run(new DashboardForm(
+            //    container.Resolve<IFiscalYearService>(),
+            //    container.Resolve<ICompanyInfoService>(),
+            //    container.Resolve<ITaxService>(),
+            //    container.Resolve<IBankService>(),
+            //    container.Resolve<IBankTransactionService>(),
+            //    container.Resolve<IItemService>(),
+            //    container.Resolve<IPricedItemService>(),
+            //    container.Resolve<IMemberService>(),
+            //    container.Resolve<ISupplierService>(),
+            //    container.Resolve<IPurchasedItemService>(),
+            //    container.Resolve<ISoldItemService>(),
+            //    container.Resolve<IUserTransactionService>(),
+            //    container.Resolve<IStockService>(),
+            //    container.Resolve<IEndOfDayService>(),
+            //    container.Resolve<IEmployeeService>(),
+            //    container.Resolve<IReportService>(),
+            //    container.Resolve<IUserService>(),
+            //    container.Resolve<IItemCategoryService>(),
+            //    container.Resolve<IShareMemberService>()
+            //    ));
+
+            Application.Run(new LoginForm(
+               container.Resolve<IFiscalYearService>(),
+               container.Resolve<ICompanyInfoService>(),
+               container.Resolve<ITaxService>(),
+               container.Resolve<IBankService>(),
+               container.Resolve<IBankTransactionService>(),
+               container.Resolve<IItemService>(),
+               container.Resolve<IPricedItemService>(),
+               container.Resolve<IMemberService>(),
+               container.Resolve<ISupplierService>(),
+               container.Resolve<IPurchasedItemService>(),
+               container.Resolve<ISoldItemService>(),
+               container.Resolve<IUserTransactionService>(),
+               container.Resolve<IStockService>(),
+               container.Resolve<IEndOfDayService>(),
+               container.Resolve<IEmployeeService>(),
+               container.Resolve<IReportService>(),
+               container.Resolve<IUserService>(),
+               container.Resolve<IItemCategoryService>(),
+               container.Resolve<IShareMemberService>()
+               ));
         }
 
         private static IUnityContainer BuildUnityContainer()

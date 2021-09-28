@@ -160,15 +160,15 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["Id"].Visible = false;
 
             DataGridIncomeList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridIncomeList.Columns["EndOfDay"].Width = 75;
+            DataGridIncomeList.Columns["EndOfDay"].Width = 85;
             DataGridIncomeList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
             DataGridIncomeList.Columns["InvoiceNo"].Width = 125;
             DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 1;
 
-            DataGridIncomeList.Columns["ItemCode"].HeaderText = "Code";
-            DataGridIncomeList.Columns["ItemCode"].Width = 80;
+            DataGridIncomeList.Columns["ItemCode"].HeaderText = "ItemCode";
+            DataGridIncomeList.Columns["ItemCode"].Width = 90;
             DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 2;
 
             DataGridIncomeList.Columns["ItemName"].HeaderText = "Name";
@@ -291,5 +291,10 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
+
+        private void DataGridIncomeList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

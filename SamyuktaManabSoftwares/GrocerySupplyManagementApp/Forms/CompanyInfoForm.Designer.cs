@@ -95,11 +95,11 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.PicBoxCompanyLogo);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox1.Location = new System.Drawing.Point(184, 45);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.Red;
+            this.groupBox1.Location = new System.Drawing.Point(184, 53);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(145, 145);
+            this.groupBox1.Size = new System.Drawing.Size(145, 150);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Company Logo";
@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.PicBoxCompanyLogo.Location = new System.Drawing.Point(6, 18);
             this.PicBoxCompanyLogo.Name = "PicBoxCompanyLogo";
-            this.PicBoxCompanyLogo.Size = new System.Drawing.Size(133, 120);
+            this.PicBoxCompanyLogo.Size = new System.Drawing.Size(133, 130);
             this.PicBoxCompanyLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PicBoxCompanyLogo.TabIndex = 8;
             this.PicBoxCompanyLogo.TabStop = false;
@@ -132,9 +132,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.RichRegistrationNo);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox2.Location = new System.Drawing.Point(346, 46);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.Color.Red;
+            this.groupBox2.Location = new System.Drawing.Point(346, 54);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(400, 145);
             this.groupBox2.TabIndex = 5;
@@ -178,7 +178,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnUpdate);
             this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(760, 45);
+            this.groupBox3.Location = new System.Drawing.Point(760, 54);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(145, 145);
             this.groupBox3.TabIndex = 6;
@@ -328,9 +328,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox4.Location = new System.Drawing.Point(178, 231);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.ForeColor = System.Drawing.Color.Red;
+            this.groupBox4.Location = new System.Drawing.Point(178, 249);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(727, 310);
             this.groupBox4.TabIndex = 13;
@@ -454,7 +454,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.FlatAppearance.BorderSize = 0;
             this.BtnDeleteImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDeleteImage.ForeColor = System.Drawing.Color.White;
-            this.BtnDeleteImage.Location = new System.Drawing.Point(255, 197);
+            this.BtnDeleteImage.Location = new System.Drawing.Point(255, 207);
             this.BtnDeleteImage.Name = "BtnDeleteImage";
             this.BtnDeleteImage.Size = new System.Drawing.Size(55, 25);
             this.BtnDeleteImage.TabIndex = 17;
@@ -473,7 +473,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.FlatAppearance.BorderSize = 0;
             this.BtnAddImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddImage.ForeColor = System.Drawing.Color.White;
-            this.BtnAddImage.Location = new System.Drawing.Point(196, 196);
+            this.BtnAddImage.Location = new System.Drawing.Point(196, 206);
             this.BtnAddImage.Name = "BtnAddImage";
             this.BtnAddImage.Size = new System.Drawing.Size(55, 25);
             this.BtnAddImage.TabIndex = 7;
@@ -508,7 +508,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1088, 602);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.BtnDeleteImage);

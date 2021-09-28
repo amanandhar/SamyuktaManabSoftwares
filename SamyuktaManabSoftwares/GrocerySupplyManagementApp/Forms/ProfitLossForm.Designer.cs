@@ -167,7 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label3.Location = new System.Drawing.Point(755, 543);
+            this.label3.Location = new System.Drawing.Point(754, 575);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 20);
             this.label3.TabIndex = 75;
@@ -178,7 +178,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(213, 542);
+            this.label6.Location = new System.Drawing.Point(212, 573);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 20);
             this.label6.TabIndex = 71;
@@ -188,7 +188,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtNetLoss.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.TxtNetLoss.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtNetLoss.Location = new System.Drawing.Point(831, 538);
+            this.TxtNetLoss.Location = new System.Drawing.Point(830, 570);
             this.TxtNetLoss.Name = "TxtNetLoss";
             this.TxtNetLoss.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtNetLoss.Size = new System.Drawing.Size(240, 29);
@@ -198,7 +198,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtNetIncome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.TxtNetIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtNetIncome.Location = new System.Drawing.Point(291, 538);
+            this.TxtNetIncome.Location = new System.Drawing.Point(291, 569);
             this.TxtNetIncome.Name = "TxtNetIncome";
             this.TxtNetIncome.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtNetIncome.Size = new System.Drawing.Size(240, 29);
@@ -211,7 +211,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
             this.groupBox2.Location = new System.Drawing.Point(560, 135);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(520, 395);
+            this.groupBox2.Size = new System.Drawing.Size(520, 420);
             this.groupBox2.TabIndex = 83;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Expense";
@@ -228,9 +228,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridExpenseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridExpenseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridExpenseList.Location = new System.Drawing.Point(5, 19);
+            this.DataGridExpenseList.Location = new System.Drawing.Point(5, 18);
             this.DataGridExpenseList.Name = "DataGridExpenseList";
-            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 372);
+            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 400);
             this.DataGridExpenseList.TabIndex = 1;
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
             // 
@@ -241,7 +241,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.ForeColor = System.Drawing.Color.Black;
             this.groupBox4.Location = new System.Drawing.Point(19, 135);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(520, 395);
+            this.groupBox4.Size = new System.Drawing.Size(520, 420);
             this.groupBox4.TabIndex = 84;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Income";
@@ -258,7 +258,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridIncomeList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridIncomeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridIncomeList.Location = new System.Drawing.Point(5, 19);
+            this.DataGridIncomeList.Location = new System.Drawing.Point(5, 18);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -268,7 +268,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridIncomeList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 372);
+            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 400);
             this.DataGridIncomeList.TabIndex = 0;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeList_DataBindingComplete);
             // 
@@ -310,7 +310,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1088, 602);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);

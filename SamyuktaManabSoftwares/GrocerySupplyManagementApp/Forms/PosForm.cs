@@ -265,7 +265,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var grandTotal = string.IsNullOrWhiteSpace(TxtGrandTotal.Text) ? 0.00M : Convert.ToDecimal(TxtGrandTotal.Text.Trim());
                 if (RadioBtnCash.Checked && (receivedAmount < grandTotal))
                 {
-                    DialogResult dialogResult = MessageBox.Show("Insufficient received amount.",
+                    DialogResult dialogResult = MessageBox.Show("Add received amount.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (dialogResult == DialogResult.OK)
                     {
@@ -560,11 +560,11 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 185;
+                DataGridSoldItemList.Columns["ItemName"].Width = 200;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["ItemBrand"].HeaderText = "Brand";
-                DataGridSoldItemList.Columns["ItemBrand"].Width = 170;
+                DataGridSoldItemList.Columns["ItemBrand"].Width = 155;
                 DataGridSoldItemList.Columns["ItemBrand"].DisplayIndex = 2;
 
                 DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";

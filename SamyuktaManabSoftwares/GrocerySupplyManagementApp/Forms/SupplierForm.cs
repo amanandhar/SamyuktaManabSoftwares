@@ -341,7 +341,6 @@ namespace GrocerySupplyManagementApp.Forms
                         });
 
                         ComboBank.Enabled = true;
-                        RichAmount.Enabled = true;
                         ComboBank.Focus();
                     } 
                 }
@@ -354,6 +353,12 @@ namespace GrocerySupplyManagementApp.Forms
             }   
         }
 
+        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RichAmount.Enabled = true;
+            RichAmount.Focus();
+        }
+
         #endregion
 
         #region DataGrid Event
@@ -362,7 +367,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.Columns["Id"].Visible = false;
 
             DataGridSupplierList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridSupplierList.Columns["EndOfDay"].Width = 100;
+            DataGridSupplierList.Columns["EndOfDay"].Width = 90;
             DataGridSupplierList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridSupplierList.Columns["Action"].HeaderText = "Description";
@@ -370,7 +375,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.Columns["Action"].DisplayIndex = 1;
 
             DataGridSupplierList.Columns["ActionType"].HeaderText = "Type";
-            DataGridSupplierList.Columns["ActionType"].Width = 200;
+            DataGridSupplierList.Columns["ActionType"].Width = 230;
             DataGridSupplierList.Columns["ActionType"].DisplayIndex = 2;
 
             DataGridSupplierList.Columns["BillNo"].HeaderText = "Bill No";
@@ -572,5 +577,6 @@ namespace GrocerySupplyManagementApp.Forms
             return TxtSupplierId.Text;
         }
         #endregion
+
     }
 }

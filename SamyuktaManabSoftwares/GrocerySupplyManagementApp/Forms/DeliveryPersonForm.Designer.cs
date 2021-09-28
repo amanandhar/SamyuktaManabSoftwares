@@ -56,9 +56,9 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.DataGridDeliveryPersonList);
-            this.groupBox2.Location = new System.Drawing.Point(11, 149);
+            this.groupBox2.Location = new System.Drawing.Point(11, 142);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1077, 449);
+            this.groupBox2.Size = new System.Drawing.Size(1077, 455);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -82,9 +82,9 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridDeliveryPersonList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(6, 12);
+            this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(6, 10);
             this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
-            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(1065, 431);
+            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(1065, 442);
             this.DataGridDeliveryPersonList.TabIndex = 0;
             this.DataGridDeliveryPersonList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridDeliveryPersonList_DataBindingComplete);
             // 
@@ -264,7 +264,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1088, 602);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox4);

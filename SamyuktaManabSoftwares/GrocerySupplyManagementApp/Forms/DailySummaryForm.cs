@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSummaryList.Columns["Description"].DisplayIndex = 0;
 
             DataGridSummaryList.Columns["Debit"].HeaderText = "Debit";
-            DataGridSummaryList.Columns["Debit"].Width = 150;
+            DataGridSummaryList.Columns["Debit"].Width = 140;
             DataGridSummaryList.Columns["Debit"].DisplayIndex = 1;
             DataGridSummaryList.Columns["Debit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -142,5 +142,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSummaryList.DataSource = source;
         }
         #endregion
+
+        private void DataGridSummaryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -135,6 +135,47 @@ namespace GrocerySupplyManagementApp.Repositories
             return user;
         }
 
+        public bool IsUserExist(string username, string password)
+        {
+            var result = false;
+            var query = @"SELECT " +
+                "[Id], [Username], [Type], " +
+                "[Password], [IsReadOnly], [Bank], [DailyExpense], " +
+                "[DailySummary], [Employee], [EOD], [ItemPricing], " +
+                "[Member], [POS], [Report], [Setting], " +
+                "[Stock], [Supplier], [AddedDate], [UpdatedDate] " +
+                "FROM [" + Constants.TABLE_USER + "] " +
+                "WHERE 1 = 1 " +
+                "AND [Username] = @Username " +
+                "AND [Password] = @Password ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Password", ((object)password) ?? DBNull.Value);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
         public User AddUser(User user)
         {
             string query = @"INSERT INTO " +

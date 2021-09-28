@@ -450,7 +450,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridMemberList.Columns["Action"].HeaderText = "Description";
-            DataGridMemberList.Columns["Action"].Width = 110;
+            DataGridMemberList.Columns["Action"].Width = 120;
             DataGridMemberList.Columns["Action"].DisplayIndex = 1;
 
             DataGridMemberList.Columns["ActionType"].HeaderText = "Type";
@@ -661,6 +661,11 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
         {
             RichAmount.Focus();
+        }
+
+        private void DataGridMemberList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

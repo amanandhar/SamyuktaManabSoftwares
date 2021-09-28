@@ -57,7 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox1.Controls.Add(this.RichFiscalYear);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(511, 152);
+            this.groupBox1.Location = new System.Drawing.Point(511, 162);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(370, 80);
             this.groupBox1.TabIndex = 0;
@@ -109,7 +109,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox2.Controls.Add(this.RichCompanyStartingDate);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(513, 53);
+            this.groupBox2.Location = new System.Drawing.Point(513, 63);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(370, 80);
             this.groupBox2.TabIndex = 2;
@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnEdit);
-            this.groupBox3.Location = new System.Drawing.Point(320, 239);
+            this.groupBox3.Location = new System.Drawing.Point(320, 249);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(424, 90);
             this.groupBox3.TabIndex = 4;
@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.RichInvoiceNo);
-            this.groupBox4.Location = new System.Drawing.Point(217, 53);
+            this.groupBox4.Location = new System.Drawing.Point(217, 63);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(290, 80);
             this.groupBox4.TabIndex = 5;
@@ -200,7 +200,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox5.Controls.Add(this.RichBillNo);
             this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(215, 152);
+            this.groupBox5.Location = new System.Drawing.Point(215, 162);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(290, 80);
             this.groupBox5.TabIndex = 6;

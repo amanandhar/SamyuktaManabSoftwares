@@ -206,6 +206,12 @@
     <Compile Include="Forms\PricedItemListForm.Designer.cs">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ReturnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReturnForm.Designer.cs">
+      <DependentUpon>ReturnForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SalesPurchaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -479,6 +485,7 @@
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\TaxService.cs" />
     <Compile Include="Shared\Constants.cs" />
+    <Compile Include="Shared\Cryptography.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\BankTransactionView.cs" />
@@ -535,6 +542,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PricedItemListForm.resx">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReturnForm.resx">
+      <DependentUpon>ReturnForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesPurchaseForm.resx">
       <DependentUpon>SalesPurchaseForm.cs</DependentUpon>

@@ -204,7 +204,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Id"].Visible = false;
 
             DataGridExpenseList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridExpenseList.Columns["EndOfDay"].Width = 100;
+            DataGridExpenseList.Columns["EndOfDay"].Width = 80;
             DataGridExpenseList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridExpenseList.Columns["Action"].HeaderText = "Description";
@@ -212,7 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Action"].DisplayIndex = 1;
 
             DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
-            DataGridExpenseList.Columns["ActionType"].Width = 150;
+            DataGridExpenseList.Columns["ActionType"].Width = 220;
             DataGridExpenseList.Columns["ActionType"].DisplayIndex = 2;
 
             DataGridExpenseList.Columns["Expense"].HeaderText = "Expense";
@@ -220,16 +220,16 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Expense"].DisplayIndex = 3;
 
             DataGridExpenseList.Columns["Narration"].HeaderText = "Narration";
-            DataGridExpenseList.Columns["Narration"].Width = 150;
+            DataGridExpenseList.Columns["Narration"].Width = 190;
             DataGridExpenseList.Columns["Narration"].DisplayIndex = 4;
 
             DataGridExpenseList.Columns["DueAmount"].HeaderText = "Debit";
-            DataGridExpenseList.Columns["DueAmount"].Width = 100;
+            DataGridExpenseList.Columns["DueAmount"].Width = 90;
             DataGridExpenseList.Columns["DueAmount"].DisplayIndex = 5;
             DataGridExpenseList.Columns["DueAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridExpenseList.Columns["ReceivedAmount"].HeaderText = "Credit";
-            DataGridExpenseList.Columns["ReceivedAmount"].Width = 100;
+            DataGridExpenseList.Columns["ReceivedAmount"].Width = 90;
             DataGridExpenseList.Columns["ReceivedAmount"].DisplayIndex = 6;
             DataGridExpenseList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -306,5 +306,10 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        private void DataGridExpenseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
