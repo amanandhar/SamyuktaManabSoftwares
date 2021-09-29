@@ -129,39 +129,50 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
-                var userTransaction = new UserTransaction
+                if(Convert.ToDecimal(RichPayment.Text) > Convert.ToDecimal(TxtBalance.Text))
                 {
-                    EndOfDay = TxtInvoiceDate.Text,
-                    MemberId = RichMemberId.Text,
-                    Action = Constants.RECEIPT,
-                    ActionType = Constants.CASH,
-                    SubTotal = 0.00m,
-                    DiscountPercent = 0.00m,
-                    Discount = 0.00m,
-                    VatPercent = 0.00m,
-                    Vat = 0.00m,
-                    DeliveryChargePercent = 0.00m,
-                    DeliveryCharge = 0.00m,
-                    DueAmount = 0.00m,
-                    ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
+                    var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if(warningResult == DialogResult.OK)
+                    {
+                        RichPayment.Focus();
+                    }
+                }
+                else
+                {
+                    var date = DateTime.Now;
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = TxtInvoiceDate.Text,
+                        MemberId = RichMemberId.Text,
+                        Action = Constants.RECEIPT,
+                        ActionType = Constants.CASH,
+                        SubTotal = 0.00m,
+                        DiscountPercent = 0.00m,
+                        Discount = 0.00m,
+                        VatPercent = 0.00m,
+                        Vat = 0.00m,
+                        DeliveryChargePercent = 0.00m,
+                        DeliveryCharge = 0.00m,
+                        DueAmount = 0.00m,
+                        ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
 
-                _userTransactionService.AddUserTransaction(userTransaction);
-                DialogResult result = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllMemberFields();
-                    ClearAllItemFields();
-                    ClearAllInvoiceFields();
-                    _soldItemViewList.Clear();
-                    LoadItems(_soldItemViewList);
-                    RadioBtnCash.Checked = false;
-                    RadioBtnCredit.Checked = true;
-                    EnableFields();
-                    EnableFields(Action.SaveReceipt);
+                    _userTransactionService.AddUserTransaction(userTransaction);
+                    DialogResult informationResult = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (informationResult == DialogResult.OK)
+                    {
+                        ClearAllMemberFields();
+                        ClearAllItemFields();
+                        ClearAllInvoiceFields();
+                        _soldItemViewList.Clear();
+                        LoadItems(_soldItemViewList);
+                        RadioBtnCash.Checked = false;
+                        RadioBtnCredit.Checked = true;
+                        EnableFields();
+                        EnableFields(Action.SaveReceipt);
+                    }
                 }
             }
             catch (Exception ex)

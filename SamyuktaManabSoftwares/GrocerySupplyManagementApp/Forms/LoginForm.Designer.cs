@@ -84,6 +84,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtPassword.Size = new System.Drawing.Size(224, 27);
             this.TxtPassword.TabIndex = 2;
             this.TxtPassword.UseSystemPasswordChar = true;
+            this.TxtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
             // 
             // TxtUsername
             // 

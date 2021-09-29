@@ -75,7 +75,7 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
             EnableFields(Action.None);
             EnableFields(Action.Load);
-            var memberId = RichMemberId.Text;
+            var memberId = TxtMemberId.Text;
             var memberTransactionViewList = GetMemberTransactions(memberId);
             LoadMemberTransactions(memberTransactionViewList);
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
@@ -107,54 +107,65 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
-                var userTransaction = new UserTransaction
+                if (Convert.ToDecimal(RichAmount.Text) > Convert.ToDecimal(TxtBalance.Text))
                 {
-                    EndOfDay = _endOfDay,
-                    MemberId = RichMemberId.Text,
-                    Action = Constants.RECEIPT,
-                    ActionType = ComboReceipt.Text,
-                    Bank = ComboBank.Text,
-                    SubTotal = 0.0m,
-                    DiscountPercent = 0.0m,
-                    Discount = 0.0m,
-                    VatPercent = 0.0m,
-                    Vat = 0.0m,
-                    DeliveryChargePercent = 0.0m,
-                    DeliveryCharge = 0.0m,
-                    DueAmount = 0.0m,
-                    ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-                _userTransactionService.AddUserTransaction(userTransaction);
-
-                if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
+                    var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (warningResult == DialogResult.OK)
+                    {
+                        RichAmount.Focus();
+                    }
+                }
+                else
                 {
-                    var lastPosTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
-                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                    var bankTransaction = new BankTransaction
+                    var date = DateTime.Now;
+                    var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        BankId = Convert.ToInt64(selectedItem.Id),
-                        TransactionId = lastPosTransaction.Id,
-                        Action = '1',
-                        Debit = Convert.ToDecimal(RichAmount.Text),
-                        Credit = 0.0m,
-                        Narration = RichMemberId.Text + " - " + TxtName.Text,
+                        MemberId = TxtMemberId.Text,
+                        Action = Constants.RECEIPT,
+                        ActionType = ComboReceipt.Text,
+                        Bank = ComboBank.Text,
+                        SubTotal = 0.0m,
+                        DiscountPercent = 0.0m,
+                        Discount = 0.0m,
+                        VatPercent = 0.0m,
+                        Vat = 0.0m,
+                        DeliveryChargePercent = 0.0m,
+                        DeliveryCharge = 0.0m,
+                        DueAmount = 0.0m,
+                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                         AddedDate = date,
                         UpdatedDate = date
                     };
+                    _userTransactionService.AddUserTransaction(userTransaction);
 
-                    _bankTransactionService.AddBankTransaction(bankTransaction);
-                }
+                    if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
+                    {
+                        var lastPosTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                        var bankTransaction = new BankTransaction
+                        {
+                            EndOfDay = _endOfDay,
+                            BankId = Convert.ToInt64(selectedItem.Id),
+                            TransactionId = lastPosTransaction.Id,
+                            Action = '1',
+                            Debit = Convert.ToDecimal(RichAmount.Text),
+                            Credit = 0.0m,
+                            Narration = TxtMemberId.Text + " - " + TxtName.Text,
+                            AddedDate = date,
+                            UpdatedDate = date
+                        };
 
-                DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    var memberTransactionViewList = GetMemberTransactions(RichMemberId.Text);
-                    LoadMemberTransactions(memberTransactionViewList);
+                        _bankTransactionService.AddBankTransaction(bankTransaction);
+                    }
+
+                    DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        var memberTransactionViewList = GetMemberTransactions(TxtMemberId.Text);
+                        LoadMemberTransactions(memberTransactionViewList);
+                    }
                 }
             }
             catch (Exception ex)
@@ -180,7 +191,7 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
             EnableFields(Action.None);
             EnableFields(Action.Add);
-            RichMemberId.Focus();
+            TxtMemberId.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -208,7 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
                             UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
                         }
 
-                        var fileName = RichMemberId.Text + ".jpg";
+                        var fileName = TxtMemberId.Text + ".jpg";
                         destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
                         File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
@@ -217,7 +228,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var date = DateTime.Now;
                 var member = new Member
                 {
-                    MemberId = RichMemberId.Text,
+                    MemberId = TxtMemberId.Text,
                     Name = TxtName.Text,
                     Address = TxtAddress.Text,
                     ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
@@ -254,7 +265,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            var memberId = RichMemberId.Text;
+            var memberId = TxtMemberId.Text;
             try
             {
                 string destinationFilePath = null;
@@ -278,7 +289,7 @@ namespace GrocerySupplyManagementApp.Forms
                             UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
                         }
 
-                        var fileName = RichMemberId.Text + ".jpg";
+                        var fileName = TxtMemberId.Text + ".jpg";
                         destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
                         File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
@@ -286,7 +297,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var member = new Member
                 {
-                    MemberId = RichMemberId.Text,
+                    MemberId = TxtMemberId.Text,
                     Name = TxtName.Text,
                     Address = TxtAddress.Text,
                     ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
@@ -320,7 +331,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (deleteResult == DialogResult.Yes)
                 {
-                    var memberId = RichMemberId.Text;
+                    var memberId = TxtMemberId.Text;
                     var member = _memberService.GetMember(memberId);
 
                     if (!string.IsNullOrWhiteSpace(member.ImagePath) && File.Exists(member.ImagePath))
@@ -375,13 +386,13 @@ namespace GrocerySupplyManagementApp.Forms
         #region RichTextBox Events
         private void RichMemberId_KeyUp(object sender, KeyEventArgs e)
         {
-            var member = _memberService.GetMember(RichMemberId.Text);
-            if (member?.MemberId?.ToLower() == RichMemberId.Text.ToLower())
+            var member = _memberService.GetMember(TxtMemberId.Text);
+            if (member?.MemberId?.ToLower() == TxtMemberId.Text.ToLower())
             {
-                DialogResult result = MessageBox.Show(RichMemberId.Text + " already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show(TxtMemberId.Text + " already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (result == DialogResult.OK)
                 {
-                    RichMemberId.Clear();
+                    TxtMemberId.Clear();
                     return;
                 }
             }
@@ -554,7 +565,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if(action == Action.Add)
             {
-                RichMemberId.Enabled = true;
+                TxtMemberId.Enabled = true;
                 TxtAccountNumber.Enabled = true;
                 TxtName.Enabled = true;
                 TxtAddress.Enabled = true;
@@ -598,7 +609,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                RichMemberId.Enabled = false;
+                TxtMemberId.Enabled = false;
                 TxtAccountNumber.Enabled = false;
                 TxtName.Enabled = false;
                 TxtAddress.Enabled = false;
@@ -615,7 +626,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllFields()
         {
-            RichMemberId.Clear();
+            TxtMemberId.Clear();
             TxtAccountNumber.Clear();
             TxtName.Clear();
             TxtAddress.Clear();
@@ -632,7 +643,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var member = _memberService.GetMember(memberId);
 
-            RichMemberId.Text = member.MemberId;
+            TxtMemberId.Text = member.MemberId;
             TxtName.Text = member.Name;
             TxtAddress.Text = member.Address;
             TxtContactNumber.Text = member.ContactNo.ToString();

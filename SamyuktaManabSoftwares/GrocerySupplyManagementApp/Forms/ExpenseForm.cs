@@ -70,6 +70,51 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var paymentAmount = Convert.ToDecimal(RichAmount.Text);
+                var actionType = ComboPayment.Text;
+                if (actionType.ToLower() == Constants.CASH.ToLower())
+                {
+                    var previousSalesCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
+                    var previousReceiptCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
+                    var previousPaymentCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
+                    var previousExpenseCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
+                    var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
+
+                    var openingBalanceCash = previousSalesCash + previousReceiptCash - (previousPaymentCash + previousExpenseCash + previousTransferCash);
+
+                    var salesCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
+                    var receiptCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
+                    var paymentCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
+                    var expenseCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
+                    var transferCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
+                    var cashBalance = openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash);
+
+                    if (paymentAmount > cashBalance)
+                    {
+                        var warningResult = MessageBox.Show("No sufficient cash available.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (warningResult == DialogResult.OK)
+                        {
+                            RichAmount.Focus();
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                    var bankId = Convert.ToInt64(selectedItem?.Id);
+                    var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = bankId });
+                    if (paymentAmount > bankBalance)
+                    {
+                        var warningResult = MessageBox.Show("No sufficient amount in bank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (warningResult == DialogResult.OK)
+                        {
+                            RichAmount.Focus();
+                            return;
+                        }
+                    }
+                }
+
                 var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {

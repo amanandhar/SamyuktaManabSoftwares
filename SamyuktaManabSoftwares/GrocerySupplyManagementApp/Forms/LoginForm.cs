@@ -70,6 +70,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Radio Button Event
         private void ChkBoxShow_CheckedChanged(object sender, EventArgs e)
         {
             if(ChkBoxShow.Checked == true)
@@ -82,13 +83,41 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        #endregion
+
+        #region Button Event
         private void BtnLogin_Click(object sender, EventArgs e)
+        {
+            Login();
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        #endregion
+
+        #region Textbox Event
+        private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                Login();
+            }
+        }
+
+        #endregion
+
+        #region Helper Methods
+        private void Login()
         {
             try
             {
                 var username = TxtUsername.Text;
                 var password = TxtPassword.Text;
-                
+
                 if (string.IsNullOrWhiteSpace(username.Trim()) || string.IsNullOrWhiteSpace(password.Trim()))
                 {
                     var error = MessageBox.Show("Username or Password is empty.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -100,13 +129,13 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var encryptedPassword = Cryptography.Encrypt(password);
                 var result = _userService.IsUserExist(username, encryptedPassword);
-                if(result)
+                if (result)
                 {
-                    var dashboard = new DashboardForm(_fiscalYearService, _companyInfoService, _taxService, _bankService, 
-                        _bankTransactionService, _itemService, _pricedItemService, _memberService, 
+                    var dashboard = new DashboardForm(_fiscalYearService, _companyInfoService, _taxService, _bankService,
+                        _bankTransactionService, _itemService, _pricedItemService, _memberService,
                         _supplierService, _purchasedItemService, _soldItemService, _userTransactionService,
-                        _stockService,_endOfDateService, _employeeService,_reportService, 
-                        _userService,_itemCategoryService, _shareMemberService);
+                        _stockService, _endOfDateService, _employeeService, _reportService,
+                        _userService, _itemCategoryService, _shareMemberService);
                     this.Hide();
                     dashboard.Show();
                 }
@@ -119,15 +148,11 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
-
-        private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        #endregion
     }
 }

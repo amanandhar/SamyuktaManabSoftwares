@@ -68,6 +68,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
+            LoadActions();
+            LoadPayments();
             ClearAllFields();
             EnableFields();
             EnableFields(Action.Load);
@@ -110,58 +112,115 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
-                var userTransaction = new UserTransaction
+                var paymentAmount = Convert.ToDecimal(RichAmount.Text);
+                var actionType = ComboPayment.Text;
+                if(actionType.ToLower() == Constants.CASH.ToLower())
                 {
-                    EndOfDay = _endOfDay,
-                    BillNo = TxtBillNo.Text,
-                    SupplierId = TxtSupplierId.Text,
-                    Action = Constants.PAYMENT,
-                    ActionType = ComboPayment.Text,
-                    Bank = ComboBank.Text,
-                    SubTotal = 0.0m,
-                    DiscountPercent = 0.0m,
-                    Discount = 0.0m,
-                    VatPercent = 0.0m,
-                    Vat = 0.0m,
-                    DeliveryChargePercent = 0.0m,
-                    DeliveryCharge = 0.0m,
-                    DueAmount = 0.0m,
-                    ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-                _userTransactionService.AddUserTransaction(userTransaction);
+                    var previousSalesCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
+                    var previousReceiptCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
+                    var previousPaymentCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
+                    var previousExpenseCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
+                    var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
 
-                if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
+                    var openingBalanceCash = previousSalesCash + previousReceiptCash - (previousPaymentCash + previousExpenseCash + previousTransferCash);
+
+                    var salesCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
+                    var receiptCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
+                    var paymentCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
+                    var expenseCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
+                    var transferCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
+                    var cashBalance = openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash);
+
+                    if (paymentAmount > cashBalance)
+                    {
+                        var warningResult = MessageBox.Show("No sufficient cash available.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (warningResult == DialogResult.OK)
+                        {
+                            RichAmount.Focus();
+                            return;
+                        }
+                    }
+                }
+                else
                 {
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
-
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                    var bankTransaction = new BankTransaction
+                    var bankId = Convert.ToInt64(selectedItem?.Id);
+                    var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = bankId });
+                    if(paymentAmount > bankBalance)
+                    {
+                        var warningResult = MessageBox.Show("No sufficient amount in bank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (warningResult == DialogResult.OK)
+                        {
+                            RichAmount.Focus();
+                            return;
+                        }
+                    }
+                }
+
+                var balance = Convert.ToDecimal(TxtBalance.Text);
+                if(paymentAmount > balance)
+                {
+                    var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (warningResult == DialogResult.OK)
+                    {
+                        RichAmount.Focus();
+                    }
+                }
+                else
+                {
+                    var date = DateTime.Now;
+                    var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        BankId = Convert.ToInt64(selectedItem.Id),
-                        TransactionId = lastUserTransaction.Id,
-                        Action = '0',
-                        Debit = 0.0m,
-                        Credit = Convert.ToDecimal(RichAmount.Text),
-                        Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
+                        BillNo = TxtBillNo.Text,
+                        SupplierId = TxtSupplierId.Text,
+                        Action = Constants.PAYMENT,
+                        ActionType = ComboPayment.Text,
+                        Bank = ComboBank.Text,
+                        SubTotal = 0.0m,
+                        DiscountPercent = 0.0m,
+                        Discount = 0.0m,
+                        VatPercent = 0.0m,
+                        Vat = 0.0m,
+                        DeliveryChargePercent = 0.0m,
+                        DeliveryCharge = 0.0m,
+                        DueAmount = 0.0m,
+                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                         AddedDate = date,
                         UpdatedDate = date
                     };
+                    _userTransactionService.AddUserTransaction(userTransaction);
 
-                    _bankTransactionService.AddBankTransaction(bankTransaction);
-                }
+                    if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
+                    {
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
-                DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    ComboPayment.Text = string.Empty;
-                    ComboBank.Text = string.Empty;
-                    RichAmount.Clear();
-                    var supplierTransactionViewList = GetSupplierTransaction();
-                    LoadSupplierTransaction(supplierTransactionViewList);
+                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                        var bankTransaction = new BankTransaction
+                        {
+                            EndOfDay = _endOfDay,
+                            BankId = Convert.ToInt64(selectedItem.Id),
+                            TransactionId = lastUserTransaction.Id,
+                            Action = '0',
+                            Debit = 0.0m,
+                            Credit = Convert.ToDecimal(RichAmount.Text),
+                            Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
+                            AddedDate = date,
+                            UpdatedDate = date
+                        };
+
+                        _bankTransactionService.AddBankTransaction(bankTransaction);
+                    }
+
+                    DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        ComboPayment.Text = string.Empty;
+                        ComboBank.Text = string.Empty;
+                        RichAmount.Clear();
+                        var supplierTransactionViewList = GetSupplierTransaction();
+                        LoadSupplierTransaction(supplierTransactionViewList);
+                    }
                 }
             }
             catch (Exception ex)
@@ -575,6 +634,24 @@ namespace GrocerySupplyManagementApp.Forms
         public string GetSupplierId()
         {
             return TxtSupplierId.Text;
+        }
+
+        public void LoadActions()
+        {
+            ComboAction.ValueMember = "Id";
+            ComboAction.DisplayMember = "Value";
+
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.PAYMENT, Value = Constants.PAYMENT });
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE, Value = Constants.PURCHASE });
+        }
+
+        public void LoadPayments()
+        {
+            ComboPayment.ValueMember = "Id";
+            ComboPayment.DisplayMember = "Value";
+
+            ComboPayment.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboPayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
         }
         #endregion
 

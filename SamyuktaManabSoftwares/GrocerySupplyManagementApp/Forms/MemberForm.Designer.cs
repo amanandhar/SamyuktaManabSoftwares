@@ -60,7 +60,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBalanceStatus = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.RichMemberId = new System.Windows.Forms.RichTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.ComboReceipt = new System.Windows.Forms.ComboBox();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
@@ -84,6 +83,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11 = new System.Windows.Forms.Label();
             this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.TxtMemberId = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).BeginInit();
@@ -327,6 +327,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TxtMemberId);
             this.groupBox1.Controls.Add(this.BtnSearchMember);
             this.groupBox1.Controls.Add(this.TxtAccountNumber);
             this.groupBox1.Controls.Add(this.TxtName);
@@ -342,7 +343,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.RichMemberId);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
             this.groupBox1.Location = new System.Drawing.Point(17, 47);
@@ -467,19 +467,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 6;
             this.label1.Text = "Member ID";
             // 
-            // RichMemberId
-            // 
-            this.RichMemberId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.RichMemberId.Enabled = false;
-            this.RichMemberId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichMemberId.Location = new System.Drawing.Point(86, 18);
-            this.RichMemberId.MaxLength = 5;
-            this.RichMemberId.Name = "RichMemberId";
-            this.RichMemberId.Size = new System.Drawing.Size(77, 26);
-            this.RichMemberId.TabIndex = 1;
-            this.RichMemberId.Text = "";
-            this.RichMemberId.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichMemberId_KeyUp);
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -571,7 +558,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridMemberList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridMemberList.Location = new System.Drawing.Point(16, 168);
+            this.DataGridMemberList.Location = new System.Drawing.Point(17, 166);
             this.DataGridMemberList.Name = "DataGridMemberList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -807,6 +794,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.UseVisualStyleBackColor = false;
             this.BtnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
             // 
+            // TxtMemberId
+            // 
+            this.TxtMemberId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtMemberId.Location = new System.Drawing.Point(86, 17);
+            this.TxtMemberId.Name = "TxtMemberId";
+            this.TxtMemberId.Size = new System.Drawing.Size(75, 26);
+            this.TxtMemberId.TabIndex = 53;
+            // 
             // MemberForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -860,7 +855,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox RichMemberId;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DataGridView DataGridMemberList;
         private System.Windows.Forms.PictureBox PicBoxMemberImage;
@@ -898,5 +892,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox TxtMemberId;
     }
 }

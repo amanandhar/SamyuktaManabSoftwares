@@ -1025,9 +1025,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND [EndOfDay] = @endOfDay " +
-                    "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
                     "( " +
                     "SELECT [Id] " +
@@ -1041,9 +1038,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SUM([ReceivedAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND [EndOfDay] = @endOfDay " +
-                    "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
                     "( " +
                     "SELECT [Id] " +
@@ -1051,6 +1045,21 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE 1 = 1 " +
                     "AND [IncomeExpense] IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "', '" + Constants.BONUS + "') " +
                     ") " ;
+            }
+
+            if (!string.IsNullOrWhiteSpace(endOfDay))
+            {
+                query += "AND [EndOfDay] = @EndOfDay ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(action))
+            {
+                query += "AND [Action] = @Action ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(actionType))
+            {
+                query += "AND [ActionType] = @ActionType ";
             }
 
             try
@@ -1091,9 +1100,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SUM([DueAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND [EndOfDay] < @endOfDay " +
-                    "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
                     "( " +
                     "SELECT [Id] " +
@@ -1107,15 +1113,27 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SUM([ReceivedAmount])" +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND [EndOfDay] < @endOfDay " +
-                    "AND [Action] = @Action " +
-                    "AND [ActionType] = @ActionType " +
                     "AND [Id] NOT IN " +
                     "( " +
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
                     ") ";
+            }
+
+            if(!string.IsNullOrWhiteSpace(endOfDay))
+            {
+                query += "AND [EndOfDay] < @EndOfDay ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(action))
+            {
+                query += "AND [Action] = @Action ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(actionType))
+            {
+                query += "AND [ActionType] = @ActionType ";
             }
 
             try

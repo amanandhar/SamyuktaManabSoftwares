@@ -126,15 +126,15 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddBank_Click(object sender, EventArgs e)
         {
             //EnableFields(Action.Add, true);
-            RichBankName.Focus();
+            TxtBankName.Focus();
         }
 
         private void BtnSaveBank_Click(object sender, EventArgs e)
         {
             try
             {
-                var name = RichBankName.Text;
-                var accountNo = RichAccountNo.Text;
+                var name = TxtBankName.Text;
+                var accountNo = TxtAccountNo.Text;
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(accountNo))
                 {
                     DialogResult result = MessageBox.Show("Bank name and account number are required.", "Warning", MessageBoxButtons.OK);
@@ -148,8 +148,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var date = DateTime.Now;
                     var bank = new Bank
                     {
-                        Name = RichBankName.Text,
-                        AccountNo = RichAccountNo.Text,
+                        Name = TxtBankName.Text,
+                        AccountNo = TxtAccountNo.Text,
                         AddedDate = date,
                         UpdatedDate = date
                     };
@@ -179,13 +179,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var bank = new Bank
             {
-                Name = RichBankName.Text,
-                AccountNo = RichAccountNo.Text,
+                Name = TxtBankName.Text,
+                AccountNo = TxtAccountNo.Text,
                 UpdatedDate = DateTime.Now
             };
 
             _bankService.UpdateBank(selectedBankId, bank);
-            MessageBox.Show(RichBankName.Text + " is updated successfully.", "Message", MessageBoxButtons.OK);
+            MessageBox.Show(TxtBankName.Text + " is updated successfully.", "Message", MessageBoxButtons.OK);
         }
 
         private void BtnDeleteBank_Click(object sender, EventArgs e)
@@ -193,14 +193,14 @@ namespace GrocerySupplyManagementApp.Forms
             List<BankTransaction> bankTransactions = _bankTransactionService.GetBankTransactions(selectedBankId).ToList();
             if (bankTransactions.Count > 0)
             {
-                MessageBox.Show(RichBankName.Text + " can't be deleted. Please delete its transactions first.", "Error", MessageBoxButtons.OK);
+                MessageBox.Show(TxtBankName.Text + " can't be deleted. Please delete its transactions first.", "Error", MessageBoxButtons.OK);
             }
             else
             {
                 _bankService.DeleteBank(selectedBankId);
                 _bankTransactionService.DeleteBankTransaction(selectedBankId);
 
-                DialogResult result = MessageBox.Show(RichBankName.Text + " is deleted successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtBankName.Text + " is deleted successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -313,8 +313,8 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 selectedBankId = bankId;
                 var bankDetail = _bankService.GetBank(bankId);
-                RichBankName.Text = bankDetail.Name;
-                RichAccountNo.Text = bankDetail.AccountNo;
+                TxtBankName.Text = bankDetail.Name;
+                TxtAccountNo.Text = bankDetail.AccountNo;
                 var bankBalance = _bankTransactionService.GetTotalBalance(bankId);
                 TxtBalance.Text = bankBalance.ToString();
                 EnableFields(Action.Populate, true);
@@ -332,13 +332,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if (action == Action.Add)
             {
-                RichBankName.Enabled = option;
-                RichAccountNo.Enabled = option;
+                TxtBankName.Enabled = option;
+                TxtAccountNo.Enabled = option;
             }
             else if (action == Action.Edit)
             {
-                RichBankName.Enabled = option;
-                RichAccountNo.Enabled = option;
+                TxtBankName.Enabled = option;
+                TxtAccountNo.Enabled = option;
                 ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
@@ -358,8 +358,8 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                RichBankName.Enabled = option;
-                RichAccountNo.Enabled = option;
+                TxtBankName.Enabled = option;
+                TxtAccountNo.Enabled = option;
                 ComboActionType.Enabled = option;
                 RichAmount.Enabled = option;
                 TxtBalance.Enabled = option;
@@ -369,8 +369,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllFields()
         {
-            RichBankName.Clear();
-            RichAccountNo.Clear();
+            TxtBankName.Clear();
+            TxtAccountNo.Clear();
             ComboActionType.Text = string.Empty;
             RichAmount.Clear();
             TxtBalance.Clear();
