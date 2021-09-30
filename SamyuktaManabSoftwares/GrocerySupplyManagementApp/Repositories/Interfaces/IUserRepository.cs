@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 
         User UpdateUser(long id, User user);
         User UpdateUser(string username, User user);
+        bool UpdatePassword(string username, string password);
 
         bool DeleteUser(long id);
         bool DeleteUser(string username);

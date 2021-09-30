@@ -232,6 +232,11 @@ namespace GrocerySupplyManagementApp.Forms
                 }
             }
         }
+
+        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RichAmount.Focus();
+        }
         #endregion
 
         #region Radio Button Event
@@ -352,9 +357,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        private void DataGridExpenseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+       
     }
 }

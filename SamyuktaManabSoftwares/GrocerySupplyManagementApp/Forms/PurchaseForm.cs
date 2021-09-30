@@ -62,6 +62,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ItemListForm itemListForm = new ItemListForm(_itemService, this);
             itemListForm.ShowDialog();
+            RichQuantity.Focus();
         }
 
         private void BtnAddNewBill_Click(object sender, EventArgs e)
@@ -200,6 +201,16 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Textbox Event
+        private void RichQuantity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                RichPurchasePrice.Focus();
+            }
+        }
+        #endregion
+
         #region DataGrid Event
         private void DataGridPurchaseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -329,10 +340,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridPurchaseList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        
     }
 }

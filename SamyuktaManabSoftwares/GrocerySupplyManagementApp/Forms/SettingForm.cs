@@ -85,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSetPassword_Click(object sender, EventArgs e)
         {
-            SetPasswordForm setPasswordForm = new SetPasswordForm();
+            SetPasswordForm setPasswordForm = new SetPasswordForm(_userService);
             setPasswordForm.Show();
         }
 

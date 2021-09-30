@@ -1,9 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrocerySupplyManagementApp.Services.Interfaces
 {
@@ -17,6 +13,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         User UpdateUser(long id, User user);
         User UpdateUser(string username, User user);
+        bool UpdatePassword(string username, string password);
 
         bool DeleteUser(long id);
         bool DeleteUser(string username);

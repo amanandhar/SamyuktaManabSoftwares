@@ -203,6 +203,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(215, 28);
             this.ComboBank.TabIndex = 24;
+            this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
             // 
             // ComboPayment
             // 
@@ -400,7 +401,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridExpenseList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridExpenseList.Size = new System.Drawing.Size(1070, 422);
             this.DataGridExpenseList.TabIndex = 27;
-            this.DataGridExpenseList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridExpenseList_CellContentClick);
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
             // 
             // textBox1

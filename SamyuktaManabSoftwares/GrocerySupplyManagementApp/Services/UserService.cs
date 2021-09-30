@@ -44,6 +44,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userRepository.UpdateUser(username, user);
         }
 
+        public bool UpdatePassword(string username, string password)
+        {
+            return _userRepository.UpdatePassword(username, password);
+        }
+
         public bool DeleteUser(long id)
         {
             return _userRepository.DeleteUser(id);

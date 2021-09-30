@@ -292,6 +292,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichQuantity.Size = new System.Drawing.Size(86, 28);
             this.RichQuantity.TabIndex = 3;
             this.RichQuantity.Text = "";
+            this.RichQuantity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichQuantity_KeyDown);
             // 
             // groupBox2
             // 
@@ -412,7 +413,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridPurchaseList.Name = "DataGridPurchaseList";
             this.DataGridPurchaseList.Size = new System.Drawing.Size(910, 420);
             this.DataGridPurchaseList.TabIndex = 60;
-            this.DataGridPurchaseList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPurchaseList_CellContentClick);
             this.DataGridPurchaseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseList_DataBindingComplete);
             // 
             // groupBox4

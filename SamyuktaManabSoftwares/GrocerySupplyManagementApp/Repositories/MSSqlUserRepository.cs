@@ -332,6 +332,37 @@ namespace GrocerySupplyManagementApp.Repositories
             return user;
         }
 
+        public bool UpdatePassword(string username, string password)
+        {
+            var result = false;
+            string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
+                    "SET " +
+                    "[Password] = @Password " +
+                    "WHERE 1 = 1 " +
+                    "AND [Username] = @Username";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Password", ((object)password) ?? DBNull.Value);
+
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
         public bool DeleteUser(long id)
         {
             bool result = false;

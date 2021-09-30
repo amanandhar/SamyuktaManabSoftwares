@@ -381,7 +381,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdatePassword_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SetPasswordForm());
+            OpenChildForm(new SetPasswordForm(_userService));
             SelectButton(sender as Button, true);
         }
 
