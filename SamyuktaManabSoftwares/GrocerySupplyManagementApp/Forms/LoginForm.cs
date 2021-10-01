@@ -131,7 +131,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var result = _userService.IsUserExist(username, encryptedPassword);
                 if (result)
                 {
-                    var dashboard = new DashboardForm(_fiscalYearService, _companyInfoService, _taxService, _bankService,
+                    var dashboard = new DashboardForm(username, _fiscalYearService, _companyInfoService, _taxService, _bankService,
                         _bankTransactionService, _itemService, _pricedItemService, _memberService,
                         _supplierService, _purchasedItemService, _soldItemService, _userTransactionService,
                         _stockService, _endOfDateService, _employeeService, _reportService,

@@ -122,8 +122,10 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemCategoryService _itemCategoryService;
         private readonly IShareMemberService _shareMemberService;
 
+        private readonly string _username;
+
         #region Constructor
-        public DashboardForm(IFiscalYearService fiscalYearService,
+        public DashboardForm(string username, IFiscalYearService fiscalYearService,
             ICompanyInfoService companyInfoService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, IPricedItemService pricedItemService,
@@ -136,6 +138,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             InitializeComponent();
             CustomizeDesign();
+
+            _username = username;
 
             _fiscalYearService = fiscalYearService;
             _companyInfoService = companyInfoService;
@@ -163,6 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             LoadFiscalYear();
+            GetUserPermissions();
 
             var companyInfo = _companyInfoService.GetCompanyInfo();
             lblCompanyShortName.Text = companyInfo.ShortName;
@@ -458,6 +463,119 @@ namespace GrocerySupplyManagementApp.Forms
             RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
             RichBoxFiscalYear.Text = "Fiscal Year: " + fiscalYear.Year;
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
+        }
+
+        private void GetUserPermissions()
+        {
+            var user = _userService.GetUser(_username);
+            if (user.POS)
+            {
+                BtnPointOfSales.Visible = true;
+            }
+            else
+            {
+                BtnPointOfSales.Visible = false;
+            }
+
+            if (user.DailySummary)
+            {
+                BtnDailySummary.Visible = true;
+            }
+            else
+            {
+                BtnDailySummary.Visible = false;
+            }
+
+            if (user.DailyTransaction)
+            {
+                BtnDailyTransaction.Visible = true;
+            }
+            else
+            {
+                BtnDailyTransaction.Visible = false;
+            }
+
+            if (user.StockSummary)
+            {
+                BtnStockSummary.Visible = true;
+            }
+            else
+            {
+                BtnStockSummary.Visible = false;
+            }
+
+            if (user.Member)
+            {
+                BtnMember.Visible = true;
+            }
+            else
+            {
+                BtnMember.Visible = false;
+            }
+
+            if (user.Supplier)
+            {
+                BtnSupplier.Visible = true;
+            }
+            else
+            {
+                BtnSupplier.Visible = false;
+            }
+
+            if (user.ItemPricing)
+            {
+                BtnItemPricing.Visible = true;
+            }
+            else
+            {
+                BtnItemPricing.Visible = false;
+            }
+
+            if (user.Bank)
+            {
+                BtnBank.Visible = true;
+            }
+            else
+            {
+                BtnBank.Visible = false;
+            }
+
+            if (user.Employee)
+            {
+                BtnEmployee.Visible = true;
+            }
+            else
+            {
+                BtnEmployee.Visible = false;
+            }
+
+            if (user.Reports)
+            {
+                BtnReports.Visible = true;
+            }
+            else
+            {
+                BtnReports.Visible = false;
+            }
+
+            if (user.Settings)
+            {
+                BtnSettings.Visible = true;
+            }
+            else
+            {
+                BtnSettings.Visible = false;
+            }
+
+            if (user.EOD)
+            {
+                BtnEOD.Visible = true;
+            }
+            else
+            {
+                BtnEOD.Visible = false;
+            }
+
         }
         #endregion
 

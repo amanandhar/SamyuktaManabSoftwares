@@ -11,6 +11,7 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class UserForm : Form, IUserListForm
     {
         private readonly IUserService _userService;
+        private bool _isPasswordChanged;
 
         #region Enum
         private enum Action
@@ -36,7 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Form Load Event
-        private void UserForm_Load(object sender, System.EventArgs e)
+        private void UserForm_Load(object sender, EventArgs e)
         {
             EnableFields(Action.Load);
             LoadUserTypes();
@@ -55,44 +56,75 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
             EnableFields();
             EnableFields(Action.Add);
-            RichUsername.Focus();
+            TxtUsername.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                var date = DateTime.Now;
-                var user = new User
-                {
-                    Username = RichUsername.Text,
-                    Password = Cryptography.Encrypt(TxtPassword.Text),
-                    Type = ComboUserType.Text,
-                    Bank = ChkBank.Checked,
-                    DailyExpense = ChkDailyExpense.Checked,
-                    DailySummary = ChkDailySummary.Checked,
-                    Employee = ChkEmployee.Checked,
-                    EOD = ChkEOD.Checked,
-                    ItemPricing = ChkItemPricing.Checked,
-                    Member = ChkMember.Checked,
-                    POS = ChkPOS.Checked,
-                    IsReadOnly = ChkReadOnly.Checked,
-                    Report = ChkReport.Checked,
-                    Setting = ChkSetting.Checked,
-                    Stock = ChkStock.Checked,
-                    Supplier = ChkSupplier.Checked,
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
+                var username = TxtUsername.Text;
+                var password = TxtPassword.Text;
+                var confirmPassword = TxtConfirmPassword.Text;
 
-                _userService.AddUser(user);
-
-                DialogResult result = MessageBox.Show(user.Username + " has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
+                if (string.IsNullOrWhiteSpace(username.Trim()))
                 {
-                    ClearAllFields();
-                    EnableFields();
-                    EnableFields(Action.Save);
+                    var errorResult = MessageBox.Show("Username is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        TxtUsername.Focus();
+                    }
+                }
+                else if (string.IsNullOrWhiteSpace(password.Trim()))
+                {
+                    var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        TxtPassword.Focus();
+                    }
+                }
+                else if (string.IsNullOrWhiteSpace(confirmPassword.Trim()) || (password.Trim() != confirmPassword.Trim()))
+                {
+                    var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        TxtPassword.Focus();
+                    }
+                }
+                else
+                {
+                    var date = DateTime.Now;
+                    var user = new User
+                    {
+                        Username = TxtUsername.Text,
+                        Password = Cryptography.Encrypt(TxtPassword.Text),
+                        Type = ComboUserType.Text,
+                        Bank = ChkBank.Checked,
+                        DailySummary = ChkDailySummary.Checked,
+                        DailyTransaction = ChkDailyTransaction.Checked,
+                        Employee = ChkEmployee.Checked,
+                        EOD = ChkEOD.Checked,
+                        ItemPricing = ChkItemPricing.Checked,
+                        Member = ChkMember.Checked,
+                        POS = ChkPOS.Checked,
+                        IsReadOnly = ChkReadOnly.Checked,
+                        Reports = ChkReports.Checked,
+                        Settings = ChkSettings.Checked,
+                        StockSummary = ChkStockSummary.Checked,
+                        Supplier = ChkSupplier.Checked,
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+
+                    _userService.AddUser(user);
+
+                    DialogResult result = MessageBox.Show(user.Username + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                        EnableFields(Action.Save);
+                    }
                 }
             }
             catch (Exception ex)
@@ -109,38 +141,68 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            var username = RichUsername.Text;
             try
             {
-                var date = DateTime.Now;
-                var user = new User
-                {
-                    Username = RichUsername.Text,
-                    Password = Cryptography.Encrypt(TxtPassword.Text),
-                    Type = ComboUserType.Text,
-                    Bank = ChkBank.Checked,
-                    DailyExpense = ChkDailyExpense.Checked,
-                    DailySummary = ChkDailySummary.Checked,
-                    Employee = ChkEmployee.Checked,
-                    EOD = ChkEOD.Checked,
-                    ItemPricing = ChkItemPricing.Checked,
-                    Member = ChkMember.Checked,
-                    POS = ChkPOS.Checked,
-                    IsReadOnly = ChkReadOnly.Checked,
-                    Report = ChkReport.Checked,
-                    Setting = ChkSetting.Checked,
-                    Stock = ChkStock.Checked,
-                    Supplier = ChkSupplier.Checked,
-                    UpdatedDate = date
-                };
+                var username = TxtUsername.Text;
+                var password = TxtPassword.Text;
+                var confirmPassword = TxtConfirmPassword.Text;
 
-                _userService.UpdateUser(username, user);
-                DialogResult result = MessageBox.Show(username + " has been updated successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
+                if (string.IsNullOrWhiteSpace(username.Trim()))
                 {
-                    ClearAllFields();
-                    EnableFields();
-                    EnableFields(Action.Update);
+                    var errorResult = MessageBox.Show("Username is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        TxtUsername.Focus();
+                    }
+                }
+                else if (string.IsNullOrWhiteSpace(password.Trim()))
+                {
+                    var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        TxtPassword.Focus();
+                    }
+                }
+                else if (string.IsNullOrWhiteSpace(confirmPassword.Trim()) || (password.Trim() != confirmPassword.Trim()))
+                {
+                    var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (errorResult == DialogResult.OK)
+                    {
+                        TxtPassword.Focus();
+                    }
+                }
+                else
+                {
+                    var date = DateTime.Now;
+                    var user = new User
+                    {
+                        Username = TxtUsername.Text,
+                        Password = _isPasswordChanged ? Cryptography.Encrypt(TxtPassword.Text) : TxtPassword.Text,
+                        Type = ComboUserType.Text,
+                        Bank = ChkBank.Checked,
+                        DailySummary = ChkDailySummary.Checked,
+                        DailyTransaction = ChkDailyTransaction.Checked,
+                        Employee = ChkEmployee.Checked,
+                        EOD = ChkEOD.Checked,
+                        ItemPricing = ChkItemPricing.Checked,
+                        Member = ChkMember.Checked,
+                        POS = ChkPOS.Checked,
+                        IsReadOnly = ChkReadOnly.Checked,
+                        Reports = ChkReports.Checked,
+                        Settings = ChkSettings.Checked,
+                        StockSummary = ChkStockSummary.Checked,
+                        Supplier = ChkSupplier.Checked,
+                        UpdatedDate = date
+                    };
+
+                    _userService.UpdateUser(username, user);
+                    DialogResult result = MessageBox.Show(username + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                        EnableFields(Action.Update);
+                    }
                 }
             }
             catch (Exception ex)
@@ -156,7 +218,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (deleteResult == DialogResult.Yes)
                 {
-                    var username = RichUsername.Text;
+                    var username = TxtUsername.Text;
                     if (_userService.DeleteUser(username))
                     {
                         DialogResult result = MessageBox.Show(username + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
@@ -177,67 +239,67 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Checkbox Event
-        private void ChkPOS_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkPOS_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkDailySummary_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkDailySummary_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkMember_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkMember_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkSupplier_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkSupplier_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkItemPricing_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkItemPricing_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkStock_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkStock_CheckedChanged(object sender, EventArgs e)
         {
             
         }
 
-        private void ChkDailyExpense_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkDailyExpense_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkBank_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkBank_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkSetting_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkSetting_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkReport_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkReport_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkEmployee_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkEmployee_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkEOD_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkEOD_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void ChkReadOnly_CheckedChanged(object sender, System.EventArgs e)
+        private void ChkReadOnly_CheckedChanged(object sender, EventArgs e)
         {
 
         }
@@ -247,20 +309,21 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void ClearAllFields()
         {
-            RichUsername.Clear();
+            TxtUsername.Clear();
             TxtPassword.Clear();
             TxtConfirmPassword.Clear();
             ComboUserType.Text = string.Empty;
+            ChkReadOnly.Checked = false;
             ChkBank.Checked = false;
             ChkPOS.Checked = false;
-            ChkDailyExpense.Checked = false;
+            ChkDailyTransaction.Checked = false;
             ChkDailySummary.Checked = false;
             ChkMember.Checked = false;
             ChkSupplier.Checked = false;
             ChkItemPricing.Checked = false;
-            ChkStock.Checked = false;
-            ChkSetting.Checked = false;
-            ChkReport.Checked = false;
+            ChkStockSummary.Checked = false;
+            ChkSettings.Checked = false;
+            ChkReports.Checked = false;
             ChkEOD.Checked = false;
             ChkEmployee.Checked = false;
             ChkEOD.Checked = false;
@@ -270,13 +333,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var user = _userService.GetUser(id);
 
-            RichUsername.Text = user.Username;
+            TxtUsername.Text = user.Username;
             ComboUserType.Text = user.Type;
             TxtPassword.Text = user.Password;
             TxtConfirmPassword.Text = user.Password;
 
             ChkBank.Checked = user.Bank;
-            ChkDailyExpense.Checked = user.DailyExpense;
+            ChkDailyTransaction.Checked = user.DailyTransaction;
             ChkDailySummary.Checked = user.DailySummary;
             ChkEmployee.Checked = user.Employee;
             ChkEOD.Checked = user.EOD;
@@ -284,13 +347,14 @@ namespace GrocerySupplyManagementApp.Forms
             ChkMember.Checked = user.Member;
             ChkPOS.Checked = user.POS;
             ChkReadOnly.Checked = user.IsReadOnly;
-            ChkReport.Checked = user.Report;
-            ChkSetting.Checked = user.Setting;
-            ChkStock.Checked = user.Stock;
+            ChkReports.Checked = user.Reports;
+            ChkSettings.Checked = user.Settings;
+            ChkStockSummary.Checked = user.StockSummary;
             ChkSupplier.Checked = user.Supplier;
 
             EnableFields();
             EnableFields(Action.PopulateUser);
+            _isPasswordChanged = false;
         }
 
         private void EnableFields(Action action = Action.None)
@@ -306,13 +370,13 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnUpdate.Enabled = false;
                 BtnDelete.Enabled = false;
 
-                RichUsername.Enabled = true;
+                TxtUsername.Enabled = true;
                 TxtPassword.Enabled = true;
                 TxtConfirmPassword.Enabled = true;
                 ComboUserType.Enabled = true;
 
                 ChkBank.Enabled = true;
-                ChkDailyExpense.Enabled = true;
+                ChkDailyTransaction.Enabled = true;
                 ChkDailySummary.Enabled = true;
                 ChkEmployee.Enabled = true;
                 ChkEOD.Enabled = true;
@@ -320,9 +384,9 @@ namespace GrocerySupplyManagementApp.Forms
                 ChkMember.Enabled = true;
                 ChkPOS.Enabled = true;
                 ChkReadOnly.Enabled = true;
-                ChkReport.Enabled = true;
-                ChkSetting.Enabled = true;
-                ChkStock.Enabled = true;
+                ChkReports.Enabled = true;
+                ChkSettings.Enabled = true;
+                ChkStockSummary.Enabled = true;
                 ChkSupplier.Enabled = true;
             }
             else if (action == Action.Save)
@@ -337,13 +401,13 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
 
-                RichUsername.Enabled = true;
+                TxtUsername.Enabled = true;
                 TxtPassword.Enabled = true;
                 TxtConfirmPassword.Enabled = true;
                 ComboUserType.Enabled = true;
 
                 ChkBank.Enabled = true;
-                ChkDailyExpense.Enabled = true;
+                ChkDailyTransaction.Enabled = true;
                 ChkDailySummary.Enabled = true;
                 ChkEmployee.Enabled = true;
                 ChkEOD.Enabled = true;
@@ -351,9 +415,9 @@ namespace GrocerySupplyManagementApp.Forms
                 ChkMember.Enabled = true;
                 ChkPOS.Enabled = true;
                 ChkReadOnly.Enabled = true;
-                ChkReport.Enabled = true;
-                ChkSetting.Enabled = true;
-                ChkStock.Enabled = true;
+                ChkReports.Enabled = true;
+                ChkSettings.Enabled = true;
+                ChkStockSummary.Enabled = true;
                 ChkSupplier.Enabled = true;
             }
             else if (action == Action.Update)
@@ -377,13 +441,13 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnUpdate.Enabled = false;
                 BtnDelete.Enabled = false;
 
-                RichUsername.Enabled = false;
+                TxtUsername.Enabled = false;
                 TxtPassword.Enabled = false;
                 TxtConfirmPassword.Enabled = false;
                 ComboUserType.Enabled = false;
 
                 ChkBank.Enabled = false;
-                ChkDailyExpense.Enabled = false;
+                ChkDailyTransaction.Enabled = false;
                 ChkDailySummary.Enabled = false;
                 ChkEmployee.Enabled = false;
                 ChkEOD.Enabled = false;
@@ -391,9 +455,9 @@ namespace GrocerySupplyManagementApp.Forms
                 ChkMember.Enabled = false;
                 ChkPOS.Enabled = false;
                 ChkReadOnly.Enabled = false;
-                ChkReport.Enabled = false;
-                ChkSetting.Enabled = false;
-                ChkStock.Enabled = false;
+                ChkReports.Enabled = false;
+                ChkSettings.Enabled = false;
+                ChkStockSummary.Enabled = false;
                 ChkSupplier.Enabled = false;
             }
         }
@@ -408,5 +472,15 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.GUEST, Value = Constants.GUEST });
         }
         #endregion
+
+        private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            _isPasswordChanged = true;
+        }
+
+        private void TxtConfirmPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            _isPasswordChanged = true;
+        }
     }
 }

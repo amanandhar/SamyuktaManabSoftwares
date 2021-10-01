@@ -24,6 +24,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userRepository.GetUser(id);
         }
 
+        public User GetUser(string username)
+        {
+            return _userRepository.GetUser(username);
+        }
+
         public bool IsUserExist(string username, string password)
         {
             return _userRepository.IsUserExist(username, password);

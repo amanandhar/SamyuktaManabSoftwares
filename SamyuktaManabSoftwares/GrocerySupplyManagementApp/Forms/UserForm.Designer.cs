@@ -38,29 +38,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUserType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnShow = new System.Windows.Forms.Button();
-            this.RichUsername = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ChkReadOnly = new System.Windows.Forms.CheckBox();
             this.ChkEOD = new System.Windows.Forms.CheckBox();
             this.ChkBank = new System.Windows.Forms.CheckBox();
             this.ChkEmployee = new System.Windows.Forms.CheckBox();
             this.ChkMember = new System.Windows.Forms.CheckBox();
-            this.ChkStock = new System.Windows.Forms.CheckBox();
+            this.ChkStockSummary = new System.Windows.Forms.CheckBox();
             this.ChkItemPricing = new System.Windows.Forms.CheckBox();
-            this.ChkDailyExpense = new System.Windows.Forms.CheckBox();
+            this.ChkDailyTransaction = new System.Windows.Forms.CheckBox();
             this.ChkSupplier = new System.Windows.Forms.CheckBox();
             this.ChkDailySummary = new System.Windows.Forms.CheckBox();
             this.ChkPOS = new System.Windows.Forms.CheckBox();
-            this.ChkSetting = new System.Windows.Forms.CheckBox();
-            this.ChkReport = new System.Windows.Forms.CheckBox();
+            this.ChkSettings = new System.Windows.Forms.CheckBox();
+            this.ChkReports = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TxtUsername = new System.Windows.Forms.TextBox();
             this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnUpdate = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -101,12 +101,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TxtUsername);
             this.groupBox1.Controls.Add(this.TxtConfirmPassword);
             this.groupBox1.Controls.Add(this.TxtPassword);
             this.groupBox1.Controls.Add(this.ComboUserType);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.BtnShow);
-            this.groupBox1.Controls.Add(this.RichUsername);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -122,31 +122,35 @@ namespace GrocerySupplyManagementApp.Forms
             // TxtConfirmPassword
             // 
             this.TxtConfirmPassword.Enabled = false;
-            this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 66);
+            this.TxtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 60);
             this.TxtConfirmPassword.Name = "TxtConfirmPassword";
-            this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 22);
+            this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 29);
             this.TxtConfirmPassword.TabIndex = 39;
             this.TxtConfirmPassword.UseSystemPasswordChar = true;
+            this.TxtConfirmPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtConfirmPassword_KeyDown);
             // 
             // TxtPassword
             // 
             this.TxtPassword.Enabled = false;
-            this.TxtPassword.Location = new System.Drawing.Point(112, 66);
+            this.TxtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtPassword.Location = new System.Drawing.Point(112, 60);
             this.TxtPassword.Name = "TxtPassword";
-            this.TxtPassword.Size = new System.Drawing.Size(170, 22);
+            this.TxtPassword.Size = new System.Drawing.Size(170, 29);
             this.TxtPassword.TabIndex = 38;
             this.TxtPassword.UseSystemPasswordChar = true;
+            this.TxtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
             // 
             // ComboUserType
             // 
             this.ComboUserType.Enabled = false;
-            this.ComboUserType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboUserType.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboUserType.FormattingEnabled = true;
             this.ComboUserType.Items.AddRange(new object[] {
             "Please Select"});
-            this.ComboUserType.Location = new System.Drawing.Point(435, 25);
+            this.ComboUserType.Location = new System.Drawing.Point(435, 22);
             this.ComboUserType.Name = "ComboUserType";
-            this.ComboUserType.Size = new System.Drawing.Size(170, 26);
+            this.ComboUserType.Size = new System.Drawing.Size(170, 32);
             this.ComboUserType.TabIndex = 10;
             // 
             // label1
@@ -170,15 +174,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.UseVisualStyleBackColor = true;
             this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
-            // RichUsername
-            // 
-            this.RichUsername.Enabled = false;
-            this.RichUsername.Location = new System.Drawing.Point(112, 26);
-            this.RichUsername.Name = "RichUsername";
-            this.RichUsername.Size = new System.Drawing.Size(170, 30);
-            this.RichUsername.TabIndex = 7;
-            this.RichUsername.Text = "";
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.ChkReadOnly);
@@ -186,14 +181,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.ChkBank);
             this.groupBox2.Controls.Add(this.ChkEmployee);
             this.groupBox2.Controls.Add(this.ChkMember);
-            this.groupBox2.Controls.Add(this.ChkStock);
+            this.groupBox2.Controls.Add(this.ChkStockSummary);
             this.groupBox2.Controls.Add(this.ChkItemPricing);
-            this.groupBox2.Controls.Add(this.ChkDailyExpense);
+            this.groupBox2.Controls.Add(this.ChkDailyTransaction);
             this.groupBox2.Controls.Add(this.ChkSupplier);
             this.groupBox2.Controls.Add(this.ChkDailySummary);
             this.groupBox2.Controls.Add(this.ChkPOS);
-            this.groupBox2.Controls.Add(this.ChkSetting);
-            this.groupBox2.Controls.Add(this.ChkReport);
+            this.groupBox2.Controls.Add(this.ChkSettings);
+            this.groupBox2.Controls.Add(this.ChkReports);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
             this.groupBox2.Location = new System.Drawing.Point(236, 178);
@@ -207,7 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkReadOnly.AutoSize = true;
             this.ChkReadOnly.Enabled = false;
-            this.ChkReadOnly.Location = new System.Drawing.Point(226, 38);
+            this.ChkReadOnly.Location = new System.Drawing.Point(34, 21);
             this.ChkReadOnly.Name = "ChkReadOnly";
             this.ChkReadOnly.Size = new System.Drawing.Size(91, 20);
             this.ChkReadOnly.TabIndex = 37;
@@ -220,11 +215,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkEOD.AutoSize = true;
             this.ChkEOD.Enabled = false;
             this.ChkEOD.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkEOD.Location = new System.Drawing.Point(354, 261);
+            this.ChkEOD.Location = new System.Drawing.Point(34, 150);
             this.ChkEOD.Name = "ChkEOD";
-            this.ChkEOD.Size = new System.Drawing.Size(177, 20);
+            this.ChkEOD.Size = new System.Drawing.Size(95, 20);
             this.ChkEOD.TabIndex = 36;
-            this.ChkEOD.Text = "End Of Day Management";
+            this.ChkEOD.Text = "End Of Day";
             this.ChkEOD.UseVisualStyleBackColor = true;
             this.ChkEOD.CheckedChanged += new System.EventHandler(this.ChkEOD_CheckedChanged);
             // 
@@ -233,11 +228,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkBank.AutoSize = true;
             this.ChkBank.Enabled = false;
             this.ChkBank.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkBank.Location = new System.Drawing.Point(354, 80);
+            this.ChkBank.Location = new System.Drawing.Point(34, 47);
             this.ChkBank.Name = "ChkBank";
-            this.ChkBank.Size = new System.Drawing.Size(143, 20);
+            this.ChkBank.Size = new System.Drawing.Size(58, 20);
             this.ChkBank.TabIndex = 35;
-            this.ChkBank.Text = "Bank  Management";
+            this.ChkBank.Text = "Bank";
             this.ChkBank.UseVisualStyleBackColor = true;
             this.ChkBank.CheckedChanged += new System.EventHandler(this.ChkBank_CheckedChanged);
             // 
@@ -246,11 +241,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkEmployee.AutoSize = true;
             this.ChkEmployee.Enabled = false;
             this.ChkEmployee.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkEmployee.Location = new System.Drawing.Point(354, 214);
+            this.ChkEmployee.Location = new System.Drawing.Point(34, 124);
             this.ChkEmployee.Name = "ChkEmployee";
-            this.ChkEmployee.Size = new System.Drawing.Size(171, 20);
+            this.ChkEmployee.Size = new System.Drawing.Size(89, 20);
             this.ChkEmployee.TabIndex = 34;
-            this.ChkEmployee.Text = "Employee Management";
+            this.ChkEmployee.Text = "Employee";
             this.ChkEmployee.UseVisualStyleBackColor = true;
             this.ChkEmployee.CheckedChanged += new System.EventHandler(this.ChkEmployee_CheckedChanged);
             // 
@@ -259,63 +254,63 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkMember.AutoSize = true;
             this.ChkMember.Enabled = false;
             this.ChkMember.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkMember.Location = new System.Drawing.Point(62, 124);
+            this.ChkMember.Location = new System.Drawing.Point(348, 47);
             this.ChkMember.Name = "ChkMember";
-            this.ChkMember.Size = new System.Drawing.Size(184, 20);
+            this.ChkMember.Size = new System.Drawing.Size(77, 20);
             this.ChkMember.TabIndex = 33;
-            this.ChkMember.Text = "Membership Management";
+            this.ChkMember.Text = "Member";
             this.ChkMember.UseVisualStyleBackColor = true;
             this.ChkMember.CheckedChanged += new System.EventHandler(this.ChkMember_CheckedChanged);
             // 
-            // ChkStock
+            // ChkStockSummary
             // 
-            this.ChkStock.AutoSize = true;
-            this.ChkStock.Enabled = false;
-            this.ChkStock.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkStock.Location = new System.Drawing.Point(62, 261);
-            this.ChkStock.Name = "ChkStock";
-            this.ChkStock.Size = new System.Drawing.Size(200, 20);
-            this.ChkStock.TabIndex = 32;
-            this.ChkStock.Text = "Stock Inventary Management";
-            this.ChkStock.UseVisualStyleBackColor = true;
-            this.ChkStock.CheckedChanged += new System.EventHandler(this.ChkStock_CheckedChanged);
+            this.ChkStockSummary.AutoSize = true;
+            this.ChkStockSummary.Enabled = false;
+            this.ChkStockSummary.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkStockSummary.Location = new System.Drawing.Point(348, 150);
+            this.ChkStockSummary.Name = "ChkStockSummary";
+            this.ChkStockSummary.Size = new System.Drawing.Size(121, 20);
+            this.ChkStockSummary.TabIndex = 32;
+            this.ChkStockSummary.Text = "Stock Summary";
+            this.ChkStockSummary.UseVisualStyleBackColor = true;
+            this.ChkStockSummary.CheckedChanged += new System.EventHandler(this.ChkStock_CheckedChanged);
             // 
             // ChkItemPricing
             // 
             this.ChkItemPricing.AutoSize = true;
             this.ChkItemPricing.Enabled = false;
             this.ChkItemPricing.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkItemPricing.Location = new System.Drawing.Point(62, 214);
+            this.ChkItemPricing.Location = new System.Drawing.Point(34, 176);
             this.ChkItemPricing.Name = "ChkItemPricing";
-            this.ChkItemPricing.Size = new System.Drawing.Size(178, 20);
+            this.ChkItemPricing.Size = new System.Drawing.Size(96, 20);
             this.ChkItemPricing.TabIndex = 31;
-            this.ChkItemPricing.Text = "Item Pricing Management";
+            this.ChkItemPricing.Text = "Item Pricing";
             this.ChkItemPricing.UseVisualStyleBackColor = true;
             this.ChkItemPricing.CheckedChanged += new System.EventHandler(this.ChkItemPricing_CheckedChanged);
             // 
-            // ChkDailyExpense
+            // ChkDailyTransaction
             // 
-            this.ChkDailyExpense.AutoSize = true;
-            this.ChkDailyExpense.Enabled = false;
-            this.ChkDailyExpense.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkDailyExpense.Location = new System.Drawing.Point(354, 38);
-            this.ChkDailyExpense.Name = "ChkDailyExpense";
-            this.ChkDailyExpense.Size = new System.Drawing.Size(196, 20);
-            this.ChkDailyExpense.TabIndex = 30;
-            this.ChkDailyExpense.Text = "Daily Expense Management";
-            this.ChkDailyExpense.UseVisualStyleBackColor = true;
-            this.ChkDailyExpense.CheckedChanged += new System.EventHandler(this.ChkDailyExpense_CheckedChanged);
+            this.ChkDailyTransaction.AutoSize = true;
+            this.ChkDailyTransaction.Enabled = false;
+            this.ChkDailyTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkDailyTransaction.Location = new System.Drawing.Point(34, 98);
+            this.ChkDailyTransaction.Name = "ChkDailyTransaction";
+            this.ChkDailyTransaction.Size = new System.Drawing.Size(132, 20);
+            this.ChkDailyTransaction.TabIndex = 30;
+            this.ChkDailyTransaction.Text = "Daily Transaction";
+            this.ChkDailyTransaction.UseVisualStyleBackColor = true;
+            this.ChkDailyTransaction.CheckedChanged += new System.EventHandler(this.ChkDailyExpense_CheckedChanged);
             // 
             // ChkSupplier
             // 
             this.ChkSupplier.AutoSize = true;
             this.ChkSupplier.Enabled = false;
             this.ChkSupplier.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkSupplier.Location = new System.Drawing.Point(62, 168);
+            this.ChkSupplier.Location = new System.Drawing.Point(348, 176);
             this.ChkSupplier.Name = "ChkSupplier";
-            this.ChkSupplier.Size = new System.Drawing.Size(184, 20);
+            this.ChkSupplier.Size = new System.Drawing.Size(77, 20);
             this.ChkSupplier.TabIndex = 29;
-            this.ChkSupplier.Text = "Suppliership Management";
+            this.ChkSupplier.Text = "Supplier";
             this.ChkSupplier.UseVisualStyleBackColor = true;
             this.ChkSupplier.CheckedChanged += new System.EventHandler(this.ChkSupplier_CheckedChanged);
             // 
@@ -324,11 +319,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkDailySummary.AutoSize = true;
             this.ChkDailySummary.Enabled = false;
             this.ChkDailySummary.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkDailySummary.Location = new System.Drawing.Point(62, 80);
+            this.ChkDailySummary.Location = new System.Drawing.Point(34, 73);
             this.ChkDailySummary.Name = "ChkDailySummary";
-            this.ChkDailySummary.Size = new System.Drawing.Size(200, 20);
+            this.ChkDailySummary.Size = new System.Drawing.Size(118, 20);
             this.ChkDailySummary.TabIndex = 28;
-            this.ChkDailySummary.Text = "Daily Summary Management";
+            this.ChkDailySummary.Text = "Daily Summary";
             this.ChkDailySummary.UseVisualStyleBackColor = true;
             this.ChkDailySummary.CheckedChanged += new System.EventHandler(this.ChkDailySummary_CheckedChanged);
             // 
@@ -337,39 +332,39 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkPOS.AutoSize = true;
             this.ChkPOS.Enabled = false;
             this.ChkPOS.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkPOS.Location = new System.Drawing.Point(62, 38);
+            this.ChkPOS.Location = new System.Drawing.Point(348, 73);
             this.ChkPOS.Name = "ChkPOS";
-            this.ChkPOS.Size = new System.Drawing.Size(137, 20);
+            this.ChkPOS.Size = new System.Drawing.Size(55, 20);
             this.ChkPOS.TabIndex = 27;
-            this.ChkPOS.Text = "POS Management";
+            this.ChkPOS.Text = "POS";
             this.ChkPOS.UseVisualStyleBackColor = true;
             this.ChkPOS.CheckedChanged += new System.EventHandler(this.ChkPOS_CheckedChanged);
             // 
-            // ChkSetting
+            // ChkSettings
             // 
-            this.ChkSetting.AutoSize = true;
-            this.ChkSetting.Enabled = false;
-            this.ChkSetting.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkSetting.Location = new System.Drawing.Point(354, 124);
-            this.ChkSetting.Name = "ChkSetting";
-            this.ChkSetting.Size = new System.Drawing.Size(168, 20);
-            this.ChkSetting.TabIndex = 26;
-            this.ChkSetting.Text = "All Setting Management";
-            this.ChkSetting.UseVisualStyleBackColor = true;
-            this.ChkSetting.CheckedChanged += new System.EventHandler(this.ChkSetting_CheckedChanged);
+            this.ChkSettings.AutoSize = true;
+            this.ChkSettings.Enabled = false;
+            this.ChkSettings.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkSettings.Location = new System.Drawing.Point(348, 125);
+            this.ChkSettings.Name = "ChkSettings";
+            this.ChkSettings.Size = new System.Drawing.Size(75, 20);
+            this.ChkSettings.TabIndex = 26;
+            this.ChkSettings.Text = "Settings";
+            this.ChkSettings.UseVisualStyleBackColor = true;
+            this.ChkSettings.CheckedChanged += new System.EventHandler(this.ChkSetting_CheckedChanged);
             // 
-            // ChkReport
+            // ChkReports
             // 
-            this.ChkReport.AutoSize = true;
-            this.ChkReport.Enabled = false;
-            this.ChkReport.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkReport.Location = new System.Drawing.Point(354, 168);
-            this.ChkReport.Name = "ChkReport";
-            this.ChkReport.Size = new System.Drawing.Size(168, 20);
-            this.ChkReport.TabIndex = 25;
-            this.ChkReport.Text = "All Report Management";
-            this.ChkReport.UseVisualStyleBackColor = true;
-            this.ChkReport.CheckedChanged += new System.EventHandler(this.ChkReport_CheckedChanged);
+            this.ChkReports.AutoSize = true;
+            this.ChkReports.Enabled = false;
+            this.ChkReports.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ChkReports.Location = new System.Drawing.Point(348, 99);
+            this.ChkReports.Name = "ChkReports";
+            this.ChkReports.Size = new System.Drawing.Size(75, 20);
+            this.ChkReports.TabIndex = 25;
+            this.ChkReports.Text = "Reports";
+            this.ChkReports.UseVisualStyleBackColor = true;
+            this.ChkReports.CheckedChanged += new System.EventHandler(this.ChkReport_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -383,6 +378,36 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Size = new System.Drawing.Size(640, 79);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(-1, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1104, 44);
+            this.textBox1.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Cyan;
+            this.label6.Location = new System.Drawing.Point(445, 4);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(251, 31);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "User Management";
+            // 
+            // TxtUsername
+            // 
+            this.TxtUsername.Enabled = false;
+            this.TxtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtUsername.Location = new System.Drawing.Point(112, 23);
+            this.TxtUsername.Name = "TxtUsername";
+            this.TxtUsername.Size = new System.Drawing.Size(170, 29);
+            this.TxtUsername.TabIndex = 40;
             // 
             // BtnDelete
             // 
@@ -484,27 +509,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.UseVisualStyleBackColor = false;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(-1, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1104, 44);
-            this.textBox1.TabIndex = 7;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Cyan;
-            this.label6.Location = new System.Drawing.Point(445, 4);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(251, 31);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "User Management";
-            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -535,20 +539,19 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox RichUsername;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox ChkBank;
         private System.Windows.Forms.CheckBox ChkEmployee;
         private System.Windows.Forms.CheckBox ChkMember;
-        private System.Windows.Forms.CheckBox ChkStock;
+        private System.Windows.Forms.CheckBox ChkStockSummary;
         private System.Windows.Forms.CheckBox ChkItemPricing;
         private System.Windows.Forms.CheckBox ChkSupplier;
         private System.Windows.Forms.CheckBox ChkDailySummary;
         private System.Windows.Forms.CheckBox ChkPOS;
-        private System.Windows.Forms.CheckBox ChkSetting;
-        private System.Windows.Forms.CheckBox ChkReport;
+        private System.Windows.Forms.CheckBox ChkSettings;
+        private System.Windows.Forms.CheckBox ChkReports;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.CheckBox ChkDailyExpense;
+        private System.Windows.Forms.CheckBox ChkDailyTransaction;
         private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.CheckBox ChkEOD;
         private System.Windows.Forms.CheckBox ChkReadOnly;
@@ -563,5 +566,6 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnSave;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox TxtUsername;
     }
 }

@@ -31,7 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var username = ComboUsername.Text; ;
+                var username = ComboUsername.Text;
                 var password = TxtPassword.Text;
                 var confirmPassword = TxtConfirmPassword.Text;
 
@@ -43,20 +43,20 @@ namespace GrocerySupplyManagementApp.Forms
                         ComboUsername.Select();
                     }
                 }
-                else if (string.IsNullOrWhiteSpace(password))
+                else if (string.IsNullOrWhiteSpace(password.Trim()))
                 {
                     var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (errorResult == DialogResult.OK)
                     {
-                        TxtPassword.Select();
+                        TxtPassword.Focus();
                     }
                 }
-                else if (string.IsNullOrWhiteSpace(confirmPassword))
+                else if (string.IsNullOrWhiteSpace(confirmPassword.Trim()) || (password.Trim() != confirmPassword.Trim()))
                 {
                     var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (errorResult == DialogResult.OK)
                     {
-                        TxtPassword.Select();
+                        TxtPassword.Focus();
                     }
                 }
                 else
