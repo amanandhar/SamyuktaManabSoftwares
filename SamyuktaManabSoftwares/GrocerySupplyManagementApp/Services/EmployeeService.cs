@@ -24,6 +24,11 @@ namespace GrocerySupplyManagementApp.Services
             return _employeeRepository.GetEmployee(id);
         }
 
+        public Employee GetEmployee(string employeeId)
+        {
+            return _employeeRepository.GetEmployee(employeeId);
+        }
+
         public string GetNewEmployeeId()
         {
             string employeeId;

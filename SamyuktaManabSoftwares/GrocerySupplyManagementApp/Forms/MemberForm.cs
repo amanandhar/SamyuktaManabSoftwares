@@ -18,12 +18,14 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberForm : Form, IMemberListForm
     {
         private readonly IFiscalYearService _fiscalYearService;
+        private readonly ICompanyInfoService _companyInfoService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IMemberService _memberService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IEmployeeService _employeeService;
+        private readonly IReportService _reportService;
 
         private readonly string _endOfDay;
         public DashboardForm _dashboard;
@@ -46,21 +48,23 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public MemberForm(IFiscalYearService fiscalYearService,
+        public MemberForm(IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IMemberService memberService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IEmployeeService employeeService,
-            DashboardForm dashboardForm)
+            IReportService reportService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
             _fiscalYearService = fiscalYearService;
+            _companyInfoService = companyInfoService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _memberService = memberService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _employeeService = employeeService;
+            _reportService = reportService;
             _dashboard = dashboardForm;
 
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
@@ -95,9 +99,12 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var selectedRow = DataGridMemberList.SelectedRows[0];
                 var invoiceNo = selectedRow.Cells["InvoiceNo"].Value.ToString();
-                if (!string.IsNullOrWhiteSpace(invoiceNo))
+                var memberId = TxtMemberId.Text;
+                if (!string.IsNullOrWhiteSpace(invoiceNo) && !string.IsNullOrWhiteSpace(memberId))
                 {
-                    PosForm posForm = new PosForm(_memberService, _userTransactionService, _soldItemService, _employeeService, invoiceNo);
+                    PosForm posForm = new PosForm(_companyInfoService, _memberService, 
+                        _userTransactionService, _soldItemService, 
+                        _employeeService, _reportService, memberId, invoiceNo);
                     posForm.Show();
                 }
             }
@@ -449,6 +456,11 @@ namespace GrocerySupplyManagementApp.Forms
                 }
             }
         }
+
+        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RichAmount.Focus();
+        }
         #endregion
 
         #region Data Grid Event
@@ -668,15 +680,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
-        {
-            RichAmount.Focus();
-        }
-
-        private void DataGridMemberList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

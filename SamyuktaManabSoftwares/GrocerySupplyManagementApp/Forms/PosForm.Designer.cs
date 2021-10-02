@@ -1196,9 +1196,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label19.ForeColor = System.Drawing.Color.Cyan;
             this.label19.Location = new System.Drawing.Point(400, 4);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(607, 37);
+            this.label19.Size = new System.Drawing.Size(594, 37);
             this.label19.TabIndex = 33;
-            this.label19.Text = "Welcome to Point of Sales Dash Board";
+            this.label19.Text = "Welcome to Point of Sales Dashboard";
             // 
             // PosForm
             // 

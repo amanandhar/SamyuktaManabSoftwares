@@ -472,7 +472,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridTransactionList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridTransactionList.Size = new System.Drawing.Size(1072, 435);
             this.DataGridTransactionList.TabIndex = 4;
-            this.DataGridTransactionList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridTransactionList_CellContentClick);
             this.DataGridTransactionList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridTransactionList_DataBindingComplete);
             // 
             // textBox1

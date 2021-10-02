@@ -117,6 +117,7 @@
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\IncomeTransactionFilter.cs" />
     <Compile Include="DTOs\MemberFilter.cs" />
+    <Compile Include="DTOs\PurchaseSalesTransactionFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\StockFilter.cs" />
     <Compile Include="DTOs\SalesReturnTransactionFilter.cs" />
@@ -499,6 +500,7 @@
     <Compile Include="ViewModels\MemberTransactionView.cs" />
     <Compile Include="ViewModels\MemberView.cs" />
     <Compile Include="ViewModels\PurchasedItemListView.cs" />
+    <Compile Include="ViewModels\PurchaseSalesTransactionView.cs" />
     <Compile Include="ViewModels\SalesReturnTransactionView.cs" />
     <Compile Include="ViewModels\ShareMemberTransactionView.cs" />
     <Compile Include="ViewModels\SoldItemView.cs" />

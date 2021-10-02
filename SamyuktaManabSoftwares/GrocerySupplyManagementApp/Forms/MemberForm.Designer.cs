@@ -570,7 +570,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridMemberList.Size = new System.Drawing.Size(927, 375);
             this.DataGridMemberList.TabIndex = 32;
-            this.DataGridMemberList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridMemberList_CellContentClick);
             this.DataGridMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberTransactionList_DataBindingComplete);
             // 
             // PicBoxMemberImage

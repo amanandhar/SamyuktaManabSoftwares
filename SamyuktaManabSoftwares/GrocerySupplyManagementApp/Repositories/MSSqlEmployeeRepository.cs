@@ -92,7 +92,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[ImagePath], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_EMPLOYEE + " " +
                 "WHERE 1 = 1 " +
-                "AND Id = @Id";
+                "AND [Id] = @Id";
 
             try
             {
@@ -102,6 +102,72 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    employee.Id = Convert.ToInt64(reader["Id"].ToString());
+                                    employee.Counter = Convert.ToInt64(reader["Counter"].ToString());
+                                    employee.EmployeeId = reader["EmployeeId"].ToString();
+                                    employee.Name = reader["Name"].ToString();
+                                    employee.TempAddress = reader["TempAddress"].ToString();
+                                    employee.PermAddress = reader["PermAddress"].ToString();
+                                    employee.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
+                                    employee.Email = reader["Email"].ToString();
+                                    employee.CitizenshipNo = reader["CitizenshipNo"].ToString();
+                                    employee.Education = reader["Education"].ToString();
+                                    employee.DateOfBirth = reader["DateOfBirth"].ToString();
+                                    employee.Age = Convert.ToInt32(reader["Age"].ToString());
+                                    employee.BloodGroup = reader["BloodGroup"].ToString();
+                                    employee.FatherName = reader["FatherName"].ToString();
+                                    employee.MotherName = reader["MotherName"].ToString();
+                                    employee.Gender = reader["Gender"].ToString();
+                                    employee.MaritalStatus = reader["MaritalStatus"].ToString();
+                                    employee.SpouseName = reader["SpouseName"].ToString();
+                                    employee.Post = reader["Post"].ToString();
+                                    employee.PostStatus = reader["PostStatus"].ToString();
+                                    employee.AppointedDate = reader["AppointedDate"].ToString();
+                                    employee.ResignedDate = reader["ResignedDate"].ToString();
+                                    employee.ImagePath = reader["ImagePath"].ToString();
+                                    employee.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
+                                    employee.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return employee;
+        }
+
+        public Employee GetEmployee(string employeeId)
+        {
+            var employee = new Employee();
+            var query = @"SELECT " +
+                "[Id], [Counter], [EmployeeId], [Name], [TempAddress], [PermAddress], " +
+                "[ContactNo], [Email], [CitizenshipNo], [Education], [DateOfBirth], " +
+                "[Age], [BloodGroup], [FatherName], [MotherName], [Gender], [MaritalStatus], " +
+                "[SpouseName], [Post], [PostStatus], [AppointedDate], [ResignedDate], " +
+                "[ImagePath], [AddedDate], [UpdatedDate] " +
+                "FROM " + Constants.TABLE_EMPLOYEE + " " +
+                "WHERE 1 = 1 " +
+                "AND [EmployeeId] = @EmployeeId";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@EmployeeId", ((object)employeeId) ?? DBNull.Value);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.HasRows)

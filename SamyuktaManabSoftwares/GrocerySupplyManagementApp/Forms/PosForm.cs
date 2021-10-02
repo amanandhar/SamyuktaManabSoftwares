@@ -31,11 +31,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IEmployeeService _employeeService;
         private readonly IStockService _stockService;
 
-
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
         private const char separator = '.';
+        private bool _isPrintOnly = false;
 
         #region Enum
         private enum Action
@@ -46,6 +46,7 @@ namespace GrocerySupplyManagementApp.Forms
             AddToCart,
             BankTransfer,
             Load,
+            LoadToPrintInvoice,
             None,
             RemoveItem,
             SaveAndPrint,
@@ -87,30 +88,46 @@ namespace GrocerySupplyManagementApp.Forms
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
 
-        public PosForm(IMemberService memberService, IUserTransactionService userTransactionService, 
-            ISoldItemService soldItemService, IEmployeeService employeeService, string invoiceNo)
+        public PosForm(ICompanyInfoService companyInfoService, IMemberService memberService, 
+            IUserTransactionService userTransactionService, ISoldItemService soldItemService, 
+            IEmployeeService employeeService, IReportService reportService,
+            string memberId, string invoiceNo)
         {
             InitializeComponent();
 
+            _companyInfoService = companyInfoService;
             _memberService = memberService;
             _userTransactionService = userTransactionService;
             _soldItemService = soldItemService;
             _employeeService = employeeService;
+            _reportService = reportService;
 
-            _soldItemViewList = _soldItemService.GetSoldItemViewList(invoiceNo).ToList();
+            _isPrintOnly = true;
+            _selectedInvoiceNo = invoiceNo;
+            _soldItemViewList = _soldItemService.GetSoldItemViewList(_selectedInvoiceNo).ToList();
             LoadItems(_soldItemViewList);
-            LoadPosDetails(invoiceNo);
+            LoadMemberDetails(memberId);
+            LoadPosDetails(_selectedInvoiceNo);
+            EnableFields();
+            EnableFields(Action.LoadToPrintInvoice);
         }
         #endregion
 
         #region Form Load Event
         private void PosForm_Load(object sender, EventArgs e)
         {
-            LoadItems(_soldItemViewList);
-            LoadDeliveryPersons();
-            EnableFields();
-            EnableFields(Action.Load);
-            BtnAddSale.Select();
+            if(!_isPrintOnly)
+            {
+                LoadItems(_soldItemViewList);
+                LoadDeliveryPersons();
+                EnableFields();
+                EnableFields(Action.Load);
+                BtnAddSale.Select();
+            }
+            else
+            {
+                BtnSaveInvoice.Text = "Print Receipt";
+            }
         }
         #endregion
 
@@ -262,149 +279,155 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(ComboDeliveryPerson.Text) && TxtDeliveryChargePercent.Text != "0.00")
+                if (_isPrintOnly)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Please fill the following fields: \n Delivery Person",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
-
-                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? 0.00M : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
-                var grandTotal = string.IsNullOrWhiteSpace(TxtGrandTotal.Text) ? 0.00M : Convert.ToDecimal(TxtGrandTotal.Text.Trim());
-                if (RadioBtnCash.Checked && (receivedAmount < grandTotal))
-                {
-                    DialogResult dialogResult = MessageBox.Show("Add received amount.",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
-
-                var date = DateTime.Now;
-                _soldItemViewList.ForEach(x =>
-                {
-                    var soldItem = new SoldItem
-                    {
-                        EndOfDay = TxtInvoiceDate.Text.Trim(),
-                        MemberId = RichMemberId.Text.Trim(),
-                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
-                        ItemId = _itemService.GetItem(x.ItemCode).Id,
-                        Profit = x.Profit,
-                        Unit = x.Unit,
-                        Volume = x.Volume,
-                        Quantity = x.Quantity,
-                        Price = x.ItemPrice,
-                        AddedDate = x.AddedDate,
-                        UpdatedDate = x.AddedDate
-                    };
-
-                    _soldItemService.AddSoldItem(soldItem);
-                });
-
-                ComboBoxItem selectedDeliveryPerson = (ComboBoxItem)ComboDeliveryPerson.SelectedItem;
-                var userTransaction = new UserTransaction
-                {
-                    EndOfDay = TxtInvoiceDate.Text.Trim(),
-                    InvoiceNo = TxtInvoiceNo.Text.Trim(),
-                    MemberId = RichMemberId.Text.Trim(),
-                    DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
-                    Action = Constants.SALES,
-                    ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                    SubTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim()),
-                    DiscountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim()),
-                    Discount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
-                    DeliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()),
-                    DeliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
-                    DueAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
-                    ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
-                    AddedDate = date,
-                    UpdatedDate = date
-                };
-
-                _userTransactionService.AddUserTransaction(userTransaction);
-
-                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
-
-                // Add Sales Discount
-                if (Convert.ToDecimal(TxtDiscount.Text) != 0.00m)
-                {
-                    var userTransactionForSalesDiscount = new UserTransaction
-                    {
-                        EndOfDay = _endOfDay,
-                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
-                        MemberId = RichMemberId.Text.Trim(),
-                        Action = Constants.EXPENSE,
-                        ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                        IncomeExpense = Constants.SALES_DISCOUNT,
-                        SubTotal = 0.0m,
-                        DiscountPercent = 0.0m,
-                        Discount = 0.0m,
-                        VatPercent = 0.0m,
-                        Vat = 0.0m,
-                        DeliveryChargePercent = 0.0m,
-                        DeliveryCharge = 0.0m,
-                        DueAmount = Convert.ToDecimal(TxtDiscount.Text),
-                        ReceivedAmount = 0.0m,
-                        AddedDate = date,
-                        UpdatedDate = date
-                    };
-
-                    _userTransactionService.AddUserTransaction(userTransactionForSalesDiscount);
-                }
-
-                // Add Delivery Charge
-                if (Convert.ToDecimal(TxtDeliveryCharge.Text) != 0.00m)
-                {
-                    var userTransactionForDeliveryCharge = new UserTransaction
-                    {
-                        EndOfDay = _endOfDay,
-                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
-                        MemberId = RichMemberId.Text.Trim(),
-                        DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
-                        Action = Constants.RECEIPT,
-                        ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                        IncomeExpense = Constants.DELIVERY_CHARGE,
-                        SubTotal = 0.0m,
-                        DiscountPercent = 0.0m,
-                        Discount = 0.0m,
-                        VatPercent = 0.0m,
-                        Vat = 0.0m,
-                        DeliveryChargePercent = 0.0m,
-                        DeliveryCharge = 0.0m,
-                        DueAmount = 0.0m,
-                        ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text),
-                        AddedDate = date,
-                        UpdatedDate = date
-                    };
-
-                    _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);
-                }
-
-                ClearAllMemberFields();
-                ClearAllItemFields();
-                ClearAllInvoiceFields();
-                _soldItemViewList.Clear();
-                LoadItems(_soldItemViewList);
-                EnableFields();
-                EnableFields(Action.SaveAndPrint);
-                RadioBtnCash.Checked = false;
-                RadioBtnCredit.Checked = true;
-                ComboDeliveryPerson.Text = string.Empty;
-
-                DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?",
-                    "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    InvoiceReportForm invoiceReportForm = new InvoiceReportForm(_companyInfoService, _reportService, _selectedInvoiceNo);
-                    invoiceReportForm.ShowDialog();
+                    OpenInvoiceReport(_companyInfoService, _reportService, _selectedInvoiceNo);
                 }
                 else
                 {
-                    return;
+                    if (string.IsNullOrWhiteSpace(ComboDeliveryPerson.Text) && TxtDeliveryChargePercent.Text != "0.00")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Please fill the following fields: \n Delivery Person",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.OK)
+                        {
+                            return;
+                        }
+                    }
+
+                    var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? 0.00M : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
+                    var grandTotal = string.IsNullOrWhiteSpace(TxtGrandTotal.Text) ? 0.00M : Convert.ToDecimal(TxtGrandTotal.Text.Trim());
+                    if (RadioBtnCash.Checked && (receivedAmount < grandTotal))
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Add received amount.",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.OK)
+                        {
+                            return;
+                        }
+                    }
+
+                    var date = DateTime.Now;
+                    _soldItemViewList.ForEach(x =>
+                    {
+                        var soldItem = new SoldItem
+                        {
+                            EndOfDay = TxtInvoiceDate.Text.Trim(),
+                            MemberId = RichMemberId.Text.Trim(),
+                            InvoiceNo = TxtInvoiceNo.Text.Trim(),
+                            ItemId = _itemService.GetItem(x.ItemCode).Id,
+                            Profit = x.Profit,
+                            Unit = x.Unit,
+                            Volume = x.Volume,
+                            Quantity = x.Quantity,
+                            Price = x.ItemPrice,
+                            AddedDate = x.AddedDate,
+                            UpdatedDate = x.AddedDate
+                        };
+
+                        _soldItemService.AddSoldItem(soldItem);
+                    });
+
+                    ComboBoxItem selectedDeliveryPerson = (ComboBoxItem)ComboDeliveryPerson.SelectedItem;
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = TxtInvoiceDate.Text.Trim(),
+                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
+                        MemberId = RichMemberId.Text.Trim(),
+                        DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
+                        Action = Constants.SALES,
+                        ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
+                        SubTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim()),
+                        DiscountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim()),
+                        Discount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
+                        DeliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()),
+                        DeliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
+                        DueAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
+                        ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
+                        AddedDate = date,
+                        UpdatedDate = date
+                    };
+
+                    _userTransactionService.AddUserTransaction(userTransaction);
+
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+
+                    // Add Sales Discount
+                    if (Convert.ToDecimal(TxtDiscount.Text) != 0.00m)
+                    {
+                        var userTransactionForSalesDiscount = new UserTransaction
+                        {
+                            EndOfDay = _endOfDay,
+                            InvoiceNo = TxtInvoiceNo.Text.Trim(),
+                            MemberId = RichMemberId.Text.Trim(),
+                            Action = Constants.EXPENSE,
+                            ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
+                            IncomeExpense = Constants.SALES_DISCOUNT,
+                            SubTotal = 0.0m,
+                            DiscountPercent = 0.0m,
+                            Discount = 0.0m,
+                            VatPercent = 0.0m,
+                            Vat = 0.0m,
+                            DeliveryChargePercent = 0.0m,
+                            DeliveryCharge = 0.0m,
+                            DueAmount = Convert.ToDecimal(TxtDiscount.Text),
+                            ReceivedAmount = 0.0m,
+                            AddedDate = date,
+                            UpdatedDate = date
+                        };
+
+                        _userTransactionService.AddUserTransaction(userTransactionForSalesDiscount);
+                    }
+
+                    // Add Delivery Charge
+                    if (Convert.ToDecimal(TxtDeliveryCharge.Text) != 0.00m)
+                    {
+                        var userTransactionForDeliveryCharge = new UserTransaction
+                        {
+                            EndOfDay = _endOfDay,
+                            InvoiceNo = TxtInvoiceNo.Text.Trim(),
+                            MemberId = RichMemberId.Text.Trim(),
+                            DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
+                            Action = Constants.RECEIPT,
+                            ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
+                            IncomeExpense = Constants.DELIVERY_CHARGE,
+                            SubTotal = 0.0m,
+                            DiscountPercent = 0.0m,
+                            Discount = 0.0m,
+                            VatPercent = 0.0m,
+                            Vat = 0.0m,
+                            DeliveryChargePercent = 0.0m,
+                            DeliveryCharge = 0.0m,
+                            DueAmount = 0.0m,
+                            ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text),
+                            AddedDate = date,
+                            UpdatedDate = date
+                        };
+
+                        _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);
+                    }
+
+                    ClearAllMemberFields();
+                    ClearAllItemFields();
+                    ClearAllInvoiceFields();
+                    _soldItemViewList.Clear();
+                    LoadItems(_soldItemViewList);
+                    EnableFields();
+                    EnableFields(Action.SaveAndPrint);
+                    RadioBtnCash.Checked = false;
+                    RadioBtnCredit.Checked = true;
+                    ComboDeliveryPerson.Text = string.Empty;
+
+                    DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?",
+                        "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        OpenInvoiceReport(_companyInfoService, _reportService, _selectedInvoiceNo);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
             catch (Exception ex)
@@ -774,6 +797,10 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
             }
+            else if (action == Action.LoadToPrintInvoice)
+            {
+                BtnSaveInvoice.Enabled = true;
+            }
             else if (action == Action.RemoveItem)
             {
                 BtnSearchMember.Enabled = true;
@@ -974,6 +1001,7 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+
         private void LoadPosDetails(SoldItemView soldItemGrid = null)
         {
             try
@@ -1007,12 +1035,44 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void LoadMemberDetails(string memberId)
+        {
+            try
+            {
+                var member = _memberService.GetMember(memberId);
+
+                RichMemberId.Text = member.MemberId;
+                TxtAccNo.Text = member.AccountNo;
+                TxtName.Text = member.Name;
+                TxtAddress.Text = member.Address;
+                TxtContactNo.Text = member.ContactNo.ToString();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private void LoadPosDetails(string invoiceNo)
         {
             try
             {
                 var userTransaction = _userTransactionService.GetUserTransaction(invoiceNo);
 
+                if(userTransaction.ActionType == Constants.CASH)
+                {
+                    RadioBtnCash.Checked = true;
+                    RadioBtnCredit.Checked = false;
+                }
+                else if(userTransaction.ActionType == Constants.CREDIT)
+                {
+                    RadioBtnCash.Checked = false;
+                    RadioBtnCredit.Checked = true;
+                }
+
+                TxtInvoiceNo.Text = invoiceNo;
+                TxtInvoiceDate.Text = userTransaction.EndOfDay;
+                ComboDeliveryPerson.Text = _employeeService.GetEmployee(userTransaction.DeliveryPersonId).Name;
                 TxtSubTotal.Text = userTransaction.SubTotal.ToString();
                 TxtDiscountPercent.Text = userTransaction.DiscountPercent.ToString();
                 TxtDiscount.Text = userTransaction.Discount.ToString();
@@ -1051,6 +1111,11 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void OpenInvoiceReport(ICompanyInfoService companyInfoService, IReportService reportService, string invoiceNo)
+        {
+            var invoiceReportForm = new InvoiceReportForm(companyInfoService, reportService, invoiceNo);
+            invoiceReportForm.ShowDialog();
+        }
         #endregion
     }
 }

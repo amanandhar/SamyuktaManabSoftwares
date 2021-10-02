@@ -7,6 +7,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<Employee> GetEmployees();
         Employee GetEmployee(long id);
+        Employee GetEmployee(string employeeId);
         long GetLastEmployeeId();
         IEnumerable<Employee> GetDeliveryPersons();
 

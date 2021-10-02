@@ -243,11 +243,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnMember_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new MemberForm(_fiscalYearService,
+            OpenChildForm(new MemberForm(_fiscalYearService, _companyInfoService,
                 _bankService, _bankTransactionService,
                 _memberService, _soldItemService,
                 _userTransactionService, _employeeService,
-                this));
+                _reportService, this));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -398,7 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SalesPurchaseForm());
+            OpenChildForm(new SalesPurchaseForm(_fiscalYearService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
@@ -459,7 +459,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichBoxDateInBs.Text = "Date in BS: " + eod.DateInBs;
             RichBoxDateInBs.SelectionAlignment = HorizontalAlignment.Center;
 
-            RichBoxUsername.Text = "User: Bhai Raja Manandhar";
+            RichBoxUsername.Text = "Username: " + _username;
             RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
             RichBoxFiscalYear.Text = "Fiscal Year: " + fiscalYear.Year;
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
@@ -578,6 +578,5 @@ namespace GrocerySupplyManagementApp.Forms
 
         }
         #endregion
-
     }
 }

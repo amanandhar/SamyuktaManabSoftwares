@@ -34,19 +34,19 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.customButton1 = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.TxtAmount = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.ComboAction = new System.Windows.Forms.ComboBox();
+            this.RadioAll = new System.Windows.Forms.RadioButton();
+            this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.DataGridPurchaseSalesTransaction = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseSalesTransaction)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -93,12 +93,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.TxtAmount);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.radioButton1);
-            this.groupBox2.Controls.Add(this.maskedTextBox1);
-            this.groupBox2.Controls.Add(this.MaskEndOfDay);
+            this.groupBox2.Controls.Add(this.ComboAction);
+            this.groupBox2.Controls.Add(this.RadioAll);
+            this.groupBox2.Controls.Add(this.MaskDtEODTo);
+            this.groupBox2.Controls.Add(this.MaskDtEODFrom);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label1);
@@ -110,72 +110,85 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Daily Transaction";
             // 
-            // radioButton1
+            // TxtAmount
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton1.Location = new System.Drawing.Point(22, 25);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(41, 22);
-            this.radioButton1.TabIndex = 26;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "All";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAmount.Location = new System.Drawing.Point(746, 22);
+            this.TxtAmount.Name = "TxtAmount";
+            this.TxtAmount.Size = new System.Drawing.Size(140, 26);
+            this.TxtAmount.TabIndex = 29;
             // 
-            // maskedTextBox1
+            // label3
             // 
-            this.maskedTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maskedTextBox1.Location = new System.Drawing.Point(341, 22);
-            this.maskedTextBox1.Mask = "   0000-00-00";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(117, 26);
-            this.maskedTextBox1.TabIndex = 24;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label3.Location = new System.Drawing.Point(683, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 18);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Amount";
             // 
-            // MaskEndOfDay
+            // ComboAction
             // 
-            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDay.Location = new System.Drawing.Point(156, 22);
-            this.MaskEndOfDay.Mask = "   0000-00-00";
-            this.MaskEndOfDay.Name = "MaskEndOfDay";
-            this.MaskEndOfDay.Size = new System.Drawing.Size(117, 26);
-            this.MaskEndOfDay.TabIndex = 23;
+            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboAction.FormattingEnabled = true;
+            this.ComboAction.Location = new System.Drawing.Point(554, 21);
+            this.ComboAction.Name = "ComboAction";
+            this.ComboAction.Size = new System.Drawing.Size(125, 28);
+            this.ComboAction.TabIndex = 27;
+            // 
+            // RadioAll
+            // 
+            this.RadioAll.AutoSize = true;
+            this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioAll.Location = new System.Drawing.Point(22, 25);
+            this.RadioAll.Name = "RadioAll";
+            this.RadioAll.Size = new System.Drawing.Size(41, 22);
+            this.RadioAll.TabIndex = 26;
+            this.RadioAll.TabStop = true;
+            this.RadioAll.Text = "All";
+            this.RadioAll.UseVisualStyleBackColor = true;
+            this.RadioAll.CheckedChanged += new System.EventHandler(this.RadioAll_CheckedChanged);
+            // 
+            // MaskDtEODTo
+            // 
+            this.MaskDtEODTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODTo.Location = new System.Drawing.Point(341, 22);
+            this.MaskDtEODTo.Mask = "   0000-00-00";
+            this.MaskDtEODTo.Name = "MaskDtEODTo";
+            this.MaskDtEODTo.Size = new System.Drawing.Size(117, 26);
+            this.MaskDtEODTo.TabIndex = 24;
+            this.MaskDtEODTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODTo_KeyDown);
+            // 
+            // MaskDtEODFrom
+            // 
+            this.MaskDtEODFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODFrom.Location = new System.Drawing.Point(156, 22);
+            this.MaskDtEODFrom.Mask = "   0000-00-00";
+            this.MaskDtEODFrom.Name = "MaskDtEODFrom";
+            this.MaskDtEODFrom.Size = new System.Drawing.Size(117, 26);
+            this.MaskDtEODFrom.TabIndex = 23;
+            this.MaskDtEODFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODFrom_KeyDown);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.customButton1);
+            this.groupBox3.Controls.Add(this.BtnShow);
             this.groupBox3.Location = new System.Drawing.Point(928, 46);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(160, 73);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             // 
-            // customButton1
+            // DataGridPurchaseSalesTransaction
             // 
-            this.customButton1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.customButton1.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.customButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.customButton1.BorderRadius = 35;
-            this.customButton1.BorderSize = 0;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.Location = new System.Drawing.Point(12, 18);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(135, 40);
-            this.customButton1.TabIndex = 0;
-            this.customButton1.Text = "Show";
-            this.customButton1.TextColor = System.Drawing.Color.White;
-            this.customButton1.UseVisualStyleBackColor = false;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(18, 130);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1070, 450);
-            this.dataGridView1.TabIndex = 17;
+            this.DataGridPurchaseSalesTransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridPurchaseSalesTransaction.Location = new System.Drawing.Point(18, 130);
+            this.DataGridPurchaseSalesTransaction.Name = "DataGridPurchaseSalesTransaction";
+            this.DataGridPurchaseSalesTransaction.Size = new System.Drawing.Size(1070, 450);
+            this.DataGridPurchaseSalesTransaction.TabIndex = 17;
+            this.DataGridPurchaseSalesTransaction.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseSalesTransaction_DataBindingComplete);
             // 
             // label2
             // 
@@ -189,33 +202,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.TabIndex = 18;
             this.label2.Text = "Sales && Purchase Transaction Report";
             // 
-            // comboBox1
+            // BtnShow
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(554, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(125, 28);
-            this.comboBox1.TabIndex = 27;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(683, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 18);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Amount";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(746, 22);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(140, 26);
-            this.textBox2.TabIndex = 29;
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 35;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(12, 18);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(135, 40);
+            this.BtnShow.TabIndex = 0;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // SalesPurchaseForm
             // 
@@ -224,16 +229,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1088, 597);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DataGridPurchaseSalesTransaction);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.textBox1);
             this.Name = "SalesPurchaseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.SalesPurchaseForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseSalesTransaction)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,14 +252,14 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDay;
-        private CustomControls.Button.CustomButton customButton1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.RadioButton RadioAll;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODTo;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODFrom;
+        private CustomControls.Button.CustomButton BtnShow;
+        private System.Windows.Forms.DataGridView DataGridPurchaseSalesTransaction;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox TxtAmount;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboAction;
     }
 }

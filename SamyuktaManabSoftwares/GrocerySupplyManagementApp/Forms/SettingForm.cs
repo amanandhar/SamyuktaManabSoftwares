@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSetup_Click(object sender, EventArgs e)
         {
-            SalesPurchaseForm setupForm = new SalesPurchaseForm();
+            SalesPurchaseForm setupForm = new SalesPurchaseForm(_fiscalYearService, _userTransactionService);
             setupForm.ShowDialog();
         }
 

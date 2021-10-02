@@ -142,10 +142,5 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSummaryList.DataSource = source;
         }
         #endregion
-
-        private void DataGridSummaryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

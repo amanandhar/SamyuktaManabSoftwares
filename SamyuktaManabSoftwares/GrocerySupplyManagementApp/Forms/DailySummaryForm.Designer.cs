@@ -413,7 +413,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSummaryList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridSummaryList.Size = new System.Drawing.Size(625, 367);
             this.DataGridSummaryList.TabIndex = 20;
-            this.DataGridSummaryList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridSummaryList_CellContentClick);
             this.DataGridSummaryList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSummaryList_DataBindingComplete);
             // 
             // textBox2

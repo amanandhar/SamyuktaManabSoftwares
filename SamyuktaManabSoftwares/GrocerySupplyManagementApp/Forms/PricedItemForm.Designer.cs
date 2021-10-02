@@ -58,11 +58,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.TxtSalesPricePerUnit = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.BtnSearchPricedItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -71,6 +66,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSearchUnpricedItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.BtnSearchPricedItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -416,76 +416,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Size = new System.Drawing.Size(155, 290);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Add Coustom";
-            // 
-            // OpenItemImageDialog
-            // 
-            this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Controls.Add(this.TxtItemSubCode);
-            this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.ComboCustomItemUnit);
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Controls.Add(this.TxtSalesPricePerUnit);
-            this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.TxtVolume);
-            this.groupBox5.Controls.Add(this.TxtCustomPerUnitValue);
-            this.groupBox5.Controls.Add(this.TxtProfitPercent);
-            this.groupBox5.Controls.Add(this.TxtProfitAmount);
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.ForeColor = System.Drawing.Color.Red;
-            this.groupBox5.Location = new System.Drawing.Point(475, 62);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(445, 470);
-            this.groupBox5.TabIndex = 54;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Coustomized Details";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(-1, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1103, 44);
-            this.textBox1.TabIndex = 55;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Cyan;
-            this.label10.Location = new System.Drawing.Point(309, 5);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(500, 31);
-            this.label10.TabIndex = 56;
-            this.label10.Text = "Item Sub Code && Priced Management";
-            // 
-            // BtnSearchPricedItem
-            // 
-            this.BtnSearchPricedItem.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchPricedItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchPricedItem.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSearchPricedItem.BorderRadius = 10;
-            this.BtnSearchPricedItem.BorderSize = 0;
-            this.BtnSearchPricedItem.FlatAppearance.BorderSize = 0;
-            this.BtnSearchPricedItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSearchPricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearchPricedItem.ForeColor = System.Drawing.Color.White;
-            this.BtnSearchPricedItem.Location = new System.Drawing.Point(340, 102);
-            this.BtnSearchPricedItem.Name = "BtnSearchPricedItem";
-            this.BtnSearchPricedItem.Size = new System.Drawing.Size(70, 30);
-            this.BtnSearchPricedItem.TabIndex = 45;
-            this.BtnSearchPricedItem.Text = "Search";
-            this.BtnSearchPricedItem.TextColor = System.Drawing.Color.White;
-            this.BtnSearchPricedItem.UseVisualStyleBackColor = false;
-            this.BtnSearchPricedItem.Click += new System.EventHandler(this.BtnSearchPricedItem_Click);
+            this.groupBox3.Text = "Add Custom Price";
             // 
             // BtnDeleteImage
             // 
@@ -499,7 +430,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.ForeColor = System.Drawing.Color.White;
             this.BtnDeleteImage.Location = new System.Drawing.Point(79, 258);
             this.BtnDeleteImage.Name = "BtnDeleteImage";
-            this.BtnDeleteImage.Size = new System.Drawing.Size(50, 25);
+            this.BtnDeleteImage.Size = new System.Drawing.Size(59, 25);
             this.BtnDeleteImage.TabIndex = 52;
             this.BtnDeleteImage.Text = "Delete";
             this.BtnDeleteImage.TextColor = System.Drawing.Color.White;
@@ -516,9 +447,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.FlatAppearance.BorderSize = 0;
             this.BtnAddImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddImage.ForeColor = System.Drawing.Color.White;
-            this.BtnAddImage.Location = new System.Drawing.Point(27, 258);
+            this.BtnAddImage.Location = new System.Drawing.Point(18, 258);
             this.BtnAddImage.Name = "BtnAddImage";
-            this.BtnAddImage.Size = new System.Drawing.Size(50, 25);
+            this.BtnAddImage.Size = new System.Drawing.Size(59, 25);
             this.BtnAddImage.TabIndex = 51;
             this.BtnAddImage.Text = "Add";
             this.BtnAddImage.TextColor = System.Drawing.Color.White;
@@ -644,6 +575,75 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchUnpricedItem.TextColor = System.Drawing.Color.White;
             this.BtnSearchUnpricedItem.UseVisualStyleBackColor = false;
             this.BtnSearchUnpricedItem.Click += new System.EventHandler(this.BtnSearchUnpricedItem_Click);
+            // 
+            // OpenItemImageDialog
+            // 
+            this.OpenItemImageDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenItemImageDialog_FileOk);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Controls.Add(this.TxtItemSubCode);
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.ComboCustomItemUnit);
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Controls.Add(this.TxtSalesPricePerUnit);
+            this.groupBox5.Controls.Add(this.label11);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.TxtVolume);
+            this.groupBox5.Controls.Add(this.TxtCustomPerUnitValue);
+            this.groupBox5.Controls.Add(this.TxtProfitPercent);
+            this.groupBox5.Controls.Add(this.TxtProfitAmount);
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.ForeColor = System.Drawing.Color.Red;
+            this.groupBox5.Location = new System.Drawing.Point(475, 62);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(445, 470);
+            this.groupBox5.TabIndex = 54;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Customized Details";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(-1, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1103, 44);
+            this.textBox1.TabIndex = 55;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Cyan;
+            this.label10.Location = new System.Drawing.Point(365, 5);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(344, 31);
+            this.label10.TabIndex = 56;
+            this.label10.Text = "Item Pricing Management";
+            // 
+            // BtnSearchPricedItem
+            // 
+            this.BtnSearchPricedItem.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchPricedItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchPricedItem.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSearchPricedItem.BorderRadius = 10;
+            this.BtnSearchPricedItem.BorderSize = 0;
+            this.BtnSearchPricedItem.FlatAppearance.BorderSize = 0;
+            this.BtnSearchPricedItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearchPricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearchPricedItem.ForeColor = System.Drawing.Color.White;
+            this.BtnSearchPricedItem.Location = new System.Drawing.Point(340, 102);
+            this.BtnSearchPricedItem.Name = "BtnSearchPricedItem";
+            this.BtnSearchPricedItem.Size = new System.Drawing.Size(70, 30);
+            this.BtnSearchPricedItem.TabIndex = 45;
+            this.BtnSearchPricedItem.Text = "Search";
+            this.BtnSearchPricedItem.TextColor = System.Drawing.Color.White;
+            this.BtnSearchPricedItem.UseVisualStyleBackColor = false;
+            this.BtnSearchPricedItem.Click += new System.EventHandler(this.BtnSearchPricedItem_Click);
             // 
             // PricedItemForm
             // 
