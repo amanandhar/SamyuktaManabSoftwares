@@ -482,9 +482,12 @@ namespace GrocerySupplyManagementApp.Forms
             if (e.KeyData == Keys.Enter)
             {
                 e.Handled = e.SuppressKeyPress = true;
-                var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text) ? 0 : Convert.ToDecimal(TxtItemStock.Text);
+
+                var volumne = string.IsNullOrWhiteSpace(TxtVolume.Text) ? 0 : Convert.ToInt64(TxtVolume.Text);
                 var quantity = Convert.ToInt32(RichItemQuantity.Text);
-                if (quantity > stock)
+                var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text) ? 0 : Convert.ToDecimal(TxtItemStock.Text);
+                
+                if ((volumne * quantity) > stock)
                 {
                     DialogResult result = MessageBox.Show("No sufficient stock!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (result == DialogResult.OK)

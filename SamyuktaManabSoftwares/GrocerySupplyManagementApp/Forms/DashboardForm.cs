@@ -320,8 +320,9 @@ namespace GrocerySupplyManagementApp.Forms
             SelectButton(sender as Button, true);
         }
 
-        private void BtnReportInvoice_Click(object sender, EventArgs e)
+        private void BtnSalesPurchaseReport_Click(object sender, EventArgs e)
         {
+            OpenChildForm(new SalesPurchaseForm(_fiscalYearService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
@@ -393,12 +394,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnVatSetup_Click(object sender, EventArgs e)
         {
             OpenChildForm(new TaxSetupForm(_taxService));
-            SelectButton(sender as Button, true);
-        }
-
-        private void BtnSetup_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new SalesPurchaseForm(_fiscalYearService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
@@ -578,5 +573,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         }
         #endregion
+
     }
 }

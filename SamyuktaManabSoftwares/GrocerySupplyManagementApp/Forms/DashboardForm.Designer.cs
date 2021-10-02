@@ -48,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnStockAdjustment = new System.Windows.Forms.Button();
             this.BtnShareCapital = new System.Windows.Forms.Button();
             this.BtnSalesReturn = new System.Windows.Forms.Button();
-            this.BtnReportInvoice = new System.Windows.Forms.Button();
+            this.BtnSalesPurchaseReport = new System.Windows.Forms.Button();
             this.BtnProfitLoss = new System.Windows.Forms.Button();
             this.BtnDailyExpense = new System.Windows.Forms.Button();
             this.BtnDailyIncome = new System.Windows.Forms.Button();
@@ -181,7 +181,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSetup.Text = "Setup";
             this.BtnSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnSetup.UseVisualStyleBackColor = false;
-            this.BtnSetup.Click += new System.EventHandler(this.BtnSetup_Click);
             // 
             // BtnVatSetup
             // 
@@ -360,7 +359,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelReportsSubMenu.Controls.Add(this.BtnStockAdjustment);
             this.PanelReportsSubMenu.Controls.Add(this.BtnShareCapital);
             this.PanelReportsSubMenu.Controls.Add(this.BtnSalesReturn);
-            this.PanelReportsSubMenu.Controls.Add(this.BtnReportInvoice);
+            this.PanelReportsSubMenu.Controls.Add(this.BtnSalesPurchaseReport);
             this.PanelReportsSubMenu.Controls.Add(this.BtnProfitLoss);
             this.PanelReportsSubMenu.Controls.Add(this.BtnDailyExpense);
             this.PanelReportsSubMenu.Controls.Add(this.BtnDailyIncome);
@@ -434,26 +433,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSalesReturn.UseVisualStyleBackColor = false;
             this.BtnSalesReturn.Click += new System.EventHandler(this.BtnSalesReturn_Click);
             // 
-            // BtnReportInvoice
+            // BtnSalesPurchaseReport
             // 
-            this.BtnReportInvoice.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnReportInvoice.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnReportInvoice.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnReportInvoice.FlatAppearance.BorderSize = 0;
-            this.BtnReportInvoice.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnReportInvoice.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnReportInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnReportInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnReportInvoice.ForeColor = System.Drawing.Color.White;
-            this.BtnReportInvoice.Location = new System.Drawing.Point(0, 160);
-            this.BtnReportInvoice.Name = "BtnReportInvoice";
-            this.BtnReportInvoice.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnReportInvoice.Size = new System.Drawing.Size(233, 40);
-            this.BtnReportInvoice.TabIndex = 17;
-            this.BtnReportInvoice.Text = "Reporting && Invoice";
-            this.BtnReportInvoice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnReportInvoice.UseVisualStyleBackColor = false;
-            this.BtnReportInvoice.Click += new System.EventHandler(this.BtnReportInvoice_Click);
+            this.BtnSalesPurchaseReport.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnSalesPurchaseReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnSalesPurchaseReport.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnSalesPurchaseReport.FlatAppearance.BorderSize = 0;
+            this.BtnSalesPurchaseReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.BtnSalesPurchaseReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.BtnSalesPurchaseReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSalesPurchaseReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSalesPurchaseReport.ForeColor = System.Drawing.Color.White;
+            this.BtnSalesPurchaseReport.Location = new System.Drawing.Point(0, 160);
+            this.BtnSalesPurchaseReport.Name = "BtnSalesPurchaseReport";
+            this.BtnSalesPurchaseReport.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.BtnSalesPurchaseReport.Size = new System.Drawing.Size(233, 40);
+            this.BtnSalesPurchaseReport.TabIndex = 17;
+            this.BtnSalesPurchaseReport.Text = "Sales && Purchase";
+            this.BtnSalesPurchaseReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnSalesPurchaseReport.UseVisualStyleBackColor = false;
+            this.BtnSalesPurchaseReport.Click += new System.EventHandler(this.BtnSalesPurchaseReport_Click);
             // 
             // BtnProfitLoss
             // 
@@ -1010,7 +1009,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnBalanceSheet;
         private System.Windows.Forms.Button BtnReports;
         private System.Windows.Forms.Button BtnSalesReturn;
-        private System.Windows.Forms.Button BtnReportInvoice;
+        private System.Windows.Forms.Button BtnSalesPurchaseReport;
         private System.Windows.Forms.Button BtnShareCapital;
         private System.Windows.Forms.Button BtnStockAdjustment;
         private System.Windows.Forms.Button BtnSettings;
