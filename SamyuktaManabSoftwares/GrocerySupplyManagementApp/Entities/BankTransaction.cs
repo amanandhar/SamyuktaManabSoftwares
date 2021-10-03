@@ -6,6 +6,7 @@ namespace GrocerySupplyManagementApp.Entities
     {
         public long Id { get; set; } 
         public string EndOfDay { get; set; }
+        public string Username { get; set; }
         public long BankId { get; set; }
         public long TransactionId { get; set; }
         public char Action { get; set; }

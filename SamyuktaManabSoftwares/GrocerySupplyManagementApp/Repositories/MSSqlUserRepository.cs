@@ -75,6 +75,73 @@ namespace GrocerySupplyManagementApp.Repositories
             return users;
         }
 
+        public IEnumerable<User> GetUsers(string username, string type)
+        {
+            var users = new List<User>();
+            var query = @"SELECT " +
+                "[Id], [Username], [Type], " +
+                "[Password], [IsReadOnly], [Bank], [DailySummary], " +
+                "[DailyTransaction], [Employee], [EOD], [ItemPricing], " +
+                "[Member], [POS], [Reports], [Settings], " +
+                "[StockSummary], [Supplier], [AddedDate], [UpdatedDate] " +
+                "FROM [" + Constants.TABLE_USER + "] " +
+                "WHERE 1 = 1 ";
+
+            if(type == Constants.STAFF || type == Constants.GUEST)
+            {
+                query += "AND [Username] = @Username ";
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var user = new User
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Username = reader["Username"].ToString(),
+                                    Password = reader["Password"].ToString(),
+                                    Type = reader["Type"].ToString(),
+                                    IsReadOnly = Convert.ToBoolean(reader["IsReadOnly"].ToString()),
+                                    Bank = Convert.ToBoolean(reader["Bank"].ToString()),
+                                    DailySummary = Convert.ToBoolean(reader["DailySummary"].ToString()),
+                                    DailyTransaction = Convert.ToBoolean(reader["DailyTransaction"].ToString()),
+                                    Employee = Convert.ToBoolean(reader["Employee"].ToString()),
+                                    EOD = Convert.ToBoolean(reader["EOD"].ToString()),
+                                    ItemPricing = Convert.ToBoolean(reader["ItemPricing"].ToString()),
+                                    Member = Convert.ToBoolean(reader["Member"].ToString()),
+                                    POS = Convert.ToBoolean(reader["POS"].ToString()),
+                                    Reports = Convert.ToBoolean(reader["Reports"].ToString()),
+                                    Settings = Convert.ToBoolean(reader["Settings"].ToString()),
+                                    StockSummary = Convert.ToBoolean(reader["StockSummary"].ToString()),
+                                    Supplier = Convert.ToBoolean(reader["Supplier"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
+                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                };
+
+                                users.Add(user);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return users;
+        }
+
         public User GetUser(long id)
         {
             var user = new User();

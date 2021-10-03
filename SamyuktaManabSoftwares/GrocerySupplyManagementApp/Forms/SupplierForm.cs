@@ -21,6 +21,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
 
         #region Enum
@@ -43,7 +44,8 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public SupplierForm(IFiscalYearService fiscalYearService,
+        public SupplierForm(string username,
+            IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, ISupplierService supplierService, 
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService)
@@ -58,6 +60,7 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
 
@@ -86,7 +89,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddPurchase_Click(object sender, EventArgs e)
         {
-            PurchaseForm purchaseForm = new PurchaseForm(_fiscalYearService, _itemService,
+            PurchaseForm purchaseForm = new PurchaseForm(_username,
+                _fiscalYearService, _itemService,
                 _purchasedItemService, _userTransactionService, this);
             purchaseForm.Show();
         }
@@ -172,6 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        Username = _username,
                         BillNo = TxtBillNo.Text,
                         SupplierId = TxtSupplierId.Text,
                         Action = Constants.PAYMENT,
@@ -199,6 +204,7 @@ namespace GrocerySupplyManagementApp.Forms
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
+                            Username = _username,
                             BankId = Convert.ToInt64(selectedItem.Id),
                             TransactionId = lastUserTransaction.Id,
                             Action = '0',

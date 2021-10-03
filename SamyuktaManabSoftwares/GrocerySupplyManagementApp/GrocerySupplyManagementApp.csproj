@@ -117,7 +117,6 @@
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\IncomeTransactionFilter.cs" />
     <Compile Include="DTOs\MemberFilter.cs" />
-    <Compile Include="DTOs\PurchaseSalesTransactionFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\StockFilter.cs" />
     <Compile Include="DTOs\SalesReturnTransactionFilter.cs" />

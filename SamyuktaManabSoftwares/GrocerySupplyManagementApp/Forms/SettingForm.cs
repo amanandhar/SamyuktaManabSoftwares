@@ -18,8 +18,10 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
         private readonly IItemCategoryService _itemCategoryService;
 
+        private readonly string _username;
+
         #region Constructor
-        public SettingForm(IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
+        public SettingForm(string username, IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
             ITaxService taxService, IItemService itemService,
             IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService,
             ISoldItemService soldItemService, IUserTransactionService userTransactionService,
@@ -39,6 +41,8 @@ namespace GrocerySupplyManagementApp.Forms
             _employeeService = employeeService;
             _userService = userService;
             _itemCategoryService = itemCategoryService;
+
+            _username = username;
         }
         #endregion
 
@@ -71,7 +75,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUserSetup_Click(object sender, EventArgs e)
         {
-            UserForm userForm = new UserForm(_userService);
+            UserForm userForm = new UserForm(_username, _userService);
             userForm.Show();
         }
 

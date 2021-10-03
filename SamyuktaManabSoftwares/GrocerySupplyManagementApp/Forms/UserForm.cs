@@ -12,6 +12,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IUserService _userService;
         private bool _isPasswordChanged;
+        private readonly string _username;
 
         #region Enum
         private enum Action
@@ -28,10 +29,11 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor 
-        public UserForm(IUserService userService)
+        public UserForm(string username, IUserService userService)
         {
             InitializeComponent();
 
+            _username = username;
             _userService = userService;
         }
         #endregion
@@ -47,7 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            UserListForm userListForm = new UserListForm(_userService, this);
+            UserListForm userListForm = new UserListForm(_username, _userService, this);
             userListForm.ShowDialog();
         }
 
@@ -235,6 +237,18 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
+        }
+        #endregion
+
+        #region TextBox Event
+        private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            _isPasswordChanged = true;
+        }
+
+        private void TxtConfirmPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            _isPasswordChanged = true;
         }
         #endregion
 
@@ -468,19 +482,10 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUserType.DisplayMember = "Value";
 
             ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.ADMIN, Value = Constants.ADMIN });
-            ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.GENERAL, Value = Constants.GENERAL });
+            ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.STAFF, Value = Constants.STAFF });
             ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.GUEST, Value = Constants.GUEST });
         }
         #endregion
-
-        private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
-        {
-            _isPasswordChanged = true;
-        }
-
-        private void TxtConfirmPassword_KeyDown(object sender, KeyEventArgs e)
-        {
-            _isPasswordChanged = true;
-        }
+ 
     }
 }

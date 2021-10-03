@@ -11,13 +11,16 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class UserListForm : Form
     {
         private readonly IUserService _userService;
-        public IUserListForm _userListForm; 
+        public IUserListForm _userListForm;
+
+        private readonly string _username;
 
         #region Constructor 
-        public UserListForm(IUserService userService, IUserListForm userListForm)
+        public UserListForm(string username, IUserService userService, IUserListForm userListForm)
         {
             InitializeComponent();
 
+            _username = username;
             _userService = userService;
             _userListForm = userListForm;
         }
@@ -87,7 +90,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadUsers()
         {
-            var users = _userService.GetUsers().ToList();
+            var user = _userService.GetUser(_username);
+            var users = _userService.GetUsers(_username, user.Type).ToList();
             
             var bindingList = new BindingList<User>(users);
             var source = new BindingSource(bindingList, null);

@@ -16,8 +16,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IStockService _stockService;
         private readonly IShareMemberService _shareMemberService;
 
+        private readonly string _username;
+
         #region Constructor
-        public ReportForm(IFiscalYearService fiscalYearService,
+        public ReportForm(string username, 
+            IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IItemService itemService, IPurchasedItemService purchasedItemService,
             ISoldItemService soldItemService, IUserTransactionService userTransactionService, 
@@ -35,6 +38,8 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
             _stockService = stockService;
             _shareMemberService = shareMemberService;
+
+            _username = username;
         }
         #endregion
 
@@ -63,8 +68,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyIncomeReport_Click(object sender, EventArgs e)
         {
-            IncomeForm incomeDetailForm = new IncomeForm(_fiscalYearService, 
-                _bankService, _bankTransactionService, _userTransactionService);
+            IncomeForm incomeDetailForm = new IncomeForm(_username,
+                _fiscalYearService, _bankService, 
+                _bankTransactionService, _userTransactionService);
             incomeDetailForm.Show();
         }
 
@@ -77,15 +83,18 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyExpenseReport_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
-                _bankService, _bankTransactionService,
-                _userTransactionService);
+            ExpenseForm expenseForm = new ExpenseForm(_username,
+                _fiscalYearService, _bankService, 
+                _bankTransactionService, _userTransactionService);
             expenseForm.Show();
         }
 
         private void BtnSalesReturn_Click(object sender, EventArgs e)
         {
-            SalesReturnForm salesReturnForm = new SalesReturnForm(_fiscalYearService, _itemService, _purchasedItemService, _soldItemService, _userTransactionService);
+            SalesReturnForm salesReturnForm = new SalesReturnForm(_username,
+                _fiscalYearService, _itemService, 
+                _purchasedItemService, _soldItemService, 
+                _userTransactionService);
             salesReturnForm.Show();
         }
 

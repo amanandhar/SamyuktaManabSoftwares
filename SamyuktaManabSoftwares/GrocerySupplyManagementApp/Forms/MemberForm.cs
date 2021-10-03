@@ -27,6 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
         public DashboardForm _dashboard;
         private string _baseImageFolder;
@@ -48,7 +49,8 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public MemberForm(IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
+        public MemberForm(string username,
+            IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IMemberService memberService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IEmployeeService employeeService,
@@ -67,6 +69,7 @@ namespace GrocerySupplyManagementApp.Forms
             _reportService = reportService;
             _dashboard = dashboardForm;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
@@ -128,6 +131,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        Username = _username,
                         MemberId = TxtMemberId.Text,
                         Action = Constants.RECEIPT,
                         ActionType = ComboReceipt.Text,
@@ -153,6 +157,7 @@ namespace GrocerySupplyManagementApp.Forms
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
+                            Username = _username,
                             BankId = Convert.ToInt64(selectedItem.Id),
                             TransactionId = lastPosTransaction.Id,
                             Action = '1',

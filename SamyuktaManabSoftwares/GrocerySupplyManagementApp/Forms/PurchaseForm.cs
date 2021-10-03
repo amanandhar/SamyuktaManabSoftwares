@@ -18,12 +18,14 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
         public SupplierForm _supplierForm;
         private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
 
         #region Constructor
-        public PurchaseForm(IFiscalYearService fiscalYearService, IItemService itemService,
+        public PurchaseForm(string username,
+            IFiscalYearService fiscalYearService, IItemService itemService,
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
             SupplierForm supplierForm
             )
@@ -36,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
             _supplierForm = supplierForm;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
 
@@ -137,6 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        Username = _username,
                         BillNo = RichBillNo.Text,
                         SupplierId = _supplierForm.GetSupplierId(),
                         Action = Constants.PURCHASE,

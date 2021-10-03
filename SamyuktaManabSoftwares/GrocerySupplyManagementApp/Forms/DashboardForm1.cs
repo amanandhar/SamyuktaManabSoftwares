@@ -27,8 +27,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemCategoryService _itemCategoryService;
         private readonly IShareMemberService _shareMemberService;
 
+        private readonly string _username;
+
         #region Constructor
-        public DashboardForm1(IFiscalYearService fiscalYearService, 
+        public DashboardForm1(string username, 
+            IFiscalYearService fiscalYearService, 
             ICompanyInfoService companyInfoService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, IPricedItemService pricedItemService,
@@ -60,6 +63,8 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
             _itemCategoryService = itemCategoryService;
             _shareMemberService = shareMemberService;
+
+            _username = username;
         }
         #endregion
 
@@ -85,7 +90,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Menu Button
         private void BtnPosMgmt_Click(object sender, EventArgs e)
         {
-            PosForm posForm = new PosForm(  
+            PosForm posForm = new PosForm( 
+                _username,
                 _fiscalYearService, _taxService,
                 _bankService, _bankTransactionService,
                 _itemService, _pricedItemService,
@@ -93,16 +99,17 @@ namespace GrocerySupplyManagementApp.Forms
                 _purchasedItemService, _soldItemService,
                 _userTransactionService, _reportService,
                 _companyInfoService, _employeeService,
-                _stockService
+                _stockService, _userService
                  );
             posForm.Show();
         }
 
         private void BtnSummaryMgmt_Click(object sender, EventArgs e)
         {
-            SummaryForm summaryForm = new SummaryForm(_fiscalYearService, _bankTransactionService,
+            SummaryForm summaryForm = new SummaryForm(_username, 
+                _fiscalYearService, _bankTransactionService,
                 _purchasedItemService, _soldItemService, 
-                _userTransactionService);
+                _userTransactionService, _userService);
             summaryForm.Show();
         }
 
@@ -118,7 +125,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
         {
-            SupplierForm supplierForm = new SupplierForm(_fiscalYearService, _bankService,
+            SupplierForm supplierForm = new SupplierForm(_username,
+                _fiscalYearService, _bankService,
                 _bankTransactionService, _itemService, 
                 _supplierService, _purchasedItemService, 
                 _userTransactionService);
@@ -142,22 +150,24 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnIncomeExpenseMgmt_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseMgmtForm = new ExpenseForm(_fiscalYearService, 
-                _bankService, _bankTransactionService,
-                _userTransactionService);
+            ExpenseForm expenseMgmtForm = new ExpenseForm(_username,
+                _fiscalYearService,  _bankService, 
+                _bankTransactionService, _userTransactionService);
             expenseMgmtForm.Show();
         }
 
         private void BtnBankingMgmt_Click(object sender, EventArgs e)
         {
-            BankForm bankForm = new BankForm(_fiscalYearService, _bankService, 
+            BankForm bankForm = new BankForm(_username,
+                _fiscalYearService, _bankService, 
                 _bankTransactionService);
             bankForm.Show();
         }
 
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
-            SettingForm settingForm = new SettingForm(_fiscalYearService, _companyInfoService,
+            SettingForm settingForm = new SettingForm(_username,
+                _fiscalYearService, _companyInfoService,
                 _taxService, _itemService,
                 _bankTransactionService, _purchasedItemService,
                 _soldItemService, _userTransactionService,
@@ -168,7 +178,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
-            ReportForm reportForm = new ReportForm(_fiscalYearService, _bankService, 
+            ReportForm reportForm = new ReportForm(_username, 
+                _fiscalYearService, _bankService, 
                 _bankTransactionService, _itemService, 
                 _purchasedItemService, _soldItemService, 
                 _userTransactionService, _stockService, 

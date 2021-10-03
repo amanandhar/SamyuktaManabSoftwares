@@ -148,6 +148,99 @@ namespace GrocerySupplyManagementApp.Repositories
             return userTransactions;
         }
 
+        public IEnumerable<UserTransaction> GetUserTransactions(UserTransactionFilter userTransactionFilter)
+        {
+            var userTransactions = new List<UserTransaction>();
+            var query = @"SELECT " +
+                "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], [ShareMemberId], " +
+                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [IncomeExpense], " +
+                "[Narration], [SubTotal], [DiscountPercent], [Discount], [VatPercent], " +
+                "[Vat], [DeliveryChargePercent], [DeliveryCharge], " +
+                "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                "WHERE 1=1 ";
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
+            {
+                query += "AND [EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
+            {
+                query += "AND [EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.MemberId))
+            {
+                query += "AND [MemberId] = @MemberId ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.Action))
+            {
+                query += "AND [Action] = @Action ";
+            }
+
+            query += "ORDER BY [Id] ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)userTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)userTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@MemberId", ((object)userTransactionFilter?.MemberId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)userTransactionFilter?.Action) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var userTransaction = new UserTransaction
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    InvoiceNo = reader["InvoiceNo"].ToString(),
+                                    BillNo = reader["BillNo"].ToString(),
+                                    MemberId = reader["MemberId"].ToString(),
+                                    ShareMemberId = Convert.ToInt64(reader["ShareMemberId"].ToString()),
+                                    SupplierId = reader["SupplierId"].ToString(),
+                                    DeliveryPersonId = reader["DeliveryPersonId"].ToString(),
+                                    Action = reader["Action"].ToString(),
+                                    ActionType = reader["ActionType"].ToString(),
+                                    Bank = reader["Bank"].ToString(),
+                                    IncomeExpense = reader["IncomeExpense"].ToString(),
+                                    Narration = reader["Narration"].ToString(),
+                                    SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
+                                    DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
+                                    Discount = Convert.ToDecimal(reader["Discount"].ToString()),
+                                    VatPercent = Convert.ToDecimal(reader["VatPercent"].ToString()),
+                                    Vat = Convert.ToDecimal(reader["Vat"].ToString()),
+                                    DeliveryChargePercent = Convert.ToDecimal(reader["DeliveryChargePercent"].ToString()),
+                                    DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
+                                    DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
+                                    ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
+                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                };
+
+                                userTransactions.Add(userTransaction);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return userTransactions;
+
+        }
+
         public IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter deliveryPersonFilter)
         {
             var userTransactions = new List<UserTransaction>();
@@ -1328,9 +1421,9 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " AND ut.[InvoiceNo] = '" + dailyTransactionFilter.InvoiceNo + "' ";
             }
-            else if (dailyTransactionFilter.User != null)
+            else if (dailyTransactionFilter.Username != null)
             {
-                query += " AND 1 = 2 ";
+                query += " AND ut.[Username] = '" + dailyTransactionFilter.Username + "' ";
             }
             else
             {
@@ -1444,9 +1537,9 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " AND ut.[InvoiceNo] = '" + dailyTransactionFilter.InvoiceNo + "' ";
             }
-            else if (dailyTransactionFilter.User != null)
+            else if (dailyTransactionFilter.Username != null)
             {
-                query += " AND 1 = 2 ";
+                query += " AND ut.[Username] = '" + dailyTransactionFilter.Username + "' ";
             }
             else
             {
@@ -1817,13 +1910,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
-                        "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
+                        "[InvoiceNo], [EndOfDay], [Username], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
                         "[IncomeExpense], [Narration], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
                         "[DeliveryCharge], [DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @ShareMemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
+                        "@InvoiceNo, @EndOfDay, @Username, @BillNo, @MemberId, @ShareMemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
                         "@IncomeExpense, @Narration, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
                         "@DeliveryCharge, @DueAmount, @ReceivedAmount, @AddedDate, @UpdatedDate " +
                     ") ";
@@ -1835,6 +1928,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EndOfDay", userTransaction.EndOfDay);
+                        command.Parameters.AddWithValue("@Username", userTransaction.Username);
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)userTransaction.InvoiceNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BillNo", ((object)userTransaction.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@MemberId", ((object)userTransaction.MemberId) ?? DBNull.Value);

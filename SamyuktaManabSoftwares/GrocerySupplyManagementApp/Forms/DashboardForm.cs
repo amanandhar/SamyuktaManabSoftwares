@@ -187,7 +187,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnPointOfSales_Click(object sender, EventArgs e)
         {
-            PosForm posForm = new PosForm(
+            PosForm posForm = new PosForm(_username,
                 _fiscalYearService, _taxService,
                 _bankService, _bankTransactionService,
                 _itemService, _pricedItemService,
@@ -195,7 +195,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _purchasedItemService, _soldItemService,
                 _userTransactionService, _reportService,
                 _companyInfoService, _employeeService,
-                _stockService
+                _stockService, _userService
                  );
             posForm.ShowDialog();
 
@@ -215,19 +215,21 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailySummary_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SummaryForm(_fiscalYearService, _bankTransactionService,
+            OpenChildForm(new SummaryForm(_username,
+                _fiscalYearService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService));
+                _userTransactionService, _userService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
 
         private void BtnDailyTransaction_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new DailyTransactionForm(_fiscalYearService,
+            OpenChildForm(new DailyTransactionForm(_username,
+                _fiscalYearService,
                _bankTransactionService,
                _purchasedItemService, _soldItemService,
-               _userTransactionService
+               _userTransactionService, _userService
                ));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -243,7 +245,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnMember_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new MemberForm(_fiscalYearService, _companyInfoService,
+            OpenChildForm(new MemberForm(_username, 
+                _fiscalYearService, _companyInfoService,
                 _bankService, _bankTransactionService,
                 _memberService, _soldItemService,
                 _userTransactionService, _employeeService,
@@ -254,7 +257,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSupplier_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SupplierForm(_fiscalYearService, _bankService,
+            OpenChildForm(new SupplierForm(_username,
+                _fiscalYearService, _bankService,
                 _bankTransactionService, _itemService,
                 _supplierService, _purchasedItemService,
                 _userTransactionService));
@@ -273,7 +277,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnBank_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new BankForm(_fiscalYearService, _bankService,
+            OpenChildForm(new BankForm(_username,
+                _fiscalYearService, _bankService,
                 _bankTransactionService));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -301,16 +306,17 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyIncome_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new IncomeForm(_fiscalYearService,
-                _bankService, _bankTransactionService, _userTransactionService));
+            OpenChildForm(new IncomeForm(_username,
+                _fiscalYearService, _bankService, 
+                _bankTransactionService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnDailyExpense_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ExpenseForm(_fiscalYearService,
-                _bankService, _bankTransactionService,
-                _userTransactionService));
+            OpenChildForm(new ExpenseForm(_username,
+                _fiscalYearService, _bankService, 
+                _bankTransactionService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
@@ -328,13 +334,17 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSalesReturn_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SalesReturnForm(_fiscalYearService, _itemService, _purchasedItemService, _soldItemService, _userTransactionService));
+            OpenChildForm(new SalesReturnForm(_username,
+                _fiscalYearService, _itemService, 
+                _purchasedItemService, _soldItemService,
+                _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnShareCapital_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ShareMemberForm(_fiscalYearService, _bankService, 
+            OpenChildForm(new ShareMemberForm(_username,
+                _fiscalYearService, _bankService, 
                 _bankTransactionService, _shareMemberService, 
                 _userTransactionService, this));
             SelectButton(sender as Button, true);
@@ -381,7 +391,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUserSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new UserForm(_userService));
+            OpenChildForm(new UserForm(_username, _userService));
             SelectButton(sender as Button, true);
         }
 

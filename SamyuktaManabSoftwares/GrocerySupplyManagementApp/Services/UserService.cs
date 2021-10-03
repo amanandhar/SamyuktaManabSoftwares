@@ -19,6 +19,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userRepository.GetUsers();
         }
 
+        public IEnumerable<User> GetUsers(string username, string type)
+        {
+            return _userRepository.GetUsers(username, type);
+        }
+
         public User GetUser(long id)
         {
             return _userRepository.GetUser(id);

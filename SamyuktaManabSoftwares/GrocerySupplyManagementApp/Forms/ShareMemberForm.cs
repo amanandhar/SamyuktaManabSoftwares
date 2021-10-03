@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IShareMemberService _shareMemberService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
         public DashboardForm _dashboard;
         private string _baseImageFolder;
@@ -45,7 +46,8 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public ShareMemberForm(IFiscalYearService fiscalYearService,
+        public ShareMemberForm(string username,
+            IFiscalYearService fiscalYearService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IShareMemberService shareMemberService,
             IUserTransactionService userTransactionService,
@@ -60,6 +62,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
             _dashboard = dashboardForm;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
             
         }
@@ -108,6 +111,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
+                    Username = _username,
                     ShareMemberId = _selectedShareMemberId,
                     Action = Constants.RECEIPT,
                     ActionType = Constants.SHARE_CHEQUE,
@@ -131,6 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var bankTransaction = new BankTransaction
                 {
                     EndOfDay = _endOfDay,
+                    Username = _username,
                     BankId = Convert.ToInt64(selectedItem.Id),
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',

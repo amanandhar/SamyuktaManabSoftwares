@@ -30,7 +30,9 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IEmployeeService _employeeService;
         private readonly IStockService _stockService;
+        private readonly IUserService _userService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
@@ -58,14 +60,15 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public PosForm(IFiscalYearService fiscalYearService, ITaxService taxService,
+        public PosForm(string username,
+            IFiscalYearService fiscalYearService, ITaxService taxService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IReportService reportService,
             ICompanyInfoService companyInfoService, IEmployeeService employeeService,
-            IStockService stockService
+            IStockService stockService, IUserService userService
             )
         {
             InitializeComponent();
@@ -84,7 +87,9 @@ namespace GrocerySupplyManagementApp.Forms
             _companyInfoService = companyInfoService;
             _employeeService = employeeService;
             _stockService = stockService;
+            _userService = userService;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
 
@@ -160,6 +165,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = TxtInvoiceDate.Text,
+                        Username = _username,
                         MemberId = RichMemberId.Text,
                         Action = Constants.RECEIPT,
                         ActionType = Constants.CASH,
@@ -209,8 +215,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnTransaction_Click(object sender, EventArgs e)
         {
-            DailyTransactionForm transactionForm = new DailyTransactionForm(_fiscalYearService, _bankTransactionService, _purchasedItemService,
-               _soldItemService, _userTransactionService);
+            DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
+                _fiscalYearService, _bankTransactionService, _purchasedItemService,
+               _soldItemService, _userTransactionService, _userService);
             transactionForm.Show();
             EnableFields();
             EnableFields(Action.Transaction);
@@ -226,8 +233,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddExpense_Click(object sender, EventArgs e)
         {
-            ExpenseForm expenseForm = new ExpenseForm(_fiscalYearService,
-                _bankService, _bankTransactionService, _userTransactionService);
+            ExpenseForm expenseForm = new ExpenseForm(_username,
+                _fiscalYearService, _bankService, 
+                _bankTransactionService, _userTransactionService);
             expenseForm.Show();
             EnableFields();
             EnableFields(Action.AddExpense);
@@ -235,7 +243,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnBankTransfer_Click(object sender, EventArgs e)
         {
-            BankTransferForm bankTransferForm = new BankTransferForm(_fiscalYearService, _bankService, _bankTransactionService, _userTransactionService);
+            BankTransferForm bankTransferForm = new BankTransferForm(_username,
+                _fiscalYearService, _bankService, 
+                _bankTransactionService, _userTransactionService);
             bankTransferForm.Show();
             EnableFields();
             EnableFields(Action.BankTransfer);
@@ -332,6 +342,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = TxtInvoiceDate.Text.Trim(),
+                        Username = _username,
                         InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
                         DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
@@ -358,6 +369,7 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransactionForSalesDiscount = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
+                            Username = _username,
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
                             Action = Constants.EXPENSE,
@@ -385,6 +397,7 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransactionForDeliveryCharge = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
+                            Username = _username,
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
                             DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),

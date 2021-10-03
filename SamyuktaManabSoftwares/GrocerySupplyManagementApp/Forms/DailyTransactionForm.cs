@@ -17,13 +17,16 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IUserService _userService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
 
         #region Constructor
-        public DailyTransactionForm(IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
+        public DailyTransactionForm(string username,
+            IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService
+            IUserTransactionService userTransactionService, IUserService userService
             )
         {
             InitializeComponent();
@@ -33,7 +36,9 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _userService = userService;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
@@ -378,7 +383,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (selectedFilter.Name.Equals("RadioUser"))
             {
-                dailyTransactionFilter.User = ComboUser.Text;
+                dailyTransactionFilter.Username = ComboUser.Text;
             }
             else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
             {
@@ -509,7 +514,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadUsers()
         {
-
+            var user = _userService.GetUser(_username);
+            var users = _userService.GetUsers(_username, user.Type);
+            users.OrderBy(x => x.Username).ToList().ForEach(x =>
+            {
+                ComboUser.Items.Add(x);
+            });
         }
 
         #endregion

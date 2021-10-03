@@ -68,7 +68,29 @@ namespace GrocerySupplyManagementApp.Forms
         #region #region Data Grid Event
         private void DataGridPurchaseSalesTransaction_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            DataGridPurchaseSalesTransaction.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridPurchaseSalesTransaction.Columns["EndOfDay"].Width = 250;
+            DataGridPurchaseSalesTransaction.Columns["EndOfDay"].DisplayIndex = 0;
 
+            DataGridPurchaseSalesTransaction.Columns["Description"].HeaderText = "Description";
+            DataGridPurchaseSalesTransaction.Columns["Description"].Width = 250;
+            DataGridPurchaseSalesTransaction.Columns["Description"].DisplayIndex = 1;
+
+            DataGridPurchaseSalesTransaction.Columns["BillInvoiceNo"].HeaderText = "Bill/Invoice No";
+            DataGridPurchaseSalesTransaction.Columns["BillInvoiceNo"].Width = 250;
+            DataGridPurchaseSalesTransaction.Columns["BillInvoiceNo"].DisplayIndex = 2;
+
+            DataGridPurchaseSalesTransaction.Columns["Amount"].HeaderText = "Amount";
+            DataGridPurchaseSalesTransaction.Columns["Amount"].DisplayIndex = 3;
+            DataGridPurchaseSalesTransaction.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridPurchaseSalesTransaction.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            foreach (DataGridViewRow row in DataGridPurchaseSalesTransaction.Rows)
+            {
+                DataGridPurchaseSalesTransaction.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridPurchaseSalesTransaction.RowHeadersWidth = 50;
+                DataGridPurchaseSalesTransaction.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
         }
         #endregion
 
@@ -84,28 +106,47 @@ namespace GrocerySupplyManagementApp.Forms
 
         public void LoadTransactions()
         {
-            var purchaseSalesTransactionFilter = new PurchaseSalesTransactionFilter();
+            var userTransactionFilter = new UserTransactionFilter();
             if (!string.IsNullOrWhiteSpace(MaskDtEODFrom.Text.Replace("-", string.Empty).Trim()))
             {
-                purchaseSalesTransactionFilter.DateFrom = MaskDtEODFrom.Text;
+                userTransactionFilter.DateFrom = MaskDtEODFrom.Text.Trim();
             }
 
             if (!string.IsNullOrWhiteSpace(MaskDtEODTo.Text.Replace("-", string.Empty).Trim()))
             {
-                purchaseSalesTransactionFilter.DateTo = MaskDtEODTo.Text;
+                userTransactionFilter.DateTo = MaskDtEODTo.Text.Trim();
             }
-            
-            purchaseSalesTransactionFilter.Action = ComboAction.Text;
 
-            /*
-            List<PurchaseSalesTransactionView> purchaseSalesTransactionViewList = _userTransactionService.GetTransactionViewList(purchaseSalesTransactionFilter).ToList();
+            userTransactionFilter.Action = ComboAction.Text;
+
+           
+            var userTransactions = _userTransactionService.GetUserTransactions(userTransactionFilter).ToList();
+            List<PurchaseSalesTransactionView> purchaseSalesTransactionViewList = userTransactions.OrderBy(x => x.EndOfDay)
+                .Select(userTransaction => new PurchaseSalesTransactionView()
+                {
+                    EndOfDay = userTransaction.EndOfDay,
+                    Description = userTransaction.Action,
+                    BillInvoiceNo = userTransaction.Action == Constants.PURCHASE ? userTransaction?.BillNo : userTransaction?.InvoiceNo,
+                    Amount = userTransaction.DueAmount
+                }).ToList();
             TxtAmount.Text = purchaseSalesTransactionViewList.Sum(x => x.Amount).ToString();
 
             var bindingList = new BindingList<PurchaseSalesTransactionView>(purchaseSalesTransactionViewList);
             var source = new BindingSource(bindingList, null);
             DataGridPurchaseSalesTransaction.DataSource = source;
-            */
         }
         #endregion
+
+        private void ComboAction_SelectedValueChanged(object sender, System.EventArgs e)
+        {
+            if(ComboAction.Text.Trim() == Constants.PURCHASE || ComboAction.Text.Trim() == Constants.SALES)
+            {
+                BtnShow.Enabled = true;
+            }
+            else
+            {
+                BtnShow.Enabled = false;
+            }
+        }
     }
 }

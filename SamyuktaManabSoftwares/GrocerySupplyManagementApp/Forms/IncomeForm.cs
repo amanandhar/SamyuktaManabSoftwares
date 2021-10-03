@@ -18,10 +18,12 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
 
         #region Constructor
-        public IncomeForm(IFiscalYearService fiscalYearService, 
+        public IncomeForm(string username,
+            IFiscalYearService fiscalYearService, 
             IBankService bankService, IBankTransactionService bankTransactionService,
             IUserTransactionService userTransactionService)
         {
@@ -32,6 +34,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankTransactionService = bankTransactionService;
             _userTransactionService = userTransactionService;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
@@ -58,6 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
             var userTransaction = new UserTransaction
             {
                 EndOfDay = _endOfDay,
+                Username = _username,
                 Action = Constants.RECEIPT,
                 ActionType = Constants.CHEQUE,
                 Bank = ComboBank.Text,
@@ -82,6 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var bankTransaction = new BankTransaction
                 {
                     EndOfDay = _endOfDay,
+                    Username = _username,
                     BankId = Convert.ToInt64(selectedItem.Id),
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',

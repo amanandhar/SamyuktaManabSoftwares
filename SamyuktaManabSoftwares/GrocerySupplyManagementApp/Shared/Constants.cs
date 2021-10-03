@@ -87,9 +87,9 @@ namespace GrocerySupplyManagementApp.Shared
         public const string PAGE_MARGIN_LEFT = "PageMarginLeft";
         public const string PAGE_MARGIN_RIGHT = "PageMarginRight";
 
-        //User
+        //Users
         public const string ADMIN = "Admin";
-        public const string GENERAL = "General";
+        public const string STAFF = "Staff";
         public const string GUEST = "Guest";
 
         //Item Unit

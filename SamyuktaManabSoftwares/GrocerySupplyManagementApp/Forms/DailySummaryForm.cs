@@ -15,13 +15,15 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IUserService _userService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
 
         #region Constructor
-        public SummaryForm(IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
+        public SummaryForm(string username, IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService)
+            IUserTransactionService userTransactionService, IUserService userService)
         {
             InitializeComponent();
 
@@ -30,7 +32,9 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _userService = userService;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
         }
         #endregion
@@ -98,10 +102,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
-            DailyTransactionForm transactionForm = new DailyTransactionForm(_fiscalYearService,
-                _bankTransactionService,
+            DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
+                _fiscalYearService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService
+                _userTransactionService, _userService
                 );
 
             transactionForm.Show();

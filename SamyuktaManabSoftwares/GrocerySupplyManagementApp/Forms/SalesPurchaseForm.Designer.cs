@@ -41,9 +41,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
             this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.DataGridPurchaseSalesTransaction = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseSalesTransaction)).BeginInit();
@@ -108,15 +108,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(900, 73);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Daily Transaction";
+            this.groupBox2.Text = "Sales && Purchase Transaction";
             // 
             // TxtAmount
             // 
             this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtAmount.Location = new System.Drawing.Point(746, 22);
             this.TxtAmount.Name = "TxtAmount";
+            this.TxtAmount.ReadOnly = true;
             this.TxtAmount.Size = new System.Drawing.Size(140, 26);
             this.TxtAmount.TabIndex = 29;
+            this.TxtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label3
             // 
@@ -137,6 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboAction.Name = "ComboAction";
             this.ComboAction.Size = new System.Drawing.Size(125, 28);
             this.ComboAction.TabIndex = 27;
+            this.ComboAction.SelectedValueChanged += new System.EventHandler(this.ComboAction_SelectedValueChanged);
             // 
             // RadioAll
             // 
@@ -181,6 +184,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             // 
+            // BtnShow
+            // 
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 35;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.Enabled = false;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(12, 18);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(135, 40);
+            this.BtnShow.TabIndex = 0;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
+            // 
             // DataGridPurchaseSalesTransaction
             // 
             this.DataGridPurchaseSalesTransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -201,26 +225,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.Size = new System.Drawing.Size(503, 31);
             this.label2.TabIndex = 18;
             this.label2.Text = "Sales && Purchase Transaction Report";
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnShow.BorderRadius = 35;
-            this.BtnShow.BorderSize = 0;
-            this.BtnShow.FlatAppearance.BorderSize = 0;
-            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(12, 18);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(135, 40);
-            this.BtnShow.TabIndex = 0;
-            this.BtnShow.Text = "Show";
-            this.BtnShow.TextColor = System.Drawing.Color.White;
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // SalesPurchaseForm
             // 

@@ -19,6 +19,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _username;
         private readonly string _endOfDay;
         private readonly List<SoldItem> _soldItems;
         private readonly List<SalesReturnTransactionView> _salesReturnTransactionViewList = new List<SalesReturnTransactionView>();
@@ -36,7 +37,8 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Constructor
-        public SalesReturnForm(IFiscalYearService fiscalYearService, IItemService itemService, 
+        public SalesReturnForm(string username,
+            IFiscalYearService fiscalYearService, IItemService itemService, 
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService)
         {
@@ -47,6 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
 
+            _username = username;
             _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
             _soldItems = _soldItemService.GetSoldItems().ToList();
             LoadInvoiceNumbers();
@@ -116,6 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransactionExpense = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        Username = _username,
                         Action = Constants.EXPENSE,
                         ActionType = Constants.CASH,
                         IncomeExpense = Constants.SALES_RETURN,
@@ -154,6 +158,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransactionPurchase = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
+                        Username = _username,
                         BillNo = ComboInvoiceNo.Text,
                         SupplierId = purchasedItem.SupplierId,
                         Action = Constants.PURCHASE,
