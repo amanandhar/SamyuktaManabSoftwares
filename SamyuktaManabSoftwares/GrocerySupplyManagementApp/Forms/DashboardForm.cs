@@ -350,9 +350,10 @@ namespace GrocerySupplyManagementApp.Forms
             SelectButton(sender as Button, true);
         }
 
-        private void BtnStockAdjustment_Click(object sender, EventArgs e)
+        private void BtnDeliveryPerson_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new StockAdjustmentForm());
+            OpenChildForm(new DeliveryPersonForm(_fiscalYearService, _userTransactionService,
+                    _employeeService));
             SelectButton(sender as Button, true);
         }
 
@@ -365,13 +366,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnCompanyInformation_Click(object sender, EventArgs e)
         {
             OpenChildForm(new CompanyInfoForm(_companyInfoService));
-            SelectButton(sender as Button, true);
-        }
-
-        private void BtnDeliveryPerson_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new DeliveryPersonForm(_fiscalYearService, _userTransactionService,
-                _employeeService));
             SelectButton(sender as Button, true);
         }
 

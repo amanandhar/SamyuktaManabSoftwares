@@ -41,11 +41,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUserSetup = new System.Windows.Forms.Button();
             this.BtnNewCodeSetup = new System.Windows.Forms.Button();
             this.BtnFiscalYear = new System.Windows.Forms.Button();
-            this.BtnDeliveryPerson = new System.Windows.Forms.Button();
             this.BtnCompanyInformation = new System.Windows.Forms.Button();
             this.BtnSettings = new System.Windows.Forms.Button();
             this.PanelReportsSubMenu = new System.Windows.Forms.Panel();
-            this.BtnStockAdjustment = new System.Windows.Forms.Button();
+            this.BtnDeliveryPerson = new System.Windows.Forms.Button();
             this.BtnShareCapital = new System.Windows.Forms.Button();
             this.BtnSalesReturn = new System.Windows.Forms.Button();
             this.BtnSalesPurchaseReport = new System.Windows.Forms.Button();
@@ -135,7 +134,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEOD.ForeColor = System.Drawing.Color.White;
             this.BtnEOD.Image = ((System.Drawing.Image)(resources.GetObject("BtnEOD.Image")));
             this.BtnEOD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnEOD.Location = new System.Drawing.Point(0, 1081);
+            this.BtnEOD.Location = new System.Drawing.Point(0, 1044);
             this.BtnEOD.Name = "BtnEOD";
             this.BtnEOD.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnEOD.Size = new System.Drawing.Size(233, 40);
@@ -154,12 +153,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelSettingsSubMenu.Controls.Add(this.BtnUserSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnNewCodeSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnFiscalYear);
-            this.PanelSettingsSubMenu.Controls.Add(this.BtnDeliveryPerson);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnCompanyInformation);
             this.PanelSettingsSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelSettingsSubMenu.Location = new System.Drawing.Point(0, 761);
             this.PanelSettingsSubMenu.Name = "PanelSettingsSubMenu";
-            this.PanelSettingsSubMenu.Size = new System.Drawing.Size(233, 320);
+            this.PanelSettingsSubMenu.Size = new System.Drawing.Size(233, 283);
             this.PanelSettingsSubMenu.TabIndex = 14;
             // 
             // BtnSetup
@@ -173,7 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnSetup.Location = new System.Drawing.Point(0, 280);
+            this.BtnSetup.Location = new System.Drawing.Point(0, 240);
             this.BtnSetup.Name = "BtnSetup";
             this.BtnSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnSetup.Size = new System.Drawing.Size(233, 40);
@@ -193,7 +191,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnVatSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnVatSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnVatSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnVatSetup.Location = new System.Drawing.Point(0, 240);
+            this.BtnVatSetup.Location = new System.Drawing.Point(0, 200);
             this.BtnVatSetup.Name = "BtnVatSetup";
             this.BtnVatSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnVatSetup.Size = new System.Drawing.Size(233, 40);
@@ -214,7 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdatePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdatePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdatePassword.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdatePassword.Location = new System.Drawing.Point(0, 200);
+            this.BtnUpdatePassword.Location = new System.Drawing.Point(0, 160);
             this.BtnUpdatePassword.Name = "BtnUpdatePassword";
             this.BtnUpdatePassword.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnUpdatePassword.Size = new System.Drawing.Size(233, 40);
@@ -235,7 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUserSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUserSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUserSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnUserSetup.Location = new System.Drawing.Point(0, 160);
+            this.BtnUserSetup.Location = new System.Drawing.Point(0, 120);
             this.BtnUserSetup.Name = "BtnUserSetup";
             this.BtnUserSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnUserSetup.Size = new System.Drawing.Size(233, 40);
@@ -256,7 +254,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnNewCodeSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnNewCodeSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnNewCodeSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnNewCodeSetup.Location = new System.Drawing.Point(0, 120);
+            this.BtnNewCodeSetup.Location = new System.Drawing.Point(0, 80);
             this.BtnNewCodeSetup.Name = "BtnNewCodeSetup";
             this.BtnNewCodeSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnNewCodeSetup.Size = new System.Drawing.Size(233, 40);
@@ -277,7 +275,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnFiscalYear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnFiscalYear.ForeColor = System.Drawing.Color.White;
-            this.BtnFiscalYear.Location = new System.Drawing.Point(0, 80);
+            this.BtnFiscalYear.Location = new System.Drawing.Point(0, 40);
             this.BtnFiscalYear.Name = "BtnFiscalYear";
             this.BtnFiscalYear.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnFiscalYear.Size = new System.Drawing.Size(233, 40);
@@ -286,27 +284,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnFiscalYear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnFiscalYear.UseVisualStyleBackColor = false;
             this.BtnFiscalYear.Click += new System.EventHandler(this.BtnFiscalYear_Click);
-            // 
-            // BtnDeliveryPerson
-            // 
-            this.BtnDeliveryPerson.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnDeliveryPerson.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnDeliveryPerson.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnDeliveryPerson.FlatAppearance.BorderSize = 0;
-            this.BtnDeliveryPerson.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnDeliveryPerson.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnDeliveryPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDeliveryPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeliveryPerson.ForeColor = System.Drawing.Color.White;
-            this.BtnDeliveryPerson.Location = new System.Drawing.Point(0, 40);
-            this.BtnDeliveryPerson.Name = "BtnDeliveryPerson";
-            this.BtnDeliveryPerson.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnDeliveryPerson.Size = new System.Drawing.Size(233, 40);
-            this.BtnDeliveryPerson.TabIndex = 16;
-            this.BtnDeliveryPerson.Text = "Delivery Person";
-            this.BtnDeliveryPerson.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDeliveryPerson.UseVisualStyleBackColor = false;
-            this.BtnDeliveryPerson.Click += new System.EventHandler(this.BtnDeliveryPerson_Click);
             // 
             // BtnCompanyInformation
             // 
@@ -356,7 +333,7 @@ namespace GrocerySupplyManagementApp.Forms
             // PanelReportsSubMenu
             // 
             this.PanelReportsSubMenu.BackColor = System.Drawing.Color.DodgerBlue;
-            this.PanelReportsSubMenu.Controls.Add(this.BtnStockAdjustment);
+            this.PanelReportsSubMenu.Controls.Add(this.BtnDeliveryPerson);
             this.PanelReportsSubMenu.Controls.Add(this.BtnShareCapital);
             this.PanelReportsSubMenu.Controls.Add(this.BtnSalesReturn);
             this.PanelReportsSubMenu.Controls.Add(this.BtnSalesPurchaseReport);
@@ -370,26 +347,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelReportsSubMenu.Size = new System.Drawing.Size(233, 321);
             this.PanelReportsSubMenu.TabIndex = 12;
             // 
-            // BtnStockAdjustment
+            // BtnDeliveryPerson
             // 
-            this.BtnStockAdjustment.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnStockAdjustment.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnStockAdjustment.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnStockAdjustment.FlatAppearance.BorderSize = 0;
-            this.BtnStockAdjustment.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnStockAdjustment.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnStockAdjustment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnStockAdjustment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnStockAdjustment.ForeColor = System.Drawing.Color.White;
-            this.BtnStockAdjustment.Location = new System.Drawing.Point(0, 280);
-            this.BtnStockAdjustment.Name = "BtnStockAdjustment";
-            this.BtnStockAdjustment.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnStockAdjustment.Size = new System.Drawing.Size(233, 40);
-            this.BtnStockAdjustment.TabIndex = 20;
-            this.BtnStockAdjustment.Text = "Stock Adjustment";
-            this.BtnStockAdjustment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnStockAdjustment.UseVisualStyleBackColor = false;
-            this.BtnStockAdjustment.Click += new System.EventHandler(this.BtnStockAdjustment_Click);
+            this.BtnDeliveryPerson.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnDeliveryPerson.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnDeliveryPerson.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnDeliveryPerson.FlatAppearance.BorderSize = 0;
+            this.BtnDeliveryPerson.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.BtnDeliveryPerson.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.BtnDeliveryPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDeliveryPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDeliveryPerson.ForeColor = System.Drawing.Color.White;
+            this.BtnDeliveryPerson.Location = new System.Drawing.Point(0, 280);
+            this.BtnDeliveryPerson.Name = "BtnDeliveryPerson";
+            this.BtnDeliveryPerson.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.BtnDeliveryPerson.Size = new System.Drawing.Size(233, 40);
+            this.BtnDeliveryPerson.TabIndex = 20;
+            this.BtnDeliveryPerson.Text = "Delivery Person";
+            this.BtnDeliveryPerson.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnDeliveryPerson.UseVisualStyleBackColor = false;
+            this.BtnDeliveryPerson.Click += new System.EventHandler(this.BtnDeliveryPerson_Click);
             // 
             // BtnShareCapital
             // 
@@ -1011,11 +988,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnSalesReturn;
         private System.Windows.Forms.Button BtnSalesPurchaseReport;
         private System.Windows.Forms.Button BtnShareCapital;
-        private System.Windows.Forms.Button BtnStockAdjustment;
         private System.Windows.Forms.Button BtnSettings;
         private System.Windows.Forms.Panel PanelSettingsSubMenu;
         private System.Windows.Forms.Button BtnCompanyInformation;
-        private System.Windows.Forms.Button BtnDeliveryPerson;
         private System.Windows.Forms.Button BtnFiscalYear;
         private System.Windows.Forms.Button BtnNewCodeSetup;
         private System.Windows.Forms.Button BtnUserSetup;
@@ -1037,5 +1012,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnEOD;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel PanelMenu;
+        private System.Windows.Forms.Button BtnDeliveryPerson;
     }
 }

@@ -518,7 +518,7 @@ namespace GrocerySupplyManagementApp.Forms
             var users = _userService.GetUsers(_username, user.Type);
             users.OrderBy(x => x.Username).ToList().ForEach(x =>
             {
-                ComboUser.Items.Add(x);
+                ComboUser.Items.Add(x.Username);
             });
         }
 

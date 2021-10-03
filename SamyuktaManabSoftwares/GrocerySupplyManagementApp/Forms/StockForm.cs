@@ -54,6 +54,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             LoadItems();
         }
+
+        private void BtnStockAdjustment_Click(object sender, EventArgs e)
+        {
+            var stockAdjustmentForm = new StockAdjustmentForm();
+            stockAdjustmentForm.ShowDialog();
+        }
         #endregion
 
         #region DataGrid Event
@@ -207,10 +213,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void DataGridStockList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
