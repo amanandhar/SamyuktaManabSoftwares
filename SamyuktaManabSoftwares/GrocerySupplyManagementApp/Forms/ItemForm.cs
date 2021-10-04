@@ -231,7 +231,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridItemList.Columns["Id"].Visible = false;
+            DataGridItemList.Columns["AddedBy"].Visible = false;
             DataGridItemList.Columns["AddedDate"].Visible = false;
+            DataGridItemList.Columns["UpdatedBy"].Visible = false;
             DataGridItemList.Columns["UpdatedDate"].Visible = false;
 
             DataGridItemList.Columns["Code"].HeaderText = "Code";

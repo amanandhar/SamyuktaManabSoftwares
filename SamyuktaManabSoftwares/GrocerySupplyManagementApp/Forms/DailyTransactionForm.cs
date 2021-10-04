@@ -361,15 +361,11 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 dailyTransactionFilter.Sales = ComboSales.Text;
             }
-            else if (selectedFilter.Name.Equals("RadioReceipt"))
-            {
-                dailyTransactionFilter.Receipt = ComboReceipt.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioPayment"))
+            else if (selectedFilter.Name.Equals("RadioPurchasePayment"))
             {
                 dailyTransactionFilter.Payment = ComboPurchasePayment.Text;
             }
-            else if (selectedFilter.Name.Equals("RadioExpense"))
+            else if (selectedFilter.Name.Equals("RadioExpensePayment"))
             {
                 dailyTransactionFilter.Expense = ComboExpensePayment.Text;
             }
@@ -377,17 +373,21 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 dailyTransactionFilter.BankTransfer = ComboBankTransfer.Text;
             }
+            else if (selectedFilter.Name.Equals("RadioReceipt"))
+            {
+                dailyTransactionFilter.Receipt = ComboReceipt.Text;
+            }
             else if (selectedFilter.Name.Equals("RadioItemCode"))
             {
                 dailyTransactionFilter.ItemCode = ComboItemCode.Text;
             }
-            else if (selectedFilter.Name.Equals("RadioUser"))
-            {
-                dailyTransactionFilter.Username = ComboUser.Text;
-            }
             else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
             {
                 dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
+            }
+            else if (selectedFilter.Name.Equals("RadioUser"))
+            {
+                dailyTransactionFilter.Username = ComboUser.Text;
             }
             else
             {
@@ -432,6 +432,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadServices()
         {
+            ComboService.Items.Clear();
             ComboService.ValueMember = "Id";
             ComboService.DisplayMember = "Value";
 
@@ -441,6 +442,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadPurchases()
         {
+            ComboPurchase.Items.Clear();
             ComboPurchase.ValueMember = "Id";
             ComboPurchase.DisplayMember = "Value";
 
@@ -450,6 +452,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadSales()
         {
+            ComboSales.Items.Clear();
             ComboSales.ValueMember = "Id";
             ComboSales.DisplayMember = "Value";
 
@@ -459,6 +462,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadPurchasePayments()
         {
+            ComboPurchasePayment.Items.Clear();
             ComboPurchasePayment.ValueMember = "Id";
             ComboPurchasePayment.DisplayMember = "Value";
 
@@ -468,6 +472,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadExpensePayments()
         {
+            ComboExpensePayment.Items.Clear();
             ComboExpensePayment.ValueMember = "Id";
             ComboExpensePayment.DisplayMember = "Value";
 
@@ -477,6 +482,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadBankTransfers()
         {
+            ComboBankTransfer.Items.Clear();
             ComboBankTransfer.ValueMember = "Id";
             ComboBankTransfer.DisplayMember = "Value";
 
@@ -486,6 +492,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadReceipts()
         {
+            ComboReceipt.Items.Clear();
             ComboReceipt.ValueMember = "Id";
             ComboReceipt.DisplayMember = "Value";
 
@@ -496,6 +503,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItemCodes()
         {
+            ComboItemCode.Items.Clear();
             var soldItemCodes = _soldItemService.GetSoldItemCodes();
             foreach (var soldItemCode in soldItemCodes)
             {
@@ -505,6 +513,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadInvoiceNos()
         {
+            ComboInvoiceNo.Items.Clear();
             var invoices = _userTransactionService.GetInvoices();
             foreach (var invoice in invoices)
             {
@@ -514,6 +523,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadUsers()
         {
+            ComboUser.Items.Clear();
             var user = _userService.GetUser(_username);
             var users = _userService.GetUsers(_username, user.Type);
             users.OrderBy(x => x.Username).ToList().ForEach(x =>

@@ -53,7 +53,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridShareMemberList.Columns["Id"].Visible = false;
             DataGridShareMemberList.Columns["ImagePath"].Visible = false;
+            DataGridShareMemberList.Columns["AddedBy"].Visible = false;
             DataGridShareMemberList.Columns["AddedDate"].Visible = false;
+            DataGridShareMemberList.Columns["UpdatedBy"].Visible = false;
             DataGridShareMemberList.Columns["UpdatedDate"].Visible = false;
 
             DataGridShareMemberList.Columns["Name"].HeaderText = "Name";

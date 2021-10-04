@@ -218,6 +218,12 @@
     <Compile Include="Forms\SalesPurchaseForm.Designer.cs">
       <DependentUpon>SalesPurchaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SetupForm.Designer.cs">
+      <DependentUpon>SetupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ShareMemberForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -549,6 +555,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesPurchaseForm.resx">
       <DependentUpon>SalesPurchaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SetupForm.resx">
+      <DependentUpon>SetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ShareMemberForm.resx">
       <DependentUpon>ShareMemberForm.cs</DependentUpon>

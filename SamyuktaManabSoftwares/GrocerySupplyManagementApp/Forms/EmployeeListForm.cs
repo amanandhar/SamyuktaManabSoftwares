@@ -70,7 +70,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridEmployeeList.Columns["AppointedDate"].Visible = false;
             DataGridEmployeeList.Columns["ResignedDate"].Visible = false;
             DataGridEmployeeList.Columns["ImagePath"].Visible = false;
+            DataGridEmployeeList.Columns["AddedBy"].Visible = false;
             DataGridEmployeeList.Columns["AddedDate"].Visible = false;
+            DataGridEmployeeList.Columns["UpdatedBy"].Visible = false;
             DataGridEmployeeList.Columns["UpdatedDate"].Visible = false;
 
             DataGridEmployeeList.Columns["EmployeeId"].HeaderText = "Employee Id";

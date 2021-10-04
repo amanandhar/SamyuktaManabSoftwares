@@ -219,6 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSetup.Text = "Setup";
             this.BtnSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnSetup.UseVisualStyleBackColor = false;
+            this.BtnSetup.Click += new System.EventHandler(this.BtnSetup_Click);
             // 
             // BtnNewCodeSetup
             // 

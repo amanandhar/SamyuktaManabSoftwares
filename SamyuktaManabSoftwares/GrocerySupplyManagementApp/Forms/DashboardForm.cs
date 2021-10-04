@@ -383,6 +383,12 @@ namespace GrocerySupplyManagementApp.Forms
             SelectButton(sender as Button, true);
         }
 
+        private void BtnSetup_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new SetupForm());
+            SelectButton(sender as Button, true);
+        }
+
         private void BtnUserSetup_Click(object sender, EventArgs e)
         {
             OpenChildForm(new UserForm(_username, _userService));
@@ -579,5 +585,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        
     }
 }

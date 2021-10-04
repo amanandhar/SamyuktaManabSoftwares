@@ -1463,7 +1463,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Action], " +
                 "CASE " +
                 "WHEN ut.[ActionType]='" + Constants.CHEQUE + "' THEN (ut.[ActionType] + ' - ' + ut.[Bank]) " +
-                "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NOT NULL THEN (ut.[ActionType] + ' - ' + ut.[IncomeExpense]) " +
+                "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NOT NULL AND ut.[IncomeExpense] = '" + dailyTransactionFilter?.Service + "' THEN (ut.[ActionType] + ' - ' + ut.[IncomeExpense]) " +
                 "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NULL THEN ut.[ActionType] " +
                 "ELSE ut.[ActionType] END AS [ActionType], " +
                 "CASE WHEN ut.[MemberId] IS NULL THEN ut.[BillNo] ELSE ut.[InvoiceNo] END AS [InvoiceBillNo], " +
@@ -1513,21 +1513,21 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Sales + "' ";
             }
-            else if (dailyTransactionFilter.Receipt != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "' ";
-            }
             else if (dailyTransactionFilter.Payment != null)
             {
                 query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Payment + "' ";
             }
             else if (dailyTransactionFilter.Expense != null)
             {
-                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' ";
+                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.SALES_DISCOUNT + "') ";
             }
             else if (dailyTransactionFilter.BankTransfer != null)
             {
                 query += " AND ut.[Action] = '" + Constants.BANK_TRANSFER + "' AND ut.[ActionType] = '" + dailyTransactionFilter.BankTransfer + "' ";
+            }
+            else if (dailyTransactionFilter.Receipt != null)
+            {
+                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "'  AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "') ";
             }
             else if (dailyTransactionFilter.ItemCode != null)
             {
@@ -1581,7 +1581,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
             }
 
             return transactionViewList;
