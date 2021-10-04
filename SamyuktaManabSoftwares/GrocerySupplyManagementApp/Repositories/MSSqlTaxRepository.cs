@@ -78,11 +78,11 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             string query = @"INSERT INTO " + Constants.TABLE_TAX + " " +
                     "( " +
-                        "[Discount], [Vat], [DeliveryCharge], [AddedDate], [UpdatedDate] " +
+                        "[Discount], [Vat], [DeliveryCharge], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Discount, @Vat, @DeliveryCharge, @AddedDate, @UpdatedDate " +
+                        "@Discount, @Vat, @DeliveryCharge, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -94,8 +94,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Discount", ((object)Tax.Discount) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Vat", ((object)Tax.Vat) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DeliveryCharge", ((object)Tax.DeliveryCharge) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedDate", ((object)Tax.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)Tax.AddedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)Tax.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                         result = true;
@@ -115,7 +115,11 @@ namespace GrocerySupplyManagementApp.Repositories
             var result = false;
             string query = @"UPDATE " + Constants.TABLE_TAX + " " +
                     "SET " +
-                    "[Discount] = @Discount, [Vat] = @DeliveryCharge, [DeliveryCharge] = @DeliveryCharge, [UpdatedDate] = @UpdatedDate ";
+                    "[Discount] = @Discount, " +
+                    "[Vat] = @DeliveryCharge, " +
+                    "[DeliveryCharge] = @DeliveryCharge, " +
+                    "[UpdatedBy] = @UpdatedBy, " +
+                    "[UpdatedDate] = @UpdatedDate ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -126,6 +130,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Discount", ((object)Tax.Discount) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Vat", ((object)Tax.Vat) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DeliveryCharge", ((object)Tax.DeliveryCharge) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)Tax.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)Tax.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();

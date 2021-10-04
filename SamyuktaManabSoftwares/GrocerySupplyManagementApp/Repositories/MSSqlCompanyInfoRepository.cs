@@ -72,13 +72,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     "( " +
                         "[Name], [ShortName], [Type], [Address], [ContactNo], " +
                         "[EmailId], [Website], [FacebookPage], [RegistrationNo], " +
-                        "[RegistrationDate], [PanVatNo], [LogoPath], [AddedDate] " +
+                        "[RegistrationDate], [PanVatNo], [LogoPath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@Name, @ShortName, @Type, @Address, @ContactNo, " +
                         "@EmailId, @Website, @FacebookPage, @RegistrationNo, " +
-                        "@RegistrationDate, @PanVatNo, @LogoPath, @AddedDate " +
+                        "@RegistrationDate, @PanVatNo, @LogoPath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -99,6 +99,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@RegistrationDate", ((object)companyInfo.RegistrationDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@PanVatNo", ((object)companyInfo.PanVatNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@LogoPath", ((object)companyInfo.LogoPath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)companyInfo.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)companyInfo.AddedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }

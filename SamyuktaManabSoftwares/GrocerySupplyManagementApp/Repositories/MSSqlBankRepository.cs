@@ -104,11 +104,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " + 
                     " " + Constants.TABLE_BANK + " " +
                     "( " +
-                        "[Name], [AccountNo], [AddedDate], [UpdatedDate] " +
+                        "[Name], [AccountNo], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @AccountNo, @AddedDate, @UpdatedDate " +
+                        "@Name, @AccountNo, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -119,8 +119,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Name", ((object)bank.Name) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AccountNo", ((object)bank.AccountNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)bank.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)bank.AddedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)bank.UpdatedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();  
                     }
                 }
@@ -137,7 +137,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_BANK + " " +
                     "SET " +
-                    "[Name] = @Name, [AccountNo] = @AccountNo, [UpdatedDate] = @UpdatedDate " +
+                    "[Name] = @Name, [AccountNo] = @AccountNo, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " + 
                     "AND [Id] = @Id";
             try
@@ -150,6 +150,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Name", ((object)bank.Name) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AccountNo", ((object)bank.AccountNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)bank.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)bank.UpdatedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }

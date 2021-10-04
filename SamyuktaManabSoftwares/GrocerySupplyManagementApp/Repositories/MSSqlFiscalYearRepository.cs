@@ -79,11 +79,11 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             string query = @"INSERT INTO " + Constants.TABLE_FISCAL_YEAR + " " +
                     "(" +
-                        "[StartingInvoiceNo], [StartingBillNo], [StartingDate], [Year], [AddedDate], [UpdatedDate] " +
+                        "[StartingInvoiceNo], [StartingBillNo], [StartingDate], [Year], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@StartingInvoiceNo, @StartingBillNo, @StartingDate, @Year, @AddedDate, @UpdatedDate " +
+                        "@StartingInvoiceNo, @StartingBillNo, @StartingDate, @Year, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -96,8 +96,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@StartingBillNo", ((object)fiscalYear.StartingBillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYear.StartingDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Year", ((object)fiscalYear.Year) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)fiscalYear.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)fiscalYear.AddedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)fiscalYear.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                         result = true;
@@ -121,6 +121,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "[StartingBillNo] = @StartingBillNo, " +
                     "[StartingDate] = @StartingDate, " +
                     "[Year] = @Year, " +
+                    "[UpdatedBy] = @UpdatedBy, " +
                     "[UpdatedDate] = @UpdatedDate ";
             try
             {
@@ -133,6 +134,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@StartingBillNo", ((object)fiscalYear.StartingBillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StartingDate", ((object)fiscalYear.StartingDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Year", ((object)fiscalYear.Year) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)fiscalYear.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)fiscalYear.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();

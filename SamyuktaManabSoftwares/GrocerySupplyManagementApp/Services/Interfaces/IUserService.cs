@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services.Interfaces
@@ -15,7 +16,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         User UpdateUser(long id, User user);
         User UpdateUser(string username, User user);
-        bool UpdatePassword(string username, string password);
+        bool UpdatePassword(string username, string password, string updatedBy, DateTime updatedDate);
 
         bool DeleteUser(long id);
         bool DeleteUser(string username);

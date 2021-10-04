@@ -186,11 +186,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +
                     "( " +
-                        "[Name], [Brand], [Code], [Unit], [Threshold], [AddedDate], [UpdatedDate] " +
+                        "[Name], [Brand], [Code], [Unit], [Threshold], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @Brand, @Code, @Unit, @Threshold, @AddedDate, @UpdatedDate " +
+                        "@Name, @Brand, @Code, @Unit, @Threshold, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -204,8 +204,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Code", ((object)item.Code) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Unit", ((object)item.Unit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)item.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)item.AddedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)item.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                     }
@@ -227,6 +227,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Brand] = @Brand, " +
                 "[Unit] = @Unit, " +
                 "[Threshold] = @Threshold, " +
+                "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
                 "AND [Code] = @Code ";
@@ -243,6 +244,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)item.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)item.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
@@ -266,6 +268,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Code] = @Code, " +
                 "[Unit] = @Unit, " +
                 "[Threshold] = @Threshold, " +
+                "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id ";
@@ -283,6 +286,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Brand", item.Brand);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)item.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)item.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();

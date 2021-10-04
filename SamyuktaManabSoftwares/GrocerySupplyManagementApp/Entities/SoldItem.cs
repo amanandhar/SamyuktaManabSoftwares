@@ -14,7 +14,9 @@ namespace GrocerySupplyManagementApp.Entities
         public long Volume { get; set; }
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
+        public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
+        public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
     }
 }

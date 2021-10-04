@@ -10,12 +10,18 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SetPasswordForm : Form
     {
         private readonly IUserService _userService;
+
+        private readonly string _username;
+
         #region Constructor
-        public SetPasswordForm(IUserService userService)
+        public SetPasswordForm(string username,
+            IUserService userService)
         {
             InitializeComponent();
 
             _userService = userService;
+
+            _username = username;
         }
         #endregion
 
@@ -62,7 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
                 else
                 {
 
-                    var result = _userService.UpdatePassword(username, Cryptography.Encrypt(password));
+                    var result = _userService.UpdatePassword(username, Cryptography.Encrypt(password), _username, DateTime.Now);
                     if(result)
                     {
                         var infoResult = MessageBox.Show("Password update successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

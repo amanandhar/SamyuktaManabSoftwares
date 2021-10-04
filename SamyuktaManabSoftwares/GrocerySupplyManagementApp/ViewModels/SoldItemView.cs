@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.ViewModels
         public long Volume { get; set; }
         public decimal Quantity { get; set; }
         public decimal Total { get; set; }
+        public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
     }
 }

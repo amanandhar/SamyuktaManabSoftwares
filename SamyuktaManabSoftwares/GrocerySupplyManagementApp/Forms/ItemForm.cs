@@ -15,6 +15,8 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IItemService _itemService;
         private readonly IItemCategoryService _itemCategoryService;
+
+        private readonly string _username;
         private long selectedItemId = 0;
 
         #region Enum
@@ -30,12 +32,15 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Constructor
-        public ItemForm(IItemService itemService, IItemCategoryService itemCategoryService)
+        public ItemForm(string username,
+            IItemService itemService, IItemCategoryService itemCategoryService)
         {
             InitializeComponent();
 
             _itemService = itemService;
             _itemCategoryService = itemCategoryService;
+
+            _username = username;
         }
         #endregion
 
@@ -68,7 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var currentDate = DateTime.Now;
+                var date = DateTime.Now;
                 var item = new Item
                 {
                     Code = RichItemCode.Text,
@@ -76,8 +81,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Brand = RichItemBrand.Text,
                     Unit = ComboUnit.Text,
                     Threshold = Convert.ToInt32(RichThreshold.Text),
-                    AddedDate = currentDate,
-                    UpdatedDate = currentDate
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _itemService.AddItem(item);
@@ -89,7 +94,9 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     Counter = Convert.ToInt64(counter),
                     Name = ComboCategory.Text,
-                    ItemCode = RichItemCode.Text
+                    ItemCode = RichItemCode.Text,
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _itemCategoryService.AddItemCategory(itemCategory);
@@ -128,6 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Brand = RichItemBrand.Text,
                         Unit = ComboUnit.Text,
                         Threshold = Convert.ToInt32(RichThreshold.Text),
+                        UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
 

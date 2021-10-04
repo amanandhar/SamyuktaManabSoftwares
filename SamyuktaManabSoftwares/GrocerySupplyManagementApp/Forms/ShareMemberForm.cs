@@ -111,7 +111,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
-                    Username = _username,
                     ShareMemberId = _selectedShareMemberId,
                     Action = Constants.RECEIPT,
                     ActionType = Constants.SHARE_CHEQUE,
@@ -125,8 +124,8 @@ namespace GrocerySupplyManagementApp.Forms
                     DeliveryCharge = 0.0m,
                     DueAmount = 0.00m,
                     ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
                 _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -135,15 +134,14 @@ namespace GrocerySupplyManagementApp.Forms
                 var bankTransaction = new BankTransaction
                 {
                     EndOfDay = _endOfDay,
-                    Username = _username,
                     BankId = Convert.ToInt64(selectedItem.Id),
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',
                     Debit = Convert.ToDecimal(RichAmount.Text),
                     Credit =  0.0m,
                     Narration = ComboNarration.Text,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -208,8 +206,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Address = RichAddress.Text,
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     ImagePath = destinationFilePath,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _shareMemberService.AddShareMember(shareMember);
@@ -283,6 +281,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Address = RichAddress.Text,
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     ImagePath = destinationFilePath,
+                    UpdatedBy = _username,
                     UpdatedDate = DateTime.Now
                 };
 

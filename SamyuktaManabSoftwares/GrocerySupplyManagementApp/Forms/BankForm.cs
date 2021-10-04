@@ -75,14 +75,13 @@ namespace GrocerySupplyManagementApp.Forms
                 var bankTransaction = new BankTransaction
                 {
                     EndOfDay = _endOfDay,
-                    Username = _username,
                     BankId = selectedBankId,
                     Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
                     Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
                     Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.0m : Convert.ToDecimal(RichAmount.Text),
                     Narration = ComboDepositType.Text,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -153,8 +152,8 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Name = TxtBankName.Text,
                         AccountNo = TxtAccountNo.Text,
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     };
 
                     _bankService.AddBank(bank);
@@ -184,6 +183,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 Name = TxtBankName.Text,
                 AccountNo = TxtAccountNo.Text,
+                UpdatedBy = _username,
                 UpdatedDate = DateTime.Now
             };
 

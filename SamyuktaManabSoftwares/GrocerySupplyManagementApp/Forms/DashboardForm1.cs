@@ -190,7 +190,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEmployeeMgmt_Click(object sender, EventArgs e)
         {
-            EmployeeForm employeeForm = new EmployeeForm(_employeeService);
+            EmployeeForm employeeForm = new EmployeeForm(_username, _employeeService);
             employeeForm.Show();
         }
 
@@ -211,6 +211,7 @@ namespace GrocerySupplyManagementApp.Forms
                         StartingBillNo = currentFiscalYear.StartingBillNo,
                         StartingDate = nextEOD.DateInBs,
                         Year = currentFiscalYear.Year,
+                        UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
 

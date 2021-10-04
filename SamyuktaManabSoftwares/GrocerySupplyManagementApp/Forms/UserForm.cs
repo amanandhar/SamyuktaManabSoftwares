@@ -114,8 +114,8 @@ namespace GrocerySupplyManagementApp.Forms
                         Settings = ChkSettings.Checked,
                         StockSummary = ChkStockSummary.Checked,
                         Supplier = ChkSupplier.Checked,
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     };
 
                     _userService.AddUser(user);
@@ -194,6 +194,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Settings = ChkSettings.Checked,
                         StockSummary = ChkStockSummary.Checked,
                         Supplier = ChkSupplier.Checked,
+                        UpdatedBy = _username,
                         UpdatedDate = date
                     };
 

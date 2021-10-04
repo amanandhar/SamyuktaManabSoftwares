@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly ICompanyInfoService _companyInfoService;
 
+        private readonly string _username;
         private string _baseImageFolder;
         private const string COMPANY_IMAGE_FOLDER = "Company";
         private string _uploadedImagePath = string.Empty;
@@ -27,11 +28,14 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public CompanyInfoForm(ICompanyInfoService companyInfoService)
+        public CompanyInfoForm(string username, 
+            ICompanyInfoService companyInfoService)
         {
             InitializeComponent();
 
             _companyInfoService = companyInfoService;
+
+            _username = username;
         }
         #endregion
 
@@ -99,7 +103,8 @@ namespace GrocerySupplyManagementApp.Forms
                     RegistrationDate = RichRegistrationDate.Text,
                     PanVatNo = RichPanVatNo.Text,
                     LogoPath = destinationFilePath,
-                    AddedDate = DateTime.Now,
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _companyInfoService.DeleteCompanyInfo();

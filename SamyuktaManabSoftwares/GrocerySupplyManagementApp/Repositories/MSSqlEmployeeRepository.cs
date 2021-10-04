@@ -320,7 +320,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         "[ContactNo], [Email], [CitizenshipNo], [Education], [DateOfBirth], " +
                         "[Age], [BloodGroup], [FatherName], [MotherName], [Gender], [MaritalStatus], " +
                         "[SpouseName], [Post], [PostStatus], [AppointedDate], [ResignedDate], " +
-                        "[ImagePath], [AddedDate], [UpdatedDate] " +
+                        "[ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
@@ -328,7 +328,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         "@ContactNo, @Email, @CitizenshipNo, @Education, @DateOfBirth, " +
                         "@Age, @BloodGroup, @FatherName, @MotherName, @Gender, @MaritalStatus, " +
                         "@SpouseName, @Post, @PostStatus, @AppointedDate, @ResignedDate, " +
-                        "@ImagePath, @AddedDate, @UpdatedDate " +
+                        "@ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -359,8 +359,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@AppointedDate", ((object)employee.AppointedDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ResignedDate", ((object)employee.ResignedDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ImagePath", ((object)employee.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)employee.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)employee.AddedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)employee.UpdatedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }
                 }
@@ -398,6 +398,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "[AppointedDate] =  @AppointedDate, " +
                     "[ResignedDate] =  @ResignedDate, " +
                     "[ImagePath] =  @ImagePath, " +
+                    "[UpdatedBy] = @UpdatedBy, " +
                     "[UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
                     "AND [Id] = @Id";
@@ -430,6 +431,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@AppointedDate", ((object)employee.AppointedDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ResignedDate", ((object)employee.ResignedDate) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ImagePath", ((object)employee.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)employee.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)employee.UpdatedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }

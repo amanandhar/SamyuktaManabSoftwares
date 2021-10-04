@@ -61,7 +61,6 @@ namespace GrocerySupplyManagementApp.Forms
             var userTransaction = new UserTransaction
             {
                 EndOfDay = _endOfDay,
-                Username = _username,
                 Action = Constants.RECEIPT,
                 ActionType = Constants.CHEQUE,
                 Bank = ComboBank.Text,
@@ -75,8 +74,8 @@ namespace GrocerySupplyManagementApp.Forms
                 DeliveryCharge = 0.0m,
                 DueAmount = 0.0m,
                 ReceivedAmount = Convert.ToDecimal(RichAddAmount.Text),
-                AddedDate = date,
-                UpdatedDate = date
+                AddedBy = _username,
+                AddedDate = date
             };
 
             if (_userTransactionService.AddUserTransaction(userTransaction) != null)
@@ -86,15 +85,14 @@ namespace GrocerySupplyManagementApp.Forms
                 var bankTransaction = new BankTransaction
                 {
                     EndOfDay = _endOfDay,
-                    Username = _username,
                     BankId = Convert.ToInt64(selectedItem.Id),
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',
                     Debit = Convert.ToDecimal(RichAddAmount.Text),
                     Credit = 0.0m,
                     Narration = ComboIncome.Text,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);

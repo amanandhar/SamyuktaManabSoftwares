@@ -13,8 +13,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly string _username;
+
         #region Constructor
-        public FiscalYearForm(IFiscalYearService fiscalYearService,
+        public FiscalYearForm(string username,
+            IFiscalYearService fiscalYearService,
             IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService,
             ISoldItemService soldItemService, IUserTransactionService userTransactionService)
         {
@@ -25,6 +28,8 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+
+            _username = username;
         }
         #endregion
 
@@ -53,7 +58,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var currentDate = DateTime.Now;
+                var date = DateTime.Now;
                 var endOfDay = RichCompanyStartingDate.Text;
                 var fiscalYear = new FiscalYear
                 {
@@ -61,8 +66,8 @@ namespace GrocerySupplyManagementApp.Forms
                     StartingBillNo = RichBillNo.Text,
                     StartingDate = endOfDay,
                     Year = RichFiscalYear.Text,
-                    AddedDate = currentDate,
-                    UpdatedDate = currentDate
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 var truncate = true;

@@ -268,7 +268,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnItemPricing_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new PricedItemForm(_itemService, _pricedItemService,
+            OpenChildForm(new PricedItemForm(_username, _itemService, _pricedItemService,
                 _purchasedItemService, _soldItemService,
                 _stockService, this));
             HideSubMenu();
@@ -286,7 +286,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEmployee_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new EmployeeForm(_employeeService));
+            OpenChildForm(new EmployeeForm(_username, _employeeService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -365,13 +365,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnCompanyInformation_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new CompanyInfoForm(_companyInfoService));
+            OpenChildForm(new CompanyInfoForm(_username, _companyInfoService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnFiscalYear_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FiscalYearForm(_fiscalYearService,
+            OpenChildForm(new FiscalYearForm(_username, _fiscalYearService,
                 _bankTransactionService, _purchasedItemService,
                 _soldItemService, _userTransactionService));
             SelectButton(sender as Button, true);
@@ -379,7 +379,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnNewCodeSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ItemForm(_itemService, _itemCategoryService));
+            OpenChildForm(new ItemForm(_username, _itemService, _itemCategoryService));
             SelectButton(sender as Button, true);
         }
 
@@ -391,13 +391,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdatePassword_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SetPasswordForm(_userService));
+            OpenChildForm(new SetPasswordForm(_username, _userService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnVatSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new TaxSetupForm(_taxService));
+            OpenChildForm(new TaxSetupForm(_username, _taxService));
             SelectButton(sender as Button, true);
         }
 
@@ -418,6 +418,7 @@ namespace GrocerySupplyManagementApp.Forms
                         StartingBillNo = currentFiscalYear.StartingBillNo,
                         StartingDate = nextEOD.DateInBs,
                         Year = currentFiscalYear.Year,
+                        UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
 

@@ -308,7 +308,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         "[Password], [IsReadOnly], [Bank], [DailySummary], " +
                         "[DailyTransaction], [Employee], [EOD], [ItemPricing], " +
                         "[Member], [POS], [Reports], [Settings], " +
-                        "[StockSummary], [Supplier], [AddedDate], [UpdatedDate] " +
+                        "[StockSummary], [Supplier], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
@@ -316,7 +316,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         "@Password, @IsReadOnly, @Bank, @DailySummary, " +
                         "@DailyTransaction, @Employee, @EOD, @ItemPricing, " +
                         "@Member, @POS, @Reports, @Settings, " +
-                        "@StockSummary, @Supplier, @AddedDate, @UpdatedDate " +
+                        "@StockSummary, @Supplier, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -341,8 +341,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Settings", ((object)user.Settings) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StockSummary", ((object)user.StockSummary) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Supplier", ((object)user.Supplier) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)user.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)user.AddedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)user.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                     }
@@ -360,12 +360,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
                     "SET " +
-                    "[Username] = @Username, [Type] = @Type, " +
+                    "[Username] = @Username, " +
+                    "[Type] = @Type, " +
                     "[Password] = @Password, [IsReadOnly] = @IsReadOnly, [Bank] = @Bank, " +
                     "[DailySummary] = @DailySummary, [DailyTransaction] = @DailyTransaction, [Employee] = @Employee, " +
                     "[EOD] = @EOD, [ItemPricing] = @ItemPricing, [Member] = @Member, " +
                     "[POS] = @POS, [Reports] = @Reports, [Settings] = @Settings, " +
-                    "[StockSummary] = @StockSummary, [Supplier] = @Supplier, [UpdatedDate] = @UpdatedDate " +
+                    "[StockSummary] = @StockSummary, [Supplier] = @Supplier, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
                     "AND [Id] = @Id";
             try
@@ -392,6 +393,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Settings", ((object)user.Settings) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StockSummary", ((object)user.StockSummary) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Supplier", ((object)user.Supplier) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)user.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)user.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
@@ -415,7 +417,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "[DailySummary] = @DailySummary, [DailyTransaction] = @DailyTransaction, [Employee] = @Employee, " +
                     "[EOD] = @EOD, [ItemPricing] = @ItemPricing, [Member] = @Member, " +
                     "[POS] = @POS, [Reports] = @Reports, [Settings] = @Settings, " +
-                    "[StockSummary] = @StockSummary, [Supplier] = @Supplier, [UpdatedDate] = @UpdatedDate " +
+                    "[StockSummary] = @StockSummary, [Supplier] = @Supplier, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
                     "AND [Username] = @Username";
             try
@@ -441,6 +443,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Settings", ((object)user.Settings) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@StockSummary", ((object)user.StockSummary) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Supplier", ((object)user.Supplier) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)user.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)user.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
@@ -455,12 +458,14 @@ namespace GrocerySupplyManagementApp.Repositories
             return user;
         }
 
-        public bool UpdatePassword(string username, string password)
+        public bool UpdatePassword(string username, string password, string updatedBy, DateTime updatedDate)
         {
             var result = false;
             string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
                     "SET " +
-                    "[Password] = @Password " +
+                    "[Password] = @Password, " +
+                    "[UpdatedBy] = @UpdatedBy, " +
+                    "[UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
                     "AND [Username] = @Username";
             try
@@ -472,6 +477,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Password", ((object)password) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)updatedBy) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedDate", ((object)updatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                         result = true;

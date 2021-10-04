@@ -10,7 +10,9 @@ namespace GrocerySupplyManagementApp.Entities
         public string Brand { get; set; }
         public string Unit { get; set; }
         public int Threshold { get; set; }
+        public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
+        public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
     }
 }

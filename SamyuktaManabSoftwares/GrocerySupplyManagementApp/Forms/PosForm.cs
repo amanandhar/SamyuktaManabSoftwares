@@ -165,7 +165,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = TxtInvoiceDate.Text,
-                        Username = _username,
                         MemberId = RichMemberId.Text,
                         Action = Constants.RECEIPT,
                         ActionType = Constants.CASH,
@@ -178,8 +177,8 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryCharge = 0.00m,
                         DueAmount = 0.00m,
                         ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
@@ -331,8 +330,8 @@ namespace GrocerySupplyManagementApp.Forms
                             Volume = x.Volume,
                             Quantity = x.Quantity,
                             Price = x.ItemPrice,
-                            AddedDate = x.AddedDate,
-                            UpdatedDate = x.AddedDate
+                            AddedBy = x.AddedBy,
+                            AddedDate = x.AddedDate
                         };
 
                         _soldItemService.AddSoldItem(soldItem);
@@ -342,7 +341,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = TxtInvoiceDate.Text.Trim(),
-                        Username = _username,
                         InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         MemberId = RichMemberId.Text.Trim(),
                         DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
@@ -355,8 +353,8 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
                         DueAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
                         ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
@@ -369,7 +367,6 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransactionForSalesDiscount = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            Username = _username,
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
                             Action = Constants.EXPENSE,
@@ -384,8 +381,8 @@ namespace GrocerySupplyManagementApp.Forms
                             DeliveryCharge = 0.0m,
                             DueAmount = Convert.ToDecimal(TxtDiscount.Text),
                             ReceivedAmount = 0.0m,
-                            AddedDate = date,
-                            UpdatedDate = date
+                            AddedBy = _username,
+                            AddedDate = date
                         };
 
                         _userTransactionService.AddUserTransaction(userTransactionForSalesDiscount);
@@ -397,7 +394,6 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransactionForDeliveryCharge = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            Username = _username,
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
                             DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
@@ -413,8 +409,8 @@ namespace GrocerySupplyManagementApp.Forms
                             DeliveryCharge = 0.0m,
                             DueAmount = 0.0m,
                             ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text),
-                            AddedDate = date,
-                            UpdatedDate = date
+                            AddedBy = _username,
+                            AddedDate = date
                         };
 
                         _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);

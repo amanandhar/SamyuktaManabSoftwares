@@ -144,11 +144,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SUPPLIER + " " +
                     "( " +
-                        "[Counter], [SupplierId], [Name], [Address], [ContactNo], [Email], [Owner], [AddedDate], [UpdatedDate] " +
+                        "[Counter], [SupplierId], [Name], [Address], [ContactNo], [Email], [Owner], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "(  " +
-                        "@Counter, @SupplierId, @Name, @Address, @ContactNo, @Email, @Owner, @AddedDate, @UpdatedDate " +
+                        "@Counter, @SupplierId, @Name, @Address, @ContactNo, @Email, @Owner, @AddedBy, @AddedDate " +
                     ")";
 
             try
@@ -165,8 +165,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ContactNo", supplier.ContactNo);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
                         command.Parameters.AddWithValue("@Owner", supplier.Owner);
+                        command.Parameters.AddWithValue("@AddedBy", supplier.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", supplier.AddedDate);
-                        command.Parameters.AddWithValue("@UpdatedDate", supplier.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -190,6 +190,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[ContactNo] = @ContactNo, " +
                 "[Email] = @Email, " +
                 "[Owner] = @Owner, " +
+                "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
                 "AND [SupplierId] = @SupplierId ";
@@ -207,6 +208,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ContactNo", supplier.ContactNo);
                         command.Parameters.AddWithValue("@Email", supplier.Email);
                         command.Parameters.AddWithValue("@Owner", supplier.Owner);
+                        command.Parameters.AddWithValue("@UpdatedBy", supplier.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", supplier.UpdatedDate);
 
                         command.ExecuteNonQuery();

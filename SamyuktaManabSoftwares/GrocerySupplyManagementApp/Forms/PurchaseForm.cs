@@ -128,8 +128,8 @@ namespace GrocerySupplyManagementApp.Forms
                         ItemId = _itemService.GetItem(item.Code).Id,
                         Quantity = item.Quantity,
                         Price = item.Price,
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     }).ToList();
 
                     purchasedItems.ForEach(purchasedItem =>
@@ -140,7 +140,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Username = _username,
                         BillNo = RichBillNo.Text,
                         SupplierId = _supplierForm.GetSupplierId(),
                         Action = Constants.PURCHASE,
@@ -155,8 +154,8 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryCharge = 0.00m,
                         DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
                         ReceivedAmount = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Convert.ToDecimal(TxtTotalAmount.Text) : 0.00m,
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);

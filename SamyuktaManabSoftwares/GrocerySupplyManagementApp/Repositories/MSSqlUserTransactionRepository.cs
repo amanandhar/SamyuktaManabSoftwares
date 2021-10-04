@@ -1423,7 +1423,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             else if (dailyTransactionFilter.Username != null)
             {
-                query += " AND ut.[Username] = '" + dailyTransactionFilter.Username + "' ";
+                query += " AND ut.[AddedBy] = '" + dailyTransactionFilter.Username + "' ";
             }
             else
             {
@@ -1539,7 +1539,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             else if (dailyTransactionFilter.Username != null)
             {
-                query += " AND ut.[Username] = '" + dailyTransactionFilter.Username + "' ";
+                query += " AND ut.[AddedBy] = '" + dailyTransactionFilter.Username + "' ";
             }
             else
             {
@@ -1910,15 +1910,15 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
-                        "[InvoiceNo], [EndOfDay], [Username], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
+                        "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], " +
                         "[IncomeExpense], [Narration], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], " +
-                        "[DeliveryCharge], [DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
+                        "[DeliveryCharge], [DueAmount], [ReceivedAmount], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @EndOfDay, @Username, @BillNo, @MemberId, @ShareMemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
+                        "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @ShareMemberId, @SupplierId, @DeliveryPersonId, @Action, @ActionType, @Bank, " +
                         "@IncomeExpense, @Narration, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, " +
-                        "@DeliveryCharge, @DueAmount, @ReceivedAmount, @AddedDate, @UpdatedDate " +
+                        "@DeliveryCharge, @DueAmount, @ReceivedAmount, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -1928,7 +1928,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EndOfDay", userTransaction.EndOfDay);
-                        command.Parameters.AddWithValue("@Username", userTransaction.Username);
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)userTransaction.InvoiceNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BillNo", ((object)userTransaction.BillNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@MemberId", ((object)userTransaction.MemberId) ?? DBNull.Value);
@@ -1949,8 +1948,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@DeliveryCharge", userTransaction.DeliveryCharge);
                         command.Parameters.AddWithValue("@DueAmount", userTransaction.DueAmount);
                         command.Parameters.AddWithValue("@ReceivedAmount", ((object)userTransaction.ReceivedAmount) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", userTransaction.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", userTransaction.AddedDate);
-                        command.Parameters.AddWithValue("@UpdatedDate", userTransaction.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }

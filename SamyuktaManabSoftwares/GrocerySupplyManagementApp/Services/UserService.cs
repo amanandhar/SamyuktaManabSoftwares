@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
@@ -54,9 +55,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userRepository.UpdateUser(username, user);
         }
 
-        public bool UpdatePassword(string username, string password)
+        public bool UpdatePassword(string username, string password, string updatedBy, DateTime updatedDate)
         {
-            return _userRepository.UpdatePassword(username, password);
+            return _userRepository.UpdatePassword(username, password, updatedBy, updatedDate);
         }
 
         public bool DeleteUser(long id)

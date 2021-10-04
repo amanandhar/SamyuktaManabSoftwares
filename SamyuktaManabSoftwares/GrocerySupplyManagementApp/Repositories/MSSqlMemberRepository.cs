@@ -145,11 +145,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
                     "( " +
-                        "[Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedDate], [UpdatedDate] " +
+                        "[Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedDate, @UpdatedDate " +
+                        "@Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -166,8 +166,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Email", member.Email);
                         command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
                         command.Parameters.AddWithValue("@ImagePath", ((object)member.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", member.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", member.AddedDate);
-                        command.Parameters.AddWithValue("@UpdatedDate", member.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -193,6 +193,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Email] = @Email, " +
                 "[AccountNo] = @AccountNo, " +
                 "[ImagePath] = @ImagePath, " +
+                "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
                 "AND [MemberId] = @MemberId ";
@@ -211,6 +212,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Email", member.Email);
                         command.Parameters.AddWithValue("@AccountNo", member.AccountNo);
                         command.Parameters.AddWithValue("@ImagePath", ((object)member.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", member.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", member.UpdatedDate);
 
                         command.ExecuteNonQuery();

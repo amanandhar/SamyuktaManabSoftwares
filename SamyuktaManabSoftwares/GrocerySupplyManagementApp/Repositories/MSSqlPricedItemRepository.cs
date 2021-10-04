@@ -267,14 +267,14 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " + Constants.TABLE_PRICED_ITEM + " " +
                     "( " +
                         "[ItemId], [SubCode], [CustomUnit], [Volume], " +
-                        "[ProfitPercent], [Profit], [SalesPricePerUnit], " + 
-                        "[ImagePath], [AddedDate], [UpdatedDate] " +
+                        "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
+                        "[ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@ItemId, @SubCode, @CustomUnit, @Volume, " +
-                        "@ProfitPercent, @Profit, @SalesPricePerUnit, " + 
-                        "@ImagePath, @AddedDate, @UpdatedDate " +
+                        "@ProfitPercent, @Profit, @SalesPricePerUnit, " +
+                        "@ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -291,8 +291,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
                         command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
                         command.Parameters.AddWithValue("@ImagePath", ((object)pricedItem.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", pricedItem.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", pricedItem.AddedDate);
-                        command.Parameters.AddWithValue("@UpdatedDate", pricedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -318,9 +318,10 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Profit] = @Profit, " +
                 "[SalesPricePerUnit] = @SalesPricePerUnit, " +
                 "[ImagePath] = @ImagePath, " +
+                "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
-                "AND Id = @Id ";
+                "AND [Id] = @Id ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -337,6 +338,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
                         command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
                         command.Parameters.AddWithValue("@ImagePath", ((object)pricedItem.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", pricedItem.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", pricedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();

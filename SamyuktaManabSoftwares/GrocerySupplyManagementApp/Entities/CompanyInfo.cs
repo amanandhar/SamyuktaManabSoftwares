@@ -16,6 +16,9 @@ namespace GrocerySupplyManagementApp.Entities
         public string RegistrationDate { get; set; }
         public string PanVatNo { get; set; }
         public string LogoPath { get; set; }
+        public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

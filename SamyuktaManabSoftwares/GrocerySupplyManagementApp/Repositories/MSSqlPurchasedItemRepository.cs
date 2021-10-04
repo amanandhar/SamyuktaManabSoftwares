@@ -549,11 +549,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_PURCHASED_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate], [UpdatedDate] " +
+                        "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @SupplierId, @BillNo, @ItemId, @Quantity, @Price, @AddedDate, @UpdatedDate " +
+                        "@EndOfDay, @SupplierId, @BillNo, @ItemId, @Quantity, @Price, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -568,8 +568,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ItemId", purchasedItem.ItemId);
                         command.Parameters.AddWithValue("@Quantity", purchasedItem.Quantity);
                         command.Parameters.AddWithValue("@Price", purchasedItem.Price);
+                        command.Parameters.AddWithValue("@AddedBy", purchasedItem.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", purchasedItem.AddedDate);
-                        command.Parameters.AddWithValue("@UpdatedDate", purchasedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -593,6 +593,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         "[ItemId] = @ItemId, " +
                         "[Quantity] = @Quantity, " +
                         "[Price] = @Price, " +
+                        "[UpdatedBy] = @UpdatedBy, " +
                         "[UpdatedDate] = @UpdatedDate " +
                         "WHERE 1 = 1 " +
                         "AND [Id] = @Id ";
@@ -611,6 +612,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ItemId", purchasedItem.ItemId);
                         command.Parameters.AddWithValue("@Quantity", purchasedItem.Quantity);
                         command.Parameters.AddWithValue("@Price", purchasedItem.Price);
+                        command.Parameters.AddWithValue("@UpdatedBy", purchasedItem.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", purchasedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();

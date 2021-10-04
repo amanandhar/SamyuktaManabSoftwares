@@ -56,13 +56,13 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnCompanyInfo_Click(object sender, EventArgs e)
         {
-            CompanyInfoForm companyInfoForm = new CompanyInfoForm(_companyInfoService);
+            CompanyInfoForm companyInfoForm = new CompanyInfoForm(_username, _companyInfoService);
             companyInfoForm.Show();
         }
 
         private void BtnAddNewCode_Click(object sender, EventArgs e)
         {
-            ItemForm addNewCodeForm = new ItemForm(_itemService, _itemCategoryService);
+            ItemForm addNewCodeForm = new ItemForm(_username, _itemService, _itemCategoryService);
             addNewCodeForm.Show();
         }
 
@@ -81,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnFiscalYearForm_Click(object sender, EventArgs e)
         {
-            FiscalYearForm fiscalYearForm = new FiscalYearForm(_fiscalYearService,
+            FiscalYearForm fiscalYearForm = new FiscalYearForm(_username, _fiscalYearService,
                 _bankTransactionService, _purchasedItemService,
                 _soldItemService, _userTransactionService);
             fiscalYearForm.Show();
@@ -89,13 +89,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSetPassword_Click(object sender, EventArgs e)
         {
-            SetPasswordForm setPasswordForm = new SetPasswordForm(_userService);
+            SetPasswordForm setPasswordForm = new SetPasswordForm(_username, _userService);
             setPasswordForm.Show();
         }
 
         private void BtnVatTaxSetup_Click(object sender, EventArgs e)
         {
-            TaxSetupForm taxSetupForm = new TaxSetupForm(_taxService);
+            TaxSetupForm taxSetupForm = new TaxSetupForm(_username, _taxService);
             taxSetupForm.Show();
         }
 

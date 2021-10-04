@@ -27,7 +27,9 @@ namespace GrocerySupplyManagementApp.Entities
         public string AppointedDate { get; set; }
         public string ResignedDate { get; set; }
         public string ImagePath { get; set; }
+        public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
+        public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
     }
 }

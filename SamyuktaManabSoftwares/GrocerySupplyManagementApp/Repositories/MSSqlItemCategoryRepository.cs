@@ -142,11 +142,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " +
                     " " + Constants.TABLE_ITEM_CATEGORY + " " +
                     "( " +
-                        "[Counter], [Name], [ItemCode] " +
+                        "[Counter], [Name], [ItemCode], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Counter, @Name, @ItemCode " +
+                        "@Counter, @Name, @ItemCode, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -158,6 +158,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Counter", ((object)category.Counter) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Name", ((object)category.Name) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ItemCode", ((object)category.ItemCode) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)category.AddedBy) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedDate", ((object)category.AddedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }
                 }

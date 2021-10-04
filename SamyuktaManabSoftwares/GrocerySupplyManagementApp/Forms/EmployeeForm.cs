@@ -14,6 +14,8 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IEmployeeService _employeeService;
         public DashboardForm _dashboard;
+
+        private readonly string _username;
         private string _baseImageFolder;
         private const string EMPLOYEE_IMAGE_FOLDER = "Employees";
         private string _uploadedImagePath = string.Empty;
@@ -33,11 +35,14 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public EmployeeForm(IEmployeeService employeeService)
+        public EmployeeForm(string username, 
+            IEmployeeService employeeService)
         {
             InitializeComponent();
 
             _employeeService = employeeService;
+
+            _username = username;
         }
 
         #endregion
@@ -138,8 +143,8 @@ namespace GrocerySupplyManagementApp.Forms
                     AppointedDate = MaskAppointedDate.Text,
                     ResignedDate = MaskResignedDate.Text,
                     ImagePath = destinationFilePath,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _employeeService.AddEmployee(employee);
@@ -220,6 +225,7 @@ namespace GrocerySupplyManagementApp.Forms
                     AppointedDate = MaskAppointedDate.Text,
                     ResignedDate = MaskResignedDate.Text,
                     ImagePath = destinationFilePath,
+                    UpdatedBy = _username,
                     UpdatedDate = date
                 };
 

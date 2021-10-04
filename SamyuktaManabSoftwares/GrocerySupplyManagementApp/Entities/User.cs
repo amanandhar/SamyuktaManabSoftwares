@@ -21,7 +21,9 @@ namespace GrocerySupplyManagementApp.Entities
         public bool Settings { get; set; }
         public bool StockSummary { get; set; }
         public bool Supplier { get; set; }
+        public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
+        public string UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
     }
 }

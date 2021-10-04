@@ -23,6 +23,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IStockService _stockService;
 
         public DashboardForm _dashboard;
+
+        private readonly string _username;
         private string _baseImageFolder;
         private const string ITEM_IMAGE_FOLDER = "Items";
         private string _uploadedImagePath = string.Empty;
@@ -44,7 +46,8 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public PricedItemForm(IItemService itemService, IPricedItemService pricedItemService,
+        public PricedItemForm(string username, 
+            IItemService itemService, IPricedItemService pricedItemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IStockService stockService, DashboardForm dashboardForm)
         {
@@ -57,6 +60,7 @@ namespace GrocerySupplyManagementApp.Forms
             _stockService = stockService;
 
             _dashboard = dashboardForm;
+            _username = username;
         }
         #endregion
 
@@ -138,8 +142,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
                     ImagePath = destinationFilePath,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _pricedItemService.AddPricedItem(pricedItem);
@@ -209,6 +213,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
                     ImagePath = destinationFilePath,
+                    UpdatedBy = _username,
                     UpdatedDate = date
                 };
 

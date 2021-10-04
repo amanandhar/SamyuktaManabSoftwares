@@ -131,7 +131,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Username = _username,
                         MemberId = TxtMemberId.Text,
                         Action = Constants.RECEIPT,
                         ActionType = ComboReceipt.Text,
@@ -145,8 +144,8 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryCharge = 0.0m,
                         DueAmount = 0.0m,
                         ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -157,15 +156,14 @@ namespace GrocerySupplyManagementApp.Forms
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
-                            Username = _username,
                             BankId = Convert.ToInt64(selectedItem.Id),
                             TransactionId = lastPosTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichAmount.Text),
                             Credit = 0.0m,
                             Narration = TxtMemberId.Text + " - " + TxtName.Text,
-                            AddedDate = date,
-                            UpdatedDate = date
+                            AddedBy = _username,
+                            AddedDate = date
                         };
 
                         _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -247,8 +245,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Email = TxtEmail.Text,
                     AccountNo = TxtAccountNumber.Text,
                     ImagePath = destinationFilePath,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _memberService.AddMember(member);
@@ -316,6 +314,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Email = TxtEmail.Text,
                     AccountNo = TxtAccountNumber.Text,
                     ImagePath = destinationFilePath,
+                    UpdatedBy = _username,
                     UpdatedDate = DateTime.Now
                 };
 

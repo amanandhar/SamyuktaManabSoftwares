@@ -35,22 +35,21 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelMenu = new System.Windows.Forms.Panel();
             this.BtnEOD = new System.Windows.Forms.Button();
             this.PanelSettingsSubMenu = new System.Windows.Forms.Panel();
-            this.BtnSetup = new System.Windows.Forms.Button();
             this.BtnVatSetup = new System.Windows.Forms.Button();
-            this.BtnUpdatePassword = new System.Windows.Forms.Button();
             this.BtnUserSetup = new System.Windows.Forms.Button();
+            this.BtnSetup = new System.Windows.Forms.Button();
             this.BtnNewCodeSetup = new System.Windows.Forms.Button();
             this.BtnFiscalYear = new System.Windows.Forms.Button();
             this.BtnCompanyInformation = new System.Windows.Forms.Button();
             this.BtnSettings = new System.Windows.Forms.Button();
             this.PanelReportsSubMenu = new System.Windows.Forms.Panel();
-            this.BtnDeliveryPerson = new System.Windows.Forms.Button();
             this.BtnShareCapital = new System.Windows.Forms.Button();
             this.BtnSalesReturn = new System.Windows.Forms.Button();
             this.BtnSalesPurchaseReport = new System.Windows.Forms.Button();
             this.BtnProfitLoss = new System.Windows.Forms.Button();
-            this.BtnDailyExpense = new System.Windows.Forms.Button();
+            this.BtnDeliveryPerson = new System.Windows.Forms.Button();
             this.BtnDailyIncome = new System.Windows.Forms.Button();
+            this.BtnDailyExpense = new System.Windows.Forms.Button();
             this.BtnBalanceSheet = new System.Windows.Forms.Button();
             this.BtnReports = new System.Windows.Forms.Button();
             this.BtnEmployee = new System.Windows.Forms.Button();
@@ -134,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEOD.ForeColor = System.Drawing.Color.White;
             this.BtnEOD.Image = ((System.Drawing.Image)(resources.GetObject("BtnEOD.Image")));
             this.BtnEOD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnEOD.Location = new System.Drawing.Point(0, 1044);
+            this.BtnEOD.Location = new System.Drawing.Point(0, 1004);
             this.BtnEOD.Name = "BtnEOD";
             this.BtnEOD.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnEOD.Size = new System.Drawing.Size(233, 40);
@@ -147,38 +146,17 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // PanelSettingsSubMenu
             // 
-            this.PanelSettingsSubMenu.Controls.Add(this.BtnSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnVatSetup);
-            this.PanelSettingsSubMenu.Controls.Add(this.BtnUpdatePassword);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnUserSetup);
+            this.PanelSettingsSubMenu.Controls.Add(this.BtnSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnNewCodeSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnFiscalYear);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnCompanyInformation);
             this.PanelSettingsSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelSettingsSubMenu.Location = new System.Drawing.Point(0, 761);
             this.PanelSettingsSubMenu.Name = "PanelSettingsSubMenu";
-            this.PanelSettingsSubMenu.Size = new System.Drawing.Size(233, 283);
+            this.PanelSettingsSubMenu.Size = new System.Drawing.Size(233, 243);
             this.PanelSettingsSubMenu.TabIndex = 14;
-            // 
-            // BtnSetup
-            // 
-            this.BtnSetup.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnSetup.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnSetup.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnSetup.FlatAppearance.BorderSize = 0;
-            this.BtnSetup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnSetup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnSetup.Location = new System.Drawing.Point(0, 240);
-            this.BtnSetup.Name = "BtnSetup";
-            this.BtnSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnSetup.Size = new System.Drawing.Size(233, 40);
-            this.BtnSetup.TabIndex = 22;
-            this.BtnSetup.Text = "Setup";
-            this.BtnSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSetup.UseVisualStyleBackColor = false;
             // 
             // BtnVatSetup
             // 
@@ -201,27 +179,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnVatSetup.UseVisualStyleBackColor = false;
             this.BtnVatSetup.Click += new System.EventHandler(this.BtnVatSetup_Click);
             // 
-            // BtnUpdatePassword
-            // 
-            this.BtnUpdatePassword.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnUpdatePassword.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnUpdatePassword.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnUpdatePassword.FlatAppearance.BorderSize = 0;
-            this.BtnUpdatePassword.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnUpdatePassword.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnUpdatePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnUpdatePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnUpdatePassword.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdatePassword.Location = new System.Drawing.Point(0, 160);
-            this.BtnUpdatePassword.Name = "BtnUpdatePassword";
-            this.BtnUpdatePassword.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnUpdatePassword.Size = new System.Drawing.Size(233, 40);
-            this.BtnUpdatePassword.TabIndex = 20;
-            this.BtnUpdatePassword.Text = "Update Password";
-            this.BtnUpdatePassword.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnUpdatePassword.UseVisualStyleBackColor = false;
-            this.BtnUpdatePassword.Click += new System.EventHandler(this.BtnUpdatePassword_Click);
-            // 
             // BtnUserSetup
             // 
             this.BtnUserSetup.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -233,7 +190,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUserSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUserSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUserSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnUserSetup.Location = new System.Drawing.Point(0, 120);
+            this.BtnUserSetup.Location = new System.Drawing.Point(0, 160);
             this.BtnUserSetup.Name = "BtnUserSetup";
             this.BtnUserSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnUserSetup.Size = new System.Drawing.Size(233, 40);
@@ -242,6 +199,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUserSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnUserSetup.UseVisualStyleBackColor = false;
             this.BtnUserSetup.Click += new System.EventHandler(this.BtnUserSetup_Click);
+            // 
+            // BtnSetup
+            // 
+            this.BtnSetup.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnSetup.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnSetup.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnSetup.FlatAppearance.BorderSize = 0;
+            this.BtnSetup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.BtnSetup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.BtnSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSetup.ForeColor = System.Drawing.Color.White;
+            this.BtnSetup.Location = new System.Drawing.Point(0, 120);
+            this.BtnSetup.Name = "BtnSetup";
+            this.BtnSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.BtnSetup.Size = new System.Drawing.Size(233, 40);
+            this.BtnSetup.TabIndex = 22;
+            this.BtnSetup.Text = "Setup";
+            this.BtnSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnSetup.UseVisualStyleBackColor = false;
             // 
             // BtnNewCodeSetup
             // 
@@ -333,40 +310,19 @@ namespace GrocerySupplyManagementApp.Forms
             // PanelReportsSubMenu
             // 
             this.PanelReportsSubMenu.BackColor = System.Drawing.Color.DodgerBlue;
-            this.PanelReportsSubMenu.Controls.Add(this.BtnDeliveryPerson);
             this.PanelReportsSubMenu.Controls.Add(this.BtnShareCapital);
             this.PanelReportsSubMenu.Controls.Add(this.BtnSalesReturn);
             this.PanelReportsSubMenu.Controls.Add(this.BtnSalesPurchaseReport);
             this.PanelReportsSubMenu.Controls.Add(this.BtnProfitLoss);
-            this.PanelReportsSubMenu.Controls.Add(this.BtnDailyExpense);
+            this.PanelReportsSubMenu.Controls.Add(this.BtnDeliveryPerson);
             this.PanelReportsSubMenu.Controls.Add(this.BtnDailyIncome);
+            this.PanelReportsSubMenu.Controls.Add(this.BtnDailyExpense);
             this.PanelReportsSubMenu.Controls.Add(this.BtnBalanceSheet);
             this.PanelReportsSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelReportsSubMenu.Location = new System.Drawing.Point(0, 400);
             this.PanelReportsSubMenu.Name = "PanelReportsSubMenu";
             this.PanelReportsSubMenu.Size = new System.Drawing.Size(233, 321);
             this.PanelReportsSubMenu.TabIndex = 12;
-            // 
-            // BtnDeliveryPerson
-            // 
-            this.BtnDeliveryPerson.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnDeliveryPerson.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnDeliveryPerson.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnDeliveryPerson.FlatAppearance.BorderSize = 0;
-            this.BtnDeliveryPerson.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnDeliveryPerson.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnDeliveryPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDeliveryPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeliveryPerson.ForeColor = System.Drawing.Color.White;
-            this.BtnDeliveryPerson.Location = new System.Drawing.Point(0, 280);
-            this.BtnDeliveryPerson.Name = "BtnDeliveryPerson";
-            this.BtnDeliveryPerson.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnDeliveryPerson.Size = new System.Drawing.Size(233, 40);
-            this.BtnDeliveryPerson.TabIndex = 20;
-            this.BtnDeliveryPerson.Text = "Delivery Person";
-            this.BtnDeliveryPerson.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDeliveryPerson.UseVisualStyleBackColor = false;
-            this.BtnDeliveryPerson.Click += new System.EventHandler(this.BtnDeliveryPerson_Click);
             // 
             // BtnShareCapital
             // 
@@ -379,7 +335,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShareCapital.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShareCapital.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShareCapital.ForeColor = System.Drawing.Color.White;
-            this.BtnShareCapital.Location = new System.Drawing.Point(0, 240);
+            this.BtnShareCapital.Location = new System.Drawing.Point(0, 280);
             this.BtnShareCapital.Name = "BtnShareCapital";
             this.BtnShareCapital.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnShareCapital.Size = new System.Drawing.Size(233, 40);
@@ -400,7 +356,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSalesReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSalesReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSalesReturn.ForeColor = System.Drawing.Color.White;
-            this.BtnSalesReturn.Location = new System.Drawing.Point(0, 200);
+            this.BtnSalesReturn.Location = new System.Drawing.Point(0, 240);
             this.BtnSalesReturn.Name = "BtnSalesReturn";
             this.BtnSalesReturn.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnSalesReturn.Size = new System.Drawing.Size(233, 40);
@@ -421,7 +377,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSalesPurchaseReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSalesPurchaseReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSalesPurchaseReport.ForeColor = System.Drawing.Color.White;
-            this.BtnSalesPurchaseReport.Location = new System.Drawing.Point(0, 160);
+            this.BtnSalesPurchaseReport.Location = new System.Drawing.Point(0, 200);
             this.BtnSalesPurchaseReport.Name = "BtnSalesPurchaseReport";
             this.BtnSalesPurchaseReport.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnSalesPurchaseReport.Size = new System.Drawing.Size(233, 40);
@@ -442,7 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnProfitLoss.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnProfitLoss.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnProfitLoss.ForeColor = System.Drawing.Color.White;
-            this.BtnProfitLoss.Location = new System.Drawing.Point(0, 120);
+            this.BtnProfitLoss.Location = new System.Drawing.Point(0, 160);
             this.BtnProfitLoss.Name = "BtnProfitLoss";
             this.BtnProfitLoss.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnProfitLoss.Size = new System.Drawing.Size(233, 40);
@@ -452,26 +408,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnProfitLoss.UseVisualStyleBackColor = false;
             this.BtnProfitLoss.Click += new System.EventHandler(this.BtnProfitLoss_Click);
             // 
-            // BtnDailyExpense
+            // BtnDeliveryPerson
             // 
-            this.BtnDailyExpense.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnDailyExpense.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnDailyExpense.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnDailyExpense.FlatAppearance.BorderSize = 0;
-            this.BtnDailyExpense.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnDailyExpense.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnDailyExpense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDailyExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDailyExpense.ForeColor = System.Drawing.Color.White;
-            this.BtnDailyExpense.Location = new System.Drawing.Point(0, 80);
-            this.BtnDailyExpense.Name = "BtnDailyExpense";
-            this.BtnDailyExpense.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnDailyExpense.Size = new System.Drawing.Size(233, 40);
-            this.BtnDailyExpense.TabIndex = 15;
-            this.BtnDailyExpense.Text = "Daily Expense";
-            this.BtnDailyExpense.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDailyExpense.UseVisualStyleBackColor = false;
-            this.BtnDailyExpense.Click += new System.EventHandler(this.BtnDailyExpense_Click);
+            this.BtnDeliveryPerson.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnDeliveryPerson.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnDeliveryPerson.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnDeliveryPerson.FlatAppearance.BorderSize = 0;
+            this.BtnDeliveryPerson.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.BtnDeliveryPerson.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.BtnDeliveryPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDeliveryPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDeliveryPerson.ForeColor = System.Drawing.Color.White;
+            this.BtnDeliveryPerson.Location = new System.Drawing.Point(0, 120);
+            this.BtnDeliveryPerson.Name = "BtnDeliveryPerson";
+            this.BtnDeliveryPerson.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.BtnDeliveryPerson.Size = new System.Drawing.Size(233, 40);
+            this.BtnDeliveryPerson.TabIndex = 20;
+            this.BtnDeliveryPerson.Text = "Delivery Person";
+            this.BtnDeliveryPerson.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnDeliveryPerson.UseVisualStyleBackColor = false;
+            this.BtnDeliveryPerson.Click += new System.EventHandler(this.BtnDeliveryPerson_Click);
             // 
             // BtnDailyIncome
             // 
@@ -484,7 +440,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailyIncome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDailyIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDailyIncome.ForeColor = System.Drawing.Color.White;
-            this.BtnDailyIncome.Location = new System.Drawing.Point(0, 40);
+            this.BtnDailyIncome.Location = new System.Drawing.Point(0, 80);
             this.BtnDailyIncome.Name = "BtnDailyIncome";
             this.BtnDailyIncome.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnDailyIncome.Size = new System.Drawing.Size(233, 40);
@@ -493,6 +449,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailyIncome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnDailyIncome.UseVisualStyleBackColor = false;
             this.BtnDailyIncome.Click += new System.EventHandler(this.BtnDailyIncome_Click);
+            // 
+            // BtnDailyExpense
+            // 
+            this.BtnDailyExpense.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnDailyExpense.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnDailyExpense.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnDailyExpense.FlatAppearance.BorderSize = 0;
+            this.BtnDailyExpense.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.BtnDailyExpense.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.BtnDailyExpense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDailyExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDailyExpense.ForeColor = System.Drawing.Color.White;
+            this.BtnDailyExpense.Location = new System.Drawing.Point(0, 40);
+            this.BtnDailyExpense.Name = "BtnDailyExpense";
+            this.BtnDailyExpense.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.BtnDailyExpense.Size = new System.Drawing.Size(233, 40);
+            this.BtnDailyExpense.TabIndex = 15;
+            this.BtnDailyExpense.Text = "Daily Expense";
+            this.BtnDailyExpense.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnDailyExpense.UseVisualStyleBackColor = false;
+            this.BtnDailyExpense.Click += new System.EventHandler(this.BtnDailyExpense_Click);
             // 
             // BtnBalanceSheet
             // 
@@ -995,7 +972,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnNewCodeSetup;
         private System.Windows.Forms.Button BtnUserSetup;
         private System.Windows.Forms.Button BtnVatSetup;
-        private System.Windows.Forms.Button BtnUpdatePassword;
         private System.Windows.Forms.Button BtnSetup;
         private System.Windows.Forms.Panel PanelBody;
         private System.Windows.Forms.Label lblCompanyName;

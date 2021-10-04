@@ -422,11 +422,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_BANK_TRANSACTION + " " +
                     "( " +
-                        "[EndOfDay], [Username], [BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [AddedDate], [UpdatedDate] " +
+                        "[EndOfDay], [BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @Username, @BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @AddedDate, @UpdatedDate " +
+                        "@EndOfDay, @BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -436,15 +436,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EndOfDay", ((object)bankTransaction.EndOfDay) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Username", ((object)bankTransaction.Username) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", ((object)bankTransaction.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)bankTransaction.AddedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)bankTransaction.UpdatedDate) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                     }
@@ -467,7 +466,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "[BankId] = @BankId, [TransactionId] = @TransactionId, " +
                     "[Action] = @Action, [Debit] = @Debit, " +
                     "[Credit] = @Credit, [Narration] = @Narration, " +
-                    "[UpdatedDate] = @UpdatedDate " +
+                    "[UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
                     "AND [Id] = @Id ";
             try
@@ -485,6 +484,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", ((object)bankTransaction.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)bankTransaction.UpdatedDate) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                     }

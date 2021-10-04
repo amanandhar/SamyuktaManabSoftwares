@@ -106,11 +106,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SHARE_MEMBER + " " +
                     "( " +
-                        "[Name], [Address], [ContactNo], [ImagePath], [AddedDate], [UpdatedDate] " +
+                        "[Name], [Address], [ContactNo], [ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @Address, @ContactNo, @ImagePath, @AddedDate, @UpdatedDate " +
+                        "@Name, @Address, @ContactNo, @ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -123,8 +123,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Address", shareMember.Address);
                         command.Parameters.AddWithValue("@ContactNo", shareMember.ContactNo);
                         command.Parameters.AddWithValue("@ImagePath", ((object)shareMember.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@AddedBy", shareMember.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", shareMember.AddedDate);
-                        command.Parameters.AddWithValue("@UpdatedDate", shareMember.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -146,6 +146,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Address] = @Address, " +
                 "[ContactNo] = @ContactNo, " +
                 "[ImagePath] = @ImagePath, " +
+                "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id ";
@@ -161,6 +162,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Address", shareMember.Address);
                         command.Parameters.AddWithValue("@ContactNo", shareMember.ContactNo);
                         command.Parameters.AddWithValue("@ImagePath", ((object)shareMember.ImagePath) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UpdatedBy", shareMember.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", shareMember.UpdatedDate);
 
                         command.ExecuteNonQuery();

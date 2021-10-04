@@ -176,7 +176,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Username = _username,
                         BillNo = TxtBillNo.Text,
                         SupplierId = TxtSupplierId.Text,
                         Action = Constants.PAYMENT,
@@ -191,8 +190,8 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryCharge = 0.0m,
                         DueAmount = 0.0m,
                         ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                        AddedDate = date,
-                        UpdatedDate = date
+                        AddedBy = _username,
+                        AddedDate = date
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -204,15 +203,14 @@ namespace GrocerySupplyManagementApp.Forms
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
-                            Username = _username,
                             BankId = Convert.ToInt64(selectedItem.Id),
                             TransactionId = lastUserTransaction.Id,
                             Action = '0',
                             Debit = 0.0m,
                             Credit = Convert.ToDecimal(RichAmount.Text),
                             Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
-                            AddedDate = date,
-                            UpdatedDate = date
+                            AddedBy = _username,
+                            AddedDate = date
                         };
 
                         _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -256,8 +254,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
                     Email = TxtEmail.Text,
                     Owner = TxtOwner.Text,
-                    AddedDate = date,
-                    UpdatedDate = date
+                    AddedBy = _username,
+                    AddedDate = date
                 };
 
                 _supplierService.AddSupplier(supplier);
@@ -294,6 +292,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Address = TxtAddress.Text,
                     ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
                     Email = TxtEmail.Text,
+                    UpdatedBy = _username,
                     UpdatedDate = DateTime.Now
                 });
 
