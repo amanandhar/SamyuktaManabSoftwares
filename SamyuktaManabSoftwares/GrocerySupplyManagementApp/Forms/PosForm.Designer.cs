@@ -111,6 +111,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSoldItemList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.BtnSalesReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -610,6 +611,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox7
             // 
             this.groupBox7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox7.Controls.Add(this.BtnSalesReturn);
             this.groupBox7.Controls.Add(this.BtnAddSale);
             this.groupBox7.Controls.Add(this.BtnSaveInvoice);
             this.groupBox7.Controls.Add(this.BtnAddToCart);
@@ -636,7 +638,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddSale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddSale.ForeColor = System.Drawing.Color.White;
-            this.BtnAddSale.Location = new System.Drawing.Point(1097, 17);
+            this.BtnAddSale.Location = new System.Drawing.Point(1167, 17);
             this.BtnAddSale.Name = "BtnAddSale";
             this.BtnAddSale.Size = new System.Drawing.Size(145, 40);
             this.BtnAddSale.TabIndex = 23;
@@ -657,7 +659,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSaveInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSaveInvoice.ForeColor = System.Drawing.Color.White;
-            this.BtnSaveInvoice.Location = new System.Drawing.Point(951, 17);
+            this.BtnSaveInvoice.Location = new System.Drawing.Point(1021, 17);
             this.BtnSaveInvoice.Name = "BtnSaveInvoice";
             this.BtnSaveInvoice.Size = new System.Drawing.Size(145, 40);
             this.BtnSaveInvoice.TabIndex = 22;
@@ -678,7 +680,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddToCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddToCart.ForeColor = System.Drawing.Color.White;
-            this.BtnAddToCart.Location = new System.Drawing.Point(805, 17);
+            this.BtnAddToCart.Location = new System.Drawing.Point(875, 17);
             this.BtnAddToCart.Name = "BtnAddToCart";
             this.BtnAddToCart.Size = new System.Drawing.Size(145, 40);
             this.BtnAddToCart.TabIndex = 21;
@@ -699,7 +701,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemoveItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRemoveItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRemoveItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.BtnRemoveItem.Location = new System.Drawing.Point(659, 17);
+            this.BtnRemoveItem.Location = new System.Drawing.Point(729, 17);
             this.BtnRemoveItem.Name = "BtnRemoveItem";
             this.BtnRemoveItem.Size = new System.Drawing.Size(145, 40);
             this.BtnRemoveItem.TabIndex = 20;
@@ -720,7 +722,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnBankTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnBankTransfer.ForeColor = System.Drawing.Color.White;
-            this.BtnBankTransfer.Location = new System.Drawing.Point(513, 17);
+            this.BtnBankTransfer.Location = new System.Drawing.Point(583, 17);
             this.BtnBankTransfer.Name = "BtnBankTransfer";
             this.BtnBankTransfer.Size = new System.Drawing.Size(145, 40);
             this.BtnBankTransfer.TabIndex = 19;
@@ -741,7 +743,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddExpense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddExpense.ForeColor = System.Drawing.Color.White;
-            this.BtnAddExpense.Location = new System.Drawing.Point(367, 17);
+            this.BtnAddExpense.Location = new System.Drawing.Point(437, 17);
             this.BtnAddExpense.Name = "BtnAddExpense";
             this.BtnAddExpense.Size = new System.Drawing.Size(145, 40);
             this.BtnAddExpense.TabIndex = 18;
@@ -762,7 +764,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddReceipt.ForeColor = System.Drawing.Color.White;
-            this.BtnAddReceipt.Location = new System.Drawing.Point(221, 17);
+            this.BtnAddReceipt.Location = new System.Drawing.Point(291, 17);
             this.BtnAddReceipt.Name = "BtnAddReceipt";
             this.BtnAddReceipt.Size = new System.Drawing.Size(145, 40);
             this.BtnAddReceipt.TabIndex = 17;
@@ -783,7 +785,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnTransaction.ForeColor = System.Drawing.Color.White;
-            this.BtnTransaction.Location = new System.Drawing.Point(75, 17);
+            this.BtnTransaction.Location = new System.Drawing.Point(146, 17);
             this.BtnTransaction.Name = "BtnTransaction";
             this.BtnTransaction.Size = new System.Drawing.Size(145, 40);
             this.BtnTransaction.TabIndex = 16;
@@ -1200,6 +1202,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.label19.TabIndex = 33;
             this.label19.Text = "Welcome to Point of Sales Dashboard";
             // 
+            // BtnSalesReturn
+            // 
+            this.BtnSalesReturn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSalesReturn.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSalesReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSalesReturn.BorderRadius = 35;
+            this.BtnSalesReturn.BorderSize = 0;
+            this.BtnSalesReturn.Enabled = false;
+            this.BtnSalesReturn.FlatAppearance.BorderSize = 0;
+            this.BtnSalesReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSalesReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSalesReturn.ForeColor = System.Drawing.Color.White;
+            this.BtnSalesReturn.Location = new System.Drawing.Point(1, 17);
+            this.BtnSalesReturn.Name = "BtnSalesReturn";
+            this.BtnSalesReturn.Size = new System.Drawing.Size(145, 40);
+            this.BtnSalesReturn.TabIndex = 24;
+            this.BtnSalesReturn.Text = "Sales Return";
+            this.BtnSalesReturn.TextColor = System.Drawing.Color.White;
+            this.BtnSalesReturn.UseVisualStyleBackColor = false;
+            // 
             // PosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1313,5 +1335,6 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnAddSale;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label19;
+        private CustomControls.Button.CustomButton BtnSalesReturn;
     }
 }

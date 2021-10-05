@@ -599,6 +599,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DataGridSoldItemList.Columns["Id"].Visible = false;
                 DataGridSoldItemList.Columns["Profit"].Visible = false;
+                DataGridSoldItemList.Columns["AddedBy"].Visible = false;
                 DataGridSoldItemList.Columns["AddedDate"].Visible = false;
 
                 DataGridSoldItemList.Columns["ItemCode"].HeaderText = "Code";
