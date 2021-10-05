@@ -12,21 +12,30 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ProfitLossForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _endOfDay;
         private decimal _totalIncome = 0.0m;
         private decimal _totalExpense = 0.0m;
 
+        #region 
+        private enum Action
+        {
+            Load,
+            Show,
+            None
+        }
+        #endregion
+
         #region Constructor
-        public ProfitLossForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService)
+        public ProfitLossForm(ISettingService settingService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _userTransactionService = userTransactionService;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _endOfDay = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault().StartingDate;
         }
         #endregion
 
@@ -34,6 +43,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void ProfitLossForm_Load(object sender, EventArgs e)
         {
             MaskDtEOD.Text = _endOfDay;
+            EnableFields();
+            EnableFields(Action.Load);
         }
         #endregion
 
@@ -57,6 +68,58 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtNetIncome.Text = 0.0m.ToString();
                 TxtNetLoss.Text = 0.0m.ToString();
+            }
+
+            EnableFields();
+            EnableFields(Action.Show);
+        }
+
+        private void BtnExportToExcel_Click(object sender, EventArgs e)
+        {
+            var dialogResult = SaveFileDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                var excelData = new Dictionary<string, List<ExcelField>>();
+
+                var incomeFields = new List<ExcelField>();
+                var incomes = GetIncome();
+
+                incomeFields.Add(new ExcelField() { Order = 1, Field = Constants.BONUS, Value = incomes.Where(x => x.Name == Constants.BONUS).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                incomeFields.Add(new ExcelField() { Order = 2, Field = Constants.DELIVERY_CHARGE, Value = incomes.Where(x => x.Name == Constants.DELIVERY_CHARGE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                incomeFields.Add(new ExcelField() { Order = 3, Field = Constants.MEMBER_FEE, Value = incomes.Where(x => x.Name == Constants.MEMBER_FEE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                incomeFields.Add(new ExcelField() { Order = 4, Field = Constants.OTHER_INCOME, Value = incomes.Where(x => x.Name == Constants.OTHER_INCOME).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                incomeFields.Add(new ExcelField() { Order = 5, Field = Constants.SALES_PROFIT, Value = incomes.Where(x => x.Name == Constants.SALES_PROFIT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                incomeFields.Add(new ExcelField() { Order = 6, Field = Constants.TOTAL, Value = incomes.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                excelData.Add(Constants.INCOME, incomeFields);
+
+                var expenseFields = new List<ExcelField>();
+                var expenses = GetExpense();
+                expenseFields.Add(new ExcelField() { Order = 1, Field = Constants.ASSET, Value = expenses.Where(x => x.Name == Constants.ASSET).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 2, Field = Constants.DELIVERY_CHARGE, Value = expenses.Where(x => x.Name == Constants.DELIVERY_CHARGE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 3, Field = Constants.ELECTRICITY, Value = expenses.Where(x => x.Name == Constants.ELECTRICITY).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 4, Field = Constants.FUEL_TRANSPORTATION, Value = expenses.Where(x => x.Name == Constants.FUEL_TRANSPORTATION).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 5, Field = Constants.GUEST_HOSPITALITY, Value = expenses.Where(x => x.Name == Constants.GUEST_HOSPITALITY).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 6, Field = Constants.LOAN_INTEREST, Value = expenses.Where(x => x.Name == Constants.LOAN_INTEREST).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 7, Field = Constants.MISCELLANEOUS, Value = expenses.Where(x => x.Name == Constants.MISCELLANEOUS).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 8, Field = Constants.OFFICE_RENT, Value = expenses.Where(x => x.Name == Constants.OFFICE_RENT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 9, Field = Constants.REPAIR_MAINTENANCE, Value = expenses.Where(x => x.Name == Constants.REPAIR_MAINTENANCE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 10, Field = Constants.SALES_DISCOUNT, Value = expenses.Where(x => x.Name == Constants.SALES_DISCOUNT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 11, Field = Constants.SALES_RETURN, Value = expenses.Where(x => x.Name == Constants.SALES_RETURN).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 12, Field = Constants.STAFF_ALLOWANCE, Value = expenses.Where(x => x.Name == Constants.STAFF_ALLOWANCE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 13, Field = Constants.STAFF_SALARY, Value = expenses.Where(x => x.Name == Constants.STAFF_SALARY).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 14, Field = Constants.TELEPHONE_INTERNET, Value = expenses.Where(x => x.Name == Constants.TELEPHONE_INTERNET).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 15, Field = Constants.TOTAL, Value = expenses.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                excelData.Add(Constants.EXPENSE, expenseFields);
+
+                var filename = SaveFileDialog.FileName;
+                if(Excel.Export(excelData, filename))
+                {
+                    MessageBox.Show(filename + " has been saved successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error while saving " + filename, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         #endregion
@@ -100,8 +163,9 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadIncome()
+        private List<IncomeExpenseView> GetIncome()
         {
+            List<IncomeExpenseView> incomeExpenseView;
             try
             {
                 var endOfDay = MaskDtEOD.Text;
@@ -121,15 +185,15 @@ namespace GrocerySupplyManagementApp.Forms
                     .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.MEMBER_FEE })
                     .ToList().Sum(x => x.Amount);
                 var totalOtherIncome = _userTransactionService
-                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.OTHER_INCOME})
+                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.OTHER_INCOME })
                     .ToList().Sum(x => x.Amount);
                 var totalSalesProfit = _userTransactionService
                     .GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay })
                     .ToList().Sum(x => x.Amount);
-                
+
                 _totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
 
-                List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
+                incomeExpenseView = new List<IncomeExpenseView>
                 {
                     new IncomeExpenseView
                     {
@@ -162,8 +226,21 @@ namespace GrocerySupplyManagementApp.Forms
                         Amount = _totalIncome
                     }
                 };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-                var bindingList = new BindingList<IncomeExpenseView>(incomeExpenseView);
+            return incomeExpenseView;
+        }
+
+        private void LoadIncome()
+        {
+            try
+            {
+                var income = GetIncome();
+                var bindingList = new BindingList<IncomeExpenseView>(income);
                 var source = new BindingSource(bindingList, null);
                 DataGridIncomeList.DataSource = source;
             }
@@ -173,8 +250,9 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void LoadExpense()
+        private List<IncomeExpenseView> GetExpense()
         {
+            List<IncomeExpenseView> incomeExpenseView;
             try
             {
                 var endOfDay = MaskDtEOD.Text;
@@ -217,7 +295,7 @@ namespace GrocerySupplyManagementApp.Forms
                      + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance + totalSalesDiscount
                     + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
 
-                List<IncomeExpenseView> incomeExpenseView = new List<IncomeExpenseView>
+                incomeExpenseView = new List<IncomeExpenseView>
                 {
                     new IncomeExpenseView
                     {
@@ -242,7 +320,7 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.GUEST_HOSPITALITY,
-                        Amount = totalGuestHospitality                  
+                        Amount = totalGuestHospitality
                     },
                     new IncomeExpenseView
                     {
@@ -295,14 +373,45 @@ namespace GrocerySupplyManagementApp.Forms
                         Amount = _totalExpense
                     }
                 };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-                var bindingList = new BindingList<IncomeExpenseView>(incomeExpenseView);
+            return incomeExpenseView;
+        }
+
+        private void LoadExpense()
+        {
+            try
+            {
+                var expense = GetExpense();
+                var bindingList = new BindingList<IncomeExpenseView>(expense);
                 var source = new BindingSource(bindingList, null);
                 DataGridExpenseList.DataSource = source;
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private void EnableFields(Action action = Action.None)
+        {
+            if (action == Action.Show)
+            {
+                BtnShow.Enabled = true;
+                BtnExportToExcel.Enabled = true;
+            }
+            else if (action == Action.Load)
+            {
+                BtnShow.Enabled = true;
+            }
+            else
+            {
+                BtnShow.Enabled = false;
+                BtnExportToExcel.Enabled = false;
             }
         }
         #endregion

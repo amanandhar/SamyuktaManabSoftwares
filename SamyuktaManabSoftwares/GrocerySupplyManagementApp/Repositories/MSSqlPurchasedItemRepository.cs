@@ -48,8 +48,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                                };
+                                    UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                            };
 
                                 purchasedItems.Add(purchasedItem);
                             }
@@ -95,7 +95,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 purchasedItem.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
                                 purchasedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
                                 purchasedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                purchasedItem.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                purchasedItem.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }

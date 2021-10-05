@@ -47,7 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Email = reader["Email"].ToString(),
                                     Owner = reader["Owner"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 suppliers.Add(supplier);
@@ -95,7 +95,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 supplier.Email = reader["Email"].ToString();
                                 supplier.Owner = reader["Owner"].ToString();
                                 supplier.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                supplier.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                supplier.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }

@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 bankTransaction.Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString());
                                 bankTransaction.Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString();
                                 bankTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                bankTransaction.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                bankTransaction.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
                                     Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 bankTransactions.Add(bankTransaction);

@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -102,9 +103,8 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
-        private readonly ITaxService _taxService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemService _itemService;
@@ -123,10 +123,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IShareMemberService _shareMemberService;
 
         private readonly string _username;
+        private readonly Setting _setting;
 
         #region Constructor
-        public DashboardForm(string username, IFiscalYearService fiscalYearService,
-            ICompanyInfoService companyInfoService, ITaxService taxService,
+        public DashboardForm(string username, ISettingService settingService,
+            ICompanyInfoService companyInfoService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService, ISupplierService supplierService,
@@ -134,16 +135,14 @@ namespace GrocerySupplyManagementApp.Forms
             IUserTransactionService userTransactionService, IStockService stockService,
             IEndOfDayService endOfDateService, IEmployeeService employeeService,
             IReportService reportService, IUserService userService,
-            IItemCategoryService itemCategoryService, IShareMemberService shareMemberService)
+            IItemCategoryService itemCategoryService, IShareMemberService shareMemberService
+            )
         {
             InitializeComponent();
             CustomizeDesign();
 
-            _username = username;
-
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _companyInfoService = companyInfoService;
-            _taxService = taxService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _itemService = itemService;
@@ -160,6 +159,9 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
             _itemCategoryService = itemCategoryService;
             _shareMemberService = shareMemberService;
+
+            _username = username;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
         }
         #endregion
 
@@ -188,7 +190,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnPointOfSales_Click(object sender, EventArgs e)
         {
             PosForm posForm = new PosForm(_username,
-                _fiscalYearService, _taxService,
+                _settingService,
                 _bankService, _bankTransactionService,
                 _itemService, _pricedItemService,
                 _memberService,
@@ -200,7 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
             posForm.ShowDialog();
 
             //OpenChildForm(new PosForm(
-            //    _fiscalYearService, _taxService,
+            //    _userService,
             //    _bankService, _bankTransactionService,
             //    _itemService, _pricedItemService,
             //    _memberService,
@@ -216,7 +218,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDailySummary_Click(object sender, EventArgs e)
         {
             OpenChildForm(new SummaryForm(_username,
-                _fiscalYearService, _bankTransactionService,
+                _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
                 _userTransactionService, _userService));
             HideSubMenu();
@@ -226,7 +228,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDailyTransaction_Click(object sender, EventArgs e)
         {
             OpenChildForm(new DailyTransactionForm(_username,
-                _fiscalYearService,
+                _settingService,
                _bankTransactionService,
                _purchasedItemService, _soldItemService,
                _userTransactionService, _userService
@@ -237,7 +239,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockSummary_Click(object sender, EventArgs e)
         {
-           OpenChildForm(new StockForm(_fiscalYearService, _purchasedItemService,
+           OpenChildForm(new StockForm(_settingService, _purchasedItemService,
                 _soldItemService, _stockService));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -245,8 +247,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnMember_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new MemberForm(_username, 
-                _fiscalYearService, _companyInfoService,
+            OpenChildForm(new MemberForm(_username,
+                _settingService, _companyInfoService,
                 _bankService, _bankTransactionService,
                 _memberService, _soldItemService,
                 _userTransactionService, _employeeService,
@@ -258,7 +260,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnSupplier_Click(object sender, EventArgs e)
         {
             OpenChildForm(new SupplierForm(_username,
-                _fiscalYearService, _bankService,
+                _settingService, _bankService,
                 _bankTransactionService, _itemService,
                 _supplierService, _purchasedItemService,
                 _userTransactionService));
@@ -278,7 +280,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnBank_Click(object sender, EventArgs e)
         {
             OpenChildForm(new BankForm(_username,
-                _fiscalYearService, _bankService,
+                _settingService, _bankService,
                 _bankTransactionService));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -299,7 +301,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnBalanceSheet_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new BalanceSheetForm(_fiscalYearService, _bankTransactionService,
+            OpenChildForm(new BalanceSheetForm(_settingService, _bankTransactionService,
                _userTransactionService, _stockService));
             SelectButton(sender as Button, true);
         }
@@ -307,7 +309,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDailyIncome_Click(object sender, EventArgs e)
         {
             OpenChildForm(new IncomeForm(_username,
-                _fiscalYearService, _bankService, 
+                _settingService, _bankService, 
                 _bankTransactionService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
@@ -315,27 +317,27 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDailyExpense_Click(object sender, EventArgs e)
         {
             OpenChildForm(new ExpenseForm(_username,
-                _fiscalYearService, _bankService, 
+                _settingService, _bankService, 
                 _bankTransactionService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnProfitLoss_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ProfitLossForm(_fiscalYearService, _userTransactionService));
+            OpenChildForm(new ProfitLossForm(_settingService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnSalesPurchaseReport_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SalesPurchaseForm(_fiscalYearService, _userTransactionService));
+            OpenChildForm(new SalesPurchaseForm(_settingService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnSalesReturn_Click(object sender, EventArgs e)
         {
             OpenChildForm(new SalesReturnForm(_username,
-                _fiscalYearService, _itemService, 
+                _settingService, _itemService, 
                 _purchasedItemService, _soldItemService,
                 _userTransactionService));
             SelectButton(sender as Button, true);
@@ -344,7 +346,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShareCapital_Click(object sender, EventArgs e)
         {
             OpenChildForm(new ShareMemberForm(_username,
-                _fiscalYearService, _bankService, 
+                _settingService, _bankService, 
                 _bankTransactionService, _shareMemberService, 
                 _userTransactionService, this));
             SelectButton(sender as Button, true);
@@ -352,7 +354,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDeliveryPerson_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new DeliveryPersonForm(_fiscalYearService, _userTransactionService,
+            OpenChildForm(new DeliveryPersonForm(_settingService, _userTransactionService,
                     _employeeService));
             SelectButton(sender as Button, true);
         }
@@ -369,14 +371,6 @@ namespace GrocerySupplyManagementApp.Forms
             SelectButton(sender as Button, true);
         }
 
-        private void BtnFiscalYear_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new FiscalYearForm(_username, _fiscalYearService,
-                _bankTransactionService, _purchasedItemService,
-                _soldItemService, _userTransactionService));
-            SelectButton(sender as Button, true);
-        }
-
         private void BtnNewCodeSetup_Click(object sender, EventArgs e)
         {
             OpenChildForm(new ItemForm(_username, _itemService, _itemCategoryService));
@@ -385,25 +379,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SetupForm());
+            OpenChildForm(new SetupForm(_username, _settingService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnUserSetup_Click(object sender, EventArgs e)
         {
             OpenChildForm(new UserForm(_username, _userService));
-            SelectButton(sender as Button, true);
-        }
-
-        private void BtnUpdatePassword_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new SetPasswordForm(_username, _userService));
-            SelectButton(sender as Button, true);
-        }
-
-        private void BtnVatSetup_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new TaxSetupForm(_username, _taxService));
             SelectButton(sender as Button, true);
         }
 
@@ -414,21 +396,23 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show("Would you like to update EOD?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    var currentFiscalYear = _fiscalYearService.GetFiscalYear();
-                    var currentEOD = _endOfDateService.GetEndOfDay(currentFiscalYear.StartingDate);
+                    var currentEOD = _endOfDateService.GetEndOfDay(_setting.StartingDate);
                     var nextEOD = _endOfDateService.GetNextEndOfDay(currentEOD.Id);
 
-                    var newFiscalYear = new FiscalYear
+                    var setting = new Setting
                     {
-                        StartingInvoiceNo = currentFiscalYear.StartingInvoiceNo,
-                        StartingBillNo = currentFiscalYear.StartingBillNo,
+                        StartingInvoiceNo = _setting.StartingInvoiceNo,
+                        StartingBillNo = _setting.StartingBillNo,
                         StartingDate = nextEOD.DateInBs,
-                        Year = currentFiscalYear.Year,
+                        FiscalYear = _setting.FiscalYear,
+                        Discount = _setting.Discount,
+                        Vat = _setting.Vat,
+                        DeliveryCharge = _setting.DeliveryCharge,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
 
-                    if (_fiscalYearService.UpdateFiscalYear(newFiscalYear))
+                    if (_settingService.UpdateSetting(setting.Id, setting).Id == setting.Id)
                     {
                         LoadFiscalYear();
                         Application.Exit();
@@ -457,8 +441,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadFiscalYear()
         {
-            var fiscalYear = _fiscalYearService.GetFiscalYear();
-            var eod = _endOfDateService.GetEndOfDay(fiscalYear.StartingDate);
+            var eod = _endOfDateService.GetEndOfDay(_setting.StartingDate);
 
             RichBoxDateInAd.Text = "Date in AD: " + eod.DateInAd.ToString("yyyy-MM-dd");
             RichBoxDateInAd.SelectionAlignment = HorizontalAlignment.Center;
@@ -467,7 +450,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             RichBoxUsername.Text = "Username: " + _username;
             RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
-            RichBoxFiscalYear.Text = "Fiscal Year: " + fiscalYear.Year;
+            RichBoxFiscalYear.Text = "Fiscal Year: " + _setting.FiscalYear;
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
         }
 

@@ -30,80 +30,83 @@ namespace GrocerySupplyManagementApp.Forms
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.TxtBoxFiscalYear = new System.Windows.Forms.TextBox();
+            this.TxtBoxCompanyStartingDt = new System.Windows.Forms.TextBox();
+            this.TxtBoxStartingBillNo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.TextBoxVat = new System.Windows.Forms.TextBox();
+            this.TxtBoxStartingInvoiceNo = new System.Windows.Forms.TextBox();
+            this.TxtBoxVat = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.TextBoxDeliveryCharge = new System.Windows.Forms.TextBox();
+            this.TxtBoxDeliveryCharge = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.TextBoxDiscount = new System.Windows.Forms.TextBox();
+            this.TxtBoxDiscount = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.TxtBoxFiscalYear);
+            this.groupBox1.Controls.Add(this.TxtBoxCompanyStartingDt);
+            this.groupBox1.Controls.Add(this.TxtBoxStartingBillNo);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.TextBoxVat);
+            this.groupBox1.Controls.Add(this.TxtBoxStartingInvoiceNo);
+            this.groupBox1.Controls.Add(this.TxtBoxVat);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.TextBoxDeliveryCharge);
+            this.groupBox1.Controls.Add(this.TxtBoxDeliveryCharge);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.TextBoxDiscount);
+            this.groupBox1.Controls.Add(this.TxtBoxDiscount);
             this.groupBox1.Location = new System.Drawing.Point(32, 68);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1015, 313);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             // 
-            // textBox4
+            // TxtBoxFiscalYear
             // 
-            this.textBox4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox4.Enabled = false;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(664, 37);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(216, 29);
-            this.textBox4.TabIndex = 21;
+            this.TxtBoxFiscalYear.BackColor = System.Drawing.Color.White;
+            this.TxtBoxFiscalYear.Enabled = false;
+            this.TxtBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxFiscalYear.Location = new System.Drawing.Point(664, 37);
+            this.TxtBoxFiscalYear.Name = "TxtBoxFiscalYear";
+            this.TxtBoxFiscalYear.Size = new System.Drawing.Size(216, 29);
+            this.TxtBoxFiscalYear.TabIndex = 21;
+            this.TxtBoxFiscalYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox3
+            // TxtBoxCompanyStartingDt
             // 
-            this.textBox3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox3.Enabled = false;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(664, 99);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(216, 29);
-            this.textBox3.TabIndex = 20;
+            this.TxtBoxCompanyStartingDt.BackColor = System.Drawing.Color.White;
+            this.TxtBoxCompanyStartingDt.Enabled = false;
+            this.TxtBoxCompanyStartingDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxCompanyStartingDt.Location = new System.Drawing.Point(664, 99);
+            this.TxtBoxCompanyStartingDt.Name = "TxtBoxCompanyStartingDt";
+            this.TxtBoxCompanyStartingDt.Size = new System.Drawing.Size(216, 29);
+            this.TxtBoxCompanyStartingDt.TabIndex = 20;
+            this.TxtBoxCompanyStartingDt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox2
+            // TxtBoxStartingBillNo
             // 
-            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(664, 164);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(216, 29);
-            this.textBox2.TabIndex = 19;
+            this.TxtBoxStartingBillNo.BackColor = System.Drawing.Color.White;
+            this.TxtBoxStartingBillNo.Enabled = false;
+            this.TxtBoxStartingBillNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxStartingBillNo.Location = new System.Drawing.Point(664, 164);
+            this.TxtBoxStartingBillNo.Name = "TxtBoxStartingBillNo";
+            this.TxtBoxStartingBillNo.Size = new System.Drawing.Size(216, 29);
+            this.TxtBoxStartingBillNo.TabIndex = 19;
+            this.TxtBoxStartingBillNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label7
             // 
@@ -127,25 +130,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.TabIndex = 15;
             this.label6.Text = "Company Starting Date";
             // 
-            // textBox1
+            // TxtBoxStartingInvoiceNo
             // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(664, 231);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(216, 29);
-            this.textBox1.TabIndex = 18;
+            this.TxtBoxStartingInvoiceNo.BackColor = System.Drawing.Color.White;
+            this.TxtBoxStartingInvoiceNo.Enabled = false;
+            this.TxtBoxStartingInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxStartingInvoiceNo.Location = new System.Drawing.Point(664, 231);
+            this.TxtBoxStartingInvoiceNo.Name = "TxtBoxStartingInvoiceNo";
+            this.TxtBoxStartingInvoiceNo.Size = new System.Drawing.Size(216, 29);
+            this.TxtBoxStartingInvoiceNo.TabIndex = 18;
+            this.TxtBoxStartingInvoiceNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // TextBoxVat
+            // TxtBoxVat
             // 
-            this.TextBoxVat.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TextBoxVat.Enabled = false;
-            this.TextBoxVat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxVat.Location = new System.Drawing.Point(247, 99);
-            this.TextBoxVat.Name = "TextBoxVat";
-            this.TextBoxVat.Size = new System.Drawing.Size(216, 29);
-            this.TextBoxVat.TabIndex = 10;
+            this.TxtBoxVat.BackColor = System.Drawing.Color.White;
+            this.TxtBoxVat.Enabled = false;
+            this.TxtBoxVat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxVat.Location = new System.Drawing.Point(247, 99);
+            this.TxtBoxVat.Name = "TxtBoxVat";
+            this.TxtBoxVat.Size = new System.Drawing.Size(216, 29);
+            this.TxtBoxVat.TabIndex = 10;
+            this.TxtBoxVat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
             // 
@@ -180,15 +185,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.TabIndex = 13;
             this.label5.Text = "Starting Bill No.";
             // 
-            // TextBoxDeliveryCharge
+            // TxtBoxDeliveryCharge
             // 
-            this.TextBoxDeliveryCharge.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TextBoxDeliveryCharge.Enabled = false;
-            this.TextBoxDeliveryCharge.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxDeliveryCharge.Location = new System.Drawing.Point(247, 163);
-            this.TextBoxDeliveryCharge.Name = "TextBoxDeliveryCharge";
-            this.TextBoxDeliveryCharge.Size = new System.Drawing.Size(216, 29);
-            this.TextBoxDeliveryCharge.TabIndex = 8;
+            this.TxtBoxDeliveryCharge.BackColor = System.Drawing.Color.White;
+            this.TxtBoxDeliveryCharge.Enabled = false;
+            this.TxtBoxDeliveryCharge.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxDeliveryCharge.Location = new System.Drawing.Point(247, 163);
+            this.TxtBoxDeliveryCharge.Name = "TxtBoxDeliveryCharge";
+            this.TxtBoxDeliveryCharge.Size = new System.Drawing.Size(216, 29);
+            this.TxtBoxDeliveryCharge.TabIndex = 8;
+            this.TxtBoxDeliveryCharge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
@@ -212,15 +218,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.TabIndex = 4;
             this.label3.Text = "Delivery Charge %";
             // 
-            // TextBoxDiscount
+            // TxtBoxDiscount
             // 
-            this.TextBoxDiscount.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TextBoxDiscount.Enabled = false;
-            this.TextBoxDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxDiscount.Location = new System.Drawing.Point(247, 36);
-            this.TextBoxDiscount.Name = "TextBoxDiscount";
-            this.TextBoxDiscount.Size = new System.Drawing.Size(216, 29);
-            this.TextBoxDiscount.TabIndex = 1;
+            this.TxtBoxDiscount.BackColor = System.Drawing.Color.White;
+            this.TxtBoxDiscount.Enabled = false;
+            this.TxtBoxDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxDiscount.Location = new System.Drawing.Point(247, 36);
+            this.TxtBoxDiscount.Name = "TxtBoxDiscount";
+            this.TxtBoxDiscount.Size = new System.Drawing.Size(216, 29);
+            this.TxtBoxDiscount.TabIndex = 1;
+            this.TxtBoxDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // groupBox2
             // 
@@ -231,6 +238,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(1015, 120);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.Location = new System.Drawing.Point(-1, -1);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(1103, 44);
+            this.textBox5.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Cyan;
+            this.label8.Location = new System.Drawing.Point(417, 4);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(265, 31);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Setup Management";
             // 
             // BtnSave
             // 
@@ -250,6 +278,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnEdit
             // 
@@ -269,27 +298,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
-            // 
-            // textBox5
-            // 
-            this.textBox5.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(-1, -1);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(1103, 44);
-            this.textBox5.TabIndex = 11;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Cyan;
-            this.label8.Location = new System.Drawing.Point(417, 4);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(275, 31);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "Set-up Management";
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
             // SetupForm
             // 
@@ -302,6 +311,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox1);
             this.Name = "SetupForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.SetupForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -313,12 +323,12 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox TextBoxVat;
+        private System.Windows.Forms.TextBox TxtBoxVat;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox TextBoxDeliveryCharge;
+        private System.Windows.Forms.TextBox TxtBoxDeliveryCharge;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox TextBoxDiscount;
+        private System.Windows.Forms.TextBox TxtBoxDiscount;
         private System.Windows.Forms.GroupBox groupBox2;
         private CustomControls.Button.CustomButton BtnSave;
         private CustomControls.Button.CustomButton BtnEdit;
@@ -326,10 +336,10 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TxtBoxFiscalYear;
+        private System.Windows.Forms.TextBox TxtBoxCompanyStartingDt;
+        private System.Windows.Forms.TextBox TxtBoxStartingBillNo;
+        private System.Windows.Forms.TextBox TxtBoxStartingInvoiceNo;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label8;
     }

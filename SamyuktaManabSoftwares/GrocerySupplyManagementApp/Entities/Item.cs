@@ -13,6 +13,6 @@ namespace GrocerySupplyManagementApp.Entities
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
         public string UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
     }
 }

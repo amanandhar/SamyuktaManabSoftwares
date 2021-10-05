@@ -12,29 +12,31 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BankTransferForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
         private List<Bank> _banks = new List<Bank>();
 
         #region Constructor
-        public BankTransferForm(string username, 
-            IFiscalYearService fiscalYearService, IBankService bankService, 
+        public BankTransferForm(string username,
+            ISettingService settingService, IBankService bankService, 
             IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _bankService = bankService;
             _userTransactionService = userTransactionService;
             _bankTransactionService = bankTransactionService;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 

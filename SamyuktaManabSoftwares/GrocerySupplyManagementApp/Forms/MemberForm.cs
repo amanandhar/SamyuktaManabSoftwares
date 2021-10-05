@@ -17,7 +17,7 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class MemberForm : Form, IMemberListForm
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
@@ -28,6 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IReportService _reportService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
         public DashboardForm _dashboard;
         private string _baseImageFolder;
@@ -50,7 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public MemberForm(string username,
-            IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
+            ISettingService settingService, ICompanyInfoService companyInfoService,
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IMemberService memberService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IEmployeeService employeeService,
@@ -58,7 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _companyInfoService = companyInfoService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
@@ -70,7 +71,8 @@ namespace GrocerySupplyManagementApp.Forms
             _dashboard = dashboardForm;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 

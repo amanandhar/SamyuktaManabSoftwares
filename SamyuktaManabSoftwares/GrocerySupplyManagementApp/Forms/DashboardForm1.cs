@@ -1,15 +1,15 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DashboardForm1 : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
-        private readonly ITaxService _taxService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemService _itemService;
@@ -28,11 +28,11 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IShareMemberService _shareMemberService;
 
         private readonly string _username;
+        private readonly Setting _setting;
 
         #region Constructor
-        public DashboardForm1(string username, 
-            IFiscalYearService fiscalYearService, 
-            ICompanyInfoService companyInfoService, ITaxService taxService,
+        public DashboardForm1(string username,
+            ISettingService settingService, ICompanyInfoService companyInfoService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService, ISupplierService supplierService,
@@ -44,9 +44,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _companyInfoService = companyInfoService;
-            _taxService = taxService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _itemService = itemService;
@@ -65,6 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
             _shareMemberService = shareMemberService;
 
             _username = username;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
         }
         #endregion
 
@@ -92,7 +92,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             PosForm posForm = new PosForm( 
                 _username,
-                _fiscalYearService, _taxService,
+                _settingService,
                 _bankService, _bankTransactionService,
                 _itemService, _pricedItemService,
                 _memberService,
@@ -106,8 +106,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSummaryMgmt_Click(object sender, EventArgs e)
         {
-            SummaryForm summaryForm = new SummaryForm(_username, 
-                _fiscalYearService, _bankTransactionService,
+            SummaryForm summaryForm = new SummaryForm(_username,
+                _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService, 
                 _userTransactionService, _userService);
             summaryForm.Show();
@@ -126,7 +126,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnSupplierMgmt_Click(object sender, EventArgs e)
         {
             SupplierForm supplierForm = new SupplierForm(_username,
-                _fiscalYearService, _bankService,
+                _settingService, _bankService,
                 _bankTransactionService, _itemService, 
                 _supplierService, _purchasedItemService, 
                 _userTransactionService);
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm(_fiscalYearService, _purchasedItemService, 
+            StockForm stockForm = new StockForm(_settingService, _purchasedItemService, 
                 _soldItemService, _stockService);
             stockForm.Show();
         }
@@ -151,7 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnIncomeExpenseMgmt_Click(object sender, EventArgs e)
         {
             ExpenseForm expenseMgmtForm = new ExpenseForm(_username,
-                _fiscalYearService,  _bankService, 
+                _settingService,  _bankService, 
                 _bankTransactionService, _userTransactionService);
             expenseMgmtForm.Show();
         }
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnBankingMgmt_Click(object sender, EventArgs e)
         {
             BankForm bankForm = new BankForm(_username,
-                _fiscalYearService, _bankService, 
+                _settingService, _bankService, 
                 _bankTransactionService);
             bankForm.Show();
         }
@@ -167,8 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnSettingMgmt_Click(object sender, EventArgs e)
         {
             SettingForm settingForm = new SettingForm(_username,
-                _fiscalYearService, _companyInfoService,
-                _taxService, _itemService,
+                _settingService, _companyInfoService, _itemService,
                 _bankTransactionService, _purchasedItemService,
                 _soldItemService, _userTransactionService,
                 _employeeService, _userService,
@@ -178,8 +177,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnReportsMgmt_Click(object sender, EventArgs e)
         {
-            ReportForm reportForm = new ReportForm(_username, 
-                _fiscalYearService, _bankService, 
+            ReportForm reportForm = new ReportForm(_username,
+                _settingService, _bankService, 
                 _bankTransactionService, _itemService, 
                 _purchasedItemService, _soldItemService, 
                 _userTransactionService, _stockService, 
@@ -201,21 +200,23 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show("Would you like to update EOD?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    var currentFiscalYear = _fiscalYearService.GetFiscalYear();
-                    var currentEOD = _endOfDateService.GetEndOfDay(currentFiscalYear.StartingDate);
+                    var currentEOD = _endOfDateService.GetEndOfDay(_setting.StartingDate);
                     var nextEOD = _endOfDateService.GetNextEndOfDay(currentEOD.Id);
 
-                    var newFiscalYear = new FiscalYear
+                    var setting = new Setting
                     {
-                        StartingInvoiceNo = currentFiscalYear.StartingInvoiceNo,
-                        StartingBillNo = currentFiscalYear.StartingBillNo,
+                        StartingInvoiceNo = _setting.StartingInvoiceNo,
+                        StartingBillNo = _setting.StartingBillNo,
                         StartingDate = nextEOD.DateInBs,
-                        Year = currentFiscalYear.Year,
+                        FiscalYear = _setting.FiscalYear,
+                        Discount = _setting.Discount,
+                        Vat = _setting.Vat,
+                        DeliveryCharge = _setting.DeliveryCharge,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
 
-                    if(_fiscalYearService.UpdateFiscalYear(newFiscalYear))
+                    if(_settingService.UpdateSetting(setting.Id, setting).Id == _setting.Id)
                     {
                         LoadFiscalYear();
                         Application.Exit();
@@ -236,8 +237,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadFiscalYear()
         {
-            var fiscalYear = _fiscalYearService.GetFiscalYear();
-            var eod = _endOfDateService.GetEndOfDay(fiscalYear.StartingDate);
+            var eod = _endOfDateService.GetEndOfDay(_setting.StartingDate);
 
             RichBoxDateInAd.Text = "Date in AD: " + eod.DateInAd.ToString("yyyy-MM-dd");
             RichBoxDateInAd.SelectionAlignment = HorizontalAlignment.Center;
@@ -246,7 +246,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             RichBoxUsername.Text = "User Name: Bhai Raja Manandhar";
             RichBoxUsername.SelectionAlignment = HorizontalAlignment.Center;
-            RichBoxFiscalYear.Text = "Fiscal Year: " + fiscalYear.Year;
+            RichBoxFiscalYear.Text = "Fiscal Year: " + _setting.FiscalYear;
             RichBoxFiscalYear.SelectionAlignment = HorizontalAlignment.Center;
         }
         #endregion

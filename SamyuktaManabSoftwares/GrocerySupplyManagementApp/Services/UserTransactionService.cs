@@ -5,18 +5,19 @@ using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GrocerySupplyManagementApp.Services
 {
     public class UserTransactionService : IUserTransactionService
     {
         private readonly IUserTransactionRepository _userTransactionRepository;
-        private readonly IFiscalYearRepository _fiscalYearRepository;
+        private readonly ISettingRepository _settingRepository;
 
-        public UserTransactionService(IUserTransactionRepository userTransactionRepository, IFiscalYearRepository fiscalYearRepository)
+        public UserTransactionService(IUserTransactionRepository userTransactionRepository, ISettingRepository settingRepository)
         {
             _userTransactionRepository = userTransactionRepository;
-            _fiscalYearRepository = fiscalYearRepository;
+            _settingRepository = settingRepository;
         }
 
         public IEnumerable<UserTransaction> GetUserTransactions()
@@ -87,8 +88,8 @@ namespace GrocerySupplyManagementApp.Services
                 var lastInvoiceNo = _userTransactionRepository.GetLastInvoiceNo();
                 if (string.IsNullOrWhiteSpace(lastInvoiceNo))
                 {
-                    var fiscalYear = _fiscalYearRepository.GetFiscalYear();
-                    invoiceNo = fiscalYear.StartingInvoiceNo;
+                    var setting = _settingRepository.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+                    invoiceNo = setting.StartingInvoiceNo;
                 }
                 else
                 {

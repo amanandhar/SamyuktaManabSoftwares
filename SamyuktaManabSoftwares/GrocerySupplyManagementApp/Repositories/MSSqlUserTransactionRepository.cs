@@ -64,8 +64,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                                };
+                                    UpdatedDate = reader.IsDBNull(21) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                            };
 
                                 userTransactions.Add(userTransaction);
                             }
@@ -131,7 +131,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()), 
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(21) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString()),
                                 };
 
                                 userTransactions.Add(userTransaction);
@@ -223,7 +223,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(23) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 userTransactions.Add(userTransaction);
@@ -310,7 +310,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(22) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 userTransactions.Add(userTransaction);
@@ -705,7 +705,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 userTransaction.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
                                 userTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
                                 userTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                userTransaction.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                userTransaction.UpdatedDate = reader.IsDBNull(20) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -764,7 +764,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 userTransaction.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
                                 userTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
                                 userTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                userTransaction.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                userTransaction.UpdatedDate = reader.IsDBNull(20) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -832,7 +832,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 userTransaction.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
                                 userTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
                                 userTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                userTransaction.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                userTransaction.UpdatedDate = reader.IsDBNull(19) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -1581,7 +1581,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                //throw new Exception(ex.Message);
+                throw new Exception(ex.Message);
             }
 
             return transactionViewList;

@@ -27,20 +27,20 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_COMPANY_INFO = "CompanyInfo";
         public const string TABLE_EMPLOYEE = "Employee";
         public const string TABLE_END_OF_DAY = "EndOfDay";
-        public const string TABLE_FISCAL_YEAR = "FiscalYear";
         public const string TABLE_ITEM = "Item";
         public const string TABLE_ITEM_CATEGORY = "ItemCategory";
         public const string TABLE_MEMBER = "Member";
         public const string TABLE_PRICED_ITEM = "PricedItem";
         public const string TABLE_PURCHASED_ITEM = "PurchasedItem";
+        public const string TABLE_SETTING = "Setting";
         public const string TABLE_SHARE_MEMBER = "ShareMember";
         public const string TABLE_SOLD_ITEM = "SoldItem";
         public const string TABLE_SUPPLIER = "Supplier";
-        public const string TABLE_TAX = "Tax";
         public const string TABLE_USER = "User";
         public const string TABLE_USER_TRANSACTION = "UserTransaction";
 
         // Income
+        public const string INCOME = "Income";
         public const string DELIVERY_CHARGE = "Delivery Charge";
         public const string MEMBER_FEE = "Member Fee";
         public const string OTHER_INCOME = "Other Income";
@@ -74,6 +74,21 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TOTAL = "Total";
         public const string DEPOSIT = "Deposit";
         public const string WITHDRAWL = "Withdrawl";
+
+        // Liabilities
+        public const string LIABILITIES = "Liabilities";
+        public const string LOAN_AMOUNT = "Loan Amount";
+        public const string PAYABLE_AMOUNT = "Payable Amount";
+        public const string NET_PROFIT = "Net Profit";
+        public const string BALANCE = "Balance";
+
+        // Assets
+        public const string ASSETS = "Assets";
+        public const string CASH_IN_HAND = "Cash In Hand";
+        public const string BANK_ACCOUNT = "Bank Account";
+        public const string STOCK_VALUE = "Stock Value";
+        public const string RECEIVABLE_AMOUNT = "Receivable Amount";
+        public const string NET_LOSS = "Net Loss";
 
         //Images
         public const string BASE_IMAGE_FOLDER = "BaseImageFolder";

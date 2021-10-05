@@ -43,7 +43,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
                                     ImagePath = reader["ImagePath"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(6) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 shareMembers.Add(shareMember);
@@ -88,7 +88,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 shareMember.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
                                 shareMember.ImagePath = reader["ImagePath"].ToString();
                                 shareMember.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                shareMember.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                shareMember.UpdatedDate = reader.IsDBNull(6) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }

@@ -40,7 +40,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Name = reader["Name"].ToString(),
                                     AccountNo = reader["AccountNo"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(4) ? (DateTime?) null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 banks.Add(bank);
@@ -84,7 +84,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     bank.Name = reader["Name"].ToString();
                                     bank.AccountNo = reader["AccountNo"].ToString();
                                     bank.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    bank.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    bank.UpdatedDate = reader.IsDBNull(4) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 }
                             }
                         }

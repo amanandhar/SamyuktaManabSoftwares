@@ -1,16 +1,18 @@
-﻿using GrocerySupplyManagementApp.Services.Interfaces;
+﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SummaryForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
@@ -18,16 +20,17 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
 
         #region Constructor
-        public SummaryForm(string username, IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
+        public SummaryForm(string username, ISettingService settingService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IUserService userService)
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _bankTransactionService = bankTransactionService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
@@ -35,7 +38,8 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 
@@ -103,7 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
-                _fiscalYearService, _bankTransactionService,
+                _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
                 _userTransactionService, _userService
                 );

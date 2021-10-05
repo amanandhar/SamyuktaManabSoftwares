@@ -58,7 +58,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     StockSummary = Convert.ToBoolean(reader["StockSummary"].ToString()),
                                     Supplier = Convert.ToBoolean(reader["Supplier"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(18) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 users.Add(user);
@@ -125,7 +125,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     StockSummary = Convert.ToBoolean(reader["StockSummary"].ToString()),
                                     Supplier = Convert.ToBoolean(reader["Supplier"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(18) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 users.Add(user);
@@ -187,7 +187,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     user.StockSummary = Convert.ToBoolean(reader["StockSummary"].ToString());
                                     user.Supplier = Convert.ToBoolean(reader["Supplier"].ToString());
                                     user.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    user.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    user.UpdatedDate = reader.IsDBNull(18) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 }
                             }
                         }
@@ -247,7 +247,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     user.StockSummary = Convert.ToBoolean(reader["StockSummary"].ToString());
                                     user.Supplier = Convert.ToBoolean(reader["Supplier"].ToString());
                                     user.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    user.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    user.UpdatedDate = reader.IsDBNull(18) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 }
                             }
                         }

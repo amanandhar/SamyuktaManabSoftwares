@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ResignedDate = reader["ResignedDate"].ToString(),
                                     ImagePath = reader["ImagePath"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(24) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 employees.Add(employee);
@@ -132,7 +132,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     employee.ResignedDate = reader["ResignedDate"].ToString();
                                     employee.ImagePath = reader["ImagePath"].ToString();
                                     employee.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    employee.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    employee.UpdatedDate = reader.IsDBNull(24) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 };
                             }
                         }
@@ -198,7 +198,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     employee.ResignedDate = reader["ResignedDate"].ToString();
                                     employee.ImagePath = reader["ImagePath"].ToString();
                                     employee.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    employee.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    employee.UpdatedDate = reader.IsDBNull(24) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                 };
                             }
                         }
@@ -294,8 +294,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ResignedDate = reader["ResignedDate"].ToString(),
                                     ImagePath = reader["ImagePath"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                                };
+                                    UpdatedDate = reader.IsDBNull(24) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                            };
 
                                 employees.Add(employee);
                             }

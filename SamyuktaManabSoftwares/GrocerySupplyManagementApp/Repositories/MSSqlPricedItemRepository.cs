@@ -50,7 +50,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString()),
                                     ImagePath = reader["ImagePath"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 pricedItems.Add(pricedItem);
@@ -99,7 +99,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
                                 pricedItem.ImagePath = reader["ImagePath"].ToString();
                                 pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                pricedItem.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                pricedItem.UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
                                 pricedItem.ImagePath = reader["ImagePath"].ToString();
                                 pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                pricedItem.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                pricedItem.UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }

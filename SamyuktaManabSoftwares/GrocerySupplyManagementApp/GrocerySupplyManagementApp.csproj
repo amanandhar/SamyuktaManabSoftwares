@@ -37,6 +37,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1449.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -63,6 +73,12 @@
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -81,6 +97,7 @@
     <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.11.10\lib\net46\Unity.Container.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomControls\Button\CustomButton.cs">
@@ -114,6 +131,7 @@
     <Compile Include="DTOs\BankTransactionFilter.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\DeliveryPersonFilter.cs" />
+    <Compile Include="DTOs\ExcelField.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\IncomeTransactionFilter.cs" />
     <Compile Include="DTOs\MemberFilter.cs" />
@@ -128,18 +146,17 @@
     <Compile Include="Entities\ItemCategory.cs" />
     <Compile Include="Entities\CompanyInfo.cs" />
     <Compile Include="Entities\Employee.cs" />
-    <Compile Include="Entities\FiscalYear.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\EndOfDay.cs" />
     <Compile Include="Entities\PricedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\ShareMember.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserTransaction.cs" />
     <Compile Include="Entities\SoldItem.cs" />
     <Compile Include="Entities\Supplier.cs" />
-    <Compile Include="Entities\Tax.cs" />
     <Compile Include="Forms\DashboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,12 +297,6 @@
     <Compile Include="Forms\InvoiceReportForm.Designer.cs">
       <DependentUpon>InvoiceReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SetPasswordForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SetPasswordForm.Designer.cs">
-      <DependentUpon>SetPasswordForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\CompanyInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,12 +308,6 @@
     </Compile>
     <Compile Include="Forms\DashboardForm1.Designer.cs">
       <DependentUpon>DashboardForm1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FiscalYearForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FiscalYearForm.Designer.cs">
-      <DependentUpon>FiscalYearForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PricedItemForm.cs">
       <SubType>Form</SubType>
@@ -370,12 +375,6 @@
     <Compile Include="Forms\SupplierListForm.Designer.cs">
       <DependentUpon>SupplierListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TaxSetupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TaxSetupForm.Designer.cs">
-      <DependentUpon>TaxSetupForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\UnpricedItemListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -421,16 +420,15 @@
     <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEndOfDayRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPricedItemRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IFiscalYearRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPurchasedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISettingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IShareMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISoldItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IStockRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISupplierRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ITaxRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
@@ -439,25 +437,23 @@
     <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
     <Compile Include="Repositories\MSSqlEmployeeRepository.cs" />
     <Compile Include="Repositories\MSSqlEndOfDayRepository.cs" />
-    <Compile Include="Repositories\MSSqlFiscalYearRepository.cs" />
     <Compile Include="Repositories\MSSqlReportRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
+    <Compile Include="Repositories\MSSqlSettingRepository.cs" />
     <Compile Include="Repositories\MSSqlStockRepository.cs" />
     <Compile Include="Repositories\MSSqlUserRepository.cs" />
     <Compile Include="Repositories\MSSqlUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlSoldItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPricedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
-    <Compile Include="Repositories\MSSqlTaxRepository.cs" />
     <Compile Include="Repositories\MSSqlShareMemberRepository.cs" />
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\CompanyInfoService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\EndOfDayService.cs" />
-    <Compile Include="Services\FiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
@@ -465,16 +461,15 @@
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
     <Compile Include="Services\Interfaces\IItemCategoryService.cs" />
     <Compile Include="Services\Interfaces\IPricedItemService.cs" />
-    <Compile Include="Services\Interfaces\IFiscalYearService.cs" />
     <Compile Include="Services\Interfaces\IItemService.cs" />
     <Compile Include="Services\Interfaces\IMemberService.cs" />
     <Compile Include="Services\Interfaces\IPurchasedItemService.cs" />
     <Compile Include="Services\Interfaces\IReportService.cs" />
+    <Compile Include="Services\Interfaces\ISettingService.cs" />
     <Compile Include="Services\Interfaces\IShareMemberService.cs" />
     <Compile Include="Services\Interfaces\ISoldItemService.cs" />
     <Compile Include="Services\Interfaces\IStockService.cs" />
     <Compile Include="Services\Interfaces\ISupplierService.cs" />
-    <Compile Include="Services\Interfaces\ITaxService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\Interfaces\IUserTransactionService.cs" />
     <Compile Include="Services\ItemCategoryService.cs" />
@@ -482,6 +477,7 @@
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\PurchasedItemService.cs" />
     <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\SettingService.cs" />
     <Compile Include="Services\ShareMemberService.cs" />
     <Compile Include="Services\StockService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -489,9 +485,9 @@
     <Compile Include="Services\SoldItemService.cs" />
     <Compile Include="Services\PricedItemService.cs" />
     <Compile Include="Services\SupplierService.cs" />
-    <Compile Include="Services\TaxService.cs" />
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\Cryptography.cs" />
+    <Compile Include="Shared\Excel.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\BankTransactionView.cs" />
@@ -586,17 +582,11 @@
     <EmbeddedResource Include="Forms\InvoiceReportForm.resx">
       <DependentUpon>InvoiceReportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SetPasswordForm.resx">
-      <DependentUpon>SetPasswordForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompanyInfoForm.resx">
       <DependentUpon>CompanyInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DashboardForm1.resx">
       <DependentUpon>DashboardForm1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FiscalYearForm.resx">
-      <DependentUpon>FiscalYearForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PricedItemForm.resx">
       <DependentUpon>PricedItemForm.cs</DependentUpon>
@@ -630,9 +620,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SupplierListForm.resx">
       <DependentUpon>SupplierListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TaxSetupForm.resx">
-      <DependentUpon>TaxSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UnpricedItemListForm.resx">
       <DependentUpon>UnpricedItemListForm.cs</DependentUpon>

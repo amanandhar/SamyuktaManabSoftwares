@@ -54,7 +54,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSetPassword.TabIndex = 18;
             this.BtnSetPassword.Text = "Update Password";
             this.BtnSetPassword.UseVisualStyleBackColor = true;
-            this.BtnSetPassword.Click += new System.EventHandler(this.BtnSetPassword_Click);
             // 
             // BtnCompanyInfo
             // 
@@ -90,7 +89,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnVatTaxSetup.TabIndex = 24;
             this.BtnVatTaxSetup.Text = "Vat and Charge  Setup";
             this.BtnVatTaxSetup.UseVisualStyleBackColor = true;
-            this.BtnVatTaxSetup.Click += new System.EventHandler(this.BtnVatTaxSetup_Click);
             // 
             // BtnDelivery
             // 
@@ -149,7 +147,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.button3.TabIndex = 22;
             this.button3.Text = "Invoice And  Fiscal Year Set-up";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.BtnFiscalYearForm_Click);
             // 
             // groupBox1
             // 

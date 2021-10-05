@@ -16,8 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PosForm : Form, IMemberListForm, IPricedItemListForm
     {
-        private readonly IFiscalYearService _fiscalYearService;
-        private readonly ITaxService _taxService;
+        private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemService _itemService;
@@ -33,6 +32,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public PosForm(string username,
-            IFiscalYearService fiscalYearService, ITaxService taxService,
+            ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, IPricedItemService pricedItemService,
             IMemberService memberService,
@@ -73,8 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
-            _taxService = taxService;
+            _settingService = settingService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _itemService = itemService;
@@ -90,7 +89,8 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
 
         public PosForm(ICompanyInfoService companyInfoService, IMemberService memberService, 
@@ -215,7 +215,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnTransaction_Click(object sender, EventArgs e)
         {
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
-                _fiscalYearService, _bankTransactionService, _purchasedItemService,
+                _settingService, _bankTransactionService, _purchasedItemService,
                _soldItemService, _userTransactionService, _userService);
             transactionForm.Show();
             EnableFields();
@@ -233,7 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddExpense_Click(object sender, EventArgs e)
         {
             ExpenseForm expenseForm = new ExpenseForm(_username,
-                _fiscalYearService, _bankService, 
+                _settingService, _bankService, 
                 _bankTransactionService, _userTransactionService);
             expenseForm.Show();
             EnableFields();
@@ -243,7 +243,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnBankTransfer_Click(object sender, EventArgs e)
         {
             BankTransferForm bankTransferForm = new BankTransferForm(_username,
-                _fiscalYearService, _bankService, 
+                _settingService, _bankService, 
                 _bankTransactionService, _userTransactionService);
             bankTransferForm.Show();
             EnableFields();
@@ -1018,9 +1018,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var tax = _taxService.GetTax();
-                TxtDiscountPercent.Text = tax.Discount.ToString();
-                TxtDeliveryChargePercent.Text = tax.DeliveryCharge.ToString();
+                TxtDiscountPercent.Text = _setting.Discount.ToString();
+                TxtDeliveryChargePercent.Text = _setting.DeliveryCharge.ToString();
 
                 decimal subTotal;
                 if (soldItemGrid == null)

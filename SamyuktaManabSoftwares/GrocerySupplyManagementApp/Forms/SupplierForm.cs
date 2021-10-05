@@ -13,7 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SupplierForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IItemService _itemService;
@@ -22,6 +22,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
 
         #region Enum
@@ -45,14 +46,14 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public SupplierForm(string username,
-            IFiscalYearService fiscalYearService,
+            ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, ISupplierService supplierService, 
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _itemService = itemService;
@@ -61,7 +62,8 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
 
         #endregion
@@ -90,7 +92,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddPurchase_Click(object sender, EventArgs e)
         {
             PurchaseForm purchaseForm = new PurchaseForm(_username,
-                _fiscalYearService, _itemService,
+                _settingService, _itemService,
                 _purchasedItemService, _userTransactionService, this);
             purchaseForm.Show();
         }

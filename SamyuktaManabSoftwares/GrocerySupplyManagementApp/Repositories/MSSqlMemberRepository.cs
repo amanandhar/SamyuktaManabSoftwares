@@ -47,7 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     AccountNo = reader["AccountNo"].ToString(),
                                     ImagePath = reader["ImagePath"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 members.Add(member);
@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 member.AccountNo = reader["AccountNo"].ToString();
                                 member.ImagePath = reader["ImagePath"].ToString();
                                 member.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                member.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                member.UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }

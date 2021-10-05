@@ -7,59 +7,14 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class LoginForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
-        private readonly ICompanyInfoService _companyInfoService;
-        private readonly ITaxService _taxService;
-        private readonly IBankService _bankService;
-        private readonly IBankTransactionService _bankTransactionService;
-        private readonly IItemService _itemService;
-        private readonly IPricedItemService _pricedItemService;
-        private readonly IMemberService _memberService;
-        private readonly ISupplierService _supplierService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
-        private readonly IUserTransactionService _userTransactionService;
-        private readonly IStockService _stockService;
-        private readonly IEndOfDayService _endOfDateService;
-        private readonly IEmployeeService _employeeService;
-        private readonly IReportService _reportService;
         private readonly IUserService _userService;
-        private readonly IItemCategoryService _itemCategoryService;
-        private readonly IShareMemberService _shareMemberService;
+        public string Username { get; private set; }
 
         #region Constructor
-        public LoginForm(IFiscalYearService fiscalYearService,
-            ICompanyInfoService companyInfoService, ITaxService taxService,
-            IBankService bankService, IBankTransactionService bankTransactionService,
-            IItemService itemService, IPricedItemService pricedItemService,
-            IMemberService memberService, ISupplierService supplierService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
-            IUserTransactionService userTransactionService, IStockService stockService,
-            IEndOfDayService endOfDateService, IEmployeeService employeeService,
-            IReportService reportService, IUserService userService,
-            IItemCategoryService itemCategoryService, IShareMemberService shareMemberService)
+        public LoginForm(IUserService userService)
         {
             InitializeComponent();
-
-            _fiscalYearService = fiscalYearService;
-            _companyInfoService = companyInfoService;
-            _taxService = taxService;
-            _bankService = bankService;
-            _bankTransactionService = bankTransactionService;
-            _itemService = itemService;
-            _pricedItemService = pricedItemService;
-            _memberService = memberService;
-            _supplierService = supplierService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
-            _userTransactionService = userTransactionService;
-            _stockService = stockService;
-            _endOfDateService = endOfDateService;
-            _employeeService = employeeService;
-            _reportService = reportService;
             _userService = userService;
-            _itemCategoryService = itemCategoryService;
-            _shareMemberService = shareMemberService;
         }
         #endregion
 
@@ -131,13 +86,8 @@ namespace GrocerySupplyManagementApp.Forms
                 var result = _userService.IsUserExist(username, encryptedPassword);
                 if (result)
                 {
-                    var dashboard = new DashboardForm(username, _fiscalYearService, _companyInfoService, _taxService, _bankService,
-                        _bankTransactionService, _itemService, _pricedItemService, _memberService,
-                        _supplierService, _purchasedItemService, _soldItemService, _userTransactionService,
-                        _stockService, _endOfDateService, _employeeService, _reportService,
-                        _userService, _itemCategoryService, _shareMemberService);
-                    this.Hide();
-                    dashboard.Show();
+                    Username = username;
+                    DialogResult = DialogResult.OK;
                 }
                 else
                 {

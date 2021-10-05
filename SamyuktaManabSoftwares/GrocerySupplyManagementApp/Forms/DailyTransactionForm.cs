@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
@@ -12,7 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DailyTransactionForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
@@ -20,18 +21,19 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
 
         #region Constructor
         public DailyTransactionForm(string username,
-            IFiscalYearService fiscalYearService, IBankTransactionService bankTransactionService,
+            ISettingService settingService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IUserService userService
             )
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _bankTransactionService = bankTransactionService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
@@ -39,7 +41,8 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 
@@ -47,8 +50,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void TransactionForm_Load(object sender, EventArgs e)
         {
             MaskEndOfDay.Text = _endOfDay;
-            MaskEndOfDay.Focus();
             EnableCombos(false);
+            LoadUsers();
+            MaskEndOfDay.Focus();
         }
         #endregion
 
@@ -261,20 +265,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void RadioUser_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioUser.Checked)
-            {
-                ClearCombos();
-                EnableCombos(false);
-                ComboUser.Enabled = true;
-                LoadUsers();
-            }
-            else
-            {
-                ComboUser.Enabled = false;
-            }
-        }
         #endregion
 
         #region Data Grid Event
@@ -385,14 +375,12 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
             }
-            else if (selectedFilter.Name.Equals("RadioUser"))
-            {
-                dailyTransactionFilter.Username = ComboUser.Text;
-            }
             else
             {
                 dailyTransactionFilter.IsAll = true;
             }
+
+            dailyTransactionFilter.Username = ComboUser.Text;
 
             List<TransactionView> transactionViewList = _userTransactionService.GetTransactionViewList(dailyTransactionFilter).ToList();
             TxtTotal.Text = transactionViewList.Sum(x => x.Amount).ToString();
@@ -408,12 +396,12 @@ namespace GrocerySupplyManagementApp.Forms
             ComboPurchase.Text = string.Empty;
             ComboSales.Text = string.Empty;
             ComboPurchasePayment.Text = string.Empty;
-            ComboReceipt.Text = string.Empty;
             ComboExpensePayment.Text = string.Empty;
             ComboBankTransfer.Text = string.Empty;
+            ComboReceipt.Text = string.Empty;
             ComboItemCode.Text = string.Empty;
-            ComboUser.Text = string.Empty;
             ComboInvoiceNo.Text = string.Empty;
+            ComboUser.Text = string.Empty;
         }
 
         private void EnableCombos(bool option)
@@ -526,10 +514,17 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUser.Items.Clear();
             var user = _userService.GetUser(_username);
             var users = _userService.GetUsers(_username, user.Type);
+            if(users.ToList().Count > 1)
+            {
+                ComboUser.Enabled = true;
+            }
+
             users.OrderBy(x => x.Username).ToList().ForEach(x =>
             {
                 ComboUser.Items.Add(x.Username);
             });
+
+            ComboUser.SelectedText = _username;
         }
 
         #endregion

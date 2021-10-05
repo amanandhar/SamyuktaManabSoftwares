@@ -55,6 +55,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return itemCategories;
         }
+
         public ItemCategory GetItemCategory(long id)
         {
             var itemCategory = new ItemCategory();

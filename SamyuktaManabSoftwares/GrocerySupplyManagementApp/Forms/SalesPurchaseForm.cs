@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
@@ -11,20 +12,22 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SalesPurchaseForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly Setting _setting;
         private readonly string _endOfDay;
 
         #region Constructor
-        public SalesPurchaseForm(IFiscalYearService fiscalYearService, IUserTransactionService userTransactionService)
+        public SalesPurchaseForm(ISettingService settingService, IUserTransactionService userTransactionService)
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _userTransactionService = userTransactionService;
 
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 

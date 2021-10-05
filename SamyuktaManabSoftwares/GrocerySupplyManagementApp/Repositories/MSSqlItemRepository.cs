@@ -44,7 +44,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Unit = reader["Unit"].ToString(),
                                     Threshold = Convert.ToInt32(reader["Threshold"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 items.Add(item);
@@ -90,7 +90,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Unit = reader["Unit"].ToString();
                                 item.Threshold = Convert.ToInt32(reader["Threshold"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                item.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                item.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -134,7 +134,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Unit = reader["Unit"].ToString();
                                 item.Threshold = Convert.ToInt32(reader["Threshold"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                item.UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                item.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }

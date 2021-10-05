@@ -35,11 +35,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelMenu = new System.Windows.Forms.Panel();
             this.BtnEOD = new System.Windows.Forms.Button();
             this.PanelSettingsSubMenu = new System.Windows.Forms.Panel();
-            this.BtnVatSetup = new System.Windows.Forms.Button();
             this.BtnUserSetup = new System.Windows.Forms.Button();
             this.BtnSetup = new System.Windows.Forms.Button();
             this.BtnNewCodeSetup = new System.Windows.Forms.Button();
-            this.BtnFiscalYear = new System.Windows.Forms.Button();
             this.BtnCompanyInformation = new System.Windows.Forms.Button();
             this.BtnSettings = new System.Windows.Forms.Button();
             this.PanelReportsSubMenu = new System.Windows.Forms.Panel();
@@ -133,7 +131,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEOD.ForeColor = System.Drawing.Color.White;
             this.BtnEOD.Image = ((System.Drawing.Image)(resources.GetObject("BtnEOD.Image")));
             this.BtnEOD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnEOD.Location = new System.Drawing.Point(0, 1004);
+            this.BtnEOD.Location = new System.Drawing.Point(0, 923);
             this.BtnEOD.Name = "BtnEOD";
             this.BtnEOD.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.BtnEOD.Size = new System.Drawing.Size(233, 40);
@@ -146,38 +144,15 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // PanelSettingsSubMenu
             // 
-            this.PanelSettingsSubMenu.Controls.Add(this.BtnVatSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnUserSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnSetup);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnNewCodeSetup);
-            this.PanelSettingsSubMenu.Controls.Add(this.BtnFiscalYear);
             this.PanelSettingsSubMenu.Controls.Add(this.BtnCompanyInformation);
             this.PanelSettingsSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelSettingsSubMenu.Location = new System.Drawing.Point(0, 761);
             this.PanelSettingsSubMenu.Name = "PanelSettingsSubMenu";
-            this.PanelSettingsSubMenu.Size = new System.Drawing.Size(233, 243);
+            this.PanelSettingsSubMenu.Size = new System.Drawing.Size(233, 162);
             this.PanelSettingsSubMenu.TabIndex = 14;
-            // 
-            // BtnVatSetup
-            // 
-            this.BtnVatSetup.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnVatSetup.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnVatSetup.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnVatSetup.FlatAppearance.BorderSize = 0;
-            this.BtnVatSetup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnVatSetup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnVatSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnVatSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnVatSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnVatSetup.Location = new System.Drawing.Point(0, 200);
-            this.BtnVatSetup.Name = "BtnVatSetup";
-            this.BtnVatSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnVatSetup.Size = new System.Drawing.Size(233, 40);
-            this.BtnVatSetup.TabIndex = 21;
-            this.BtnVatSetup.Text = "Vat Setup";
-            this.BtnVatSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnVatSetup.UseVisualStyleBackColor = false;
-            this.BtnVatSetup.Click += new System.EventHandler(this.BtnVatSetup_Click);
             // 
             // BtnUserSetup
             // 
@@ -190,7 +165,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUserSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUserSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUserSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnUserSetup.Location = new System.Drawing.Point(0, 160);
+            this.BtnUserSetup.Location = new System.Drawing.Point(0, 120);
             this.BtnUserSetup.Name = "BtnUserSetup";
             this.BtnUserSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnUserSetup.Size = new System.Drawing.Size(233, 40);
@@ -211,7 +186,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnSetup.Location = new System.Drawing.Point(0, 120);
+            this.BtnSetup.Location = new System.Drawing.Point(0, 80);
             this.BtnSetup.Name = "BtnSetup";
             this.BtnSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnSetup.Size = new System.Drawing.Size(233, 40);
@@ -232,7 +207,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnNewCodeSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnNewCodeSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnNewCodeSetup.ForeColor = System.Drawing.Color.White;
-            this.BtnNewCodeSetup.Location = new System.Drawing.Point(0, 80);
+            this.BtnNewCodeSetup.Location = new System.Drawing.Point(0, 40);
             this.BtnNewCodeSetup.Name = "BtnNewCodeSetup";
             this.BtnNewCodeSetup.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.BtnNewCodeSetup.Size = new System.Drawing.Size(233, 40);
@@ -241,27 +216,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnNewCodeSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnNewCodeSetup.UseVisualStyleBackColor = false;
             this.BtnNewCodeSetup.Click += new System.EventHandler(this.BtnNewCodeSetup_Click);
-            // 
-            // BtnFiscalYear
-            // 
-            this.BtnFiscalYear.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnFiscalYear.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnFiscalYear.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnFiscalYear.FlatAppearance.BorderSize = 0;
-            this.BtnFiscalYear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnFiscalYear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.BtnFiscalYear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnFiscalYear.ForeColor = System.Drawing.Color.White;
-            this.BtnFiscalYear.Location = new System.Drawing.Point(0, 40);
-            this.BtnFiscalYear.Name = "BtnFiscalYear";
-            this.BtnFiscalYear.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.BtnFiscalYear.Size = new System.Drawing.Size(233, 40);
-            this.BtnFiscalYear.TabIndex = 17;
-            this.BtnFiscalYear.Text = "Fiscal Year";
-            this.BtnFiscalYear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnFiscalYear.UseVisualStyleBackColor = false;
-            this.BtnFiscalYear.Click += new System.EventHandler(this.BtnFiscalYear_Click);
             // 
             // BtnCompanyInformation
             // 
@@ -969,10 +923,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnSettings;
         private System.Windows.Forms.Panel PanelSettingsSubMenu;
         private System.Windows.Forms.Button BtnCompanyInformation;
-        private System.Windows.Forms.Button BtnFiscalYear;
         private System.Windows.Forms.Button BtnNewCodeSetup;
         private System.Windows.Forms.Button BtnUserSetup;
-        private System.Windows.Forms.Button BtnVatSetup;
         private System.Windows.Forms.Button BtnSetup;
         private System.Windows.Forms.Panel PanelBody;
         private System.Windows.Forms.Label lblCompanyName;

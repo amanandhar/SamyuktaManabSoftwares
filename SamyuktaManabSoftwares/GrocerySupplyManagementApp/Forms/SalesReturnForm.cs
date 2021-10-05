@@ -13,13 +13,14 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SalesReturnForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
         private readonly List<SoldItem> _soldItems;
         private readonly List<SalesReturnTransactionView> _salesReturnTransactionViewList = new List<SalesReturnTransactionView>();
@@ -38,19 +39,20 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public SalesReturnForm(string username,
-            IFiscalYearService fiscalYearService, IItemService itemService, 
+            ISettingService settingService, IItemService itemService, 
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService)
         {
             InitializeComponent();
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
             _soldItems = _soldItemService.GetSoldItems().ToList();
             LoadInvoiceNumbers();
         }

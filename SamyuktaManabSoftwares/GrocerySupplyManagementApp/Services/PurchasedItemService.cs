@@ -6,19 +6,20 @@ using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GrocerySupplyManagementApp.Services
 {
     public class PurchasedItemService : IPurchasedItemService
     {
         private readonly IPurchasedItemRepository _purchasedItemRepository;
-        private readonly IFiscalYearRepository _fiscalYearRepository;
+        private readonly ISettingRepository _settingRepository;
 
         public PurchasedItemService(IPurchasedItemRepository purchasedItemRepository,
-            IFiscalYearRepository fiscalYearRepository)
+            ISettingRepository settingRepository)
         {
             _purchasedItemRepository = purchasedItemRepository;
-            _fiscalYearRepository = fiscalYearRepository;
+            _settingRepository = settingRepository;
         }
 
         public IEnumerable<PurchasedItem> GetPurchasedItems()
@@ -89,8 +90,8 @@ namespace GrocerySupplyManagementApp.Services
                 var lastBillNo = _purchasedItemRepository.GetLastBillNo();
                 if (string.IsNullOrWhiteSpace(lastBillNo))
                 {
-                    var fiscalYear = _fiscalYearRepository.GetFiscalYear();
-                    billNo = fiscalYear.StartingBillNo;
+                    var setting = _settingRepository.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+                    billNo = setting.StartingBillNo;
                 }
                 else
                 {
@@ -124,8 +125,8 @@ namespace GrocerySupplyManagementApp.Services
                 var lastBonusNo = _purchasedItemRepository.GetLastBonusNo();
                 if (string.IsNullOrWhiteSpace(lastBonusNo))
                 {
-                    var fiscalYear = _fiscalYearRepository.GetFiscalYear();
-                    var formats = fiscalYear.StartingBillNo.Split('-');
+                    var setting = _settingRepository.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+                    var formats = setting.StartingBillNo.Split('-');
                     bonusNo =  Constants.BONUS_PREFIX + "-" + formats[1] + "-" + formats[2];
                 }
                 else

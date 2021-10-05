@@ -13,33 +13,35 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PurchaseForm : Form, IItemListForm
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _username;
+        private readonly Setting _setting;
         private readonly string _endOfDay;
         public SupplierForm _supplierForm;
         private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
 
         #region Constructor
         public PurchaseForm(string username,
-            IFiscalYearService fiscalYearService, IItemService itemService,
+            ISettingService settingService, IItemService itemService,
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
             SupplierForm supplierForm
             )
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
             _supplierForm = supplierForm;
 
             _username = username;
-            _endOfDay = _fiscalYearService.GetFiscalYear().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
 
         public PurchaseForm(IItemService itemService, IPurchasedItemService purchasedItemService, string supplierId, string billNo)

@@ -6,9 +6,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SettingForm : Form
     {
-        private readonly IFiscalYearService _fiscalYearService;
+        private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
-        private readonly ITaxService _taxService;
         private readonly IItemService _itemService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IPurchasedItemService _purchasedItemService;
@@ -21,8 +20,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly string _username;
 
         #region Constructor
-        public SettingForm(string username, IFiscalYearService fiscalYearService, ICompanyInfoService companyInfoService,
-            ITaxService taxService, IItemService itemService,
+        public SettingForm(string username, ISettingService settingService, 
+            ICompanyInfoService companyInfoService, IItemService itemService,
             IBankTransactionService bankTransactionService, IPurchasedItemService purchasedItemService,
             ISoldItemService soldItemService, IUserTransactionService userTransactionService,
             IEmployeeService employeeService, IUserService userService,
@@ -30,9 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             InitializeComponent();
 
-            _fiscalYearService = fiscalYearService;
+            _settingService = settingService;
             _companyInfoService = companyInfoService;
-            _taxService = taxService;
             _itemService = itemService;
             _bankTransactionService = bankTransactionService;
             _purchasedItemService = purchasedItemService;
@@ -68,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelivery_Click(object sender, EventArgs e)
         {
-            DeliveryPersonForm deliveryPersonForm = new DeliveryPersonForm(_fiscalYearService, _userTransactionService,
+            DeliveryPersonForm deliveryPersonForm = new DeliveryPersonForm(_settingService, _userTransactionService,
                 _employeeService);
             deliveryPersonForm.ShowDialog();
         }
@@ -79,29 +77,9 @@ namespace GrocerySupplyManagementApp.Forms
             userForm.Show();
         }
 
-        private void BtnFiscalYearForm_Click(object sender, EventArgs e)
-        {
-            FiscalYearForm fiscalYearForm = new FiscalYearForm(_username, _fiscalYearService,
-                _bankTransactionService, _purchasedItemService,
-                _soldItemService, _userTransactionService);
-            fiscalYearForm.Show();
-        }
-
-        private void BtnSetPassword_Click(object sender, EventArgs e)
-        {
-            SetPasswordForm setPasswordForm = new SetPasswordForm(_username, _userService);
-            setPasswordForm.Show();
-        }
-
-        private void BtnVatTaxSetup_Click(object sender, EventArgs e)
-        {
-            TaxSetupForm taxSetupForm = new TaxSetupForm(_username, _taxService);
-            taxSetupForm.Show();
-        }
-
         private void BtnSetup_Click(object sender, EventArgs e)
         {
-            SalesPurchaseForm setupForm = new SalesPurchaseForm(_fiscalYearService, _userTransactionService);
+            SalesPurchaseForm setupForm = new SalesPurchaseForm(_settingService, _userTransactionService);
             setupForm.ShowDialog();
         }
 
