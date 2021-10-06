@@ -95,7 +95,6 @@
             this.BtnReportsMgmt.TabIndex = 9;
             this.BtnReportsMgmt.Text = "All Reports Management ";
             this.BtnReportsMgmt.UseVisualStyleBackColor = false;
-            this.BtnReportsMgmt.Click += new System.EventHandler(this.BtnReportsMgmt_Click);
             // 
             // BtnSettingMgmt
             // 
@@ -112,7 +111,6 @@
             this.BtnSettingMgmt.TabIndex = 8;
             this.BtnSettingMgmt.Text = "All Setting Management";
             this.BtnSettingMgmt.UseVisualStyleBackColor = false;
-            this.BtnSettingMgmt.Click += new System.EventHandler(this.BtnSettingMgmt_Click);
             // 
             // BtnItemMgmt
             // 

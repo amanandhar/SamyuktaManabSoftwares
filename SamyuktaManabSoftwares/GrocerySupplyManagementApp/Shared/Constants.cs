@@ -20,6 +20,9 @@ namespace GrocerySupplyManagementApp.Shared
         public const string CLEAR = "Clear";
         public const string DUE = "Due";
 
+        public const string ADD = "Add";
+        public const string DEDUCT = "Deduct";
+
         // Database
         public const string DB_CONNECTION_STRING = "DBConnectionString";
         public const string TABLE_BANK = "Bank";

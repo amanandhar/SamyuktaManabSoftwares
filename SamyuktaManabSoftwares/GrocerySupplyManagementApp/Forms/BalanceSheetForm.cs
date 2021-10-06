@@ -216,8 +216,12 @@ namespace GrocerySupplyManagementApp.Forms
                 assetsFields.Add(new ExcelField() { Order = 6, Field = Constants.BALANCE, Value = RichAssetsBalance.Text, IsColumn = false });
                 excelData.Add(Constants.ASSETS, assetsFields);
 
+                var fiscalYear = _setting.FiscalYear.Split('/');
+                var title = fiscalYear.Length == 2 ? (fiscalYear[0] + "-04-01 - " + _setting.StartingDate) : string.Empty;
+                var sheetname = "Balance Sheet";
                 var filename = SaveFileDialog.FileName;
-                if (Excel.Export(excelData, filename))
+
+                if (Excel.Export(excelData, title, sheetname, filename))
                 {
                     MessageBox.Show(filename + " has been saved successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

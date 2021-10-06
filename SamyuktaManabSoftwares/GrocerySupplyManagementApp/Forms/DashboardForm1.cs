@@ -143,8 +143,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm(_settingService, _purchasedItemService, 
-                _soldItemService, _stockService);
+            StockSummaryForm stockForm = new StockSummaryForm(_username,
+               _settingService, _itemService,
+               _pricedItemService, _purchasedItemService,
+                _soldItemService, _stockService,
+                _userTransactionService);
             stockForm.Show();
         }
 
@@ -162,29 +165,6 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _bankService, 
                 _bankTransactionService);
             bankForm.Show();
-        }
-
-        private void BtnSettingMgmt_Click(object sender, EventArgs e)
-        {
-            SettingForm settingForm = new SettingForm(_username,
-                _settingService, _companyInfoService, _itemService,
-                _bankTransactionService, _purchasedItemService,
-                _soldItemService, _userTransactionService,
-                _employeeService, _userService,
-                _itemCategoryService);
-            settingForm.Show();
-        }
-
-        private void BtnReportsMgmt_Click(object sender, EventArgs e)
-        {
-            ReportForm reportForm = new ReportForm(_username,
-                _settingService, _bankService, 
-                _bankTransactionService, _itemService, 
-                _purchasedItemService, _soldItemService, 
-                _userTransactionService, _stockService, 
-                _shareMemberService
-                );
-            reportForm.Show();
         }
 
         private void BtnEmployeeMgmt_Click(object sender, EventArgs e)

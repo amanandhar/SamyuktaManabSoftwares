@@ -29,18 +29,18 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.TxtBoxItemCode = new System.Windows.Forms.TextBox();
+            this.TxtBoxItemName = new System.Windows.Forms.TextBox();
+            this.TxtBoxItemBrand = new System.Windows.Forms.TextBox();
+            this.TxtBoxItemUnit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.ComboAction = new System.Windows.Forms.ComboBox();
+            this.TxtBoxItemQuantity = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -53,37 +53,37 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // TxtBoxItemCode
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(136, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(146, 26);
-            this.textBox1.TabIndex = 0;
+            this.TxtBoxItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxItemCode.Location = new System.Drawing.Point(136, 26);
+            this.TxtBoxItemCode.Name = "TxtBoxItemCode";
+            this.TxtBoxItemCode.Size = new System.Drawing.Size(146, 26);
+            this.TxtBoxItemCode.TabIndex = 0;
             // 
-            // textBox2
+            // TxtBoxItemName
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(136, 70);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(217, 26);
-            this.textBox2.TabIndex = 1;
+            this.TxtBoxItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxItemName.Location = new System.Drawing.Point(136, 70);
+            this.TxtBoxItemName.Name = "TxtBoxItemName";
+            this.TxtBoxItemName.Size = new System.Drawing.Size(217, 26);
+            this.TxtBoxItemName.TabIndex = 1;
             // 
-            // textBox3
+            // TxtBoxItemBrand
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(136, 115);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(217, 26);
-            this.textBox3.TabIndex = 2;
+            this.TxtBoxItemBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxItemBrand.Location = new System.Drawing.Point(136, 115);
+            this.TxtBoxItemBrand.Name = "TxtBoxItemBrand";
+            this.TxtBoxItemBrand.Size = new System.Drawing.Size(217, 26);
+            this.TxtBoxItemBrand.TabIndex = 2;
             // 
-            // textBox4
+            // TxtBoxItemUnit
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(445, 26);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(150, 26);
-            this.textBox4.TabIndex = 3;
+            this.TxtBoxItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxItemUnit.Location = new System.Drawing.Point(445, 26);
+            this.TxtBoxItemUnit.Name = "TxtBoxItemUnit";
+            this.TxtBoxItemUnit.Size = new System.Drawing.Size(150, 26);
+            this.TxtBoxItemUnit.TabIndex = 3;
             // 
             // label1
             // 
@@ -132,18 +132,18 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.BtnSearch);
-            this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Controls.Add(this.textBox6);
+            this.groupBox1.Controls.Add(this.ComboAction);
+            this.groupBox1.Controls.Add(this.TxtBoxItemQuantity);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.TxtBoxItemCode);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.TxtBoxItemName);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.TxtBoxItemBrand);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.TxtBoxItemUnit);
             this.groupBox1.Location = new System.Drawing.Point(8, 45);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(660, 204);
@@ -168,26 +168,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.Text = "Search";
             this.BtnSearch.TextColor = System.Drawing.Color.White;
             this.BtnSearch.UseVisualStyleBackColor = false;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // comboBox1
+            // ComboAction
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboAction.FormattingEnabled = true;
+            this.ComboAction.Items.AddRange(new object[] {
             "Add",
             "Deduct"});
-            this.comboBox1.Location = new System.Drawing.Point(445, 71);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(150, 28);
-            this.comboBox1.TabIndex = 25;
+            this.ComboAction.Location = new System.Drawing.Point(445, 71);
+            this.ComboAction.Name = "ComboAction";
+            this.ComboAction.Size = new System.Drawing.Size(150, 28);
+            this.ComboAction.TabIndex = 25;
             // 
-            // textBox6
+            // TxtBoxItemQuantity
             // 
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(445, 118);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(150, 26);
-            this.textBox6.TabIndex = 21;
+            this.TxtBoxItemQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxItemQuantity.Location = new System.Drawing.Point(445, 118);
+            this.TxtBoxItemQuantity.Name = "TxtBoxItemQuantity";
+            this.TxtBoxItemQuantity.Size = new System.Drawing.Size(150, 26);
+            this.TxtBoxItemQuantity.TabIndex = 21;
             // 
             // label6
             // 
@@ -240,6 +241,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnEdit
             // 
@@ -259,6 +261,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
             // BtnClear
             // 
@@ -278,6 +281,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.Text = "Clear";
             this.BtnClear.TextColor = System.Drawing.Color.White;
             this.BtnClear.UseVisualStyleBackColor = false;
+            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // textBox5
             // 
@@ -324,20 +328,20 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox TxtBoxItemCode;
+        private System.Windows.Forms.TextBox TxtBoxItemName;
+        private System.Windows.Forms.TextBox TxtBoxItemBrand;
+        private System.Windows.Forms.TextBox TxtBoxItemUnit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox TxtBoxItemQuantity;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboAction;
         private CustomControls.Button.CustomButton BtnSearch;
         private CustomControls.Button.CustomButton BtnSave;
         private CustomControls.Button.CustomButton BtnEdit;

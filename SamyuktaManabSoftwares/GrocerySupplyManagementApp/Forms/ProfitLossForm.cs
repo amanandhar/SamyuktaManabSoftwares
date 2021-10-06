@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
@@ -15,6 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IUserTransactionService _userTransactionService;
 
+        private readonly Setting _setting;
         private readonly string _endOfDay;
         private decimal _totalIncome = 0.0m;
         private decimal _totalExpense = 0.0m;
@@ -35,7 +37,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             _settingService = settingService;
             _userTransactionService = userTransactionService;
-            _endOfDay = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault().StartingDate;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 
@@ -111,8 +114,12 @@ namespace GrocerySupplyManagementApp.Forms
                 expenseFields.Add(new ExcelField() { Order = 15, Field = Constants.TOTAL, Value = expenses.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 excelData.Add(Constants.EXPENSE, expenseFields);
 
+                var fiscalYear = _setting.FiscalYear.Split('/');
+                var title = fiscalYear.Length == 2 ? (fiscalYear[0] + "-04-01 - " + _setting.StartingDate) : string.Empty;
+                var sheetname = "Profit And Loss";
                 var filename = SaveFileDialog.FileName;
-                if(Excel.Export(excelData, filename))
+
+                if (Excel.Export(excelData, title, sheetname, filename))
                 {
                     MessageBox.Show(filename + " has been saved successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

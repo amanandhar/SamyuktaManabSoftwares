@@ -239,8 +239,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockSummary_Click(object sender, EventArgs e)
         {
-           OpenChildForm(new StockForm(_settingService, _purchasedItemService,
-                _soldItemService, _stockService));
+           OpenChildForm(new StockSummaryForm(_username, 
+               _settingService, _itemService, 
+               _pricedItemService, _purchasedItemService,
+                _soldItemService, _stockService,
+                _userTransactionService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
