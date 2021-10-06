@@ -685,6 +685,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Volume = Convert.ToInt64(TxtVolume.Text),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text),
                     Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
+                    AddedBy = _username,
                     AddedDate = DateTime.Now
                 }); ;
 

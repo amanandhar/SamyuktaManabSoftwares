@@ -287,6 +287,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
+
                 BtnAdd.Enabled = true;
                 BtnSave.Enabled = true;
 
@@ -298,6 +299,9 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
+
+                BtnUpdate.Enabled = true;
+                BtnSave.Enabled = true;
             }
             else
             {
@@ -307,6 +311,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemBrand.Enabled = false;
                 ComboUnit.Enabled = false;
                 RichThreshold.Enabled = false;
+
                 BtnAdd.Enabled = true;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;

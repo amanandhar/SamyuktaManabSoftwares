@@ -35,6 +35,18 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Rich Textbox Event
+        private void RichSearchItemName_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchItems();
+        }
+
+        private void RichSearchItemCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchItems();
+        }
+        #endregion
+
         #region Data Grid Event
         private void DataGridItemList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -57,7 +69,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Id"].Visible = false;
             DataGridItemList.Columns["Unit"].Visible = false;
             DataGridItemList.Columns["Threshold"].Visible = false;
+            DataGridItemList.Columns["AddedBy"].Visible = false;
             DataGridItemList.Columns["AddedDate"].Visible = false;
+            DataGridItemList.Columns["UpdatedBy"].Visible = false;
             DataGridItemList.Columns["UpdatedDate"].Visible = false;
 
             DataGridItemList.Columns["Code"].HeaderText = "Code";
@@ -78,18 +92,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridItemList.RowHeadersWidth = 50;
                 DataGridItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
-        }
-        #endregion
-
-        #region Rich Textbox Event
-        private void RichSearchItemName_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchItems();
-        }
-
-        private void RichSearchItemCode_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchItems();
         }
         #endregion
 

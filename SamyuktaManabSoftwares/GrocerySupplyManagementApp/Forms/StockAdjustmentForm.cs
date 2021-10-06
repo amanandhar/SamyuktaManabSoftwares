@@ -187,6 +187,10 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if(action == Action.PopulateItem)
             {
+                ComboAction.Enabled = true;
+                TxtBoxItemQuantity.Enabled = true;
+
+                BtnSearch.Enabled = true;
                 BtnClear.Enabled = true;
                 BtnSave.Enabled = true;
             }
@@ -211,6 +215,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        
     }
 }
