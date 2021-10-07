@@ -224,6 +224,12 @@
     <Compile Include="Forms\PricedItemListForm.Designer.cs">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PurchaseDiscountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PurchaseDiscountForm.Designer.cs">
+      <DependentUpon>PurchaseDiscountForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ReturnForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -538,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PricedItemListForm.resx">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PurchaseDiscountForm.resx">
+      <DependentUpon>PurchaseDiscountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReturnForm.resx">
       <DependentUpon>ReturnForm.cs</DependentUpon>

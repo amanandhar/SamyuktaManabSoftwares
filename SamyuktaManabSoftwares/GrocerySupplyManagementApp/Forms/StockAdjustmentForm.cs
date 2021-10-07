@@ -100,7 +100,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
                     Unit = TxtBoxItemUnit.Text,
                     Action = ComboAction.Text,
-                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0 : Convert.ToInt64(TxtBoxItemQuantity.Text),
+                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemQuantity.Text),
                     Price = string.IsNullOrWhiteSpace(TxtItemPrice.Text.Trim()) ? 0 : Convert.ToInt64(TxtItemPrice.Text),
                     AddedBy = _username,
                     AddedDate = date

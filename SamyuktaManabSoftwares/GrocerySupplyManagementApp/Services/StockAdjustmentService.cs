@@ -25,12 +25,12 @@ namespace GrocerySupplyManagementApp.Services
             return _stockAdjustmentRepository.GetStockAdjustment(id);
         }
 
-        public long GetAddedStockTotalQuantity(StockFilter stockFilter)
+        public decimal GetAddedStockTotalQuantity(StockFilter stockFilter)
         {
             return _stockAdjustmentRepository.GetAddedStockTotalQuantity(stockFilter);
         }
 
-        public long GetDeductedStockTotalQuantity(StockFilter stockFilter)
+        public decimal GetDeductedStockTotalQuantity(StockFilter stockFilter)
         {
             return _stockAdjustmentRepository.GetDeductedStockTotalQuantity(stockFilter);
         }

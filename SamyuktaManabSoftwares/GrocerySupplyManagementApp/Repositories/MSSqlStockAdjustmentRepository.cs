@@ -42,7 +42,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Unit = reader["Unit"].ToString(),
                                     Action = reader["Action"].ToString(),
-                                    Quantity = Convert.ToInt64(reader["Quantity"].ToString()),
+                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     AddedBy = reader["AddedBy"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
@@ -92,7 +92,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     stockAdjustment.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                     stockAdjustment.Unit = reader["Unit"].ToString();
                                     stockAdjustment.Action = reader["Action"].ToString();
-                                    stockAdjustment.Quantity = Convert.ToInt64(reader["Quantity"].ToString());
+                                    stockAdjustment.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
                                     stockAdjustment.Price = Convert.ToDecimal(reader["Price"].ToString());
                                     stockAdjustment.AddedBy = reader["AddedBy"].ToString();
                                     stockAdjustment.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
@@ -112,9 +112,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return stockAdjustment;
         }
 
-        public long GetAddedStockTotalQuantity(StockFilter stockFilter)
+        public decimal GetAddedStockTotalQuantity(StockFilter stockFilter)
         {
-            long totalCount = 0;
+            decimal totalCount = 0.00m;
             var query = @"SELECT " +
                 "SUM([Quantity]) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
@@ -152,7 +152,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            totalCount = Convert.ToInt64(result);
+                            totalCount = Convert.ToDecimal(result);
                         }
                     }
                 }
@@ -165,9 +165,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
-        public long GetDeductedStockTotalQuantity(StockFilter stockFilter)
+        public decimal GetDeductedStockTotalQuantity(StockFilter stockFilter)
         {
-            long totalCount = 0;
+            decimal totalCount = 0.00m;
             var query = @"SELECT " +
                 "SUM([Quantity]) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
@@ -205,7 +205,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            totalCount = Convert.ToInt64(result);
+                            totalCount = Convert.ToDecimal(result);
                         }
                     }
                 }

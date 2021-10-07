@@ -8,8 +8,8 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         IEnumerable<StockAdjustment> GetStockAdjustments();
         StockAdjustment GetStockAdjustment(long id);
-        long GetAddedStockTotalQuantity(StockFilter stockFilter);
-        long GetDeductedStockTotalQuantity(StockFilter stockFilter);
+        decimal GetAddedStockTotalQuantity(StockFilter stockFilter);
+        decimal GetDeductedStockTotalQuantity(StockFilter stockFilter);
 
         StockAdjustment AddStockAdjustment(StockAdjustment stockAdjustment);
 

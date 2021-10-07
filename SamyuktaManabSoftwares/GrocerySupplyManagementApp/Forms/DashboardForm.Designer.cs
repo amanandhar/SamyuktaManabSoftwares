@@ -60,7 +60,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDailySummary = new System.Windows.Forms.Button();
             this.BtnPointOfSales = new System.Windows.Forms.Button();
             this.PanelLogo = new System.Windows.Forms.Panel();
-            this.lblCompanyShortName = new System.Windows.Forms.Label();
+            this.LblCompanyShortName = new System.Windows.Forms.Label();
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.lblCompanyName = new System.Windows.Forms.Label();
             this.RichBoxFiscalYear = new System.Windows.Forms.RichTextBox();
@@ -690,27 +690,27 @@ namespace GrocerySupplyManagementApp.Forms
             // PanelLogo
             // 
             this.PanelLogo.BackColor = System.Drawing.Color.DodgerBlue;
-            this.PanelLogo.Controls.Add(this.lblCompanyShortName);
+            this.PanelLogo.Controls.Add(this.LblCompanyShortName);
             this.PanelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelLogo.Location = new System.Drawing.Point(0, 0);
             this.PanelLogo.Name = "PanelLogo";
             this.PanelLogo.Size = new System.Drawing.Size(250, 50);
             this.PanelLogo.TabIndex = 0;
             // 
-            // lblCompanyShortName
+            // LblCompanyShortName
             // 
-            this.lblCompanyShortName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblCompanyShortName.AutoSize = true;
-            this.lblCompanyShortName.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblCompanyShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompanyShortName.ForeColor = System.Drawing.Color.White;
-            this.lblCompanyShortName.Location = new System.Drawing.Point(64, 6);
-            this.lblCompanyShortName.Name = "lblCompanyShortName";
-            this.lblCompanyShortName.Size = new System.Drawing.Size(129, 39);
-            this.lblCompanyShortName.TabIndex = 0;
-            this.lblCompanyShortName.Text = "SMGM";
-            this.lblCompanyShortName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCompanyShortName.Click += new System.EventHandler(this.lblCompanyShortName_Click);
+            this.LblCompanyShortName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LblCompanyShortName.AutoSize = true;
+            this.LblCompanyShortName.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LblCompanyShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblCompanyShortName.ForeColor = System.Drawing.Color.White;
+            this.LblCompanyShortName.Location = new System.Drawing.Point(64, 6);
+            this.LblCompanyShortName.Name = "LblCompanyShortName";
+            this.LblCompanyShortName.Size = new System.Drawing.Size(129, 39);
+            this.LblCompanyShortName.TabIndex = 0;
+            this.LblCompanyShortName.Text = "SMGM";
+            this.LblCompanyShortName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LblCompanyShortName.Click += new System.EventHandler(this.LblCompanyShortName_Click);
             // 
             // PanelHeader
             // 
@@ -928,7 +928,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Button BtnSetup;
         private System.Windows.Forms.Panel PanelBody;
         private System.Windows.Forms.Label lblCompanyName;
-        private System.Windows.Forms.Label lblCompanyShortName;
+        private System.Windows.Forms.Label LblCompanyShortName;
         private System.Windows.Forms.RichTextBox RichBoxFiscalYear;
         private System.Windows.Forms.RichTextBox RichBoxTime;
         private System.Windows.Forms.RichTextBox RichBoxUsername;

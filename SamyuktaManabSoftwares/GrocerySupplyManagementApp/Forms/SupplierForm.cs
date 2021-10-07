@@ -375,6 +375,12 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+
+        private void BtnAddDiscount_Click(object sender, EventArgs e)
+        {
+            PurchaseDiscountForm purchaseDiscountForm = new PurchaseDiscountForm();
+            purchaseDiscountForm.ShowDialog();
+        }
         #endregion
 
         #region Combo Events
@@ -652,5 +658,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        
     }
 }

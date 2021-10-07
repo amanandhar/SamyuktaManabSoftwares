@@ -174,8 +174,8 @@ namespace GrocerySupplyManagementApp.Forms
             TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter).ToString();
             TxtBoxAdded.Text = _stockAdjustmentService.GetAddedStockTotalQuantity(stockFilter).ToString();
             TxtBoxDeducted.Text = _stockAdjustmentService.GetDeductedStockTotalQuantity(stockFilter).ToString();
-            TxtStock.Text = ((Convert.ToInt64(TxtPurchase.Text) + Convert.ToInt64(TxtBoxAdded.Text))
-                - (Convert.ToInt64(TxtBoxDeducted.Text) + Convert.ToDecimal(TxtSales.Text))).ToString();
+            TxtStock.Text = ((Convert.ToInt64(TxtPurchase.Text) + Convert.ToDecimal(TxtBoxAdded.Text))
+                - (Convert.ToDecimal(TxtBoxDeducted.Text) + Convert.ToDecimal(TxtSales.Text))).ToString();
 
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var stockViewList = new List<StockView>();

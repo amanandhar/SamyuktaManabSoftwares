@@ -37,7 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
         private string _selectedInvoiceNo;
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
         private const char separator = '.';
-        private bool _isPrintOnly = false;
+        private readonly bool _isPrintOnly = false;
 
         #region Enum
         private enum Action

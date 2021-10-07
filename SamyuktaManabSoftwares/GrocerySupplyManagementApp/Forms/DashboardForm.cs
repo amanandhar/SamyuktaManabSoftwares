@@ -175,7 +175,7 @@ namespace GrocerySupplyManagementApp.Forms
             GetUserPermissions();
 
             var companyInfo = _companyInfoService.GetCompanyInfo();
-            lblCompanyShortName.Text = companyInfo.ShortName;
+            LblCompanyShortName.Text = companyInfo.ShortName;
             lblCompanyName.Text = companyInfo.Name;
         }
         #endregion 
@@ -407,6 +407,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     var setting = new Setting
                     {
+                        Id = _setting.Id,
                         StartingInvoiceNo = _setting.StartingInvoiceNo,
                         StartingBillNo = _setting.StartingBillNo,
                         StartingDate = nextEOD.DateInBs,
@@ -438,7 +439,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Label Click Event
-        private void lblCompanyShortName_Click(object sender, EventArgs e)
+        private void LblCompanyShortName_Click(object sender, EventArgs e)
         {
             OpenChildForm(null);
         }
@@ -572,8 +573,8 @@ namespace GrocerySupplyManagementApp.Forms
             }
 
         }
+
         #endregion
 
-        
     }
 }
