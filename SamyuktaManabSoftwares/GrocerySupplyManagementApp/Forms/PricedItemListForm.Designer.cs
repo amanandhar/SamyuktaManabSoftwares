@@ -141,6 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.DataGridPricedItemList);
             this.Location = new System.Drawing.Point(825, 312);
+            this.MaximizeBox = false;
             this.Name = "PricedItemListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item Search";

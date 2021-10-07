@@ -79,6 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(534, 351);
             this.Controls.Add(this.DataGridEmployeeList);
             this.Location = new System.Drawing.Point(825, 313);
+            this.MaximizeBox = false;
             this.Name = "EmployeeListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.EmployeeListForm_Load);

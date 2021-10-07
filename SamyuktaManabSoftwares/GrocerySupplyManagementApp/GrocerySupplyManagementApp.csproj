@@ -153,6 +153,7 @@
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\ShareMember.cs" />
+    <Compile Include="Entities\StockAdjustment.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserTransaction.cs" />
     <Compile Include="Entities\SoldItem.cs" />
@@ -415,6 +416,7 @@
     <Compile Include="Repositories\Interfaces\ISettingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IShareMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISoldItemRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IStockAdjustmentRepository.cs" />
     <Compile Include="Repositories\Interfaces\IStockRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISupplierRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
@@ -430,6 +432,7 @@
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlMemberRepository.cs" />
     <Compile Include="Repositories\MSSqlSettingRepository.cs" />
+    <Compile Include="Repositories\MSSqlStockAdjustmentRepository.cs" />
     <Compile Include="Repositories\MSSqlStockRepository.cs" />
     <Compile Include="Repositories\MSSqlUserRepository.cs" />
     <Compile Include="Repositories\MSSqlUserTransactionRepository.cs" />
@@ -456,6 +459,7 @@
     <Compile Include="Services\Interfaces\ISettingService.cs" />
     <Compile Include="Services\Interfaces\IShareMemberService.cs" />
     <Compile Include="Services\Interfaces\ISoldItemService.cs" />
+    <Compile Include="Services\Interfaces\IStockAdjustmentService.cs" />
     <Compile Include="Services\Interfaces\IStockService.cs" />
     <Compile Include="Services\Interfaces\ISupplierService.cs" />
     <Compile Include="Services\Interfaces\IUserService.cs" />
@@ -467,6 +471,7 @@
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\SettingService.cs" />
     <Compile Include="Services\ShareMemberService.cs" />
+    <Compile Include="Services\StockAdjustmentService.cs" />
     <Compile Include="Services\StockService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserTransactionService.cs" />

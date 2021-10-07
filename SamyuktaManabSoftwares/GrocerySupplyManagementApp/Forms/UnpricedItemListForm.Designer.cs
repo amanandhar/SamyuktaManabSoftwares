@@ -52,6 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.DataGridUnpricedItemList);
             this.Location = new System.Drawing.Point(825, 312);
+            this.MaximizeBox = false;
             this.Name = "UnpricedItemListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.UnpricedItemListForm_Load);

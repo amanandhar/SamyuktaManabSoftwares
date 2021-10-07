@@ -1,5 +1,4 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Repositories.Interfaces

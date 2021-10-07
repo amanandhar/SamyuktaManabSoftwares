@@ -110,18 +110,10 @@ namespace GrocerySupplyManagementApp.Forms
         public void LoadTransactions()
         {
             var userTransactionFilter = new UserTransactionFilter();
-            if (!string.IsNullOrWhiteSpace(MaskDtEODFrom.Text.Replace("-", string.Empty).Trim()))
-            {
-                userTransactionFilter.DateFrom = MaskDtEODFrom.Text.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(MaskDtEODTo.Text.Replace("-", string.Empty).Trim()))
-            {
-                userTransactionFilter.DateTo = MaskDtEODTo.Text.Trim();
-            }
+            userTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text);
+            userTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text);
 
             userTransactionFilter.Action = ComboAction.Text;
-
            
             var userTransactions = _userTransactionService.GetUserTransactions(userTransactionFilter).ToList();
             List<PurchaseSalesTransactionView> purchaseSalesTransactionViewList = userTransactions.OrderBy(x => x.EndOfDay)

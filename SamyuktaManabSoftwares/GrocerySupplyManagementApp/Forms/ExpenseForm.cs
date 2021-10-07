@@ -54,18 +54,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShow_Click(object sender, EventArgs e)
         {
             var expenseTransactionFilter = new ExpenseTransactionFilter();
-            var dateFrom = MaskEndOfDayFrom.Text;
-            var dateTo = MaskEndOfDayTo.Text;
             var expense = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text;
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                expenseTransactionFilter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                expenseTransactionFilter.DateTo = dateTo.Trim();
-            }
+            expenseTransactionFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
+            expenseTransactionFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
 
             expenseTransactionFilter.Expense = expense;
             LoadExpenseTransaction(expenseTransactionFilter);

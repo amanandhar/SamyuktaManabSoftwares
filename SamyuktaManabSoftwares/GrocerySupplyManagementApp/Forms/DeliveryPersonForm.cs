@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -51,21 +52,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, System.EventArgs e)
         {
-            var dateFrom = MaskEndOfDayFrom.Text;
-            var dateTo = MaskEndOfDayTo.Text;
             var employeeId = _selectedEmployeeId;
-            var deliveryPersonFilter = new DeliveryPersonFilter();
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            var deliveryPersonFilter = new DeliveryPersonFilter
             {
-                deliveryPersonFilter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
-            {
-                deliveryPersonFilter.DateTo = dateTo.Trim();
-            }
-
-            deliveryPersonFilter.EmployeeId = employeeId;
+                DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text),
+                DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text),
+                EmployeeId = employeeId
+            };
             LoadDeliveryTransactions(deliveryPersonFilter);
         }
         #endregion

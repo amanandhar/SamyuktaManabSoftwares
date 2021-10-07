@@ -26,6 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
         private readonly IItemCategoryService _itemCategoryService;
         private readonly IShareMemberService _shareMemberService;
+        private readonly IStockAdjustmentService _stockAdjustmentService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -40,7 +41,8 @@ namespace GrocerySupplyManagementApp.Forms
             IUserTransactionService userTransactionService, IStockService stockService,
             IEndOfDayService endOfDateService, IEmployeeService employeeService, 
             IReportService reportService, IUserService userService,
-            IItemCategoryService itemCategoryService, IShareMemberService shareMemberService)
+            IItemCategoryService itemCategoryService, IShareMemberService shareMemberService,
+            IStockAdjustmentService stockAdjustmentService)
         {
             InitializeComponent();
 
@@ -62,6 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
             _itemCategoryService = itemCategoryService;
             _shareMemberService = shareMemberService;
+            _stockAdjustmentService = stockAdjustmentService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -147,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
                _settingService, _itemService,
                _pricedItemService, _purchasedItemService,
                 _soldItemService, _stockService,
-                _userTransactionService);
+                _userTransactionService, _stockAdjustmentService);
             stockForm.Show();
         }
 

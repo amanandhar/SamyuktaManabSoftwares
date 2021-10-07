@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_SETTING = "Setting";
         public const string TABLE_SHARE_MEMBER = "ShareMember";
         public const string TABLE_SOLD_ITEM = "SoldItem";
+        public const string TABLE_STOCK_ADJUSTMENT = "StockAdjustment";
         public const string TABLE_SUPPLIER = "Supplier";
         public const string TABLE_USER = "User";
         public const string TABLE_USER_TRANSACTION = "UserTransaction";

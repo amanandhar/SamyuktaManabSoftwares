@@ -375,19 +375,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
             var filter = new MemberFilter();
-            var dateFrom = MaskEndOfDayFrom.Text;
-            var dateTo = MaskEndOfDayTo.Text;
+            var dateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
+            var dateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
             var action = ComboAction.Text;
-
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                filter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                filter.DateTo = dateTo.Trim();
-            }
 
             filter.Action = action;
             var memberTransactionViewList = GetMemberTransactions(filter);

@@ -49,6 +49,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.TxtItemPrice = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
             // TxtBoxItemUnit
             // 
             this.TxtBoxItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBoxItemUnit.Location = new System.Drawing.Point(445, 26);
+            this.TxtBoxItemUnit.Location = new System.Drawing.Point(136, 160);
             this.TxtBoxItemUnit.Name = "TxtBoxItemUnit";
             this.TxtBoxItemUnit.Size = new System.Drawing.Size(150, 26);
             this.TxtBoxItemUnit.TabIndex = 3;
@@ -123,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(377, 29);
+            this.label4.Location = new System.Drawing.Point(44, 160);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 20);
             this.label4.TabIndex = 12;
@@ -131,6 +133,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TxtItemPrice);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.BtnSearch);
             this.groupBox1.Controls.Add(this.ComboAction);
             this.groupBox1.Controls.Add(this.TxtBoxItemQuantity);
@@ -304,6 +308,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.TabIndex = 22;
             this.label8.Text = "Stock Adjustment Management";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label7.Location = new System.Drawing.Point(375, 28);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 20);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Price";
+            // 
+            // TxtItemPrice
+            // 
+            this.TxtItemPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtItemPrice.Location = new System.Drawing.Point(445, 26);
+            this.TxtItemPrice.Name = "TxtItemPrice";
+            this.TxtItemPrice.Size = new System.Drawing.Size(150, 26);
+            this.TxtItemPrice.TabIndex = 31;
+            // 
             // StockAdjustmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,5 +371,7 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnClear;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox TxtItemPrice;
+        private System.Windows.Forms.Label label7;
     }
 }

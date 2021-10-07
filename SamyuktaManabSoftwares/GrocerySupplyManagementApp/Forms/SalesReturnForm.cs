@@ -281,15 +281,8 @@ namespace GrocerySupplyManagementApp.Forms
         private List<SalesReturnTransactionView> GetSalesReturnTransactions()
         {
             var salesReturnTransactionFilter = new SalesReturnTransactionFilter();
-            if (!string.IsNullOrWhiteSpace(MaskDtEODFrom.Text.Replace("-", string.Empty).Trim()))
-            {
-                salesReturnTransactionFilter.DateFrom = MaskDtEODFrom.Text.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(MaskDtEODTo.Text.Replace("-", string.Empty).Trim()))
-            {
-                salesReturnTransactionFilter.DateTo = MaskDtEODTo.Text.Trim();
-            }
+            salesReturnTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text);
+            salesReturnTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text);
 
             var salesReturnTransactionViewList = _userTransactionService.GetSalesReturnTransactions(salesReturnTransactionFilter).ToList();
             return salesReturnTransactionViewList;

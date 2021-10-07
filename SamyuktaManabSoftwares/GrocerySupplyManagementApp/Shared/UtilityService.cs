@@ -159,5 +159,15 @@ namespace GrocerySupplyManagementApp.Shared
                     + ((i % 1000000000 > 0) ? " " + Convert(i % 1000000000) : "");
             }
         }
+
+        public static string GetDate(string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value.Replace("-", string.Empty).Trim()))
+            {
+                return value.Trim();
+            }
+
+            return null;
+        }
     }
 }

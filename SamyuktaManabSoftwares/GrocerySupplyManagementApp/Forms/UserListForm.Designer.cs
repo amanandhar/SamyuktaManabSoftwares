@@ -50,6 +50,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 261);
             this.Controls.Add(this.DataGridUserList);
+            this.MaximizeBox = false;
             this.Name = "UserListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.UserListForm_Load);

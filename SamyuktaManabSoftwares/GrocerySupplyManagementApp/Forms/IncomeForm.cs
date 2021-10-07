@@ -212,18 +212,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadIncomeDetails()
         {
             var incomeTransactionFilter = new IncomeTransactionFilter();
-            var dateFrom = MaskEndOfDayFrom.Text;
-            var dateTo = MaskEndOfDayTo.Text;
             var income = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text;
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                incomeTransactionFilter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
-            {
-                incomeTransactionFilter.DateTo = dateTo.Trim();
-            }
+            incomeTransactionFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
+            incomeTransactionFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
 
             incomeTransactionFilter.Income = income;
 

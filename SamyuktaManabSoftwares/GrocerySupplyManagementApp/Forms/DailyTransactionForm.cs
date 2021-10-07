@@ -329,12 +329,10 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadTransactions()
         {
             MaskEndOfDay.Focus();
-            var dailyTransactionFilter = new DailyTransactionFilter();
-
-            if (!string.IsNullOrWhiteSpace(MaskEndOfDay.Text.Replace("-", string.Empty).Trim()))
+            var dailyTransactionFilter = new DailyTransactionFilter
             {
-                dailyTransactionFilter.Date = MaskEndOfDay.Text.Trim();
-            }
+                Date = UtilityService.GetDate(MaskEndOfDay.Text)
+            };
 
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);

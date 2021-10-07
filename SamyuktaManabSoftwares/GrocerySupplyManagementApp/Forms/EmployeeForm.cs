@@ -130,7 +130,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Email = RichEmail.Text,
                     CitizenshipNo = RichCitizenshipNo.Text,
                     Education = ComboEducation.Text,
-                    DateOfBirth = MaskDateOfBirth.Text,
+                    DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
                     Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
                     FatherName = RichFatherName.Text,
                     BloodGroup = ComboBloodGroup.Text,
@@ -140,8 +140,8 @@ namespace GrocerySupplyManagementApp.Forms
                     SpouseName = RichSpouseName.Text,
                     Post = ComboPost.Text,
                     PostStatus = ComboPostStatus.Text,
-                    AppointedDate = MaskAppointedDate.Text,
-                    ResignedDate = MaskResignedDate.Text,
+                    AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
+                    ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
                     ImagePath = destinationFilePath,
                     AddedBy = _username,
                     AddedDate = date
@@ -212,7 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Email = RichEmail.Text,
                     CitizenshipNo = RichCitizenshipNo.Text,
                     Education = ComboEducation.Text,
-                    DateOfBirth = MaskDateOfBirth.Text,
+                    DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
                     Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
                     BloodGroup = ComboBloodGroup.Text,
                     FatherName = RichFatherName.Text,
@@ -222,8 +222,8 @@ namespace GrocerySupplyManagementApp.Forms
                     SpouseName = RichSpouseName.Text,
                     Post = ComboPost.Text,
                     PostStatus = ComboPostStatus.Text,
-                    AppointedDate = MaskAppointedDate.Text,
-                    ResignedDate = MaskResignedDate.Text,
+                    AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
+                    ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
                     ImagePath = destinationFilePath,
                     UpdatedBy = _username,
                     UpdatedDate = date
@@ -311,7 +311,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmail.Text = employee.Email;
             RichCitizenshipNo.Text = employee.CitizenshipNo;
             ComboEducation.Text = employee.Education;
-            MaskDateOfBirth.Text = employee.DateOfBirth;
+            MaskDtDOB.Text = employee.DateOfBirth;
             RichAge.Text = employee.Age.ToString();
             ComboBloodGroup.Text = employee.BloodGroup;
             RichFatherName.Text = employee.FatherName;
@@ -321,8 +321,8 @@ namespace GrocerySupplyManagementApp.Forms
             RichSpouseName.Text = employee.SpouseName;
             ComboPost.Text = employee.Post;
             ComboPostStatus.Text = employee.PostStatus;
-            MaskAppointedDate.Text = employee.AppointedDate;
-            MaskResignedDate.Text = employee.ResignedDate;
+            MaskDtAppointedDt.Text = employee.AppointedDate;
+            MaskDtResignedDt.Text = employee.ResignedDate;
 
             if (File.Exists(employee.ImagePath))
             {
@@ -354,7 +354,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichEmail.Enabled = true;
                 RichCitizenshipNo.Enabled = true;
                 ComboEducation.Enabled = true;
-                MaskDateOfBirth.Enabled = true;
+                MaskDtDOB.Enabled = true;
                 RichAge.Enabled = true;
                 ComboBloodGroup.Enabled = true;
                 RichFatherName.Enabled = true;
@@ -364,8 +364,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichSpouseName.Enabled = true;
                 ComboPost.Enabled = true;
                 ComboPostStatus.Enabled = true;
-                MaskAppointedDate.Enabled = true;
-                MaskResignedDate.Enabled = true;
+                MaskDtAppointedDt.Enabled = true;
+                MaskDtResignedDt.Enabled = true;
             }
             else if(action == Action.Save)
             {
@@ -388,7 +388,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichEmail.Enabled = true;
                 RichCitizenshipNo.Enabled = true;
                 ComboEducation.Enabled = true;
-                MaskDateOfBirth.Enabled = true;
+                MaskDtDOB.Enabled = true;
                 RichAge.Enabled = true;
                 ComboBloodGroup.Enabled = true;
                 RichFatherName.Enabled = true;
@@ -398,8 +398,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichSpouseName.Enabled = true;
                 ComboPost.Enabled = true;
                 ComboPostStatus.Enabled = true;
-                MaskAppointedDate.Enabled = true;
-                MaskResignedDate.Enabled = true;
+                MaskDtAppointedDt.Enabled = true;
+                MaskDtResignedDt.Enabled = true;
             }
             else if (action == Action.Update)
             {
@@ -424,7 +424,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichEmail.Enabled = false;
                 RichCitizenshipNo.Enabled = false;
                 ComboEducation.Enabled = false;
-                MaskDateOfBirth.Enabled = false;
+                MaskDtDOB.Enabled = false;
                 RichAge.Enabled = false;
                 ComboBloodGroup.Enabled = false;
                 RichFatherName.Enabled = false;
@@ -434,8 +434,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichSpouseName.Enabled = false;
                 ComboPost.Enabled = false;
                 ComboPostStatus.Enabled = false;
-                MaskAppointedDate.Enabled = false;
-                MaskResignedDate.Enabled = false;
+                MaskDtAppointedDt.Enabled = false;
+                MaskDtResignedDt.Enabled = false;
 
                 BtnAdd.Enabled = false;
                 BtnSave.Enabled = false;
@@ -459,7 +459,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmail.Clear();
             RichCitizenshipNo.Clear();
             ComboEducation.Text = string.Empty;
-            MaskDateOfBirth.Clear();
+            MaskDtDOB.Clear();
             RichAge.Clear();
             ComboBloodGroup.Text = string.Empty;
             RichFatherName.Clear();
@@ -469,8 +469,8 @@ namespace GrocerySupplyManagementApp.Forms
             RichSpouseName.Clear();
             ComboPost.Text = string.Empty;
             ComboPostStatus.Text = string.Empty;
-            MaskAppointedDate.Clear();
-            MaskResignedDate.Clear();
+            MaskDtAppointedDt.Clear();
+            MaskDtResignedDt.Clear();
             PicBoxEmployeeImage.Image = null;
         }
         #endregion

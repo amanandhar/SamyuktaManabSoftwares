@@ -113,6 +113,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.DataGridShareMemberList);
+            this.MaximizeBox = false;
             this.Name = "ShareMemberListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Search Member";

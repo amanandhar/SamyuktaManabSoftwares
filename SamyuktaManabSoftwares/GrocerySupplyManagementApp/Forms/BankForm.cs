@@ -219,8 +219,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
             var action = ComboAction.Text;
-            var dateFrom = MaskEndOfDayFrom.Text;
-            var dateTo = MaskEndOfDayTo.Text;
             var bankTransactionFilter = new BankTransactionFilter();
 
             if (!string.IsNullOrWhiteSpace(action))
@@ -228,15 +226,8 @@ namespace GrocerySupplyManagementApp.Forms
                 bankTransactionFilter.Action = action.Equals(Constants.DEPOSIT) ? '1' : '0';
             }
 
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                bankTransactionFilter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                bankTransactionFilter.DateTo = dateTo.Trim();
-            }
+            bankTransactionFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
+            bankTransactionFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
 
             var bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(bankTransactionFilter).ToList();
             TxtAmount.Text = bankTransactionViewList.Sum(x => x.Balance).ToString();

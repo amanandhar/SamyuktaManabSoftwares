@@ -53,11 +53,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            string endOfDay = null;
-            if (!string.IsNullOrWhiteSpace(MaskEndOfDay.Text.Replace("-", string.Empty).Trim()))
-            {
-                endOfDay = MaskEndOfDay.Text.Trim();
-            }
+            string endOfDay = UtilityService.GetDate(MaskEndOfDay.Text);
 
             var previousSalesCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.SALES, Constants.CASH);
             var previousSalesCredit = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.SALES, Constants.CREDIT);

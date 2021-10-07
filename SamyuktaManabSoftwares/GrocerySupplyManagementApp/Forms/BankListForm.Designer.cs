@@ -78,6 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.DataGridBankList);
             this.Location = new System.Drawing.Point(825, 313);
+            this.MaximizeBox = false;
             this.Name = "BankListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.BankListForm_Load);

@@ -44,7 +44,8 @@ namespace GrocerySupplyManagementApp
                         container.Resolve<IReportService>(),
                         container.Resolve<IUserService>(),
                         container.Resolve<IItemCategoryService>(),
-                        container.Resolve<IShareMemberService>()
+                        container.Resolve<IShareMemberService>(),
+                        container.Resolve<IStockAdjustmentService>()
                         ));
                 }
                 else
@@ -75,6 +76,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IItemCategoryService, ItemCategoryService>();
             container.RegisterType<IShareMemberService, ShareMemberService>();
+            container.RegisterType<IStockAdjustmentService, StockAdjustmentService>();
 
             container.RegisterType<ISettingRepository, MSSqlSettingRepository>();
             container.RegisterType<ICompanyInfoRepository, MSSqlCompanyInfoRepository>();
@@ -94,6 +96,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IUserRepository, MSSqlUserRepository>();
             container.RegisterType<IItemCategoryRepository, MSSqlItemCategoryRepository>();
             container.RegisterType<IShareMemberRepository, MSSqlShareMemberRepository>();
+            container.RegisterType<IStockAdjustmentRepository, MSSqlStockAdjustmentRepository>();
 
             return container;
         }

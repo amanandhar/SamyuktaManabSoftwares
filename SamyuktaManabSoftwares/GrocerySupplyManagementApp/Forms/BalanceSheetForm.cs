@@ -59,11 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var endOfDay = MaskEndOfDay.Text;
-                if (!string.IsNullOrWhiteSpace(endOfDay.Replace("-", string.Empty).Trim()))
-                {
-                    endOfDay = endOfDay.Trim();
-                }
+                var endOfDay = UtilityService.GetDate(MaskEndOfDay.Text);
 
                 var totalPurchaseBonus = _userTransactionService
                     .GetPurchaseBonus(new IncomeTransactionFilter() { DateTo = endOfDay })
@@ -216,8 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
                 assetsFields.Add(new ExcelField() { Order = 6, Field = Constants.BALANCE, Value = RichAssetsBalance.Text, IsColumn = false });
                 excelData.Add(Constants.ASSETS, assetsFields);
 
-                var fiscalYear = _setting.FiscalYear.Split('/');
-                var title = fiscalYear.Length == 2 ? (fiscalYear[0] + "-04-01 - " + _setting.StartingDate) : string.Empty;
+                var title = _endOfDay;
                 var sheetname = "Balance Sheet";
                 var filename = SaveFileDialog.FileName;
 

@@ -70,6 +70,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.DataGridSupplierList);
             this.Location = new System.Drawing.Point(725, 313);
+            this.MaximizeBox = false;
             this.Name = "SupplierListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.SupplierListForm_Load);

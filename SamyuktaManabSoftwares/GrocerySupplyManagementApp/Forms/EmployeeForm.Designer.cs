@@ -60,14 +60,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboGender = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.BtnSearchSalaryDetails = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.MaskAppointedDate = new System.Windows.Forms.MaskedTextBox();
-            this.MaskResignedDate = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtAppointedDt = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtResignedDt = new System.Windows.Forms.MaskedTextBox();
             this.ComboPost = new System.Windows.Forms.ComboBox();
             this.ComboPostStatus = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.MaskDateOfBirth = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtDOB = new System.Windows.Forms.MaskedTextBox();
             this.ComboEducation = new System.Windows.Forms.ComboBox();
             this.ComboBloodGroup = new System.Windows.Forms.ComboBox();
             this.RichAge = new System.Windows.Forms.RichTextBox();
@@ -452,25 +452,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchSalaryDetails.UseVisualStyleBackColor = false;
             this.BtnSearchSalaryDetails.Click += new System.EventHandler(this.BtnSearchSalaryDetails_Click);
             // 
-            // MaskAppointedDate
+            // MaskDtAppointedDt
             // 
-            this.MaskAppointedDate.Enabled = false;
-            this.MaskAppointedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskAppointedDate.Location = new System.Drawing.Point(140, 142);
-            this.MaskAppointedDate.Mask = "   0000-00-00";
-            this.MaskAppointedDate.Name = "MaskAppointedDate";
-            this.MaskAppointedDate.Size = new System.Drawing.Size(117, 24);
-            this.MaskAppointedDate.TabIndex = 42;
+            this.MaskDtAppointedDt.Enabled = false;
+            this.MaskDtAppointedDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtAppointedDt.Location = new System.Drawing.Point(140, 142);
+            this.MaskDtAppointedDt.Mask = "   0000-00-00";
+            this.MaskDtAppointedDt.Name = "MaskDtAppointedDt";
+            this.MaskDtAppointedDt.Size = new System.Drawing.Size(117, 24);
+            this.MaskDtAppointedDt.TabIndex = 42;
             // 
-            // MaskResignedDate
+            // MaskDtResignedDt
             // 
-            this.MaskResignedDate.Enabled = false;
-            this.MaskResignedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskResignedDate.Location = new System.Drawing.Point(140, 175);
-            this.MaskResignedDate.Mask = "   0000-00-00";
-            this.MaskResignedDate.Name = "MaskResignedDate";
-            this.MaskResignedDate.Size = new System.Drawing.Size(117, 24);
-            this.MaskResignedDate.TabIndex = 43;
+            this.MaskDtResignedDt.Enabled = false;
+            this.MaskDtResignedDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtResignedDt.Location = new System.Drawing.Point(140, 175);
+            this.MaskDtResignedDt.Mask = "   0000-00-00";
+            this.MaskDtResignedDt.Name = "MaskDtResignedDt";
+            this.MaskDtResignedDt.Size = new System.Drawing.Size(117, 24);
+            this.MaskDtResignedDt.TabIndex = 43;
             // 
             // ComboPost
             // 
@@ -514,7 +514,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.BtnSearch);
-            this.groupBox2.Controls.Add(this.MaskDateOfBirth);
+            this.groupBox2.Controls.Add(this.MaskDtDOB);
             this.groupBox2.Controls.Add(this.ComboEducation);
             this.groupBox2.Controls.Add(this.ComboBloodGroup);
             this.groupBox2.Controls.Add(this.RichAge);
@@ -564,15 +564,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.UseVisualStyleBackColor = false;
             this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // MaskDateOfBirth
+            // MaskDtDOB
             // 
-            this.MaskDateOfBirth.Enabled = false;
-            this.MaskDateOfBirth.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDateOfBirth.Location = new System.Drawing.Point(130, 322);
-            this.MaskDateOfBirth.Mask = "   0000-00-00";
-            this.MaskDateOfBirth.Name = "MaskDateOfBirth";
-            this.MaskDateOfBirth.Size = new System.Drawing.Size(125, 24);
-            this.MaskDateOfBirth.TabIndex = 41;
+            this.MaskDtDOB.Enabled = false;
+            this.MaskDtDOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtDOB.Location = new System.Drawing.Point(130, 322);
+            this.MaskDtDOB.Mask = "   0000-00-00";
+            this.MaskDtDOB.Name = "MaskDtDOB";
+            this.MaskDtDOB.Size = new System.Drawing.Size(125, 24);
+            this.MaskDtDOB.TabIndex = 41;
             // 
             // ComboEducation
             // 
@@ -884,10 +884,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox5.Controls.Add(this.BtnSearchSalaryDetails);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Controls.Add(this.label15);
-            this.groupBox5.Controls.Add(this.MaskAppointedDate);
+            this.groupBox5.Controls.Add(this.MaskDtAppointedDt);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Controls.Add(this.MaskResignedDate);
+            this.groupBox5.Controls.Add(this.MaskDtResignedDt);
             this.groupBox5.Controls.Add(this.label21);
             this.groupBox5.Controls.Add(this.ComboPostStatus);
             this.groupBox5.ForeColor = System.Drawing.Color.Red;
@@ -976,9 +976,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox ComboPost;
         private System.Windows.Forms.OpenFileDialog OpenEmployeeImageDialog;
         private System.Windows.Forms.ComboBox ComboEducation;
-        private System.Windows.Forms.MaskedTextBox MaskDateOfBirth;
-        private System.Windows.Forms.MaskedTextBox MaskAppointedDate;
-        private System.Windows.Forms.MaskedTextBox MaskResignedDate;
+        private System.Windows.Forms.MaskedTextBox MaskDtDOB;
+        private System.Windows.Forms.MaskedTextBox MaskDtAppointedDt;
+        private System.Windows.Forms.MaskedTextBox MaskDtResignedDt;
         private CustomControls.Button.CustomButton BtnSearch;
         private CustomControls.Button.CustomButton BtnSearchSalaryDetails;
         private CustomControls.Button.CustomButton BtnAddImage;

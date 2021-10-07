@@ -114,8 +114,7 @@ namespace GrocerySupplyManagementApp.Forms
                 expenseFields.Add(new ExcelField() { Order = 15, Field = Constants.TOTAL, Value = expenses.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 excelData.Add(Constants.EXPENSE, expenseFields);
 
-                var fiscalYear = _setting.FiscalYear.Split('/');
-                var title = fiscalYear.Length == 2 ? (fiscalYear[0] + "-04-01 - " + _setting.StartingDate) : string.Empty;
+                var title = _endOfDay;
                 var sheetname = "Profit And Loss";
                 var filename = SaveFileDialog.FileName;
 
@@ -175,12 +174,7 @@ namespace GrocerySupplyManagementApp.Forms
             List<IncomeExpenseView> incomeExpenseView;
             try
             {
-                var endOfDay = MaskDtEOD.Text;
-
-                if (!string.IsNullOrWhiteSpace(endOfDay.Replace("-", string.Empty).Trim()))
-                {
-                    endOfDay = endOfDay.Trim();
-                }
+                var endOfDay = UtilityService.GetDate(MaskDtEOD.Text);
 
                 var totalPurchaseBonus = _userTransactionService
                     .GetPurchaseBonus(new IncomeTransactionFilter() { DateTo = endOfDay })
@@ -262,12 +256,7 @@ namespace GrocerySupplyManagementApp.Forms
             List<IncomeExpenseView> incomeExpenseView;
             try
             {
-                var endOfDay = MaskDtEOD.Text;
-
-                if (!string.IsNullOrWhiteSpace(endOfDay.Replace("-", string.Empty).Trim()))
-                {
-                    endOfDay = endOfDay.Trim();
-                }
+                var endOfDay = UtilityService.GetDate(MaskDtEOD.Text);
 
                 var totalAsset = _userTransactionService
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET });

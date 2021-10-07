@@ -336,18 +336,8 @@ namespace GrocerySupplyManagementApp.Forms
                 supplierFilter.SupplierId = TxtSupplierId.Text;
             }
 
-            var dateFrom = MaskEndOfDayFrom.Text;
-            var dateTo = MaskEndOfDayTo.Text;
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                supplierFilter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
-            {
-                supplierFilter.DateTo = dateTo.Trim();
-            }
-
+            supplierFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
+            supplierFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
             supplierFilter.Action = ComboAction.Text;
 
             var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);

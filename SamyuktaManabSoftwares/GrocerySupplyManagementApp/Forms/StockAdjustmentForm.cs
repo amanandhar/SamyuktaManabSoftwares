@@ -3,7 +3,9 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -17,6 +19,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IStockService _stockService;
+        private readonly IStockAdjustmentService _stockAdjustmentService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -38,7 +42,8 @@ namespace GrocerySupplyManagementApp.Forms
         public StockAdjustmentForm(string username, ISettingService settingService,
             IItemService itemService, IPricedItemService pricedItemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
-            IUserTransactionService userTransactionService)
+            IUserTransactionService userTransactionService, IStockService stockService,
+            IStockAdjustmentService stockAdjustmentService)
         {
             InitializeComponent();
 
@@ -48,6 +53,8 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _stockService = stockService;
+            _stockAdjustmentService = stockAdjustmentService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -73,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnClear_Click(object sender, EventArgs e)
         {
-            ClearFields();
+            ClearAllFields();
         }
 
         private void BtnEdit_Click(object sender, EventArgs e)
@@ -86,6 +93,29 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var date = DateTime.Now;
+                var stockAdjustment = new StockAdjustment
+                {
+                    EndOfDay = _endOfDay,
+                    ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
+                    Unit = TxtBoxItemUnit.Text,
+                    Action = ComboAction.Text,
+                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0 : Convert.ToInt64(TxtBoxItemQuantity.Text),
+                    Price = string.IsNullOrWhiteSpace(TxtItemPrice.Text.Trim()) ? 0 : Convert.ToInt64(TxtItemPrice.Text),
+                    AddedBy = _username,
+                    AddedDate = date
+                };
+
+                _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
+
+                DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (result == DialogResult.OK)
+                {
+                    ClearAllFields();
+                    EnableFields(Action.None);
+                    EnableFields(Action.Save);
+                }
+                /*
                 var date = DateTime.Now;
                 var purchasedItem = new PurchasedItem
                 {
@@ -123,6 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _userTransactionService.AddUserTransaction(userTransaction);
+                */
             }
             catch(Exception ex)
             {
@@ -136,12 +167,37 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var stockFilter = new StockFilter()
+                {
+                    ItemCode = TxtBoxItemCode.Text.Trim()
+                };
+
+                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+                var stockViewList = new List<StockView>();
+                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList())
+                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
+                        .ToList();
+                }
+                else
+                {
+                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
+                }
+
+                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
+                    .ToList();
+
+                var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
+
                 var pricedItem = _pricedItemService.GetPricedItem(pricedId);
                 var item = _itemService.GetItem(pricedItem.ItemId);
                 TxtBoxItemCode.Text = item.Code;
                 TxtBoxItemName.Text = item.Name;
                 TxtBoxItemBrand.Text = item.Brand;
                 TxtBoxItemUnit.Text = pricedItem.CustomUnit;
+                TxtItemPrice.Text = perUnitValue.ToString();
 
                 EnableFields();
                 EnableFields(Action.PopulateItem);
@@ -152,7 +208,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void ClearFields()
+        private void ClearAllFields()
         {
             TxtBoxItemCode.Clear();
             TxtBoxItemName.Clear();

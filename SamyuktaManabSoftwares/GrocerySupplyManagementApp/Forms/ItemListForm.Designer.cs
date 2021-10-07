@@ -123,6 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.DataGridItemList);
             this.Location = new System.Drawing.Point(725, 312);
+            this.MaximizeBox = false;
             this.Name = "ItemListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ItemListForm_Load);

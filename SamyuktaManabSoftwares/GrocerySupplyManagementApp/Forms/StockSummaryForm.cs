@@ -20,6 +20,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemItemService;
         private readonly IStockService _stockService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IStockAdjustmentService _stockAdjustmentService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -30,7 +31,8 @@ namespace GrocerySupplyManagementApp.Forms
             ISettingService settingService, IItemService itemService,
             IPricedItemService pricedItemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemItemService, 
-            IStockService stockService, IUserTransactionService userTransactionService)
+            IStockService stockService, IUserTransactionService userTransactionService,
+            IStockAdjustmentService stockAdjustmentService)
         {
             InitializeComponent();
 
@@ -41,6 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemItemService = soldItemItemService;
             _stockService = stockService;
             _userTransactionService = userTransactionService;
+            _stockAdjustmentService = stockAdjustmentService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -74,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
             var stockAdjustmentForm = new StockAdjustmentForm(_username, _settingService, 
                 _itemService, _pricedItemService, 
                 _purchasedItemService, _soldItemItemService, 
-                _userTransactionService);
+                _userTransactionService, _stockService, _stockAdjustmentService);
             stockAdjustmentForm.ShowDialog();
         }
         #endregion
@@ -160,25 +163,19 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItems()
         {
-            var stockFilter = new StockFilter();
-            var dateFrom = MaskDtEODFrom.Text;
-            var dateTo = MaskDtEODTo.Text;
-
-            if (!string.IsNullOrWhiteSpace(dateFrom.Replace("-", string.Empty).Trim()))
+            var stockFilter = new StockFilter
             {
-                stockFilter.DateFrom = dateFrom.Trim();
-            }
-
-            if (!string.IsNullOrWhiteSpace(dateTo.Replace("-", string.Empty).Trim()))
-            {
-                stockFilter.DateTo = dateTo.Trim();
-            }
-
-            stockFilter.ItemCode = ComboItemCode.Text;
+                DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text),
+                DateTo = UtilityService.GetDate(MaskDtEODTo.Text),
+                ItemCode = ComboItemCode.Text
+            };
 
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter).ToString();
             TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter).ToString();
-            TxtStock.Text = (Convert.ToDecimal(TxtPurchase.Text) - Convert.ToDecimal(TxtSales.Text)).ToString();
+            TxtBoxAdded.Text = _stockAdjustmentService.GetAddedStockTotalQuantity(stockFilter).ToString();
+            TxtBoxDeducted.Text = _stockAdjustmentService.GetDeductedStockTotalQuantity(stockFilter).ToString();
+            TxtStock.Text = ((Convert.ToInt64(TxtPurchase.Text) + Convert.ToInt64(TxtBoxAdded.Text))
+                - (Convert.ToInt64(TxtBoxDeducted.Text) + Convert.ToDecimal(TxtSales.Text))).ToString();
 
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var stockViewList = new List<StockView>();
