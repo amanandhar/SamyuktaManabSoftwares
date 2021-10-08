@@ -398,10 +398,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboMaritalStatus.Enabled = false;
             this.ComboMaritalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboMaritalStatus.FormattingEnabled = true;
-            this.ComboMaritalStatus.Items.AddRange(new object[] {
-            "Please Select ",
-            "Single",
-            "Married"});
             this.ComboMaritalStatus.Location = new System.Drawing.Point(139, 137);
             this.ComboMaritalStatus.Name = "ComboMaritalStatus";
             this.ComboMaritalStatus.Size = new System.Drawing.Size(260, 28);
@@ -412,10 +408,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboGender.Enabled = false;
             this.ComboGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboGender.FormattingEnabled = true;
-            this.ComboGender.Items.AddRange(new object[] {
-            "Please Select ",
-            "Male",
-            "Female"});
             this.ComboGender.Location = new System.Drawing.Point(139, 99);
             this.ComboGender.Name = "ComboGender";
             this.ComboGender.Size = new System.Drawing.Size(260, 28);
@@ -477,9 +469,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPost.Enabled = false;
             this.ComboPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboPost.FormattingEnabled = true;
-            this.ComboPost.Items.AddRange(new object[] {
-            "Please Select ",
-            "Delivery Person"});
             this.ComboPost.Location = new System.Drawing.Point(140, 26);
             this.ComboPost.Name = "ComboPost";
             this.ComboPost.Size = new System.Drawing.Size(260, 28);
@@ -490,11 +479,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPostStatus.Enabled = false;
             this.ComboPostStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboPostStatus.FormattingEnabled = true;
-            this.ComboPostStatus.Items.AddRange(new object[] {
-            "Please Select ",
-            "Dailyways",
-            "Temporary",
-            "Permanent"});
             this.ComboPostStatus.Location = new System.Drawing.Point(140, 62);
             this.ComboPostStatus.Name = "ComboPostStatus";
             this.ComboPostStatus.Size = new System.Drawing.Size(260, 28);
@@ -604,16 +588,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBloodGroup.Enabled = false;
             this.ComboBloodGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBloodGroup.FormattingEnabled = true;
-            this.ComboBloodGroup.Items.AddRange(new object[] {
-            "Please Select ",
-            "A+",
-            "A-",
-            "B+",
-            "B-",
-            "O+",
-            "O-",
-            "AB+",
-            "AB-"});
             this.ComboBloodGroup.Location = new System.Drawing.Point(130, 395);
             this.ComboBloodGroup.Name = "ComboBloodGroup";
             this.ComboBloodGroup.Size = new System.Drawing.Size(125, 28);

@@ -129,7 +129,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddBank_Click(object sender, EventArgs e)
         {
-            //EnableFields(Action.Add, true);
             TxtBankName.Focus();
         }
 
@@ -289,7 +288,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        #region Helper Method
+        #region Helper Methods
         private List<BankTransactionView> GetBankTransaction()
         {
             var bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
@@ -375,6 +374,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadDepositTypes()
         {
+            ComboDepositType.Items.Clear();
             ComboDepositType.ValueMember = "Id";
             ComboDepositType.DisplayMember = "Value";
 
@@ -383,6 +383,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadActionTypes()
         {
+            ComboActionType.Items.Clear();
             ComboActionType.ValueMember = "Id";
             ComboActionType.DisplayMember = "Value";
 

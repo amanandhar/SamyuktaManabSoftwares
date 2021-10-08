@@ -263,6 +263,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadIncomes()
         {
+            ComboIncome.Items.Clear();
             ComboIncome.ValueMember = "Id";
             ComboIncome.DisplayMember = "Value";
 
@@ -270,10 +271,12 @@ namespace GrocerySupplyManagementApp.Forms
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
+            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.STOCK_ADJUSTMENT, Value = Constants.STOCK_ADJUSTMENT });
         }
 
         private void LoadBanks()
         {
+            ComboBank.Items.Clear();
             var banks = _bankService.GetBanks().ToList();
             if (banks.Count > 0)
             {
@@ -287,10 +290,5 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
-
-        private void DataGridIncomeList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

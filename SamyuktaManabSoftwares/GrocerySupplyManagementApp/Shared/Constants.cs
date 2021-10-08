@@ -49,7 +49,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string MEMBER_FEE = "Member Fee";
         public const string OTHER_INCOME = "Other Income";
         public const string SALES_PROFIT = "Sales Profit";
-        
+        public const string STOCK_ADJUSTMENT = "Stock Adjustment";
         
         public const string BONUS = "Bonus";
         public const string BONUS_PREFIX = "BS";
@@ -150,5 +150,45 @@ namespace GrocerySupplyManagementApp.Shared
         public const string CATEGORY_X = "X";
         public const string CATEGORY_Y = "Y";
         public const string CATEGORY_Z = "Z";
+
+        // Eduction 
+        public const string EDUCATION_FIVE = "Five";
+        public const string EDUCATION_SIX = "Six";
+        public const string EDUCATION_SEVEN = "Seven";
+        public const string EDUCATION_EIGHT = "Eight";
+        public const string EDUCATION_NINE = "Nine";
+        public const string EDUCATION_SEE = "SEE";
+        public const string EDUCATION_A_LEVEL = "A Level";
+        public const string EDUCATION_PLUS_2 = "Plus 2";
+        public const string EDUCATION_INTERMEDIATE = "Intermediate";
+        public const string EDUCATION_BACHELORS = "Bachelors";
+        public const string EDUCATION_MASTERS = "Masters";
+        public const string EDUCATION_PHD = "PHD";
+        public const string EDUCATION_NONE = "None";
+
+        // Blood Group
+        public const string BLOOD_GROUP_A_POSITIVE = "A+";
+        public const string BLOOD_GROUP_A_NEGATIVE = "A-";
+        public const string BLOOD_GROUP_B_POSITIVE = "B+";
+        public const string BLOOD_GROUP_B_NEGATIVE = "B-";
+        public const string BLOOD_GROUP_O_POSITIVE = "O+";
+        public const string BLOOD_GROUP_O_NEGATIVE = "O-";
+        public const string BLOOD_GROUP_AB_POSITIVE = "AB+";
+        public const string BLOOD_GROUP_AB_NEGATIVE = "AB-";
+
+        // Gender
+        public const string MALE = "Male";
+        public const string FEMALE = "Female";
+
+        // Marital Status
+        public const string SINGLE = "Single";
+        public const string MARRIED = "Married";
+        public const string DIVORCED = "Divorced";
+
+        // Post Status
+        public const string POST_STATUS_DAILY = "Daily";
+        public const string POST_STATUS_TEMPORARY = "Temporary";
+        public const string POST_STATUS_PERMANENT = "Permanent";
+
     }
 }

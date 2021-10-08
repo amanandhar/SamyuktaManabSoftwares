@@ -1108,7 +1108,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var deliveryPersons = _employeeService.GetDeliveryPersons().ToList();
-
+                ComboDeliveryPerson.Items.Clear();
                 ComboDeliveryPerson.ValueMember = "Id";
                 ComboDeliveryPerson.DisplayMember = "Value";
 

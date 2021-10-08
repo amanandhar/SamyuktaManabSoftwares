@@ -479,6 +479,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadUserTypes()
         {
+            ComboUserType.Items.Clear();
             ComboUserType.ValueMember = "Id";
             ComboUserType.DisplayMember = "Value";
 

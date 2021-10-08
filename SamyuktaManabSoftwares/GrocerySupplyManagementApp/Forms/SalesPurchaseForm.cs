@@ -100,6 +100,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadActions()
         {
+            ComboAction.Items.Clear();
             ComboAction.ValueMember = "Id";
             ComboAction.DisplayMember = "Value";
 

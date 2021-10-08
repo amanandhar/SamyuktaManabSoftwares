@@ -641,6 +641,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         public void LoadActions()
         {
+            ComboAction.Items.Clear();
             ComboAction.ValueMember = "Id";
             ComboAction.DisplayMember = "Value";
 
@@ -650,6 +651,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         public void LoadPayments()
         {
+            ComboAction.Items.Clear();
             ComboPayment.ValueMember = "Id";
             ComboPayment.DisplayMember = "Value";
 

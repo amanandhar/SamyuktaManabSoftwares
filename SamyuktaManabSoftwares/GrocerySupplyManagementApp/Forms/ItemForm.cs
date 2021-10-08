@@ -351,6 +351,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItemUnits()
         {
+            ComboUnit.Items.Clear();
             ComboUnit.ValueMember = "Id";
             ComboUnit.DisplayMember = "Value";
 
@@ -368,6 +369,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItemCategoris()
         {
+            ComboCategory.Items.Clear();
             ComboCategory.ValueMember = "Id";
             ComboCategory.DisplayMember = "Value";
 

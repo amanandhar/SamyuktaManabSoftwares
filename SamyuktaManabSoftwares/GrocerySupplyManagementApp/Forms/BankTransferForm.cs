@@ -152,6 +152,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                ComboBank.Items.Clear();
                 _banks = _bankService.GetBanks().ToList();
 
                 ComboBank.ValueMember = "Id";

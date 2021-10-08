@@ -16,8 +16,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
@@ -41,7 +39,6 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public StockAdjustmentForm(string username, ISettingService settingService,
             IItemService itemService, IPricedItemService pricedItemService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService, IStockService stockService,
             IStockAdjustmentService stockAdjustmentService)
         {
@@ -50,8 +47,6 @@ namespace GrocerySupplyManagementApp.Forms
             _settingService = settingService;
             _itemService = itemService;
             _pricedItemService = pricedItemService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
             _stockAdjustmentService = stockAdjustmentService;
@@ -68,6 +63,13 @@ namespace GrocerySupplyManagementApp.Forms
             LoadStockActions();
             EnableFields();
             EnableFields(Action.Load);
+        }
+        #endregion
+
+        #region Combo Box Event
+        private void ComboAction_SelectedValueChanged(object sender, EventArgs e)
+        {
+            TxtBoxItemQuantity.Focus();
         }
         #endregion
 
@@ -101,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Unit = TxtBoxItemUnit.Text,
                     Action = ComboAction.Text,
                     Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemQuantity.Text),
-                    Price = string.IsNullOrWhiteSpace(TxtItemPrice.Text.Trim()) ? 0 : Convert.ToInt64(TxtItemPrice.Text),
+                    Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? 0 : Convert.ToInt64(TxtBoxItemPrice.Text),
                     AddedBy = _username,
                     AddedDate = date
                 };
@@ -167,9 +169,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var pricedItem = _pricedItemService.GetPricedItem(pricedId);
+                var item = _itemService.GetItem(pricedItem.ItemId);
+
                 var stockFilter = new StockFilter()
                 {
-                    ItemCode = TxtBoxItemCode.Text.Trim()
+                    ItemCode = item.Code
                 };
 
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
@@ -191,13 +196,11 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
 
-                var pricedItem = _pricedItemService.GetPricedItem(pricedId);
-                var item = _itemService.GetItem(pricedItem.ItemId);
                 TxtBoxItemCode.Text = item.Code;
                 TxtBoxItemName.Text = item.Name;
                 TxtBoxItemBrand.Text = item.Brand;
                 TxtBoxItemUnit.Text = pricedItem.CustomUnit;
-                TxtItemPrice.Text = perUnitValue.ToString();
+                TxtBoxItemPrice.Text = perUnitValue.ToString();
 
                 EnableFields();
                 EnableFields(Action.PopulateItem);
@@ -260,6 +263,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtBoxItemName.Enabled = false;
                 TxtBoxItemBrand.Enabled = false;
                 TxtBoxItemUnit.Enabled = false;
+                TxtBoxItemPrice.Enabled = false;
                 ComboAction.Enabled = false;
                 TxtBoxItemQuantity.Enabled = false;
 
@@ -271,5 +275,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        
     }
 }

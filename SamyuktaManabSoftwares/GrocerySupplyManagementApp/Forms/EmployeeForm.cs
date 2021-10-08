@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
@@ -51,6 +52,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void EmployeeForm_Load(object sender, EventArgs e)
         {
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
+            
+            LoadEducations();
+            LoadBloodGroups();
+            LoadGenders();
+            LoadMaritalStatus();
+            LoadPost();
+            LoadPostStatus();
             EnableFields(Action.Load);
         }
         #endregion
@@ -472,6 +480,84 @@ namespace GrocerySupplyManagementApp.Forms
             MaskDtAppointedDt.Clear();
             MaskDtResignedDt.Clear();
             PicBoxEmployeeImage.Image = null;
+        }
+
+        private void LoadEducations()
+        {
+            ComboEducation.Items.Clear();
+            ComboEducation.ValueMember = "Id";
+            ComboEducation.DisplayMember = "Value";
+
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_FIVE, Value = Constants.EDUCATION_FIVE });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_SIX, Value = Constants.EDUCATION_SIX });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_SEVEN, Value = Constants.EDUCATION_SEVEN });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_EIGHT, Value = Constants.EDUCATION_EIGHT });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_NINE, Value = Constants.EDUCATION_NINE });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_SEE, Value = Constants.EDUCATION_SEE });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_A_LEVEL, Value = Constants.EDUCATION_A_LEVEL });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_PLUS_2, Value = Constants.EDUCATION_PLUS_2 });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_INTERMEDIATE, Value = Constants.EDUCATION_INTERMEDIATE });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_BACHELORS, Value = Constants.EDUCATION_BACHELORS });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_MASTERS, Value = Constants.EDUCATION_MASTERS });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_PHD, Value = Constants.EDUCATION_PHD });
+            ComboEducation.Items.Add(new ComboBoxItem { Id = Constants.EDUCATION_NONE, Value = Constants.EDUCATION_NONE });
+        }
+
+        private void LoadBloodGroups()
+        {
+            ComboBloodGroup.Items.Clear();
+            ComboBloodGroup.ValueMember = "Id";
+            ComboBloodGroup.DisplayMember = "Value";
+
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_A_POSITIVE, Value = Constants.BLOOD_GROUP_A_POSITIVE });
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_A_NEGATIVE, Value = Constants.BLOOD_GROUP_A_NEGATIVE });
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_B_POSITIVE, Value = Constants.BLOOD_GROUP_B_POSITIVE });
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_B_NEGATIVE, Value = Constants.BLOOD_GROUP_B_NEGATIVE });
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_O_POSITIVE, Value = Constants.BLOOD_GROUP_O_POSITIVE });
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_O_NEGATIVE, Value = Constants.BLOOD_GROUP_O_NEGATIVE });
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_AB_POSITIVE, Value = Constants.BLOOD_GROUP_AB_POSITIVE });
+            ComboBloodGroup.Items.Add(new ComboBoxItem { Id = Constants.BLOOD_GROUP_AB_NEGATIVE, Value = Constants.BLOOD_GROUP_AB_NEGATIVE });
+        }
+
+        private void LoadGenders()
+        {
+            ComboGender.Items.Clear();
+            ComboGender.ValueMember = "Id";
+            ComboGender.DisplayMember = "Value";
+
+            ComboGender.Items.Add(new ComboBoxItem { Id = Constants.MALE, Value = Constants.MALE });
+            ComboGender.Items.Add(new ComboBoxItem { Id = Constants.FEMALE, Value = Constants.FEMALE });
+        }
+
+        private void LoadMaritalStatus()
+        {
+            ComboMaritalStatus.Items.Clear();
+            ComboMaritalStatus.ValueMember = "Id";
+            ComboMaritalStatus.DisplayMember = "Value";
+
+            ComboMaritalStatus.Items.Add(new ComboBoxItem { Id = Constants.SINGLE, Value = Constants.SINGLE });
+            ComboMaritalStatus.Items.Add(new ComboBoxItem { Id = Constants.MARRIED, Value = Constants.MARRIED });
+            ComboMaritalStatus.Items.Add(new ComboBoxItem { Id = Constants.DIVORCED, Value = Constants.DIVORCED });
+        }
+
+        private void LoadPost()
+        {
+            ComboPost.Items.Clear();
+            ComboPost.ValueMember = "Id";
+            ComboPost.DisplayMember = "Value";
+
+            ComboPost.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_PERSON, Value = Constants.DELIVERY_PERSON });
+        }
+
+        private void LoadPostStatus()
+        {
+            ComboPostStatus.Items.Clear();
+            ComboPostStatus.ValueMember = "Id";
+            ComboPostStatus.DisplayMember = "Value";
+
+            ComboPostStatus.Items.Add(new ComboBoxItem { Id = Constants.POST_STATUS_DAILY, Value = Constants.POST_STATUS_DAILY });
+            ComboPostStatus.Items.Add(new ComboBoxItem { Id = Constants.POST_STATUS_TEMPORARY, Value = Constants.POST_STATUS_TEMPORARY });
+            ComboPostStatus.Items.Add(new ComboBoxItem { Id = Constants.POST_STATUS_PERMANENT, Value = Constants.POST_STATUS_PERMANENT });
         }
         #endregion
     }

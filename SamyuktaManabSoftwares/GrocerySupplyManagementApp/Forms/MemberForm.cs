@@ -82,6 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
+            LoadReceiptTypes();
             EnableFields(Action.None);
             EnableFields(Action.Load);
             var memberId = TxtMemberId.Text;
@@ -434,6 +435,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var banks = _bankService.GetBanks().ToList();
                     if (banks.Count > 0)
                     {
+                        ComboBank.Items.Clear();
                         ComboBank.ValueMember = "Id";
                         ComboBank.DisplayMember = "Value";
 
@@ -673,6 +675,16 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(Action.PopulateMember);
             var memberTransactionViewList = GetMemberTransactions(memberId);
             LoadMemberTransactions(memberTransactionViewList);
+        }
+
+        private void LoadReceiptTypes()
+        {
+            ComboReceipt.Items.Clear();
+            ComboReceipt.ValueMember = "Id";
+            ComboReceipt.DisplayMember = "Value";
+
+            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
         }
 
         #endregion

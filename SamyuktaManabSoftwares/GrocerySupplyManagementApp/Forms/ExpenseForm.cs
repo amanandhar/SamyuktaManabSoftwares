@@ -324,6 +324,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadExpenses()
         {
+            ComboExpense.Items.Clear();
             ComboExpense.ValueMember = "Id";
             ComboExpense.DisplayMember = "Value";
 
@@ -339,11 +340,13 @@ namespace GrocerySupplyManagementApp.Forms
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.SALES_RETURN, Value = Constants.SALES_RETURN });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.STAFF_ALLOWANCE, Value = Constants.STAFF_ALLOWANCE });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.STAFF_SALARY, Value = Constants.STAFF_SALARY });
+            ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.STOCK_ADJUSTMENT, Value = Constants.STOCK_ADJUSTMENT });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.TELEPHONE_INTERNET, Value = Constants.TELEPHONE_INTERNET });
         }
 
         private void LoadPayments()
         {
+            ComboPayment.Items.Clear();
             ComboPayment.ValueMember = "Id";
             ComboPayment.DisplayMember = "Value";
 

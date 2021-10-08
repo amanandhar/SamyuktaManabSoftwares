@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Helper Events
+        #region Helper Methods
         private void LoadCompanyInfo()
         {
             var companyInfo = _companyInfoService.GetCompanyInfo();

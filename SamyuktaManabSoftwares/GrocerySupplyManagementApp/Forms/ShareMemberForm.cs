@@ -77,6 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(Action.None);
             EnableFields(Action.Load);
             LoadBanks();
+            LoadNarration();
         }
         #endregion
 
@@ -401,7 +402,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var _banks = _bankService.GetBanks().ToList();
-
+                ComboBank.Items.Clear();
                 ComboBank.ValueMember = "Id";
                 ComboBank.DisplayMember = "Value";
 
@@ -415,6 +416,15 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 throw ex;
             }
+        }
+
+        private void LoadNarration()
+        {
+            ComboNarration.Items.Clear();
+            ComboNarration.ValueMember = "Id";
+            ComboNarration.DisplayMember = "Value";
+
+            ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CAPITAL, Value = Constants.SHARE_CAPITAL });
         }
         
         private List<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)

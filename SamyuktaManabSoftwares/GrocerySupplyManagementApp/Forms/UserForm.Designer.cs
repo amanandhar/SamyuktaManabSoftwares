@@ -33,6 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TxtUsername = new System.Windows.Forms.TextBox();
             this.TxtConfirmPassword = new System.Windows.Forms.TextBox();
             this.TxtPassword = new System.Windows.Forms.TextBox();
             this.ComboUserType = new System.Windows.Forms.ComboBox();
@@ -53,14 +54,13 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkSettings = new System.Windows.Forms.CheckBox();
             this.ChkReports = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.TxtUsername = new System.Windows.Forms.TextBox();
             this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnUpdate = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -119,6 +119,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "User Information";
             // 
+            // TxtUsername
+            // 
+            this.TxtUsername.Enabled = false;
+            this.TxtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtUsername.Location = new System.Drawing.Point(112, 23);
+            this.TxtUsername.Name = "TxtUsername";
+            this.TxtUsername.Size = new System.Drawing.Size(170, 29);
+            this.TxtUsername.TabIndex = 40;
+            // 
             // TxtConfirmPassword
             // 
             this.TxtConfirmPassword.Enabled = false;
@@ -146,8 +155,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUserType.Enabled = false;
             this.ComboUserType.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboUserType.FormattingEnabled = true;
-            this.ComboUserType.Items.AddRange(new object[] {
-            "Please Select"});
             this.ComboUserType.Location = new System.Drawing.Point(435, 22);
             this.ComboUserType.Name = "ComboUserType";
             this.ComboUserType.Size = new System.Drawing.Size(170, 32);
@@ -379,36 +386,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(-1, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1104, 44);
-            this.textBox1.TabIndex = 7;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Cyan;
-            this.label6.Location = new System.Drawing.Point(445, 4);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(251, 31);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "User Management";
-            // 
-            // TxtUsername
-            // 
-            this.TxtUsername.Enabled = false;
-            this.TxtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtUsername.Location = new System.Drawing.Point(112, 23);
-            this.TxtUsername.Name = "TxtUsername";
-            this.TxtUsername.Size = new System.Drawing.Size(170, 29);
-            this.TxtUsername.TabIndex = 40;
-            // 
             // BtnDelete
             // 
             this.BtnDelete.BackColor = System.Drawing.Color.Red;
@@ -508,6 +485,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.TextColor = System.Drawing.Color.White;
             this.BtnAdd.UseVisualStyleBackColor = false;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(-1, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1104, 44);
+            this.textBox1.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Cyan;
+            this.label6.Location = new System.Drawing.Point(445, 4);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(251, 31);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "User Management";
             // 
             // UserForm
             // 
