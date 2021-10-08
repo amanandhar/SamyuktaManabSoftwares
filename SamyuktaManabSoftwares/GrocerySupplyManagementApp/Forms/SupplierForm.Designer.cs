@@ -781,7 +781,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddDiscount.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.BtnAddDiscount.BorderRadius = 35;
             this.BtnAddDiscount.BorderSize = 0;
-            this.BtnAddDiscount.Enabled = false;
             this.BtnAddDiscount.FlatAppearance.BorderSize = 0;
             this.BtnAddDiscount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

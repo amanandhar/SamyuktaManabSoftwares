@@ -107,8 +107,56 @@ namespace GrocerySupplyManagementApp.Forms
                     AddedBy = _username,
                     AddedDate = date
                 };
-
                 _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
+
+                if(ComboAction.Text == Constants.DEDUCT)
+                {
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        Action = Constants.EXPENSE,
+                        ActionType = Constants.ACTION_TYPE_NONE,
+                        Bank = null,
+                        IncomeExpense = Constants.STOCK_ADJUSTMENT,
+                        Narration = null,
+                        SubTotal = 0.00m,
+                        DiscountPercent = 0.00m,
+                        Discount = 0.00m,
+                        VatPercent = 0.00m,
+                        Vat = 0.00m,
+                        DeliveryChargePercent = 0.00m,
+                        DeliveryCharge = 0.00m,
+                        DueAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
+                        ReceivedAmount = 0.00m,
+                        AddedBy = _username,
+                        AddedDate = date
+                    };
+                    _userTransactionService.AddUserTransaction(userTransaction);
+                }
+                else if(ComboAction.Text == Constants.ADD)
+                {
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        Action = Constants.INCOME,
+                        ActionType = Constants.ACTION_TYPE_NONE,
+                        Bank = null,
+                        IncomeExpense = Constants.STOCK_ADJUSTMENT,
+                        Narration = null,
+                        SubTotal = 0.00m,
+                        DiscountPercent = 0.00m,
+                        Discount = 0.00m,
+                        VatPercent = 0.00m,
+                        Vat = 0.00m,
+                        DeliveryChargePercent = 0.00m,
+                        DeliveryCharge = 0.00m,
+                        DueAmount = 0.00m,
+                        ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
+                        AddedBy = _username,
+                        AddedDate = date
+                    };
+                    _userTransactionService.AddUserTransaction(userTransaction);
+                }
 
                 DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
@@ -117,45 +165,6 @@ namespace GrocerySupplyManagementApp.Forms
                     EnableFields(Action.None);
                     EnableFields(Action.Save);
                 }
-                /*
-                var date = DateTime.Now;
-                var purchasedItem = new PurchasedItem
-                {
-                    EndOfDay = _endOfDay,
-                    SupplierId =  null,
-                    BillNo = null,
-                    ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
-                    Quantity = Convert.ToDecimal(TxtBoxItemQuantity.Text),
-                    Price = 0.00m,
-                    AddedBy = _username,
-                    AddedDate = date
-                };
-                _purchasedItemService.AddPurchasedItem(purchasedItem);
-
-
-                var userTransaction = new UserTransaction
-                {
-                    EndOfDay = _endOfDay,
-                    BillNo = null,
-                    SupplierId = null,
-                    Action = Constants.ADD,
-                    ActionType = null,
-                    IncomeExpense = null,
-                    SubTotal = 0.00m,
-                    DiscountPercent = 0.00m,
-                    Discount = 0.00m,
-                    VatPercent = 0.00m,
-                    Vat = 0.00m,
-                    DeliveryChargePercent = 0.00m,
-                    DeliveryCharge = 0.00m,
-                    DueAmount = 0.00m,
-                    ReceivedAmount = 0.00m,
-                    AddedBy = _username,
-                    AddedDate = date
-                };
-
-                _userTransactionService.AddUserTransaction(userTransaction);
-                */
             }
             catch(Exception ex)
             {
@@ -217,6 +226,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtBoxItemName.Clear();
             TxtBoxItemBrand.Clear();
             TxtBoxItemUnit.Clear();
+            TxtBoxItemPrice.Clear();
             ComboAction.Text = string.Empty;
             TxtBoxItemQuantity.Clear();
         }
@@ -274,7 +284,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
-
         
     }
 }

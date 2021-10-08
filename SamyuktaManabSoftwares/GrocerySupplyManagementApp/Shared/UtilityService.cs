@@ -85,10 +85,10 @@ namespace GrocerySupplyManagementApp.Shared
                 else
                 {
                     stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
-                    stockView.StockValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) 
+                    stockView.StockValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
                         ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) 
                         : stockViewList[index - 1].StockValue - Math.Round((stock.SalesQuantity * stockViewList[index - 1].PerUnitValue), 2);
-                    stockView.PerUnitValue = stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) 
+                    stockView.PerUnitValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
                         ? Math.Round(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
                         : stockViewList[index - 1].PerUnitValue;
                 }

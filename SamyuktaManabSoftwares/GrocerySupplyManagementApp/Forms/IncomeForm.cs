@@ -47,6 +47,7 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             LoadIncomes();
+            LoadFilterIncomes();
             LoadBanks();
         }
         #endregion
@@ -215,7 +216,6 @@ namespace GrocerySupplyManagementApp.Forms
             var income = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text;
             incomeTransactionFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
             incomeTransactionFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
-
             incomeTransactionFilter.Income = income;
 
             List<IncomeDetailView> incomeDetails;
@@ -239,6 +239,10 @@ namespace GrocerySupplyManagementApp.Forms
             else if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
             {
                 incomeDetails = _userTransactionService.GetSalesProfit(incomeTransactionFilter).ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.STOCK_ADJUSTMENT.ToLower()))
+            {
+                incomeDetails = _userTransactionService.GetIncome(incomeTransactionFilter).ToList();
             }
             else
             {
@@ -271,7 +275,20 @@ namespace GrocerySupplyManagementApp.Forms
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
-            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.STOCK_ADJUSTMENT, Value = Constants.STOCK_ADJUSTMENT });
+        }
+
+        private void LoadFilterIncomes()
+        {
+            ComboFilteredBy.Items.Clear();
+            ComboFilteredBy.ValueMember = "Id";
+            ComboFilteredBy.DisplayMember = "Value";
+
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.BONUS, Value = Constants.BONUS });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_CHARGE, Value = Constants.DELIVERY_CHARGE });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.STOCK_ADJUSTMENT, Value = Constants.STOCK_ADJUSTMENT });
         }
 
         private void LoadBanks()

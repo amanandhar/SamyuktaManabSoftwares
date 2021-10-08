@@ -164,20 +164,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboFilteredBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboFilteredBy.FormattingEnabled = true;
-            this.ComboFilteredBy.Items.AddRange(new object[] {
-            "Asset (Computer, Furniture etc.)",
-            "Delivery Charge",
-            "Electricity",
-            "Fuel & Transportation",
-            "Guest & Hospitality",
-            "Loan Fee & Interest",
-            "Miscellaneous",
-            "Office Rent ",
-            "Repair & Maintenance",
-            "Sales Discount",
-            "Staff  Allowance",
-            "Staff Salary ",
-            "Telephone & Internet"});
             this.ComboFilteredBy.Location = new System.Drawing.Point(167, 50);
             this.ComboFilteredBy.Name = "ComboFilteredBy";
             this.ComboFilteredBy.Size = new System.Drawing.Size(285, 26);

@@ -183,6 +183,7 @@
       <DependentUpon>EmployeeListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Interfaces\IEmployeeListForm.cs" />
+    <Compile Include="Forms\Interfaces\IPurchaseDiscountForm.cs" />
     <Compile Include="Forms\Interfaces\IShareMemberListForm.cs" />
     <Compile Include="Forms\Interfaces\IUnpricedItemListForm.cs" />
     <Compile Include="Forms\Interfaces\IUserListForm.cs" />

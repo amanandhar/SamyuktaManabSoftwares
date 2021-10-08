@@ -76,8 +76,11 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalSalesProfit = _userTransactionService
                     .GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay })
                     .ToList().Sum(x => x.Amount);
+                var totalStockAdjustmentIncome = _userTransactionService
+                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.STOCK_ADJUSTMENT })
+                    .ToList().Sum(x => x.Amount);
 
-                var totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
+                var totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustmentIncome;
 
                 var totalAsset = _userTransactionService
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET });
@@ -105,12 +108,14 @@ namespace GrocerySupplyManagementApp.Forms
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_ALLOWANCE });
                 var totalStaffSalary = _userTransactionService
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_SALARY });
+                var totalStockAdjustmentExpense = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STOCK_ADJUSTMENT });
                 var totalTelephoneInternet = _userTransactionService
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.TELEPHONE_INTERNET });
 
                 var totalExpense = totalAsset + totalDeliveryChargeExpense + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
-                    + totalSalesDiscount + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
+                    + totalSalesDiscount + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalStockAdjustmentExpense + totalTelephoneInternet;
 
                 var shareCapital = _bankTransactionService
                     .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1',  Narration = Constants.SHARE_CAPITAL });
@@ -173,7 +178,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 RichCashInHand.Text = cashInHand.ToString();
                 RichBankAccount.Text = bankAccount.ToString();
-                RichStockValue.Text = stockValue.ToString("#.00");
+                RichStockValue.Text = stockValue.ToString("#0.00");
                 RichReceivableAmount.Text = receivableAmount.ToString();
                 RichNetLoss.Text = netLoss.ToString();
                 RichAssetsBalance.Text = assetsBalance.ToString();

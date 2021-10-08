@@ -227,7 +227,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @ItemId, @Unit, @Action, @Quantity, @Price, @AddedBy, @AddedDate] " +
+                        "@EndOfDay, @ItemId, @Unit, @Action, @Quantity, @Price, @AddedBy, @AddedDate " +
                     ") ";
             try
             {

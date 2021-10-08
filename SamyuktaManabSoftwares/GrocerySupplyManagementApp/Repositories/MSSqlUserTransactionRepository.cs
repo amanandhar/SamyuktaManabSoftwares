@@ -1546,7 +1546,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += " ";
             }
 
-            query += "ORDER BY ut.[AddedDate] DESC";
+            query += "ORDER BY ut.[Id] DESC";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -1594,7 +1594,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Id], [EndOfDay], [Bank], [IncomeExpense], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [Action] = '" + Constants.RECEIPT + "' " +
+                "AND [Action] = '" + Constants.INCOME + "' " +
                 "AND [IncomeExpense] IS NOT NULL ";
 
             if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateFrom))

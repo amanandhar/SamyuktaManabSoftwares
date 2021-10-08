@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class SupplierForm : Form
+    public partial class SupplierForm : Form, IPurchaseDiscountForm
     {
         private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
@@ -378,8 +379,22 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddDiscount_Click(object sender, EventArgs e)
         {
-            PurchaseDiscountForm purchaseDiscountForm = new PurchaseDiscountForm();
-            purchaseDiscountForm.ShowDialog();
+            try
+            {
+                if (DataGridSupplierList.SelectedRows.Count == 1)
+                {
+                    var supplierId = TxtSupplierId.Text.Trim();
+                    var billNo = DataGridSupplierList.SelectedCells[4].Value.ToString();
+                    var billAmount = Convert.ToDecimal(DataGridSupplierList.SelectedCells[7].Value.ToString());
+                    PurchaseDiscountForm purchaseDiscountForm = new PurchaseDiscountForm(supplierId, billNo, billAmount, this);
+                    purchaseDiscountForm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
         #endregion
 
@@ -627,6 +642,45 @@ namespace GrocerySupplyManagementApp.Forms
             TxtBillNo.Text = billNo;
             var supplierTransactionViewList = GetSupplierTransaction();
             LoadSupplierTransaction(supplierTransactionViewList);
+        }
+
+        public void PopulatePurchaseDiscount(string supplierId, string billNo, decimal discountAmount)
+        {
+            try
+            {
+                var userTransaction = new UserTransaction
+                {
+                    EndOfDay = _endOfDay,
+                    BillNo = billNo,
+                    SupplierId = supplierId,
+                    Action = Constants.PURCHASE,
+                    ActionType = Constants.ACTION_TYPE_NONE,
+                    IncomeExpense = Constants.PURCHASE_DISCOUNT,
+                    SubTotal = 0.00m,
+                    DiscountPercent = 0.00m,
+                    Discount = 0.00m,
+                    VatPercent = 0.00m,
+                    Vat = 0.00m,
+                    DeliveryChargePercent = 0.00m,
+                    DeliveryCharge = 0.00m,
+                    DueAmount = 0.00m,
+                    ReceivedAmount = discountAmount,
+                    AddedBy = _username,
+                    AddedDate = DateTime.Now
+                };
+
+                _userTransactionService.AddUserTransaction(userTransaction);
+                DialogResult result = MessageBox.Show("Discount has been added successfully.", "Message", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    var supplierTransactionViewList = GetSupplierTransaction();
+                    LoadSupplierTransaction(supplierTransactionViewList);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string GetSupplierName()

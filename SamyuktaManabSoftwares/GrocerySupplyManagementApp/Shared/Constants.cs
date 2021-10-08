@@ -22,6 +22,7 @@ namespace GrocerySupplyManagementApp.Shared
 
         public const string ADD = "Add";
         public const string DEDUCT = "Deduct";
+        public const string ACTION_TYPE_NONE = "None";
 
         // Database
         public const string DB_CONNECTION_STRING = "DBConnectionString";
@@ -48,6 +49,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string DELIVERY_CHARGE = "Delivery Charge";
         public const string MEMBER_FEE = "Member Fee";
         public const string OTHER_INCOME = "Other Income";
+        public const string PURCHASE_DISCOUNT = "Purchase Discount";
         public const string SALES_PROFIT = "Sales Profit";
         public const string STOCK_ADJUSTMENT = "Stock Adjustment";
         

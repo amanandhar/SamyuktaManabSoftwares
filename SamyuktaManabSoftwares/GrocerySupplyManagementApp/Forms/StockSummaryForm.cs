@@ -78,6 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _itemService, _pricedItemService,  
                 _userTransactionService, _stockService, _stockAdjustmentService);
             stockAdjustmentForm.ShowDialog();
+            LoadItems();
         }
         #endregion
 

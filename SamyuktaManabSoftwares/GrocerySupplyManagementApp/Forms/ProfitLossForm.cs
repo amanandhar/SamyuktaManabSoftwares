@@ -191,8 +191,11 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalSalesProfit = _userTransactionService
                     .GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay })
                     .ToList().Sum(x => x.Amount);
+                var totalStockAdjustment = _userTransactionService
+                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.STOCK_ADJUSTMENT })
+                    .ToList().Sum(x => x.Amount);
 
-                _totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit;
+                _totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustment;
 
                 incomeExpenseView = new List<IncomeExpenseView>
                 {
@@ -220,6 +223,11 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Name = Constants.SALES_PROFIT,
                         Amount = totalSalesProfit
+                    },
+                     new IncomeExpenseView
+                    {
+                        Name = Constants.STOCK_ADJUSTMENT,
+                        Amount = totalStockAdjustment
                     },
                     new IncomeExpenseView
                     {
@@ -284,12 +292,14 @@ namespace GrocerySupplyManagementApp.Forms
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_ALLOWANCE });
                 var totalStaffSalary = _userTransactionService
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_SALARY });
+                var totalStockAdjustment = _userTransactionService
+                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STOCK_ADJUSTMENT });
                 var totalTelephoneInternet = _userTransactionService
                     .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.TELEPHONE_INTERNET });
 
                 _totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                      + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance + totalSalesDiscount
-                    + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalTelephoneInternet;
+                    + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalStockAdjustment + totalTelephoneInternet;
 
                 incomeExpenseView = new List<IncomeExpenseView>
                 {
@@ -357,6 +367,11 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Name = Constants.STAFF_SALARY,
                         Amount = totalStaffSalary
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.STOCK_ADJUSTMENT,
+                        Amount = totalStockAdjustment
                     },
                     new IncomeExpenseView
                     {

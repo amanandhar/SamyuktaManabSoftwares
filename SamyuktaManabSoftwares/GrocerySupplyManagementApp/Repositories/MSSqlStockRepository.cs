@@ -58,7 +58,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "i.[Unit] AS [Unit], " +
                 "sa.[Quantity] AS [PurchaseQuantity], 0 AS [SalesQuantity], " +
-                "sa.[Price] AS [PurchasePrice], 0.0 AS [SalesPrice], " +
+                "sa.[Price] AS [PurchasePrice], 0.00 AS [SalesPrice], " +
                 "sa.[AddedDate] " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
@@ -84,7 +84,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "si.[Unit] AS [Unit], " +
                 "0 AS [PurchaseQuantity], (si.[Volume] * si.[Quantity]) AS [SalesQuantity], " +
-                "0.0 AS [PurchasePrice], si.[Price] AS [SalesPrice], " +
+                "0.00 AS [PurchasePrice], si.[Price] AS [SalesPrice], " +
                 "si.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
@@ -109,7 +109,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "i.[Unit] AS [Unit], " +
                 "0 AS [PurchaseQuantity], sa.[Quantity] AS [SalesQuantity], " +
-                "0.0 AS [PurchasePrice], sa.[Price] AS [SalesPrice], " +
+                "0.00 AS [PurchasePrice], sa.[Price] AS [SalesPrice], " +
                 "sa.[AddedDate] " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
