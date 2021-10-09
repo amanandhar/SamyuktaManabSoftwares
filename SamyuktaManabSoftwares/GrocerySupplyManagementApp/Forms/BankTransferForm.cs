@@ -84,15 +84,8 @@ namespace GrocerySupplyManagementApp.Forms
                             Action = Constants.BANK_TRANSFER,
                             ActionType = Constants.CASH,
                             Bank = ComboBank.Text,
-                            SubTotal = 0.0m,
-                            DiscountPercent = 0.0m,
-                            Discount = 0.0m,
-                            VatPercent = 0.0m,
-                            Vat = 0.0m,
-                            DeliveryChargePercent = 0.0m,
-                            DeliveryCharge = 0.0m,
                             DueAmount = Convert.ToDecimal(RichDepositAmount.Text),
-                            ReceivedAmount = 0.0m,
+                            ReceivedAmount = 0.00m,
                             AddedBy = _username,
                             AddedDate = date
                         };
@@ -108,7 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
                             TransactionId = lastUserTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichDepositAmount.Text),
-                            Credit = 0.0m,
+                            Credit = 0.00m,
                             Narration = RichNarration.Text,
                             AddedBy = _username,
                             AddedDate = date

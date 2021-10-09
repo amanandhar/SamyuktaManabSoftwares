@@ -18,10 +18,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly Setting _setting;
         private readonly string _endOfDay;
-        private decimal _totalIncome = 0.0m;
-        private decimal _totalExpense = 0.0m;
+        private decimal _totalIncome = 0.00m;
+        private decimal _totalExpense = 0.00m;
 
-        #region 
+        #region Action
         private enum Action
         {
             Load,
@@ -60,17 +60,17 @@ namespace GrocerySupplyManagementApp.Forms
             if (_totalIncome > _totalExpense)
             {
                 TxtNetIncome.Text = (_totalIncome - _totalExpense).ToString();
-                TxtNetLoss.Text = 0.0m.ToString();
+                TxtNetLoss.Text = 0.00m.ToString();
             }
             else if (_totalIncome < _totalExpense)
             {
-                TxtNetIncome.Text = 0.0m.ToString();
+                TxtNetIncome.Text = 0.00m.ToString();
                 TxtNetLoss.Text = (_totalExpense - _totalIncome).ToString();
             }
             else
             {
-                TxtNetIncome.Text = 0.0m.ToString();
-                TxtNetLoss.Text = 0.0m.ToString();
+                TxtNetIncome.Text = 0.00m.ToString();
+                TxtNetLoss.Text = 0.00m.ToString();
             }
 
             EnableFields();
@@ -92,7 +92,8 @@ namespace GrocerySupplyManagementApp.Forms
                 incomeFields.Add(new ExcelField() { Order = 3, Field = Constants.MEMBER_FEE, Value = incomes.Where(x => x.Name == Constants.MEMBER_FEE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 incomeFields.Add(new ExcelField() { Order = 4, Field = Constants.OTHER_INCOME, Value = incomes.Where(x => x.Name == Constants.OTHER_INCOME).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 incomeFields.Add(new ExcelField() { Order = 5, Field = Constants.SALES_PROFIT, Value = incomes.Where(x => x.Name == Constants.SALES_PROFIT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                incomeFields.Add(new ExcelField() { Order = 6, Field = Constants.TOTAL, Value = incomes.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                incomeFields.Add(new ExcelField() { Order = 6, Field = Constants.STOCK_ADJUSTMENT, Value = incomes.Where(x => x.Name == Constants.STOCK_ADJUSTMENT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                incomeFields.Add(new ExcelField() { Order = 7, Field = Constants.TOTAL, Value = incomes.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 excelData.Add(Constants.INCOME, incomeFields);
 
                 var expenseFields = new List<ExcelField>();
@@ -110,8 +111,9 @@ namespace GrocerySupplyManagementApp.Forms
                 expenseFields.Add(new ExcelField() { Order = 11, Field = Constants.SALES_RETURN, Value = expenses.Where(x => x.Name == Constants.SALES_RETURN).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 expenseFields.Add(new ExcelField() { Order = 12, Field = Constants.STAFF_ALLOWANCE, Value = expenses.Where(x => x.Name == Constants.STAFF_ALLOWANCE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 expenseFields.Add(new ExcelField() { Order = 13, Field = Constants.STAFF_SALARY, Value = expenses.Where(x => x.Name == Constants.STAFF_SALARY).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                expenseFields.Add(new ExcelField() { Order = 14, Field = Constants.TELEPHONE_INTERNET, Value = expenses.Where(x => x.Name == Constants.TELEPHONE_INTERNET).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                expenseFields.Add(new ExcelField() { Order = 15, Field = Constants.TOTAL, Value = expenses.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 14, Field = Constants.STOCK_ADJUSTMENT, Value = expenses.Where(x => x.Name == Constants.STOCK_ADJUSTMENT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 15, Field = Constants.TELEPHONE_INTERNET, Value = expenses.Where(x => x.Name == Constants.TELEPHONE_INTERNET).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                expenseFields.Add(new ExcelField() { Order = 16, Field = Constants.TOTAL, Value = expenses.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                 excelData.Add(Constants.EXPENSE, expenseFields);
 
                 var title = _endOfDay;

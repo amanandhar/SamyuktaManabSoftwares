@@ -96,18 +96,6 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var date = DateTime.Now;
-                var stockAdjustment = new StockAdjustment
-                {
-                    EndOfDay = _endOfDay,
-                    ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
-                    Unit = TxtBoxItemUnit.Text,
-                    Action = ComboAction.Text,
-                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemQuantity.Text),
-                    Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? 0 : Convert.ToInt64(TxtBoxItemPrice.Text),
-                    AddedBy = _username,
-                    AddedDate = date
-                };
-                _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
 
                 if(ComboAction.Text == Constants.DEDUCT)
                 {
@@ -119,13 +107,6 @@ namespace GrocerySupplyManagementApp.Forms
                         Bank = null,
                         IncomeExpense = Constants.STOCK_ADJUSTMENT,
                         Narration = null,
-                        SubTotal = 0.00m,
-                        DiscountPercent = 0.00m,
-                        Discount = 0.00m,
-                        VatPercent = 0.00m,
-                        Vat = 0.00m,
-                        DeliveryChargePercent = 0.00m,
-                        DeliveryCharge = 0.00m,
                         DueAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
                         ReceivedAmount = 0.00m,
                         AddedBy = _username,
@@ -143,13 +124,6 @@ namespace GrocerySupplyManagementApp.Forms
                         Bank = null,
                         IncomeExpense = Constants.STOCK_ADJUSTMENT,
                         Narration = null,
-                        SubTotal = 0.00m,
-                        DiscountPercent = 0.00m,
-                        Discount = 0.00m,
-                        VatPercent = 0.00m,
-                        Vat = 0.00m,
-                        DeliveryChargePercent = 0.00m,
-                        DeliveryCharge = 0.00m,
                         DueAmount = 0.00m,
                         ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
                         AddedBy = _username,
@@ -157,6 +131,21 @@ namespace GrocerySupplyManagementApp.Forms
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
                 }
+
+                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                var stockAdjustment = new StockAdjustment
+                {
+                    EndOfDay = _endOfDay,
+                    UserTransactionId = lastUserTransaction.Id,
+                    ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
+                    Unit = TxtBoxItemUnit.Text,
+                    Action = ComboAction.Text,
+                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemQuantity.Text),
+                    Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemPrice.Text),
+                    AddedBy = _username,
+                    AddedDate = date
+                };
+                _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
 
                 DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)

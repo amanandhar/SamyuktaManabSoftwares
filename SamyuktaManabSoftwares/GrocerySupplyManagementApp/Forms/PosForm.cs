@@ -30,6 +30,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IEmployeeService _employeeService;
         private readonly IStockService _stockService;
         private readonly IUserService _userService;
+        private readonly IPOSDetailService _posDetailService;
+        private readonly IStockAdjustmentService _stockAdjustmentService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -68,7 +70,8 @@ namespace GrocerySupplyManagementApp.Forms
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IReportService reportService,
             ICompanyInfoService companyInfoService, IEmployeeService employeeService,
-            IStockService stockService, IUserService userService
+            IStockService stockService, IUserService userService,
+            IPOSDetailService posDetailService, IStockAdjustmentService stockAdjustmentService
             )
         {
             InitializeComponent();
@@ -87,6 +90,8 @@ namespace GrocerySupplyManagementApp.Forms
             _employeeService = employeeService;
             _stockService = stockService;
             _userService = userService;
+            _posDetailService = posDetailService;
+            _stockAdjustmentService = stockAdjustmentService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -168,13 +173,6 @@ namespace GrocerySupplyManagementApp.Forms
                         MemberId = RichMemberId.Text,
                         Action = Constants.RECEIPT,
                         ActionType = Constants.CASH,
-                        SubTotal = 0.00m,
-                        DiscountPercent = 0.00m,
-                        Discount = 0.00m,
-                        VatPercent = 0.00m,
-                        Vat = 0.00m,
-                        DeliveryChargePercent = 0.00m,
-                        DeliveryCharge = 0.00m,
                         DueAmount = 0.00m,
                         ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
                         AddedBy = _username,
@@ -216,7 +214,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
                 _settingService, _bankTransactionService, _purchasedItemService,
-               _soldItemService, _userTransactionService, _userService);
+               _soldItemService, _userTransactionService, _userService, _stockAdjustmentService);
             transactionForm.Show();
             EnableFields();
             EnableFields(Action.Transaction);
@@ -346,11 +344,6 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
                         Action = Constants.SALES,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                        SubTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim()),
-                        DiscountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim()),
-                        Discount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
-                        DeliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()),
-                        DeliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
                         DueAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
                         ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
                         AddedBy = _username,
@@ -358,6 +351,18 @@ namespace GrocerySupplyManagementApp.Forms
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
+
+                    var posDetail = new POSDetail
+                    {
+                        InvoiceNo = TxtInvoiceNo.Text.Trim(),
+                        SubTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim()),
+                        DiscountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim()),
+                        Discount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
+                        DeliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()),
+                        DeliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
+                    };
+
+                    _posDetailService.AddPOSDetail(posDetail);
 
                     var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
@@ -372,15 +377,8 @@ namespace GrocerySupplyManagementApp.Forms
                             Action = Constants.EXPENSE,
                             ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                             IncomeExpense = Constants.SALES_DISCOUNT,
-                            SubTotal = 0.0m,
-                            DiscountPercent = 0.0m,
-                            Discount = 0.0m,
-                            VatPercent = 0.0m,
-                            Vat = 0.0m,
-                            DeliveryChargePercent = 0.0m,
-                            DeliveryCharge = 0.0m,
                             DueAmount = Convert.ToDecimal(TxtDiscount.Text),
-                            ReceivedAmount = 0.0m,
+                            ReceivedAmount = 0.00m,
                             AddedBy = _username,
                             AddedDate = date
                         };
@@ -400,14 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
                             Action = Constants.RECEIPT,
                             ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                             IncomeExpense = Constants.DELIVERY_CHARGE,
-                            SubTotal = 0.0m,
-                            DiscountPercent = 0.0m,
-                            Discount = 0.0m,
-                            VatPercent = 0.0m,
-                            Vat = 0.0m,
-                            DeliveryChargePercent = 0.0m,
-                            DeliveryCharge = 0.0m,
-                            DueAmount = 0.0m,
+                            DueAmount = 0.00m,
                             ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text),
                             AddedBy = _username,
                             AddedDate = date
@@ -1070,32 +1061,32 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var userTransaction = _userTransactionService.GetUserTransaction(invoiceNo);
+                var posDetailView = _posDetailService.GetPOSDetailView(invoiceNo);
 
-                if(userTransaction.ActionType == Constants.CASH)
+                if(posDetailView.ActionType == Constants.CASH)
                 {
                     RadioBtnCash.Checked = true;
                     RadioBtnCredit.Checked = false;
                 }
-                else if(userTransaction.ActionType == Constants.CREDIT)
+                else if(posDetailView.ActionType == Constants.CREDIT)
                 {
                     RadioBtnCash.Checked = false;
                     RadioBtnCredit.Checked = true;
                 }
 
                 TxtInvoiceNo.Text = invoiceNo;
-                TxtInvoiceDate.Text = userTransaction.EndOfDay;
-                ComboDeliveryPerson.Text = _employeeService.GetEmployee(userTransaction.DeliveryPersonId).Name;
-                TxtSubTotal.Text = userTransaction.SubTotal.ToString();
-                TxtDiscountPercent.Text = userTransaction.DiscountPercent.ToString();
-                TxtDiscount.Text = userTransaction.Discount.ToString();
-                TxtDiscountTotal.Text = (userTransaction.SubTotal - userTransaction.Discount).ToString();
-                TxtDeliveryChargePercent.Text = userTransaction.DeliveryChargePercent.ToString();
-                TxtDeliveryCharge.Text = userTransaction.DeliveryCharge.ToString();
-                TxtDeliveryChargeTotal.Text = (userTransaction.SubTotal - userTransaction.Discount + userTransaction.Vat + userTransaction.DeliveryCharge).ToString();
-                TxtGrandTotal.Text = userTransaction.DueAmount.ToString();
-                RichReceivedAmount.Text = userTransaction.ReceivedAmount.ToString();
-                RichBalanceAmount.Text = (userTransaction.DueAmount - userTransaction.ReceivedAmount).ToString();
+                TxtInvoiceDate.Text = posDetailView.EndOfDay;
+                ComboDeliveryPerson.Text = _employeeService.GetEmployee(posDetailView.DeliveryPersonId).Name;
+                TxtSubTotal.Text = posDetailView.SubTotal.ToString();
+                TxtDiscountPercent.Text = posDetailView.DiscountPercent.ToString();
+                TxtDiscount.Text = posDetailView.Discount.ToString();
+                TxtDiscountTotal.Text = (posDetailView.SubTotal - posDetailView.Discount).ToString();
+                TxtDeliveryChargePercent.Text = posDetailView.DeliveryChargePercent.ToString();
+                TxtDeliveryCharge.Text = posDetailView.DeliveryCharge.ToString();
+                TxtDeliveryChargeTotal.Text = (posDetailView.SubTotal - posDetailView.Discount + posDetailView.Vat + posDetailView.DeliveryCharge).ToString();
+                TxtGrandTotal.Text = posDetailView.DueAmount.ToString();
+                RichReceivedAmount.Text = posDetailView.ReceivedAmount.ToString();
+                RichBalanceAmount.Text = (posDetailView.DueAmount - posDetailView.ReceivedAmount).ToString();
             }
             catch(Exception ex)
             {

@@ -183,7 +183,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetSoldItemTotalAmount(StockFilter stockFilter)
         {
-            decimal totalAmount = 0.0m;
+            decimal totalAmount = 0.00m;
             var query = @"SELECT " +
                 "CAST(SUM(si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +

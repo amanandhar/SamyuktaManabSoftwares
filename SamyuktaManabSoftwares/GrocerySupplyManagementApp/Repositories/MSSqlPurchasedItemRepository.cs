@@ -204,7 +204,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetPurchasedItemTotalAmount(string supplierId, string billNo)
         {
-            decimal totalAmount = 0.0m;
+            decimal totalAmount = 0.00m;
             var query = @"SELECT " +
                 "CAST(SUM([Quantity] * [Price]) AS DECIMAL(18, 2)) AS 'TotalPrice' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
@@ -240,7 +240,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetPurchasedItemTotalAmount(StockFilter stockFilter)
         {
-            decimal totalAmount = 0.0m;
+            decimal totalAmount = 0.00m;
             var query = @"SELECT " +
                 "CAST(SUM(pi.[Quantity] * pi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
@@ -512,7 +512,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetLatestPurchasePrice(long itemId)
         {
-            decimal price = 0.0m;
+            decimal price = 0.00m;
             string query = @"SELECT " +
                 "TOP 1 [Price] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +

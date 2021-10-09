@@ -223,11 +223,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " +
                     " " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
                     "( " +
-                        "[EndOfDay], [ItemId], [Unit], [Action], [Quantity], [Price], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [UserTransactionId], [ItemId], [Unit], [Action], [Quantity], [Price], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @ItemId, @Unit, @Action, @Quantity, @Price, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @UserTransactionId, @ItemId, @Unit, @Action, @Quantity, @Price, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -237,6 +237,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EndOfDay", ((object)stockAdjustment.EndOfDay) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UserTransactionId", ((object)stockAdjustment.UserTransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ItemId", ((object)stockAdjustment.ItemId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Unit", ((object)stockAdjustment.Unit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)stockAdjustment.Action) ?? DBNull.Value);
@@ -313,6 +314,34 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public bool DeleteStockAdjustmentByUserTransaction(long userTrasactionId)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                    "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
+                    "WHERE 1 = 1 " +
+                    "AND [UserTransactionId] = @UserTransactionId";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserTransactionId", ((object)userTrasactionId) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }

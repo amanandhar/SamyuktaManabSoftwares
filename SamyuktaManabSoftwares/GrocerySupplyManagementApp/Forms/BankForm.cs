@@ -79,8 +79,8 @@ namespace GrocerySupplyManagementApp.Forms
                     EndOfDay = _endOfDay,
                     BankId = selectedBankId,
                     Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
-                    Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.0m,
-                    Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.0m : Convert.ToDecimal(RichAmount.Text),
+                    Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.00m,
+                    Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.00m : Convert.ToDecimal(RichAmount.Text),
                     Narration = ComboDepositType.Text,
                     AddedBy = _username,
                     AddedDate = date

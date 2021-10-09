@@ -44,8 +44,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
                                     TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
                                     Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
                                     Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
@@ -92,8 +92,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                 bankTransaction.BankId = Convert.ToInt64(reader["BankId"].ToString());
                                 bankTransaction.TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString());
                                 bankTransaction.Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString());
-                                bankTransaction.Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString());
-                                bankTransaction.Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString());
+                                bankTransaction.Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString());
+                                bankTransaction.Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString());
                                 bankTransaction.Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString();
                                 bankTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 bankTransaction.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
@@ -139,8 +139,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
                                     TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
                                     Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
                                     Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
@@ -192,9 +192,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     Narration = reader["Narration"].ToString(),
-                                    Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Balance = reader.IsDBNull(6) ? 0.0m : Convert.ToDecimal(reader["Balance"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = reader.IsDBNull(6) ? 0.00m : Convert.ToDecimal(reader["Balance"].ToString()),
                                 };
 
                                 bankTransactionViews.Add(bankTransactionView);
@@ -259,9 +259,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     Narration = reader["Narration"].ToString(),
-                                    Debit = reader.IsDBNull(4) ? 0.0m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.0m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Balance = reader.IsDBNull(6) ? 0.0m : Convert.ToDecimal(reader["Balance"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = reader.IsDBNull(6) ? 0.00m : Convert.ToDecimal(reader["Balance"].ToString()),
                                 };
 
                                 bankTransactionViews.Add(bankTransactionView);
@@ -280,7 +280,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetTotalBalance(BankTransactionFilter bankTransactionFilter)
         {
-            decimal bankBalance = 0.0m;
+            decimal bankBalance = 0.00m;
             var query = @"SELECT " +
                 "ISNUll(SUM(ISNULL([Debit], 0) - ISNULL([Credit], 0)), 0) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
@@ -329,7 +329,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetTotalBalance(long bankId)
         {
-            decimal bankBalance = 0.0m;
+            decimal bankBalance = 0.00m;
             var query = @"SELECT " +
                 "ISNUll(SUM(ISNULL([Debit], 0) - ISNULL([Credit], 0)), 0) " + 
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
@@ -364,7 +364,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter)
         {
-            decimal total = 0.0m;
+            decimal total = 0.00m;
             var query = @"SELECT " +
                 "ISNUll(SUM(ISNULL([Debit], 0)), 0) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +

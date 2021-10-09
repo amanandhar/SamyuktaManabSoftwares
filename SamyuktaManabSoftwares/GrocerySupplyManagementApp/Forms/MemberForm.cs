@@ -138,14 +138,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = Constants.RECEIPT,
                         ActionType = ComboReceipt.Text,
                         Bank = ComboBank.Text,
-                        SubTotal = 0.0m,
-                        DiscountPercent = 0.0m,
-                        Discount = 0.0m,
-                        VatPercent = 0.0m,
-                        Vat = 0.0m,
-                        DeliveryChargePercent = 0.0m,
-                        DeliveryCharge = 0.0m,
-                        DueAmount = 0.0m,
+                        DueAmount = 0.00m,
                         ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                         AddedBy = _username,
                         AddedDate = date
@@ -163,7 +156,7 @@ namespace GrocerySupplyManagementApp.Forms
                             TransactionId = lastPosTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichAmount.Text),
-                            Credit = 0.0m,
+                            Credit = 0.00m,
                             Narration = TxtMemberId.Text + " - " + TxtName.Text,
                             AddedBy = _username,
                             AddedDate = date
@@ -564,7 +557,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
         {
             TxtBalance.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
-            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.0m ? Constants.CLEAR : Constants.DUE;
+            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.00m ? Constants.CLEAR : Constants.DUE;
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);
             var source = new BindingSource(bindingList, null);

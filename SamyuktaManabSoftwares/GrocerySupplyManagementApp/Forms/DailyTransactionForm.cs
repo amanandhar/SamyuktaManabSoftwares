@@ -19,6 +19,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
+        private readonly IStockAdjustmentService _stockAdjustmentService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -28,7 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         public DailyTransactionForm(string username,
             ISettingService settingService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService, IUserService userService
+            IUserTransactionService userTransactionService, IUserService userService,
+            IStockAdjustmentService stockAdjustmentService
             )
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _userService = userService;
+            _stockAdjustmentService = stockAdjustmentService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -71,6 +74,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var selectedRow = DataGridTransactionList.SelectedRows[0];
                     var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                     var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
+                    var incomeExpense = selectedRow.Cells["IncomeExpense"].Value.ToString();
 
                     if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
                     {
@@ -108,6 +112,11 @@ namespace GrocerySupplyManagementApp.Forms
                                 return;
                             }
                         }
+                    }
+                    else if (!string.IsNullOrWhiteSpace(incomeExpense) && incomeExpense.Equals(Constants.STOCK_ADJUSTMENT))
+                    {
+                        _userTransactionService.DeleteUserTransaction(id);
+                        _stockAdjustmentService.DeleteStockAdjustmentByUserTransaction(id);
                     }
                     else
                     {
@@ -271,6 +280,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridTransactionList.Columns["Id"].Visible = false;
+            DataGridTransactionList.Columns["IncomeExpense"].Visible = false;
 
             DataGridTransactionList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridTransactionList.Columns["EndOfDay"].Width = 80;
@@ -373,7 +383,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
             }
-            else
+            else if(selectedFilter.Name.Equals("RadioAll"))
             {
                 dailyTransactionFilter.IsAll = true;
             }
@@ -399,7 +409,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboReceipt.Text = string.Empty;
             ComboItemCode.Text = string.Empty;
             ComboInvoiceNo.Text = string.Empty;
-            ComboUser.Text = string.Empty;
         }
 
         private void EnableCombos(bool option)

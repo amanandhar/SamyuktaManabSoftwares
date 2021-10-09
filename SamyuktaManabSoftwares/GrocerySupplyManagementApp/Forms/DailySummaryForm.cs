@@ -18,6 +18,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
+        private readonly IStockAdjustmentService _stockAdjustmentService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -26,7 +27,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public SummaryForm(string username, ISettingService settingService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
-            IUserTransactionService userTransactionService, IUserService userService)
+            IUserTransactionService userTransactionService, IUserService userService,
+            IStockAdjustmentService stockAdjustmentService)
         {
             InitializeComponent();
 
@@ -36,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _userService = userService;
+            _stockAdjustmentService = stockAdjustmentService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -105,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
                 _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService, _userService
+                _userTransactionService, _userService, _stockAdjustmentService
                 );
 
             transactionForm.Show();

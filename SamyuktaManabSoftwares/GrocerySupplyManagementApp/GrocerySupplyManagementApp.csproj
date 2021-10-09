@@ -148,6 +148,7 @@
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\EndOfDay.cs" />
+    <Compile Include="Entities\POSDetail.cs" />
     <Compile Include="Entities\PricedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
@@ -415,6 +416,7 @@
     <Compile Include="Repositories\Interfaces\ICompanyInfoRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEndOfDayRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPOSDetailRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPricedItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMemberRepository.cs" />
@@ -434,6 +436,7 @@
     <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
     <Compile Include="Repositories\MSSqlEmployeeRepository.cs" />
     <Compile Include="Repositories\MSSqlEndOfDayRepository.cs" />
+    <Compile Include="Repositories\MSSqlPOSDetailRepository.cs" />
     <Compile Include="Repositories\MSSqlReportRepository.cs" />
     <Compile Include="Repositories\MSSqlItemRepository.cs" />
     <Compile Include="Repositories\MSSqlPurchasedItemRepository.cs" />
@@ -458,6 +461,7 @@
     <Compile Include="Services\Interfaces\IEmployeeService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
     <Compile Include="Services\Interfaces\IItemCategoryService.cs" />
+    <Compile Include="Services\Interfaces\IPOSDetailService.cs" />
     <Compile Include="Services\Interfaces\IPricedItemService.cs" />
     <Compile Include="Services\Interfaces\IItemService.cs" />
     <Compile Include="Services\Interfaces\IMemberService.cs" />
@@ -474,6 +478,7 @@
     <Compile Include="Services\ItemCategoryService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\MemberService.cs" />
+    <Compile Include="Services\POSDetailService.cs" />
     <Compile Include="Services\PurchasedItemService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\SettingService.cs" />
@@ -493,6 +498,7 @@
     <Compile Include="ViewModels\BankTransactionView.cs" />
     <Compile Include="ViewModels\DailySummaryView.cs" />
     <Compile Include="ViewModels\InvoiceReportView.cs" />
+    <Compile Include="ViewModels\POSDetailView.cs" />
     <Compile Include="ViewModels\PricedItemView.cs" />
     <Compile Include="ViewModels\ExpenseTransactionView.cs" />
     <Compile Include="ViewModels\IncomeDetailView.cs" />

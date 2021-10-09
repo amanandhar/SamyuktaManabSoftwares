@@ -122,6 +122,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemCategoryService _itemCategoryService;
         private readonly IShareMemberService _shareMemberService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
+        private readonly IPOSDetailService _posDetailService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -137,7 +138,7 @@ namespace GrocerySupplyManagementApp.Forms
             IEndOfDayService endOfDateService, IEmployeeService employeeService,
             IReportService reportService, IUserService userService,
             IItemCategoryService itemCategoryService, IShareMemberService shareMemberService,
-            IStockAdjustmentService stockAdjustmentService
+            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService
             )
         {
             InitializeComponent();
@@ -162,6 +163,7 @@ namespace GrocerySupplyManagementApp.Forms
             _itemCategoryService = itemCategoryService;
             _shareMemberService = shareMemberService;
             _stockAdjustmentService = stockAdjustmentService;
+            _posDetailService = posDetailService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -200,7 +202,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _purchasedItemService, _soldItemService,
                 _userTransactionService, _reportService,
                 _companyInfoService, _employeeService,
-                _stockService, _userService
+                _stockService, _userService,
+                _posDetailService, _stockAdjustmentService
                  );
             posForm.ShowDialog();
 
@@ -223,7 +226,8 @@ namespace GrocerySupplyManagementApp.Forms
             OpenChildForm(new SummaryForm(_username,
                 _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService, _userService));
+                _userTransactionService, _userService,
+                _stockAdjustmentService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -234,7 +238,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService,
                _bankTransactionService,
                _purchasedItemService, _soldItemService,
-               _userTransactionService, _userService
+               _userTransactionService, _userService, _stockAdjustmentService
                ));
             HideSubMenu();
             SelectButton(sender as Button);

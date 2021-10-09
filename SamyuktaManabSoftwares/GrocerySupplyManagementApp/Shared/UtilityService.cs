@@ -48,56 +48,63 @@ namespace GrocerySupplyManagementApp.Shared
 
         public static List<StockView> CalculateStock(List<Stock> stocks)
         {
-            var stockViewList = new List<StockView>();
-            int index = 0;
-            var itemCode = string.Empty;
-            foreach (var stock in stocks)
+            try
             {
-                if (string.IsNullOrEmpty(itemCode))
+                var stockViewList = new List<StockView>();
+                int index = 0;
+                var itemCode = string.Empty;
+                foreach (var stock in stocks)
                 {
-                    itemCode = stock.ItemCode;
+                    if (string.IsNullOrEmpty(itemCode))
+                    {
+                        itemCode = stock.ItemCode;
+                    }
+
+                    var stockView = new StockView
+                    {
+                        EndOfDay = stock.EndOfDay,
+                        Description = stock.Description,
+                        Type = stock.Type,
+                        ItemCode = stock.ItemCode,
+                        ItemName = stock.ItemName,
+                        PurchaseQuantity = stock.PurchaseQuantity,
+                        SalesQuantity = stock.SalesQuantity,
+                        Unit = stock.ItemUnit,
+                        PurchasePrice = stock.PurchasePrice,
+                        StockQuantity = stock.StockQuantity,
+                        TotalPurchasePrice = stock.TotalPurchasePrice,
+                        AddedDate = stock.AddedDate
+                    };
+
+                    if (index == 0 || itemCode != stock.ItemCode)
+                    {
+                        itemCode = stock.ItemCode;
+
+                        stockView.SalesPrice = 0.00m;
+                        stockView.StockValue = stock.TotalPurchasePrice;
+                        stockView.PerUnitValue = stock.TotalPurchasePrice == 0.00m ? 0.00m : Math.Round((stock.TotalPurchasePrice / stock.PurchaseQuantity), 2);
+                    }
+                    else
+                    {
+                        stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
+                        stockView.StockValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
+                            ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue)
+                            : stockViewList[index - 1].StockValue - Math.Round((stock.SalesQuantity * stockViewList[index - 1].PerUnitValue), 2);
+                        stockView.PerUnitValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
+                            ? stock.StockQuantity == 0.00m ? 0.00m : Math.Round(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
+                            : stockViewList[index - 1].PerUnitValue;
+                    }
+
+                    stockViewList.Add(stockView);
+                    index++;
                 }
 
-                var stockView = new StockView
-                {
-                    EndOfDay = stock.EndOfDay,
-                    Description = stock.Description,
-                    Type = stock.Type,
-                    ItemCode = stock.ItemCode,
-                    ItemName = stock.ItemName,
-                    PurchaseQuantity = stock.PurchaseQuantity,
-                    SalesQuantity = stock.SalesQuantity,
-                    Unit = stock.ItemUnit,
-                    PurchasePrice = stock.PurchasePrice,
-                    StockQuantity = stock.StockQuantity,
-                    TotalPurchasePrice = stock.TotalPurchasePrice,
-                    AddedDate = stock.AddedDate
-                };
-
-                if (index == 0 || itemCode != stock.ItemCode)
-                {
-                    itemCode = stock.ItemCode;
-
-                    stockView.SalesPrice = 0.00m;
-                    stockView.StockValue = stock.TotalPurchasePrice;
-                    stockView.PerUnitValue = stock.TotalPurchasePrice == 0.00m ? 0.00m : Math.Round((stock.TotalPurchasePrice / stock.PurchaseQuantity), 2);
-                }
-                else
-                {
-                    stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
-                    stockView.StockValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
-                        ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) 
-                        : stockViewList[index - 1].StockValue - Math.Round((stock.SalesQuantity * stockViewList[index - 1].PerUnitValue), 2);
-                    stockView.PerUnitValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower()) || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
-                        ? Math.Round(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
-                        : stockViewList[index - 1].PerUnitValue;
-                }
-
-                stockViewList.Add(stockView);
-                index++;
+                return stockViewList;
             }
-
-            return stockViewList;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static string ConvertAmount(decimal amount)

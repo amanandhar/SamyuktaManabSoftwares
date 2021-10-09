@@ -16,5 +16,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         StockAdjustment UpdateStockAdjustment(long id, StockAdjustment stockAdjustment);
 
         bool DeleteStockAdjustment(long id);
+        bool DeleteStockAdjustmentByUserTransaction(long userTrasactionId);
     }
 }

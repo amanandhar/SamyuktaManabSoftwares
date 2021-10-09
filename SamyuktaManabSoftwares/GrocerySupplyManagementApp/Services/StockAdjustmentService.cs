@@ -49,5 +49,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _stockAdjustmentRepository.DeleteStockAdjustment(id);
         }
+
+        public bool DeleteStockAdjustmentByUserTransaction(long userTrasactionId)
+        {
+            return _stockAdjustmentRepository.DeleteStockAdjustmentByUserTransaction(userTrasactionId);
+        }
     }
 }

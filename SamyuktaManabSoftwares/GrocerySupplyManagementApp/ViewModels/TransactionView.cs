@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string Action { get; set; }
         public string ActionType { get; set; }
         public string InvoiceBillNo { get; set; }
+        public string IncomeExpense { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public decimal Quantity { get; set; }
