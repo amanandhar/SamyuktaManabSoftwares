@@ -1437,10 +1437,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     "ELSE ut.[DueAmount] " +
                 "END  AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
-                "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
-                "LEFT JOIN " + Constants.TABLE_ITEM + " i " +
+                "LEFT JOIN " +
+                "(" + Constants.TABLE_SOLD_ITEM + " si " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
+                ") " +
+                "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') ";
 
