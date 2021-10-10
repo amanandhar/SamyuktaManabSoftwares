@@ -53,7 +53,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Bank = reader["Bank"].ToString(),
                                     Income = reader["Income"].ToString(),
                                     Expense = reader["Expense"].ToString(),
-                                    DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
+                                    PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = reader.IsDBNull(15) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
