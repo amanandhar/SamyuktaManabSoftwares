@@ -175,7 +175,6 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    var date = DateTime.Now;
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
@@ -184,10 +183,9 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = Constants.PAYMENT,
                         ActionType = ComboPayment.Text,
                         Bank = ComboBank.Text,
-                        DueAmount = 0.00m,
-                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
+                        PaymentAmount = Convert.ToDecimal(RichAmount.Text),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -206,7 +204,7 @@ namespace GrocerySupplyManagementApp.Forms
                             Credit = Convert.ToDecimal(RichAmount.Text),
                             Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
                             AddedBy = _username,
-                            AddedDate = date
+                            AddedDate = DateTime.Now
                         };
 
                         _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -241,7 +239,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
                 var supplier = new Supplier
                 {
                     SupplierId = TxtSupplierId.Text,
@@ -251,7 +248,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Email = TxtEmail.Text,
                     Owner = TxtOwner.Text,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _supplierService.AddSupplier(supplier);
@@ -648,8 +645,7 @@ namespace GrocerySupplyManagementApp.Forms
                     SupplierId = supplierId,
                     Action = Constants.PURCHASE,
                     ActionType = Constants.ACTION_TYPE_NONE,
-                    IncomeExpense = Constants.PURCHASE_DISCOUNT,
-                    DueAmount = 0.00m,
+                    Income = Constants.PURCHASE_DISCOUNT,
                     ReceivedAmount = discountAmount,
                     AddedBy = _username,
                     AddedDate = DateTime.Now

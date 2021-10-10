@@ -44,5 +44,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _posDetailRepository.DeletePOSDetail(id);
         }
+
+        public bool DeletePOSDetail(string invoiceNo)
+        {
+            return _posDetailRepository.DeletePOSDetail(invoiceNo);
+        }
     }
 }

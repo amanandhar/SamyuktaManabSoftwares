@@ -131,7 +131,6 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                var date = DateTime.Now;
                 var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
@@ -143,7 +142,7 @@ namespace GrocerySupplyManagementApp.Forms
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
                     ImagePath = destinationFilePath,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _pricedItemService.AddPricedItem(pricedItem);
@@ -202,7 +201,6 @@ namespace GrocerySupplyManagementApp.Forms
                     destinationFilePath = PicBoxItemImage.ImageLocation;
                 }
 
-                var date = DateTime.Now;
                 var pricedItem = new PricedItem
                 {
                     ItemId = _selectedItemId,
@@ -214,7 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
                     SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
                     ImagePath = destinationFilePath,
                     UpdatedBy = _username,
-                    UpdatedDate = date
+                    UpdatedDate = DateTime.Now
                 };
 
                 _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);

@@ -121,7 +121,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var confirmation = MessageBox.Show("Do you want to save?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (confirmation == DialogResult.Yes)
                 {
-                    var date = DateTime.Now;
                     List<PurchasedItem> purchasedItems = _purchasedItemViewList.Select(item => new PurchasedItem
                     {
                         EndOfDay = _endOfDay,
@@ -131,7 +130,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Quantity = item.Quantity,
                         Price = item.Price,
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     }).ToList();
 
                     purchasedItems.ForEach(purchasedItem =>
@@ -145,12 +144,12 @@ namespace GrocerySupplyManagementApp.Forms
                         BillNo = RichBillNo.Text,
                         SupplierId = _supplierForm.GetSupplierId(),
                         Action = Constants.PURCHASE,
-                        ActionType = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.BONUS : Constants.CREDIT,
-                        IncomeExpense = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.BONUS : null,
-                        DueAmount = Convert.ToDecimal(TxtTotalAmount.Text),
+                        ActionType = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.PURCHASE_BONUS : Constants.CREDIT,
+                        Income = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.PURCHASE_BONUS : null,
+                        DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text),
                         ReceivedAmount = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Convert.ToDecimal(TxtTotalAmount.Text) : 0.00m,
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);

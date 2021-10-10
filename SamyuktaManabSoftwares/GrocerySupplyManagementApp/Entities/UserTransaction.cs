@@ -15,10 +15,13 @@ namespace GrocerySupplyManagementApp.Entities
         public string Action { get; set; }
         public string ActionType { get; set; }
         public string Bank { get; set; }
-        public string IncomeExpense { get; set; }
+        public string Income { get; set; }
+        public string Expense { get; set; }
         public string Narration { get; set; }
-        public decimal DueAmount { get; set; }
+        public decimal DueReceivedAmount { get; set; }
+        public decimal DuePaymentAmount { get; set; }
         public decimal ReceivedAmount { get; set; }
+        public decimal PaymentAmount { get; set; }
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
         public string UpdatedBy { get; set; }

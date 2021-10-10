@@ -60,18 +60,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSaveIncome_Click(object sender, EventArgs e)
         {
-            var date = DateTime.Now;
             var userTransaction = new UserTransaction
             {
                 EndOfDay = _endOfDay,
                 Action = Constants.RECEIPT,
                 ActionType = Constants.CHEQUE,
                 Bank = ComboBank.Text,
-                IncomeExpense = ComboIncome.Text,
-                DueAmount = 0.00m,
+                Income = ComboIncome.Text,
                 ReceivedAmount = Convert.ToDecimal(RichAddAmount.Text),
                 AddedBy = _username,
-                AddedDate = date
+                AddedDate = DateTime.Now
             };
 
             if (_userTransactionService.AddUserTransaction(userTransaction) != null)
@@ -88,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Credit = 0.00m,
                     Narration = ComboIncome.Text,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -213,7 +211,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             List<IncomeDetailView> incomeDetails;
 
-            if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.BONUS.ToLower()))
+            if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.PURCHASE_BONUS.ToLower()))
             {
                 incomeDetails = _userTransactionService.GetPurchaseBonus(incomeTransactionFilter).ToList();
             }
@@ -264,7 +262,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboIncome.ValueMember = "Id";
             ComboIncome.DisplayMember = "Value";
 
-            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.BONUS, Value = Constants.BONUS });
+            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE_BONUS, Value = Constants.PURCHASE_BONUS });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
@@ -276,7 +274,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboFilteredBy.ValueMember = "Id";
             ComboFilteredBy.DisplayMember = "Value";
 
-            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.BONUS, Value = Constants.BONUS });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE_BONUS, Value = Constants.PURCHASE_BONUS });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_CHARGE, Value = Constants.DELIVERY_CHARGE });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });

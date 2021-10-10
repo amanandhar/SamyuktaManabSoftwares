@@ -88,7 +88,6 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                var date = DateTime.Now;
                 var companyInfo = new CompanyInfo
                 {
                     Name = RichCompanyName.Text,
@@ -104,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
                     PanVatNo = RichPanVatNo.Text,
                     LogoPath = destinationFilePath,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _companyInfoService.DeleteCompanyInfo();

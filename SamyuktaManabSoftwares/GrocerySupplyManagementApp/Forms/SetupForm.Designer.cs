@@ -45,10 +45,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.TxtBoxDiscount = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxFiscalYear.Location = new System.Drawing.Point(664, 37);
             this.TxtBoxFiscalYear.Name = "TxtBoxFiscalYear";
+            this.TxtBoxFiscalYear.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxFiscalYear.Size = new System.Drawing.Size(216, 29);
             this.TxtBoxFiscalYear.TabIndex = 21;
             this.TxtBoxFiscalYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -93,6 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxCompanyStartingDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxCompanyStartingDt.Location = new System.Drawing.Point(664, 99);
             this.TxtBoxCompanyStartingDt.Name = "TxtBoxCompanyStartingDt";
+            this.TxtBoxCompanyStartingDt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxCompanyStartingDt.Size = new System.Drawing.Size(216, 29);
             this.TxtBoxCompanyStartingDt.TabIndex = 20;
             this.TxtBoxCompanyStartingDt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -104,6 +106,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxStartingBillNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxStartingBillNo.Location = new System.Drawing.Point(664, 164);
             this.TxtBoxStartingBillNo.Name = "TxtBoxStartingBillNo";
+            this.TxtBoxStartingBillNo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxStartingBillNo.Size = new System.Drawing.Size(216, 29);
             this.TxtBoxStartingBillNo.TabIndex = 19;
             this.TxtBoxStartingBillNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -137,6 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxStartingInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxStartingInvoiceNo.Location = new System.Drawing.Point(664, 231);
             this.TxtBoxStartingInvoiceNo.Name = "TxtBoxStartingInvoiceNo";
+            this.TxtBoxStartingInvoiceNo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxStartingInvoiceNo.Size = new System.Drawing.Size(216, 29);
             this.TxtBoxStartingInvoiceNo.TabIndex = 18;
             this.TxtBoxStartingInvoiceNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -239,27 +243,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
-            // textBox5
-            // 
-            this.textBox5.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(-1, -1);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(1103, 44);
-            this.textBox5.TabIndex = 11;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Cyan;
-            this.label8.Location = new System.Drawing.Point(417, 4);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(265, 31);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "Setup Management";
-            // 
             // BtnSave
             // 
             this.BtnSave.BackColor = System.Drawing.Color.DodgerBlue;
@@ -299,6 +282,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
             this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.Location = new System.Drawing.Point(-1, -1);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(1103, 44);
+            this.textBox5.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Cyan;
+            this.label8.Location = new System.Drawing.Point(417, 4);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(265, 31);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Setup Management";
             // 
             // SetupForm
             // 

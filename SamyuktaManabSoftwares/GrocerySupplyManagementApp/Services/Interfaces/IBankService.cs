@@ -5,7 +5,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 {
     public interface IBankService
     {
-        #region Add Operation
+        #region Get Operation
         IEnumerable<Bank> GetBanks();
         Bank GetBank(long id);
         #endregion
@@ -18,7 +18,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         Bank UpdateBank(long id, Bank bank);
         #endregion
 
-        #region Add Operation
+        #region Delete Operation
         bool DeleteBank(long id);
         #endregion
     }

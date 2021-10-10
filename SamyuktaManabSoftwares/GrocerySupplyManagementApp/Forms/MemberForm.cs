@@ -26,6 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
+        private readonly IPOSDetailService _posDetailService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -55,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IMemberService memberService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IEmployeeService employeeService,
-            IReportService reportService, DashboardForm dashboardForm)
+            IReportService reportService, IPOSDetailService posDetailService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
@@ -68,6 +69,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
             _employeeService = employeeService;
             _reportService = reportService;
+            _posDetailService = posDetailService;
             _dashboard = dashboardForm;
 
             _username = username;
@@ -108,9 +110,9 @@ namespace GrocerySupplyManagementApp.Forms
                 var memberId = TxtMemberId.Text;
                 if (!string.IsNullOrWhiteSpace(invoiceNo) && !string.IsNullOrWhiteSpace(memberId))
                 {
-                    PosForm posForm = new PosForm(_companyInfoService, _memberService, 
+                    PosForm posForm = new PosForm(memberId, invoiceNo, _companyInfoService, _memberService, 
                         _userTransactionService, _soldItemService, 
-                        _employeeService, _reportService, memberId, invoiceNo);
+                        _employeeService, _reportService, _posDetailService);
                     posForm.Show();
                 }
             }
@@ -130,7 +132,6 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    var date = DateTime.Now;
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
@@ -138,10 +139,9 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = Constants.RECEIPT,
                         ActionType = ComboReceipt.Text,
                         Bank = ComboBank.Text,
-                        DueAmount = 0.00m,
                         ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
                             Credit = 0.00m,
                             Narration = TxtMemberId.Text + " - " + TxtName.Text,
                             AddedBy = _username,
-                            AddedDate = date
+                            AddedDate = DateTime.Now
                         };
 
                         _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -231,7 +231,6 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                var date = DateTime.Now;
                 var member = new Member
                 {
                     MemberId = TxtMemberId.Text,
@@ -242,7 +241,7 @@ namespace GrocerySupplyManagementApp.Forms
                     AccountNo = TxtAccountNumber.Text,
                     ImagePath = destinationFilePath,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _memberService.AddMember(member);

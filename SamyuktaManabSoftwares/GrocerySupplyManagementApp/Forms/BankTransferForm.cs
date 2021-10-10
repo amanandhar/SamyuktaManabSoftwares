@@ -77,17 +77,15 @@ namespace GrocerySupplyManagementApp.Forms
                     var confirmation = MessageBox.Show("Do you want to save?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmation == DialogResult.Yes)
                     {
-                        var date = DateTime.Now;
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
                             Action = Constants.BANK_TRANSFER,
                             ActionType = Constants.CASH,
                             Bank = ComboBank.Text,
-                            DueAmount = Convert.ToDecimal(RichDepositAmount.Text),
-                            ReceivedAmount = 0.00m,
+                            PaymentAmount = Convert.ToDecimal(RichDepositAmount.Text),
                             AddedBy = _username,
-                            AddedDate = date
+                            AddedDate = DateTime.Now
                         };
                         _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -104,7 +102,7 @@ namespace GrocerySupplyManagementApp.Forms
                             Credit = 0.00m,
                             Narration = RichNarration.Text,
                             AddedBy = _username,
-                            AddedDate = date
+                            AddedDate = DateTime.Now
                         };
                         _bankTransactionService.AddBankTransaction(bankTransaction);
 

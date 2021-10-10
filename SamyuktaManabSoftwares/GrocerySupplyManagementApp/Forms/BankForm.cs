@@ -73,7 +73,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
                 var bankTransaction = new BankTransaction
                 {
                     EndOfDay = _endOfDay,
@@ -83,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.00m : Convert.ToDecimal(RichAmount.Text),
                     Narration = ComboDepositType.Text,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -148,13 +147,12 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    var date = DateTime.Now;
                     var bank = new Bank
                     {
                         Name = TxtBankName.Text,
                         AccountNo = TxtAccountNo.Text,
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
 
                     _bankService.AddBank(bank);

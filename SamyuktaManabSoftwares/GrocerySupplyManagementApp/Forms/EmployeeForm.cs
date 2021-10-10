@@ -127,7 +127,6 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                var date = DateTime.Now;
                 var employee = new Employee
                 {
                     EmployeeId = RichEmployeeId.Text,
@@ -152,7 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
                     ImagePath = destinationFilePath,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _employeeService.AddEmployee(employee);
@@ -209,7 +208,6 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                var date = DateTime.Now;
                 var employee = new Employee
                 {
                     EmployeeId = RichEmployeeId.Text,
@@ -234,7 +232,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
                     ImagePath = destinationFilePath,
                     UpdatedBy = _username,
-                    UpdatedDate = date
+                    UpdatedDate = DateTime.Now
                 };
 
                 _employeeService.UpdateEmployee(employeeId, employee);

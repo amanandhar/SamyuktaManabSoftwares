@@ -95,7 +95,6 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    var date = DateTime.Now;
                     var user = new User
                     {
                         Username = TxtUsername.Text,
@@ -115,7 +114,7 @@ namespace GrocerySupplyManagementApp.Forms
                         StockSummary = ChkStockSummary.Checked,
                         Supplier = ChkSupplier.Checked,
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
 
                     _userService.AddUser(user);
@@ -175,7 +174,6 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    var date = DateTime.Now;
                     var user = new User
                     {
                         Username = TxtUsername.Text,
@@ -195,7 +193,7 @@ namespace GrocerySupplyManagementApp.Forms
                         StockSummary = ChkStockSummary.Checked,
                         Supplier = ChkSupplier.Checked,
                         UpdatedBy = _username,
-                        UpdatedDate = date
+                        UpdatedDate = DateTime.Now
                     };
 
                     _userService.UpdateUser(username, user);

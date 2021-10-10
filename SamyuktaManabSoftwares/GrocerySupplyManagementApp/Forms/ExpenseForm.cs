@@ -112,19 +112,17 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
                     Action = Constants.EXPENSE,
                     ActionType = ComboPayment.Text,
                     Bank = ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower() ? ComboBank.Text : null,
-                    IncomeExpense = ComboExpense.Text,
+                    Expense = ComboExpense.Text,
                     Narration = TxtNarration.Text,
-                    DueAmount = Convert.ToDecimal(RichAmount.Text),
-                    ReceivedAmount = 0.00m,
+                    PaymentAmount = Convert.ToDecimal(RichAmount.Text),
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
                 _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -143,7 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Credit = Convert.ToDecimal(RichAmount.Text),
                         Narration = ComboExpense.Text,
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
 
                     _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -323,7 +321,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboExpense.DisplayMember = "Value";
 
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.ASSET, Value = Constants.ASSET });
-            ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_CHARGE, Value = Constants.DELIVERY_CHARGE });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.ELECTRICITY, Value = Constants.ELECTRICITY });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.FUEL_TRANSPORTATION, Value = Constants.FUEL_TRANSPORTATION });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.GUEST_HOSPITALITY, Value = Constants.GUEST_HOSPITALITY });
@@ -352,6 +349,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.MISCELLANEOUS, Value = Constants.MISCELLANEOUS });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.OFFICE_RENT, Value = Constants.OFFICE_RENT });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.REPAIR_MAINTENANCE, Value = Constants.REPAIR_MAINTENANCE });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.SALES_DISCOUNT, Value = Constants.SALES_DISCOUNT });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.SALES_RETURN, Value = Constants.SALES_RETURN });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.STAFF_ALLOWANCE, Value = Constants.STAFF_ALLOWANCE });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.STAFF_SALARY, Value = Constants.STAFF_SALARY });

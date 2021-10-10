@@ -6,7 +6,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 {
     public interface IPOSDetailService
     {
-        #region Add Operation
+        #region Get Operation
         IEnumerable<POSDetail> GetPOSDetails();
         POSDetail GetPOSDetail(long id);
         POSDetailView GetPOSDetailView(string invoiceNo);
@@ -20,8 +20,9 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         POSDetail UpdatePOSDetail(long id, POSDetail posDetail);
         #endregion
 
-        #region Add Operation
+        #region Delete Operation
         bool DeletePOSDetail(long id);
+        bool DeletePOSDetail(string invoiceNo);
         #endregion
     }
 }

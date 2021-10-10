@@ -15,7 +15,8 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string Action { get; set; }
         public string ActionType { get; set; }
         public string Bank { get; set; }
-        public string IncomeExpense { get; set; }
+        public string Income { get; set; }
+        public string Expense { get; set; }
         public string Narration { get; set; }
         public decimal SubTotal { get; set; }
         public decimal DiscountPercent { get; set; }

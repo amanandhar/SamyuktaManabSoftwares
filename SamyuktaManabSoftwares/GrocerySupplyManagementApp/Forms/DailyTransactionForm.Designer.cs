@@ -33,15 +33,12 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.GroupFilter = new System.Windows.Forms.GroupBox();
-            this.RadioService = new System.Windows.Forms.RadioButton();
-            this.ComboService = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.ComboBankTransfer = new System.Windows.Forms.ComboBox();
             this.RadioBankTransfer = new System.Windows.Forms.RadioButton();
-            this.RadioItemCode = new System.Windows.Forms.RadioButton();
             this.ComboPurchase = new System.Windows.Forms.ComboBox();
             this.RadioInvoiceNo = new System.Windows.Forms.RadioButton();
             this.ComboExpensePayment = new System.Windows.Forms.ComboBox();
-            this.ComboItemCode = new System.Windows.Forms.ComboBox();
             this.RadioExpensePayment = new System.Windows.Forms.RadioButton();
             this.RadioAll = new System.Windows.Forms.RadioButton();
             this.RadioPurchasePayment = new System.Windows.Forms.RadioButton();
@@ -63,7 +60,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridTransactionList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.GroupFilter.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridTransactionList)).BeginInit();
@@ -72,15 +68,11 @@ namespace GrocerySupplyManagementApp.Forms
             // GroupFilter
             // 
             this.GroupFilter.Controls.Add(this.label4);
-            this.GroupFilter.Controls.Add(this.RadioService);
-            this.GroupFilter.Controls.Add(this.ComboService);
             this.GroupFilter.Controls.Add(this.ComboBankTransfer);
             this.GroupFilter.Controls.Add(this.RadioBankTransfer);
-            this.GroupFilter.Controls.Add(this.RadioItemCode);
             this.GroupFilter.Controls.Add(this.ComboPurchase);
             this.GroupFilter.Controls.Add(this.RadioInvoiceNo);
             this.GroupFilter.Controls.Add(this.ComboExpensePayment);
-            this.GroupFilter.Controls.Add(this.ComboItemCode);
             this.GroupFilter.Controls.Add(this.RadioExpensePayment);
             this.GroupFilter.Controls.Add(this.RadioAll);
             this.GroupFilter.Controls.Add(this.RadioPurchasePayment);
@@ -104,28 +96,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.TabIndex = 5;
             this.GroupFilter.TabStop = false;
             // 
-            // RadioService
+            // label4
             // 
-            this.RadioService.AutoSize = true;
-            this.RadioService.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioService.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioService.Location = new System.Drawing.Point(36, 43);
-            this.RadioService.Name = "RadioService";
-            this.RadioService.Size = new System.Drawing.Size(96, 22);
-            this.RadioService.TabIndex = 46;
-            this.RadioService.TabStop = true;
-            this.RadioService.Text = "By Service";
-            this.RadioService.UseVisualStyleBackColor = true;
-            this.RadioService.CheckedChanged += new System.EventHandler(this.RadioService_CheckedChanged);
-            // 
-            // ComboService
-            // 
-            this.ComboService.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboService.FormattingEnabled = true;
-            this.ComboService.Location = new System.Drawing.Point(142, 42);
-            this.ComboService.Name = "ComboService";
-            this.ComboService.Size = new System.Drawing.Size(125, 24);
-            this.ComboService.TabIndex = 45;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label4.Location = new System.Drawing.Point(708, 69);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 18);
+            this.label4.TabIndex = 47;
+            this.label4.Text = "User";
             // 
             // ComboBankTransfer
             // 
@@ -150,20 +130,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioBankTransfer.Text = "Bank Transfer";
             this.RadioBankTransfer.UseVisualStyleBackColor = true;
             this.RadioBankTransfer.CheckedChanged += new System.EventHandler(this.RadioBankTransfer_CheckedChanged);
-            // 
-            // RadioItemCode
-            // 
-            this.RadioItemCode.AutoSize = true;
-            this.RadioItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioItemCode.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioItemCode.Location = new System.Drawing.Point(647, 16);
-            this.RadioItemCode.Name = "RadioItemCode";
-            this.RadioItemCode.Size = new System.Drawing.Size(115, 22);
-            this.RadioItemCode.TabIndex = 32;
-            this.RadioItemCode.TabStop = true;
-            this.RadioItemCode.Text = "By Item Code";
-            this.RadioItemCode.UseVisualStyleBackColor = true;
-            this.RadioItemCode.CheckedChanged += new System.EventHandler(this.RadioItemCode_CheckedChanged);
             // 
             // ComboPurchase
             // 
@@ -195,15 +161,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboExpensePayment.Name = "ComboExpensePayment";
             this.ComboExpensePayment.Size = new System.Drawing.Size(125, 24);
             this.ComboExpensePayment.TabIndex = 41;
-            // 
-            // ComboItemCode
-            // 
-            this.ComboItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboItemCode.FormattingEnabled = true;
-            this.ComboItemCode.Location = new System.Drawing.Point(765, 14);
-            this.ComboItemCode.Name = "ComboItemCode";
-            this.ComboItemCode.Size = new System.Drawing.Size(125, 24);
-            this.ComboItemCode.TabIndex = 31;
             // 
             // RadioExpensePayment
             // 
@@ -482,17 +439,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 7;
             this.label1.Text = "Daily Transaction Management";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(708, 69);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 18);
-            this.label4.TabIndex = 47;
-            this.label4.Text = "User";
-            // 
             // DailyTransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -530,8 +476,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtTotal;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDay;
         private System.Windows.Forms.DataGridView DataGridTransactionList;
-        private System.Windows.Forms.RadioButton RadioItemCode;
-        private System.Windows.Forms.ComboBox ComboItemCode;
         private System.Windows.Forms.RadioButton RadioInvoiceNo;
         private System.Windows.Forms.GroupBox GroupFilter;
         private System.Windows.Forms.ComboBox ComboInvoiceNo;
@@ -543,8 +487,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox ComboPurchase;
         private System.Windows.Forms.ComboBox ComboBankTransfer;
         private System.Windows.Forms.RadioButton RadioBankTransfer;
-        private System.Windows.Forms.RadioButton RadioService;
-        private System.Windows.Forms.ComboBox ComboService;
         private CustomControls.Button.CustomButton BtnDelete;
         private CustomControls.Button.CustomButton BtnShow;
         private System.Windows.Forms.TextBox textBox1;

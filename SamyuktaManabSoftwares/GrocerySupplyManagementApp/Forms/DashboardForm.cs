@@ -227,7 +227,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
                 _userTransactionService, _userService,
-                _stockAdjustmentService));
+                _stockAdjustmentService, _posDetailService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -238,7 +238,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService,
                _bankTransactionService,
                _purchasedItemService, _soldItemService,
-               _userTransactionService, _userService, _stockAdjustmentService
+               _userTransactionService, _userService,
+               _stockAdjustmentService, _posDetailService
                ));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -262,7 +263,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _bankService, _bankTransactionService,
                 _memberService, _soldItemService,
                 _userTransactionService, _employeeService,
-                _reportService, this));
+                _reportService, _posDetailService, this));
             HideSubMenu();
             SelectButton(sender as Button);
         }

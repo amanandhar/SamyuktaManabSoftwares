@@ -22,13 +22,16 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "m.[MemberId], m.[Name], m.[Address], m.[ContactNo], m.[AccountNo], " +
                 "ut.[InvoiceNo], ut.[ActionType], ut.[EndOfDay], " +
-                "ut.[SubTotal], ut.[Discount], ut.[DeliveryCharge], ut.[DueAmount], ut.[ReceivedAmount], " +
+                "pd.[SubTotal], pd.[Discount], pd.[DeliveryCharge], ut.[DueAmount], ut.[ReceivedAmount], " +
                 "i.[Name] AS [ItemName], i.[Brand], si.[Volume], si.[Unit], " +
                 "si.[Quantity], si.[Price], CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) AS [Amount] " +
                 "FROM " + Constants.TABLE_MEMBER + " m " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON m.[MemberId] = ut.[MemberId] " +
-                "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND ISNULL(ut.[Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL(ut.[Expense], '') !=  '" + Constants.SALES_DISCOUNT + "' " +
+                "INNER JOIN " + Constants.TABLE_POS_DETAIL + " pd " +
+                "ON pd.[InvoiceNo] = ut.[InvoiceNo] " +
                 "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +

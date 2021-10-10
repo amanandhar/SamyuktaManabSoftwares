@@ -9,12 +9,10 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string MemberSupplierId { get; set; }
         public string Action { get; set; }
         public string ActionType { get; set; }
+        public string Bank { get; set; }
         public string InvoiceBillNo { get; set; }
-        public string IncomeExpense { get; set; }
-        public string ItemCode { get; set; }
-        public string ItemName { get; set; }
-        public decimal Quantity { get; set; }
-        public decimal SalesPrice { get; set; }
+        public string Income { get; set; }
+        public string Expense { get; set; }
         public decimal Amount { get; set; }
     }
 }

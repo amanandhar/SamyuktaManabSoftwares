@@ -73,7 +73,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
                 var item = new Item
                 {
                     Code = RichItemCode.Text,
@@ -82,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Unit = ComboUnit.Text,
                     Threshold = Convert.ToInt32(RichThreshold.Text),
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _itemService.AddItem(item);
@@ -96,7 +95,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Name = ComboCategory.Text,
                     ItemCode = RichItemCode.Text,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _itemCategoryService.AddItemCategory(itemCategory);

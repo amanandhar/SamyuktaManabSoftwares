@@ -7,8 +7,10 @@ namespace GrocerySupplyManagementApp.Shared
         public const string SALES = "Sales";
         public const string RECEIPT = "Receipt";
         public const string PAYMENT = "Payment";
-        public const string EXPENSE = "Expense";
+        public const string ADD = "Add";
+        public const string DEDUCT = "Deduct";
         public const string BANK_TRANSFER = "Bank Transfer";
+        public const string RETURN = "Return";
 
         // Action Type
         public const string CASH = "Cash";
@@ -16,13 +18,10 @@ namespace GrocerySupplyManagementApp.Shared
         public const string DEBIT = "Debit";
         public const string CHEQUE = "Cheque";
         public const string SHARE_CHEQUE = "Share Cheque";
+        public const string ACTION_TYPE_NONE = "None";
 
         public const string CLEAR = "Clear";
         public const string DUE = "Due";
-
-        public const string ADD = "Add";
-        public const string DEDUCT = "Deduct";
-        public const string ACTION_TYPE_NONE = "None";
 
         // Database
         public const string DB_CONNECTION_STRING = "DBConnectionString";
@@ -54,7 +53,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string SALES_PROFIT = "Sales Profit";
         public const string STOCK_ADJUSTMENT = "Stock Adjustment";
         
-        public const string BONUS = "Bonus";
+        public const string PURCHASE_BONUS = "PURCHASE_BONUS";
         public const string BONUS_PREFIX = "BS";
         public const string BILL_NO_PREFIX = "BN";
         public const string INVOICE_NO_PREFIX = "IN";
@@ -63,6 +62,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string OWNER_EQUITY = "Owner Equity";
 
         // Expense 
+        public const string EXPENSE = "Expense";
         public const string ASSET = "Asset";
         public const string ELECTRICITY = "Electricity";
         public const string FUEL_TRANSPORTATION = "Fuel & Transportation";

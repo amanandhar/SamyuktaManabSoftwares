@@ -110,7 +110,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
@@ -118,10 +117,9 @@ namespace GrocerySupplyManagementApp.Forms
                     Action = Constants.RECEIPT,
                     ActionType = Constants.SHARE_CHEQUE,
                     Bank = ComboBank.Text,
-                    DueAmount = 0.00m,
                     ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
                 _userTransactionService.AddUserTransaction(userTransaction);
 
@@ -137,7 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Credit =  0.00m,
                     Narration = ComboNarration.Text,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
@@ -195,7 +193,6 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                var date = DateTime.Now;
                 var shareMember = new ShareMember
                 {
                     Name = RichName.Text,
@@ -203,7 +200,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
                     ImagePath = destinationFilePath,
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
 
                 _shareMemberService.AddShareMember(shareMember);

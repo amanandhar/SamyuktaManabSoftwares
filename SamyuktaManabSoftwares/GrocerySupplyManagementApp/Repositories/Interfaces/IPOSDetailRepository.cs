@@ -15,5 +15,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         POSDetail UpdatePOSDetail(long id, POSDetail posDetail);
 
         bool DeletePOSDetail(long id);
+        bool DeletePOSDetail(string invoiceNo);
     }
 }

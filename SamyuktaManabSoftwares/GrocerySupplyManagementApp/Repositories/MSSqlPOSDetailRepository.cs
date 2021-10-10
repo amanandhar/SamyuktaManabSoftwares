@@ -113,14 +113,14 @@ namespace GrocerySupplyManagementApp.Repositories
             var posDetailView = new POSDetailView();
             var query = @"SELECT " +
                 "ut.[Id], ut.[EndOfDay], ut.[InvoiceNo], ut.[BillNo], ut.[MemberId], " +
-                "ut.[SupplierId], ut.[DeliveryPersonId], ut.[Action], ut.[ActionType], ut.[Bank], ut.[IncomeExpense], " +
-                "ut.[DueAmount], ut.[ReceivedAmount], ut.[AddedBy], ut.[AddedDate], ut.[UpdatedBy], ut.[UpdatedDate] " +
-                "ps.[SubTotal], ps.[DiscountPercent], ps.[Discount], ps.[VatPercent], ps.[Vat], ps.[DeliveryChargePercent], ps.[DeliveryCharge] " +
-                "FROM " + Constants.TABLE_POS_DETAIL + " ps " +
+                "ut.[SupplierId], ut.[DeliveryPersonId], ut.[Action], ut.[ActionType], ut.[Bank], ut.[Income], ut.[Expense], " +
+                "ut.[DueAmount], ut.[ReceivedAmount], ut.[AddedBy], ut.[AddedDate], ut.[UpdatedBy], ut.[UpdatedDate], " +
+                "pd.[SubTotal], pd.[DiscountPercent], pd.[Discount], pd.[VatPercent], pd.[Vat], pd.[DeliveryChargePercent], pd.[DeliveryCharge] " +
+                "FROM " + Constants.TABLE_POS_DETAIL + " pd " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON ps.[InvoiceNo] = ut.[InvoiceNo] " +
+                "ON pd.[InvoiceNo] = ut.[InvoiceNo] " +
                 "WHERE 1 = 1 " +
-                "AND ps.[InvoiceNo] = @InvoiceNo";
+                "AND pd.[InvoiceNo] = @InvoiceNo";
 
             try
             {
@@ -146,13 +146,14 @@ namespace GrocerySupplyManagementApp.Repositories
                                     posDetailView.Action = reader["Action"].ToString();
                                     posDetailView.ActionType = reader["ActionType"].ToString();
                                     posDetailView.Bank = reader["Bank"].ToString();
-                                    posDetailView.IncomeExpense = reader["IncomeExpense"].ToString();
+                                    posDetailView.Income = reader["Income"].ToString();
+                                    posDetailView.Expense = reader["Expense"].ToString();
                                     posDetailView.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
                                     posDetailView.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
                                     posDetailView.AddedBy = reader["AddedBy"].ToString();
                                     posDetailView.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                     posDetailView.UpdatedBy = reader["UpdatedBy"].ToString();
-                                    posDetailView.UpdatedDate = reader.IsDBNull(21) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    posDetailView.UpdatedDate = reader.IsDBNull(17) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                     posDetailView.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
                                     posDetailView.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
                                     posDetailView.Discount = Convert.ToDecimal(reader["Discount"].ToString());
@@ -269,6 +270,34 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public bool DeletePOSDetail(string invoiceNo)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                    "FROM " + Constants.TABLE_POS_DETAIL + " " +
+                    "WHERE 1 = 1 " +
+                    "AND [InvoiceNo] = @InvoiceNo";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }

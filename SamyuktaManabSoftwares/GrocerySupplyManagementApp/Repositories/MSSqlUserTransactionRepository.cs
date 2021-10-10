@@ -23,7 +23,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], " +
-                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [IncomeExpense], " +
+                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [Income], [Expense], " +
                 "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "ORDER BY Id ";
@@ -51,11 +51,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
-                                    IncomeExpense = reader["IncomeExpense"].ToString(),
+                                    Income = reader["Income"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(14) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(15) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                             };
 
                                 userTransactions.Add(userTransaction);
@@ -77,7 +78,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], " +
-                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [IncomeExpense], " +
+                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [Income], [Expense], " +
                 "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " + 
                 "WHERE 1 = 1 " +
@@ -109,11 +110,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
-                                    IncomeExpense = reader["IncomeExpense"].ToString(),
+                                    Income = reader["Income"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()), 
-                                    UpdatedDate = reader.IsDBNull(14) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString()),
+                                    UpdatedDate = reader.IsDBNull(15) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString()),
                                 };
 
                                 userTransactions.Add(userTransaction);
@@ -135,7 +137,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], [ShareMemberId], " +
-                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [IncomeExpense], [Narration], " +
+                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [Income], [Expense], [Narration], " +
                 "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1=1 ";
@@ -191,12 +193,13 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
-                                    IncomeExpense = reader["IncomeExpense"].ToString(),
+                                    Income = reader["Income"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
                                     Narration = reader["Narration"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(16) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(17) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 userTransactions.Add(userTransaction);
@@ -219,11 +222,11 @@ namespace GrocerySupplyManagementApp.Repositories
             var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [InvoiceNo], [BillNo], [MemberId], [ShareMemberId], " +
-                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [IncomeExpense], " +
+                "[SupplierId], [DeliveryPersonId], [Action], [ActionType], [Bank], [Income], [Expense], " +
                 "[DueAmount], [ReceivedAmount], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1=1 " +
-                "AND [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' ";
+                "AND [Income] = '" + Constants.DELIVERY_CHARGE + "' ";
 
             if (!string.IsNullOrWhiteSpace(deliveryPersonFilter?.DateFrom))
             {
@@ -270,11 +273,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
                                     Bank = reader["Bank"].ToString(),
-                                    IncomeExpense = reader["IncomeExpense"].ToString(),
+                                    Income = reader["Income"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(22) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(23) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 userTransactions.Add(userTransaction);
@@ -301,7 +305,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE WHEN ([DueAmount] <> 0 AND ([ReceivedAmount] - [DueAmount] >= 0)) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' " +
                 "AND [MemberId] = @MemberId " +
                 "ORDER BY [Id] ";
 
@@ -354,7 +359,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE WHEN ([DueAmount] <> 0 AND ([ReceivedAmount] - [DueAmount] >= 0)) THEN [DueAmount] ELSE [ReceivedAmount] END AS [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' " +
                 "AND [MemberId] IS NOT NULL ";
             
             if(!string.IsNullOrEmpty(memberFilter?.DateFrom))
@@ -558,7 +564,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[IncomeExpense], [Narration], [DueAmount], [ReceivedAmount], " +
+                "[Expense], [Narration], [DueAmount], [ReceivedAmount], " +
                 "(ISNULL([DueAmount], 0) - ISNULL([ReceivedAmount], 0)) AS Amount " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
@@ -577,7 +583,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.Expense))
             {
-                query += " AND [IncomeExpense] = @IncomeExpense ";
+                query += " AND [Expense] = @Expense ";
             }
 
             query += "ORDER BY [Id] ";
@@ -591,7 +597,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)expenseTransactionFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)expenseTransactionFilter?.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@IncomeExpense", ((object)expenseTransactionFilter?.Expense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Expense", ((object)expenseTransactionFilter?.Expense) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -603,7 +609,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
-                                    Expense = reader["IncomeExpense"].ToString(),
+                                    Expense = reader["Expense"].ToString(),
                                     Narration = reader["Narration"].ToString(),
                                     DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString()),
                                     ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
@@ -633,7 +639,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id " +
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
+                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' ";
 
             try
             {
@@ -684,7 +691,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [InvoiceNo] = @InvoiceNo " +
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') ";
+                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' ";
 
             try
             {
@@ -829,7 +837,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE WHEN ([DueAmount] <> 0 AND ([ReceivedAmount] - [DueAmount] >= 0)) THEN 0 ELSE ([DueAmount] - [ReceivedAmount]) END AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL([IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' " +
                 "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') ";
 
             if(!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
@@ -956,7 +965,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SELECT [Id] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' ";
+                "AND [Income] = '" + Constants.DELIVERY_CHARGE + "' ";
             
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
@@ -987,14 +996,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ISNULL(SUM([DueAmount]), 0) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [Action] IN ('" + Constants.BANK_TRANSFER + "', '" + Constants.EXPENSE + "') " +
+                "AND [Action] IN ('" + Constants.BANK_TRANSFER + "', '" + Constants.EXPENSE + "', '" + Constants.PAYMENT + "') " +
                 "AND [ActionType] = '" + Constants.CASH + "' " +
                 "AND [Id] NOT IN " +
                 "( " +
                 "SELECT [Id] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' ";
+                "AND [Expense] = '" + Constants.SALES_DISCOUNT + "' ";
 
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
@@ -1062,7 +1071,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "( " +
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
+                    "WHERE [Expense] = '" + Constants.SALES_DISCOUNT + "' " +
                     ") ";
             }
             else
@@ -1076,7 +1085,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
-                    "AND [IncomeExpense] IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "', '" + Constants.BONUS + "') " +
+                    "AND [Income] IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "', '" + Constants.PURCHASE_BONUS + "') " +
                     ") " ;
             }
 
@@ -1137,7 +1146,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "( " +
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE [IncomeExpense] = '" + Constants.SALES_DISCOUNT + "' " +
+                    "WHERE [Expense] = '" + Constants.SALES_DISCOUNT + "' " +
                     ") ";
             }
             else
@@ -1150,7 +1159,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "( " +
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE [IncomeExpense] = '" + Constants.DELIVERY_CHARGE + "' " +
+                    "WHERE [Income] = '" + Constants.DELIVERY_CHARGE + "' " +
                     ") ";
             }
 
@@ -1216,7 +1225,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.Expense))
             {
-                query += " AND [IncomeExpense] = @Expense ";
+                query += " AND [Expense] = @Expense ";
             }
 
             try
@@ -1401,28 +1410,20 @@ namespace GrocerySupplyManagementApp.Repositories
                 "CASE " +
                     "WHEN ut.[MemberId] IS NULL THEN ut.[SupplierId] ELSE ut.[MemberId] " +
                 "END AS [MemberSupplierId], " +
-                "[Action], " +
-                "CASE " +
-                    "WHEN ut.[ActionType]='" + Constants.CHEQUE + "' THEN (ut.[ActionType] + ' - ' + ut.[Bank]) " +
-                    "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NOT NULL AND ut.[IncomeExpense] = '" + dailyTransactionFilter?.Service + "' THEN (ut.[ActionType] + ' - ' + ut.[IncomeExpense]) " +
-                    "WHEN ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] IS NULL THEN ut.[ActionType] " +
-                    "ELSE ut.[ActionType] " +
-                "END AS [ActionType], " +
+                "ut.[Action], " +
+                "ut.[ActionType], " +
+                "ISNULL(ut.[Bank], '') AS [Bank], " +
                 "CASE " +
                     "WHEN ut.[MemberId] IS NULL THEN ut.[BillNo] " +
                     "ELSE ut.[InvoiceNo] " +
                 "END AS [InvoiceBillNo], " +
-                "ut.[IncomeExpense], " +
-                "i.[Code], i.[Name], si.[Quantity], " +
-                "CASE " +
-                    "WHEN ut.[Action]='" + Constants.SALES + "' THEN si.[Price] " +
-                    "ELSE 0.00 " +
-                "END AS [SalesPrice], " +
+                "ut.[Income], " +
+                "ut.[Expense], " +
                 "CASE " +
                     "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
                     "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
-                    "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
-                    "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) " +
+                    "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueAmount] " +
+                    "WHEN ut.[Action]='" + Constants.SALES + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[DueAmount] " +
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[ReceivedAmount] " +
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
@@ -1437,25 +1438,15 @@ namespace GrocerySupplyManagementApp.Repositories
                     "ELSE ut.[DueAmount] " +
                 "END  AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "LEFT JOIN " +
-                "(" + Constants.TABLE_SOLD_ITEM + " si " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON si.[ItemId] = i.[Id] " +
-                ") " +
-                "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') ";
+                "AND ISNULL(ut.[Income], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') ";
 
             if (dailyTransactionFilter.Date != null)
             {
                 query += "AND ut.[EndOfDay] = '" + dailyTransactionFilter.Date + "' ";
             }
 
-            if (dailyTransactionFilter.Service != null)
-            {
-                query += " AND ut.[Action] IN ('" + Constants.RECEIPT + "', '" + Constants.EXPENSE + "') AND ut.[IncomeExpense] = '" + dailyTransactionFilter.Service + "' ";
-            }
-            else if (dailyTransactionFilter.Purchase != null)
+            if (dailyTransactionFilter.Purchase != null)
             {
                 query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Purchase + "' ";
             }
@@ -1469,7 +1460,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             else if (dailyTransactionFilter.Expense != null)
             {
-                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.SALES_DISCOUNT + "') ";
+                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' AND ISNULL(ut.[Expense], '') NOT IN ('" + Constants.SALES_DISCOUNT + "') ";
             }
             else if (dailyTransactionFilter.BankTransfer != null)
             {
@@ -1477,11 +1468,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             else if (dailyTransactionFilter.Receipt != null)
             {
-                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "'  AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "') ";
-            }
-            else if (dailyTransactionFilter.ItemCode != null)
-            {
-                query += " AND i.[Code] = '" + dailyTransactionFilter.ItemCode + "' ";
+                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "'  AND ISNULL(ut.[Income], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "') ";
             }
             else if (dailyTransactionFilter.InvoiceNo != null)
             {
@@ -1515,13 +1502,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                     MemberSupplierId = reader.IsDBNull(2) ? string.Empty : reader["MemberSupplierId"].ToString(),
                                     Action = reader.IsDBNull(3) ? string.Empty : reader["Action"].ToString(),
                                     ActionType = reader.IsDBNull(4) ? string.Empty : reader["ActionType"].ToString(),
-                                    InvoiceBillNo = reader.IsDBNull(5) ? string.Empty : reader["InvoiceBillNo"].ToString(),
-                                    IncomeExpense = reader.IsDBNull(6) ? string.Empty : reader["IncomeExpense"].ToString(),
-                                    ItemCode = reader.IsDBNull(7) ? string.Empty : reader["Code"].ToString(),
-                                    ItemName = reader.IsDBNull(8) ? string.Empty : reader["Name"].ToString(),
-                                    Quantity = reader.IsDBNull(9) ? 0.00m : Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    SalesPrice = reader.IsDBNull(10) ? 0.00m : Convert.ToDecimal(reader["SalesPrice"].ToString()),
-                                    Amount = reader.IsDBNull(11) ? 0.00m : Convert.ToDecimal(reader["Amount"].ToString())
+                                    Bank = reader.IsDBNull(5) ? string.Empty : reader["Bank"].ToString(),
+                                    InvoiceBillNo = reader.IsDBNull(6) ? string.Empty : reader["InvoiceBillNo"].ToString(),
+                                    Income = reader.IsDBNull(7) ? string.Empty : reader["Income"].ToString(),
+                                    Expense = reader.IsDBNull(8) ? string.Empty : reader["Expense"].ToString(),
+                                    Amount = reader.IsDBNull(9) ? 0.00m : Convert.ToDecimal(reader["Amount"].ToString())
                                 };
 
                                 transactionViewList.Add(transactionView);
@@ -1542,11 +1527,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [Bank], [IncomeExpense], [ReceivedAmount] " +
+                "[Id], [EndOfDay], [Bank], [Income], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [Action] = '" + Constants.INCOME + "' " +
-                "AND [IncomeExpense] IS NOT NULL ";
+                "AND ISNULL([Income], '') = '" + Constants.INCOME + "' ";
 
             if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateFrom))
             {
@@ -1560,7 +1544,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrEmpty(incomeTransactionFilter?.Income))
             {
-                query += "AND [IncomeExpense] = @IncomeExpense ";
+                query += "AND [Income] = @Income ";
             }
 
             query += "ORDER BY [Id] ";
@@ -1574,7 +1558,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@IncomeExpense", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Income", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -1584,7 +1568,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
-                                    InvoiceNo = reader["IncomeExpense"].ToString(),
+                                    InvoiceNo = reader["Income"].ToString(),
                                     ItemCode = string.Empty,
                                     ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
@@ -1677,11 +1661,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var incomeDetails = new List<IncomeDetailView>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [Bank], [IncomeExpense], [ReceivedAmount] " +
+                "[Id], [EndOfDay], [Bank], [Income], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [Action] = '" + Constants.PURCHASE + "' " +
-                "AND [IncomeExpense] = '" + Constants.BONUS +"' ";
+                "AND ISNULL([Income], '') = '" + Constants.PURCHASE_BONUS +"' ";
 
             if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateFrom))
             {
@@ -1713,7 +1697,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
-                                    InvoiceNo = reader["IncomeExpense"].ToString(),
+                                    InvoiceNo = reader["Income"].ToString(),
                                     ItemCode = string.Empty,
                                     ItemName = reader["Bank"].ToString(),
                                     ItemBrand = string.Empty,
@@ -1804,7 +1788,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHERE 1 = 1 " +
                 "AND ut.[Action] = '" + Constants.PURCHASE + "' " +
                 "AND ut.[ActionType] = '" + Constants.CASH + "' " +
-                "AND ut.[IncomeExpense] = '" + Constants.SALES_RETURN + "' ";
+                "AND ut.[Expense] = '" + Constants.SALES_RETURN + "' ";
 
             if (!string.IsNullOrWhiteSpace(salesReturnTransactionFilter?.DateFrom))
             {
@@ -1862,13 +1846,13 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
                         "[InvoiceNo], [EndOfDay], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], " +
-                        "[Action], [ActionType], [Bank], [IncomeExpense], [Narration], " +
+                        "[Action], [ActionType], [Bank], [Income], [Expense], [Narration], " +
                         "[DueAmount], [ReceivedAmount], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@InvoiceNo, @EndOfDay, @BillNo, @MemberId, @ShareMemberId, @SupplierId, @DeliveryPersonId, " +
-                        "@Action, @ActionType, @Bank, @IncomeExpense, @Narration,  " +
+                        "@Action, @ActionType, @Bank, @Income, @Expense, @Narration,  " +
                         "@DueAmount, @ReceivedAmount, @AddedBy, @AddedDate " +
                     ") ";
             try
@@ -1888,7 +1872,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Action", userTransaction.Action);
                         command.Parameters.AddWithValue("@ActionType", userTransaction.ActionType);
                         command.Parameters.AddWithValue("@Bank", ((object)userTransaction.Bank) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@IncomeExpense", ((object)userTransaction.IncomeExpense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Income", ((object)userTransaction.Income) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Expense", ((object)userTransaction.Expense) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Narration", ((object)userTransaction.Narration) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DueAmount", userTransaction.DueAmount);
                         command.Parameters.AddWithValue("@ReceivedAmount", ((object)userTransaction.ReceivedAmount) ?? DBNull.Value);

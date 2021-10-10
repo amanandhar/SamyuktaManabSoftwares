@@ -95,22 +95,17 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var date = DateTime.Now;
-
                 if(ComboAction.Text == Constants.DEDUCT)
                 {
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Action = Constants.EXPENSE,
+                        Action = Constants.DEDUCT,
                         ActionType = Constants.ACTION_TYPE_NONE,
-                        Bank = null,
-                        IncomeExpense = Constants.STOCK_ADJUSTMENT,
-                        Narration = null,
-                        DueAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
-                        ReceivedAmount = 0.00m,
+                        Expense = Constants.STOCK_ADJUSTMENT,
+                        PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
                 }
@@ -119,15 +114,12 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Action = Constants.INCOME,
+                        Action = Constants.ADD,
                         ActionType = Constants.ACTION_TYPE_NONE,
-                        Bank = null,
-                        IncomeExpense = Constants.STOCK_ADJUSTMENT,
-                        Narration = null,
-                        DueAmount = 0.00m,
+                        Income = Constants.STOCK_ADJUSTMENT,
                         ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
                 }
@@ -143,7 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
                     Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemQuantity.Text),
                     Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemPrice.Text),
                     AddedBy = _username,
-                    AddedDate = date
+                    AddedDate = DateTime.Now
                 };
                 _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
 

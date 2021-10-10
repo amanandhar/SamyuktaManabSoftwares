@@ -20,6 +20,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
+        private readonly IPOSDetailService _posDetailService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -28,9 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public DailyTransactionForm(string username,
             ISettingService settingService, IBankTransactionService bankTransactionService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService, IUserService userService,
-            IStockAdjustmentService stockAdjustmentService
+            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService
             )
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userTransactionService = userTransactionService;
             _userService = userService;
             _stockAdjustmentService = stockAdjustmentService;
+            _posDetailService = posDetailService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -74,7 +76,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var selectedRow = DataGridTransactionList.SelectedRows[0];
                     var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                     var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
-                    var incomeExpense = selectedRow.Cells["IncomeExpense"].Value.ToString();
+                    var income = selectedRow.Cells["Income"].Value.ToString();
+                    var expense = selectedRow.Cells["Expense"].Value.ToString();
 
                     if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
                     {
@@ -102,6 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
                         {
                             _userTransactionService.DeleteUserTransaction(billInvoiceNo);
                             _soldItemService.DeleteSoldItem(billInvoiceNo);
+                            _posDetailService.DeletePOSDetail(billInvoiceNo);
                         }
                         else
                         {
@@ -113,7 +117,7 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                         }
                     }
-                    else if (!string.IsNullOrWhiteSpace(incomeExpense) && incomeExpense.Equals(Constants.STOCK_ADJUSTMENT))
+                    else if (income.Equals(Constants.STOCK_ADJUSTMENT) || expense.Equals(Constants.STOCK_ADJUSTMENT))
                     {
                         _userTransactionService.DeleteUserTransaction(id);
                         _stockAdjustmentService.DeleteStockAdjustmentByUserTransaction(id);
@@ -139,20 +143,6 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Radio Button Event
-        private void RadioService_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioService.Checked)
-            {
-                ClearCombos();
-                EnableCombos(false);
-                ComboService.Enabled = true;
-                LoadServices();
-            }
-            else
-            {
-                ComboService.Enabled = false;
-            }
-        }
 
         private void RadioPurchase_CheckedChanged(object sender, EventArgs e)
         {
@@ -244,21 +234,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void RadioItemCode_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioItemCode.Checked)
-            {
-                ClearCombos();
-                EnableCombos(false);
-                ComboItemCode.Enabled = true;
-                LoadItemCodes();
-            }
-            else
-            {
-                ComboItemCode.Enabled = false;
-            }
-        }
-
         private void RadioInvoiceNo_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioInvoiceNo.Checked)
@@ -280,14 +255,15 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridTransactionList.Columns["Id"].Visible = false;
-            DataGridTransactionList.Columns["IncomeExpense"].Visible = false;
+            DataGridTransactionList.Columns["Income"].Visible = false;
+            DataGridTransactionList.Columns["Expense"].Visible = false;
 
             DataGridTransactionList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridTransactionList.Columns["EndOfDay"].Width = 80;
+            DataGridTransactionList.Columns["EndOfDay"].Width = 100;
             DataGridTransactionList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Mem/Supp";
-            DataGridTransactionList.Columns["MemberSupplierId"].Width = 75;
+            DataGridTransactionList.Columns["MemberSupplierId"].Width = 100;
             DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
 
             DataGridTransactionList.Columns["Action"].HeaderText = "Description";
@@ -295,34 +271,20 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
 
             DataGridTransactionList.Columns["ActionType"].HeaderText = "Type";
-            DataGridTransactionList.Columns["ActionType"].Width = 220;
+            DataGridTransactionList.Columns["ActionType"].Width = 100;
             DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
+            DataGridTransactionList.Columns["Bank"].HeaderText = "Bank";
+            DataGridTransactionList.Columns["Bank"].Width = 100;
+            DataGridTransactionList.Columns["Bank"].DisplayIndex = 4;
+
             DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
-            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 85;
-            DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 4;
-
-            DataGridTransactionList.Columns["ItemCode"].HeaderText = "ItemCode";
-            DataGridTransactionList.Columns["ItemCode"].Width = 85;
-            DataGridTransactionList.Columns["ItemCode"].DisplayIndex = 5;
-
-            DataGridTransactionList.Columns["ItemName"].HeaderText = "ItemName";
-            DataGridTransactionList.Columns["ItemName"].Width = 150;
-            DataGridTransactionList.Columns["ItemName"].DisplayIndex = 6;
-
-            DataGridTransactionList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridTransactionList.Columns["Quantity"].Width = 60;
-            DataGridTransactionList.Columns["Quantity"].DisplayIndex = 7;
-            DataGridTransactionList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridTransactionList.Columns["SalesPrice"].HeaderText = "Price";
-            DataGridTransactionList.Columns["SalesPrice"].Width = 70;
-            DataGridTransactionList.Columns["SalesPrice"].DisplayIndex = 8;
-            DataGridTransactionList.Columns["SalesPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 100;
+            DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 5;
 
             DataGridTransactionList.Columns["Amount"].HeaderText = "Amount";
             DataGridTransactionList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridTransactionList.Columns["Amount"].DisplayIndex = 9;
+            DataGridTransactionList.Columns["Amount"].DisplayIndex = 6;
             DataGridTransactionList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridTransactionList.Rows)
@@ -347,11 +309,7 @@ namespace GrocerySupplyManagementApp.Forms
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
 
-            if (selectedFilter.Name.Equals("RadioService"))
-            {
-                dailyTransactionFilter.Service = ComboService.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioPurchase"))
+            if (selectedFilter.Name.Equals("RadioPurchase"))
             {
                 dailyTransactionFilter.Purchase = ComboPurchase.Text;
             }
@@ -375,10 +333,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 dailyTransactionFilter.Receipt = ComboReceipt.Text;
             }
-            else if (selectedFilter.Name.Equals("RadioItemCode"))
-            {
-                dailyTransactionFilter.ItemCode = ComboItemCode.Text;
-            }
             else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
             {
                 dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
@@ -400,39 +354,25 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearCombos()
         {
-            ComboService.Text = string.Empty;
             ComboPurchase.Text = string.Empty;
             ComboSales.Text = string.Empty;
             ComboPurchasePayment.Text = string.Empty;
             ComboExpensePayment.Text = string.Empty;
             ComboBankTransfer.Text = string.Empty;
             ComboReceipt.Text = string.Empty;
-            ComboItemCode.Text = string.Empty;
             ComboInvoiceNo.Text = string.Empty;
         }
 
         private void EnableCombos(bool option)
         {
-            ComboService.Enabled = option;
             ComboPurchase.Enabled = option;
             ComboSales.Enabled = option;
             ComboPurchasePayment.Enabled = option;
             ComboReceipt.Enabled = option;
             ComboExpensePayment.Enabled = option;
             ComboBankTransfer.Enabled = option;
-            ComboItemCode.Enabled = option;
             ComboUser.Enabled = option;
             ComboInvoiceNo.Enabled = option;
-        }
-
-        private void LoadServices()
-        {
-            ComboService.Items.Clear();
-            ComboService.ValueMember = "Id";
-            ComboService.DisplayMember = "Value";
-
-            ComboService.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_CHARGE, Value = Constants.DELIVERY_CHARGE });
-            ComboService.Items.Add(new ComboBoxItem { Id = Constants.SALES_DISCOUNT, Value = Constants.SALES_DISCOUNT });
         }
 
         private void LoadPurchases()
@@ -494,16 +434,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CHEQUE, Value = Constants.SHARE_CHEQUE });
-        }
-
-        private void LoadItemCodes()
-        {
-            ComboItemCode.Items.Clear();
-            var soldItemCodes = _soldItemService.GetSoldItemCodes();
-            foreach (var soldItemCode in soldItemCodes)
-            {
-                ComboItemCode.Items.Add(soldItemCode);
-            }
         }
 
         private void LoadInvoiceNos()

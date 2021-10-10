@@ -83,7 +83,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " b " +
                 "ON a.[InvoiceNo] = b.[InvoiceNo] " +
-                "AND ISNULL(b.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND ISNULL(b.[Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL(b.[Expense], '') !=  '" + Constants.SALES_DISCOUNT + "' " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " c " +
                 "ON a.[ItemId] = c.[Id] " +
                 "WHERE 1 = 1 " +
@@ -139,7 +140,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
-                "AND ISNULL(ut.[IncomeExpense], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "') " +
+                "AND ISNULL(ut.[Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
+                "AND ISNULL(ut.[Expense], '') != '" + Constants.SALES_DISCOUNT + "' " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 ";
@@ -149,9 +151,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND i.[Code] = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
-                query += "AND ut.[EndOfDay] >= @DateFrom AND ut.[EndOfDay] <= @DateTo ";
+                query += "AND ut.[EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            {
+                query += "AND ut.[EndOfDay] <= @DateTo ";
             }
 
             try

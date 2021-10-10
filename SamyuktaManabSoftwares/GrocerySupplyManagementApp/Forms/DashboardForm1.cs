@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService, 
                 _userTransactionService, _userService,
-                _stockAdjustmentService);
+                _stockAdjustmentService, _posDetailService);
             summaryForm.Show();
         }
 

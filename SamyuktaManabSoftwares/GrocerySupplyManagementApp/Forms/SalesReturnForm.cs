@@ -117,17 +117,15 @@ namespace GrocerySupplyManagementApp.Forms
                 if(purchasedItem != null && !string.IsNullOrWhiteSpace(purchasedItem?.SupplierId))
                 {
                     // Add Expense
-                    var date = DateTime.Now;
                     var userTransactionExpense = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Action = Constants.EXPENSE,
+                        Action = Constants.RETURN,
                         ActionType = Constants.CASH,
-                        IncomeExpense = Constants.SALES_RETURN,
-                        DueAmount = _salesReturnTransactionViewList.Sum(x => x.SalesProfit),
-                        ReceivedAmount = 0.00m,
+                        Expense = Constants.SALES_RETURN,
+                        ReceivedAmount = _salesReturnTransactionViewList.Sum(x => x.SalesProfit),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
                     _userTransactionService.AddUserTransaction(userTransactionExpense);
 
@@ -141,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Quantity = salesReturn.ItemQuantity,
                         Price = salesReturn.ItemPrice,
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     }).ToList();
 
                     purchasedItems.ForEach(x =>
@@ -156,11 +154,9 @@ namespace GrocerySupplyManagementApp.Forms
                         SupplierId = purchasedItem.SupplierId,
                         Action = Constants.PURCHASE,
                         ActionType = Constants.CASH,
-                        IncomeExpense = Constants.SALES_RETURN,
-                        DueAmount = _salesReturnTransactionViewList.Sum(x => x.ItemPrice),
-                        ReceivedAmount = 0.00m,
+                        ReceivedAmount = _salesReturnTransactionViewList.Sum(x => x.ItemPrice),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
 
                     _userTransactionService.AddUserTransaction(userTransactionPurchase);

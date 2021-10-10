@@ -98,10 +98,12 @@ namespace GrocerySupplyManagementApp.Forms
             _endOfDay = _setting.StartingDate;
         }
 
-        public PosForm(ICompanyInfoService companyInfoService, IMemberService memberService, 
+        public PosForm(string memberId, string invoiceNo,
+            ICompanyInfoService companyInfoService, IMemberService memberService, 
             IUserTransactionService userTransactionService, ISoldItemService soldItemService, 
             IEmployeeService employeeService, IReportService reportService,
-            string memberId, string invoiceNo)
+            IPOSDetailService posDetailService
+            )
         {
             InitializeComponent();
 
@@ -111,6 +113,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _employeeService = employeeService;
             _reportService = reportService;
+            _posDetailService = posDetailService;
 
             _isPrintOnly = true;
             _selectedInvoiceNo = invoiceNo;
@@ -166,17 +169,15 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    var date = DateTime.Now;
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = TxtInvoiceDate.Text,
                         MemberId = RichMemberId.Text,
                         Action = Constants.RECEIPT,
                         ActionType = Constants.CASH,
-                        DueAmount = 0.00m,
                         ReceivedAmount = Convert.ToDecimal(RichPayment.Text),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
@@ -214,7 +215,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
                 _settingService, _bankTransactionService, _purchasedItemService,
-               _soldItemService, _userTransactionService, _userService, _stockAdjustmentService);
+               _soldItemService, _userTransactionService, _userService, _stockAdjustmentService, _posDetailService);
             transactionForm.Show();
             EnableFields();
             EnableFields(Action.Transaction);
@@ -314,7 +315,6 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    var date = DateTime.Now;
                     _soldItemViewList.ForEach(x =>
                     {
                         var soldItem = new SoldItem
@@ -344,10 +344,10 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
                         Action = Constants.SALES,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                        DueAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
+                        DueReceivedAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
                         ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
                         AddedBy = _username,
-                        AddedDate = date
+                        AddedDate = DateTime.Now
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
@@ -374,13 +374,12 @@ namespace GrocerySupplyManagementApp.Forms
                             EndOfDay = _endOfDay,
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
-                            Action = Constants.EXPENSE,
+                            Action = Constants.ACTION_TYPE_NONE,
                             ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                            IncomeExpense = Constants.SALES_DISCOUNT,
-                            DueAmount = Convert.ToDecimal(TxtDiscount.Text),
-                            ReceivedAmount = 0.00m,
+                            Expense = Constants.SALES_DISCOUNT,
+                            PaymentAmount = Convert.ToDecimal(TxtDiscount.Text),
                             AddedBy = _username,
-                            AddedDate = date
+                            AddedDate = DateTime.Now
                         };
 
                         _userTransactionService.AddUserTransaction(userTransactionForSalesDiscount);
@@ -395,13 +394,12 @@ namespace GrocerySupplyManagementApp.Forms
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
                             DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
-                            Action = Constants.RECEIPT,
+                            Action = Constants.ACTION_TYPE_NONE,
                             ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                            IncomeExpense = Constants.DELIVERY_CHARGE,
-                            DueAmount = 0.00m,
+                            Income = Constants.DELIVERY_CHARGE,
                             ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text),
                             AddedBy = _username,
-                            AddedDate = date
+                            AddedDate = DateTime.Now
                         };
 
                         _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);
