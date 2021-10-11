@@ -87,9 +87,6 @@ namespace GrocerySupplyManagementApp.Forms
             LoadReceiptTypes();
             EnableFields(Action.None);
             EnableFields(Action.Load);
-            var memberId = TxtMemberId.Text;
-            var memberTransactionViewList = GetMemberTransactions(memberId);
-            LoadMemberTransactions(memberTransactionViewList);
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
         }
         #endregion
@@ -508,7 +505,7 @@ namespace GrocerySupplyManagementApp.Forms
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (x.DueReceivedAmount - x.ReceivedAmount);
+                               balance += (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? 0.00m : (x.DueReceivedAmount - x.ReceivedAmount);
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -516,7 +513,7 @@ namespace GrocerySupplyManagementApp.Forms
                                    Action = x.Action,
                                    ActionType = x.ActionType,
                                    InvoiceNo = x.InvoiceNo,
-                                   DueReceivedAmount = x.DueReceivedAmount,
+                                   DueReceivedAmount = (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? x.ReceivedAmount : x.DueReceivedAmount,
                                    ReceivedAmount = x.ReceivedAmount,
                                    Balance = balance
                                };
@@ -535,7 +532,7 @@ namespace GrocerySupplyManagementApp.Forms
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (x.DueReceivedAmount - x.ReceivedAmount);
+                               balance += (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? 0.00m : (x.DueReceivedAmount - x.ReceivedAmount);
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -543,7 +540,7 @@ namespace GrocerySupplyManagementApp.Forms
                                    Action = x.Action,
                                    ActionType = x.ActionType,
                                    InvoiceNo = x.InvoiceNo,
-                                   DueReceivedAmount = x.DueReceivedAmount,
+                                   DueReceivedAmount = (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? x.ReceivedAmount : x.DueReceivedAmount,
                                    ReceivedAmount = x.ReceivedAmount,
                                    Balance = balance
                                };
@@ -556,7 +553,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
         {
             TxtBalance.Text = memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString();
-            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.00m ? Constants.CLEAR : Constants.DUE;
+            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) > 0.00m ? Constants.DUE : (Convert.ToDecimal(TxtBalance.Text) == 0.00m ? Constants.CLEAR : Constants.OWNED);
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);
             var source = new BindingSource(bindingList, null);

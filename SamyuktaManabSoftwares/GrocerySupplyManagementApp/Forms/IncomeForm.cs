@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
             var userTransaction = new UserTransaction
             {
                 EndOfDay = _endOfDay,
-                Action = Constants.RECEIPT,
+                Action = Constants.INCOME,
                 ActionType = Constants.CHEQUE,
                 Bank = ComboBank.Text,
                 Income = ComboIncome.Text,

@@ -303,11 +303,10 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? 0.00M : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
-                    var grandTotal = string.IsNullOrWhiteSpace(TxtGrandTotal.Text) ? 0.00M : Convert.ToDecimal(TxtGrandTotal.Text.Trim());
-                    if (RadioBtnCash.Checked && (receivedAmount < grandTotal))
+                    var balance = string.IsNullOrWhiteSpace(RichBalanceAmount.Text) ? 0.00m : Convert.ToDecimal(RichBalanceAmount.Text.Trim());
+                    if (RadioBtnCash.Checked && (balance != 0.00m))
                     {
-                        DialogResult dialogResult = MessageBox.Show("Add received amount.",
+                        DialogResult dialogResult = MessageBox.Show("Balance should be zero",
                         "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         if (dialogResult == DialogResult.OK)
                         {
@@ -344,7 +343,7 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
                         Action = Constants.SALES,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                        DueReceivedAmount = Convert.ToDecimal(TxtGrandTotal.Text.Trim()),
+                        DueReceivedAmount = string.IsNullOrWhiteSpace(RichBalanceAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichBalanceAmount.Text.Trim()),
                         ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now

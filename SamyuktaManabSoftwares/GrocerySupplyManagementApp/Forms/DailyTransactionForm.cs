@@ -422,7 +422,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboBankTransfer.DisplayMember = "Value";
 
             ComboBankTransfer.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
-            ComboBankTransfer.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
         }
 
         private void LoadReceipts()

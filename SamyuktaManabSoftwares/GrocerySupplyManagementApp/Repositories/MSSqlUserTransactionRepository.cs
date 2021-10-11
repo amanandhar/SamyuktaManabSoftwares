@@ -901,12 +901,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " +
                 "( " +
                 "SELECT " +
-                "CASE WHEN ([DueReceivedAmount] <> 0 AND ([DueReceivedAmount] - [ReceivedAmount] >= 0)) THEN 0 ELSE ([DueReceivedAmount] - [ReceivedAmount]) END AS [Amount] " +
+                "CASE " +
+                "WHEN [Action] = '" + Constants.SALES + "' AND [ActionType] = '" + Constants.CASH + "' THEN 0.00 " +
+                "ELSE ([DueReceivedAmount] - [ReceivedAmount]) " +
+                "END AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
-                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' " +
-                "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') ";
+                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' ";
 
             if(!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
@@ -1125,13 +1127,12 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetTotalBalance(string endOfDay, string action, string actionType)
         {
             decimal balance = 0.00m;
-            string query;
+            var query = string.Empty;
             if (action?.ToLower() == Constants.SALES.ToLower()
-                || action?.ToLower() == Constants.EXPENSE.ToLower()
-                || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
+                || action?.ToLower() == Constants.RECEIPT.ToLower())
             {
                 query = @"SELECT " +
-                    "SUM([DuePaymentAmount])" +
+                    "SUM([ReceivedAmount]) " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND [Id] NOT IN " +
@@ -1141,19 +1142,24 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE [Expense] = '" + Constants.SALES_DISCOUNT + "' " +
                     ") ";
             }
-            else
+            else if (action?.ToLower() == Constants.PAYMENT.ToLower()
+                || action?.ToLower() == Constants.EXPENSE.ToLower()
+                || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
             {
                 query = @"SELECT " +
-                    "SUM([DueReceivedAmount])" +
+                    "SUM([PaymentAmount]) " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND [Id] NOT IN " +
                     "( " +
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [Income] IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "', '" + Constants.PURCHASE_BONUS + "') " +
-                    ") " ;
+                    "WHERE [Income] = '" + Constants.DELIVERY_CHARGE + "' " +
+                    ") ";
+            }
+            else
+            {
+                query += " ";
             }
 
             if (!string.IsNullOrWhiteSpace(endOfDay))
@@ -1200,13 +1206,12 @@ namespace GrocerySupplyManagementApp.Repositories
         public decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType)
         {
             decimal balance = 0.00m;
-            string query;
+            var query = string.Empty;
             if (action?.ToLower() == Constants.SALES.ToLower()
-                || action?.ToLower() == Constants.EXPENSE.ToLower()
-                || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
+                || action?.ToLower() == Constants.RECEIPT.ToLower())
             {
                 query = @"SELECT " +
-                    "SUM([DuePaymentAmount])" +
+                    "SUM([ReceivedAmount]) " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND [Id] NOT IN " +
@@ -1216,10 +1221,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHERE [Expense] = '" + Constants.SALES_DISCOUNT + "' " +
                     ") ";
             }
-            else
+            else if(action?.ToLower() == Constants.PAYMENT.ToLower()
+                || action?.ToLower() == Constants.EXPENSE.ToLower()
+                || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
             {
                 query = @"SELECT " +
-                    "SUM([DueReceivedAmount])" +
+                    "SUM([PaymentAmount]) " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND [Id] NOT IN " +
@@ -1228,6 +1235,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE [Income] = '" + Constants.DELIVERY_CHARGE + "' " +
                     ") ";
+            }
+            else
+            {
+                query += " ";
             }
 
             if(!string.IsNullOrWhiteSpace(endOfDay))

@@ -64,8 +64,8 @@
           <DataField>DeliveryCharge</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="DueAmount">
-          <DataField>DueAmount</DataField>
+        <Field Name="DueReceivedAmount">
+          <DataField>DueReceivedAmount</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ReceivedAmount">
@@ -115,7 +115,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InvoiceDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\_adam\Github\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\DataSet\InvoiceDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Application\SamyuktaManabSoftwares\SamyuktaManabSoftwares\GrocerySupplyManagementApp\Data\DataSet\InvoiceDataSet.xsd</rd:SchemaPath>
         <rd:TableName>Invoice</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -421,7 +421,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DueAmount.Value, "Invoice")</Value>
+                    <Value>=First(Fields!DueReceivedAmount.Value, "Invoice")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
