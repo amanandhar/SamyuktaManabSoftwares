@@ -25,7 +25,7 @@ namespace GrocerySupplyManagementApp.ViewModels
         public decimal Vat { get; set; }
         public decimal DeliveryChargePercent { get; set; }
         public decimal DeliveryCharge { get; set; }
-        public decimal DueAmount { get; set; }
+        public decimal DueReceivedAmount { get; set; }
         public decimal ReceivedAmount { get; set; }
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }

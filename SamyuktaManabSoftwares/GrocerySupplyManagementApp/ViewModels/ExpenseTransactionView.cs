@@ -10,8 +10,8 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string ActionType { get; set; }
         public string Expense { get; set; }
         public string Narration { get; set; }
-        public decimal DueAmount { get; set; }
-        public decimal ReceivedAmount { get; set; }
+        public decimal DuePaymentAmount { get; set; }
+        public decimal PaymentAmount { get; set; }
         public decimal Amount { get; set; }
     }
 }

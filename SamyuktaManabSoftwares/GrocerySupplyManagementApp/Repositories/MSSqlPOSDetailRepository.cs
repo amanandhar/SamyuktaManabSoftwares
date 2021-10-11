@@ -114,7 +114,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "ut.[Id], ut.[EndOfDay], ut.[InvoiceNo], ut.[BillNo], ut.[MemberId], " +
                 "ut.[SupplierId], ut.[DeliveryPersonId], ut.[Action], ut.[ActionType], ut.[Bank], ut.[Income], ut.[Expense], " +
-                "ut.[DueAmount], ut.[ReceivedAmount], ut.[AddedBy], ut.[AddedDate], ut.[UpdatedBy], ut.[UpdatedDate], " +
+                "ut.[DueReceivedAmount], ut.[ReceivedAmount], ut.[AddedBy], ut.[AddedDate], ut.[UpdatedBy], ut.[UpdatedDate], " +
                 "pd.[SubTotal], pd.[DiscountPercent], pd.[Discount], pd.[VatPercent], pd.[Vat], pd.[DeliveryChargePercent], pd.[DeliveryCharge] " +
                 "FROM " + Constants.TABLE_POS_DETAIL + " pd " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
@@ -148,7 +148,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     posDetailView.Bank = reader["Bank"].ToString();
                                     posDetailView.Income = reader["Income"].ToString();
                                     posDetailView.Expense = reader["Expense"].ToString();
-                                    posDetailView.DueAmount = Convert.ToDecimal(reader["DueAmount"].ToString());
+                                    posDetailView.DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString());
                                     posDetailView.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
                                     posDetailView.AddedBy = reader["AddedBy"].ToString();
                                     posDetailView.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());

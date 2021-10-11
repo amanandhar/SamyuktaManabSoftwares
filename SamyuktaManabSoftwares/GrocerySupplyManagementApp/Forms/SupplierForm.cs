@@ -449,15 +449,15 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.Columns["BillNo"].Width = 100;
             DataGridSupplierList.Columns["BillNo"].DisplayIndex = 3;
 
-            DataGridSupplierList.Columns["DueAmount"].HeaderText = "Debit";
-            DataGridSupplierList.Columns["DueAmount"].Width = 100;
-            DataGridSupplierList.Columns["DueAmount"].DisplayIndex = 4;
-            DataGridSupplierList.Columns["DueAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridSupplierList.Columns["DuePaymentAmount"].HeaderText = "Debit";
+            DataGridSupplierList.Columns["DuePaymentAmount"].Width = 100;
+            DataGridSupplierList.Columns["DuePaymentAmount"].DisplayIndex = 4;
+            DataGridSupplierList.Columns["DuePaymentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            DataGridSupplierList.Columns["ReceivedAmount"].HeaderText = "Credit";
-            DataGridSupplierList.Columns["ReceivedAmount"].Width = 100;
-            DataGridSupplierList.Columns["ReceivedAmount"].DisplayIndex = 5;
-            DataGridSupplierList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridSupplierList.Columns["PaymentAmount"].HeaderText = "Credit";
+            DataGridSupplierList.Columns["PaymentAmount"].Width = 100;
+            DataGridSupplierList.Columns["PaymentAmount"].DisplayIndex = 5;
+            DataGridSupplierList.Columns["PaymentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridSupplierList.Columns["Balance"].HeaderText = "Balance";
             DataGridSupplierList.Columns["Balance"].DisplayIndex = 6;

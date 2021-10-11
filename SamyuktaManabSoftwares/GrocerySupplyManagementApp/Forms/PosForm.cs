@@ -1082,9 +1082,9 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDeliveryChargePercent.Text = posDetailView.DeliveryChargePercent.ToString();
                 TxtDeliveryCharge.Text = posDetailView.DeliveryCharge.ToString();
                 TxtDeliveryChargeTotal.Text = (posDetailView.SubTotal - posDetailView.Discount + posDetailView.Vat + posDetailView.DeliveryCharge).ToString();
-                TxtGrandTotal.Text = posDetailView.DueAmount.ToString();
+                TxtGrandTotal.Text = posDetailView.DueReceivedAmount.ToString();
                 RichReceivedAmount.Text = posDetailView.ReceivedAmount.ToString();
-                RichBalanceAmount.Text = (posDetailView.DueAmount - posDetailView.ReceivedAmount).ToString();
+                RichBalanceAmount.Text = (posDetailView.DueReceivedAmount - posDetailView.ReceivedAmount).ToString();
             }
             catch(Exception ex)
             {

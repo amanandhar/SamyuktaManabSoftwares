@@ -50,6 +50,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TxtMemberId = new System.Windows.Forms.TextBox();
             this.BtnSearchMember = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtAccountNumber = new System.Windows.Forms.TextBox();
             this.TxtName = new System.Windows.Forms.TextBox();
@@ -83,7 +84,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11 = new System.Windows.Forms.Label();
             this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.TxtMemberId = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).BeginInit();
@@ -351,6 +351,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Member Details";
+            // 
+            // TxtMemberId
+            // 
+            this.TxtMemberId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtMemberId.Location = new System.Drawing.Point(86, 17);
+            this.TxtMemberId.Name = "TxtMemberId";
+            this.TxtMemberId.Size = new System.Drawing.Size(75, 26);
+            this.TxtMemberId.TabIndex = 53;
             // 
             // BtnSearchMember
             // 
@@ -751,9 +759,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.ForeColor = System.Drawing.Color.Cyan;
             this.label11.Location = new System.Drawing.Point(389, 4);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(347, 31);
+            this.label11.Size = new System.Drawing.Size(293, 31);
             this.label11.TabIndex = 52;
-            this.label11.Text = "Membership Management";
+            this.label11.Text = "Member Management";
             // 
             // BtnDeleteImage
             // 
@@ -792,14 +800,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.TextColor = System.Drawing.Color.White;
             this.BtnAddImage.UseVisualStyleBackColor = false;
             this.BtnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
-            // 
-            // TxtMemberId
-            // 
-            this.TxtMemberId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtMemberId.Location = new System.Drawing.Point(86, 17);
-            this.TxtMemberId.Name = "TxtMemberId";
-            this.TxtMemberId.Size = new System.Drawing.Size(75, 26);
-            this.TxtMemberId.TabIndex = 53;
             // 
             // MemberForm
             // 

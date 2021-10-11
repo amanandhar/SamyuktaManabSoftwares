@@ -374,7 +374,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             filter.Action = action;
             var memberTransactionViewList = GetMemberTransactions(filter);
-            TxtAmount.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
+            TxtAmount.Text = memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString();
             LoadMemberTransactions(memberTransactionViewList);
         }
         #endregion
@@ -474,10 +474,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["InvoiceNo"].Width = 100;
             DataGridMemberList.Columns["InvoiceNo"].DisplayIndex = 3;
 
-            DataGridMemberList.Columns["DueAmount"].HeaderText = "Debit";
-            DataGridMemberList.Columns["DueAmount"].Width = 100;
-            DataGridMemberList.Columns["DueAmount"].DisplayIndex = 4;
-            DataGridMemberList.Columns["DueAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridMemberList.Columns["DueReceivedAmount"].HeaderText = "Debit";
+            DataGridMemberList.Columns["DueReceivedAmount"].Width = 100;
+            DataGridMemberList.Columns["DueReceivedAmount"].DisplayIndex = 4;
+            DataGridMemberList.Columns["DueReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridMemberList.Columns["ReceivedAmount"].HeaderText = "Credit";
             DataGridMemberList.Columns["ReceivedAmount"].Width = 100;
@@ -508,7 +508,7 @@ namespace GrocerySupplyManagementApp.Forms
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (x.DueAmount - x.ReceivedAmount);
+                               balance += (x.DueReceivedAmount - x.ReceivedAmount);
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -516,7 +516,7 @@ namespace GrocerySupplyManagementApp.Forms
                                    Action = x.Action,
                                    ActionType = x.ActionType,
                                    InvoiceNo = x.InvoiceNo,
-                                   DueAmount = x.DueAmount,
+                                   DueReceivedAmount = x.DueReceivedAmount,
                                    ReceivedAmount = x.ReceivedAmount,
                                    Balance = balance
                                };
@@ -535,7 +535,7 @@ namespace GrocerySupplyManagementApp.Forms
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (x.DueAmount - x.ReceivedAmount);
+                               balance += (x.DueReceivedAmount - x.ReceivedAmount);
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -543,7 +543,7 @@ namespace GrocerySupplyManagementApp.Forms
                                    Action = x.Action,
                                    ActionType = x.ActionType,
                                    InvoiceNo = x.InvoiceNo,
-                                   DueAmount = x.DueAmount,
+                                   DueReceivedAmount = x.DueReceivedAmount,
                                    ReceivedAmount = x.ReceivedAmount,
                                    Balance = balance
                                };
@@ -555,7 +555,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
         {
-            TxtBalance.Text = memberTransactionViewList.Sum(x => (x.DueAmount - x.ReceivedAmount)).ToString();
+            TxtBalance.Text = memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString();
             TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) <= 0.00m ? Constants.CLEAR : Constants.DUE;
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);

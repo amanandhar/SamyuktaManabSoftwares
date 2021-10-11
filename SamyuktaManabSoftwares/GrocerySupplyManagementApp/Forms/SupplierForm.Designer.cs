@@ -770,9 +770,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.ForeColor = System.Drawing.Color.Cyan;
             this.label5.Location = new System.Drawing.Point(386, 5);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(350, 31);
+            this.label5.Size = new System.Drawing.Size(296, 31);
             this.label5.TabIndex = 53;
-            this.label5.Text = "Suppliership Management";
+            this.label5.Text = "Supplier Management";
             // 
             // BtnAddDiscount
             // 

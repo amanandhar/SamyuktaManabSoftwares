@@ -9,8 +9,8 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string Action { get; set; }
         public string ActionType { get; set; }
         public string BillNo { get; set; }
-        public decimal DueAmount { get; set; }
-        public decimal ReceivedAmount { get; set; }
+        public decimal DuePaymentAmount { get; set; }
+        public decimal PaymentAmount { get; set; }
         public decimal Balance { get; set; }
     }
 }
