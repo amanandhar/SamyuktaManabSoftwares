@@ -78,8 +78,8 @@ namespace GrocerySupplyManagementApp.Forms
                     EndOfDay = _endOfDay,
                     BankId = selectedBankId,
                     Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
-                    Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : 0.00m,
-                    Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? 0.00m : Convert.ToDecimal(RichAmount.Text),
+                    Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : Constants.DEFAULT_DECIMAL_VALUE,
+                    Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichAmount.Text),
                     Narration = ComboDepositType.Text,
                     AddedBy = _username,
                     AddedDate = DateTime.Now
@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show(ComboActionType.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
+                    var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
                     TxtBalance.Text = totalBalance.ToString();
                     ComboActionType.Text = string.Empty;
                     RichAmount.Clear();
@@ -114,7 +114,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var selectedRow = DataGridBankList.SelectedRows[0];
                     var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                     _bankTransactionService.DeleteBankTransaction(id);
-                    var totalBalance = _bankTransactionService.GetTotalBalance(selectedBankId);
+                    var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
                     TxtBalance.Text = totalBalance.ToString();
                     var bankTransactionViewList = GetBankTransaction();
                     LoadBankTransaction(bankTransactionViewList);
@@ -253,7 +253,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridBankList.Columns["EndOfDay"].Width = 100;
             DataGridBankList.Columns["EndOfDay"].DisplayIndex = 0;
 
-            DataGridBankList.Columns["Description"].HeaderText = "Descriptions";
+            DataGridBankList.Columns["Description"].HeaderText = "Description";
             DataGridBankList.Columns["Description"].Width = 120;
             DataGridBankList.Columns["Description"].DisplayIndex = 1;
 
@@ -305,10 +305,10 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 selectedBankId = bankId;
-                var bankDetail = _bankService.GetBank(bankId);
+                var bankDetail = _bankService.GetBank(selectedBankId);
                 TxtBankName.Text = bankDetail.Name;
                 TxtAccountNo.Text = bankDetail.AccountNo;
-                var bankBalance = _bankTransactionService.GetTotalBalance(bankId);
+                var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
                 TxtBalance.Text = bankBalance.ToString();
                 EnableFields(Action.Populate, true);
                 ComboActionType.Focus();

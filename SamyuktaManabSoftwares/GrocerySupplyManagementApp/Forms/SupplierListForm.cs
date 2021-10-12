@@ -12,17 +12,17 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SupplierListForm : Form
     {
         private readonly ISupplierService _supplierService;
-        private readonly IUserTransactionService _userTransactionService;
+        private readonly ICapitalService _capitalService;
 
         public SupplierForm _supplierForm;
 
         #region Constructor
-        public SupplierListForm(ISupplierService supplierService, IUserTransactionService userTransactionService, SupplierForm supplierForm)
+        public SupplierListForm(ISupplierService supplierService, ICapitalService capitalService, SupplierForm supplierForm)
         {
             InitializeComponent();
 
             _supplierService = supplierService;
-            _userTransactionService = userTransactionService;
+            _capitalService = capitalService;
             _supplierForm = supplierForm;
         }
         #endregion
@@ -85,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
                 SupplierId = x.SupplierId,
                 Name = x.Name,
                 Owner = x.Owner,
-                Balance = _userTransactionService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = x.SupplierId }),
+                Balance = _capitalService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = x.SupplierId }),
             }).ToList();
 
             var bindingList = new BindingList<SupplierView>(supplierViewList.ToList());

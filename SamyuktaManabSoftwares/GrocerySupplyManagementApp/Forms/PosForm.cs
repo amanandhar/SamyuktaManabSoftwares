@@ -33,6 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPOSDetailService _posDetailService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
         private readonly IIncomeExpenseService _incomeExpenseService;
+        private readonly ICapitalService _capitalService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -73,7 +74,7 @@ namespace GrocerySupplyManagementApp.Forms
             ICompanyInfoService companyInfoService, IEmployeeService employeeService,
             IStockService stockService, IUserService userService,
             IPOSDetailService posDetailService, IStockAdjustmentService stockAdjustmentService,
-            IIncomeExpenseService incomeExpenseService
+            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService
             )
         {
             InitializeComponent();
@@ -95,6 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
             _posDetailService = posDetailService;
             _stockAdjustmentService = stockAdjustmentService;
             _incomeExpenseService = incomeExpenseService;
+            _capitalService = capitalService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -151,7 +153,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearchMember_Click(object sender, EventArgs e)
         {
-            MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
+            MemberListForm memberListForm = new MemberListForm(_memberService, 
+                _capitalService, this);
             memberListForm.ShowDialog();
             EnableFields();
             EnableFields(Action.SearchMember);
@@ -237,7 +240,7 @@ namespace GrocerySupplyManagementApp.Forms
             ExpenseForm expenseForm = new ExpenseForm(_username,
                 _settingService, _bankService, 
                 _bankTransactionService, _userTransactionService,
-                _incomeExpenseService);
+                _incomeExpenseService, _capitalService);
             expenseForm.Show();
             EnableFields();
             EnableFields(Action.AddExpense);
@@ -247,7 +250,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             BankTransferForm bankTransferForm = new BankTransferForm(_username,
                 _settingService, _bankService, 
-                _bankTransactionService, _userTransactionService);
+                _bankTransactionService, _userTransactionService,
+                _capitalService);
             bankTransferForm.Show();
             EnableFields();
             EnableFields(Action.BankTransfer);
@@ -307,8 +311,8 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    var balance = string.IsNullOrWhiteSpace(RichBalanceAmount.Text) ? 0.00m : Convert.ToDecimal(RichBalanceAmount.Text.Trim());
-                    if (RadioBtnCash.Checked && (balance != 0.00m))
+                    var balance = string.IsNullOrWhiteSpace(RichBalanceAmount.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichBalanceAmount.Text.Trim());
+                    if (RadioBtnCash.Checked && (balance != Constants.DEFAULT_DECIMAL_VALUE))
                     {
                         DialogResult dialogResult = MessageBox.Show("Balance should be zero",
                         "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -347,8 +351,8 @@ namespace GrocerySupplyManagementApp.Forms
                         DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
                         Action = Constants.SALES,
                         ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                        DueReceivedAmount = string.IsNullOrWhiteSpace(RichBalanceAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichBalanceAmount.Text.Trim()),
-                        ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? 0.00m : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
+                        DueReceivedAmount = string.IsNullOrWhiteSpace(RichBalanceAmount.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichBalanceAmount.Text.Trim()),
+                        ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -370,7 +374,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
 
                     // Add Sales Discount
-                    if (Convert.ToDecimal(TxtDiscount.Text) != 0.00m)
+                    if (Convert.ToDecimal(TxtDiscount.Text) != Constants.DEFAULT_DECIMAL_VALUE)
                     {
                         var userTransactionForSalesDiscount = new UserTransaction
                         {
@@ -389,7 +393,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
 
                     // Add Delivery Charge
-                    if (Convert.ToDecimal(TxtDeliveryCharge.Text) != 0.00m)
+                    if (Convert.ToDecimal(TxtDeliveryCharge.Text) != Constants.DEFAULT_DECIMAL_VALUE)
                     {
                         var userTransactionForDeliveryCharge = new UserTransaction
                         {
@@ -670,12 +674,12 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = RichItemCode.Text.Split(separator)[0],
                     ItemName = TxtItemName.Text,
                     ItemBrand = TxtItemBrand.Text,
-                    Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtProfitAmount.Text),
+                    Profit = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtProfitAmount.Text),
                     Unit = TxtPricedUnit.Text,
-                    ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text),
+                    ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemPrice.Text),
                     Volume = Convert.ToInt64(TxtVolume.Text),
-                    Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text),
-                    Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? 0.00m : Convert.ToDecimal(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? 0.00m : Convert.ToDecimal(TxtItemPrice.Text)), 2),
+                    Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichItemQuantity.Text),
+                    Total = Math.Round((string.IsNullOrWhiteSpace(RichItemQuantity.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichItemQuantity.Text)) * (string.IsNullOrWhiteSpace(TxtItemPrice.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemPrice.Text)), 2),
                     AddedBy = _username,
                     AddedDate = DateTime.Now
                 }); ;
@@ -902,8 +906,8 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtContactNo.Text = member.ContactNo.ToString();
                 TxtAccNo.Text = member.AccountNo;
 
-                List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(memberId).ToList();
-                TxtBalance.Text = _userTransactionService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = memberId }).ToString();
+                List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(new UserTransactionFilter() { MemberId = memberId }).ToList();
+                TxtBalance.Text = _capitalService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = memberId }).ToString();
 
                 BtnAddReceipt.Enabled = true;
                 RichItemCode.Focus();
@@ -1002,7 +1006,7 @@ namespace GrocerySupplyManagementApp.Forms
                 decimal subTotal;
                 if (soldItemGrid == null)
                 {
-                    subTotal = string.IsNullOrWhiteSpace(TxtSubTotal.Text) ? 0.00m : Convert.ToDecimal(TxtSubTotal.Text);
+                    subTotal = string.IsNullOrWhiteSpace(TxtSubTotal.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtSubTotal.Text);
                     TxtSubTotal.Text = (subTotal + Math.Round((Convert.ToDecimal(TxtItemPrice.Text) * Convert.ToDecimal(RichItemQuantity.Text)), 2)).ToString();
                 }
                 else

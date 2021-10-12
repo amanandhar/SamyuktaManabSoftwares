@@ -40,16 +40,16 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var setting = new Setting
                                 {
                                     Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString()),
-                                    StartingInvoiceNo = reader.IsDBNull(1) ? string.Empty : reader["StartingInvoiceNo"].ToString(),
-                                    StartingBillNo = reader.IsDBNull(2) ? string.Empty : reader["StartingBillNo"].ToString(),
-                                    StartingDate = reader.IsDBNull(3) ? string.Empty : reader["StartingDate"].ToString(),
-                                    FiscalYear = reader.IsDBNull(4) ? string.Empty : reader["FiscalYear"].ToString(),
-                                    Discount = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Discount"].ToString()),
-                                    Vat = reader.IsDBNull(6) ? 0.00m : Convert.ToDecimal(reader["Vat"].ToString()),
-                                    DeliveryCharge = reader.IsDBNull(7) ? 0.00m : Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
-                                    AddedBy = reader.IsDBNull(8) ? string.Empty : reader["AddedBy"].ToString(),
+                                    StartingInvoiceNo = reader.IsDBNull(1) ? null : reader["StartingInvoiceNo"].ToString(),
+                                    StartingBillNo = reader.IsDBNull(2) ? null : reader["StartingBillNo"].ToString(),
+                                    StartingDate = reader.IsDBNull(3) ? null : reader["StartingDate"].ToString(),
+                                    FiscalYear = reader.IsDBNull(4) ? null : reader["FiscalYear"].ToString(),
+                                    Discount = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Discount"].ToString()),
+                                    Vat = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Vat"].ToString()),
+                                    DeliveryCharge = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
+                                    AddedBy = reader.IsDBNull(8) ? null : reader["AddedBy"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedBy = reader.IsDBNull(10) ? string.Empty : reader["UpdatedBy"].ToString(),
+                                    UpdatedBy = reader.IsDBNull(10) ? null : reader["UpdatedBy"].ToString(),
                                     UpdatedDate = reader.IsDBNull(11) ? (DateTime?) null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
@@ -91,16 +91,16 @@ namespace GrocerySupplyManagementApp.Repositories
                             while (reader.Read())
                             {
                                 setting.Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString());
-                                setting.StartingInvoiceNo = reader.IsDBNull(1) ? string.Empty : reader["StartingInvoiceNo"].ToString();
-                                setting.StartingBillNo = reader.IsDBNull(2) ? string.Empty : reader["StartingBillNo"].ToString();
-                                setting.StartingDate = reader.IsDBNull(3) ? string.Empty : reader["StartingDate"].ToString();
-                                setting.FiscalYear = reader.IsDBNull(4) ? string.Empty : reader["FiscalYear"].ToString();
-                                setting.Discount = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Discount"].ToString());
-                                setting.Vat = reader.IsDBNull(6) ? 0.00m : Convert.ToDecimal(reader["Vat"].ToString());
-                                setting.DeliveryCharge = reader.IsDBNull(7) ? 0.00m : Convert.ToDecimal(reader["DeliveryCharge"].ToString());
-                                setting.AddedBy = reader.IsDBNull(8) ? string.Empty : reader["AddedBy"].ToString();
+                                setting.StartingInvoiceNo = reader.IsDBNull(1) ? null : reader["StartingInvoiceNo"].ToString();
+                                setting.StartingBillNo = reader.IsDBNull(2) ? null : reader["StartingBillNo"].ToString();
+                                setting.StartingDate = reader.IsDBNull(3) ? null : reader["StartingDate"].ToString();
+                                setting.FiscalYear = reader.IsDBNull(4) ? null : reader["FiscalYear"].ToString();
+                                setting.Discount = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Discount"].ToString());
+                                setting.Vat = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Vat"].ToString());
+                                setting.DeliveryCharge = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["DeliveryCharge"].ToString());
+                                setting.AddedBy = reader.IsDBNull(8) ? null : reader["AddedBy"].ToString();
                                 setting.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                setting.UpdatedBy = reader.IsDBNull(10) ? string.Empty : reader["UpdatedBy"].ToString();
+                                setting.UpdatedBy = reader.IsDBNull(10) ? null : reader["UpdatedBy"].ToString();
                                 setting.UpdatedDate = reader.IsDBNull(11) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }

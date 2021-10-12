@@ -114,14 +114,14 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetAddedStockTotalQuantity(StockFilter stockFilter)
         {
-            decimal totalCount = 0.00m;
+            decimal totalCount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
                 "SUM([Quantity]) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON sa.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND [Action] = '" + Constants.ADD + "' ";
+                "AND ISNULL([Action], '') = '" + Constants.ADD + "' ";
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
@@ -135,7 +135,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND ISNULL(i.[Code], '') = @Code ";
             }
 
             try
@@ -167,14 +167,14 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetDeductedStockTotalQuantity(StockFilter stockFilter)
         {
-            decimal totalCount = 0.00m;
+            decimal totalCount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
                 "SUM([Quantity]) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON sa.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND [Action] = '" + Constants.DEDUCT + "' ";
+                "AND ISNULL([Action], '') = '" + Constants.DEDUCT + "' ";
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
@@ -188,7 +188,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND ISNULL(i.[Code], '') = @Code ";
             }
 
             try

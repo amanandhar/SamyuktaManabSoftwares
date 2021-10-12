@@ -21,6 +21,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISupplierService _supplierService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly ICapitalService _capitalService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -50,7 +51,8 @@ namespace GrocerySupplyManagementApp.Forms
             ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, ISupplierService supplierService, 
-            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService)
+            IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
+            ICapitalService capitalService)
         {
             InitializeComponent();
 
@@ -61,6 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
             _supplierService = supplierService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
+            _capitalService = capitalService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -86,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            SupplierListForm supplierListForm = new SupplierListForm(_supplierService, _userTransactionService, this);
+            SupplierListForm supplierListForm = new SupplierListForm(_supplierService, _capitalService, this);
             supplierListForm.ShowDialog();
         }
 
@@ -123,21 +126,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var actionType = ComboPayment.Text;
                 if(actionType.ToLower() == Constants.CASH.ToLower())
                 {
-                    var previousSalesCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
-                    var previousReceiptCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
-                    var previousPaymentCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
-                    var previousExpenseCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
-                    var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
-
-                    var openingBalanceCash = previousSalesCash + previousReceiptCash - (previousPaymentCash + previousExpenseCash + previousTransferCash);
-
-                    var salesCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
-                    var receiptCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
-                    var paymentCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
-                    var expenseCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
-                    var transferCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
-                    var cashBalance = openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash);
-
+                    var cashBalance = _capitalService.GetCashBalance(_endOfDay);
                     if (paymentAmount > cashBalance)
                     {
                         var warningResult = MessageBox.Show("No sufficient cash available.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -200,7 +189,7 @@ namespace GrocerySupplyManagementApp.Forms
                             BankId = Convert.ToInt64(selectedItem.Id),
                             TransactionId = lastUserTransaction.Id,
                             Action = '0',
-                            Debit = 0.00m,
+                            Debit = Constants.DEFAULT_DECIMAL_VALUE,
                             Credit = Convert.ToDecimal(RichAmount.Text),
                             Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
                             AddedBy = _username,
@@ -477,7 +466,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private List<SupplierTransactionView> GetSupplierTransaction()
         {
-            var balance = _userTransactionService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = TxtSupplierId.Text });
+            var supplierId = TxtSupplierId.Text.Trim();
+            var balance = _capitalService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = supplierId });
             
             if (balance > 0)
             {
@@ -495,7 +485,9 @@ namespace GrocerySupplyManagementApp.Forms
                 TextBoxDebitCredit.Text = Constants.CLEAR;
             }
 
-            return _userTransactionService.GetSupplierTransactions(TxtSupplierId.Text).ToList();
+            return _userTransactionService
+                .GetSupplierTransactions(new SupplierTransactionFilter() { SupplierId = supplierId })
+                .ToList();
         }
 
         private List<SupplierTransactionView> GetSupplierTransaction(SupplierTransactionFilter supplierFilter)

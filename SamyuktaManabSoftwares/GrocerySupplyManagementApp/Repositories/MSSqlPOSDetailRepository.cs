@@ -118,9 +118,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 "pd.[SubTotal], pd.[DiscountPercent], pd.[Discount], pd.[VatPercent], pd.[Vat], pd.[DeliveryChargePercent], pd.[DeliveryCharge] " +
                 "FROM " + Constants.TABLE_POS_DETAIL + " pd " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON pd.[InvoiceNo] = ut.[InvoiceNo] " +
+                "ON ISNULL(pd.[InvoiceNo], '') = ut.[InvoiceNo] " +
                 "WHERE 1 = 1 " +
-                "AND pd.[InvoiceNo] = @InvoiceNo";
+                "AND ISNULL(pd.[InvoiceNo], '') = @InvoiceNo";
 
             try
             {
@@ -289,7 +289,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                     "FROM " + Constants.TABLE_POS_DETAIL + " " +
                     "WHERE 1 = 1 " +
-                    "AND [InvoiceNo] = @InvoiceNo";
+                    "AND ISNULL([InvoiceNo], '') = @InvoiceNo";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

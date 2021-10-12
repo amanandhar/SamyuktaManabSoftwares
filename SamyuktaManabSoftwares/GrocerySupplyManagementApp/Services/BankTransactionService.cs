@@ -46,11 +46,6 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.GetTotalBalance(bankTransactionFilter);
         }
 
-        public decimal GetTotalBalance(long bankId)
-        {
-            return _bankTransactionRepository.GetTotalBalance(bankId);
-        }
-
         public decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter)
         {
             return _bankTransactionRepository.GetTotalDeposit(bankTransactionFilter);

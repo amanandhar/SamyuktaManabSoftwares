@@ -75,7 +75,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             try
             {
-                decimal total = 0.00m;
+                decimal total = Constants.DEFAULT_DECIMAL_VALUE;
                 string query = @"SELECT " +
                         "SUM([DueReceivedAmount] + [ReceivedAmount])" +
                         "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -125,7 +125,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             try
             {
-                decimal total = 0.00m;
+                decimal total = Constants.DEFAULT_DECIMAL_VALUE;
                 string query = @"SELECT " +
                         "SUM([DuePaymentAmount] + [PaymentAmount])" +
                         "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -220,8 +220,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceNo = reader.IsDBNull(3) ? string.Empty : reader["InvoiceNo"].ToString(),
                                     ItemCode = string.Empty,
                                     ItemName = reader["Bank"].ToString(),
-                                    Quantity = 0.00m,
-                                    Profit = 0.00m,
+                                    Quantity = Constants.DEFAULT_DECIMAL_VALUE,
+                                    Profit = Constants.DEFAULT_DECIMAL_VALUE,
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };

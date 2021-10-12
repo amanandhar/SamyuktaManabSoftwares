@@ -132,7 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
                     TransactionId = lastUserTransaction.Id,
                     Action = '1',
                     Debit = Convert.ToDecimal(RichAmount.Text),
-                    Credit =  0.00m,
+                    Credit = Constants.DEFAULT_DECIMAL_VALUE,
                     Narration = ComboNarration.Text,
                     AddedBy = _username,
                     AddedDate = DateTime.Now

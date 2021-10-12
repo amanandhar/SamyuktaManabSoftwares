@@ -7,26 +7,16 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 {
     public interface IUserTransactionService
     {
-        IEnumerable<UserTransaction> GetUserTransactions();
-        IEnumerable<UserTransaction> GetUserTransactions(string memberId);
         IEnumerable<UserTransaction> GetUserTransactions(UserTransactionFilter userTransactionFilter);
-        IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter deliveryPersonFilter);
-        IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId);
-        IEnumerable<MemberTransactionView> GetMemberTransactions(MemberFilter memberFilter);
-        IEnumerable<SupplierTransactionView> GetSupplierTransactions(string supplierId);
+        IEnumerable<UserTransaction> GetDeliveryPersonTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter);
+        IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter);
         UserTransaction GetUserTransaction(long userTransactionId);
         UserTransaction GetUserTransaction(string invoiceNo);
         UserTransaction GetLastUserTransaction(string option);
         string GetInvoiceNo();
-        decimal GetMemberTotalBalance(UserTransactionFilter userTransactionFilter);
-        decimal GetSupplierTotalBalance(SupplierTransactionFilter supplierTransactionFilter);
-        decimal GetCashInHand(UserTransactionFilter userTransactionFilter);
-        decimal GetTotalBalance(string endOfDay, string action, string actionType);
-        decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType);
         IEnumerable<string> GetInvoices();
         IEnumerable<string> GetMemberIds();
-        decimal GetUserTransactionBalance(DailyTransactionFilter dailyTransactionFilter);
         IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter);
         IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId);
         IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);

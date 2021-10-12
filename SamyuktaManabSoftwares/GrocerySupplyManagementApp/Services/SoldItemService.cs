@@ -21,11 +21,6 @@ namespace GrocerySupplyManagementApp.Services
             return _soldItemRepository.GetSoldItems();
         }
 
-        public SoldItem GetSoldItem(long soldItemId)
-        {
-            return _soldItemRepository.GetSoldItem(soldItemId);
-        }
-
         public IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo)
         {
             return _soldItemRepository.GetSoldItemViewList(invoiceNo);
@@ -49,11 +44,6 @@ namespace GrocerySupplyManagementApp.Services
         public SoldItem AddSoldItem(SoldItem soldItem)
         {
             return _soldItemRepository.AddSoldItem(soldItem);
-        }
-
-        public SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem)
-        {
-            return _soldItemRepository.UpdateSoldItem(soldItemId, soldItem);
         }
 
         public bool DeleteSoldItem(string invoiceNo)

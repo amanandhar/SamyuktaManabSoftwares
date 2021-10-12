@@ -130,11 +130,11 @@
     </Compile>
     <Compile Include="DTOs\BankTransactionFilter.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
-    <Compile Include="DTOs\DeliveryPersonFilter.cs" />
+    <Compile Include="DTOs\DeliveryPersonTransactionFilter.cs" />
     <Compile Include="DTOs\ExcelField.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\IncomeTransactionFilter.cs" />
-    <Compile Include="DTOs\MemberFilter.cs" />
+    <Compile Include="DTOs\MemberTransactionFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\StockFilter.cs" />
     <Compile Include="DTOs\SalesReturnTransactionFilter.cs" />
@@ -412,6 +412,7 @@
     </Compile>
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICapitalRepository.cs" />
     <Compile Include="Repositories\Interfaces\IIncomeExpenseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemCategoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyInfoRepository.cs" />
@@ -433,6 +434,7 @@
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlCapitalRepository.cs" />
     <Compile Include="Repositories\MSSqlIncomeExpenseRepository.cs" />
     <Compile Include="Repositories\MSSqlItemCategoryRepository.cs" />
     <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
@@ -457,9 +459,11 @@
     <Compile Include="Services\CompanyInfoService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\EndOfDayService.cs" />
+    <Compile Include="Services\CapitalService.cs" />
     <Compile Include="Services\IncomeExpenseService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
+    <Compile Include="Services\Interfaces\ICapitalService.cs" />
     <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
     <Compile Include="Services\Interfaces\IEmployeeService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />

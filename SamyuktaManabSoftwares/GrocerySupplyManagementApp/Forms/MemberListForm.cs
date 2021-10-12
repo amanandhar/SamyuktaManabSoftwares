@@ -14,18 +14,18 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class MemberListForm : Form
     {
         private readonly IMemberService _memberService;
-        private readonly IUserTransactionService _userTransactionService;
+        private readonly ICapitalService _capitalService;
         private readonly IMemberListForm _memberListForm;
         private List<MemberView> _memberViewList = new List<MemberView>();
 
         #region Constructor
-        public MemberListForm(IMemberService memberService, IUserTransactionService userTransactionService, 
+        public MemberListForm(IMemberService memberService, ICapitalService capitalService, 
             IMemberListForm memberListForm)
         {
             InitializeComponent();
 
             _memberService = memberService;
-            _userTransactionService = userTransactionService;
+            _capitalService = capitalService;
             _memberListForm = memberListForm;
         }
         #endregion
@@ -107,7 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Email = x.Email,
                 AccountNo = x.AccountNo,
                 AddedDate = x.AddedDate,
-                Balance = _userTransactionService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = x.MemberId }),
+                Balance = _capitalService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = x.MemberId }),
             }).OrderBy(x => x.MemberId).ToList();
 
             return _memberViewList;

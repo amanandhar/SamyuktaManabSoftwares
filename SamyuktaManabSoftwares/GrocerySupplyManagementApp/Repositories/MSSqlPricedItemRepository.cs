@@ -69,6 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public PricedItem GetPricedItem(long id)
         {
+            var pricedItem = new PricedItem();
             var query = @"SELECT " +
                 "[Id], [ItemId], [SubCode], [CustomUnit], [Volume], " +
                 "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
@@ -76,7 +77,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_PRICED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND Id = @Id ";
-            var pricedItem = new PricedItem();
+            
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -121,17 +122,17 @@ namespace GrocerySupplyManagementApp.Repositories
                 "pi.[ImagePath], pi.[AddedDate], pi.[UpdatedDate] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON pi.[ItemId] = i.[Id] " +
+                "ON ISNULL(pi.[ItemId], '') = i.[Id] " +
                 "WHERE 1 = 1 ";
 
             if(!string.IsNullOrWhiteSpace(itemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND ISNULL(i.[Code], '') = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(itemSubCode))
             {
-                query += "AND pi.[SubCode] = @SubCode ";
+                query += "AND ISNULL(pi.[SubCode], '') = @SubCode ";
             }
 
             var pricedItem = new PricedItem();

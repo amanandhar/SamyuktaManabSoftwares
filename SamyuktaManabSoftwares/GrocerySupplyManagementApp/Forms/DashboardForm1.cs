@@ -29,6 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IStockAdjustmentService _stockAdjustmentService;
         private readonly IPOSDetailService _posDetailService;
         private readonly IIncomeExpenseService _incomeExpenseService;
+        private readonly ICapitalService _capitalService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -45,7 +46,7 @@ namespace GrocerySupplyManagementApp.Forms
             IReportService reportService, IUserService userService,
             IItemCategoryService itemCategoryService, IShareMemberService shareMemberService,
             IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
-            IIncomeExpenseService incomeExpenseService)
+            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService)
         {
             InitializeComponent();
 
@@ -70,6 +71,7 @@ namespace GrocerySupplyManagementApp.Forms
             _stockAdjustmentService = stockAdjustmentService;
             _posDetailService = posDetailService;
             _incomeExpenseService = incomeExpenseService;
+            _capitalService = capitalService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -108,7 +110,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _userTransactionService, _reportService,
                 _companyInfoService, _employeeService,
                 _stockService, _userService, _posDetailService,
-                _stockAdjustmentService, _incomeExpenseService
+                _stockAdjustmentService, _incomeExpenseService,
+                _capitalService
                  );
             posForm.Show();
         }
@@ -119,7 +122,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService, 
                 _userTransactionService, _userService,
-                _stockAdjustmentService, _posDetailService);
+                _stockAdjustmentService, _posDetailService,
+                _capitalService);
             summaryForm.Show();
         }
 
@@ -139,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _bankService,
                 _bankTransactionService, _itemService, 
                 _supplierService, _purchasedItemService, 
-                _userTransactionService);
+                _userTransactionService, _capitalService);
             supplierForm.Show();
         }
 
@@ -166,7 +170,7 @@ namespace GrocerySupplyManagementApp.Forms
             ExpenseForm expenseMgmtForm = new ExpenseForm(_username,
                 _settingService,  _bankService, 
                 _bankTransactionService, _userTransactionService,
-                _incomeExpenseService);
+                _incomeExpenseService, _capitalService);
             expenseMgmtForm.Show();
         }
 

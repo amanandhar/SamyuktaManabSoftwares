@@ -132,8 +132,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
                     Unit = TxtBoxItemUnit.Text,
                     Action = ComboAction.Text,
-                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemQuantity.Text),
-                    Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? 0.00m : Convert.ToDecimal(TxtBoxItemPrice.Text),
+                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemQuantity.Text),
+                    Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemPrice.Text),
                     AddedBy = _username,
                     AddedDate = DateTime.Now
                 };

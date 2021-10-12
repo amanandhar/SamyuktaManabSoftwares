@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if(type == Constants.STAFF || type == Constants.GUEST)
             {
-                query += "AND [Username] = @Username ";
+                query += "AND ISNULL([Username], '') = @Username ";
             }
 
             try
@@ -213,7 +213,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[StockSummary], [Supplier], [AddedDate], [UpdatedDate] " +
                 "FROM [" + Constants.TABLE_USER + "] " +
                 "WHERE 1 = 1 " +
-                "AND [Username] = @Username ";
+                "AND ISNULL([Username], '') = @Username ";
 
             try
             {
@@ -269,8 +269,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "1 " +
                 "FROM [" + Constants.TABLE_USER + "] " +
                 "WHERE 1 = 1 " +
-                "AND [Username] = @Username " +
-                "AND [Password] = @Password ";
+                "AND ISNULL([Username], '') = @Username " +
+                "AND ISNULL([Password], '') = @Password ";
 
             try
             {
@@ -419,7 +419,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "[POS] = @POS, [Reports] = @Reports, [Settings] = @Settings, " +
                     "[StockSummary] = @StockSummary, [Supplier] = @Supplier, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
-                    "AND [Username] = @Username";
+                    "AND ISNULL([Username], '') = @Username";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -467,7 +467,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "[UpdatedBy] = @UpdatedBy, " +
                     "[UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
-                    "AND [Username] = @Username";
+                    "AND ISNULL([Username], '') = @Username";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -527,7 +527,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                     "FROM [" + Constants.TABLE_USER + "] " +
                     "WHERE 1 = 1 " +
-                    "AND [Username] = @Username";
+                    "AND ISNULL([Username], '') = @Username";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

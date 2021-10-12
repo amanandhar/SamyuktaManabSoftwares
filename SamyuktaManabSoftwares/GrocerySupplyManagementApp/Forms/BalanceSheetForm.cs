@@ -13,9 +13,9 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly ISettingService _settingService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
         private readonly IIncomeExpenseService _incomeExpenseService;
+        private readonly ICapitalService _capitalService;
 
         private readonly Setting _setting;
         private readonly string _endOfDay;
@@ -31,16 +31,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public BalanceSheetForm(ISettingService settingService, IBankTransactionService bankTransactionService, 
-            IUserTransactionService userTransactionService, IStockService stockService,
-            IIncomeExpenseService incomeExpenseService)
+            IStockService stockService, IIncomeExpenseService incomeExpenseService, 
+            ICapitalService capitalService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _bankTransactionService = bankTransactionService;
-            _userTransactionService = userTransactionService;
             _stockService = stockService;
             _incomeExpenseService = incomeExpenseService;
+            _capitalService = capitalService;
 
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
             _endOfDay = _setting.StartingDate;
@@ -69,22 +69,22 @@ namespace GrocerySupplyManagementApp.Forms
                     .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1',  Narration = Constants.SHARE_CAPITAL });
                 var ownerEquity = _bankTransactionService
                     .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.OWNER_EQUITY });
-                var loanAmount = 0.00m; // ToDo : Add loan form later
-                var payableAmount = Math.Abs(_userTransactionService
+                var loanAmount = Constants.DEFAULT_DECIMAL_VALUE; // ToDo : Add loan form later
+                var payableAmount = Math.Abs(_capitalService
                     .GetSupplierTotalBalance(new SupplierTransactionFilter() { DateTo = endOfDay }));
-                var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : 0.00m;
+                var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : Constants.DEFAULT_DECIMAL_VALUE;
                 var liabilitiesBalance = shareCapital + ownerEquity + loanAmount
                     + payableAmount + netProfit;
 
-                var cashInHand = Math.Abs(_userTransactionService.GetCashInHand(new UserTransactionFilter { DateTo = endOfDay }));
+                var cashInHand = Math.Abs(_capitalService.GetCashInHand(new UserTransactionFilter { DateTo = endOfDay }));
                 var bankAccount = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { DateTo = endOfDay } );
 
                 var stockFilter = new StockFilter() { DateTo = endOfDay };
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var stockValue = _stockService.GetStockValue(stocks.ToList(), stockFilter);
 
-                var receivableAmount = _userTransactionService.GetMemberTotalBalance(new UserTransactionFilter() { DateTo = endOfDay });
-                var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.00m;
+                var receivableAmount = _capitalService.GetMemberTotalBalance(new UserTransactionFilter() { DateTo = endOfDay });
+                var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : Constants.DEFAULT_DECIMAL_VALUE;
                 var assetsBalance = cashInHand + bankAccount + stockValue + receivableAmount + netLoss;
 
                 RichShareCapital.Text = shareCapital.ToString();

@@ -20,6 +20,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
         private readonly IPOSDetailService _posDetailService;
+        private readonly ICapitalService _capitalService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -29,7 +30,8 @@ namespace GrocerySupplyManagementApp.Forms
         public SummaryForm(string username, ISettingService settingService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IUserService userService,
-            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService)
+            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
+            ICapitalService capitalService)
         {
             InitializeComponent();
 
@@ -41,6 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
             _stockAdjustmentService = stockAdjustmentService;
             _posDetailService = posDetailService;
+            _capitalService = capitalService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -60,46 +63,35 @@ namespace GrocerySupplyManagementApp.Forms
         {
             string endOfDay = UtilityService.GetDate(MaskEndOfDay.Text);
 
-            var previousSalesCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.SALES, Constants.CASH);
-            var previousSalesCredit = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.SALES, Constants.CREDIT);
-            var previousReceiptCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.RECEIPT, Constants.CASH);
-            var previousReceiptCheque = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
-            var previousPaymentCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.PAYMENT, Constants.CASH);
-            var previousExpenseCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
-            var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
+            var openingCashBalance = _capitalService.GetOpeningCashBalance(endOfDay);
+            var openingCreditBalance = _capitalService.GetOpeningCreditBalance(endOfDay);
+            var cashSales = _capitalService.GetTotalBalance(endOfDay, Constants.SALES, Constants.CASH);
+            var creditSales = _capitalService.GetTotalBalance(endOfDay, Constants.SALES, Constants.CREDIT);
+            var cashReceipt = _capitalService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CASH);
+            var chequeReceipt = _capitalService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
+            var totalCashPayment = _capitalService.GetTotalCashPayment(endOfDay);
+            var totalChequePayment = _capitalService.GetTotalChequePayment(endOfDay);
+            var cashBalance = _capitalService.GetCashBalance(endOfDay);
+            var creditBalance = _capitalService.GetCreditBalance(endOfDay);
 
-            var openingBalanceCash = previousSalesCash + previousReceiptCash - (previousPaymentCash + previousExpenseCash + previousTransferCash);
-            var openingBalanceCredit = previousSalesCredit - (previousReceiptCash + previousReceiptCheque);
-
-            var salesCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.SALES, Constants.CASH);
-            var salesCredit = _userTransactionService.GetTotalBalance(endOfDay, Constants.SALES, Constants.CREDIT);
-            var receiptCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CASH);
-            var receiptCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.RECEIPT, Constants.CHEQUE);
-            var paymentCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CASH);
-            var expenseCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CASH);
-            var transferCash = _userTransactionService.GetTotalBalance(endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
-            var paymentCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.PAYMENT, Constants.CHEQUE);
-            var expenseCheque = _userTransactionService.GetTotalBalance(endOfDay, Constants.EXPENSE, Constants.CHEQUE);
-
-            TxtOpeningCashBalance.Text = openingBalanceCash.ToString();
-            TxtOpeningCreditBalance.Text = openingBalanceCredit.ToString();
-            TxtCashSales.Text = salesCash.ToString();
-            TxtCreditSales.Text = salesCredit.ToString();
-            TxtCashReceipt.Text = receiptCash.ToString();
-            TxtChequeReceipt.Text = receiptCheque.ToString();
-            TxtCashPayment.Text = (paymentCash + expenseCash + transferCash).ToString();
-            TxtChequePayment.Text = (paymentCheque + expenseCheque).ToString();
-
-            TxtCashBalance.Text = (openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash)).ToString();
-            TxtCreditBalance.Text = (openingBalanceCredit + salesCredit - (receiptCash + receiptCheque)).ToString();
+            TxtOpeningCashBalance.Text = openingCashBalance.ToString();
+            TxtOpeningCreditBalance.Text = openingCreditBalance.ToString();
+            TxtCashSales.Text = cashSales.ToString();
+            TxtCreditSales.Text = creditSales.ToString();
+            TxtCashReceipt.Text = cashReceipt.ToString();
+            TxtChequeReceipt.Text = chequeReceipt.ToString();
+            TxtCashPayment.Text = totalCashPayment.ToString();
+            TxtChequePayment.Text = totalChequePayment.ToString();
+            TxtCashBalance.Text = cashBalance.ToString();
+            TxtCreditBalance.Text = creditBalance.ToString();
 
             var dailySummaryViewList = new List<DailySummaryView>() {
-                new DailySummaryView() { Description = "Sales Cash", Debit = 0.00M, Credit = salesCash },
-                new DailySummaryView() { Description = "Sales Credit", Debit = salesCredit, Credit = 0.00M },
-                new DailySummaryView() { Description = "Receipt Cash", Debit = 0.00M, Credit = receiptCash },
-                new DailySummaryView() { Description = "Receipt Cheque", Debit = 0.00M, Credit = receiptCheque },
-                new DailySummaryView() { Description = "Payment Cash", Debit = paymentCash + expenseCash + transferCash, Credit = 0.00M },
-                new DailySummaryView() { Description = "Payment Cheque", Debit = paymentCheque + expenseCheque, Credit = 0.00M }
+                new DailySummaryView() { Description = "Sales Cash", Debit = Constants.DEFAULT_DECIMAL_VALUE, Credit = cashSales },
+                new DailySummaryView() { Description = "Sales Credit", Debit = creditSales, Credit = Constants.DEFAULT_DECIMAL_VALUE },
+                new DailySummaryView() { Description = "Receipt Cash", Debit = Constants.DEFAULT_DECIMAL_VALUE, Credit = cashReceipt },
+                new DailySummaryView() { Description = "Receipt Cheque", Debit = Constants.DEFAULT_DECIMAL_VALUE, Credit = chequeReceipt },
+                new DailySummaryView() { Description = "Payment Cash", Debit = totalCashPayment, Credit = Constants.DEFAULT_DECIMAL_VALUE },
+                new DailySummaryView() { Description = "Payment Cheque", Debit = totalChequePayment, Credit = Constants.DEFAULT_DECIMAL_VALUE }
             };
 
             LoadDailySummary(dailySummaryViewList);

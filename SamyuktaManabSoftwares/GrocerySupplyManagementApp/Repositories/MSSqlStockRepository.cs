@@ -67,7 +67,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON " +
                 "sa.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND sa.[Action] = '" + Constants.ADD + "' ";
+                "AND ISNULL(sa.[Action], '') = '" + Constants.ADD + "' ";
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
@@ -118,7 +118,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON " +
                 "sa.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND sa.[Action] = '" + Constants.DEDUCT + "' ";
+                "AND ISNULL(sa.[Action], '') = '" + Constants.DEDUCT + "' ";
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
@@ -204,7 +204,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
 
-            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)) : 0.00m;
+            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)) : Constants.DEFAULT_DECIMAL_VALUE;
 
             return perUnitValue;
         }
@@ -215,7 +215,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
-            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.StockValue, 2)) : 0.00m;
+            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.StockValue, 2)) : Constants.DEFAULT_DECIMAL_VALUE;
 
             return perUnitValue;
         }

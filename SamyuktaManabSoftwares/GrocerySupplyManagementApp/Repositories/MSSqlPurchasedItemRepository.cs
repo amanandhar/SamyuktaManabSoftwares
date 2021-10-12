@@ -160,8 +160,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND [SupplierId] = @SupplierId " +
-                "AND [BillNo] = @BillNo " +
+                "AND ISNULL([SupplierId], '') = @SupplierId " +
+                "AND ISNLL([BillNo], '') = @BillNo " +
                 "ORDER BY AddedDate ";
 
             try
@@ -204,13 +204,13 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetPurchasedItemTotalAmount(string supplierId, string billNo)
         {
-            decimal totalAmount = 0.00m;
+            decimal totalAmount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
-                "CAST(SUM([Quantity] * [Price]) AS DECIMAL(18, 2)) AS 'TotalPrice' " +
+                "CAST(SUM([Quantity] * [Price]) AS DECIMAL(18, 2)) AS [TotalPrice] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND [SupplierId] = @SupplierId " +
-                "AND [BillNo] = @BillNo ";
+                "AND ISNULL([SupplierId], '') = @SupplierId " +
+                "AND ISNULL([BillNo], '') = @BillNo ";
 
             try
             {
@@ -240,7 +240,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetPurchasedItemTotalAmount(StockFilter stockFilter)
         {
-            decimal totalAmount = 0.00m;
+            decimal totalAmount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
                 "CAST(SUM(pi.[Quantity] * pi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
@@ -250,12 +250,17 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND ISNULL(i.[Code], '') = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
-                query += "AND pi.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND pi.[EndOfDay] >= @DateFrom ";
+            }
+
+            if(!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            {
+                query += "AND pi.[EndOfDay] <= @DateTo ";
             }
 
             try
@@ -297,12 +302,17 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND ISNULL(i.[Code], '') = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
-                query += "AND pi.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND pi.[EndOfDay] >= @DateFrom ";
+            }
+
+            if(!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            {
+                query += "AND pi.[EndOfDay] <= @DateTo ";
             }
 
             try
@@ -417,8 +427,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[ItemId] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND [SupplierName] = @SupplierName " +
-                "AND [BillNo] = @BillNo ";
+                "AND ISNULL([SupplierName], '') = @SupplierName " +
+                "AND ISNULL([BillNo], '') = @BillNo ";
 
             try
             {
@@ -512,12 +522,12 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetLatestPurchasePrice(long itemId)
         {
-            decimal price = 0.00m;
+            decimal price = Constants.DEFAULT_DECIMAL_VALUE;
             string query = @"SELECT " +
                 "TOP 1 [Price] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
-                "AND [ItemId] = @ItemId " +
+                "AND ISNULL([ItemId], '') = @ItemId " +
                 "ORDER BY [Id] DESC ";
 
             try

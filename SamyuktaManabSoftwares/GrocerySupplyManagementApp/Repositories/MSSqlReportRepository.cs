@@ -37,7 +37,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON i.[Id] = si.[ItemId] " +
                 "WHERE 1 = 1 " +
-                "AND ut.[InvoiceNo] = @InvoiceNo";
+                "AND ISNULL(ut.[InvoiceNo], '') = @InvoiceNo";
 
             try
             {

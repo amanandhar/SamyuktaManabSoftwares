@@ -16,6 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly ICapitalService _capitalService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -25,7 +26,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public BankTransferForm(string username,
             ISettingService settingService, IBankService bankService, 
-            IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService)
+            IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
+            ICapitalService capitalService)
         {
             InitializeComponent();
 
@@ -33,6 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _userTransactionService = userTransactionService;
             _bankTransactionService = bankTransactionService;
+            _capitalService = capitalService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -99,7 +102,7 @@ namespace GrocerySupplyManagementApp.Forms
                             TransactionId = lastUserTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichDepositAmount.Text),
-                            Credit = 0.00m,
+                            Credit = Constants.DEFAULT_DECIMAL_VALUE,
                             Narration = RichNarration.Text,
                             AddedBy = _username,
                             AddedDate = DateTime.Now
@@ -154,7 +157,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
                 });
 
-                TxtCash.Text = _userTransactionService.GetCashInHand(new UserTransactionFilter()).ToString();
+                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
             }
             catch(Exception ex)
             {
@@ -167,7 +170,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 ComboBank.Text = string.Empty;
-                TxtCash.Text = _userTransactionService.GetCashInHand(new UserTransactionFilter()).ToString();
+                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
                 TxtAccountNo.Clear();
                 RichDepositAmount.Clear();
                 RichNarration.Clear();

@@ -20,39 +20,19 @@ namespace GrocerySupplyManagementApp.Services
             _settingRepository = settingRepository;
         }
 
-        public IEnumerable<UserTransaction> GetUserTransactions()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UserTransaction> GetUserTransactions(string memberId)
-        {
-            return _userTransactionRepository.GetUserTransactions(memberId);
-        }
-
         public IEnumerable<UserTransaction> GetUserTransactions(UserTransactionFilter userTransactionFilter)
         {
             return _userTransactionRepository.GetUserTransactions(userTransactionFilter);
         }
 
-        public IEnumerable<UserTransaction> GetUserTransactions(DeliveryPersonFilter deliveryPersonFilter)
+        public IEnumerable<UserTransaction> GetDeliveryPersonTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter)
         {
-            return _userTransactionRepository.GetUserTransactions(deliveryPersonFilter);
+            return _userTransactionRepository.GetDeliveryPersonTransactions(deliveryPersonTransactionFilter);
         }
 
-        public IEnumerable<MemberTransactionView> GetMemberTransactions(string memberId)
+        public IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter)
         {
-            return _userTransactionRepository.GetMemberTransactions(memberId);
-        }
-
-        public IEnumerable<MemberTransactionView> GetMemberTransactions(MemberFilter memberFilter)
-        {
-            return _userTransactionRepository.GetMemberTransactions(memberFilter);
-        }
-
-        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(string supplierId)
-        {
-            return _userTransactionRepository.GetSupplierTransactions(supplierId);
+            return _userTransactionRepository.GetMemberTransactions(memberTransactionFilter);
         }
 
         public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter)
@@ -110,31 +90,6 @@ namespace GrocerySupplyManagementApp.Services
             return invoiceNo;
         }
 
-        public decimal GetMemberTotalBalance(UserTransactionFilter userTransactionFilter)
-        {
-            return _userTransactionRepository.GetMemberTotalBalance(userTransactionFilter);
-        }
-
-        public decimal GetSupplierTotalBalance(SupplierTransactionFilter supplierTransactionFilter)
-        {
-            return _userTransactionRepository.GetSupplierTotalBalance(supplierTransactionFilter);
-        }
-
-        public decimal GetCashInHand(UserTransactionFilter userTransactionFilter)
-        {
-            return _userTransactionRepository.GetCashInHand(userTransactionFilter);
-        }
-
-        public decimal GetTotalBalance(string endOfDay, string action, string actionType)
-        {
-            return _userTransactionRepository.GetTotalBalance(endOfDay, action, actionType);
-        }
-
-        public decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType)
-        {
-            return _userTransactionRepository.GetPreviousTotalBalance(endOfDay, action, actionType);
-        }
-
         public IEnumerable<string> GetInvoices()
         {
             return _userTransactionRepository.GetInvoices();
@@ -143,11 +98,6 @@ namespace GrocerySupplyManagementApp.Services
         public IEnumerable<string> GetMemberIds()
         {
             return _userTransactionRepository.GetMemberIds();
-        }
-
-        public decimal GetUserTransactionBalance(DailyTransactionFilter dailyTransactionFilter)
-        {
-            return _userTransactionRepository.GetUserTransactionBalance(dailyTransactionFilter);
         }
 
         public IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter)

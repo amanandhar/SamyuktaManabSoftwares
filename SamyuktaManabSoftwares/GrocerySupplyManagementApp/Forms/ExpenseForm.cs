@@ -17,6 +17,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IIncomeExpenseService _incomeExpenseService;
+        private readonly ICapitalService _capitalService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -26,7 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         public ExpenseForm(string username,
             ISettingService settingService, IBankService bankService, 
             IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
-            IIncomeExpenseService incomeExpenseService)
+            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService)
         {
             InitializeComponent();
 
@@ -35,6 +36,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankTransactionService = bankTransactionService;
             _userTransactionService = userTransactionService;
             _incomeExpenseService = incomeExpenseService;
+            _capitalService = capitalService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -71,21 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var actionType = ComboPayment.Text;
                 if (actionType.ToLower() == Constants.CASH.ToLower())
                 {
-                    var previousSalesCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
-                    var previousReceiptCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
-                    var previousPaymentCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
-                    var previousExpenseCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
-                    var previousTransferCash = _userTransactionService.GetPreviousTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
-
-                    var openingBalanceCash = previousSalesCash + previousReceiptCash - (previousPaymentCash + previousExpenseCash + previousTransferCash);
-
-                    var salesCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.SALES, Constants.CASH);
-                    var receiptCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.RECEIPT, Constants.CASH);
-                    var paymentCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.PAYMENT, Constants.CASH);
-                    var expenseCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.EXPENSE, Constants.CASH);
-                    var transferCash = _userTransactionService.GetTotalBalance(_endOfDay, Constants.BANK_TRANSFER, Constants.CASH);
-                    var cashBalance = openingBalanceCash + salesCash + receiptCash - (paymentCash + expenseCash + transferCash);
-
+                    var cashBalance = _capitalService.GetCashBalance(_endOfDay);
                     if (paymentAmount > cashBalance)
                     {
                         var warningResult = MessageBox.Show("No sufficient cash available.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);

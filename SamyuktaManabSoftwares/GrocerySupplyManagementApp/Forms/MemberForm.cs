@@ -27,6 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
         private readonly IPOSDetailService _posDetailService;
+        private readonly ICapitalService _capitalService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -56,7 +57,8 @@ namespace GrocerySupplyManagementApp.Forms
             IBankService bankService, IBankTransactionService bankTransactionService, 
             IMemberService memberService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IEmployeeService employeeService,
-            IReportService reportService, IPOSDetailService posDetailService, DashboardForm dashboardForm)
+            IReportService reportService, IPOSDetailService posDetailService,
+            ICapitalService capitalService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
@@ -70,6 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
             _employeeService = employeeService;
             _reportService = reportService;
             _posDetailService = posDetailService;
+            _capitalService = capitalService;
             _dashboard = dashboardForm;
 
             _username = username;
@@ -94,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Event
         private void BtnSearchMember_Click(object sender, EventArgs e)
         {
-            MemberListForm memberListForm = new MemberListForm(_memberService, _userTransactionService, this);
+            MemberListForm memberListForm = new MemberListForm(_memberService, _capitalService, this);
             memberListForm.ShowDialog();
         }
 
@@ -153,7 +156,7 @@ namespace GrocerySupplyManagementApp.Forms
                             TransactionId = lastPosTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichAmount.Text),
-                            Credit = 0.00m,
+                            Credit = Constants.DEFAULT_DECIMAL_VALUE,
                             Narration = TxtMemberId.Text + " - " + TxtName.Text,
                             AddedBy = _username,
                             AddedDate = DateTime.Now
@@ -364,13 +367,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
-            var filter = new MemberFilter();
+            var memberTransactionFilter = new MemberTransactionFilter();
             var dateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
             var dateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
             var action = ComboAction.Text;
 
-            filter.Action = action;
-            var memberTransactionViewList = GetMemberTransactions(filter);
+            memberTransactionFilter.Action = action;
+            var memberTransactionViewList = GetMemberTransactions(memberTransactionFilter);
             TxtAmount.Text = memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString();
             LoadMemberTransactions(memberTransactionViewList);
         }
@@ -498,14 +501,16 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private List<MemberTransactionView> GetMemberTransactions(string memberId)
         {
-            var memberTransactions = _userTransactionService.GetMemberTransactions(memberId).ToList();
+            var memberTransactions = _userTransactionService
+                .GetMemberTransactions(new MemberTransactionFilter() { MemberId = memberId })
+                .ToList();
 
-            decimal balance = 0.00M;
+            decimal balance = Constants.DEFAULT_DECIMAL_VALUE;
             var memberTransactionViews = memberTransactions
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? 0.00m : (x.DueReceivedAmount - x.ReceivedAmount);
+                               balance += (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? Constants.DEFAULT_DECIMAL_VALUE : (x.DueReceivedAmount - x.ReceivedAmount);
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -523,16 +528,16 @@ namespace GrocerySupplyManagementApp.Forms
             return memberTransactionViews;
         }
 
-        private List<MemberTransactionView> GetMemberTransactions(MemberFilter memberFilter)
+        private List<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter)
         {
-            var memberTransactions = _userTransactionService.GetMemberTransactions(memberFilter).ToList();
+            var memberTransactions = _userTransactionService.GetMemberTransactions(memberTransactionFilter).ToList();
 
-            decimal balance = 0.00M;
+            decimal balance = Constants.DEFAULT_DECIMAL_VALUE;
             var memberTransactionViews = memberTransactions
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? 0.00m : (x.DueReceivedAmount - x.ReceivedAmount);
+                               balance += (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? Constants.DEFAULT_DECIMAL_VALUE : (x.DueReceivedAmount - x.ReceivedAmount);
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -553,7 +558,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
         {
             TxtBalance.Text = memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString();
-            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) > 0.00m ? Constants.DUE : (Convert.ToDecimal(TxtBalance.Text) == 0.00m ? Constants.CLEAR : Constants.OWNED);
+            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) > Constants.DEFAULT_DECIMAL_VALUE ? Constants.DUE : (Convert.ToDecimal(TxtBalance.Text) == Constants.DEFAULT_DECIMAL_VALUE ? Constants.CLEAR : Constants.OWNED);
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);
             var source = new BindingSource(bindingList, null);

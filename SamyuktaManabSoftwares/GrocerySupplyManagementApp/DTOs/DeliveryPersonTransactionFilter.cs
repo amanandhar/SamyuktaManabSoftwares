@@ -1,6 +1,6 @@
 ﻿namespace GrocerySupplyManagementApp.DTOs
 {
-    public class DeliveryPersonFilter
+    public class DeliveryPersonTransactionFilter
     {
         public string DateFrom { get; set; }
         public string DateTo { get; set; }

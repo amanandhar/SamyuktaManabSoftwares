@@ -53,13 +53,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowTransaction_Click(object sender, System.EventArgs e)
         {
             var employeeId = _selectedEmployeeId;
-            var deliveryPersonFilter = new DeliveryPersonFilter
+            var deliveryPersonTransactionFilter = new DeliveryPersonTransactionFilter
             {
                 DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text),
                 DateTo = UtilityService.GetDate(MaskDtEODTo.Text),
                 EmployeeId = employeeId
             };
-            LoadDeliveryTransactions(deliveryPersonFilter);
+            LoadDeliveryTransactions(deliveryPersonTransactionFilter);
         }
         #endregion
 
@@ -119,9 +119,9 @@ namespace GrocerySupplyManagementApp.Forms
             _selectedEmployeeId = employee.EmployeeId;
         }
 
-        private void LoadDeliveryTransactions(DeliveryPersonFilter deliveryPersonFilter)
+        private void LoadDeliveryTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter)
         {
-            var userTransations = _userTransactionService.GetUserTransactions(deliveryPersonFilter);
+            var userTransations = _userTransactionService.GetDeliveryPersonTransactions(deliveryPersonTransactionFilter);
 
             TxtAmount.Text = userTransations.ToList().Sum(x => x.ReceivedAmount).ToString();
 

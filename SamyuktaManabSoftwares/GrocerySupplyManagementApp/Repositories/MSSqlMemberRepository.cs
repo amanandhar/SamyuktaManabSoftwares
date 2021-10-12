@@ -66,14 +66,15 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Member GetMember(string memberId)
         {
+            var member = new Member();
             var query = @"SELECT " +
                 "[Id], [Counter], [MemberId], [Name], " +
                 "[Address], [ContactNo], [Email], [AccountNo], [ImagePath], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_MEMBER + " " +
                 "WHERE 1 = 1 " +
-                "AND [MemberId] = @MemberId ";
-            var member = new Member();
+                "AND ISNULL([MemberId], '') = @MemberId ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -196,7 +197,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
-                "AND [MemberId] = @MemberId ";
+                "AND ISNULL([MemberId], '') = @MemberId ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -231,7 +232,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"DELETE FROM " + Constants.TABLE_MEMBER + " " +
                     "WHERE 1 = 1 " +
-                    "AND [MemberId] = @MemberId ";
+                    "AND ISNULL([MemberId], '') = @MemberId ";
             bool result = false;
 
             try

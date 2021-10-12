@@ -2,6 +2,9 @@ namespace GrocerySupplyManagementApp.Shared
 {
     public class Constants
     {
+        // Default Value
+        public const decimal DEFAULT_DECIMAL_VALUE = 0.00m;
+
         // Action
         public const string PURCHASE = "Purchase";
         public const string SALES = "Sales";

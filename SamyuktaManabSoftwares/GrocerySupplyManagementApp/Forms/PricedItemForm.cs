@@ -474,7 +474,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var profitPercent = pricedItem.ProfitPercent;
                 TxtProfitPercent.Text = profitPercent.ToString();
-                var customPerUnitValue = string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text) ? 0.00M : Convert.ToDecimal(TxtCustomPerUnitValue.Text);
+                var customPerUnitValue = string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtCustomPerUnitValue.Text);
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 TxtProfitAmount.Text = profitAmount.ToString();
                 var salesPrice = customPerUnitValue + profitAmount;

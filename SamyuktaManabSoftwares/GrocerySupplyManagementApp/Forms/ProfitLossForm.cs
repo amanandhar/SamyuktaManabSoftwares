@@ -18,8 +18,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly Setting _setting;
         private readonly string _endOfDay;
-        private decimal _totalIncome = 0.00m;
-        private decimal _totalExpense = 0.00m;
+        private decimal _totalIncome = Constants.DEFAULT_DECIMAL_VALUE;
+        private decimal _totalExpense = Constants.DEFAULT_DECIMAL_VALUE;
 
         #region Action
         private enum Action
@@ -62,17 +62,17 @@ namespace GrocerySupplyManagementApp.Forms
             if (_totalIncome > _totalExpense)
             {
                 TxtNetIncome.Text = (_totalIncome - _totalExpense).ToString();
-                TxtNetLoss.Text = 0.00m.ToString();
+                TxtNetLoss.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
             }
             else if (_totalIncome < _totalExpense)
             {
-                TxtNetIncome.Text = 0.00m.ToString();
+                TxtNetIncome.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
                 TxtNetLoss.Text = (_totalExpense - _totalIncome).ToString();
             }
             else
             {
-                TxtNetIncome.Text = 0.00m.ToString();
-                TxtNetLoss.Text = 0.00m.ToString();
+                TxtNetIncome.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
+                TxtNetLoss.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
             }
 
             EnableFields();

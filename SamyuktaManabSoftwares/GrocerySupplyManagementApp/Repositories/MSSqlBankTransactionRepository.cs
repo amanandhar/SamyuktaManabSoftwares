@@ -42,11 +42,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
-                                    TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
-                                    Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString(),
+                                    TransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
+                                    Action = reader.IsDBNull(4) ? '1' : Convert.ToChar(reader["Action"].ToString()),
+                                    Debit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Narration = reader["Narration"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
@@ -90,11 +90,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                 bankTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
                                 bankTransaction.EndOfDay = reader["EndOfDay"].ToString();
                                 bankTransaction.BankId = Convert.ToInt64(reader["BankId"].ToString());
-                                bankTransaction.TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString());
-                                bankTransaction.Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString());
-                                bankTransaction.Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString());
-                                bankTransaction.Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString());
-                                bankTransaction.Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString();
+                                bankTransaction.TransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString());
+                                bankTransaction.Action = reader.IsDBNull(4) ? '1' : Convert.ToChar(reader["Action"].ToString());
+                                bankTransaction.Debit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString());
+                                bankTransaction.Credit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString());
+                                bankTransaction.Narration = reader["Narration"].ToString();
                                 bankTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 bankTransaction.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
@@ -137,11 +137,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
-                                    TransactionId = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
-                                    Action = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Narration = reader.IsDBNull(6) ? string.Empty : reader["Narration"].ToString(),
+                                    TransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
+                                    Action = reader.IsDBNull(4) ? '1' : Convert.ToChar(reader["Action"].ToString()),
+                                    Debit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Narration = reader["Narration"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
@@ -192,9 +192,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     Narration = reader["Narration"].ToString(),
-                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Balance = reader.IsDBNull(6) ? 0.00m : Convert.ToDecimal(reader["Balance"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString()),
                                 };
 
                                 bankTransactionViews.Add(bankTransactionView);
@@ -259,9 +259,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     Narration = reader["Narration"].ToString(),
-                                    Debit = reader.IsDBNull(4) ? 0.00m : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(5) ? 0.00m : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Balance = reader.IsDBNull(6) ? 0.00m : Convert.ToDecimal(reader["Balance"].ToString()),
+                                    Debit = reader.IsDBNull(4) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString()),
                                 };
 
                                 bankTransactionViews.Add(bankTransactionView);
@@ -280,7 +280,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetTotalBalance(BankTransactionFilter bankTransactionFilter)
         {
-            decimal bankBalance = 0.00m;
+            decimal bankBalance = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
                 "ISNUll(SUM(ISNULL([Debit], 0) - ISNULL([Credit], 0)), 0) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
@@ -327,44 +327,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankBalance;
         }
 
-        public decimal GetTotalBalance(long bankId)
-        {
-            decimal bankBalance = 0.00m;
-            var query = @"SELECT " +
-                "ISNUll(SUM(ISNULL([Debit], 0) - ISNULL([Credit], 0)), 0) " + 
-                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [BankId] = @BankId ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@BankId", ((object)bankId) ?? DBNull.Value);
-
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            bankBalance = Convert.ToDecimal(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return bankBalance;
-        }
-
         public decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter)
         {
-            decimal total = 0.00m;
+            decimal total = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
                 "ISNUll(SUM(ISNULL([Debit], 0)), 0) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
@@ -439,8 +404,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? 0.00m);
-                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? 0.00m);
+                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedBy", ((object)bankTransaction.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)bankTransaction.AddedDate) ?? DBNull.Value);
@@ -463,10 +428,14 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"UPDATE " + Constants.TABLE_BANK_TRANSACTION + " " +
                     "SET " +
                     "[EndOfDay] = @EndOfDay " +
-                    "[BankId] = @BankId, [TransactionId] = @TransactionId, " +
-                    "[Action] = @Action, [Debit] = @Debit, " +
-                    "[Credit] = @Credit, [Narration] = @Narration, " +
-                    "[UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
+                    "[BankId] = @BankId, " +
+                    "[TransactionId] = @TransactionId, " +
+                    "[Action] = @Action, " +
+                    "[Debit] = @Debit, " +
+                    "[Credit] = @Credit, " +
+                    "[Narration] = @Narration, " +
+                    "[UpdatedBy] = @UpdatedBy, " +
+                    "[UpdatedDate] = @UpdatedDate " +
                     "WHERE 1 = 1 " +
                     "AND [Id] = @Id ";
             try

@@ -68,11 +68,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return soldItems;
         }
 
-        public SoldItem GetSoldItem(long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo)
         {
             var soldItemViewList = new List<SoldItemView>();
@@ -88,7 +83,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "INNER JOIN " + Constants.TABLE_ITEM + " c " +
                 "ON a.[ItemId] = c.[Id] " +
                 "WHERE 1 = 1 " +
-                "AND a.[InvoiceNo] = @InvoiceNo " +
+                "AND ISNULL(a.[InvoiceNo], '') = @InvoiceNo " +
                 "ORDER BY 1 ";
 
             try
@@ -134,7 +129,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetSoldItemTotalQuantity(StockFilter stockFilter)
         {
-            decimal totalCount = 0.00m;
+            decimal totalCount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
                 "CAST(SUM(si.[Volume] * si.[Quantity]) AS DECIMAL(18,2)) " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
@@ -143,12 +138,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND ISNULL(ut.[Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
                 "AND ISNULL(ut.[Expense], '') != '" + Constants.SALES_DISCOUNT + "' " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON si.[ItemId] = i.[Id] " +
+                "ON ISNULL(si.[ItemId], '') = i.[Id] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND ISNULL(i.[Code], '') = @Code ";
             }
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
@@ -190,7 +185,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetSoldItemTotalAmount(StockFilter stockFilter)
         {
-            decimal totalAmount = 0.00m;
+            decimal totalAmount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
                 "CAST(SUM(si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
@@ -200,12 +195,17 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
             {
-                query += "AND i.[Code] = @Code ";
+                query += "AND ISNULL(i.[Code], '') = @Code ";
             }
 
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
-                query += "AND si.[EndOfDay] BETWEEN @DateFrom AND @DateTo ";
+                query += "AND si.[EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            {
+                query += "AND si.[EndOfDay] <= @DateTo ";
             }
 
             try
@@ -310,11 +310,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return soldItem;
-        }
-
-        public SoldItem UpdateSoldItem(long soldItemId, SoldItem soldItem)
-        {
-            throw new System.NotImplementedException();
         }
 
         public bool DeleteSoldItem(string invoiceNo)
