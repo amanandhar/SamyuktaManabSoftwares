@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +15,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
+        private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly Setting _setting;
         private readonly string _endOfDay;
@@ -31,7 +31,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public BalanceSheetForm(ISettingService settingService, IBankTransactionService bankTransactionService, 
-            IUserTransactionService userTransactionService, IStockService stockService)
+            IUserTransactionService userTransactionService, IStockService stockService,
+            IIncomeExpenseService incomeExpenseService)
         {
             InitializeComponent();
 
@@ -39,6 +40,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankTransactionService = bankTransactionService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
+            _incomeExpenseService = incomeExpenseService;
 
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
             _endOfDay = _setting.StartingDate;
@@ -60,62 +62,8 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var endOfDay = UtilityService.GetDate(MaskEndOfDay.Text);
-
-                var totalPurchaseBonus = _userTransactionService
-                    .GetPurchaseBonus(new IncomeTransactionFilter() { DateTo = endOfDay })
-                    .ToList().Sum(x => x.Amount);
-                var totalDeliveryCharge = _userTransactionService
-                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.DELIVERY_CHARGE })
-                    .ToList().Sum(x => x.Amount);
-                var totalMemberFee = _userTransactionService
-                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.MEMBER_FEE })
-                    .ToList().Sum(x => x.Amount);
-                var totalOtherIncome = _userTransactionService
-                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.OTHER_INCOME })
-                    .ToList().Sum(x => x.Amount);
-                var totalSalesProfit = _userTransactionService
-                    .GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay })
-                    .ToList().Sum(x => x.Amount);
-                var totalStockAdjustmentIncome = _userTransactionService
-                    .GetIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.STOCK_ADJUSTMENT })
-                    .ToList().Sum(x => x.Amount);
-
-                var totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustmentIncome;
-
-                var totalAsset = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET });
-                var totalDeliveryChargeExpense = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.DELIVERY_CHARGE });
-                var totalElectricity = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ELECTRICITY });
-                var totalFuelAndTransportation = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.FUEL_TRANSPORTATION });
-                var totalGuestHospitality = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.GUEST_HOSPITALITY });
-                var totalLoanInterest = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.LOAN_INTEREST });
-                var totalMiscellaneous = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.MISCELLANEOUS });
-                var totalOfficeRent = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.OFFICE_RENT });
-                var totalRepairMaintenance = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.REPAIR_MAINTENANCE });
-                var totalSalesDiscount = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_DISCOUNT });
-                var totalSalesReturn = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_RETURN });
-                var totalStaffAllowance = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_ALLOWANCE });
-                var totalStaffSalary = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_SALARY });
-                var totalStockAdjustmentExpense = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STOCK_ADJUSTMENT });
-                var totalTelephoneInternet = _userTransactionService
-                    .GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.TELEPHONE_INTERNET });
-
-                var totalExpense = totalAsset + totalDeliveryChargeExpense + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
-                    + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance
-                    + totalSalesDiscount + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalStockAdjustmentExpense + totalTelephoneInternet;
+                var totalIncome = _incomeExpenseService.GetTotalIncome(endOfDay);
+                var totalExpense = _incomeExpenseService.GetTotalExpense(endOfDay);
 
                 var shareCapital = _bankTransactionService
                     .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1',  Narration = Constants.SHARE_CAPITAL });
@@ -133,37 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var stockFilter = new StockFilter() { DateTo = endOfDay };
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var stockViewList = new List<StockView>();
-                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
-                {
-                    stockViewList = UtilityService
-                        .CalculateStock(stocks.ToList())
-                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
-                        .ToList();
-                }
-                else if(!string.IsNullOrEmpty(stockFilter.DateFrom) && string.IsNullOrEmpty(stockFilter.DateTo))
-                {
-                    stockViewList = UtilityService
-                        .CalculateStock(stocks.ToList())
-                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0)
-                        .ToList();
-                }
-                else if(string.IsNullOrEmpty(stockFilter.DateTo) && !string.IsNullOrEmpty(stockFilter.DateTo))
-                {
-                    stockViewList = UtilityService
-                        .CalculateStock(stocks.ToList())
-                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
-                        .ToList();
-                }
-                else
-                {
-                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
-                }
-
-                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
-                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
-                    .ToList();
-                var stockValue = latestStockView.Count > 0 ? Math.Round(latestStockView.Sum(x => x.StockValue), 2) : 0.00m;
+                var stockValue = _stockService.GetStockValue(stocks.ToList(), stockFilter);
 
                 var receivableAmount = _userTransactionService.GetMemberTotalBalance(new UserTransactionFilter() { DateTo = endOfDay });
                 var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : 0.00m;
@@ -234,7 +152,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        #region 
+        #region Helper Methods
         private void EnableFields(Action action = Action.None)
         {
             if(action == Action.Show)

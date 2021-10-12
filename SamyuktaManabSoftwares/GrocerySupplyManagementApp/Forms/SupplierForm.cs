@@ -479,15 +479,20 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var balance = _userTransactionService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = TxtSupplierId.Text });
             
-            if (balance >= 0)
+            if (balance > 0)
             {
                 TxtBalance.Text = balance.ToString();
-                TextBoxDebitCredit.Text = "Due";
+                TextBoxDebitCredit.Text = Constants.DUE;
+            }
+            else if (balance < 0)
+            {
+                TxtBalance.Text = decimal.Negate(balance).ToString();
+                TextBoxDebitCredit.Text = Constants.OWNED;
             }
             else
             {
-                TxtBalance.Text = decimal.Negate(balance).ToString();
-                TextBoxDebitCredit.Text = "Owed";
+                TxtBalance.Text = balance.ToString();
+                TextBoxDebitCredit.Text = Constants.CLEAR;
             }
 
             return _userTransactionService.GetSupplierTransactions(TxtSupplierId.Text).ToList();

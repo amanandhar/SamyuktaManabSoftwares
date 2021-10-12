@@ -35,7 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridUserList
             // 
-            this.DataGridUserList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridUserList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridUserList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridUserList.Location = new System.Drawing.Point(12, 10);
             this.DataGridUserList.Name = "DataGridUserList";

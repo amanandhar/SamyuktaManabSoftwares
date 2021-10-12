@@ -32,6 +32,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
         private readonly IPOSDetailService _posDetailService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
+        private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -71,7 +72,8 @@ namespace GrocerySupplyManagementApp.Forms
             IUserTransactionService userTransactionService, IReportService reportService,
             ICompanyInfoService companyInfoService, IEmployeeService employeeService,
             IStockService stockService, IUserService userService,
-            IPOSDetailService posDetailService, IStockAdjustmentService stockAdjustmentService
+            IPOSDetailService posDetailService, IStockAdjustmentService stockAdjustmentService,
+            IIncomeExpenseService incomeExpenseService
             )
         {
             InitializeComponent();
@@ -92,6 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
             _posDetailService = posDetailService;
             _stockAdjustmentService = stockAdjustmentService;
+            _incomeExpenseService = incomeExpenseService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -233,7 +236,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ExpenseForm expenseForm = new ExpenseForm(_username,
                 _settingService, _bankService, 
-                _bankTransactionService, _userTransactionService);
+                _bankTransactionService, _userTransactionService,
+                _incomeExpenseService);
             expenseForm.Show();
             EnableFields();
             EnableFields(Action.AddExpense);
@@ -373,10 +377,10 @@ namespace GrocerySupplyManagementApp.Forms
                             EndOfDay = _endOfDay,
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
-                            Action = Constants.ACTION_TYPE_NONE,
+                            Action = Constants.EXPENSE,
                             ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                             Expense = Constants.SALES_DISCOUNT,
-                            PaymentAmount = Convert.ToDecimal(TxtDiscount.Text),
+                            PaymentAmount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -393,10 +397,10 @@ namespace GrocerySupplyManagementApp.Forms
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             MemberId = RichMemberId.Text.Trim(),
                             DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
-                            Action = Constants.ACTION_TYPE_NONE,
+                            Action = Constants.INCOME,
                             ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
                             Income = Constants.DELIVERY_CHARGE,
-                            ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text),
+                            ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -606,7 +610,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["Volume"].Width = 75;
                 DataGridSoldItemList.Columns["Volume"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Format = "N3";
 
                 DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
                 DataGridSoldItemList.Columns["Unit"].Width = 47;
@@ -953,24 +956,9 @@ namespace GrocerySupplyManagementApp.Forms
 
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var stockViewList = new List<StockView>();
-                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
-                {
-                    stockViewList = UtilityService.CalculateStock(stocks.ToList())
-                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
-                        .ToList();
-                }
-                else
-                {
-                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
-                }
-
-                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
-                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
-                    .ToList();
-
-                var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
+                var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
                 var customPerUnitValue = perUnitValue;
+                
                 if ((item.Unit == Constants.KILOGRAM && pricedItem.CustomUnit == Constants.GRAM)
                     || (item.Unit == Constants.LITER && pricedItem.CustomUnit == Constants.MILLI_LITER))
                 {

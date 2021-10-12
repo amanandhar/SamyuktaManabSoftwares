@@ -19,5 +19,20 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _stockRepository.GetStocks(stockFilter);
         }
+
+        public decimal GetPerUnitValue(List<Stock> stocks, StockFilter stockFilter)
+        {
+            return _stockRepository.GetPerUnitValue(stocks, stockFilter);
+        }
+
+        public decimal GetStockValue(List<Stock> stocks, StockFilter stockFilter)
+        {
+            return _stockRepository.GetStockValue(stocks, stockFilter);
+        }
+
+        public List<StockView> GetStockViewList(List<Stock> stocks, StockFilter stockFilter)
+        {
+            return _stockRepository.GetStockViewList(stocks, stockFilter);
+        }
     }
 }

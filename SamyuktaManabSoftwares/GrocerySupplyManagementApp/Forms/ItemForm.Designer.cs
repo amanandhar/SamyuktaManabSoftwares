@@ -340,7 +340,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridItemList
             // 
-            this.DataGridItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridItemList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;

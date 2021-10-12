@@ -60,11 +60,6 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetSupplierTransactions(supplierFilter);
         }
 
-        public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter expenseTransactionFilter)
-        {
-            return _userTransactionRepository.GetExpenseTransactions(expenseTransactionFilter);
-        }
-
         public UserTransaction GetUserTransaction(long userTransactionId)
         {
             return _userTransactionRepository.GetUserTransaction(userTransactionId);
@@ -140,11 +135,6 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetPreviousTotalBalance(endOfDay, action, actionType);
         }
 
-        public decimal GetTotalExpense(ExpenseTransactionFilter expenseTransactionFilter)
-        {
-            return _userTransactionRepository.GetTotalExpense(expenseTransactionFilter);
-        }
-
         public IEnumerable<string> GetInvoices()
         {
             return _userTransactionRepository.GetInvoices();
@@ -163,21 +153,6 @@ namespace GrocerySupplyManagementApp.Services
         public IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter)
         {
             return _userTransactionRepository.GetTransactionViewList(dailyTransactionFilter);
-        }
-
-        public IEnumerable<IncomeDetailView> GetIncome(IncomeTransactionFilter filter)
-        {
-            return _userTransactionRepository.GetIncome(filter);
-        }
-
-        public IEnumerable<IncomeDetailView> GetSalesProfit(IncomeTransactionFilter filter)
-        {
-            return _userTransactionRepository.GetSalesProfit(filter);
-        }
-
-        public IEnumerable<IncomeDetailView> GetPurchaseBonus(IncomeTransactionFilter filter)
-        {
-            return _userTransactionRepository.GetPurchaseBonus(filter);
         }
 
         public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)

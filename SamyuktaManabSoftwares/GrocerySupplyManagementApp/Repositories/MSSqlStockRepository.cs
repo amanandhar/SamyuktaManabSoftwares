@@ -1,9 +1,11 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
@@ -193,6 +195,60 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return stocks;
+        }
+
+        public decimal GetPerUnitValue(List<Stock> stocks, StockFilter stockFilter)
+        {
+            var stockViewList = GetStockViewList(stocks, stockFilter);
+            var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
+                .ToList();
+
+            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)) : 0.00m;
+
+            return perUnitValue;
+        }
+
+        public decimal GetStockValue(List<Stock> stocks, StockFilter stockFilter)
+        {
+            var stockViewList = GetStockViewList(stocks, stockFilter);
+            var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
+                .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
+                .ToList();
+            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.StockValue, 2)) : 0.00m;
+
+            return perUnitValue;
+        }
+
+        public List<StockView> GetStockViewList(List<Stock> stocks, StockFilter stockFilter)
+        {
+            var stockViewList = new List<StockView>();
+            if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
+            {
+                stockViewList = UtilityService.CalculateStock(stocks)
+                    .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
+                    .ToList();
+            }
+            else if (!string.IsNullOrEmpty(stockFilter.DateFrom) && string.IsNullOrEmpty(stockFilter.DateTo))
+            {
+                stockViewList = UtilityService
+                    .CalculateStock(stocks)
+                    .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0)
+                    .ToList();
+            }
+            else if (string.IsNullOrEmpty(stockFilter.DateTo) && !string.IsNullOrEmpty(stockFilter.DateTo))
+            {
+                stockViewList = UtilityService
+                    .CalculateStock(stocks)
+                    .Where(x => x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
+                    .ToList();
+            }
+            else
+            {
+                stockViewList = UtilityService.CalculateStock(stocks);
+            }
+
+            return stockViewList;
         }
     }
 }

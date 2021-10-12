@@ -412,6 +412,7 @@
     </Compile>
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IIncomeExpenseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemCategoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyInfoRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
@@ -432,6 +433,7 @@
     <Compile Include="Repositories\Interfaces\IUserTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlIncomeExpenseRepository.cs" />
     <Compile Include="Repositories\MSSqlItemCategoryRepository.cs" />
     <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
     <Compile Include="Repositories\MSSqlEmployeeRepository.cs" />
@@ -455,11 +457,13 @@
     <Compile Include="Services\CompanyInfoService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\EndOfDayService.cs" />
+    <Compile Include="Services\IncomeExpenseService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
     <Compile Include="Services\Interfaces\IEmployeeService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
+    <Compile Include="Services\Interfaces\IIncomeExpenseService.cs" />
     <Compile Include="Services\Interfaces\IItemCategoryService.cs" />
     <Compile Include="Services\Interfaces\IPOSDetailService.cs" />
     <Compile Include="Services\Interfaces\IPricedItemService.cs" />
@@ -501,7 +505,7 @@
     <Compile Include="ViewModels\POSDetailView.cs" />
     <Compile Include="ViewModels\PricedItemView.cs" />
     <Compile Include="ViewModels\ExpenseTransactionView.cs" />
-    <Compile Include="ViewModels\IncomeDetailView.cs" />
+    <Compile Include="ViewModels\IncomeTransactionView.cs" />
     <Compile Include="ViewModels\IncomeExpenseView.cs" />
     <Compile Include="ViewModels\PurchasedItemView.cs" />
     <Compile Include="ViewModels\MemberTransactionView.cs" />

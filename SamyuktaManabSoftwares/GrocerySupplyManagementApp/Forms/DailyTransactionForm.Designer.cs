@@ -47,7 +47,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboInvoiceNo = new System.Windows.Forms.ComboBox();
             this.ComboSales = new System.Windows.Forms.ComboBox();
             this.RadioReceipt = new System.Windows.Forms.RadioButton();
-            this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEOD = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.RadioPurchase = new System.Windows.Forms.RadioButton();
             this.ComboPurchasePayment = new System.Windows.Forms.ComboBox();
@@ -81,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.Controls.Add(this.ComboInvoiceNo);
             this.GroupFilter.Controls.Add(this.ComboSales);
             this.GroupFilter.Controls.Add(this.RadioReceipt);
-            this.GroupFilter.Controls.Add(this.MaskEndOfDay);
+            this.GroupFilter.Controls.Add(this.MaskDtEOD);
             this.GroupFilter.Controls.Add(this.label3);
             this.GroupFilter.Controls.Add(this.RadioPurchase);
             this.GroupFilter.Controls.Add(this.ComboPurchasePayment);
@@ -189,6 +189,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.TabStop = true;
             this.RadioAll.Text = "All  ";
             this.RadioAll.UseVisualStyleBackColor = true;
+            this.RadioAll.CheckedChanged += new System.EventHandler(this.RadioAll_CheckedChanged);
             // 
             // RadioPurchasePayment
             // 
@@ -259,14 +260,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioReceipt.UseVisualStyleBackColor = true;
             this.RadioReceipt.CheckedChanged += new System.EventHandler(this.RadioReceipt_CheckedChanged);
             // 
-            // MaskEndOfDay
+            // MaskDtEOD
             // 
-            this.MaskEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDay.Location = new System.Drawing.Point(142, 14);
-            this.MaskEndOfDay.Mask = "   0000-00-00";
-            this.MaskEndOfDay.Name = "MaskEndOfDay";
-            this.MaskEndOfDay.Size = new System.Drawing.Size(125, 26);
-            this.MaskEndOfDay.TabIndex = 1;
+            this.MaskDtEOD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEOD.Location = new System.Drawing.Point(142, 14);
+            this.MaskDtEOD.Mask = "   0000-00-00";
+            this.MaskDtEOD.Name = "MaskDtEOD";
+            this.MaskDtEOD.Size = new System.Drawing.Size(125, 26);
+            this.MaskDtEOD.TabIndex = 1;
+            this.MaskDtEOD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEOD_KeyDown);
             // 
             // label3
             // 
@@ -385,7 +387,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridTransactionList
             // 
-            this.DataGridTransactionList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridTransactionList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridTransactionList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -474,7 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.ComboBox ComboPurchasePayment;
         private System.Windows.Forms.RadioButton RadioPurchase;
         private System.Windows.Forms.TextBox TxtTotal;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDay;
+        private System.Windows.Forms.MaskedTextBox MaskDtEOD;
         private System.Windows.Forms.DataGridView DataGridTransactionList;
         private System.Windows.Forms.RadioButton RadioInvoiceNo;
         private System.Windows.Forms.GroupBox GroupFilter;

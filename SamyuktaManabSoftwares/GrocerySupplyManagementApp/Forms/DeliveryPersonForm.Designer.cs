@@ -35,8 +35,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridDeliveryPersonList = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
-            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.TxtName = new System.Windows.Forms.TextBox();
@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridDeliveryPersonList
             // 
-            this.DataGridDeliveryPersonList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridDeliveryPersonList.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -91,8 +91,8 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.BtnSearch);
-            this.groupBox3.Controls.Add(this.MaskEndOfDayTo);
-            this.groupBox3.Controls.Add(this.MaskEndOfDayFrom);
+            this.groupBox3.Controls.Add(this.MaskDtEODTo);
+            this.groupBox3.Controls.Add(this.MaskDtEODFrom);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.TxtName);
@@ -127,23 +127,23 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.UseVisualStyleBackColor = false;
             this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // MaskEndOfDayTo
+            // MaskDtEODTo
             // 
-            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayTo.Location = new System.Drawing.Point(147, 52);
-            this.MaskEndOfDayTo.Mask = "   0000-00-00";
-            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
-            this.MaskEndOfDayTo.Size = new System.Drawing.Size(110, 24);
-            this.MaskEndOfDayTo.TabIndex = 41;
+            this.MaskDtEODTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODTo.Location = new System.Drawing.Point(147, 52);
+            this.MaskDtEODTo.Mask = "   0000-00-00";
+            this.MaskDtEODTo.Name = "MaskDtEODTo";
+            this.MaskDtEODTo.Size = new System.Drawing.Size(110, 24);
+            this.MaskDtEODTo.TabIndex = 41;
             // 
-            // MaskEndOfDayFrom
+            // MaskDtEODFrom
             // 
-            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(147, 18);
-            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
-            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
-            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(110, 24);
-            this.MaskEndOfDayFrom.TabIndex = 40;
+            this.MaskDtEODFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODFrom.Location = new System.Drawing.Point(147, 18);
+            this.MaskDtEODFrom.Mask = "   0000-00-00";
+            this.MaskDtEODFrom.Name = "MaskDtEODFrom";
+            this.MaskDtEODFrom.Size = new System.Drawing.Size(110, 24);
+            this.MaskDtEODFrom.TabIndex = 40;
             // 
             // label5
             // 
@@ -294,8 +294,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TxtName;
         private System.Windows.Forms.TextBox TxtAmount;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODFrom;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODTo;
         private System.Windows.Forms.DataGridView DataGridDeliveryPersonList;
         private CustomControls.Button.CustomButton BtnSearch;
         private CustomControls.Button.CustomButton BtnShowTransaction;

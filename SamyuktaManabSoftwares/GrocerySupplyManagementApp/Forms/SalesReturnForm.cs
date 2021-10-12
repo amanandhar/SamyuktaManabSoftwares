@@ -208,6 +208,62 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Radio Button Event
+        private void RadioAll_CheckedChanged(object sender, EventArgs e)
+        {
+            MaskDtEODFrom.Clear();
+            MaskDtEODTo.Clear();
+        }
+        #endregion
+
+        #region Mask Date Event 
+        private void MaskDtEODFrom_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
+
+        private void MaskDtEODTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
+        #endregion
+
+        #region Combo Box Event
+        private void ComboInvoiceNo_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var invoiceNo = ComboInvoiceNo.Text;
+            var itemIds = _soldItems.Where(x => x.InvoiceNo == invoiceNo).Select(x => x.ItemId);
+            var items = _itemService.GetItems();
+
+            ComboItemCode.ValueMember = "Id";
+            ComboItemCode.DisplayMember = "Value";
+            ComboItemCode.Items.Clear();
+            itemIds.OrderBy(x => x).ToList().ForEach(x =>
+            {
+                var item = items.Where(y => y.Id == x).FirstOrDefault();
+                ComboItemCode.Items.Add(new ComboBoxItem { Id = x.ToString(), Value = item.Code });
+            });
+
+            ComboItemCode.Focus();
+        }
+
+        private void ComboItemCode_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBoxItem selectedItemCode = (ComboBoxItem)ComboItemCode.SelectedItem;
+
+            if (!string.IsNullOrWhiteSpace(selectedItemCode?.Value))
+            {
+                var item = _itemService.GetItem(selectedItemCode.Value); ;
+                if (item != null)
+                {
+                    TxtItemName.Text = item.Name;
+                }
+            }
+
+            TxtSalesProfit.Focus();
+        }
+        #endregion
+
         #region Grid Event
         private void DateGridSalesReturnList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -324,7 +380,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllFields()
         {
-            RadioAllTransaction.Checked = false;
+            RadioAll.Checked = false;
             MaskDtEODFrom.Clear();
             MaskDtEODTo.Clear();
 
@@ -349,39 +405,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void ComboInvoiceNo_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var invoiceNo = ComboInvoiceNo.Text;
-            var itemIds = _soldItems.Where(x => x.InvoiceNo == invoiceNo).Select(x => x.ItemId);
-            var items = _itemService.GetItems();
-
-            ComboItemCode.ValueMember = "Id";
-            ComboItemCode.DisplayMember = "Value";
-            ComboItemCode.Items.Clear();
-            itemIds.OrderBy(x => x).ToList().ForEach(x =>
-            {
-                var item = items.Where(y => y.Id == x).FirstOrDefault();
-                ComboItemCode.Items.Add(new ComboBoxItem { Id = x.ToString(), Value = item.Code });
-            });
-
-            ComboItemCode.Focus();
-        }
-
-        private void ComboItemCode_SelectedValueChanged(object sender, EventArgs e)
-        {
-            ComboBoxItem selectedItemCode = (ComboBoxItem)ComboItemCode.SelectedItem;
-
-            if(!string.IsNullOrWhiteSpace(selectedItemCode?.Value))
-            {
-                var item = _itemService.GetItem(selectedItemCode.Value); ;
-                if (item != null)
-                {
-                    TxtItemName.Text = item.Name;
-                }
-            }
-
-            TxtSalesProfit.Focus();
-        }
     }
 }

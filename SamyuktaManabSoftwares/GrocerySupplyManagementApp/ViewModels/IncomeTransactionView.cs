@@ -1,6 +1,8 @@
-﻿namespace GrocerySupplyManagementApp.ViewModels
+﻿using System;
+
+namespace GrocerySupplyManagementApp.ViewModels
 {
-    public class IncomeDetailView
+    public class IncomeTransactionView
     {
         public long Id { get; set; }
         public string EndOfDay { get; set; }
@@ -11,5 +13,6 @@
         public decimal Quantity { get; set; }
         public decimal Profit { get; set; }
         public decimal Amount { get; set; }
+        public DateTime AddedDate { get; set; }
     }
 }

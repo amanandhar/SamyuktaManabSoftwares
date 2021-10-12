@@ -138,19 +138,32 @@ namespace GrocerySupplyManagementApp.Forms
                         _purchasedItemService.AddPurchasedItem(purchasedItem);
                     });
 
-                    var userTransaction = new UserTransaction
+                    var userTransaction = new UserTransaction();
+
+                    if(RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX))
                     {
-                        EndOfDay = _endOfDay,
-                        BillNo = RichBillNo.Text,
-                        SupplierId = _supplierForm.GetSupplierId(),
-                        Action = Constants.PURCHASE,
-                        ActionType = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.PURCHASE_BONUS : Constants.CREDIT,
-                        Income = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Constants.PURCHASE_BONUS : null,
-                        DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text),
-                        ReceivedAmount = RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX) ? Convert.ToDecimal(TxtTotalAmount.Text) : 0.00m,
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
+                        userTransaction.EndOfDay = _endOfDay;
+                        userTransaction.BillNo = RichBillNo.Text;
+                        userTransaction.SupplierId = _supplierForm.GetSupplierId();
+                        userTransaction.Action = Constants.INCOME;
+                        userTransaction.ActionType = Constants.ACTION_TYPE_NONE;
+                        userTransaction.Income = Constants.PURCHASE_BONUS;
+                        userTransaction.DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text);
+                        userTransaction.ReceivedAmount = Convert.ToDecimal(TxtTotalAmount.Text);
+                        userTransaction.AddedBy = _username;
+                        userTransaction.AddedDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        userTransaction.EndOfDay = _endOfDay;
+                        userTransaction.BillNo = RichBillNo.Text;
+                        userTransaction.SupplierId = _supplierForm.GetSupplierId();
+                        userTransaction.Action = Constants.PURCHASE;
+                        userTransaction.ActionType = Constants.CREDIT;
+                        userTransaction.DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text);
+                        userTransaction.AddedBy = _username;
+                        userTransaction.AddedDate = DateTime.Now;
+                    }
 
                     _userTransactionService.AddUserTransaction(userTransaction);
 

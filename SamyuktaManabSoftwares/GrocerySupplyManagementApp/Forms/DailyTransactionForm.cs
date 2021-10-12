@@ -54,10 +54,10 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void TransactionForm_Load(object sender, EventArgs e)
         {
-            MaskEndOfDay.Text = _endOfDay;
+            MaskDtEOD.Text = _endOfDay;
             EnableCombos(false);
             LoadUsers();
-            MaskEndOfDay.Focus();
+            MaskDtEOD.Focus();
         }
         #endregion
 
@@ -143,6 +143,10 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Radio Button Event
+        private void RadioAll_CheckedChanged(object sender, EventArgs e)
+        {
+            MaskDtEOD.Clear();
+        }
 
         private void RadioPurchase_CheckedChanged(object sender, EventArgs e)
         {
@@ -251,6 +255,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Mask Date Event
+        private void MaskDtEOD_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
+        #endregion
+
         #region Data Grid Event
         private void DataGridTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -275,7 +286,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
             DataGridTransactionList.Columns["Bank"].HeaderText = "Bank";
-            DataGridTransactionList.Columns["Bank"].Width = 100;
+            DataGridTransactionList.Columns["Bank"].Width = 250;
             DataGridTransactionList.Columns["Bank"].DisplayIndex = 4;
 
             DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
@@ -300,10 +311,11 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadTransactions()
         {
-            MaskEndOfDay.Focus();
+            MaskDtEOD.Focus();
+
             var dailyTransactionFilter = new DailyTransactionFilter
             {
-                Date = UtilityService.GetDate(MaskEndOfDay.Text)
+                Date = UtilityService.GetDate(MaskDtEOD.Text)
             };
 
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
@@ -463,6 +475,8 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUser.SelectedText = _username;
         }
 
+
         #endregion
+
     }
 }

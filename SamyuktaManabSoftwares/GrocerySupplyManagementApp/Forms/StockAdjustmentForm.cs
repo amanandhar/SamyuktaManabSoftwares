@@ -166,25 +166,8 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     ItemCode = item.Code
                 };
-
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var stockViewList = new List<StockView>();
-                if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
-                {
-                    stockViewList = UtilityService.CalculateStock(stocks.ToList())
-                        .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
-                        .ToList();
-                }
-                else
-                {
-                    stockViewList = UtilityService.CalculateStock(stocks.ToList());
-                }
-
-                var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
-                    .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
-                    .ToList();
-
-                var perUnitValue = latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2));
+                var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
 
                 TxtBoxItemCode.Text = item.Code;
                 TxtBoxItemName.Text = item.Name;

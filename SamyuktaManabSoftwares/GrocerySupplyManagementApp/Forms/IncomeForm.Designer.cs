@@ -32,8 +32,8 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
-            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
             this.TxtTotalAmount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.RichAddAmount = new System.Windows.Forms.RichTextBox();
+            this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.ComboIncome = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnRemove = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -55,7 +55,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.TxtBoxNarration = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridIncomeList)).BeginInit();
@@ -64,8 +64,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.MaskEndOfDayFrom);
-            this.groupBox3.Controls.Add(this.MaskEndOfDayTo);
+            this.groupBox3.Controls.Add(this.MaskDtEODFrom);
+            this.groupBox3.Controls.Add(this.MaskDtEODTo);
             this.groupBox3.Controls.Add(this.TxtTotalAmount);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label9);
@@ -82,24 +82,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Filtered Income";
             // 
-            // MaskEndOfDayFrom
+            // MaskDtEODFrom
             // 
-            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(149, 22);
-            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
-            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
-            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(125, 26);
-            this.MaskEndOfDayFrom.TabIndex = 24;
-            this.MaskEndOfDayFrom.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MaskDateFrom_KeyUp);
+            this.MaskDtEODFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODFrom.Location = new System.Drawing.Point(149, 22);
+            this.MaskDtEODFrom.Mask = "   0000-00-00";
+            this.MaskDtEODFrom.Name = "MaskDtEODFrom";
+            this.MaskDtEODFrom.Size = new System.Drawing.Size(125, 26);
+            this.MaskDtEODFrom.TabIndex = 24;
+            this.MaskDtEODFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODFrom_KeyDown);
+            this.MaskDtEODFrom.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MaskDateFrom_KeyUp);
             // 
-            // MaskEndOfDayTo
+            // MaskDtEODTo
             // 
-            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayTo.Location = new System.Drawing.Point(349, 22);
-            this.MaskEndOfDayTo.Mask = "   0000-00-00";
-            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
-            this.MaskEndOfDayTo.Size = new System.Drawing.Size(125, 26);
-            this.MaskEndOfDayTo.TabIndex = 23;
+            this.MaskDtEODTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODTo.Location = new System.Drawing.Point(349, 22);
+            this.MaskDtEODTo.Mask = "   0000-00-00";
+            this.MaskDtEODTo.Name = "MaskDtEODTo";
+            this.MaskDtEODTo.Size = new System.Drawing.Size(125, 26);
+            this.MaskDtEODTo.TabIndex = 23;
+            this.MaskDtEODTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODTo_KeyDown);
             // 
             // TxtTotalAmount
             // 
@@ -157,6 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.TabStop = true;
             this.RadioAll.Text = "All  ";
             this.RadioAll.UseVisualStyleBackColor = true;
+            this.RadioAll.CheckedChanged += new System.EventHandler(this.RadioAll_CheckedChanged);
             // 
             // label2
             // 
@@ -222,16 +225,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.TabIndex = 13;
             this.label7.Text = " Add Income";
             // 
-            // RichAddAmount
+            // RichAmount
             // 
-            this.RichAddAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.RichAddAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichAddAmount.Location = new System.Drawing.Point(279, 20);
-            this.RichAddAmount.Name = "RichAddAmount";
-            this.RichAddAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichAddAmount.Size = new System.Drawing.Size(115, 29);
-            this.RichAddAmount.TabIndex = 17;
-            this.RichAddAmount.Text = "";
+            this.RichAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichAmount.Location = new System.Drawing.Point(279, 20);
+            this.RichAmount.Name = "RichAmount";
+            this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichAmount.Size = new System.Drawing.Size(115, 29);
+            this.RichAmount.TabIndex = 17;
+            this.RichAmount.Text = "";
+            this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
             // 
             // ComboIncome
             // 
@@ -315,7 +319,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridIncomeList
             // 
-            this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridIncomeList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -363,12 +367,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.TxtBoxNarration);
             this.groupBox2.Controls.Add(this.ComboIncome);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.ComboBank);
-            this.groupBox2.Controls.Add(this.RichAddAmount);
+            this.groupBox2.Controls.Add(this.RichAmount);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
@@ -379,13 +383,13 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Income";
             // 
-            // textBox2
+            // TxtBoxNarration
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(117, 86);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(277, 26);
-            this.textBox2.TabIndex = 20;
+            this.TxtBoxNarration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxNarration.Location = new System.Drawing.Point(117, 86);
+            this.TxtBoxNarration.Name = "TxtBoxNarration";
+            this.TxtBoxNarration.Size = new System.Drawing.Size(277, 26);
+            this.TxtBoxNarration.TabIndex = 20;
             // 
             // IncomeForm
             // 
@@ -418,7 +422,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox ComboIncome;
-        private System.Windows.Forms.RichTextBox RichAddAmount;
+        private System.Windows.Forms.RichTextBox RichAmount;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton RadioAll;
         private System.Windows.Forms.ComboBox ComboFilteredBy;
@@ -428,8 +432,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtTotalAmount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DataGridIncomeList;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODFrom;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODTo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox ComboBank;
         private System.Windows.Forms.Label label4;
@@ -439,6 +443,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox TxtBoxNarration;
     }
 }

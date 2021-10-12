@@ -73,6 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.BtnSalesReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddSale = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSaveInvoice = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddToCart = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -111,7 +112,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSoldItemList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.BtnSalesReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -625,6 +625,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox7.Size = new System.Drawing.Size(1320, 70);
             this.groupBox7.TabIndex = 26;
             this.groupBox7.TabStop = false;
+            // 
+            // BtnSalesReturn
+            // 
+            this.BtnSalesReturn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSalesReturn.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSalesReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSalesReturn.BorderRadius = 35;
+            this.BtnSalesReturn.BorderSize = 0;
+            this.BtnSalesReturn.Enabled = false;
+            this.BtnSalesReturn.FlatAppearance.BorderSize = 0;
+            this.BtnSalesReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSalesReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSalesReturn.ForeColor = System.Drawing.Color.White;
+            this.BtnSalesReturn.Location = new System.Drawing.Point(1, 17);
+            this.BtnSalesReturn.Name = "BtnSalesReturn";
+            this.BtnSalesReturn.Size = new System.Drawing.Size(145, 40);
+            this.BtnSalesReturn.TabIndex = 24;
+            this.BtnSalesReturn.Text = "Sales Return";
+            this.BtnSalesReturn.TextColor = System.Drawing.Color.White;
+            this.BtnSalesReturn.UseVisualStyleBackColor = false;
             // 
             // BtnAddSale
             // 
@@ -1148,7 +1168,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridSoldItemList
             // 
-            this.DataGridSoldItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridSoldItemList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridSoldItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -1201,26 +1221,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label19.Size = new System.Drawing.Size(594, 37);
             this.label19.TabIndex = 33;
             this.label19.Text = "Welcome to Point of Sales Dashboard";
-            // 
-            // BtnSalesReturn
-            // 
-            this.BtnSalesReturn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSalesReturn.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSalesReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSalesReturn.BorderRadius = 35;
-            this.BtnSalesReturn.BorderSize = 0;
-            this.BtnSalesReturn.Enabled = false;
-            this.BtnSalesReturn.FlatAppearance.BorderSize = 0;
-            this.BtnSalesReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSalesReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalesReturn.ForeColor = System.Drawing.Color.White;
-            this.BtnSalesReturn.Location = new System.Drawing.Point(1, 17);
-            this.BtnSalesReturn.Name = "BtnSalesReturn";
-            this.BtnSalesReturn.Size = new System.Drawing.Size(145, 40);
-            this.BtnSalesReturn.TabIndex = 24;
-            this.BtnSalesReturn.Text = "Sales Return";
-            this.BtnSalesReturn.TextColor = System.Drawing.Color.White;
-            this.BtnSalesReturn.UseVisualStyleBackColor = false;
             // 
             // PosForm
             // 

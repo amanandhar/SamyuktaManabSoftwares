@@ -29,9 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -48,7 +48,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.DataGridIncomeList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.groupBox3.SuspendLayout();
@@ -197,28 +196,28 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.DataGridExpenseList);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(560, 135);
+            this.groupBox2.Location = new System.Drawing.Point(560, 107);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(520, 420);
+            this.groupBox2.Size = new System.Drawing.Size(520, 448);
             this.groupBox2.TabIndex = 83;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Expense";
             // 
             // DataGridExpenseList
             // 
-            this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridExpenseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridExpenseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridExpenseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridExpenseList.Location = new System.Drawing.Point(5, 18);
+            this.DataGridExpenseList.Location = new System.Drawing.Point(5, 25);
             this.DataGridExpenseList.Name = "DataGridExpenseList";
-            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 400);
+            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 393);
             this.DataGridExpenseList.TabIndex = 1;
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
             // 
@@ -227,36 +226,36 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.DataGridIncomeList);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Black;
-            this.groupBox4.Location = new System.Drawing.Point(19, 135);
+            this.groupBox4.Location = new System.Drawing.Point(19, 107);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(520, 420);
+            this.groupBox4.Size = new System.Drawing.Size(520, 448);
             this.groupBox4.TabIndex = 84;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Income";
             // 
             // DataGridIncomeList
             // 
-            this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridIncomeList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridIncomeList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.DataGridIncomeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridIncomeList.Location = new System.Drawing.Point(5, 18);
+            this.DataGridIncomeList.Location = new System.Drawing.Point(5, 25);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridIncomeList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 400);
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridIncomeList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 393);
             this.DataGridIncomeList.TabIndex = 0;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeList_DataBindingComplete);
             // 
@@ -268,18 +267,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(1103, 44);
             this.textBox1.TabIndex = 88;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox2.Location = new System.Drawing.Point(-1, 109);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(1102, 26);
-            this.textBox2.TabIndex = 89;
-            this.textBox2.Text = "                                                                                 " +
-    "                                 Profit & Loss 2078/079";
             // 
             // label7
             // 
@@ -308,7 +295,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1088, 602);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
@@ -351,7 +337,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.MaskedTextBox MaskDtEOD;
         private CustomControls.Button.CustomButton BtnShow;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label7;
         private CustomControls.Button.CustomButton BtnExportToExcel;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;

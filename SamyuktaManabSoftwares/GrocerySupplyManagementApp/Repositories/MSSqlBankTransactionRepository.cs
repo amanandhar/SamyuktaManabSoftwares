@@ -439,8 +439,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? 0.00m);
+                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? 0.00m);
                         command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedBy", ((object)bankTransaction.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)bankTransaction.AddedDate) ?? DBNull.Value);

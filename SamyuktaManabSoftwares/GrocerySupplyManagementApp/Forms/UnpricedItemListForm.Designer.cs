@@ -35,7 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridUnpricedItemList
             // 
-            this.DataGridUnpricedItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridUnpricedItemList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridUnpricedItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridUnpricedItemList.Location = new System.Drawing.Point(12, 12);
             this.DataGridUnpricedItemList.Name = "DataGridUnpricedItemList";

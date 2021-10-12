@@ -37,8 +37,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void DeliveryPersonForm_Load(object sender, System.EventArgs e)
         {
-            MaskEndOfDayFrom.Text = _endOfDay;
-            MaskEndOfDayTo.Text = _endOfDay;
+            MaskDtEODFrom.Text = _endOfDay;
+            MaskDtEODTo.Text = _endOfDay;
         }
 
         #endregion
@@ -55,8 +55,8 @@ namespace GrocerySupplyManagementApp.Forms
             var employeeId = _selectedEmployeeId;
             var deliveryPersonFilter = new DeliveryPersonFilter
             {
-                DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text),
-                DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text),
+                DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text),
+                DateTo = UtilityService.GetDate(MaskDtEODTo.Text),
                 EmployeeId = employeeId
             };
             LoadDeliveryTransactions(deliveryPersonFilter);
@@ -77,15 +77,12 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["Income"].Visible = false;
             DataGridDeliveryPersonList.Columns["Expense"].Visible = false;
             DataGridDeliveryPersonList.Columns["Narration"].Visible = false;
-            DataGridDeliveryPersonList.Columns["SubTotal"].Visible = false;
-            DataGridDeliveryPersonList.Columns["DiscountPercent"].Visible = false;
-            DataGridDeliveryPersonList.Columns["Discount"].Visible = false;
-            DataGridDeliveryPersonList.Columns["Vat"].Visible = false;
-            DataGridDeliveryPersonList.Columns["VatPercent"].Visible = false;
-            DataGridDeliveryPersonList.Columns["DeliveryChargePercent"].Visible = false;
-            DataGridDeliveryPersonList.Columns["DeliveryCharge"].Visible = false;
-            DataGridDeliveryPersonList.Columns["DueAmount"].Visible = false;
+            DataGridDeliveryPersonList.Columns["DueReceivedAmount"].Visible = false;
+            DataGridDeliveryPersonList.Columns["DuePaymentAmount"].Visible = false;
+            DataGridDeliveryPersonList.Columns["PaymentAmount"].Visible = false;
+            DataGridDeliveryPersonList.Columns["AddedBy"].Visible = false;
             DataGridDeliveryPersonList.Columns["AddedDate"].Visible = false;
+            DataGridDeliveryPersonList.Columns["UpdatedBy"].Visible = false;
             DataGridDeliveryPersonList.Columns["UpdatedDate"].Visible = false;
 
             DataGridDeliveryPersonList.Columns["EndOfDay"].HeaderText = "Date";

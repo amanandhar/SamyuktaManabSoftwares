@@ -32,7 +32,9 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TxtAccountNo = new System.Windows.Forms.TextBox();
             this.TxtBankName = new System.Windows.Forms.TextBox();
+            this.BtnSearchBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label7 = new System.Windows.Forms.Label();
             this.TxtBalance = new System.Windows.Forms.TextBox();
             this.ComboDepositType = new System.Windows.Forms.ComboBox();
@@ -46,9 +48,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtnDeleteBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnUpdateBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnEditBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSaveBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtAmount = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.BtnRemoveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSaveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.DataGridBankList = new System.Windows.Forms.DataGridView();
             this.ComboAction = new System.Windows.Forms.ComboBox();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
@@ -56,16 +65,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.TxtAccountNo = new System.Windows.Forms.TextBox();
             this.BtnShowTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnRemoveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSaveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnDeleteBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnUpdateBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnEditBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSaveBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSearchBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -97,6 +97,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bank Details";
             // 
+            // TxtAccountNo
+            // 
+            this.TxtAccountNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAccountNo.Location = new System.Drawing.Point(127, 50);
+            this.TxtAccountNo.Name = "TxtAccountNo";
+            this.TxtAccountNo.Size = new System.Drawing.Size(213, 26);
+            this.TxtAccountNo.TabIndex = 34;
+            // 
             // TxtBankName
             // 
             this.TxtBankName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -104,6 +112,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBankName.Name = "TxtBankName";
             this.TxtBankName.Size = new System.Drawing.Size(213, 26);
             this.TxtBankName.TabIndex = 33;
+            // 
+            // BtnSearchBank
+            // 
+            this.BtnSearchBank.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchBank.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchBank.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSearchBank.BorderRadius = 10;
+            this.BtnSearchBank.BorderSize = 0;
+            this.BtnSearchBank.FlatAppearance.BorderSize = 0;
+            this.BtnSearchBank.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearchBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearchBank.ForeColor = System.Drawing.Color.White;
+            this.BtnSearchBank.Location = new System.Drawing.Point(341, 16);
+            this.BtnSearchBank.Name = "BtnSearchBank";
+            this.BtnSearchBank.Size = new System.Drawing.Size(70, 28);
+            this.BtnSearchBank.TabIndex = 32;
+            this.BtnSearchBank.Text = "Search";
+            this.BtnSearchBank.TextColor = System.Drawing.Color.White;
+            this.BtnSearchBank.UseVisualStyleBackColor = false;
+            this.BtnSearchBank.Click += new System.EventHandler(this.BtnSearchBank_Click);
             // 
             // label7
             // 
@@ -252,205 +280,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Add Bank";
             // 
-            // TxtAmount
-            // 
-            this.TxtAmount.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TxtAmount.Enabled = false;
-            this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAmount.Location = new System.Drawing.Point(627, 19);
-            this.TxtAmount.Name = "TxtAmount";
-            this.TxtAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtAmount.Size = new System.Drawing.Size(125, 26);
-            this.TxtAmount.TabIndex = 10;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label10.Location = new System.Drawing.Point(523, 23);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(100, 18);
-            this.label10.TabIndex = 11;
-            this.label10.Text = " Total Amount";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.BtnRemoveTransaction);
-            this.groupBox4.Controls.Add(this.BtnSaveTransaction);
-            this.groupBox4.ForeColor = System.Drawing.Color.Red;
-            this.groupBox4.Location = new System.Drawing.Point(947, 146);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(140, 105);
-            this.groupBox4.TabIndex = 13;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Transaction";
-            // 
-            // DataGridBankList
-            // 
-            this.DataGridBankList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.DataGridBankList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridBankList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridBankList.Location = new System.Drawing.Point(14, 140);
-            this.DataGridBankList.Name = "DataGridBankList";
-            this.DataGridBankList.Size = new System.Drawing.Size(920, 400);
-            this.DataGridBankList.TabIndex = 0;
-            this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
-            // 
-            // ComboAction
-            // 
-            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboAction.FormattingEnabled = true;
-            this.ComboAction.Items.AddRange(new object[] {
-            "Deposit",
-            "Withdrawl"});
-            this.ComboAction.Location = new System.Drawing.Point(396, 18);
-            this.ComboAction.Name = "ComboAction";
-            this.ComboAction.Size = new System.Drawing.Size(120, 26);
-            this.ComboAction.TabIndex = 22;
-            // 
-            // MaskEndOfDayFrom
-            // 
-            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(118, 18);
-            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
-            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
-            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(100, 24);
-            this.MaskEndOfDayFrom.TabIndex = 22;
-            // 
-            // MaskEndOfDayTo
-            // 
-            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayTo.Location = new System.Drawing.Point(291, 18);
-            this.MaskEndOfDayTo.Mask = "   0000-00-00";
-            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
-            this.MaskEndOfDayTo.Size = new System.Drawing.Size(100, 24);
-            this.MaskEndOfDayTo.TabIndex = 24;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(0, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1102, 44);
-            this.textBox1.TabIndex = 38;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Aqua;
-            this.label4.Location = new System.Drawing.Point(416, 5);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(294, 31);
-            this.label4.TabIndex = 39;
-            this.label4.Text = "Banking Management";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.ComboAction);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.BtnShowTransaction);
-            this.groupBox3.Controls.Add(this.TxtAmount);
-            this.groupBox3.Controls.Add(this.MaskEndOfDayTo);
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.MaskEndOfDayFrom);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.ForeColor = System.Drawing.Color.Red;
-            this.groupBox3.Location = new System.Drawing.Point(15, 547);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(920, 55);
-            this.groupBox3.TabIndex = 40;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Transaction";
-            // 
-            // TxtAccountNo
-            // 
-            this.TxtAccountNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAccountNo.Location = new System.Drawing.Point(127, 50);
-            this.TxtAccountNo.Name = "TxtAccountNo";
-            this.TxtAccountNo.Size = new System.Drawing.Size(213, 26);
-            this.TxtAccountNo.TabIndex = 34;
-            // 
-            // BtnShowTransaction
-            // 
-            this.BtnShowTransaction.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShowTransaction.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShowTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnShowTransaction.BorderRadius = 35;
-            this.BtnShowTransaction.BorderSize = 0;
-            this.BtnShowTransaction.FlatAppearance.BorderSize = 0;
-            this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShowTransaction.ForeColor = System.Drawing.Color.White;
-            this.BtnShowTransaction.Location = new System.Drawing.Point(771, 13);
-            this.BtnShowTransaction.Name = "BtnShowTransaction";
-            this.BtnShowTransaction.Size = new System.Drawing.Size(140, 35);
-            this.BtnShowTransaction.TabIndex = 37;
-            this.BtnShowTransaction.Text = "Show Transaction";
-            this.BtnShowTransaction.TextColor = System.Drawing.Color.White;
-            this.BtnShowTransaction.UseVisualStyleBackColor = false;
-            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
-            // 
-            // BtnRemoveTransaction
-            // 
-            this.BtnRemoveTransaction.BackColor = System.Drawing.Color.Red;
-            this.BtnRemoveTransaction.BackgroundColor = System.Drawing.Color.Red;
-            this.BtnRemoveTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnRemoveTransaction.BorderRadius = 35;
-            this.BtnRemoveTransaction.BorderSize = 0;
-            this.BtnRemoveTransaction.FlatAppearance.BorderSize = 0;
-            this.BtnRemoveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnRemoveTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRemoveTransaction.ForeColor = System.Drawing.Color.White;
-            this.BtnRemoveTransaction.Location = new System.Drawing.Point(10, 56);
-            this.BtnRemoveTransaction.Name = "BtnRemoveTransaction";
-            this.BtnRemoveTransaction.Size = new System.Drawing.Size(120, 35);
-            this.BtnRemoveTransaction.TabIndex = 31;
-            this.BtnRemoveTransaction.Text = "Remove";
-            this.BtnRemoveTransaction.TextColor = System.Drawing.Color.White;
-            this.BtnRemoveTransaction.UseVisualStyleBackColor = false;
-            this.BtnRemoveTransaction.Click += new System.EventHandler(this.BtnRemoveTransaction_Click);
-            // 
-            // BtnSaveTransaction
-            // 
-            this.BtnSaveTransaction.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSaveTransaction.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSaveTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSaveTransaction.BorderRadius = 35;
-            this.BtnSaveTransaction.BorderSize = 0;
-            this.BtnSaveTransaction.FlatAppearance.BorderSize = 0;
-            this.BtnSaveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSaveTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSaveTransaction.ForeColor = System.Drawing.Color.White;
-            this.BtnSaveTransaction.Location = new System.Drawing.Point(10, 20);
-            this.BtnSaveTransaction.Name = "BtnSaveTransaction";
-            this.BtnSaveTransaction.Size = new System.Drawing.Size(120, 35);
-            this.BtnSaveTransaction.TabIndex = 30;
-            this.BtnSaveTransaction.Text = "Save";
-            this.BtnSaveTransaction.TextColor = System.Drawing.Color.White;
-            this.BtnSaveTransaction.UseVisualStyleBackColor = false;
-            this.BtnSaveTransaction.Click += new System.EventHandler(this.BtnSaveTransaction_Click);
-            // 
             // BtnDeleteBank
             // 
             this.BtnDeleteBank.BackColor = System.Drawing.Color.Red;
@@ -551,25 +380,196 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddBank.UseVisualStyleBackColor = false;
             this.BtnAddBank.Click += new System.EventHandler(this.BtnAddBank_Click);
             // 
-            // BtnSearchBank
+            // TxtAmount
             // 
-            this.BtnSearchBank.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchBank.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchBank.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSearchBank.BorderRadius = 10;
-            this.BtnSearchBank.BorderSize = 0;
-            this.BtnSearchBank.FlatAppearance.BorderSize = 0;
-            this.BtnSearchBank.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSearchBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearchBank.ForeColor = System.Drawing.Color.White;
-            this.BtnSearchBank.Location = new System.Drawing.Point(341, 16);
-            this.BtnSearchBank.Name = "BtnSearchBank";
-            this.BtnSearchBank.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearchBank.TabIndex = 32;
-            this.BtnSearchBank.Text = "Search";
-            this.BtnSearchBank.TextColor = System.Drawing.Color.White;
-            this.BtnSearchBank.UseVisualStyleBackColor = false;
-            this.BtnSearchBank.Click += new System.EventHandler(this.BtnSearchBank_Click);
+            this.TxtAmount.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TxtAmount.Enabled = false;
+            this.TxtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAmount.Location = new System.Drawing.Point(627, 19);
+            this.TxtAmount.Name = "TxtAmount";
+            this.TxtAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtAmount.Size = new System.Drawing.Size(125, 26);
+            this.TxtAmount.TabIndex = 10;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label10.Location = new System.Drawing.Point(523, 23);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(100, 18);
+            this.label10.TabIndex = 11;
+            this.label10.Text = " Total Amount";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.BtnRemoveTransaction);
+            this.groupBox4.Controls.Add(this.BtnSaveTransaction);
+            this.groupBox4.ForeColor = System.Drawing.Color.Red;
+            this.groupBox4.Location = new System.Drawing.Point(947, 146);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(140, 105);
+            this.groupBox4.TabIndex = 13;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Transaction";
+            // 
+            // BtnRemoveTransaction
+            // 
+            this.BtnRemoveTransaction.BackColor = System.Drawing.Color.Red;
+            this.BtnRemoveTransaction.BackgroundColor = System.Drawing.Color.Red;
+            this.BtnRemoveTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnRemoveTransaction.BorderRadius = 35;
+            this.BtnRemoveTransaction.BorderSize = 0;
+            this.BtnRemoveTransaction.FlatAppearance.BorderSize = 0;
+            this.BtnRemoveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemoveTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRemoveTransaction.ForeColor = System.Drawing.Color.White;
+            this.BtnRemoveTransaction.Location = new System.Drawing.Point(10, 56);
+            this.BtnRemoveTransaction.Name = "BtnRemoveTransaction";
+            this.BtnRemoveTransaction.Size = new System.Drawing.Size(120, 35);
+            this.BtnRemoveTransaction.TabIndex = 31;
+            this.BtnRemoveTransaction.Text = "Remove";
+            this.BtnRemoveTransaction.TextColor = System.Drawing.Color.White;
+            this.BtnRemoveTransaction.UseVisualStyleBackColor = false;
+            this.BtnRemoveTransaction.Click += new System.EventHandler(this.BtnRemoveTransaction_Click);
+            // 
+            // BtnSaveTransaction
+            // 
+            this.BtnSaveTransaction.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSaveTransaction.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSaveTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSaveTransaction.BorderRadius = 35;
+            this.BtnSaveTransaction.BorderSize = 0;
+            this.BtnSaveTransaction.FlatAppearance.BorderSize = 0;
+            this.BtnSaveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSaveTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSaveTransaction.ForeColor = System.Drawing.Color.White;
+            this.BtnSaveTransaction.Location = new System.Drawing.Point(10, 20);
+            this.BtnSaveTransaction.Name = "BtnSaveTransaction";
+            this.BtnSaveTransaction.Size = new System.Drawing.Size(120, 35);
+            this.BtnSaveTransaction.TabIndex = 30;
+            this.BtnSaveTransaction.Text = "Save";
+            this.BtnSaveTransaction.TextColor = System.Drawing.Color.White;
+            this.BtnSaveTransaction.UseVisualStyleBackColor = false;
+            this.BtnSaveTransaction.Click += new System.EventHandler(this.BtnSaveTransaction_Click);
+            // 
+            // DataGridBankList
+            // 
+            this.DataGridBankList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridBankList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridBankList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridBankList.Location = new System.Drawing.Point(14, 140);
+            this.DataGridBankList.Name = "DataGridBankList";
+            this.DataGridBankList.Size = new System.Drawing.Size(920, 400);
+            this.DataGridBankList.TabIndex = 0;
+            this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
+            // 
+            // ComboAction
+            // 
+            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboAction.FormattingEnabled = true;
+            this.ComboAction.Items.AddRange(new object[] {
+            "Deposit",
+            "Withdrawl"});
+            this.ComboAction.Location = new System.Drawing.Point(396, 18);
+            this.ComboAction.Name = "ComboAction";
+            this.ComboAction.Size = new System.Drawing.Size(120, 26);
+            this.ComboAction.TabIndex = 22;
+            // 
+            // MaskEndOfDayFrom
+            // 
+            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(118, 18);
+            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
+            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
+            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(100, 24);
+            this.MaskEndOfDayFrom.TabIndex = 22;
+            // 
+            // MaskEndOfDayTo
+            // 
+            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskEndOfDayTo.Location = new System.Drawing.Point(291, 18);
+            this.MaskEndOfDayTo.Mask = "   0000-00-00";
+            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
+            this.MaskEndOfDayTo.Size = new System.Drawing.Size(100, 24);
+            this.MaskEndOfDayTo.TabIndex = 24;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(0, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1102, 44);
+            this.textBox1.TabIndex = 38;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Aqua;
+            this.label4.Location = new System.Drawing.Point(416, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(294, 31);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "Banking Management";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.ComboAction);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.BtnShowTransaction);
+            this.groupBox3.Controls.Add(this.TxtAmount);
+            this.groupBox3.Controls.Add(this.MaskEndOfDayTo);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.MaskEndOfDayFrom);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.Color.Red;
+            this.groupBox3.Location = new System.Drawing.Point(15, 547);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(920, 55);
+            this.groupBox3.TabIndex = 40;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Transaction";
+            // 
+            // BtnShowTransaction
+            // 
+            this.BtnShowTransaction.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShowTransaction.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShowTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShowTransaction.BorderRadius = 35;
+            this.BtnShowTransaction.BorderSize = 0;
+            this.BtnShowTransaction.FlatAppearance.BorderSize = 0;
+            this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowTransaction.ForeColor = System.Drawing.Color.White;
+            this.BtnShowTransaction.Location = new System.Drawing.Point(771, 13);
+            this.BtnShowTransaction.Name = "BtnShowTransaction";
+            this.BtnShowTransaction.Size = new System.Drawing.Size(140, 35);
+            this.BtnShowTransaction.TabIndex = 37;
+            this.BtnShowTransaction.Text = "Show Transaction";
+            this.BtnShowTransaction.TextColor = System.Drawing.Color.White;
+            this.BtnShowTransaction.UseVisualStyleBackColor = false;
+            this.BtnShowTransaction.Click += new System.EventHandler(this.BtnShowTransaction_Click);
             // 
             // BankForm
             // 

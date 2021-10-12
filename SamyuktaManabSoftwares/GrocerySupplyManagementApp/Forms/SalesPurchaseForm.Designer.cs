@@ -41,9 +41,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
             this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.DataGridPurchaseSalesTransaction = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseSalesTransaction)).BeginInit();
@@ -184,6 +184,28 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             // 
+            // DataGridPurchaseSalesTransaction
+            // 
+            this.DataGridPurchaseSalesTransaction.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridPurchaseSalesTransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridPurchaseSalesTransaction.Location = new System.Drawing.Point(18, 130);
+            this.DataGridPurchaseSalesTransaction.Name = "DataGridPurchaseSalesTransaction";
+            this.DataGridPurchaseSalesTransaction.Size = new System.Drawing.Size(1070, 450);
+            this.DataGridPurchaseSalesTransaction.TabIndex = 17;
+            this.DataGridPurchaseSalesTransaction.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseSalesTransaction_DataBindingComplete);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Cyan;
+            this.label2.Location = new System.Drawing.Point(315, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(503, 31);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Sales && Purchase Transaction Report";
+            // 
             // BtnShow
             // 
             this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
@@ -204,27 +226,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.TextColor = System.Drawing.Color.White;
             this.BtnShow.UseVisualStyleBackColor = false;
             this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
-            // 
-            // DataGridPurchaseSalesTransaction
-            // 
-            this.DataGridPurchaseSalesTransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridPurchaseSalesTransaction.Location = new System.Drawing.Point(18, 130);
-            this.DataGridPurchaseSalesTransaction.Name = "DataGridPurchaseSalesTransaction";
-            this.DataGridPurchaseSalesTransaction.Size = new System.Drawing.Size(1070, 450);
-            this.DataGridPurchaseSalesTransaction.TabIndex = 17;
-            this.DataGridPurchaseSalesTransaction.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseSalesTransaction_DataBindingComplete);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Cyan;
-            this.label2.Location = new System.Drawing.Point(315, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(503, 31);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Sales && Purchase Transaction Report";
             // 
             // SalesPurchaseForm
             // 

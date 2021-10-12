@@ -51,11 +51,11 @@ namespace GrocerySupplyManagementApp.Shared
         public const string DELIVERY_CHARGE = "Delivery Charge";
         public const string MEMBER_FEE = "Member Fee";
         public const string OTHER_INCOME = "Other Income";
+        public const string PURCHASE_BONUS = "Purchase Bonus";
         public const string PURCHASE_DISCOUNT = "Purchase Discount";
         public const string SALES_PROFIT = "Sales Profit";
         public const string STOCK_ADJUSTMENT = "Stock Adjustment";
-        
-        public const string PURCHASE_BONUS = "PURCHASE_BONUS";
+
         public const string BONUS_PREFIX = "BS";
         public const string BILL_NO_PREFIX = "BN";
         public const string INVOICE_NO_PREFIX = "IN";

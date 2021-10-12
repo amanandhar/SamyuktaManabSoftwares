@@ -28,6 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IShareMemberService _shareMemberService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
         private readonly IPOSDetailService _posDetailService;
+        private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -43,7 +44,8 @@ namespace GrocerySupplyManagementApp.Forms
             IEndOfDayService endOfDateService, IEmployeeService employeeService, 
             IReportService reportService, IUserService userService,
             IItemCategoryService itemCategoryService, IShareMemberService shareMemberService,
-            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService)
+            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
+            IIncomeExpenseService incomeExpenseService)
         {
             InitializeComponent();
 
@@ -67,6 +69,7 @@ namespace GrocerySupplyManagementApp.Forms
             _shareMemberService = shareMemberService;
             _stockAdjustmentService = stockAdjustmentService;
             _posDetailService = posDetailService;
+            _incomeExpenseService = incomeExpenseService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -105,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _userTransactionService, _reportService,
                 _companyInfoService, _employeeService,
                 _stockService, _userService, _posDetailService,
-                _stockAdjustmentService
+                _stockAdjustmentService, _incomeExpenseService
                  );
             posForm.Show();
         }
@@ -162,7 +165,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ExpenseForm expenseMgmtForm = new ExpenseForm(_username,
                 _settingService,  _bankService, 
-                _bankTransactionService, _userTransactionService);
+                _bankTransactionService, _userTransactionService,
+                _incomeExpenseService);
             expenseMgmtForm.Show();
         }
 

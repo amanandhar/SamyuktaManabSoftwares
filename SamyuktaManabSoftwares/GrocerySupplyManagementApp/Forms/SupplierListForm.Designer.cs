@@ -37,7 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridSupplierList
             // 
-            this.DataGridSupplierList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridSupplierList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridSupplierList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;

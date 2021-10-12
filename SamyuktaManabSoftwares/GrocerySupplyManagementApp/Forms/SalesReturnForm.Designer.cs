@@ -44,20 +44,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.RadioAllTransaction = new System.Windows.Forms.RadioButton();
+            this.RadioAll = new System.Windows.Forms.RadioButton();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.DateGridSalesReturnList = new System.Windows.Forms.DataGridView();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.DateGridSalesReturnList = new System.Windows.Forms.DataGridView();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DateGridSalesReturnList)).BeginInit();
@@ -79,7 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.MaskDtEODFrom);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.RadioAllTransaction);
+            this.groupBox1.Controls.Add(this.RadioAll);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label6);
@@ -206,6 +206,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo.Name = "MaskDtEODTo";
             this.MaskDtEODTo.Size = new System.Drawing.Size(120, 26);
             this.MaskDtEODTo.TabIndex = 105;
+            this.MaskDtEODTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODTo_KeyDown);
             // 
             // MaskDtEODFrom
             // 
@@ -216,6 +217,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODFrom.Name = "MaskDtEODFrom";
             this.MaskDtEODFrom.Size = new System.Drawing.Size(120, 26);
             this.MaskDtEODFrom.TabIndex = 104;
+            this.MaskDtEODFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODFrom_KeyDown);
             // 
             // label3
             // 
@@ -239,19 +241,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.TabIndex = 21;
             this.label2.Text = "Date From";
             // 
-            // RadioAllTransaction
+            // RadioAll
             // 
-            this.RadioAllTransaction.AutoSize = true;
-            this.RadioAllTransaction.Checked = true;
-            this.RadioAllTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioAllTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioAllTransaction.Location = new System.Drawing.Point(39, 26);
-            this.RadioAllTransaction.Name = "RadioAllTransaction";
-            this.RadioAllTransaction.Size = new System.Drawing.Size(123, 22);
-            this.RadioAllTransaction.TabIndex = 20;
-            this.RadioAllTransaction.TabStop = true;
-            this.RadioAllTransaction.Text = "All Transaction";
-            this.RadioAllTransaction.UseVisualStyleBackColor = true;
+            this.RadioAll.AutoSize = true;
+            this.RadioAll.Checked = true;
+            this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioAll.Location = new System.Drawing.Point(39, 26);
+            this.RadioAll.Name = "RadioAll";
+            this.RadioAll.Size = new System.Drawing.Size(123, 22);
+            this.RadioAll.TabIndex = 20;
+            this.RadioAll.TabStop = true;
+            this.RadioAll.Text = "All Transaction";
+            this.RadioAll.UseVisualStyleBackColor = true;
+            this.RadioAll.CheckedChanged += new System.EventHandler(this.RadioAll_CheckedChanged);
             // 
             // label10
             // 
@@ -319,38 +322,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Size = new System.Drawing.Size(145, 150);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
-            // 
-            // DateGridSalesReturnList
-            // 
-            this.DateGridSalesReturnList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.DateGridSalesReturnList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DateGridSalesReturnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DateGridSalesReturnList.Location = new System.Drawing.Point(15, 210);
-            this.DateGridSalesReturnList.Name = "DateGridSalesReturnList";
-            this.DateGridSalesReturnList.Size = new System.Drawing.Size(1075, 380);
-            this.DateGridSalesReturnList.TabIndex = 21;
-            this.DateGridSalesReturnList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DateGridSalesReturnList_DataBindingComplete);
-            // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(-1, -1);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(1103, 44);
-            this.textBox4.TabIndex = 22;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Cyan;
-            this.label8.Location = new System.Drawing.Point(387, 4);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(358, 31);
-            this.label8.TabIndex = 23;
-            this.label8.Text = "Sales Return Management";
             // 
             // BtnSave
             // 
@@ -432,6 +403,38 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.UseVisualStyleBackColor = false;
             this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
+            // DateGridSalesReturnList
+            // 
+            this.DateGridSalesReturnList.BackgroundColor = System.Drawing.Color.White;
+            this.DateGridSalesReturnList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DateGridSalesReturnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DateGridSalesReturnList.Location = new System.Drawing.Point(15, 210);
+            this.DateGridSalesReturnList.Name = "DateGridSalesReturnList";
+            this.DateGridSalesReturnList.Size = new System.Drawing.Size(1075, 380);
+            this.DateGridSalesReturnList.TabIndex = 21;
+            this.DateGridSalesReturnList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DateGridSalesReturnList_DataBindingComplete);
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Location = new System.Drawing.Point(-1, -1);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(1103, 44);
+            this.textBox4.TabIndex = 22;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Cyan;
+            this.label8.Location = new System.Drawing.Point(387, 4);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(358, 31);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Sales Return Management";
+            // 
             // SalesReturnForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -473,7 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton RadioAllTransaction;
+        private System.Windows.Forms.RadioButton RadioAll;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;

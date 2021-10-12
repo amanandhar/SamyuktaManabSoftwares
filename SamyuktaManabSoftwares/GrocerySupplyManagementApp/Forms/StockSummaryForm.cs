@@ -178,23 +178,10 @@ namespace GrocerySupplyManagementApp.Forms
                 - (Convert.ToDecimal(TxtBoxDeducted.Text) + Convert.ToDecimal(TxtSales.Text))).ToString();
 
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-            var stockViewList = new List<StockView>();
-            if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
-            {
-                stockViewList = UtilityService.CalculateStock(stocks.ToList())
-                    .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
-                    .ToList();
-            }
-            else
-            {
-                stockViewList = UtilityService.CalculateStock(stocks.ToList());
-            }
+            var stockValue = _stockService.GetStockValue(stocks.ToList(), stockFilter);
+            TxtValue.Text = stockValue.ToString();
 
-            var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
-                .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
-                .ToList();
-            TxtValue.Text = latestStockView.Sum(x => Math.Round(x.StockValue, 2)).ToString();
-
+            var stockViewList = _stockService.GetStockViewList(stocks.ToList(), stockFilter);
             var bindingList = new BindingList<StockView>(stockViewList);
             var source = new BindingSource(bindingList, null);
             DataGridStockList.DataSource = source;
@@ -208,22 +195,8 @@ namespace GrocerySupplyManagementApp.Forms
             TxtTotalStock.Text = (totalPurchase - totalSales).ToString();
 
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-            var stockViewList = new List<StockView>();
-            if (!string.IsNullOrWhiteSpace(stockFilter.DateFrom) && !string.IsNullOrWhiteSpace(stockFilter.DateTo))
-            {
-                stockViewList = UtilityService.CalculateStock(stocks.ToList())
-                    .Where(x => x.EndOfDay.CompareTo(stockFilter.DateFrom) >= 0 && x.EndOfDay.CompareTo(stockFilter.DateTo) <= 0)
-                    .ToList();
-            }
-            else
-            {
-                stockViewList = UtilityService.CalculateStock(stocks.ToList());
-            }
-
-            var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
-                .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
-                .ToList();
-            TxtTotalValue.Text = latestStockView.Sum(x => Math.Round(x.StockValue, 2)).ToString();
+            var stockValue = _stockService.GetStockValue(stocks.ToList(), stockFilter);
+            TxtTotalValue.Text = stockValue.ToString();
         }
 
         #endregion

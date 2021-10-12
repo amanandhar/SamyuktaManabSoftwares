@@ -33,8 +33,8 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
-            this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
+            this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.TxtTotalAmount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -66,8 +66,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.MaskEndOfDayTo);
-            this.groupBox1.Controls.Add(this.MaskEndOfDayFrom);
+            this.groupBox1.Controls.Add(this.MaskDtEODTo);
+            this.groupBox1.Controls.Add(this.MaskDtEODFrom);
             this.groupBox1.Controls.Add(this.TxtTotalAmount);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label9);
@@ -84,23 +84,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtered Expense";
             // 
-            // MaskEndOfDayTo
+            // MaskDtEODTo
             // 
-            this.MaskEndOfDayTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayTo.Location = new System.Drawing.Point(347, 20);
-            this.MaskEndOfDayTo.Mask = "   0000-00-00";
-            this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
-            this.MaskEndOfDayTo.Size = new System.Drawing.Size(105, 24);
-            this.MaskEndOfDayTo.TabIndex = 27;
+            this.MaskDtEODTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODTo.Location = new System.Drawing.Point(347, 20);
+            this.MaskDtEODTo.Mask = "   0000-00-00";
+            this.MaskDtEODTo.Name = "MaskDtEODTo";
+            this.MaskDtEODTo.Size = new System.Drawing.Size(105, 24);
+            this.MaskDtEODTo.TabIndex = 27;
+            this.MaskDtEODTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODTo_KeyDown);
             // 
-            // MaskEndOfDayFrom
+            // MaskDtEODFrom
             // 
-            this.MaskEndOfDayFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskEndOfDayFrom.Location = new System.Drawing.Point(167, 20);
-            this.MaskEndOfDayFrom.Mask = "   0000-00-00";
-            this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
-            this.MaskEndOfDayFrom.Size = new System.Drawing.Size(105, 24);
-            this.MaskEndOfDayFrom.TabIndex = 26;
+            this.MaskDtEODFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODFrom.Location = new System.Drawing.Point(167, 20);
+            this.MaskDtEODFrom.Mask = "   0000-00-00";
+            this.MaskDtEODFrom.Name = "MaskDtEODFrom";
+            this.MaskDtEODFrom.Size = new System.Drawing.Size(105, 24);
+            this.MaskDtEODFrom.TabIndex = 26;
+            this.MaskDtEODFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODFrom_KeyDown);
             // 
             // TxtTotalAmount
             // 
@@ -149,6 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
             // RadioAll
             // 
             this.RadioAll.AutoSize = true;
+            this.RadioAll.Checked = true;
             this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.RadioAll.Location = new System.Drawing.Point(15, 23);
@@ -211,6 +214,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Size = new System.Drawing.Size(115, 29);
             this.RichAmount.TabIndex = 17;
             this.RichAmount.Text = "";
+            this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
             // 
             // ComboExpense
             // 
@@ -356,7 +360,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridExpenseList
             // 
-            this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridExpenseList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -455,8 +459,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView DataGridExpenseList;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;
-        private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODTo;
+        private System.Windows.Forms.MaskedTextBox MaskDtEODFrom;
         private CustomControls.Button.CustomButton BtnShow;
         private CustomControls.Button.CustomButton BtnSaveExpense;
         private CustomControls.Button.CustomButton BtnRemove;
