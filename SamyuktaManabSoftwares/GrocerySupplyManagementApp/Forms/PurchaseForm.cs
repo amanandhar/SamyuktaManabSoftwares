@@ -148,8 +148,10 @@ namespace GrocerySupplyManagementApp.Forms
                         userTransaction.Action = Constants.INCOME;
                         userTransaction.ActionType = Constants.ACTION_TYPE_NONE;
                         userTransaction.Income = Constants.PURCHASE_BONUS;
+                        // Purchase Bonus needs to go DuePaymentAmount, ReceivedAmount and PaymentAmount
                         userTransaction.DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text);
                         userTransaction.ReceivedAmount = Convert.ToDecimal(TxtTotalAmount.Text);
+                        userTransaction.PaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text);
                         userTransaction.AddedBy = _username;
                         userTransaction.AddedDate = DateTime.Now;
                     }

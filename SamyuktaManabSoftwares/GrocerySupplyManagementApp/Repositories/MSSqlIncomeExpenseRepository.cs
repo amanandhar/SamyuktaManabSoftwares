@@ -177,7 +177,7 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 var incomeDetails = new List<IncomeTransactionView>();
                 var query = @"SELECT " +
-                    "[Id], [EndOfDay], [Bank], [Income], [ReceivedAmount] AS [Amount], [AddedDate] " +
+                    "[Id], [EndOfDay], [Income], [Bank], [ReceivedAmount] AS [Amount], [AddedDate] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND ISNULL([Action], '') = '" + Constants.INCOME + "' ";
@@ -216,10 +216,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
-                                    InvoiceNo = reader["Income"].ToString(),
+                                    Description = reader["Income"].ToString(),
+                                    InvoiceNo = reader.IsDBNull(3) ? string.Empty : reader["InvoiceNo"].ToString(),
                                     ItemCode = string.Empty,
                                     ItemName = reader["Bank"].ToString(),
-                                    ItemBrand = string.Empty,
                                     Quantity = 0.00m,
                                     Profit = 0.00m,
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString()),
@@ -318,8 +318,9 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 var incomeDetails = new List<IncomeTransactionView>();
                 var query = @"SELECT " +
-                    "si.[Id] AS [Id], si.[EndOfDay] AS [EndOfDay], si.[InvoiceNo] AS [InvoiceNo], " +
-                    "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], i.[Brand] AS [ItemBrand], " +
+                    "si.[Id] AS [Id], si.[EndOfDay] AS [EndOfDay], " +
+                    "'" + Constants.SALES_PROFIT + "' AS [Description], si.[InvoiceNo] AS [InvoiceNo], " +
+                    "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                     "si.[Quantity] AS [Quantity], si.[Profit] AS [Profit], " +
                     "CAST((si.[Quantity] * si.[Profit]) AS DECIMAL(18, 2)) AS [Amount], si.[AddedDate] AS [AddedDate] " +
                     "FROM " + Constants.TABLE_ITEM + " i " +
@@ -355,10 +356,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
+                                    Description = reader["Description"].ToString(),
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
-                                    ItemBrand = reader["ItemBrand"].ToString(),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString()),

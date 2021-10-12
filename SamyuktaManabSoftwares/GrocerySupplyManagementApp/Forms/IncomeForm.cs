@@ -191,21 +191,21 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["EndOfDay"].Width = 85;
             DataGridIncomeList.Columns["EndOfDay"].DisplayIndex = 0;
 
-            DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
-            DataGridIncomeList.Columns["InvoiceNo"].Width = 125;
-            DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 1;
+            DataGridIncomeList.Columns["Description"].HeaderText = "Description";
+            DataGridIncomeList.Columns["Description"].Width = 200;
+            DataGridIncomeList.Columns["Description"].DisplayIndex = 1;
 
-            DataGridIncomeList.Columns["ItemCode"].HeaderText = "ItemCode";
-            DataGridIncomeList.Columns["ItemCode"].Width = 90;
-            DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 2;
+            DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
+            DataGridIncomeList.Columns["InvoiceNo"].Width = 100;
+            DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 2;
+
+            DataGridIncomeList.Columns["ItemCode"].HeaderText = "Item Code";
+            DataGridIncomeList.Columns["ItemCode"].Width = 100;
+            DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 3;
 
             DataGridIncomeList.Columns["ItemName"].HeaderText = "Name";
             DataGridIncomeList.Columns["ItemName"].Width = 200;
-            DataGridIncomeList.Columns["ItemName"].DisplayIndex = 3;
-
-            DataGridIncomeList.Columns["ItemBrand"].HeaderText = "Brand";
-            DataGridIncomeList.Columns["ItemBrand"].Width = 175;
-            DataGridIncomeList.Columns["ItemBrand"].DisplayIndex = 4;
+            DataGridIncomeList.Columns["ItemName"].DisplayIndex = 4;
 
             DataGridIncomeList.Columns["Quantity"].HeaderText = "Quantity";
             DataGridIncomeList.Columns["Quantity"].Width = 80;

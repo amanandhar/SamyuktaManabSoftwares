@@ -1056,39 +1056,79 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal balance = 0.00m;
             var query = string.Empty;
-            if (action?.ToLower() == Constants.SALES.ToLower()
+            if(actionType?.ToLower() == Constants.CREDIT.ToLower())
+            {
+                if (action?.ToLower() == Constants.SALES.ToLower()
                 || action?.ToLower() == Constants.RECEIPT.ToLower())
-            {
-                query = @"SELECT " +
-                    "SUM([ReceivedAmount]) " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] NOT IN " +
-                    "( " +
-                    "SELECT [Id] " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE [Expense] = '" + Constants.SALES_DISCOUNT + "' " +
-                    ") ";
-            }
-            else if (action?.ToLower() == Constants.PAYMENT.ToLower()
-                || action?.ToLower() == Constants.EXPENSE.ToLower()
-                || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
-            {
-                query = @"SELECT " +
-                    "SUM([PaymentAmount]) " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] NOT IN " +
-                    "( " +
-                    "SELECT [Id] " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE [Income] = '" + Constants.DELIVERY_CHARGE + "' " +
-                    ") ";
+                {
+                    query = @"SELECT " +
+                        "SUM([DueReceivedAmount]) " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE 1 = 1 " +
+                        "AND [Id] NOT IN " +
+                        "( " +
+                        "SELECT [Id] " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE [Expense] = '" + Constants.SALES_DISCOUNT + "' " +
+                        ") ";
+                }
+                else if (action?.ToLower() == Constants.PAYMENT.ToLower()
+                    || action?.ToLower() == Constants.EXPENSE.ToLower()
+                    || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
+                {
+                    query = @"SELECT " +
+                        "SUM([DuePaymentAmount]) " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE 1 = 1 " +
+                        "AND [Id] NOT IN " +
+                        "( " +
+                        "SELECT [Id] " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE [Income] = '" + Constants.DELIVERY_CHARGE + "' " +
+                        ") ";
+                }
+                else
+                {
+                    query += " ";
+                }
             }
             else
             {
-                query += " ";
+                if (action?.ToLower() == Constants.SALES.ToLower()
+                || action?.ToLower() == Constants.RECEIPT.ToLower())
+                {
+                    query = @"SELECT " +
+                        "SUM([ReceivedAmount]) " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE 1 = 1 " +
+                        "AND [Id] NOT IN " +
+                        "( " +
+                        "SELECT [Id] " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE [Expense] = '" + Constants.SALES_DISCOUNT + "' " +
+                        ") ";
+                }
+                else if (action?.ToLower() == Constants.PAYMENT.ToLower()
+                    || action?.ToLower() == Constants.EXPENSE.ToLower()
+                    || action?.ToLower() == Constants.BANK_TRANSFER.ToLower())
+                {
+                    query = @"SELECT " +
+                        "SUM([PaymentAmount]) " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE 1 = 1 " +
+                        "AND [Id] NOT IN " +
+                        "( " +
+                        "SELECT [Id] " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE [Income] = '" + Constants.DELIVERY_CHARGE + "' " +
+                        ") ";
+                }
+                else
+                {
+                    query += " ";
+                }
             }
+            
 
             if (!string.IsNullOrWhiteSpace(endOfDay))
             {
@@ -1395,7 +1435,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 "END  AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL(ut.[Income], '') NOT IN ('" + Constants.DELIVERY_CHARGE + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "') ";
+                "AND ISNULL(ut.[Income], '') NOT IN " +
+                "(" +
+                "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', " +
+                "'" + Constants.PURCHASE_BONUS + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.SALES_PROFIT + "' " +
+                ") ";
 
             if (dailyTransactionFilter.Date != null)
             {
