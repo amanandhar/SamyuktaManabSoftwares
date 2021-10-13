@@ -324,37 +324,40 @@ namespace GrocerySupplyManagementApp.Forms
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
 
-            if (selectedFilter.Name.Equals("RadioPurchase"))
+            if(selectedFilter != null)
             {
-                dailyTransactionFilter.Purchase = ComboPurchase.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioSales"))
-            {
-                dailyTransactionFilter.Sales = ComboSales.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioPurchasePayment"))
-            {
-                dailyTransactionFilter.Payment = ComboPurchasePayment.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioExpensePayment"))
-            {
-                dailyTransactionFilter.Expense = ComboExpensePayment.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioBankTransfer"))
-            {
-                dailyTransactionFilter.BankTransfer = ComboBankTransfer.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioReceipt"))
-            {
-                dailyTransactionFilter.Receipt = ComboReceipt.Text;
-            }
-            else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
-            {
-                dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
-            }
-            else if(selectedFilter.Name.Equals("RadioAll"))
-            {
-                dailyTransactionFilter.IsAll = true;
+                if (selectedFilter.Name.Equals("RadioPurchase"))
+                {
+                    dailyTransactionFilter.Purchase = ComboPurchase.Text;
+                }
+                else if (selectedFilter.Name.Equals("RadioSales"))
+                {
+                    dailyTransactionFilter.Sales = ComboSales.Text;
+                }
+                else if (selectedFilter.Name.Equals("RadioPurchasePayment"))
+                {
+                    dailyTransactionFilter.Payment = ComboPurchasePayment.Text;
+                }
+                else if (selectedFilter.Name.Equals("RadioExpensePayment"))
+                {
+                    dailyTransactionFilter.Expense = ComboExpensePayment.Text;
+                }
+                else if (selectedFilter.Name.Equals("RadioBankTransfer"))
+                {
+                    dailyTransactionFilter.BankTransfer = ComboBankTransfer.Text;
+                }
+                else if (selectedFilter.Name.Equals("RadioReceipt"))
+                {
+                    dailyTransactionFilter.Receipt = ComboReceipt.Text;
+                }
+                else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
+                {
+                    dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
+                }
+                else if (selectedFilter.Name.Equals("RadioAll"))
+                {
+                    dailyTransactionFilter.IsAll = true;
+                }
             }
 
             dailyTransactionFilter.Username = ComboUser.Text;

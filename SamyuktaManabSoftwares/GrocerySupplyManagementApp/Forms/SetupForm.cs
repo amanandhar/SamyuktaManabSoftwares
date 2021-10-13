@@ -78,6 +78,9 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EnableFields();
                     EnableFields(Action.Save);
+
+                    //Close the application
+                    Application.Exit();
                 }
             }
             catch (Exception ex)

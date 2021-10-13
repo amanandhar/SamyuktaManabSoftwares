@@ -274,18 +274,8 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Narration"].Width = 190;
             DataGridExpenseList.Columns["Narration"].DisplayIndex = 4;
 
-            DataGridExpenseList.Columns["DuePaymentAmount"].HeaderText = "Debit";
-            DataGridExpenseList.Columns["DuePaymentAmount"].Width = 90;
-            DataGridExpenseList.Columns["DuePaymentAmount"].DisplayIndex = 5;
-            DataGridExpenseList.Columns["DuePaymentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridExpenseList.Columns["PaymentAmount"].HeaderText = "Credit";
-            DataGridExpenseList.Columns["PaymentAmount"].Width = 90;
-            DataGridExpenseList.Columns["PaymentAmount"].DisplayIndex = 6;
-            DataGridExpenseList.Columns["PaymentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
             DataGridExpenseList.Columns["Amount"].HeaderText = "Amount";
-            DataGridExpenseList.Columns["Amount"].DisplayIndex = 7;
+            DataGridExpenseList.Columns["Amount"].DisplayIndex = 5;
             DataGridExpenseList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridExpenseList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 

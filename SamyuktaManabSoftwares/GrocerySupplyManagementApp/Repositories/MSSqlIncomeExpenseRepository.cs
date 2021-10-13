@@ -182,7 +182,7 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 var incomeDetails = new List<IncomeTransactionView>();
                 var query = @"SELECT " +
-                    "[Id], [EndOfDay], [Income], [Bank], [ReceivedAmount] AS [Amount], [AddedDate] " +
+                    "[Id], [EndOfDay], [Income], [InvoiceNo], [Bank], [ReceivedAmount], [AddedDate] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND ISNULL([Action], '') = '" + Constants.INCOME + "' ";
@@ -227,7 +227,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Bank"].ToString(),
                                     Quantity = Constants.DEFAULT_DECIMAL_VALUE,
                                     Profit = Constants.DEFAULT_DECIMAL_VALUE,
-                                    Amount = Convert.ToDecimal(reader["Amount"].ToString()),
+                                    Amount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
 
@@ -254,8 +254,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 var query = @"SELECT " +
                     "[Id], [EndOfDay], [Action], " +
                     "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                    "[Expense], [Narration], [DuePaymentAmount], [PaymentAmount], " +
-                    "(ISNULL([DuePaymentAmount], 0) - ISNULL([PaymentAmount], 0)) AS [Amount] " +
+                    "[Expense], [Narration], [PaymentAmount] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND [Action] = '" + Constants.EXPENSE + "' ";
@@ -273,7 +272,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
                 if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.Expense))
                 {
-                    query += " AND [Expense] = @Expense ";
+                    query += " AND ISNULL([Expense], '') = @Expense ";
                 }
 
                 query += "ORDER BY [Id] ";
@@ -299,9 +298,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ActionType = reader["ActionType"].ToString(),
                                     Expense = reader["Expense"].ToString(),
                                     Narration = reader["Narration"].ToString(),
-                                    DuePaymentAmount = Convert.ToDecimal(reader["DuePaymentAmount"].ToString()),
-                                    PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"].ToString()),
-                                    Amount = Convert.ToDecimal(reader["Amount"].ToString())
+                                    Amount = Convert.ToDecimal(reader["PaymentAmount"].ToString())
                                 };
 
                                 expenseTransactionViews.Add(expenseTransactionView);

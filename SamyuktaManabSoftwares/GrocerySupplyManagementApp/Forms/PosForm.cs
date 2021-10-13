@@ -472,7 +472,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RichReceivedAmount_KeyUp(object sender, KeyEventArgs e)
         {
-            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0.00" : RichReceivedAmount.Text), 2).ToString();
+            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) 
+                ? Constants.DEFAULT_DECIMAL_VALUE.ToString() 
+                : RichReceivedAmount.Text), 2).ToString();
         }
 
         private void RichItemQuantity_KeyPress(object sender, KeyPressEventArgs e)
@@ -580,6 +582,28 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 e.Handled = true;
             }
+        }
+
+        private void TxtDiscountPercent_KeyUp(object sender, KeyEventArgs e)
+        {
+            TxtDiscount.Text = Math.Round((Convert.ToDecimal(TxtSubTotal.Text) * (Convert.ToDecimal(TxtDiscountPercent.Text) / 100)), 2).ToString();
+            TxtDiscountTotal.Text = Math.Round(Convert.ToDecimal(TxtSubTotal.Text) - (Convert.ToDecimal(TxtSubTotal.Text) * (Convert.ToDecimal(TxtDiscountPercent.Text) / 100)), 2).ToString();
+            TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
+            TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text) + (Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
+            TxtGrandTotal.Text = TxtDeliveryChargeTotal.Text;
+            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text)
+                ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
+                : RichReceivedAmount.Text), 2).ToString();
+        }
+
+        private void TxtDeliveryChargePercent_KeyUp(object sender, KeyEventArgs e)
+        {
+            TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
+            TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text) + (Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
+            TxtGrandTotal.Text = TxtDeliveryChargeTotal.Text;
+            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text)
+                ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
+                : RichReceivedAmount.Text), 2).ToString();
         }
         #endregion
 
@@ -1081,7 +1105,9 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
                 TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text) + (Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
                 TxtGrandTotal.Text = TxtDeliveryChargeTotal.Text;
-                RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) ? "0.00" : RichReceivedAmount.Text), 2).ToString();
+                RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) 
+                    ? Constants.DEFAULT_DECIMAL_VALUE.ToString() 
+                    : RichReceivedAmount.Text), 2).ToString();
             }
             catch (Exception ex)
             {
@@ -1174,8 +1200,7 @@ namespace GrocerySupplyManagementApp.Forms
             var invoiceReportForm = new InvoiceReportForm(companyInfoService, reportService, invoiceNo);
             invoiceReportForm.ShowDialog();
         }
-        #endregion
 
-        
+        #endregion
     }
 }
