@@ -11,6 +11,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class InvoiceReportForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IReportService _reportService;
 

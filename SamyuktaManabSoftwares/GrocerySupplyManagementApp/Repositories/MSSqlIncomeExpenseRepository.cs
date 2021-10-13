@@ -11,6 +11,7 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlIncomeExpenseRepository : IIncomeExpenseRepository
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
         public MSSqlIncomeExpenseRepository()
@@ -35,6 +36,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -67,6 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -117,6 +120,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -167,6 +171,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -236,6 +241,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -308,6 +314,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -376,6 +383,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             } 
         }

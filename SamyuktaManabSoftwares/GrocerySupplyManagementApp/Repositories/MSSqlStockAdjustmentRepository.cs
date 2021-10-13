@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlStockAdjustmentRepository : IStockAdjustmentRepository
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
         public MSSqlStockAdjustmentRepository()
@@ -58,7 +59,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return stockAdjustments;
@@ -106,7 +108,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return stockAdjustment;
@@ -159,7 +162,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return totalCount;
@@ -212,7 +216,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return totalCount;
@@ -251,7 +256,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return stockAdjustment;
@@ -293,7 +299,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return stockAdjustment;
@@ -321,7 +328,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;
@@ -349,7 +357,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;

@@ -17,13 +17,11 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         string GetInvoiceNo();
         IEnumerable<string> GetInvoices();
         IEnumerable<string> GetMemberIds();
-        IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter);
+        IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);
         IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId);
         IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);
 
         UserTransaction AddUserTransaction(UserTransaction userTransaction);
-
-        UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction);
 
         bool DeleteUserTransaction(long id);
         bool DeleteUserTransaction(string invoiceNo);

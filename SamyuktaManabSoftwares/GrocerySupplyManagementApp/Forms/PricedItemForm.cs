@@ -16,6 +16,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PricedItemForm : Form, IPricedItemListForm, IUnpricedItemListForm
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;
         private readonly IPurchasedItemService _purchasedItemService;
@@ -155,6 +157,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -225,6 +228,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -256,6 +260,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -285,6 +290,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -490,6 +496,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -523,6 +530,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

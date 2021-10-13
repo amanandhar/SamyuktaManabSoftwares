@@ -3,58 +3,73 @@ using GrocerySupplyManagementApp.Repositories;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Windows.Forms;
 using Unity;
+
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace GrocerySupplyManagementApp
 {
     static class Program
     {
+        // Use below if you are using dot net framework below 4.5
+        //private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            var container = BuildUnityContainer();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            using (var loginForm = new LoginForm(container.Resolve<IUserService>()))
+            try
             {
-                if (loginForm.ShowDialog() == DialogResult.OK)
+                var container = BuildUnityContainer();
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                using (var loginForm = new LoginForm(container.Resolve<IUserService>()))
                 {
-                    string username = loginForm.Username;
-                    Application.Run(new DashboardForm(username, 
-                        container.Resolve<ISettingService>(),
-                        container.Resolve<ICompanyInfoService>(),
-                        container.Resolve<IBankService>(),
-                        container.Resolve<IBankTransactionService>(),
-                        container.Resolve<IItemService>(),
-                        container.Resolve<IPricedItemService>(),
-                        container.Resolve<IMemberService>(),
-                        container.Resolve<ISupplierService>(),
-                        container.Resolve<IPurchasedItemService>(),
-                        container.Resolve<ISoldItemService>(),
-                        container.Resolve<IUserTransactionService>(),
-                        container.Resolve<IStockService>(),
-                        container.Resolve<IEndOfDayService>(),
-                        container.Resolve<IEmployeeService>(),
-                        container.Resolve<IReportService>(),
-                        container.Resolve<IUserService>(),
-                        container.Resolve<IItemCategoryService>(),
-                        container.Resolve<IShareMemberService>(),
-                        container.Resolve<IStockAdjustmentService>(),
-                        container.Resolve<IPOSDetailService>(),
-                        container.Resolve<IIncomeExpenseService>(),
-                        container.Resolve<ICapitalService>()
-                        ));
+                    
+                    if (loginForm.ShowDialog() == DialogResult.OK)
+                    {
+                        string username = loginForm.Username;
+                        Application.Run(new DashboardForm(username,
+                            container.Resolve<ISettingService>(),
+                            container.Resolve<ICompanyInfoService>(),
+                            container.Resolve<IBankService>(),
+                            container.Resolve<IBankTransactionService>(),
+                            container.Resolve<IItemService>(),
+                            container.Resolve<IPricedItemService>(),
+                            container.Resolve<IMemberService>(),
+                            container.Resolve<ISupplierService>(),
+                            container.Resolve<IPurchasedItemService>(),
+                            container.Resolve<ISoldItemService>(),
+                            container.Resolve<IUserTransactionService>(),
+                            container.Resolve<IStockService>(),
+                            container.Resolve<IEndOfDayService>(),
+                            container.Resolve<IEmployeeService>(),
+                            container.Resolve<IReportService>(),
+                            container.Resolve<IUserService>(),
+                            container.Resolve<IItemCategoryService>(),
+                            container.Resolve<IShareMemberService>(),
+                            container.Resolve<IStockAdjustmentService>(),
+                            container.Resolve<IPOSDetailService>(),
+                            container.Resolve<IIncomeExpenseService>(),
+                            container.Resolve<ICapitalService>()
+                            ));
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
                 }
-                else
-                {
-                    Application.Exit();
-                }
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
             }
         }
 

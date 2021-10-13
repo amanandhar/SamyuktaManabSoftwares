@@ -11,9 +11,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         ItemCategory AddItemCategory(ItemCategory itemCategory);
 
-        ItemCategory UpdateItemCategory(long id, ItemCategory itemCategory);
-
-        bool DeleteItemCategory(long id);
         bool DeleteItemCategory(string itemCode);
     }
 }

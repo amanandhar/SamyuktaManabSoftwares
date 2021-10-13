@@ -13,6 +13,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class StockSummaryForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;

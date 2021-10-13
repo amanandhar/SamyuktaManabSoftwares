@@ -12,6 +12,8 @@ namespace GrocerySupplyManagementApp.Services
 {
     public class PurchasedItemService : IPurchasedItemService
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IPurchasedItemRepository _purchasedItemRepository;
         private readonly ISettingRepository _settingRepository;
 
@@ -111,6 +113,7 @@ namespace GrocerySupplyManagementApp.Services
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
 
@@ -147,6 +150,7 @@ namespace GrocerySupplyManagementApp.Services
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
 
@@ -166,11 +170,6 @@ namespace GrocerySupplyManagementApp.Services
         public PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem puchasedItem)
         {
             return _purchasedItemRepository.UpdatePurchasedItem(purchasedItemId, puchasedItem);
-        }
-
-        public bool DeletePurchasedItem(long puchasedItemId)
-        {
-            return _purchasedItemRepository.DeletePurchasedItem(puchasedItemId);
         }
 
         public bool DeletePurchasedItem(string billNo)

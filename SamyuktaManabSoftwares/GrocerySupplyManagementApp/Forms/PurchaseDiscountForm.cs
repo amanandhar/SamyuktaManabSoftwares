@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.Forms.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Windows.Forms;
 
@@ -6,6 +7,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PurchaseDiscountForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly string _supplierId;
         private readonly string _billNo;
         private readonly decimal _billAmount;

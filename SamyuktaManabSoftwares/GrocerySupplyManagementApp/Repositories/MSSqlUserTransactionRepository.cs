@@ -11,6 +11,7 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlUserTransactionRepository : IUserTransactionRepository
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
         public MSSqlUserTransactionRepository()
@@ -102,7 +103,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return userTransactions;
@@ -188,7 +190,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return userTransactions;
@@ -264,7 +267,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return memberTransactionViews;
@@ -348,7 +352,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return supplierTransactionViews;
@@ -411,7 +416,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return userTransaction;
@@ -474,7 +480,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return userTransaction;
@@ -549,7 +556,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return userTransaction;
@@ -582,7 +590,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return invoiceNo;
@@ -618,7 +627,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return invoices;
@@ -653,15 +663,16 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return memberIds;
         }
 
-        public IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter)
+        public IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter)
         {
-            var transactionViewList = new List<TransactionView>();
+            var transactionViewList = new List<DailyTransactionView>();
             var query = @"SELECT " +
                 "ut.[Id], ut.[EndOfDay], " +
                 "CASE " +
@@ -693,7 +704,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHEN ut.[Action]='" + Constants.BANK_TRANSFER + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[PaymentAmount] " +
                     "WHEN ut.[Action]='" + Constants.BANK_TRANSFER + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[PaymentAmount] " +
                     "ELSE ut.[DueReceivedAmount] " +
-                "END  AS [Amount] " +
+                "END  AS [Amount]," +
+                "ut.[AddedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL(ut.[Income], '') NOT IN " +
@@ -745,6 +757,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             query += "ORDER BY ut.[Id] DESC";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -756,7 +769,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             while (reader.Read())
                             {
-                                var transactionView = new TransactionView
+                                var transactionView = new DailyTransactionView
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
@@ -778,7 +791,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return transactionViewList;
@@ -830,7 +844,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return shareMemberTransactionViewList;
@@ -899,7 +914,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return salesReturnTransactionViewList;
@@ -956,15 +972,11 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return userTransaction;
-        }
-
-        public UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction)
-        {
-            throw new NotImplementedException();
         }
 
         public bool DeleteUserTransaction(long id)
@@ -989,7 +1001,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;
@@ -1017,7 +1030,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;
@@ -1045,7 +1059,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;

@@ -9,6 +9,7 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     class MSSqlSettingRepository : ISettingRepository
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
         public MSSqlSettingRepository()
@@ -61,7 +62,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return settings;
@@ -109,7 +111,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return setting;
@@ -134,7 +137,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception(ex.Message);
+                    logger.Error(ex);
+                    throw ex;
                 }
             }
 
@@ -171,7 +175,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return setting;
@@ -217,7 +222,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return setting;
@@ -246,7 +252,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;

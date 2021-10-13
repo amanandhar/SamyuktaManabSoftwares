@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class MemberListForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IMemberService _memberService;
         private readonly ICapitalService _capitalService;
         private readonly IMemberListForm _memberListForm;

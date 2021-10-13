@@ -11,6 +11,7 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlSoldItemRepository : ISoldItemRepository
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
         public MSSqlSoldItemRepository()
@@ -62,7 +63,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return soldItems;
@@ -121,7 +123,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return soldItemViewList;
@@ -177,7 +180,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return totalCount;
@@ -229,7 +233,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return totalAmount;
@@ -265,7 +270,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return itemCodes;
@@ -306,7 +312,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return soldItem;
@@ -334,7 +341,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;
@@ -362,7 +370,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return result;

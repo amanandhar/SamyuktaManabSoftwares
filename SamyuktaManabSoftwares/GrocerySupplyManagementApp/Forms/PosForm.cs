@@ -16,6 +16,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class PosForm : Form, IMemberListForm, IPricedItemListForm
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
@@ -204,6 +206,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -275,6 +278,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -287,6 +291,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -437,6 +442,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -455,7 +461,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region RichTextBox Events
+        #region RichTextBox Event
         private void RichReceivedAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -551,6 +557,7 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 catch (Exception ex)
                 {
+                    logger.Error(ex);
                     throw ex;
                 }
             }
@@ -558,7 +565,25 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
-        #region Radio Buttons Event
+        #region Text Box Event
+        private void TxtDiscountPercent_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtDeliveryChargePercent_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion
+
+        #region Radio Button Event
         private void RadioBtnCredit_CheckedChanged(object sender, EventArgs e)
         {
             if(RadioBtnCredit.Checked)
@@ -576,6 +601,36 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        #endregion
+
+        #region Check Box Event
+        private void ChkBoxDiscountPercent_CheckedChanged(object sender, EventArgs e)
+        {
+            if(ChkBoxDiscountPercent.Checked)
+            {
+                TxtDiscountPercent.ReadOnly = false;
+                TxtDiscountPercent.Focus();
+            }
+            else
+            {
+                TxtDiscountPercent.ReadOnly = true;
+                TxtDiscountPercent.Text = _setting.Discount.ToString();
+            }
+        }
+
+        private void ChkBoxDeliveryChargePercent_CheckedChanged(object sender, EventArgs e)
+        {
+            if(ChkBoxDeliveryChargePercent.Checked)
+            {
+                TxtDeliveryChargePercent.ReadOnly = false;
+                TxtDeliveryChargePercent.Focus();
+            }
+            else
+            {
+                TxtDeliveryChargePercent.ReadOnly = true;
+                TxtDeliveryChargePercent.Text = _setting.DeliveryCharge.ToString();
+            }
+        }
         #endregion
 
         #region Combobox Event
@@ -644,6 +699,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -660,6 +716,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -698,6 +755,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -914,6 +972,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -927,6 +986,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -992,6 +1052,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -1024,6 +1085,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -1042,6 +1104,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -1079,6 +1142,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -1100,6 +1164,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -1110,5 +1175,7 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceReportForm.ShowDialog();
         }
         #endregion
+
+        
     }
 }

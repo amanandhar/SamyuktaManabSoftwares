@@ -43,6 +43,9 @@
     <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -231,12 +234,6 @@
     </Compile>
     <Compile Include="Forms\PurchaseDiscountForm.Designer.cs">
       <DependentUpon>PurchaseDiscountForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ReturnForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ReturnForm.Designer.cs">
-      <DependentUpon>ReturnForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SalesPurchaseForm.cs">
       <SubType>Form</SubType>
@@ -501,6 +498,7 @@
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\Cryptography.cs" />
     <Compile Include="Shared\Excel.cs" />
+    <Compile Include="Shared\LogHelper.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\BankTransactionView.cs" />
@@ -522,7 +520,7 @@
     <Compile Include="ViewModels\StockView.cs" />
     <Compile Include="ViewModels\SupplierTransactionView.cs" />
     <Compile Include="ViewModels\SupplierView.cs" />
-    <Compile Include="ViewModels\TransactionView.cs" />
+    <Compile Include="ViewModels\DailyTransactionView.cs" />
     <Compile Include="ViewModels\UnpricedItemView.cs" />
     <EmbeddedResource Include="CustomControls\TextBox\CustomTextBox.resx">
       <DependentUpon>CustomTextBox.cs</DependentUpon>
@@ -562,9 +560,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PurchaseDiscountForm.resx">
       <DependentUpon>PurchaseDiscountForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ReturnForm.resx">
-      <DependentUpon>ReturnForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesPurchaseForm.resx">
       <DependentUpon>SalesPurchaseForm.cs</DependentUpon>

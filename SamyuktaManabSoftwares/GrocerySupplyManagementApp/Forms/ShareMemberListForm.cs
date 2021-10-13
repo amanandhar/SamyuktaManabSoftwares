@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ShareMemberListForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IShareMemberService _shareMemberService;
         private readonly IShareMemberListForm _shareMemberListForm;
         private List<ShareMember> _shareMemberList = new List<ShareMember>();

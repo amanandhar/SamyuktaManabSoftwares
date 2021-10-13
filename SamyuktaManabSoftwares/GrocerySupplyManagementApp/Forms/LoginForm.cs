@@ -7,6 +7,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class LoginForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IUserService _userService;
         public string Username { get; private set; }
 
@@ -100,6 +102,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.ComponentModel;
@@ -10,6 +11,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class UnpricedItemListForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IPricedItemService _pricedItemService;
         public IUnpricedItemListForm _unpricedItemListForm;
 

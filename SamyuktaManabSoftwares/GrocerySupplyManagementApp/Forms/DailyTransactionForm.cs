@@ -13,6 +13,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DailyTransactionForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IPurchasedItemService _purchasedItemService;
@@ -64,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            LoadTransactions();
+            LoadDailyTransactions();
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -93,7 +95,7 @@ namespace GrocerySupplyManagementApp.Forms
                             DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Message", MessageBoxButtons.OK);
                             if (billResult == DialogResult.OK)
                             {
-                                LoadTransactions();
+                                LoadDailyTransactions();
                                 return;
                             }
                         }
@@ -112,7 +114,7 @@ namespace GrocerySupplyManagementApp.Forms
                             DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Message", MessageBoxButtons.OK);
                             if (billResult == DialogResult.OK)
                             {
-                                LoadTransactions();
+                                LoadDailyTransactions();
                                 return;
                             }
                         }
@@ -131,12 +133,13 @@ namespace GrocerySupplyManagementApp.Forms
                     DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Message", MessageBoxButtons.OK);
                     if (result == DialogResult.OK)
                     {
-                        LoadTransactions();
+                        LoadDailyTransactions();
                     }
                 }
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -309,7 +312,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadTransactions()
+        private void LoadDailyTransactions()
         {
             MaskDtEOD.Focus();
 
@@ -356,10 +359,10 @@ namespace GrocerySupplyManagementApp.Forms
 
             dailyTransactionFilter.Username = ComboUser.Text;
 
-            List<TransactionView> transactionViewList = _userTransactionService.GetTransactionViewList(dailyTransactionFilter).ToList();
-            TxtTotal.Text = transactionViewList.Sum(x => x.Amount).ToString();
+            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter).ToList();
+            TxtTotal.Text = dailyTransactions.Sum(x => x.Amount).ToString();
 
-            var bindingList = new BindingList<TransactionView>(transactionViewList);
+            var bindingList = new BindingList<DailyTransactionView>(dailyTransactions);
             var source = new BindingSource(bindingList, null);
             DataGridTransactionList.DataSource = source;
         }

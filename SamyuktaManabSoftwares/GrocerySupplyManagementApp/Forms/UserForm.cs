@@ -10,6 +10,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class UserForm : Form, IUserListForm
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IUserService _userService;
         private bool _isPasswordChanged;
         private readonly string _username;
@@ -130,6 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -208,6 +211,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -234,6 +238,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

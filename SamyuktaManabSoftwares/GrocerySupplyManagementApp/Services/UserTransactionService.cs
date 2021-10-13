@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace GrocerySupplyManagementApp.Services
 {
     public class UserTransactionService : IUserTransactionService
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IUserTransactionRepository _userTransactionRepository;
         private readonly ISettingRepository _settingRepository;
 
@@ -84,6 +87,7 @@ namespace GrocerySupplyManagementApp.Services
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
 
@@ -100,9 +104,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetMemberIds();
         }
 
-        public IEnumerable<TransactionView> GetTransactionViewList(DailyTransactionFilter dailyTransactionFilter)
+        public IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter)
         {
-            return _userTransactionRepository.GetTransactionViewList(dailyTransactionFilter);
+            return _userTransactionRepository.GetDailyTransactions(dailyTransactionFilter);
         }
 
         public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
@@ -118,11 +122,6 @@ namespace GrocerySupplyManagementApp.Services
         public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
             return _userTransactionRepository.AddUserTransaction(userTransaction);
-        }
-
-        public UserTransaction UpdateUserTransaction(long userTransactionId, UserTransaction userTransaction)
-        {
-            throw new NotImplementedException();
         }
 
         public bool DeleteUserTransaction(long id)

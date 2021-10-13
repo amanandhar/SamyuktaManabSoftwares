@@ -13,6 +13,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class StockAdjustmentForm : Form, IPricedItemListForm
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;
@@ -149,6 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -180,6 +183,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

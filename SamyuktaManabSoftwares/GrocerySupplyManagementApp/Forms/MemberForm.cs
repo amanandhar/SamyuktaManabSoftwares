@@ -17,6 +17,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class MemberForm : Form, IMemberListForm
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IBankService _bankService;
@@ -176,6 +178,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -258,6 +261,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -326,6 +330,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -361,6 +366,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
@@ -407,6 +413,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

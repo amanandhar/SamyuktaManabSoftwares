@@ -12,6 +12,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SalesPurchaseForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly IUserTransactionService _userTransactionService;
 

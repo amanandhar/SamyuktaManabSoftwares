@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,6 +9,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DashboardForm1 : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IBankService _bankService;
@@ -224,6 +227,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

@@ -8,6 +8,7 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlEndOfDayRepository : IEndOfDayRepository
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
         public MSSqlEndOfDayRepository()
@@ -49,7 +50,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return endOfDay;
@@ -92,7 +94,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return endOfDay;

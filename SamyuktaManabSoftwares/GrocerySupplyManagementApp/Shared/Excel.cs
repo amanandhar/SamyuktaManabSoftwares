@@ -10,6 +10,8 @@ namespace GrocerySupplyManagementApp.Shared
 {
     public class Excel
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         public static bool Export(Dictionary<string, List<ExcelField>> excelSheets, string title, string sheetname, string filename)
         {
             var result = false;
@@ -63,6 +65,7 @@ namespace GrocerySupplyManagementApp.Shared
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
 

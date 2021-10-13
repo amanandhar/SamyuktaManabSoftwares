@@ -11,6 +11,7 @@ namespace GrocerySupplyManagementApp.Repositories
 {
     public class MSSqlStockRepository : IStockRepository
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
         public MSSqlStockRepository()
@@ -191,7 +192,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                logger.Error(ex);
+                throw ex;
             }
 
             return stocks;

@@ -25,7 +25,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem puchasedItem);
 
-        bool DeletePurchasedItem(long puchasedItemId);
         bool DeletePurchasedItem(string billNo);
         bool DeletePurchasedItemAfterEndOfDay(string endOfDay);
     }

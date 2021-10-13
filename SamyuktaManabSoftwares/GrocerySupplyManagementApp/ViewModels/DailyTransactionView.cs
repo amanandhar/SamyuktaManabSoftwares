@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace GrocerySupplyManagementApp.ViewModels
+﻿namespace GrocerySupplyManagementApp.ViewModels
 {
-    public class TransactionView
+    public class DailyTransactionView
     {
         public long Id { get; set; }
         public string EndOfDay { get; set; }

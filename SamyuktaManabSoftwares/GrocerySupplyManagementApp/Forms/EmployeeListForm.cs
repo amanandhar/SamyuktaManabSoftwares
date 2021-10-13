@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class EmployeeListForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly IEmployeeService _employeeService;
         public IEmployeeListForm _employeeListForm;
 

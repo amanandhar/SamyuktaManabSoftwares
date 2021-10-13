@@ -9,6 +9,7 @@ namespace GrocerySupplyManagementApp.Shared
 {
     public static class UtilityService
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly static string[] units = { 
             "Zero", "One", "Two", "Three","Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
             "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" 
@@ -103,6 +104,7 @@ namespace GrocerySupplyManagementApp.Shared
             }
             catch(Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

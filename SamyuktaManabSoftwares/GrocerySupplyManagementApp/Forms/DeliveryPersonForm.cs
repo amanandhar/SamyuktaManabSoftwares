@@ -11,6 +11,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DeliveryPersonForm : Form, IEmployeeListForm
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IEmployeeService _employeeService;

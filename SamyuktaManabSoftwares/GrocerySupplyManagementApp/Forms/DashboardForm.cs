@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -102,6 +103,8 @@ namespace GrocerySupplyManagementApp.Forms
             activeButton.BackColor = Color.Silver;
         }
         #endregion
+
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
         private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
@@ -448,6 +451,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }

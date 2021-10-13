@@ -34,16 +34,6 @@ namespace GrocerySupplyManagementApp.Services
             return _itemCategoryRepository.AddItemCategory(itemCategory);
         }
 
-        public ItemCategory UpdateItemCategory(long id, ItemCategory itemCategory)
-        {
-            return _itemCategoryRepository.UpdateItemCategory(id, itemCategory);
-        }
-
-        public bool DeleteItemCategory(long id)
-        {
-            return _itemCategoryRepository.DeleteItemCategory(id);
-        }
-
         public bool DeleteItemCategory(string itemCode)
         {
             return _itemCategoryRepository.DeleteItemCategory(itemCode);

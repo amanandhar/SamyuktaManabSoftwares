@@ -11,6 +11,8 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class BalanceSheetForm : Form
     {
+        private static readonly log4net.ILog logger = LogHelper.GetLogger();
+
         private readonly ISettingService _settingService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IStockService _stockService;
@@ -106,6 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             catch (Exception ex)
             {
+                logger.Error(ex);
                 throw ex;
             }
         }
