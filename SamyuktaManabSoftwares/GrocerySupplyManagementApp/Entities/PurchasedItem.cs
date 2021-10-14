@@ -8,6 +8,7 @@ namespace GrocerySupplyManagementApp.Entities
         public string EndOfDay { get; set; }
         public string SupplierId { get; set; }
         public string BillNo { get; set; }
+        public bool IsBonus { get; set; }
         public long ItemId { get; set; }
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }

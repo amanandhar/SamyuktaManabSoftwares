@@ -24,16 +24,6 @@ namespace GrocerySupplyManagementApp.Services
             _settingRepository = settingRepository;
         }
 
-        public IEnumerable<PurchasedItem> GetPurchasedItems()
-        {
-            return _purchasedItemRepository.GetPurchasedItems();
-        }
-
-        public PurchasedItem GetPurchasedItem(long id)
-        {
-            return _purchasedItemRepository.GetPurchasedItem(id);
-        }
-
         public IEnumerable<PurchasedItemListView> GetPurchasedItemDetails()
         {
             return _purchasedItemRepository.GetPurchasedItemDetails();
@@ -49,39 +39,14 @@ namespace GrocerySupplyManagementApp.Services
             return _purchasedItemRepository.GetPurchasedItemTotalAmount(supplierId, billNo);
         }
 
-        public decimal GetPurchasedItemTotalAmount(StockFilter stockFilter)
-        {
-            if (stockFilter?.DateFrom == "    -  -" || stockFilter?.DateTo == "    -  -")
-            {
-                stockFilter.DateFrom = null;
-                stockFilter.DateTo = null;
-            }
-            else if (!string.IsNullOrWhiteSpace(stockFilter.DateTo) && !stockFilter.DateTo.Contains("23:59:59.999"))
-            {
-                stockFilter.DateTo += " 23:59:59.999";
-            }
-
-            return _purchasedItemRepository.GetPurchasedItemTotalAmount(stockFilter);
-        }
-
         public long GetPurchasedItemTotalQuantity(StockFilter stockFilter)
         {
             return _purchasedItemRepository.GetPurchasedItemTotalQuantity(stockFilter);
         }
 
-        public IEnumerable<string> GetPurchasedItemCodes()
-        {
-            return _purchasedItemRepository.GetPurchasedItemCodes();
-        }
-
         public PurchasedItem GetPurchasedItemByItemId(long itemId)
         {
             return _purchasedItemRepository.GetPurchasedItemByItemId(itemId);
-        }
-
-        public long GetItemId(string supplierName, string billNo)
-        {
-            return _purchasedItemRepository.GetItemId(supplierName, billNo);
         }
 
         public string GetLastBillNo()
@@ -157,29 +122,14 @@ namespace GrocerySupplyManagementApp.Services
             return bonusNo;
         }
 
-        public decimal GetLatestPurchasePrice(long itemId)
-        {
-            return _purchasedItemRepository.GetLatestPurchasePrice(itemId);
-        }
-
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)
         {
             return _purchasedItemRepository.AddPurchasedItem(purchasedItem);
         }
 
-        public PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem puchasedItem)
-        {
-            return _purchasedItemRepository.UpdatePurchasedItem(purchasedItemId, puchasedItem);
-        }
-
         public bool DeletePurchasedItem(string billNo)
         {
             return _purchasedItemRepository.DeletePurchasedItem(billNo);
-        }
-
-        public bool DeletePurchasedItemAfterEndOfDay(string endOfDay)
-        {
-            return _purchasedItemRepository.DeletePurchasedItemAfterEndOfDay(endOfDay);
         }
     }
 }

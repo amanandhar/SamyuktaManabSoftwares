@@ -19,99 +19,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<PurchasedItem> GetPurchasedItems()
-        {
-            var purchasedItems = new List<PurchasedItem>();
-            var query = @"SELECT " +
-                "[Id], [EndOfDay], [SupplierId], [BillNo], " +
-                "[ItemId], [Quantity], [Price], " +
-                "[AddedDate], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "ORDER BY Id ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var purchasedItem = new PurchasedItem
-                                {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    EndOfDay = reader["EndOfDay"].ToString(),
-                                    SupplierId = reader["SupplierId"].ToString(),
-                                    BillNo = reader["BillNo"].ToString(),
-                                    ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    Price = Convert.ToDecimal(reader["Price"].ToString()),
-                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                            };
-
-                                purchasedItems.Add(purchasedItem);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return purchasedItems;
-        }
-
-        public PurchasedItem GetPurchasedItem(long id)
-        {
-            var purchasedItem = new PurchasedItem();
-            var query = @"SELECT " +
-                "[Id], [EndOfDay], [SupplierId], [BillNo], " +
-                "[ItemId], [Quantity], [Price], " +
-                "[AddedDate], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE 1 = 1 " +
-                "AND [Id] = @Id ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                purchasedItem.Id = Convert.ToInt64(reader["Id"].ToString());
-                                purchasedItem.EndOfDay = reader["EndOfDay"].ToString();
-                                purchasedItem.SupplierId = reader["SupplierId"].ToString();
-                                purchasedItem.BillNo = reader["BillNo"].ToString();
-                                purchasedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                purchasedItem.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
-                                purchasedItem.Price = Convert.ToDecimal(reader["Price"].ToString());
-                                purchasedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                purchasedItem.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return purchasedItem;
-        }
-
         public IEnumerable<PurchasedItemListView> GetPurchasedItemDetails()
         {
             var purchasedItemViewList = new List<PurchasedItemListView>();
@@ -161,7 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<PurchasedItem>();
             var query = @"SELECT " +
-                "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
+                "[EndOfDay], [SupplierId], [BillNo], [IsBonus], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([SupplierId], '') = @SupplierId " +
@@ -186,6 +93,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     SupplierId = reader["SupplierId"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
+                                    IsBonus = Convert.ToBoolean(reader["IsBonus"].ToString()),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
@@ -226,59 +134,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@SupplierId", ((object)supplierId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BillNo", ((object)billNo) ?? DBNull.Value);
-
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            totalAmount = Convert.ToDecimal(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return totalAmount;
-        }
-
-        public decimal GetPurchasedItemTotalAmount(StockFilter stockFilter)
-        {
-            decimal totalAmount = Constants.DEFAULT_DECIMAL_VALUE;
-            var query = @"SELECT " +
-                "CAST(SUM(pi.[Quantity] * pi.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON pi.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 ";
-
-            if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
-            {
-                query += "AND ISNULL(i.[Code], '') = @Code ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
-            {
-                query += "AND pi.[EndOfDay] >= @DateFrom ";
-            }
-
-            if(!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
-            {
-                query += "AND pi.[EndOfDay] <= @DateTo ";
-            }
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Code", ((object)stockFilter.ItemCode) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateFrom", ((object)stockFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)stockFilter.DateTo) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
@@ -350,48 +205,11 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
-        public IEnumerable<string> GetPurchasedItemCodes()
-        {
-            var itemCodes = new List<string>();
-            var query = @"SELECT " +
-                "DISTINCT i.[Code] " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON pi.[ItemId] = i.[Id] " +
-                "ORDER BY 1";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var itemName = reader["Code"].ToString();
-                                itemCodes.Add(itemName);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return itemCodes;
-        }
-
         public PurchasedItem GetPurchasedItemByItemId(long itemId)
         {
             var item = new PurchasedItem();
             var query = @"SELECT " +
-                "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
+                "[EndOfDay], [SupplierId], [BillNo], [IsBonus], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " + 
                 "AND [ItemId] = @ItemId";
@@ -412,6 +230,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.EndOfDay = reader["EndOfDay"].ToString();
                                 item.SupplierId = reader["SupplierId"].ToString();
                                 item.BillNo = reader["BillNo"].ToString();
+                                item.IsBonus = Convert.ToBoolean(reader["BillNo"].ToString());
                                 item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 item.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
                                 item.Price = Convert.ToDecimal(reader["Price"].ToString());
@@ -428,43 +247,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return item;
-        }
-
-        public long GetItemId(string supplierName, string billNo)
-        {
-            int itemId = 0;
-            var query = @"SELECT " +
-                "[ItemId] " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE 1 = 1 " +
-                "AND ISNULL([SupplierName], '') = @SupplierName " +
-                "AND ISNULL([BillNo], '') = @BillNo ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@SupplierName", ((object)supplierName) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@BillNo", ((object)billNo) ?? DBNull.Value);
-
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            itemId = Convert.ToInt32(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return itemId;
         }
 
         public string GetLastBillNo()
@@ -533,51 +315,15 @@ namespace GrocerySupplyManagementApp.Repositories
             return bonusNo;
         }
 
-        public decimal GetLatestPurchasePrice(long itemId)
-        {
-            decimal price = Constants.DEFAULT_DECIMAL_VALUE;
-            string query = @"SELECT " +
-                "TOP 1 [Price] " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE 1 = 1 " +
-                "AND ISNULL([ItemId], '') = @ItemId " +
-                "ORDER BY [Id] DESC ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@ItemId", ((object)itemId) ?? DBNull.Value);
-
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            price = Convert.ToDecimal(result.ToString());
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return price;
-        }
-
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)
         {
             string query = @"INSERT INTO " + Constants.TABLE_PURCHASED_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [SupplierId], [BillNo], [IsBonus], [ItemId], [Quantity], [Price], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @SupplierId, @BillNo, @ItemId, @Quantity, @Price, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @SupplierId, @BillNo, @IsBonus, @ItemId, @Quantity, @Price, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -589,56 +335,12 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@EndOfDay", purchasedItem.EndOfDay);
                         command.Parameters.AddWithValue("@SupplierId", purchasedItem.SupplierId);
                         command.Parameters.AddWithValue("@BillNo", purchasedItem.BillNo);
+                        command.Parameters.AddWithValue("@IsBonus", purchasedItem.IsBonus);
                         command.Parameters.AddWithValue("@ItemId", purchasedItem.ItemId);
                         command.Parameters.AddWithValue("@Quantity", purchasedItem.Quantity);
                         command.Parameters.AddWithValue("@Price", purchasedItem.Price);
                         command.Parameters.AddWithValue("@AddedBy", purchasedItem.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", purchasedItem.AddedDate);
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return purchasedItem;
-        }
-
-        public PurchasedItem UpdatePurchasedItem(long purchasedItemId, PurchasedItem purchasedItem)
-        {
-            string query = @"UPDATE " + Constants.TABLE_PURCHASED_ITEM + " " +
-                        "SET " +
-                        "[EndOfDay] = @EndOfDay, " +
-                        "[SupplierId] = @SupplierId, " +
-                        "[BillNo] = @BillNo, " +
-                        "[ItemId] = @ItemId, " +
-                        "[Quantity] = @Quantity, " +
-                        "[Price] = @Price, " +
-                        "[UpdatedBy] = @UpdatedBy, " +
-                        "[UpdatedDate] = @UpdatedDate " +
-                        "WHERE 1 = 1 " +
-                        "AND [Id] = @Id ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", purchasedItemId);
-                        command.Parameters.AddWithValue("@EndOfDay", purchasedItem.EndOfDay);
-                        command.Parameters.AddWithValue("@SupplierId", purchasedItem.SupplierId);
-                        command.Parameters.AddWithValue("@BillNo", purchasedItem.BillNo);
-                        command.Parameters.AddWithValue("@ItemId", purchasedItem.ItemId);
-                        command.Parameters.AddWithValue("@Quantity", purchasedItem.Quantity);
-                        command.Parameters.AddWithValue("@Price", purchasedItem.Price);
-                        command.Parameters.AddWithValue("@UpdatedBy", purchasedItem.UpdatedBy);
-                        command.Parameters.AddWithValue("@UpdatedDate", purchasedItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }
@@ -669,36 +371,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@BillNo", billNo);
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
-        }
-
-        public bool DeletePurchasedItemAfterEndOfDay(string endOfDay)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                    "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [EndOfDay] > @EndOfDay ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@EndOfDay", endOfDay);
                         command.ExecuteNonQuery();
                         result = true;
                     }

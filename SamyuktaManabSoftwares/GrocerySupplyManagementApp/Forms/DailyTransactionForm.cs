@@ -80,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
                     var income = selectedRow.Cells["Income"].Value.ToString();
                     var expense = selectedRow.Cells["Expense"].Value.ToString();
-                    var narration = selectedRow.Cells["Narration"].Value.ToString());
+                    var narration = selectedRow.Cells["Narration"].Value.ToString();
 
                     if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
                     {

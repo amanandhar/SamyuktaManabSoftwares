@@ -84,17 +84,21 @@ namespace GrocerySupplyManagementApp.Forms
             RichBillNo.Text = _purchasedItemService.GetLastBonusNo();
             EnableFields(true);
             RichItemCode.Focus();
+            ChkBoxBonus.Checked = true;
         }
 
         private void BtnAddItem_Click(object sender, EventArgs e)
         {
             try
             {
+                ChkBoxBonus.Checked = false;
+
                 var purchasedItemView = new PurchasedItemView
                 {
                     Id = _purchasedItemViewList.Count + 1,
                     EndOfDay = _endOfDay,
                     BillNo = RichBillNo.Text,
+                    IsBonus = ChkBoxBonus.Checked,
                     Code = RichItemCode.Text,
                     Name = RichItemName.Text,
                     Brand = RichItemBrand.Text,
@@ -105,7 +109,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _purchasedItemViewList.Add(purchasedItemView);
-                TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
+                TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => x.Total).ToString();
                 ClearAllFields();
                 LoadPurchasedItemViewList(_purchasedItemViewList);
 
@@ -129,6 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         SupplierId = _supplierForm.GetSupplierId(),
                         BillNo = item.BillNo,
+                        IsBonus = item.IsBonus,
                         ItemId = _itemService.GetItem(item.Code).Id,
                         Quantity = item.Quantity,
                         Price = item.Price,
@@ -139,40 +144,45 @@ namespace GrocerySupplyManagementApp.Forms
                     purchasedItems.ForEach(purchasedItem =>
                     {
                         _purchasedItemService.AddPurchasedItem(purchasedItem);
+
+                        if(purchasedItem.IsBonus)
+                        {
+                            var userTransactionBonus = new UserTransaction()
+                            {
+                                EndOfDay = _endOfDay,
+                                BillNo = RichBillNo.Text,
+                                SupplierId = _supplierForm.GetSupplierId(),
+                                Action = Constants.INCOME,
+                                ActionType = Constants.ACTION_TYPE_NONE,
+                                Income = Constants.PURCHASE_BONUS,
+                                // Purchase Bonus needs to go DuePaymentAmount, ReceivedAmount and PaymentAmount
+                                DuePaymentAmount = purchasedItem.Quantity * purchasedItem.Price,
+                                ReceivedAmount = purchasedItem.Quantity * purchasedItem.Price,
+                                PaymentAmount = purchasedItem.Quantity * purchasedItem.Price,
+                                AddedBy = _username,
+                                AddedDate = DateTime.Now
+                            };
+
+                            _userTransactionService.AddUserTransaction(userTransactionBonus);
+                        }
                     });
 
-                    var userTransaction = new UserTransaction();
-
-                    if(RichBillNo.Text.StartsWith(Constants.BONUS_PREFIX))
+                    var userTransaction = new UserTransaction()
                     {
-                        userTransaction.EndOfDay = _endOfDay;
-                        userTransaction.BillNo = RichBillNo.Text;
-                        userTransaction.SupplierId = _supplierForm.GetSupplierId();
-                        userTransaction.Action = Constants.INCOME;
-                        userTransaction.ActionType = Constants.ACTION_TYPE_NONE;
-                        userTransaction.Income = Constants.PURCHASE_BONUS;
-                        // Purchase Bonus needs to go DuePaymentAmount, ReceivedAmount and PaymentAmount
-                        userTransaction.DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text);
-                        userTransaction.ReceivedAmount = Convert.ToDecimal(TxtTotalAmount.Text);
-                        userTransaction.PaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text);
-                        userTransaction.AddedBy = _username;
-                        userTransaction.AddedDate = DateTime.Now;
-                    }
-                    else
-                    {
-                        userTransaction.EndOfDay = _endOfDay;
-                        userTransaction.BillNo = RichBillNo.Text;
-                        userTransaction.SupplierId = _supplierForm.GetSupplierId();
-                        userTransaction.Action = Constants.PURCHASE;
-                        userTransaction.ActionType = Constants.CREDIT;
-                        userTransaction.DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text);
-                        userTransaction.AddedBy = _username;
-                        userTransaction.AddedDate = DateTime.Now;
-                    }
+                        EndOfDay = _endOfDay,
+                        BillNo = RichBillNo.Text,
+                        SupplierId = _supplierForm.GetSupplierId(),
+                        Action = Constants.PURCHASE,
+                        ActionType = Constants.CREDIT,
+                        DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text),
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
 
                     _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
+
                     DialogResult result = MessageBox.Show("Purchased successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
@@ -218,7 +228,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Textbox Event
+        #region Rich Box Event
         private void RichQuantity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -226,12 +236,30 @@ namespace GrocerySupplyManagementApp.Forms
                 RichPurchasePrice.Focus();
             }
         }
+
+        private void RichQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void RichPurchasePrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
         #endregion
 
         #region DataGrid Event
         private void DataGridPurchaseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridPurchaseList.Columns["Id"].Visible = false;
+            DataGridPurchaseList.Columns["IsBonus"].Visible = false;
 
             DataGridPurchaseList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridPurchaseList.Columns["EndOfDay"].Width = 80;
@@ -310,6 +338,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichQuantity.Clear();
             RichUnit.Clear();
             RichPurchasePrice.Clear();
+            ChkBoxBonus.Checked = false;
         }
 
         private void LoadForm(string supplierId, string billNo)
@@ -318,6 +347,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 EndOfDay = purchasedItem.EndOfDay,
                 BillNo = purchasedItem.BillNo,
+                IsBonus = purchasedItem.IsBonus,
                 Code = _itemService.GetItem(purchasedItem.ItemId).Code,
                 Name = _itemService.GetItem(purchasedItem.ItemId).Name,
                 Brand = _itemService.GetItem(purchasedItem.ItemId).Brand,
@@ -356,8 +386,7 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
-
         #endregion
-        
+
     }
 }
