@@ -88,7 +88,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
-            ClearAllFields();
+            ClearMemberFields();
+            ClearTransactionFields();
             LoadReceiptTypes();
             EnableFields(Action.None);
             EnableFields(Action.Load);
@@ -170,7 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
                     DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
-                        ClearAllFields();
+                        ClearTransactionFields();
                         var memberTransactionViewList = GetMemberTransactions(TxtMemberId.Text);
                         LoadMemberTransactions(memberTransactionViewList);
                     }
@@ -197,7 +198,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddMember_Click(object sender, EventArgs e)
         {
-            ClearAllFields();
+            ClearMemberFields();
+            ClearTransactionFields();
             EnableFields(Action.None);
             EnableFields(Action.Add);
             TxtMemberId.Focus();
@@ -252,7 +254,8 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show(member.MemberId + " has been added successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    ClearAllFields();
+                    ClearMemberFields();
+                    ClearTransactionFields();
                     var memberTransactionViewList = GetMemberTransactions(member.MemberId);
                     LoadMemberTransactions(memberTransactionViewList);
                     EnableFields(Action.None);
@@ -321,7 +324,8 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show(memberId + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    ClearAllFields();
+                    ClearMemberFields();
+                    ClearTransactionFields();
                     var memberTransactionViewList = GetMemberTransactions(memberId);
                     LoadMemberTransactions(memberTransactionViewList);
                     EnableFields(Action.None);
@@ -355,7 +359,8 @@ namespace GrocerySupplyManagementApp.Forms
                         DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
                         if (result == DialogResult.OK)
                         {
-                            ClearAllFields();
+                            ClearMemberFields();
+                            ClearTransactionFields();
                             var memberTransactionViewList = GetMemberTransactions(memberId);
                             LoadMemberTransactions(memberTransactionViewList);
                             EnableFields(Action.None);
@@ -635,7 +640,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void ClearAllFields()
+        private void ClearMemberFields()
         {
             TxtMemberId.Clear();
             TxtAccountNumber.Clear();
@@ -644,10 +649,14 @@ namespace GrocerySupplyManagementApp.Forms
             TxtContactNumber.Clear();
             TxtEmail.Clear();
             TxtBalance.Clear();
+            PicBoxMemberImage.Image = null;
+        }
+
+        private void ClearTransactionFields()
+        {
             ComboReceipt.Text = string.Empty;
             ComboBank.Text = string.Empty;
             RichAmount.Clear();
-            PicBoxMemberImage.Image = null;
         }
 
         public void PopulateMember(string memberId)

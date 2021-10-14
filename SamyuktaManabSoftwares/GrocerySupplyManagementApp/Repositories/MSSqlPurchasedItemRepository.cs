@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([SupplierId], '') = @SupplierId " +
-                "AND ISNLL([BillNo], '') = @BillNo " +
+                "AND ISNULL([BillNo], '') = @BillNo " +
                 "ORDER BY AddedDate ";
 
             try

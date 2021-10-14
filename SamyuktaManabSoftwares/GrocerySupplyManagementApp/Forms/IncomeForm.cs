@@ -299,10 +299,11 @@ namespace GrocerySupplyManagementApp.Forms
             ComboFilteredBy.ValueMember = "Id";
             ComboFilteredBy.DisplayMember = "Value";
 
-            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE_BONUS, Value = Constants.PURCHASE_BONUS });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_CHARGE, Value = Constants.DELIVERY_CHARGE });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE_BONUS, Value = Constants.PURCHASE_BONUS });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE_DISCOUNT, Value = Constants.PURCHASE_DISCOUNT });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.STOCK_ADJUSTMENT, Value = Constants.STOCK_ADJUSTMENT });
         }

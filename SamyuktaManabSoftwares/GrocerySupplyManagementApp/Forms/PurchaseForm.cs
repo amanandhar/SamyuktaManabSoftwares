@@ -81,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddBonus_Click(object sender, EventArgs e)
         {
-            RichBillNo.Text = _purchasedItemService.GetLastBonusNo();
+            //RichBillNo.Text = _purchasedItemService.GetLastBonusNo();
             EnableFields(true);
             RichItemCode.Focus();
             ChkBoxBonus.Checked = true;
@@ -91,8 +91,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                ChkBoxBonus.Checked = false;
-
                 var purchasedItemView = new PurchasedItemView
                 {
                     Id = _purchasedItemViewList.Count + 1,
@@ -105,7 +103,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Unit = RichUnit.Text,
                     Quantity = Convert.ToDecimal(RichQuantity.Text),
                     Price = Convert.ToDecimal(RichPurchasePrice.Text),
-                    Total = (Convert.ToDecimal(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text))
+                    Total = (Convert.ToDecimal(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text)),
+                    AddedDate = DateTime.Now
                 };
 
                 _purchasedItemViewList.Add(purchasedItemView);
@@ -138,14 +137,30 @@ namespace GrocerySupplyManagementApp.Forms
                         Quantity = item.Quantity,
                         Price = item.Price,
                         AddedBy = _username,
-                        AddedDate = DateTime.Now
+                        AddedDate = item.AddedDate
                     }).ToList();
 
+                    // Inserting purchase transaction before income transaction 
+                    var userTransaction = new UserTransaction()
+                    {
+                        EndOfDay = _endOfDay,
+                        BillNo = RichBillNo.Text,
+                        SupplierId = _supplierForm.GetSupplierId(),
+                        Action = Constants.PURCHASE,
+                        ActionType = Constants.CREDIT,
+                        DuePaymentAmount = _purchasedItemViewList.Where(x => x.IsBonus == false).Sum(x => x.Total),
+                        AddedBy = _username,
+                        // Logic to make Purchase to come first before bonus
+                        AddedDate = _purchasedItemViewList.OrderBy(x => x.AddedDate)
+                        .FirstOrDefault().AddedDate.AddSeconds(-1)
+                    };
+
+                    _userTransactionService.AddUserTransaction(userTransaction);
                     purchasedItems.ForEach(purchasedItem =>
                     {
                         _purchasedItemService.AddPurchasedItem(purchasedItem);
 
-                        if(purchasedItem.IsBonus)
+                        if (purchasedItem.IsBonus)
                         {
                             var userTransactionBonus = new UserTransaction()
                             {
@@ -155,31 +170,14 @@ namespace GrocerySupplyManagementApp.Forms
                                 Action = Constants.INCOME,
                                 ActionType = Constants.ACTION_TYPE_NONE,
                                 Income = Constants.PURCHASE_BONUS,
-                                // Purchase Bonus needs to go DuePaymentAmount, ReceivedAmount and PaymentAmount
-                                DuePaymentAmount = purchasedItem.Quantity * purchasedItem.Price,
                                 ReceivedAmount = purchasedItem.Quantity * purchasedItem.Price,
-                                PaymentAmount = purchasedItem.Quantity * purchasedItem.Price,
                                 AddedBy = _username,
-                                AddedDate = DateTime.Now
+                                AddedDate = purchasedItem.AddedDate
                             };
 
                             _userTransactionService.AddUserTransaction(userTransactionBonus);
                         }
                     });
-
-                    var userTransaction = new UserTransaction()
-                    {
-                        EndOfDay = _endOfDay,
-                        BillNo = RichBillNo.Text,
-                        SupplierId = _supplierForm.GetSupplierId(),
-                        Action = Constants.PURCHASE,
-                        ActionType = Constants.CREDIT,
-                        DuePaymentAmount = Convert.ToDecimal(TxtTotalAmount.Text),
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
-
-                    _userTransactionService.AddUserTransaction(userTransaction);
 
                     _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
 
@@ -259,7 +257,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridPurchaseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridPurchaseList.Columns["Id"].Visible = false;
-            DataGridPurchaseList.Columns["IsBonus"].Visible = false;
+            DataGridPurchaseList.Columns["AddedDate"].Visible = false;
 
             DataGridPurchaseList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridPurchaseList.Columns["EndOfDay"].Width = 80;
@@ -269,35 +267,39 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["BillNo"].Width = 90;
             DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
 
-            DataGridPurchaseList.Columns["Code"].HeaderText = "ItemCode";
+            DataGridPurchaseList.Columns["IsBonus"].HeaderText = "Bonus";
+            DataGridPurchaseList.Columns["IsBonus"].Width = 50;
+            DataGridPurchaseList.Columns["IsBonus"].DisplayIndex = 2;
+
+            DataGridPurchaseList.Columns["Code"].HeaderText = "Item Code";
             DataGridPurchaseList.Columns["Code"].Width = 80;
-            DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
+            DataGridPurchaseList.Columns["Code"].DisplayIndex = 3;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
             DataGridPurchaseList.Columns["Name"].Width = 170;
-            DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
+            DataGridPurchaseList.Columns["Name"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Brand"].HeaderText = "Item Brand";
             DataGridPurchaseList.Columns["Brand"].Width = 140;
-            DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
+            DataGridPurchaseList.Columns["Brand"].DisplayIndex = 5;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
             DataGridPurchaseList.Columns["Unit"].Width = 50;
-            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 5;
+            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 6;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
             DataGridPurchaseList.Columns["Quantity"].Width = 60;
-            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 6;
+            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 7;
             DataGridPurchaseList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Price"].HeaderText = "Price";
             DataGridPurchaseList.Columns["Price"].Width = 70;
-            DataGridPurchaseList.Columns["Price"].DisplayIndex = 7;
+            DataGridPurchaseList.Columns["Price"].DisplayIndex = 8;
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridPurchaseList.Columns["Total"].DisplayIndex = 8;
+            DataGridPurchaseList.Columns["Total"].DisplayIndex = 9;
             DataGridPurchaseList.Columns["Total"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -308,7 +310,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridPurchaseList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
         }
-
         #endregion
 
         #region Helper Methods

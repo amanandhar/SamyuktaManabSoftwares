@@ -29,7 +29,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " +
                 "( " +
 
-                "SELECT pi.[EndOfDay], " + 
+                "SELECT pi.[EndOfDay], " +
                 "CASE " +
                 "WHEN pi.[IsBonus] = 1 THEN '" + Constants.PURCHASE_BONUS + "' " +
                 "ELSE '" + Constants.PURCHASE + "' " +
@@ -45,7 +45,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON pi.[BillNo] = ut.[BillNo] " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 ";
+                "WHERE 1 = 1 " +
+                "AND ut.[Action] = '" + Constants.PURCHASE + "' ";
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
@@ -97,7 +98,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 ";
+                "WHERE 1 = 1 " +
+                "AND ut.[Action] = '" + Constants.SALES + "' ";
+
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
                 query += "AND si.[EndOfDay] >= @DateFrom ";

@@ -1,4 +1,6 @@
-﻿namespace GrocerySupplyManagementApp.ViewModels
+﻿using System;
+
+namespace GrocerySupplyManagementApp.ViewModels
 {
     public class PurchasedItemView
     {
@@ -13,5 +15,6 @@
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Total { get; set; }
+        public DateTime AddedDate { get; set; } 
     }
 }

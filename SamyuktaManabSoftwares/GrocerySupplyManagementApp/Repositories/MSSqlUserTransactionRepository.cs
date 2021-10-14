@@ -206,6 +206,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[InvoiceNo], [DueReceivedAmount], [ReceivedAmount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
+                "AND [MemberId] IS NOT NULL " +
                 "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
                 "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' ";
             
@@ -280,8 +281,12 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [Action], " +
                 "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                "[BillNo], [DuePaymentAmount], [PaymentAmount], " +
-                "(SELECT SUM(ISNULL(b.[DuePaymentAmount], 0) - ISNULL(b.[PaymentAmount], 0)) " +
+                "[BillNo], " +
+                "CASE WHEN [Action] = '" + Constants.INCOME + "' THEN [ReceivedAmount] ELSE [DuePaymentAmount] END AS [DuePaymentAmount], " +
+                "CASE WHEN [Action] = '" + Constants.INCOME + "' THEN [ReceivedAmount] ELSE [PaymentAmount] END AS [PaymentAmount], " +
+                "CASE " +
+                "WHEN [Action] = '" +Constants.INCOME + "' THEN " + Constants.DEFAULT_DECIMAL_VALUE + " " +
+                "ELSE (SELECT SUM(ISNULL(b.[DuePaymentAmount], 0) - ISNULL(b.[PaymentAmount], 0)) " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " b " +
                 "WHERE 1 = 1 " +
                 "AND b.[AddedDate] <= a.[AddedDate] ";
@@ -290,7 +295,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ISNULL([SupplierId], '') = @SupplierId ";
             }
 
-            query += ") AS Balance " +
+            query += ") END AS [Balance] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " a " +
                 "WHERE 1 = 1 ";
 
@@ -712,7 +717,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND ISNULL(ut.[Income], '') NOT IN " +
                 "(" +
                 "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', " +
-                "'" + Constants.PURCHASE_BONUS + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.SALES_PROFIT + "' " +
+                "'" + Constants.PURCHASE_BONUS + "', '" + Constants.PURCHASE_DISCOUNT + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.SALES_PROFIT + "' " +
                 ") ";
 
             if (dailyTransactionFilter.Date != null)
@@ -759,7 +764,10 @@ namespace GrocerySupplyManagementApp.Repositories
 
             query += "UNION " +
                 "SELECT bt.[Id], bt.[EndOfDay], '' AS [MemberSupplierId], " +
-                "'Deposit' AS [Action], bt.[Narration] AS [ActionType], " +
+                "CASE " +
+                "WHEN bt.[Action] = 1 THEN '" + Constants.DEPOSIT + "' " +
+                "ELSE '" + Constants.WITHDRAWL + "' " +
+                "END AS [Action], bt.[Narration] AS [ActionType], " +
                 "b.[Name] AS [Bank], '' AS [InvoiceBillNo], '' AS [Income], '' AS [Expense], bt.[Debit] AS [Amount], bt.[AddedDate] " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " bt " +
                 "INNER JOIN " + Constants.TABLE_BANK + " b " +

@@ -80,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
                     var income = selectedRow.Cells["Income"].Value.ToString();
                     var expense = selectedRow.Cells["Expense"].Value.ToString();
-                    var narration = selectedRow.Cells["Narration"].Value.ToString();
+                    var actionType = selectedRow.Cells["ActionType"].Value.ToString();
 
                     if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
                     {
@@ -125,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _userTransactionService.DeleteUserTransaction(id);
                         _stockAdjustmentService.DeleteStockAdjustmentByUserTransaction(id);
                     }
-                    else if(narration.Equals(Constants.OWNER_EQUITY))
+                    else if(actionType.Equals(Constants.OWNER_EQUITY))
                     {
                         _bankTransactionService.DeleteBankTransaction(id);
                     }
