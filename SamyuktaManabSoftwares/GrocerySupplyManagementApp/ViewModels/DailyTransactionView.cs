@@ -1,4 +1,6 @@
-﻿namespace GrocerySupplyManagementApp.ViewModels
+﻿using System;
+
+namespace GrocerySupplyManagementApp.ViewModels
 {
     public class DailyTransactionView
     {
@@ -12,5 +14,6 @@
         public string Income { get; set; }
         public string Expense { get; set; }
         public decimal Amount { get; set; }
+        public DateTime AddedDate { get; set; }
     }
 }

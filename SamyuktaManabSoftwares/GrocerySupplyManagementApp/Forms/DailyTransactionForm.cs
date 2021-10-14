@@ -80,6 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
                     var income = selectedRow.Cells["Income"].Value.ToString();
                     var expense = selectedRow.Cells["Expense"].Value.ToString();
+                    var narration = selectedRow.Cells["Narration"].Value.ToString());
 
                     if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
                     {
@@ -123,6 +124,10 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         _userTransactionService.DeleteUserTransaction(id);
                         _stockAdjustmentService.DeleteStockAdjustmentByUserTransaction(id);
+                    }
+                    else if(narration.Equals(Constants.OWNER_EQUITY))
+                    {
+                        _bankTransactionService.DeleteBankTransaction(id);
                     }
                     else
                     {
@@ -271,6 +276,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Id"].Visible = false;
             DataGridTransactionList.Columns["Income"].Visible = false;
             DataGridTransactionList.Columns["Expense"].Visible = false;
+            DataGridTransactionList.Columns["AddedDate"].Visible = false;
 
             DataGridTransactionList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridTransactionList.Columns["EndOfDay"].Width = 100;
@@ -281,11 +287,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
 
             DataGridTransactionList.Columns["Action"].HeaderText = "Description";
-            DataGridTransactionList.Columns["Action"].Width = 100;
+            DataGridTransactionList.Columns["Action"].Width = 125;
             DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
 
             DataGridTransactionList.Columns["ActionType"].HeaderText = "Type";
-            DataGridTransactionList.Columns["ActionType"].Width = 100;
+            DataGridTransactionList.Columns["ActionType"].Width = 150;
             DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
             DataGridTransactionList.Columns["Bank"].HeaderText = "Bank";
@@ -293,7 +299,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["Bank"].DisplayIndex = 4;
 
             DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
-            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 100;
+            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 125;
             DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 5;
 
             DataGridTransactionList.Columns["Amount"].HeaderText = "Amount";
@@ -362,7 +368,9 @@ namespace GrocerySupplyManagementApp.Forms
 
             dailyTransactionFilter.Username = ComboUser.Text;
 
-            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter).ToList();
+            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter)
+                .OrderByDescending(x => x.AddedDate)
+                .ToList();
             TxtTotal.Text = dailyTransactions.Sum(x => x.Amount).ToString();
 
             var bindingList = new BindingList<DailyTransactionView>(dailyTransactions);

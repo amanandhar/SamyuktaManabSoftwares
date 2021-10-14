@@ -24,19 +24,19 @@ namespace GrocerySupplyManagementApp.Forms
             _purchaseDiscountForm = purchaseDiscountForm;
         }
 
-        private void PurchaseDiscountForm_Load(object sender, System.EventArgs e)
+        private void PurchaseDiscountForm_Load(object sender, EventArgs e)
         {
             TxtBoxBillNo.Text = _billNo;
             TxtBoxBillAmount.Text = _billAmount.ToString();
             TxtBoxDiscountAmount.Focus();
         }
 
-        private void BtnClear_Click(object sender, System.EventArgs e)
+        private void BtnClear_Click(object sender, EventArgs e)
         {
             TxtBoxDiscountAmount.Clear();
         }
 
-        private void BtnSave_Click(object sender, System.EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             var discountAmount = Convert.ToDecimal(TxtBoxDiscountAmount.Text.Trim());
             _purchaseDiscountForm.PopulatePurchaseDiscount(_supplierId, _billNo, discountAmount);

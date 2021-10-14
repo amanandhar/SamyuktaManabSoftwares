@@ -649,7 +649,7 @@ namespace GrocerySupplyManagementApp.Forms
                     EndOfDay = _endOfDay,
                     BillNo = billNo,
                     SupplierId = supplierId,
-                    Action = Constants.PURCHASE,
+                    Action = Constants.INCOME,
                     ActionType = Constants.ACTION_TYPE_NONE,
                     Income = Constants.PURCHASE_DISCOUNT,
                     ReceivedAmount = discountAmount,

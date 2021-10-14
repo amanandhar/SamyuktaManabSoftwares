@@ -757,7 +757,15 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += " ";
             }
 
-            query += "ORDER BY ut.[Id] DESC";
+            query += "UNION " +
+                "SELECT bt.[Id], bt.[EndOfDay], '' AS [MemberSupplierId], " +
+                "'Deposit' AS [Action], bt.[Narration] AS [ActionType], " +
+                "b.[Name] AS [Bank], '' AS [InvoiceBillNo], '' AS [Income], '' AS [Expense], bt.[Debit] AS [Amount], bt.[AddedDate] " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " bt " +
+                "INNER JOIN " + Constants.TABLE_BANK + " b " +
+                "ON bt.[BankId] = b.[Id] " +
+                "WHERE 1 = 1 " +
+                "AND ISNULL(bt.[Narration], '') = '" + Constants.OWNER_EQUITY + "' ";
 
             try
             {
@@ -781,7 +789,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     InvoiceBillNo = reader.IsDBNull(6) ? string.Empty : reader["InvoiceBillNo"].ToString(),
                                     Income = reader.IsDBNull(7) ? string.Empty : reader["Income"].ToString(),
                                     Expense = reader.IsDBNull(8) ? string.Empty : reader["Expense"].ToString(),
-                                    Amount = reader.IsDBNull(9) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Amount"].ToString())
+                                    Amount = reader.IsDBNull(9) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Amount"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
 
                                 transactionViewList.Add(transactionView);
