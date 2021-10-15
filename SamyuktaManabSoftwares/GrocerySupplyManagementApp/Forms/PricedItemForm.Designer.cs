@@ -47,8 +47,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemCode = new System.Windows.Forms.TextBox();
             this.TxtItemSubCode = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.ComboCustomItemUnit = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.TxtCustomPerUnitValue = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtVolume = new System.Windows.Forms.TextBox();
@@ -284,28 +282,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.Size = new System.Drawing.Size(119, 20);
             this.label9.TabIndex = 52;
             this.label9.Text = "Item Sub Code";
-            // 
-            // ComboCustomItemUnit
-            // 
-            this.ComboCustomItemUnit.Enabled = false;
-            this.ComboCustomItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboCustomItemUnit.FormattingEnabled = true;
-            this.ComboCustomItemUnit.Location = new System.Drawing.Point(217, 102);
-            this.ComboCustomItemUnit.Name = "ComboCustomItemUnit";
-            this.ComboCustomItemUnit.Size = new System.Drawing.Size(186, 28);
-            this.ComboCustomItemUnit.TabIndex = 49;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label13.Location = new System.Drawing.Point(74, 106);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(139, 20);
-            this.label13.TabIndex = 48;
-            this.label13.Text = "Custom Item Unit";
             // 
             // TxtCustomPerUnitValue
             // 
@@ -582,10 +558,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.label13);
             this.groupBox5.Controls.Add(this.TxtItemSubCode);
             this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.ComboCustomItemUnit);
             this.groupBox5.Controls.Add(this.label12);
             this.groupBox5.Controls.Add(this.label6);
             this.groupBox5.Controls.Add(this.TxtSalesPricePerUnit);
@@ -701,8 +675,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtVolume;
         private System.Windows.Forms.TextBox TxtCustomPerUnitValue;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox ComboCustomItemUnit;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox TxtItemSubCode;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox5;

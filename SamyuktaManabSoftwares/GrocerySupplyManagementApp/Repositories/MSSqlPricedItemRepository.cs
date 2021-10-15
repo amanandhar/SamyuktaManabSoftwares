@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var pricedItem = new PricedItem();
             var query = @"SELECT " +
-                "[Id], [ItemId], [SubCode], [CustomUnit], [Volume], " +
+                "[Id], [ItemId], [SubCode], [Volume], " +
                 "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
                 "[ImagePath], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " " +
@@ -44,14 +44,13 @@ namespace GrocerySupplyManagementApp.Repositories
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 pricedItem.SubCode = reader["SubCode"].ToString();
-                                pricedItem.CustomUnit = reader["CustomUnit"].ToString();
                                 pricedItem.Volume = Convert.ToInt64(reader["Volume"].ToString());
                                 pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
                                 pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
                                 pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
                                 pricedItem.ImagePath = reader["ImagePath"].ToString();
                                 pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                pricedItem.UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                pricedItem.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -69,7 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public PricedItem GetPricedItem(string itemCode, string itemSubCode)
         {
             var query = @"SELECT " +
-                "pi.[Id], pi.[ItemId], pi.[SubCode],  pi.[CustomUnit], pi.[Volume], " +
+                "pi.[Id], pi.[ItemId], pi.[SubCode], pi.[Volume], " +
                 "pi.[ProfitPercent], pi.[Profit], pi.[SalesPricePerUnit], " +
                 "pi.[ImagePath], pi.[AddedDate], pi.[UpdatedDate] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
@@ -105,14 +104,13 @@ namespace GrocerySupplyManagementApp.Repositories
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 pricedItem.SubCode = reader["SubCode"].ToString();
-                                pricedItem.CustomUnit = reader["CustomUnit"].ToString();
                                 pricedItem.Volume = Convert.ToInt64(reader["Volume"].ToString());
                                 pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
                                 pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
                                 pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
                                 pricedItem.ImagePath = reader["ImagePath"].ToString();
                                 pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                pricedItem.UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                pricedItem.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -222,13 +220,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_PRICED_ITEM + " " +
                     "( " +
-                        "[ItemId], [SubCode], [CustomUnit], [Volume], " +
+                        "[ItemId], [SubCode], [Volume], " +
                         "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
                         "[ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@ItemId, @SubCode, @CustomUnit, @Volume, " +
+                        "@ItemId, @SubCode, @Volume, " +
                         "@ProfitPercent, @Profit, @SalesPricePerUnit, " +
                         "@ImagePath, @AddedBy, @AddedDate " +
                     ") ";
@@ -241,7 +239,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
                         command.Parameters.AddWithValue("@SubCode", pricedItem.SubCode);
-                        command.Parameters.AddWithValue("@CustomUnit", pricedItem.CustomUnit);
                         command.Parameters.AddWithValue("@Volume", pricedItem.Volume);
                         command.Parameters.AddWithValue("@ProfitPercent", pricedItem.ProfitPercent);
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
@@ -269,7 +266,6 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SET " +
                 "[ItemId] = @ItemId, " +
                 "[SubCode] = @SubCode, " +
-                "[CustomUnit] = @CustomUnit, " +
                 "[Volume] = @Volume, " +
                 "[ProfitPercent] = @ProfitPercent, " +
                 "[Profit] = @Profit, " +
@@ -289,7 +285,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Id", id);
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
                         command.Parameters.AddWithValue("@SubCode", pricedItem.SubCode);
-                        command.Parameters.AddWithValue("@CustomUnit", pricedItem.CustomUnit);
                         command.Parameters.AddWithValue("@Volume", pricedItem.Volume);
                         command.Parameters.AddWithValue("@ProfitPercent", pricedItem.ProfitPercent);
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);

@@ -1047,21 +1047,13 @@ namespace GrocerySupplyManagementApp.Forms
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
                 var customPerUnitValue = perUnitValue;
                 
-                if ((item.Unit == Constants.KILOGRAM && pricedItem.CustomUnit == Constants.GRAM)
-                    || (item.Unit == Constants.LITER && pricedItem.CustomUnit == Constants.MILLI_LITER))
-                {
-                    customPerUnitValue = (perUnitValue * pricedItem.Volume) / 1000;
-                }
-                else
-                {
-                    customPerUnitValue = (perUnitValue * pricedItem.Volume);
-                }
+                customPerUnitValue = (perUnitValue * pricedItem.Volume);
 
                 var profitPercent = pricedItem.ProfitPercent;
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 var salesPrice = customPerUnitValue + profitAmount;
                 TxtItemPrice.Text = Math.Round(salesPrice, 2).ToString();
-                TxtPricedUnit.Text = pricedItem.CustomUnit;
+                TxtPricedUnit.Text = item.Unit;
                 // End
 
                 TxtItemStock.Text = stock.ToString();

@@ -175,7 +175,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtBoxItemCode.Text = item.Code;
                 TxtBoxItemName.Text = item.Name;
                 TxtBoxItemBrand.Text = item.Brand;
-                TxtBoxItemUnit.Text = pricedItem.CustomUnit;
+                TxtBoxItemUnit.Text = item.Unit;
                 TxtBoxItemPrice.Text = perUnitValue.ToString();
 
                 EnableFields();
