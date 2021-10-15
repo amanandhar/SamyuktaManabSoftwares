@@ -23,14 +23,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             try
             {
-                var totalPurchaseBonus = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.PURCHASE_BONUS });
                 var totalDeliveryCharge = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.DELIVERY_CHARGE });
                 var totalMemberFee = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.MEMBER_FEE });
                 var totalOtherIncome = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.OTHER_INCOME });
                 var totalSalesProfit = GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay }).ToList().Sum(x => x.Amount);
                 var totalStockAdjustment = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.STOCK_ADJUSTMENT });
 
-                var totalIncome = totalPurchaseBonus + totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustment;
+                var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustment;
 
                 return totalIncome;
             }

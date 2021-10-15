@@ -15,11 +15,6 @@ namespace GrocerySupplyManagementApp.Services
             _pricedItemRepository = pricedItemRepository;
         }
 
-        public IEnumerable<PricedItem> GetPricedItems()
-        {
-            return _pricedItemRepository.GetPricedItems();
-        }
-
         public PricedItem GetPricedItem(long id)
         {
             return _pricedItemRepository.GetPricedItem(id);

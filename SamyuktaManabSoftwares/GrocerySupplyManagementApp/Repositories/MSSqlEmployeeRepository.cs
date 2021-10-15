@@ -380,79 +380,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return employee;
         }
 
-        public Employee UpdateEmployee(long id, Employee employee)
-        {
-            string query = @"UPDATE " + Constants.TABLE_EMPLOYEE + " " +
-                    "SET " +
-                    "[EmployeeId] = @EmployeeId, " +
-                    "[Name] = @Name, " +
-                    "[TempAddress] =  @TempAddress, " +
-                    "[PermAddress] =  @PermAddress, " +
-                    "[ContactNo] =  @ContactNo, " +
-                    "[Email] =  @Email, " +
-                    "[CitizenshipNo] =  @CitizenshipNo, " +
-                    "[Education] =  @Education, " +
-                    "[DateOfBirth] =  @DateOfBirth, " +
-                    "[Age] =  @Age, " +
-                    "[BloodGroup] =  @BloodGroup, " +
-                    "[FatherName] =  @FatherName, " +
-                    "[MotherName] =  @MotherName, " +
-                    "[Gender] =  @Gender, " +
-                    "[MaritalStatus] =  @MaritalStatus, " +
-                    "[SpouseName] =  @SpouseName, " +
-                    "[Post] =  @Post, " +
-                    "[PostStatus] =  @PostStatus, " +
-                    "[AppointedDate] =  @AppointedDate, " +
-                    "[ResignedDate] =  @ResignedDate, " +
-                    "[ImagePath] =  @ImagePath, " +
-                    "[UpdatedBy] = @UpdatedBy, " +
-                    "[UpdatedDate] = @UpdatedDate " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] = @Id";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@EmployeeId", ((object)employee.EmployeeId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Name", ((object)employee.Name) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@TempAddress", ((object)employee.TempAddress) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@PermAddress", ((object)employee.PermAddress) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ContactNo", ((object)employee.ContactNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Email", ((object)employee.Email) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@CitizenshipNo", ((object)employee.CitizenshipNo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Education", ((object)employee.Education) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateOfBirth", ((object)employee.DateOfBirth) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Age", ((object)employee.Age) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@BloodGroup", ((object)employee.BloodGroup) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@FatherName", ((object)employee.FatherName) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@MotherName", ((object)employee.MotherName) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Gender", ((object)employee.Gender) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@MaritalStatus", ((object)employee.MaritalStatus) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@SpouseName", ((object)employee.SpouseName) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Post", ((object)employee.Post) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@PostStatus", ((object)employee.PostStatus) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@AppointedDate", ((object)employee.AppointedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ResignedDate", ((object)employee.ResignedDate) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ImagePath", ((object)employee.ImagePath) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedBy", ((object)employee.UpdatedBy) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)employee.UpdatedDate) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return employee;
-        }
-
         public Employee UpdateEmployee(string employeeId, Employee employee)
         {
             string query = @"UPDATE " + Constants.TABLE_EMPLOYEE + " " +
@@ -521,35 +448,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return employee;
-        }
-
-        public bool DeleteEmployee(long id)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                    "FROM " + Constants.TABLE_EMPLOYEE + " " +
-                    "WHERE 1 = 1 " +
-                    "[Id] = @Id";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
         }
 
         public bool DeleteEmployee(string employeeId)

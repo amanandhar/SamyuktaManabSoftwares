@@ -7,7 +7,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 {
     public interface IBankTransactionService
     {
-        IEnumerable<BankTransaction> GetBankTransactions();
         BankTransaction GetBankTransaction(long id);
         IEnumerable<BankTransaction> GetBankTransactions(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(long bankId);
@@ -17,10 +16,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         BankTransaction AddBankTransaction(BankTransaction bankTransaction);
 
-        BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction);
-
         bool DeleteBankTransaction(long id);
         bool DeleteBankTransactionByUserTransaction(long userTransactionId);
-        bool DeleteBankTransactionAfterEndOfDay(string endOfDay);
     }
 }

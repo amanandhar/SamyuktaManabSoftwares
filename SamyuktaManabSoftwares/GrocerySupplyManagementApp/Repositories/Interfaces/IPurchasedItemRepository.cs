@@ -13,7 +13,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         long GetPurchasedItemTotalQuantity(StockFilter stockFilter);
         PurchasedItem GetPurchasedItemByItemId(long itemId);
         string GetLastBillNo();
-        string GetLastBonusNo();
 
         PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem);
 

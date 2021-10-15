@@ -117,7 +117,7 @@ namespace GrocerySupplyManagementApp.Forms
                     EndOfDay = _endOfDay,
                     ShareMemberId = _selectedShareMemberId,
                     Action = Constants.RECEIPT,
-                    ActionType = Constants.SHARE_CHEQUE,
+                    ActionType = Constants.SHARE_CAPITAL,
                     Bank = ComboBank.Text,
                     ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                     AddedBy = _username,

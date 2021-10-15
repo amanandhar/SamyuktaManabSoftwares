@@ -15,12 +15,6 @@ namespace GrocerySupplyManagementApp.Services
         {
             _bankTransactionRepository = bankTransactionRepository;
         }
-
-        public IEnumerable<BankTransaction> GetBankTransactions()
-        {
-            return _bankTransactionRepository.GetBankTransactions();
-        }
-
         public BankTransaction GetBankTransaction(long id)
         {
             return _bankTransactionRepository.GetBankTransaction(id);
@@ -56,11 +50,6 @@ namespace GrocerySupplyManagementApp.Services
             return _bankTransactionRepository.AddBankTransaction(bankTransaction);
         }
 
-        public BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction)
-        {
-            return _bankTransactionRepository.UpdateBankTransaction(id, bankTransaction);
-        }
-
         public bool DeleteBankTransaction(long id)
         {
             return _bankTransactionRepository.DeleteBankTransaction(id);
@@ -69,11 +58,6 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeleteBankTransactionByUserTransaction(long userTransactionId)
         {
             return _bankTransactionRepository.DeleteBankTransactionByUserTransaction(userTransactionId);
-        }
-
-        public bool DeleteBankTransactionAfterEndOfDay(string endOfDay)
-        {
-            return _bankTransactionRepository.DeleteBankTransactionAfterEndOfDay(endOfDay);
         }
     }
 }

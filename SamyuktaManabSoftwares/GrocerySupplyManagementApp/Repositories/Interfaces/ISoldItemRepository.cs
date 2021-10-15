@@ -10,12 +10,9 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<SoldItem> GetSoldItems();
         IEnumerable<SoldItemView> GetSoldItemViewList(string invoiceNo);
         decimal GetSoldItemTotalQuantity(StockFilter stockFilter);
-        decimal GetSoldItemTotalAmount(StockFilter stockFilter);
-        IEnumerable<string> GetSoldItemCodes();
 
         SoldItem AddSoldItem(SoldItem soldItem);
 
         bool DeleteSoldItem(string invoiceNo);
-        bool DeleteSoldItemAfterEndOfDay(string endOfDay);
     }
 }

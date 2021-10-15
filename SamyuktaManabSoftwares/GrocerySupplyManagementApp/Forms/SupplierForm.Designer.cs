@@ -80,7 +80,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.BtnAddDiscount = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridSupplierList)).BeginInit();
@@ -774,33 +773,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.TabIndex = 53;
             this.label5.Text = "Supplier Management";
             // 
-            // BtnAddDiscount
-            // 
-            this.BtnAddDiscount.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddDiscount.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddDiscount.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnAddDiscount.BorderRadius = 35;
-            this.BtnAddDiscount.BorderSize = 0;
-            this.BtnAddDiscount.FlatAppearance.BorderSize = 0;
-            this.BtnAddDiscount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAddDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddDiscount.ForeColor = System.Drawing.Color.White;
-            this.BtnAddDiscount.Location = new System.Drawing.Point(954, 548);
-            this.BtnAddDiscount.Name = "BtnAddDiscount";
-            this.BtnAddDiscount.Size = new System.Drawing.Size(122, 35);
-            this.BtnAddDiscount.TabIndex = 54;
-            this.BtnAddDiscount.Text = "Add Discount";
-            this.BtnAddDiscount.TextColor = System.Drawing.Color.White;
-            this.BtnAddDiscount.UseVisualStyleBackColor = false;
-            this.BtnAddDiscount.Click += new System.EventHandler(this.BtnAddDiscount_Click);
-            // 
             // SupplierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1088, 597);
-            this.Controls.Add(this.BtnAddDiscount);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -877,6 +855,5 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label5;
-        private CustomControls.Button.CustomButton BtnAddDiscount;
     }
 }

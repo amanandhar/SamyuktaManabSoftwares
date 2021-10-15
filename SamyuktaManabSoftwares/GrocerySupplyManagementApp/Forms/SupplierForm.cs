@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
-    public partial class SupplierForm : Form, IPurchaseDiscountForm
+    public partial class SupplierForm : Form
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
@@ -362,26 +362,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnAddDiscount_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (DataGridSupplierList.SelectedRows.Count == 1)
-                {
-                    var supplierId = TxtSupplierId.Text.Trim();
-                    var billNo = DataGridSupplierList.SelectedCells[4].Value.ToString();
-                    var billAmount = Convert.ToDecimal(DataGridSupplierList.SelectedCells[7].Value.ToString());
-                    PurchaseDiscountForm purchaseDiscountForm = new PurchaseDiscountForm(supplierId, billNo, billAmount, this);
-                    purchaseDiscountForm.ShowDialog();
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-            
-        }
         #endregion
 
         #region Combo Events
@@ -640,38 +620,6 @@ namespace GrocerySupplyManagementApp.Forms
             LoadSupplierTransaction(supplierTransactionViewList);
         }
 
-        public void PopulatePurchaseDiscount(string supplierId, string billNo, decimal discountAmount)
-        {
-            try
-            {
-                var userTransaction = new UserTransaction
-                {
-                    EndOfDay = _endOfDay,
-                    BillNo = billNo,
-                    SupplierId = supplierId,
-                    Action = Constants.INCOME,
-                    ActionType = Constants.ACTION_TYPE_NONE,
-                    Income = Constants.PURCHASE_DISCOUNT,
-                    ReceivedAmount = discountAmount,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
-
-                _userTransactionService.AddUserTransaction(userTransaction);
-                DialogResult result = MessageBox.Show("Discount has been added successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    var supplierTransactionViewList = GetSupplierTransaction();
-                    LoadSupplierTransaction(supplierTransactionViewList);
-                }
-            }
-            catch(Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-        }
-
         public string GetSupplierName()
         {
             return TxtSupplierName.Text;
@@ -702,7 +650,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboPayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
         }
         #endregion
-
         
     }
 }

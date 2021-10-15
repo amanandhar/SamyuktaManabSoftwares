@@ -6,7 +6,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 {
     public interface IPricedItemRepository
     {
-        IEnumerable<PricedItem> GetPricedItems();
         PricedItem GetPricedItem(long id);
         PricedItem GetPricedItem(string itemCode, string weightPiece);
         IEnumerable<PricedItemView> GetPricedItemViewList();

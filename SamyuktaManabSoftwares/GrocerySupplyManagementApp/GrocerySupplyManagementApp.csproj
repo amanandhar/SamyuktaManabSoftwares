@@ -187,7 +187,6 @@
       <DependentUpon>EmployeeListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Interfaces\IEmployeeListForm.cs" />
-    <Compile Include="Forms\Interfaces\IPurchaseDiscountForm.cs" />
     <Compile Include="Forms\Interfaces\IShareMemberListForm.cs" />
     <Compile Include="Forms\Interfaces\IUnpricedItemListForm.cs" />
     <Compile Include="Forms\Interfaces\IUserListForm.cs" />
@@ -228,12 +227,6 @@
     </Compile>
     <Compile Include="Forms\PricedItemListForm.Designer.cs">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\PurchaseDiscountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PurchaseDiscountForm.Designer.cs">
-      <DependentUpon>PurchaseDiscountForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SalesPurchaseForm.cs">
       <SubType>Form</SubType>
@@ -557,9 +550,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PricedItemListForm.resx">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PurchaseDiscountForm.resx">
-      <DependentUpon>PurchaseDiscountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesPurchaseForm.resx">
       <DependentUpon>SalesPurchaseForm.cs</DependentUpon>

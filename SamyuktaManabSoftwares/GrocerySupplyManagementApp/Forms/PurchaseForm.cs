@@ -79,14 +79,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemCode.Focus();
         }
 
-        private void BtnAddBonus_Click(object sender, EventArgs e)
-        {
-            //RichBillNo.Text = _purchasedItemService.GetLastBonusNo();
-            EnableFields(true);
-            RichItemCode.Focus();
-            ChkBoxBonus.Checked = true;
-        }
-
         private void BtnAddItem_Click(object sender, EventArgs e)
         {
             try
@@ -96,7 +88,6 @@ namespace GrocerySupplyManagementApp.Forms
                     Id = _purchasedItemViewList.Count + 1,
                     EndOfDay = _endOfDay,
                     BillNo = RichBillNo.Text,
-                    IsBonus = ChkBoxBonus.Checked,
                     Code = RichItemCode.Text,
                     Name = RichItemName.Text,
                     Brand = RichItemBrand.Text,
@@ -132,7 +123,6 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         SupplierId = _supplierForm.GetSupplierId(),
                         BillNo = item.BillNo,
-                        IsBonus = item.IsBonus,
                         ItemId = _itemService.GetItem(item.Code).Id,
                         Quantity = item.Quantity,
                         Price = item.Price,
@@ -140,7 +130,13 @@ namespace GrocerySupplyManagementApp.Forms
                         AddedDate = item.AddedDate
                     }).ToList();
 
-                    // Inserting purchase transaction before income transaction 
+                   
+                    purchasedItems.ForEach(purchasedItem =>
+                    {
+                        _purchasedItemService.AddPurchasedItem(purchasedItem);
+
+                    });
+
                     var userTransaction = new UserTransaction()
                     {
                         EndOfDay = _endOfDay,
@@ -148,36 +144,12 @@ namespace GrocerySupplyManagementApp.Forms
                         SupplierId = _supplierForm.GetSupplierId(),
                         Action = Constants.PURCHASE,
                         ActionType = Constants.CREDIT,
-                        DuePaymentAmount = _purchasedItemViewList.Where(x => x.IsBonus == false).Sum(x => x.Total),
+                        DuePaymentAmount = _purchasedItemViewList.Sum(x => x.Total),
                         AddedBy = _username,
-                        // Logic to make Purchase to come first before bonus
-                        AddedDate = _purchasedItemViewList.OrderBy(x => x.AddedDate)
-                        .FirstOrDefault().AddedDate.AddSeconds(-1)
+                        AddedDate = DateTime.Now
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
-                    purchasedItems.ForEach(purchasedItem =>
-                    {
-                        _purchasedItemService.AddPurchasedItem(purchasedItem);
-
-                        if (purchasedItem.IsBonus)
-                        {
-                            var userTransactionBonus = new UserTransaction()
-                            {
-                                EndOfDay = _endOfDay,
-                                BillNo = RichBillNo.Text,
-                                SupplierId = _supplierForm.GetSupplierId(),
-                                Action = Constants.INCOME,
-                                ActionType = Constants.ACTION_TYPE_NONE,
-                                Income = Constants.PURCHASE_BONUS,
-                                ReceivedAmount = purchasedItem.Quantity * purchasedItem.Price,
-                                AddedBy = _username,
-                                AddedDate = purchasedItem.AddedDate
-                            };
-
-                            _userTransactionService.AddUserTransaction(userTransactionBonus);
-                        }
-                    });
 
                     _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
 
@@ -267,34 +239,30 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["BillNo"].Width = 90;
             DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
 
-            DataGridPurchaseList.Columns["IsBonus"].HeaderText = "Bonus";
-            DataGridPurchaseList.Columns["IsBonus"].Width = 50;
-            DataGridPurchaseList.Columns["IsBonus"].DisplayIndex = 2;
-
             DataGridPurchaseList.Columns["Code"].HeaderText = "Item Code";
             DataGridPurchaseList.Columns["Code"].Width = 80;
-            DataGridPurchaseList.Columns["Code"].DisplayIndex = 3;
+            DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
             DataGridPurchaseList.Columns["Name"].Width = 170;
-            DataGridPurchaseList.Columns["Name"].DisplayIndex = 4;
+            DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
 
             DataGridPurchaseList.Columns["Brand"].HeaderText = "Item Brand";
             DataGridPurchaseList.Columns["Brand"].Width = 140;
-            DataGridPurchaseList.Columns["Brand"].DisplayIndex = 5;
+            DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
             DataGridPurchaseList.Columns["Unit"].Width = 50;
-            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 6;
+            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 5;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
             DataGridPurchaseList.Columns["Quantity"].Width = 60;
-            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 7;
+            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 6;
             DataGridPurchaseList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Price"].HeaderText = "Price";
             DataGridPurchaseList.Columns["Price"].Width = 70;
-            DataGridPurchaseList.Columns["Price"].DisplayIndex = 8;
+            DataGridPurchaseList.Columns["Price"].DisplayIndex = 7;
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -339,7 +307,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichQuantity.Clear();
             RichUnit.Clear();
             RichPurchasePrice.Clear();
-            ChkBoxBonus.Checked = false;
         }
 
         private void LoadForm(string supplierId, string billNo)
@@ -348,7 +315,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 EndOfDay = purchasedItem.EndOfDay,
                 BillNo = purchasedItem.BillNo,
-                IsBonus = purchasedItem.IsBonus,
                 Code = _itemService.GetItem(purchasedItem.ItemId).Code,
                 Name = _itemService.GetItem(purchasedItem.ItemId).Name,
                 Brand = _itemService.GetItem(purchasedItem.ItemId).Brand,
@@ -364,7 +330,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             BtnSearchItem.Enabled = false;
             BtnAddItem.Enabled = false;
-            BtnAddBonus.Enabled = false;
             BtnDelete.Enabled = false;
             BtnClear.Enabled = false;
             BtnSaveItem.Enabled = false;
@@ -388,6 +353,5 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
-
     }
 }

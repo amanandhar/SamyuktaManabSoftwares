@@ -30,10 +30,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "( " +
 
                 "SELECT pi.[EndOfDay], " +
-                "CASE " +
-                "WHEN pi.[IsBonus] = 1 THEN '" + Constants.PURCHASE_BONUS + "' " +
-                "ELSE '" + Constants.PURCHASE + "' " +
-                "END AS [Description], " +
+                "'" + Constants.PURCHASE + "' AS [Description], " +
                 "ut.[ActionType] AS [Type], " +
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "i.[Unit] AS [Unit], " +
@@ -299,12 +296,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         stockView.SalesPrice = stockViewList[index - 1].PerUnitValue;
                         stockView.StockValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower())
-                            || stock.Description.ToLower().Equals(Constants.PURCHASE_BONUS.ToLower())
                             || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
                             ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue)
                             : stockViewList[index - 1].StockValue - Math.Round((stock.SalesQuantity * stockViewList[index - 1].PerUnitValue), 2);
                         stockView.PerUnitValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower())
-                            || stock.Description.ToLower().Equals(Constants.PURCHASE_BONUS.ToLower())
                             || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
                             ? stock.StockQuantity == Constants.DEFAULT_DECIMAL_VALUE ? Constants.DEFAULT_DECIMAL_VALUE : Math.Round(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
                             : stockViewList[index - 1].PerUnitValue;

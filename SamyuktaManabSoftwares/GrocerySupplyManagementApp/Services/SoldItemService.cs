@@ -31,16 +31,6 @@ namespace GrocerySupplyManagementApp.Services
             return _soldItemRepository.GetSoldItemTotalQuantity(stockFilter);
         }
 
-        public decimal GetSoldItemTotalAmount(StockFilter stockFilter)
-        {
-            return _soldItemRepository.GetSoldItemTotalAmount(stockFilter);
-        }
-
-        public IEnumerable<string> GetSoldItemCodes()
-        {
-            return _soldItemRepository.GetSoldItemCodes();
-        }
-
         public SoldItem AddSoldItem(SoldItem soldItem)
         {
             return _soldItemRepository.AddSoldItem(soldItem);
@@ -49,11 +39,6 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeleteSoldItem(string invoiceNo)
         {
             return _soldItemRepository.DeleteSoldItem(invoiceNo);
-        }
-
-        public bool DeleteSoldItemAfterEndOfDay(string endOfDay)
-        {
-            return _soldItemRepository.DeleteSoldItemAfterEndOfDay(endOfDay);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<PurchasedItem>();
             var query = @"SELECT " +
-                "[EndOfDay], [SupplierId], [BillNo], [IsBonus], [ItemId], [Quantity], [Price], [AddedDate] " +
+                "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL([SupplierId], '') = @SupplierId " +
@@ -93,7 +93,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     SupplierId = reader["SupplierId"].ToString(),
                                     BillNo = reader["BillNo"].ToString(),
-                                    IsBonus = Convert.ToBoolean(reader["IsBonus"].ToString()),
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
@@ -209,7 +208,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new PurchasedItem();
             var query = @"SELECT " +
-                "[EndOfDay], [SupplierId], [BillNo], [IsBonus], [ItemId], [Quantity], [Price], [AddedDate] " +
+                "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
                 "WHERE 1 = 1 " + 
                 "AND [ItemId] = @ItemId";
@@ -230,7 +229,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.EndOfDay = reader["EndOfDay"].ToString();
                                 item.SupplierId = reader["SupplierId"].ToString();
                                 item.BillNo = reader["BillNo"].ToString();
-                                item.IsBonus = Convert.ToBoolean(reader["BillNo"].ToString());
                                 item.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 item.Quantity = Convert.ToDecimal(reader["Quantity"].ToString());
                                 item.Price = Convert.ToDecimal(reader["Price"].ToString());
@@ -282,48 +280,15 @@ namespace GrocerySupplyManagementApp.Repositories
             return billNo;
         }
 
-        public string GetLastBonusNo()
-        {
-            string bonusNo = string.Empty;
-            string query = @"SELECT " +
-                "TOP 1 [BillNo] " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE [BillNo] LIKE '" + Constants.BONUS_PREFIX + "%' " +
-                "ORDER BY Id DESC";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            bonusNo = result.ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return bonusNo;
-        }
-
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)
         {
             string query = @"INSERT INTO " + Constants.TABLE_PURCHASED_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [SupplierId], [BillNo], [IsBonus], [ItemId], [Quantity], [Price], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @SupplierId, @BillNo, @IsBonus, @ItemId, @Quantity, @Price, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @SupplierId, @BillNo, @ItemId, @Quantity, @Price, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -335,7 +300,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@EndOfDay", purchasedItem.EndOfDay);
                         command.Parameters.AddWithValue("@SupplierId", purchasedItem.SupplierId);
                         command.Parameters.AddWithValue("@BillNo", purchasedItem.BillNo);
-                        command.Parameters.AddWithValue("@IsBonus", purchasedItem.IsBonus);
                         command.Parameters.AddWithValue("@ItemId", purchasedItem.ItemId);
                         command.Parameters.AddWithValue("@Quantity", purchasedItem.Quantity);
                         command.Parameters.AddWithValue("@Price", purchasedItem.Price);

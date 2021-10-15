@@ -22,7 +22,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string CREDIT = "Credit";
         public const string DEBIT = "Debit";
         public const string CHEQUE = "Cheque";
-        public const string SHARE_CHEQUE = "Share Cheque";
         public const string ACTION_TYPE_NONE = "None";
 
         public const string CLEAR = "Clear";
@@ -54,8 +53,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string DELIVERY_CHARGE = "Delivery Charge";
         public const string MEMBER_FEE = "Member Fee";
         public const string OTHER_INCOME = "Other Income";
-        public const string PURCHASE_BONUS = "Purchase Bonus";
-        public const string PURCHASE_DISCOUNT = "Purchase Discount";
         public const string SALES_PROFIT = "Sales Profit";
         public const string STOCK_ADJUSTMENT = "Stock Adjustment";
 

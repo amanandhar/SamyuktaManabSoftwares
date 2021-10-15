@@ -93,7 +93,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var incomeFields = new List<ExcelField>();
                     var incomes = GetIncome();
 
-                    incomeFields.Add(new ExcelField() { Order = 1, Field = Constants.PURCHASE_BONUS, Value = incomes.Where(x => x.Name == Constants.PURCHASE_BONUS).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     incomeFields.Add(new ExcelField() { Order = 2, Field = Constants.DELIVERY_CHARGE, Value = incomes.Where(x => x.Name == Constants.DELIVERY_CHARGE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     incomeFields.Add(new ExcelField() { Order = 3, Field = Constants.MEMBER_FEE, Value = incomes.Where(x => x.Name == Constants.MEMBER_FEE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     incomeFields.Add(new ExcelField() { Order = 4, Field = Constants.OTHER_INCOME, Value = incomes.Where(x => x.Name == Constants.OTHER_INCOME).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
@@ -178,11 +177,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var endOfDay = UtilityService.GetDate(MaskDtEOD.Text);
                 var incomeExpenseView = new List<IncomeExpenseView>
                 {
-                    new IncomeExpenseView
-                    {
-                        Name = Constants.PURCHASE_BONUS,
-                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.PURCHASE_BONUS })
-                    },
                     new IncomeExpenseView
                     {
                         Name = Constants.DELIVERY_CHARGE,

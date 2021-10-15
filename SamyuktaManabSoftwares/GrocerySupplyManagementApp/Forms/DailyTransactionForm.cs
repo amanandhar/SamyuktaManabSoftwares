@@ -458,7 +458,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
-            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CHEQUE, Value = Constants.SHARE_CHEQUE });
+            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.OWNER_EQUITY, Value = Constants.OWNER_EQUITY });
+            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CAPITAL, Value = Constants.SHARE_CAPITAL });
         }
 
         private void LoadInvoiceNos()

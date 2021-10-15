@@ -19,54 +19,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<BankTransaction> GetBankTransactions()
-        {
-            var bankTransactions = new List<BankTransaction>();
-            var query = @"SELECT " +
-                "[Id], [EndOfDay], [BankId], [TransactionId], [Action], " +
-                "[Debit], [Credit], [Narration], [AddedDate] " +
-                "FROM " + Constants.TABLE_BANK_TRANSACTION;
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var bankTransaction = new BankTransaction
-                                {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    EndOfDay = reader["EndOfDay"].ToString(),
-                                    BankId = Convert.ToInt64(reader["BankId"].ToString()),
-                                    TransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
-                                    Action = reader.IsDBNull(4) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Narration = reader["Narration"].ToString(),
-                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                                };
-
-                                bankTransactions.Add(bankTransaction);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return bankTransactions;
-        }
-
         public BankTransaction GetBankTransaction(long id)
         {
             var bankTransaction = new BankTransaction();
@@ -431,52 +383,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return bankTransaction;
         }
 
-        public BankTransaction UpdateBankTransaction(long id, BankTransaction bankTransaction)
-        {
-
-            string query = @"UPDATE " + Constants.TABLE_BANK_TRANSACTION + " " +
-                    "SET " +
-                    "[EndOfDay] = @EndOfDay " +
-                    "[BankId] = @BankId, " +
-                    "[TransactionId] = @TransactionId, " +
-                    "[Action] = @Action, " +
-                    "[Debit] = @Debit, " +
-                    "[Credit] = @Credit, " +
-                    "[Narration] = @Narration, " +
-                    "[UpdatedBy] = @UpdatedBy, " +
-                    "[UpdatedDate] = @UpdatedDate " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] = @Id ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@EndOfDay", ((object)bankTransaction.EndOfDay) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedBy", ((object)bankTransaction.UpdatedBy) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)bankTransaction.UpdatedDate) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return bankTransaction;
-        }
-
         public bool DeleteBankTransaction(long id)
         {
             bool result = false;
@@ -520,35 +426,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@TransactionId", ((object)userTransactionId) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
-        }
-
-        public bool DeleteBankTransactionAfterEndOfDay(string endOfDay)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [EndOfDay] > @EndOfDay ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@EndOfDay", ((object)endOfDay) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }

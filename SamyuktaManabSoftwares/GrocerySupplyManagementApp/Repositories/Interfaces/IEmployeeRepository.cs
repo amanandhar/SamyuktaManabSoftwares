@@ -13,10 +13,8 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 
         Employee AddEmployee(Employee employee);
 
-        Employee UpdateEmployee(long id, Employee employee);
         Employee UpdateEmployee(string employeeId, Employee employee);
 
-        bool DeleteEmployee(long id);
         bool DeleteEmployee(string employeeId);
     }
 }

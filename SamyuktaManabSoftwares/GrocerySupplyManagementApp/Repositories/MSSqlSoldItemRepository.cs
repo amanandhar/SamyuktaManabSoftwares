@@ -187,96 +187,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
-        public decimal GetSoldItemTotalAmount(StockFilter stockFilter)
-        {
-            decimal totalAmount = Constants.DEFAULT_DECIMAL_VALUE;
-            var query = @"SELECT " +
-                "CAST(SUM(si.[Quantity] * si.[Price]) AS DECIMAL(18,2)) AS 'Total' " +
-                "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON si.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 ";
-
-            if (!string.IsNullOrWhiteSpace(stockFilter?.ItemCode))
-            {
-                query += "AND ISNULL(i.[Code], '') = @Code ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
-            {
-                query += "AND si.[EndOfDay] >= @DateFrom ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
-            {
-                query += "AND si.[EndOfDay] <= @DateTo ";
-            }
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Code", ((object)stockFilter.ItemCode) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateFrom", ((object)stockFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)stockFilter.DateTo) ?? DBNull.Value);
-
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            totalAmount = Convert.ToDecimal(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return totalAmount;
-        }
-
-        public IEnumerable<string> GetSoldItemCodes()
-        {
-            var itemCodes = new List<string>();
-            var query = @"SELECT " +
-                "DISTINCT [Code] " +
-                "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON si.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 " +
-                "ORDER BY [Code] ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var itemCode = reader["Code"].ToString();
-                                itemCodes.Add(itemCode);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return itemCodes;
-        }
-
         public SoldItem AddSoldItem(SoldItem soldItem)
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
@@ -334,35 +244,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@InvoiceNo", invoiceNo);
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
-        }
-
-        public bool DeleteSoldItemAfterEndOfDay(string endOfDay)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                "FROM " + Constants.TABLE_SOLD_ITEM + " " +
-                "WHERE 1 = 1 " +
-                "AND [EndOfDay] > @EndOfDay ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@EndOfDay", endOfDay);
                         command.ExecuteNonQuery();
                         result = true;
                     }

@@ -85,43 +85,6 @@ namespace GrocerySupplyManagementApp.Services
             return billNo;
         }
 
-        public string GetLastBonusNo()
-        {
-            string bonusNo;
-            try
-            {
-                var lastBonusNo = _purchasedItemRepository.GetLastBonusNo();
-                if (string.IsNullOrWhiteSpace(lastBonusNo))
-                {
-                    var setting = _settingRepository.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
-                    var formats = setting.StartingBillNo.Split('-');
-                    bonusNo =  Constants.BONUS_PREFIX + "-" + formats[1] + "-" + formats[2];
-                }
-                else
-                {
-                    var formats = lastBonusNo.Split('-');
-                    var prefix = Constants.BONUS_PREFIX;
-                    var year = formats[1];
-                    var value = formats[2];
-                    var trimmedValue = (Convert.ToInt64(value.TrimStart(new char[] { '0' })) + 1).ToString();
-
-                    while (trimmedValue.Length < value.Length)
-                    {
-                        trimmedValue = "0" + trimmedValue;
-                    }
-
-                    bonusNo = prefix + "-" + year + "-" + trimmedValue;
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return bonusNo;
-        }
-
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)
         {
             return _purchasedItemRepository.AddPurchasedItem(purchasedItem);

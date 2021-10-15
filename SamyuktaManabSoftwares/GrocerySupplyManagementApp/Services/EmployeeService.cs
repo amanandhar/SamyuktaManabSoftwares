@@ -64,19 +64,9 @@ namespace GrocerySupplyManagementApp.Services
             return _employeeRepository.AddEmployee(employee);
         }
 
-        public Employee UpdateEmployee(long id, Employee employee)
-        {
-            return _employeeRepository.UpdateEmployee(id, employee);
-        }
-
         public Employee UpdateEmployee(string employeeId, Employee employee)
         {
             return _employeeRepository.UpdateEmployee(employeeId, employee);
-        }
-
-        public bool DeleteEmployee(long id)
-        {
-            return _employeeRepository.DeleteEmployee(id);
         }
 
         public bool DeleteEmployee(string employeeId)

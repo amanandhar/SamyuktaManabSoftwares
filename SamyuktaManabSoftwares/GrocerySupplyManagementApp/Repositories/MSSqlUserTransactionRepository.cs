@@ -700,7 +700,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DueReceivedAmount] " +
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
-                    "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.SHARE_CHEQUE + "' THEN ut.[ReceivedAmount] " +
+                    "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.SHARE_CAPITAL + "' THEN ut.[ReceivedAmount] " +
                     "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DuePaymentAmount] " +
                     "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[PaymentAmount] " +
                     "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[PaymentAmount] " +
@@ -717,7 +717,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "AND ISNULL(ut.[Income], '') NOT IN " +
                 "(" +
                 "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', " +
-                "'" + Constants.PURCHASE_BONUS + "', '" + Constants.PURCHASE_DISCOUNT + "', '" + Constants.SALES_DISCOUNT + "', '" + Constants.SALES_PROFIT + "' " +
+                "'" + Constants.SALES_DISCOUNT + "', '" + Constants.SALES_PROFIT + "' " +
                 ") ";
 
             if (dailyTransactionFilter.Date != null)
@@ -762,7 +762,10 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += " ";
             }
 
-            query += "UNION " +
+            // Including Owner Equity from Bank Transaction table
+            if (dailyTransactionFilter.Receipt == Constants.OWNER_EQUITY || dailyTransactionFilter.IsAll)
+            {
+                query += "UNION " +
                 "SELECT bt.[Id], bt.[EndOfDay], '' AS [MemberSupplierId], " +
                 "CASE " +
                 "WHEN bt.[Action] = 1 THEN '" + Constants.DEPOSIT + "' " +
@@ -774,6 +777,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON bt.[BankId] = b.[Id] " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL(bt.[Narration], '') = '" + Constants.OWNER_EQUITY + "' ";
+            }
 
             try
             {

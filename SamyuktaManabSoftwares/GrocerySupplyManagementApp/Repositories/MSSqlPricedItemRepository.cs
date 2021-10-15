@@ -18,57 +18,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<PricedItem> GetPricedItems()
-        {
-            var pricedItems = new List<PricedItem>();
-            var query = @"SELECT " +
-                "[Id], [ItemId], [SubCode], [CustomUnit], [Volume], " +
-                "[ProfitPercent], [Profit], [SalesPricePerUnit], " + 
-                "[ImagePath], [AddedDate], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_PRICED_ITEM + " " +
-                "ORDER BY Id ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var pricedItem = new PricedItem
-                                {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
-                                    SubCode = reader["SubCode"].ToString(),
-                                    CustomUnit = reader["CustomUnit"].ToString(),
-                                    Volume = Convert.ToInt64(reader["Volume"].ToString()),
-                                    ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString()),
-                                    Profit = Convert.ToDecimal(reader["Profit"].ToString()),
-                                    SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString()),
-                                    ImagePath = reader["ImagePath"].ToString(),
-                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                                };
-
-                                pricedItems.Add(pricedItem);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return pricedItems;
-        }
-
         public PricedItem GetPricedItem(long id)
         {
             var pricedItem = new PricedItem();
