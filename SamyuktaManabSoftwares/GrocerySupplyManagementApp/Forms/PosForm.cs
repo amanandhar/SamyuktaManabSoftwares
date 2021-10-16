@@ -682,7 +682,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 200;
+                DataGridSoldItemList.Columns["ItemName"].Width = 210;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["ItemBrand"].HeaderText = "Brand";
@@ -690,7 +690,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemBrand"].DisplayIndex = 2;
 
                 DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";
-                DataGridSoldItemList.Columns["Volume"].Width = 75;
+                DataGridSoldItemList.Columns["Volume"].Width = 65;
                 DataGridSoldItemList.Columns["Volume"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 

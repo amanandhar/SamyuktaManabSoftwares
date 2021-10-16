@@ -763,7 +763,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             // Including Owner Equity from Bank Transaction table
-            if (dailyTransactionFilter.Receipt == Constants.OWNER_EQUITY || dailyTransactionFilter.IsAll)
+            if (dailyTransactionFilter.Receipt == Constants.OWNER_EQUITY 
+                || dailyTransactionFilter.IsAll)
             {
                 query += "UNION " +
                 "SELECT bt.[Id], bt.[EndOfDay], '' AS [MemberSupplierId], " +
@@ -777,6 +778,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON bt.[BankId] = b.[Id] " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL(bt.[Narration], '') = '" + Constants.OWNER_EQUITY + "' ";
+
+                if (dailyTransactionFilter.Date != null)
+                {
+                    query += "AND bt.[EndOfDay] = '" + dailyTransactionFilter.Date + "' ";
+                }
             }
 
             try

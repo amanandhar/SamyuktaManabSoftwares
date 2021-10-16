@@ -126,7 +126,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioBankTransfer.Name = "RadioBankTransfer";
             this.RadioBankTransfer.Size = new System.Drawing.Size(119, 22);
             this.RadioBankTransfer.TabIndex = 43;
-            this.RadioBankTransfer.TabStop = true;
             this.RadioBankTransfer.Text = "Bank Transfer";
             this.RadioBankTransfer.UseVisualStyleBackColor = true;
             this.RadioBankTransfer.CheckedChanged += new System.EventHandler(this.RadioBankTransfer_CheckedChanged);
@@ -171,7 +170,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioExpensePayment.Name = "RadioExpensePayment";
             this.RadioExpensePayment.Size = new System.Drawing.Size(166, 22);
             this.RadioExpensePayment.TabIndex = 40;
-            this.RadioExpensePayment.TabStop = true;
             this.RadioExpensePayment.Text = "By Expense Payment";
             this.RadioExpensePayment.UseVisualStyleBackColor = true;
             this.RadioExpensePayment.CheckedChanged += new System.EventHandler(this.RadioExpense_CheckedChanged);
@@ -179,14 +177,12 @@ namespace GrocerySupplyManagementApp.Forms
             // RadioAll
             // 
             this.RadioAll.AutoSize = true;
-            this.RadioAll.Checked = true;
             this.RadioAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioAll.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.RadioAll.Location = new System.Drawing.Point(37, 15);
             this.RadioAll.Name = "RadioAll";
             this.RadioAll.Size = new System.Drawing.Size(49, 22);
             this.RadioAll.TabIndex = 2;
-            this.RadioAll.TabStop = true;
             this.RadioAll.Text = "All  ";
             this.RadioAll.UseVisualStyleBackColor = true;
             this.RadioAll.CheckedChanged += new System.EventHandler(this.RadioAll_CheckedChanged);
@@ -200,7 +196,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPurchasePayment.Name = "RadioPurchasePayment";
             this.RadioPurchasePayment.Size = new System.Drawing.Size(172, 22);
             this.RadioPurchasePayment.TabIndex = 39;
-            this.RadioPurchasePayment.TabStop = true;
             this.RadioPurchasePayment.Text = "By Purchase Payment";
             this.RadioPurchasePayment.UseVisualStyleBackColor = true;
             this.RadioPurchasePayment.CheckedChanged += new System.EventHandler(this.RadioPayment_CheckedChanged);

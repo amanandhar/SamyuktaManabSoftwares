@@ -66,7 +66,77 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnSave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                SaveBankTransfer();
+            }
+        }
+
         private void BtnSave_Click(object sender, EventArgs e)
+        {
+            SaveBankTransfer();
+        }
+        #endregion
+
+        #region Combo Event
+        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selectedBank = ComboBank.Text;
+            if(!string.IsNullOrWhiteSpace(selectedBank))
+            {
+                var accountNo = _banks.Where(x => x.Name == selectedBank).Select(x => x.AccountNo).FirstOrDefault();
+                TxtAccountNo.Text = accountNo;
+                RichDepositAmount.Focus();
+            }
+        }
+        #endregion
+
+        #region Helper Methods
+        private void LoadBankDetails()
+        {
+            try
+            {
+                ComboBank.Items.Clear();
+                _banks = _bankService.GetBanks().ToList();
+
+                ComboBank.ValueMember = "Id";
+                ComboBank.DisplayMember = "Value";
+
+                _banks.OrderBy(x => x.Name).ToList().ForEach(x =>
+                {
+                    ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
+                });
+
+                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        private void ClearAllFields()
+        {
+            try
+            {
+                ComboBank.Text = string.Empty;
+                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
+                TxtAccountNo.Clear();
+                RichDepositAmount.Clear();
+                RichNarration.Clear();
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        private void SaveBankTransfer()
         {
             try
             {
@@ -133,59 +203,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Combo Event
-        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var selectedBank = ComboBank.Text;
-            if(!string.IsNullOrWhiteSpace(selectedBank))
-            {
-                var accountNo = _banks.Where(x => x.Name == selectedBank).Select(x => x.AccountNo).FirstOrDefault();
-                TxtAccountNo.Text = accountNo;
-            }
-        }
-        #endregion
-
-        #region Helper Methods
-        private void LoadBankDetails()
-        {
-            try
-            {
-                ComboBank.Items.Clear();
-                _banks = _bankService.GetBanks().ToList();
-
-                ComboBank.ValueMember = "Id";
-                ComboBank.DisplayMember = "Value";
-
-                _banks.OrderBy(x => x.Name).ToList().ForEach(x =>
-                {
-                    ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
-                });
-
-                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
-            }
-            catch(Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-        }
-
-        private void ClearAllFields()
-        {
-            try
-            {
-                ComboBank.Text = string.Empty;
-                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
-                TxtAccountNo.Clear();
-                RichDepositAmount.Clear();
-                RichNarration.Clear();
-            }
-            catch(Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-        }
-        #endregion
     }
 }

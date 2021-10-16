@@ -33,6 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskEndOfDay = new System.Windows.Forms.MaskedTextBox();
             this.linkLabel15 = new System.Windows.Forms.LinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label4 = new System.Windows.Forms.Label();
             this.RichReceivableAmount = new System.Windows.Forms.RichTextBox();
             this.RichShareCapital = new System.Windows.Forms.RichTextBox();
@@ -65,7 +66,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.BtnExportToExcel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,11 +74,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtnExportToExcel);
             this.groupBox1.Controls.Add(this.MaskEndOfDay);
             this.groupBox1.Controls.Add(this.linkLabel15);
-            this.groupBox1.Location = new System.Drawing.Point(19, 47);
+            this.groupBox1.Location = new System.Drawing.Point(19, 52);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(900, 60);
+            this.groupBox1.Size = new System.Drawing.Size(905, 60);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -107,11 +108,31 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.BtnShow);
-            this.groupBox3.Location = new System.Drawing.Point(933, 47);
+            this.groupBox3.Location = new System.Drawing.Point(938, 52);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(150, 60);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
+            // 
+            // BtnShow
+            // 
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 35;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(9, 12);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(130, 40);
+            this.BtnShow.TabIndex = 0;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // label4
             // 
@@ -262,7 +283,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.RichLoanAmount);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox2.Location = new System.Drawing.Point(21, 157);
+            this.groupBox2.Location = new System.Drawing.Point(21, 165);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(520, 320);
             this.groupBox2.TabIndex = 44;
@@ -356,9 +377,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.RichReceivableAmount);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox4.Location = new System.Drawing.Point(553, 157);
+            this.groupBox4.Location = new System.Drawing.Point(553, 164);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(520, 320);
+            this.groupBox4.Size = new System.Drawing.Size(530, 320);
             this.groupBox4.TabIndex = 45;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Assets";
@@ -449,9 +470,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.Aqua;
-            this.textBox2.Location = new System.Drawing.Point(-1, 117);
+            this.textBox2.Location = new System.Drawing.Point(-1, 125);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(1089, 29);
+            this.textBox2.Size = new System.Drawing.Size(1103, 29);
             this.textBox2.TabIndex = 50;
             this.textBox2.Text = "                                                                                 " +
     "                 Balance Sheet";
@@ -476,34 +497,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnExportToExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnExportToExcel.ForeColor = System.Drawing.Color.White;
-            this.BtnExportToExcel.Location = new System.Drawing.Point(906, 488);
+            this.BtnExportToExcel.Location = new System.Drawing.Point(739, 12);
             this.BtnExportToExcel.Name = "BtnExportToExcel";
-            this.BtnExportToExcel.Size = new System.Drawing.Size(166, 40);
+            this.BtnExportToExcel.Size = new System.Drawing.Size(155, 40);
             this.BtnExportToExcel.TabIndex = 1;
             this.BtnExportToExcel.Text = "Export To Excel";
             this.BtnExportToExcel.TextColor = System.Drawing.Color.White;
             this.BtnExportToExcel.UseVisualStyleBackColor = false;
             this.BtnExportToExcel.Click += new System.EventHandler(this.BtnExportToExcel_Click);
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnShow.BorderRadius = 35;
-            this.BtnShow.BorderSize = 0;
-            this.BtnShow.FlatAppearance.BorderSize = 0;
-            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(9, 12);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(130, 40);
-            this.BtnShow.TabIndex = 0;
-            this.BtnShow.Text = "Show";
-            this.BtnShow.TextColor = System.Drawing.Color.White;
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // BalanceSheetForm
             // 
@@ -511,7 +512,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1088, 602);
-            this.Controls.Add(this.BtnExportToExcel);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.textBox1);

@@ -26,6 +26,16 @@ namespace GrocerySupplyManagementApp.Forms
         public SupplierForm _supplierForm;
         private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
 
+        #region enum
+        private enum Action
+        {
+            Add,
+            PopulateItem,
+            Load,
+            None
+        }
+        #endregion
+
         #region Constructor
         public PurchaseForm(string username,
             ISettingService settingService, IItemService itemService,
@@ -60,6 +70,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void PurchaseForm_Load(object sender, EventArgs e)
         {
             ClearAllFields();
+            EnableFields(Action.None);
+            EnableFields(Action.Load);
             RichBillNo.Select();
         }
         #endregion
@@ -69,46 +81,22 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ItemListForm itemListForm = new ItemListForm(_itemService, this);
             itemListForm.ShowDialog();
+            EnableFields(Action.None);
+            EnableFields(Action.PopulateItem);
             RichQuantity.Focus();
         }
 
-        private void BtnAddNewBill_Click(object sender, EventArgs e)
+        private void BtnAddBill_Click(object sender, EventArgs e)
         {
             RichBillNo.Text = _purchasedItemService.GetLastBillNo();
-            EnableFields(true);
+            EnableFields(Action.None);
+            EnableFields(Action.Add);
             RichItemCode.Focus();
         }
 
         private void BtnAddItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var purchasedItemView = new PurchasedItemView
-                {
-                    Id = _purchasedItemViewList.Count + 1,
-                    EndOfDay = _endOfDay,
-                    BillNo = RichBillNo.Text,
-                    Code = RichItemCode.Text,
-                    Name = RichItemName.Text,
-                    Brand = RichItemBrand.Text,
-                    Unit = RichUnit.Text,
-                    Quantity = Convert.ToDecimal(RichQuantity.Text),
-                    Price = Convert.ToDecimal(RichPurchasePrice.Text),
-                    Total = (Convert.ToDecimal(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text)),
-                    AddedDate = DateTime.Now
-                };
-
-                _purchasedItemViewList.Add(purchasedItemView);
-                TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => x.Total).ToString();
-                ClearAllFields();
-                LoadPurchasedItemViewList(_purchasedItemViewList);
-
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
+            AddToCart();
         }
 
         private void BtnSaveItem_Click(object sender, EventArgs e)
@@ -129,7 +117,6 @@ namespace GrocerySupplyManagementApp.Forms
                         AddedBy = _username,
                         AddedDate = item.AddedDate
                     }).ToList();
-
                    
                     purchasedItems.ForEach(purchasedItem =>
                     {
@@ -171,12 +158,12 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnClear_Click(object sender, EventArgs e)
+        private void BtnClearItem_Click(object sender, EventArgs e)
         {
             ClearAllFields();
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void BtnDeleteItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -196,6 +183,7 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+
         #endregion
 
         #region Rich Box Event
@@ -212,6 +200,15 @@ namespace GrocerySupplyManagementApp.Forms
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void RichPurchasePrice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                AddToCart();
             }
         }
 
@@ -288,15 +285,76 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.DataSource = source;
         }
 
-        private void EnableFields(bool option)
+        private void AddToCart()
         {
-            BtnSearchItem.Enabled = option;
-            RichItemCode.Enabled = option;
-            RichItemName.Enabled = option;
-            RichItemBrand.Enabled = option;
-            RichUnit.Enabled = option;
-            RichPurchasePrice.Enabled = option;
-            RichQuantity.Enabled = option;
+            try
+            {
+                var purchasedItemView = new PurchasedItemView
+                {
+                    Id = _purchasedItemViewList.Count + 1,
+                    EndOfDay = _endOfDay,
+                    BillNo = RichBillNo.Text,
+                    Code = RichItemCode.Text,
+                    Name = RichItemName.Text,
+                    Brand = RichItemBrand.Text,
+                    Unit = RichUnit.Text,
+                    Quantity = Convert.ToDecimal(RichQuantity.Text),
+                    Price = Convert.ToDecimal(RichPurchasePrice.Text),
+                    Total = (Convert.ToDecimal(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text)),
+                    AddedDate = DateTime.Now
+                };
+
+                _purchasedItemViewList.Add(purchasedItemView);
+                TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => x.Total).ToString();
+                ClearAllFields();
+                LoadPurchasedItemViewList(_purchasedItemViewList);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        private void EnableFields(Action action = Action.None)
+        {
+            if(action == Action.Add)
+            {
+                BtnSearchItem.Enabled = true;
+                BtnAddBill.Enabled = true;
+            }
+            else if(action == Action.PopulateItem)
+            {
+                RichQuantity.Enabled = true;
+                RichPurchasePrice.Enabled = true;
+
+                BtnSearchItem.Enabled = true;
+                BtnAddBill.Enabled = true;
+                BtnAddItem.Enabled = true;
+                BtnSaveItem.Enabled = true;
+                BtnClearItem.Enabled = true;
+                BtnDeleteItem.Enabled = true;
+            }
+            else if (action == Action.Load)
+            {
+                BtnAddBill.Enabled = true;
+            }
+            else
+            {
+                RichItemCode.Enabled = false;
+                RichItemName.Enabled = false;
+                RichItemBrand.Enabled = false;
+                RichUnit.Enabled = false;
+                RichQuantity.Enabled = false;
+                RichPurchasePrice.Enabled = false;
+
+                BtnSearchItem.Enabled = false;
+                BtnAddBill.Enabled = false;
+                BtnAddItem.Enabled = false;
+                BtnSaveItem.Enabled = false;
+                BtnClearItem.Enabled = false;
+                BtnDeleteItem.Enabled = false;
+            } 
         }
 
         private void ClearAllFields()
@@ -304,8 +362,8 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemCode.Clear();
             RichItemName.Clear();
             RichItemBrand.Clear();
-            RichQuantity.Clear();
             RichUnit.Clear();
+            RichQuantity.Clear();
             RichPurchasePrice.Clear();
         }
 
@@ -330,8 +388,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             BtnSearchItem.Enabled = false;
             BtnAddItem.Enabled = false;
-            BtnDelete.Enabled = false;
-            BtnClear.Enabled = false;
+            BtnDeleteItem.Enabled = false;
+            BtnClearItem.Enabled = false;
             BtnSaveItem.Enabled = false;
             BtnAddItem.Enabled = false;
         }
@@ -352,6 +410,7 @@ namespace GrocerySupplyManagementApp.Forms
                 throw ex;
             }
         }
+
         #endregion
     }
 }

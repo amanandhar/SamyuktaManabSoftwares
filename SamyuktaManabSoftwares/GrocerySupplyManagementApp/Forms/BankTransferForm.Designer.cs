@@ -73,11 +73,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(320, 23);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(125, 38);
-            this.BtnSave.TabIndex = 3;
+            this.BtnSave.TabIndex = 7;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            this.BtnSave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BtnSave_KeyDown);
             // 
             // BtnClear
             // 
@@ -93,7 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.Location = new System.Drawing.Point(190, 23);
             this.BtnClear.Name = "BtnClear";
             this.BtnClear.Size = new System.Drawing.Size(125, 38);
-            this.BtnClear.TabIndex = 2;
+            this.BtnClear.TabIndex = 6;
             this.BtnClear.Text = "Clear";
             this.BtnClear.TextColor = System.Drawing.Color.White;
             this.BtnClear.UseVisualStyleBackColor = false;
@@ -140,7 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCash.Name = "TxtCash";
             this.TxtCash.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtCash.Size = new System.Drawing.Size(140, 29);
-            this.TxtCash.TabIndex = 7;
+            this.TxtCash.TabIndex = 2;
             // 
             // ComboBank
             // 
@@ -149,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Location = new System.Drawing.Point(96, 31);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(230, 28);
-            this.ComboBank.TabIndex = 9;
+            this.ComboBank.TabIndex = 1;
             this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
             // 
             // groupBox1
@@ -176,7 +177,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichNarration.Location = new System.Drawing.Point(96, 151);
             this.RichNarration.Name = "RichNarration";
             this.RichNarration.Size = new System.Drawing.Size(525, 32);
-            this.RichNarration.TabIndex = 13;
+            this.RichNarration.TabIndex = 5;
             this.RichNarration.Text = "";
             // 
             // RichDepositAmount
@@ -186,7 +187,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichDepositAmount.Name = "RichDepositAmount";
             this.RichDepositAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichDepositAmount.Size = new System.Drawing.Size(140, 32);
-            this.RichDepositAmount.TabIndex = 12;
+            this.RichDepositAmount.TabIndex = 4;
             this.RichDepositAmount.Text = "";
             // 
             // label3
@@ -207,7 +208,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtAccountNo.Location = new System.Drawing.Point(96, 92);
             this.TxtAccountNo.Name = "TxtAccountNo";
             this.TxtAccountNo.Size = new System.Drawing.Size(230, 29);
-            this.TxtAccountNo.TabIndex = 6;
+            this.TxtAccountNo.TabIndex = 3;
             // 
             // label1
             // 
