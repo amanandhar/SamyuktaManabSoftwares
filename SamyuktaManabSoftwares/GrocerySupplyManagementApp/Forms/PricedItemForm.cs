@@ -18,6 +18,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
+        private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;
         private readonly IPurchasedItemService _purchasedItemService;
@@ -27,6 +28,8 @@ namespace GrocerySupplyManagementApp.Forms
         public DashboardForm _dashboard;
 
         private readonly string _username;
+        private readonly Setting _setting;
+        private readonly string _endOfDay;
         private string _baseImageFolder;
         private const string ITEM_IMAGE_FOLDER = "Items";
         private string _uploadedImagePath = string.Empty;
@@ -48,13 +51,14 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public PricedItemForm(string username, 
+        public PricedItemForm(string username, ISettingService settingService,
             IItemService itemService, IPricedItemService pricedItemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IStockService stockService, DashboardForm dashboardForm)
         {
             InitializeComponent();
 
+            _settingService = settingService;
             _itemService = itemService;
             _pricedItemService = pricedItemService;
             _purchasedItemService = purchasedItemService;
@@ -63,6 +67,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             _dashboard = dashboardForm;
             _username = username;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 
@@ -134,6 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var pricedItem = new PricedItem
                 {
+                    EndOfDay = _endOfDay,
                     ItemId = _selectedItemId,
                     Volume = Convert.ToInt64(TxtVolume.Text),
                     SubCode = TxtItemSubCode.Text,

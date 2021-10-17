@@ -150,11 +150,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
                     "( " +
-                        "[Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -163,6 +163,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", member.Counter);
                         command.Parameters.AddWithValue("@Counter", member.Counter);
                         command.Parameters.AddWithValue("@MemberId", member.MemberId);
                         command.Parameters.AddWithValue("@Name", member.Name);

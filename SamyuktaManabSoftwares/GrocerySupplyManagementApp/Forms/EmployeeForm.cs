@@ -7,6 +7,7 @@ using System;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -15,10 +16,13 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
+        private readonly ISettingService _settingService;
         private readonly IEmployeeService _employeeService;
         public DashboardForm _dashboard;
 
         private readonly string _username;
+        private readonly Setting _setting;
+        private readonly string _endOfDay;
         private string _baseImageFolder;
         private const string EMPLOYEE_IMAGE_FOLDER = "Employees";
         private string _uploadedImagePath = string.Empty;
@@ -38,14 +42,17 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public EmployeeForm(string username, 
-            IEmployeeService employeeService)
+        public EmployeeForm(string username,
+            ISettingService settingService, IEmployeeService employeeService)
         {
             InitializeComponent();
 
+            _settingService = settingService;
             _employeeService = employeeService;
 
             _username = username;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
 
         #endregion
@@ -131,6 +138,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var employee = new Employee
                 {
+                    EndOfDay = _endOfDay,
                     EmployeeId = RichEmployeeId.Text,
                     Name = RichName.Text,
                     TempAddress = RichTempAddress.Text,

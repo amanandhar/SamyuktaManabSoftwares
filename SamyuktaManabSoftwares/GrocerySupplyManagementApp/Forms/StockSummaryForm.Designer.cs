@@ -43,11 +43,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.label12 = new System.Windows.Forms.Label();
             this.TxtBoxAdded = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label8 = new System.Windows.Forms.Label();
             this.TxtValue = new System.Windows.Forms.TextBox();
             this.MaskDtEODTo = new System.Windows.Forms.MaskedTextBox();
-            this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.TxtTotalValue = new System.Windows.Forms.TextBox();
+            this.MaskDtEODFrom = new System.Windows.Forms.MaskedTextBox();
             this.TxtTotalStock = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -58,8 +59,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridStockList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.BtnStockAdjustment = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridStockList)).BeginInit();
             this.SuspendLayout();
@@ -204,6 +203,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.TabIndex = 30;
             this.label11.Text = "Added";
             // 
+            // BtnShow
+            // 
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 35;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(963, 52);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(106, 35);
+            this.BtnShow.TabIndex = 29;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -236,17 +255,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo.TabIndex = 17;
             this.MaskDtEODTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // MaskDtEODFrom
-            // 
-            this.MaskDtEODFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDtEODFrom.Location = new System.Drawing.Point(85, 55);
-            this.MaskDtEODFrom.Mask = "0000-00-00";
-            this.MaskDtEODFrom.Name = "MaskDtEODFrom";
-            this.MaskDtEODFrom.Size = new System.Drawing.Size(100, 26);
-            this.MaskDtEODFrom.TabIndex = 16;
-            this.MaskDtEODFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.MaskDtEODFrom.ValidatingType = typeof(System.DateTime);
-            // 
             // TxtTotalValue
             // 
             this.TxtTotalValue.BackColor = System.Drawing.Color.White;
@@ -257,6 +265,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtTotalValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotalValue.Size = new System.Drawing.Size(115, 26);
             this.TxtTotalValue.TabIndex = 28;
+            // 
+            // MaskDtEODFrom
+            // 
+            this.MaskDtEODFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaskDtEODFrom.Location = new System.Drawing.Point(85, 55);
+            this.MaskDtEODFrom.Mask = "0000-00-00";
+            this.MaskDtEODFrom.Name = "MaskDtEODFrom";
+            this.MaskDtEODFrom.Size = new System.Drawing.Size(100, 26);
+            this.MaskDtEODFrom.TabIndex = 16;
+            this.MaskDtEODFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.MaskDtEODFrom.ValidatingType = typeof(System.DateTime);
             // 
             // TxtTotalStock
             // 
@@ -366,7 +385,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridStockList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridStockList.Size = new System.Drawing.Size(1079, 425);
+            this.DataGridStockList.Size = new System.Drawing.Size(1079, 440);
             this.DataGridStockList.TabIndex = 17;
             this.DataGridStockList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockList_DataBindingComplete);
             // 
@@ -391,53 +410,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.TabIndex = 19;
             this.label5.Text = "Stock Summary Management";
             // 
-            // BtnStockAdjustment
-            // 
-            this.BtnStockAdjustment.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnStockAdjustment.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnStockAdjustment.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnStockAdjustment.BorderRadius = 30;
-            this.BtnStockAdjustment.BorderSize = 0;
-            this.BtnStockAdjustment.FlatAppearance.BorderSize = 0;
-            this.BtnStockAdjustment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnStockAdjustment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnStockAdjustment.ForeColor = System.Drawing.Color.White;
-            this.BtnStockAdjustment.Location = new System.Drawing.Point(942, 571);
-            this.BtnStockAdjustment.Name = "BtnStockAdjustment";
-            this.BtnStockAdjustment.Size = new System.Drawing.Size(125, 30);
-            this.BtnStockAdjustment.TabIndex = 30;
-            this.BtnStockAdjustment.Text = "Stock Adjustment";
-            this.BtnStockAdjustment.TextColor = System.Drawing.Color.White;
-            this.BtnStockAdjustment.UseVisualStyleBackColor = false;
-            this.BtnStockAdjustment.Click += new System.EventHandler(this.BtnStockAdjustment_Click);
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnShow.BorderRadius = 35;
-            this.BtnShow.BorderSize = 0;
-            this.BtnShow.FlatAppearance.BorderSize = 0;
-            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(963, 52);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(106, 35);
-            this.BtnShow.TabIndex = 29;
-            this.BtnShow.Text = "Show";
-            this.BtnShow.TextColor = System.Drawing.Color.White;
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
-            // 
             // StockSummaryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1088, 597);
-            this.Controls.Add(this.BtnStockAdjustment);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.DataGridStockList);
@@ -478,7 +456,6 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnShow;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label5;
-        private CustomControls.Button.CustomButton BtnStockAdjustment;
         private System.Windows.Forms.TextBox TxtBoxAdded;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox TxtBoxDeducted;

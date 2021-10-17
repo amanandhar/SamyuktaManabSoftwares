@@ -322,7 +322,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " +
                     " " + Constants.TABLE_EMPLOYEE + " " +
                     "( " +
-                        "[Counter], [EmployeeId], [Name], [TempAddress], [PermAddress], " +
+                        "[EndOfDay], [Counter], [EmployeeId], [Name], [TempAddress], [PermAddress], " +
                         "[ContactNo], [Email], [CitizenshipNo], [Education], [DateOfBirth], " +
                         "[Age], [BloodGroup], [FatherName], [MotherName], [Gender], [MaritalStatus], " +
                         "[SpouseName], [Post], [PostStatus], [AppointedDate], [ResignedDate], " +
@@ -330,7 +330,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Counter, @EmployeeId, @Name, @TempAddress, @PermAddress, " +
+                        "@EndOfDay, @Counter, @EmployeeId, @Name, @TempAddress, @PermAddress, " +
                         "@ContactNo, @Email, @CitizenshipNo, @Education, @DateOfBirth, " +
                         "@Age, @BloodGroup, @FatherName, @MotherName, @Gender, @MaritalStatus, " +
                         "@SpouseName, @Post, @PostStatus, @AppointedDate, @ResignedDate, " +
@@ -343,6 +343,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", ((object)employee.EndOfDay) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Counter", ((object)employee.Counter) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@EmployeeId", ((object)employee.EmployeeId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Name", ((object)employee.Name) ?? DBNull.Value);

@@ -238,6 +238,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var member = new Member
                 {
+                    EndOfDay = _endOfDay,
                     MemberId = TxtMemberId.Text,
                     Name = TxtName.Text,
                     Address = TxtAddress.Text,

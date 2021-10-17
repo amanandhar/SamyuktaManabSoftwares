@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -113,6 +114,57 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return stockAdjustment;
+        }
+
+        public IEnumerable<StockAdjustmentView> GetStockAdjustmentViewList()
+        {
+            var stockAdjustmentViewList = new List<StockAdjustmentView>();
+            var query = @"SELECT " +
+                "sa.[Id], sa.[EndOfDay], sa.[Action], ut.[Narration], i.[Code], i.[Name], sa.[Quantity], sa.[Price] " +
+                "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON sa.[ItemId] = i.[Id] " +
+                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "ON sa.[UserTransactionId] = ut.[Id] " +
+                "WHERE 1 = 1 " +
+                "ORDER BY sa.[AddedDate] ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var stockAdjustmentView = new StockAdjustmentView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Action = reader["Action"].ToString(),
+                                    Narration = reader["Narration"].ToString(),
+                                    ItemCode = reader["Code"].ToString(),
+                                    ItemName = reader["Name"].ToString(),
+                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
+                                    Price = Convert.ToDecimal(reader["Price"].ToString())
+                                };
+
+                                stockAdjustmentViewList.Add(stockAdjustmentView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return stockAdjustmentViewList;
         }
 
         public decimal GetAddedStockTotalQuantity(StockFilter stockFilter)

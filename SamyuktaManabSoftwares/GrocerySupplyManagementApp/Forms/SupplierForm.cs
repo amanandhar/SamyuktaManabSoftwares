@@ -233,6 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var supplier = new Supplier
                 {
+                    EndOfDay = _endOfDay,
                     SupplierId = TxtSupplierId.Text,
                     Name = TxtSupplierName.Text,
                     Address = TxtAddress.Text,

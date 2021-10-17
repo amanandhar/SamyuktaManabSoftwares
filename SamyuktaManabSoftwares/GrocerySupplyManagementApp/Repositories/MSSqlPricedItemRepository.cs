@@ -220,13 +220,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_PRICED_ITEM + " " +
                     "( " +
-                        "[ItemId], [SubCode], [Volume], " +
+                        "[EndOfDay], [ItemId], [SubCode], [Volume], " +
                         "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
                         "[ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@ItemId, @SubCode, @Volume, " +
+                        "@EndOfDay, @ItemId, @SubCode, @Volume, " +
                         "@ProfitPercent, @Profit, @SalesPricePerUnit, " +
                         "@ImagePath, @AddedBy, @AddedDate " +
                     ") ";
@@ -237,6 +237,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", pricedItem.EndOfDay);
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
                         command.Parameters.AddWithValue("@SubCode", pricedItem.SubCode);
                         command.Parameters.AddWithValue("@Volume", pricedItem.Volume);

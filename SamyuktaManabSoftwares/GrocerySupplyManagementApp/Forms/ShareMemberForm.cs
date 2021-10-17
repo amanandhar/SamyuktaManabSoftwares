@@ -198,6 +198,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var shareMember = new ShareMember
                 {
+                    EndOfDay = _endOfDay,
                     Name = RichName.Text,
                     Address = RichAddress.Text,
                     ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),

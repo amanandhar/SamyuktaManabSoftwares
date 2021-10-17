@@ -187,7 +187,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEmployeeMgmt_Click(object sender, EventArgs e)
         {
-            EmployeeForm employeeForm = new EmployeeForm(_username, _employeeService);
+            EmployeeForm employeeForm = new EmployeeForm(_username, _settingService, _employeeService);
             employeeForm.Show();
         }
 

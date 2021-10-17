@@ -3,6 +3,7 @@
     public class POSDetail
     {
         public long Id { get; set; }
+        public string EndOfDay { get; set; }
         public string InvoiceNo { get; set; }
         public decimal SubTotal { get; set; }
         public decimal DiscountPercent { get; set; }

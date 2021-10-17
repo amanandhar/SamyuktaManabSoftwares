@@ -153,6 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var bank = new Bank
                     {
+                        EndOfDay = _endOfDay,
                         Name = TxtBankName.Text,
                         AccountNo = TxtAccountNo.Text,
                         AddedBy = _username,

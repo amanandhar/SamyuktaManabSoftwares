@@ -15,10 +15,13 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
+        private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IItemCategoryService _itemCategoryService;
 
         private readonly string _username;
+        private readonly Setting _setting;
+        private readonly string _endOfDay;
         private long selectedItemId = 0;
 
         #region Enum
@@ -34,15 +37,18 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Constructor
-        public ItemForm(string username,
+        public ItemForm(string username, ISettingService settingService,
             IItemService itemService, IItemCategoryService itemCategoryService)
         {
             InitializeComponent();
 
+            _settingService = settingService;
             _itemService = itemService;
             _itemCategoryService = itemCategoryService;
 
             _username = username;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 
@@ -77,6 +83,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var item = new Item
                 {
+                    EndOfDay = _endOfDay,
                     Code = RichItemCode.Text,
                     Name = RichItemName.Text,
                     Brand = RichItemBrand.Text,
@@ -93,6 +100,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var counter = formattedItemCode.TrimStart(new Char[] { '0' });
                 var itemCategory = new ItemCategory
                 {
+                    EndOfDay = _endOfDay,
                     Counter = Convert.ToInt64(counter),
                     Name = ComboCategory.Text,
                     ItemCode = RichItemCode.Text,

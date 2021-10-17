@@ -13,5 +13,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         Setting UpdateSetting(long id, Setting setting);
 
         bool DeleteSetting(long id);
+
+        bool DeletePreviousTransactions(string endOfDay);
     }
 }

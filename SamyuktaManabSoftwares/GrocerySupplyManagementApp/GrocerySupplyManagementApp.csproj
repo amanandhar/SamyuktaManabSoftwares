@@ -510,6 +510,7 @@
     <Compile Include="ViewModels\SalesReturnTransactionView.cs" />
     <Compile Include="ViewModels\ShareMemberTransactionView.cs" />
     <Compile Include="ViewModels\SoldItemView.cs" />
+    <Compile Include="ViewModels\StockAdjustmentView.cs" />
     <Compile Include="ViewModels\StockView.cs" />
     <Compile Include="ViewModels\SupplierTransactionView.cs" />
     <Compile Include="ViewModels\SupplierView.cs" />

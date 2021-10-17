@@ -291,7 +291,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnItemPricing_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new PricedItemForm(_username, _itemService, _pricedItemService,
+            OpenChildForm(new PricedItemForm(_username,_settingService, 
+                _itemService, _pricedItemService,
                 _purchasedItemService, _soldItemService,
                 _stockService, this));
             HideSubMenu();
@@ -309,7 +310,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEmployee_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new EmployeeForm(_username, _employeeService));
+            OpenChildForm(new EmployeeForm(_username, _settingService, _employeeService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -377,6 +378,14 @@ namespace GrocerySupplyManagementApp.Forms
             SelectButton(sender as Button, true);
         }
 
+        private void BtnStockAdjustment_Click(object sender, EventArgs e)
+        {
+            var stockAdjustmentForm = new StockAdjustmentForm(_username, _settingService,
+               _itemService, _pricedItemService,
+               _userTransactionService, _stockService, _stockAdjustmentService);
+            stockAdjustmentForm.ShowDialog();
+        }
+
         private void BtnDeliveryPerson_Click(object sender, EventArgs e)
         {
             OpenChildForm(new DeliveryPersonForm(_settingService, _userTransactionService,
@@ -398,7 +407,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnNewCodeSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ItemForm(_username, _itemService, _itemCategoryService));
+            OpenChildForm(new ItemForm(_username, _settingService, _itemService, _itemCategoryService));
             SelectButton(sender as Button, true);
         }
 

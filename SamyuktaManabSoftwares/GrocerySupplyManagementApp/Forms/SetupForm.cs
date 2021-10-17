@@ -14,8 +14,10 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
 
         private readonly string _username;
+        private readonly Setting _setting;
+        private readonly string _endOfDay;
 
-        #region Constructor
+        #region Enum
         private enum Action
         {
             Edit,
@@ -33,6 +35,8 @@ namespace GrocerySupplyManagementApp.Forms
             _settingService = settingService;
 
             _username = username;
+            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
+            _endOfDay = _setting.StartingDate;
         }
         #endregion
 
@@ -72,6 +76,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 var truncate = true;
                 _settingService.AddSetting(setting, truncate);
+
+                _settingService.DeletePreviousTransactions(_endOfDay);
 
                 DialogResult result = MessageBox.Show("Setting has been saved successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)

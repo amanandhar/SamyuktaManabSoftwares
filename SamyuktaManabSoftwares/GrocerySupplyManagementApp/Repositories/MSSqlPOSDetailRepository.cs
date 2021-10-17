@@ -184,11 +184,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " +
                     " " + Constants.TABLE_POS_DETAIL + " " +
                     "( " +
-                        "[InvoiceNo], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge] " +
+                        "[EndOfDay], [InvoiceNo], [SubTotal], [DiscountPercent], [Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@InvoiceNo, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, @DeliveryCharge " +
+                        "@EndOfDay, @InvoiceNo, @SubTotal, @DiscountPercent, @Discount, @VatPercent, @Vat, @DeliveryChargePercent, @DeliveryCharge " +
                     ") ";
             try
             {
@@ -197,6 +197,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", ((object)posDetail.EndOfDay) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)posDetail.InvoiceNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SubTotal", ((object)posDetail.SubTotal) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DiscountPercent", ((object)posDetail.DiscountPercent) ?? DBNull.Value);

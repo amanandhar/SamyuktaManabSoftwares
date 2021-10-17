@@ -258,5 +258,47 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return result;
         }
+
+        public bool DeletePreviousTransactions(string endOfDay)
+        {
+            bool result = false;
+            string query = @" " +
+                "DELETE FROM " + Constants.TABLE_BANK + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_BANK_TRANSACTION + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_EMPLOYEE + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_ITEM + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_ITEM_CATEGORY + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_MEMBER + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_POS_DETAIL + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_PRICED_ITEM + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_PURCHASED_ITEM + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_SHARE_MEMBER + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_SOLD_ITEM + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_SUPPLIER + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                " ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@EndOfDay", endOfDay);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

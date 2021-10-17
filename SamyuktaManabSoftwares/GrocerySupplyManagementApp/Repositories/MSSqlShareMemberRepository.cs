@@ -109,11 +109,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SHARE_MEMBER + " " +
                     "( " +
-                        "[Name], [Address], [ContactNo], [ImagePath], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [Name], [Address], [ContactNo], [ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @Address, @ContactNo, @ImagePath, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @Name, @Address, @ContactNo, @ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -122,6 +122,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", shareMember.EndOfDay);
                         command.Parameters.AddWithValue("@Name", shareMember.Name);
                         command.Parameters.AddWithValue("@Address", shareMember.Address);
                         command.Parameters.AddWithValue("@ContactNo", shareMember.ContactNo);

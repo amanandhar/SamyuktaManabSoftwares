@@ -6,6 +6,7 @@ using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -63,6 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void StockAdjustmentForm_Load(object sender, EventArgs e)
         {
             LoadStockActions();
+            LoadStockAdjustments();
             EnableFields();
             EnableFields(Action.Load);
         }
@@ -105,6 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = Constants.DEDUCT,
                         ActionType = Constants.ACTION_TYPE_NONE,
                         Expense = Constants.STOCK_ADJUSTMENT,
+                        Narration = TxtBoxNarration.Text.Trim(),
                         PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -119,6 +122,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Action = Constants.ADD,
                         ActionType = Constants.ACTION_TYPE_NONE,
                         Income = Constants.STOCK_ADJUSTMENT,
+                        Narration = TxtBoxNarration.Text.Trim(),
                         ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -157,7 +161,59 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Grid Event
+        private void DataGridStockAdjustmentList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridStockAdjustmentList.Columns["Id"].Visible = false;
+
+            DataGridStockAdjustmentList.Columns["EndOfDay"].HeaderText = "Date";
+            DataGridStockAdjustmentList.Columns["EndOfDay"].Width = 75;
+            DataGridStockAdjustmentList.Columns["EndOfDay"].DisplayIndex = 0;
+
+            DataGridStockAdjustmentList.Columns["Action"].HeaderText = "Description";
+            DataGridStockAdjustmentList.Columns["Action"].Width = 90;
+            DataGridStockAdjustmentList.Columns["Action"].DisplayIndex = 1;
+
+            DataGridStockAdjustmentList.Columns["Narration"].HeaderText = "Narration";
+            DataGridStockAdjustmentList.Columns["Narration"].Width = 70;
+            DataGridStockAdjustmentList.Columns["Narration"].DisplayIndex = 2;
+
+            DataGridStockAdjustmentList.Columns["ItemCode"].HeaderText = "Item Code";
+            DataGridStockAdjustmentList.Columns["ItemCode"].Width = 75;
+            DataGridStockAdjustmentList.Columns["ItemCode"].DisplayIndex = 3;
+
+            DataGridStockAdjustmentList.Columns["ItemName"].HeaderText = "Item Name";
+            DataGridStockAdjustmentList.Columns["ItemName"].Width = 150;
+            DataGridStockAdjustmentList.Columns["ItemName"].DisplayIndex = 4;
+
+            DataGridStockAdjustmentList.Columns["Quantity"].HeaderText = "Quantity";
+            DataGridStockAdjustmentList.Columns["Quantity"].Width = 60;
+            DataGridStockAdjustmentList.Columns["Quantity"].DisplayIndex = 5;
+            DataGridStockAdjustmentList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridStockAdjustmentList.Columns["Price"].HeaderText = "Price";
+            DataGridStockAdjustmentList.Columns["Price"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridStockAdjustmentList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridStockAdjustmentList.Columns["Price"].DefaultCellStyle.Format = "0.00";
+
+            foreach (DataGridViewRow row in DataGridStockAdjustmentList.Rows)
+            {
+                DataGridStockAdjustmentList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();
+                DataGridStockAdjustmentList.RowHeadersWidth = 50;
+                DataGridStockAdjustmentList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+        #endregion
+
         #region Helper Methods
+        private void LoadStockAdjustments()
+        {
+            var stockAdjustmentViewList = _stockAdjustmentService.GetStockAdjustmentViewList().ToList();
+            var bindingList = new BindingList<StockAdjustmentView>(stockAdjustmentViewList);
+            var source = new BindingSource(bindingList, null);
+            DataGridStockAdjustmentList.DataSource = source;
+        }
+
         public void PopulatePricedItem(long pricedId)
         {
             try
@@ -197,6 +253,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtBoxItemPrice.Clear();
             ComboAction.Text = string.Empty;
             TxtBoxItemQuantity.Clear();
+            TxtBoxNarration.Clear();
         }
 
         private void LoadStockActions()
@@ -226,6 +283,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ComboAction.Enabled = true;
                 TxtBoxItemQuantity.Enabled = true;
+                TxtBoxNarration.Enabled = true;
 
                 BtnSearch.Enabled = true;
                 BtnClear.Enabled = true;
@@ -244,6 +302,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtBoxItemPrice.Enabled = false;
                 ComboAction.Enabled = false;
                 TxtBoxItemQuantity.Enabled = false;
+                TxtBoxNarration.Enabled = false;
 
                 BtnSearch.Enabled = false;
                 BtnClear.Enabled = false;
@@ -251,7 +310,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnSave.Enabled = false;
             }
         }
+
         #endregion
-        
     }
 }

@@ -366,6 +366,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     var posDetail = new POSDetail
                     {
+                        EndOfDay = _endOfDay,
                         InvoiceNo = TxtInvoiceNo.Text.Trim(),
                         SubTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim()),
                         DiscountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim()),

@@ -148,11 +148,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SUPPLIER + " " +
                     "( " +
-                        "[Counter], [SupplierId], [Name], [Address], [ContactNo], [Email], [Owner], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [Counter], [SupplierId], [Name], [Address], [ContactNo], [Email], [Owner], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "(  " +
-                        "@Counter, @SupplierId, @Name, @Address, @ContactNo, @Email, @Owner, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @Counter, @SupplierId, @Name, @Address, @ContactNo, @Email, @Owner, @AddedBy, @AddedDate " +
                     ")";
 
             try
@@ -162,6 +162,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", supplier.EndOfDay);
                         command.Parameters.AddWithValue("@Counter", supplier.Counter);
                         command.Parameters.AddWithValue("@SupplierId", supplier.SupplierId);
                         command.Parameters.AddWithValue("@Name", supplier.Name);

@@ -38,5 +38,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _settingRepository.DeleteSetting(id);
         }
+
+        public bool DeletePreviousTransactions(string endOfDay)
+        {
+            return _settingRepository.DeletePreviousTransactions(endOfDay);
+        }
     }
 }

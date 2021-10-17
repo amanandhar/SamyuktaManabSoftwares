@@ -107,11 +107,11 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " + 
                     " " + Constants.TABLE_BANK + " " +
                     "( " +
-                        "[Name], [AccountNo], [AddedBy], [AddedDate] " +
+                        "[Name], [EndOfDay], [AccountNo], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @AccountNo, @AddedBy, @AddedDate " +
+                        "@Name, @EndOfDay, @AccountNo, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -121,6 +121,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Name", ((object)bank.Name) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@EndOfDay", ((object)bank.EndOfDay) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AccountNo", ((object)bank.AccountNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedBy", ((object)bank.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)bank.AddedDate) ?? DBNull.Value);

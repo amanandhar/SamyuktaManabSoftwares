@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
@@ -23,6 +24,11 @@ namespace GrocerySupplyManagementApp.Services
         public StockAdjustment GetStockAdjustment(long id)
         {
             return _stockAdjustmentRepository.GetStockAdjustment(id);
+        }
+
+        public IEnumerable<StockAdjustmentView> GetStockAdjustmentViewList()
+        {
+            return _stockAdjustmentRepository.GetStockAdjustmentViewList();
         }
 
         public decimal GetAddedStockTotalQuantity(StockFilter stockFilter)

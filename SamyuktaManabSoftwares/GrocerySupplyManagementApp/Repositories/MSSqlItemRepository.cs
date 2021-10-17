@@ -191,11 +191,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +
                     "( " +
-                        "[Name], [Brand], [Code], [Unit], [Threshold], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [Code], [Name], [Brand], [Unit], [Threshold], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@Name, @Brand, @Code, @Unit, @Threshold, @AddedBy, @AddedDate " +
+                        "[EndOfDay], @Code, @Name, @Brand, @Unit, @Threshold, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -204,9 +204,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@EndOfDay", item.EndOfDay);
+                        command.Parameters.AddWithValue("@Code", ((object)item.Code) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Brand", item.Brand);
-                        command.Parameters.AddWithValue("@Code", ((object)item.Code) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Unit", ((object)item.Unit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedBy", ((object)item.AddedBy) ?? DBNull.Value);
