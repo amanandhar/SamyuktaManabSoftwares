@@ -77,7 +77,10 @@ namespace GrocerySupplyManagementApp.Forms
                 var truncate = true;
                 _settingService.AddSetting(setting, truncate);
 
-                _settingService.DeletePreviousTransactions(_endOfDay);
+                if(!string.IsNullOrWhiteSpace(TxtBoxCompanyStartingDt.Text.Trim()))
+                {
+                    _settingService.DeletePreviousTransactions(TxtBoxCompanyStartingDt.Text.Trim());
+                }
 
                 DialogResult result = MessageBox.Show("Setting has been saved successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)

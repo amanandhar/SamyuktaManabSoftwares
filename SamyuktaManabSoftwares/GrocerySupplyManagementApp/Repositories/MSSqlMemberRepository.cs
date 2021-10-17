@@ -163,7 +163,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@EndOfDay", member.Counter);
+                        command.Parameters.AddWithValue("@EndOfDay", member.EndOfDay);
                         command.Parameters.AddWithValue("@Counter", member.Counter);
                         command.Parameters.AddWithValue("@MemberId", member.MemberId);
                         command.Parameters.AddWithValue("@Name", member.Name);

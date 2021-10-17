@@ -53,6 +53,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridDeliveryPersonList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridDeliveryPersonList.Columns["Id"].Visible = false;
+            DataGridDeliveryPersonList.Columns["EndOfDay"].Visible = false;
             DataGridDeliveryPersonList.Columns["Counter"].Visible = false;
             DataGridDeliveryPersonList.Columns["TempAddress"].Visible = false;
             DataGridDeliveryPersonList.Columns["PermAddress"].Visible = false;
@@ -73,7 +74,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["AppointedDate"].Visible = false;
             DataGridDeliveryPersonList.Columns["ResignedDate"].Visible = false;
             DataGridDeliveryPersonList.Columns["ImagePath"].Visible = false;
+            DataGridDeliveryPersonList.Columns["AddedBy"].Visible = false;
             DataGridDeliveryPersonList.Columns["AddedDate"].Visible = false;
+            DataGridDeliveryPersonList.Columns["UpdatedBy"].Visible = false;
             DataGridDeliveryPersonList.Columns["UpdatedDate"].Visible = false;
 
             DataGridDeliveryPersonList.Columns["EmployeeId"].HeaderText = "Employee Id";

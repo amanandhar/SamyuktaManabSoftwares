@@ -365,6 +365,25 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Text Box Event
+        private void TxtContactNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void RichAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
         #region Combo Events
 
         private void ComboPaymentType_SelectedValueChanged(object sender, EventArgs e)
@@ -651,6 +670,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboPayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
         }
         #endregion
-        
+
     }
 }

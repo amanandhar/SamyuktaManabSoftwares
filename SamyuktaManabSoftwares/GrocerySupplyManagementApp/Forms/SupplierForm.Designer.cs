@@ -486,6 +486,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtContactNumber.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.TxtContactNumber.Size = new System.Drawing.Size(105, 26);
             this.TxtContactNumber.TabIndex = 44;
+            this.TxtContactNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtContactNumber_KeyPress);
             // 
             // TxtBalance
             // 
@@ -552,6 +553,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Size = new System.Drawing.Size(145, 28);
             this.RichAmount.TabIndex = 33;
             this.RichAmount.Text = "";
+            this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
             // 
             // label12
             // 
