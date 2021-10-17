@@ -124,8 +124,12 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EndOfDay = userTransaction.EndOfDay,
                     Description = userTransaction.Action,
-                    BillInvoiceNo = userTransaction.Action == Constants.PURCHASE ? userTransaction?.BillNo : userTransaction?.InvoiceNo,
-                    Amount = userTransaction.DuePaymentAmount
+                    BillInvoiceNo = userTransaction.Action == Constants.PURCHASE 
+                    ? userTransaction?.BillNo 
+                    : userTransaction?.InvoiceNo,
+                    Amount = userTransaction.Action == Constants.PURCHASE 
+                    ? (userTransaction.DuePaymentAmount + userTransaction.PaymentAmount)
+                    : (userTransaction.DueReceivedAmount + userTransaction.ReceivedAmount)
                 }).ToList();
             TxtAmount.Text = purchaseSalesTransactionViewList.Sum(x => x.Amount).ToString();
 

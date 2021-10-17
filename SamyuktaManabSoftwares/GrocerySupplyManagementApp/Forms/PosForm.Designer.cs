@@ -559,14 +559,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // RichBalanceAmount
             // 
-            this.RichBalanceAmount.BackColor = System.Drawing.Color.White;
-            this.RichBalanceAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBalanceAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.RichBalanceAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBalanceAmount.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.RichBalanceAmount.Location = new System.Drawing.Point(158, 248);
+            this.RichBalanceAmount.Location = new System.Drawing.Point(158, 247);
             this.RichBalanceAmount.Name = "RichBalanceAmount";
             this.RichBalanceAmount.ReadOnly = true;
             this.RichBalanceAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichBalanceAmount.Size = new System.Drawing.Size(280, 31);
+            this.RichBalanceAmount.Size = new System.Drawing.Size(280, 56);
             this.RichBalanceAmount.TabIndex = 24;
             // 
             // label10

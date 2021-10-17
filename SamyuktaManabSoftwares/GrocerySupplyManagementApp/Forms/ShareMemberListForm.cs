@@ -55,6 +55,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridShareMemberList.Columns["Id"].Visible = false;
+            DataGridShareMemberList.Columns["EndOfDay"].Visible = false;
+            DataGridShareMemberList.Columns["Address"].Visible = false;
             DataGridShareMemberList.Columns["ImagePath"].Visible = false;
             DataGridShareMemberList.Columns["AddedBy"].Visible = false;
             DataGridShareMemberList.Columns["AddedDate"].Visible = false;
@@ -65,14 +67,15 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridShareMemberList.Columns["Name"].Width = 150;
             DataGridShareMemberList.Columns["Name"].DisplayIndex = 0;
 
-            DataGridShareMemberList.Columns["Address"].HeaderText = "Address";
-            DataGridShareMemberList.Columns["Address"].Width = 150;
-            DataGridShareMemberList.Columns["Address"].DisplayIndex = 1;
-
-            DataGridShareMemberList.Columns["ContactNo"].HeaderText = "ContactNo";
-            DataGridShareMemberList.Columns["ContactNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridShareMemberList.Columns["ContactNo"].DisplayIndex = 3;
+            DataGridShareMemberList.Columns["ContactNo"].HeaderText = "Contact No";
+            DataGridShareMemberList.Columns["ContactNo"].Width = 150;
+            DataGridShareMemberList.Columns["ContactNo"].DisplayIndex = 1;
             DataGridShareMemberList.Columns["ContactNo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridShareMemberList.Columns["Balance"].HeaderText = "Balance";
+            DataGridShareMemberList.Columns["Balance"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridShareMemberList.Columns["Balance"].DisplayIndex = 2;
+            DataGridShareMemberList.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridShareMemberList.Rows)
             {

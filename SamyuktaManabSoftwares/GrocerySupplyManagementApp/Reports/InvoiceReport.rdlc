@@ -295,7 +295,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Total:</Value>
+                    <Value>Total Balance:</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -522,7 +522,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!AmountInWords.Value, "Invoice")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -532,7 +534,7 @@
             <Top>1.21285in</Top>
             <Left>0.21124in</Left>
             <Height>0.23056in</Height>
-            <Width>4.27194in</Width>
+            <Width>4.30319in</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
