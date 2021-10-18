@@ -1,7 +1,9 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,22 +17,23 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
-        private readonly IShareMemberService _shareMemberService;
+        private readonly IUserTransactionService _userTransactionService;
         private readonly IShareMemberListForm _shareMemberListForm;
-        private List<ShareMember> _shareMemberList = new List<ShareMember>();
+        private List<ShareMemberTransactionView> _shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
         
-        public ShareMemberListForm(IShareMemberService shareMemberService, IShareMemberListForm shareMemberListForm)
+        public ShareMemberListForm(IUserTransactionService userTransactionService, 
+            IShareMemberListForm shareMemberListForm)
         {
             InitializeComponent();
-            _shareMemberService = shareMemberService;
+            _userTransactionService = userTransactionService;
             _shareMemberListForm = shareMemberListForm;
         }
 
         #region Form Load Event
         private void ShareMemberListForm_Load(object sender, EventArgs e)
         {
-            var shareMembers = GetShareMembers();
-            LoadShareMembers(shareMembers);
+            var shareMemberTransactionViewList = GetShareMemberTransactionViewList();
+            LoadShareTransactionViewList(shareMemberTransactionViewList);
             RichSearchMemberName.Focus();
         }
         #endregion
@@ -46,7 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (dgv.SelectedRows.Count == 1)
             {
                 var selectedRow = dgv.SelectedRows[0];
-                long shareMemberId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                string shareMemberId = selectedRow.Cells["ShareMemberId"].Value.ToString();
                 _shareMemberListForm.PopulateShareMember(shareMemberId);
                 Close();
             }
@@ -56,12 +59,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridShareMemberList.Columns["Id"].Visible = false;
             DataGridShareMemberList.Columns["EndOfDay"].Visible = false;
-            DataGridShareMemberList.Columns["Address"].Visible = false;
-            DataGridShareMemberList.Columns["ImagePath"].Visible = false;
-            DataGridShareMemberList.Columns["AddedBy"].Visible = false;
-            DataGridShareMemberList.Columns["AddedDate"].Visible = false;
-            DataGridShareMemberList.Columns["UpdatedBy"].Visible = false;
-            DataGridShareMemberList.Columns["UpdatedDate"].Visible = false;
+            DataGridShareMemberList.Columns["ShareMemberId"].Visible = false;
+            DataGridShareMemberList.Columns["Description"].Visible = false;
+            DataGridShareMemberList.Columns["Type"].Visible = false;
+            DataGridShareMemberList.Columns["Debit"].Visible = false;
+            DataGridShareMemberList.Columns["Credit"].Visible = false;
 
             DataGridShareMemberList.Columns["Name"].HeaderText = "Name";
             DataGridShareMemberList.Columns["Name"].Width = 150;
@@ -89,36 +91,32 @@ namespace GrocerySupplyManagementApp.Forms
         #region Rich Textbox Event
         private void RichSearchMemberName_KeyUp(object sender, KeyEventArgs e)
         {
-            SearchShareMembers();
-        }
-
-        private void RichSearchMemberId_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchShareMembers();
+            SearchShareMemberTransactionViewList();
         }
         #endregion
 
         #region Helper Methods
-        private List<ShareMember> GetShareMembers()
+        private List<ShareMemberTransactionView> GetShareMemberTransactionViewList()
         {
-            var _shareMemberList = _shareMemberService.GetShareMembers().ToList();
-            return _shareMemberList;
+            _shareMemberTransactionViewList = _userTransactionService.GetShareMemberTransactions(new ShareMemberTransactionFilter()).ToList();
+            return _shareMemberTransactionViewList;
         }
 
-        private void LoadShareMembers(List<ShareMember> shareMembers)
+        private void LoadShareTransactionViewList(List<ShareMemberTransactionView> shareMemberTransactionViewList)
         {
-            var bindingList = new BindingList<ShareMember>(shareMembers);
+            var bindingList = new BindingList<ShareMemberTransactionView>(shareMemberTransactionViewList);
             var source = new BindingSource(bindingList, null);
             DataGridShareMemberList.DataSource = source;
         }
 
-        private void SearchShareMembers()
+        private void SearchShareMemberTransactionViewList()
         {
             var shareMemberName = RichSearchMemberName.Text;
 
-            var shareMembers = _shareMemberList.Where(x => x.Name.ToLower().StartsWith(shareMemberName.ToLower())).ToList();
-            LoadShareMembers(shareMembers);
+            var shareMemberTransactionViewList = _shareMemberTransactionViewList.Where(x => x.Name.ToLower().StartsWith(shareMemberName.ToLower())).ToList();
+            LoadShareTransactionViewList(shareMemberTransactionViewList);
         }
+
         #endregion
     }
 }

@@ -109,9 +109,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetDailyTransactions(dailyTransactionFilter);
         }
 
-        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
+        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter)
         {
-            return _userTransactionRepository.GetShareMemberTransactions(shareMemberId);
+            return _userTransactionRepository.GetShareMemberTransactions(shareMemberTransactionFilter);
         }
 
         public IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter)

@@ -32,7 +32,7 @@ namespace GrocerySupplyManagementApp.Forms
         private string _baseImageFolder;
         private const string MEMBER_IMAGE_FOLDER = "ShareMembers";
         private string _uploadedImagePath = string.Empty;
-        private long _selectedShareMemberId;
+        private string _selectedShareMemberId;
 
         #region Enum
         private enum Action
@@ -87,7 +87,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            ShareMemberListForm shareMemberListForm = new ShareMemberListForm(_shareMemberService, this);
+            ShareMemberListForm shareMemberListForm = new ShareMemberListForm(_userTransactionService, this);
             shareMemberListForm.ShowDialog();
         }
 
@@ -115,7 +115,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var userTransaction = new UserTransaction
                 {
                     EndOfDay = _endOfDay,
-                    ShareMemberId = _selectedShareMemberId,
+                    ShareMemberId = Convert.ToInt64(_selectedShareMemberId),
                     Action = Constants.RECEIPT,
                     ActionType = Constants.SHARE_CAPITAL,
                     Bank = ComboBank.Text,
@@ -235,7 +235,7 @@ namespace GrocerySupplyManagementApp.Forms
             var shareMemberId = _selectedShareMemberId;
             try
             {
-                var selectedShareMember = _shareMemberService.GetShareMember(shareMemberId);
+                var selectedShareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
                 string destinationFilePath = null;
                 if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                 {
@@ -283,7 +283,7 @@ namespace GrocerySupplyManagementApp.Forms
                     UpdatedDate = DateTime.Now
                 };
 
-                _shareMemberService.UpdateShareMember(shareMemberId, shareMember);
+                _shareMemberService.UpdateShareMember(Convert.ToInt64(shareMemberId), shareMember);
                 DialogResult result = MessageBox.Show(shareMember.Name + " has been updated successfully.", "Message", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -307,13 +307,13 @@ namespace GrocerySupplyManagementApp.Forms
                 if (deleteResult == DialogResult.Yes)
                 {
                     var shareMemberId = _selectedShareMemberId;
-                    var shareMember = _shareMemberService.GetShareMember(shareMemberId); 
+                    var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId)); 
                     if (!string.IsNullOrWhiteSpace(shareMember.ImagePath) && File.Exists(shareMember.ImagePath)) 
                     {
                         UtilityService.DeleteImage(shareMember.ImagePath);
                     }
 
-                    if (_shareMemberService.DeleteShareMember(shareMemberId))
+                    if (_shareMemberService.DeleteShareMember(Convert.ToInt64(shareMemberId)))
                     {
                         DialogResult result = MessageBox.Show(RichName.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
                         if (result == DialogResult.OK)
@@ -356,6 +356,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridShareMemberList.Columns["Id"].Visible = false;
+            DataGridShareMemberList.Columns["ShareMemberId"].Visible = false;
+            DataGridShareMemberList.Columns["Name"].Visible = false;
+            DataGridShareMemberList.Columns["ContactNo"].Visible = false;
 
             DataGridShareMemberList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridShareMemberList.Columns["EndOfDay"].Width = 100;
@@ -426,9 +429,14 @@ namespace GrocerySupplyManagementApp.Forms
             ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CAPITAL, Value = Constants.SHARE_CAPITAL });
         }
         
-        private List<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
+        private List<ShareMemberTransactionView> GetShareMemberTransactions(string shareMemberId)
         {
-            var shareMemberTransactionViewList = _userTransactionService.GetShareMemberTransactions(shareMemberId).ToList();
+            var shareMemberTransactionFilter = new ShareMemberTransactionFilter()
+            {
+                ShareMemberId = shareMemberId
+            };
+
+            var shareMemberTransactionViewList = _userTransactionService.GetShareMemberTransactions(shareMemberTransactionFilter).ToList();
             return shareMemberTransactionViewList;
         }
 
@@ -534,10 +542,10 @@ namespace GrocerySupplyManagementApp.Forms
             RichAmount.Clear();
         }
 
-        public void PopulateShareMember(long shareMemberId)
+        public void PopulateShareMember(string shareMemberId)
         {
             _selectedShareMemberId = shareMemberId;
-            var shareMember = _shareMemberService.GetShareMember(shareMemberId);
+            var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(_selectedShareMemberId));
 
             RichName.Text = shareMember.Name;
             RichAddress.Text = shareMember.Address;
@@ -554,7 +562,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             EnableFields(Action.None);
             EnableFields(Action.PopulateShareMember);
-            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId.ToString()));
         }
 
         #endregion

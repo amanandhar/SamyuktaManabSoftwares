@@ -58,6 +58,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichSearchMemberName.Size = new System.Drawing.Size(180, 26);
             this.RichSearchMemberName.TabIndex = 11;
             this.RichSearchMemberName.Text = "";
+            this.RichSearchMemberName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichSearchMemberName_KeyUp);
             // 
             // label1
             // 

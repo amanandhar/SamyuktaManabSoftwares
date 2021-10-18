@@ -18,7 +18,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<string> GetInvoices();
         IEnumerable<string> GetMemberIds();
         IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);
-        IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId);
+        IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter);
         IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);
 
         UserTransaction AddUserTransaction(UserTransaction userTransaction);

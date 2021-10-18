@@ -826,20 +826,35 @@ namespace GrocerySupplyManagementApp.Repositories
             return transactionViewList;
         }
 
-        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
+        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter)
         {
             var shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
             var query = @"SELECT " +
-                "bt.[Id], bt.[EndOfDay], bt.[Narration] AS [Description], " +
+                "bt.[Id], bt.[EndOfDay], ut.[ShareMemberId], sm.[Name], sm.[ContactNo], bt.[Narration] AS [Description], " +
                 "CASE WHEN bt.[Action] = 1 THEN '" + Constants.DEPOSIT + "' ELSE '" + Constants.WITHDRAWL + "' END AS [Type], " +
                 "bt.[Debit], bt.[Credit], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "INNER JOIN " + 
-                Constants.TABLE_BANK_TRANSACTION + " bt " +
-                "ON ut.[id] = bt.[TransactionId] " + 
-                "WHERE 1 = 1 " +
-                "AND ISNULL(ut.[ShareMemberId], '') = @ShareMemberId ";
-                
+                "INNER JOIN " + Constants.TABLE_SHARE_MEMBER + " sm " +
+                "ON ut.[ShareMemberId] = sm.[Id] " +
+                "INNER JOIN " + Constants.TABLE_BANK_TRANSACTION + " bt " +
+                "ON ut.[id] = bt.[TransactionId] " +
+                "WHERE 1 = 1 ";
+
+            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.DateFrom))
+            {
+                query += "AND ut.[EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.DateTo))
+            {
+                query += "AND ut.[EndOfDay] <= @DateTo ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.ShareMemberId))
+            {
+                query += "AND ISNULL(ut.[ShareMemberId], '') = @ShareMemberId ";
+            }
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -847,7 +862,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ShareMemberId", ((object)shareMemberId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)shareMemberTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)shareMemberTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ShareMemberId", ((object)Convert.ToInt64(shareMemberTransactionFilter?.ShareMemberId)) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -857,6 +874,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
+                                    ShareMemberId = reader["ShareMemberId"].ToString(),
+                                    Name = reader["Name"].ToString(),
+                                    ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
                                     Description = reader["Description"].ToString(),
                                     Type = reader["Type"].ToString(),
                                     Debit = Convert.ToDecimal(reader["Debit"].ToString()),

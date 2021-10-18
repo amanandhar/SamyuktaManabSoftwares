@@ -2,6 +2,6 @@
 {
     public interface IShareMemberListForm
     {
-        void PopulateShareMember(long shareMemberId);
+        void PopulateShareMember(string shareMemberId);
     }
 }
