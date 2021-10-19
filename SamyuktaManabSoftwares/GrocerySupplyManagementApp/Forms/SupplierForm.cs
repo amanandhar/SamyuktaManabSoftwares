@@ -201,7 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _bankTransactionService.AddBankTransaction(bankTransaction);
                     }
 
-                    DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Message", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ComboPayment.Text = string.Empty;
@@ -245,7 +245,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _supplierService.AddSupplier(supplier);
-                DialogResult result = MessageBox.Show(supplier.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(supplier.Name + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -283,7 +283,7 @@ namespace GrocerySupplyManagementApp.Forms
                     UpdatedDate = DateTime.Now
                 });
 
-                DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -304,7 +304,7 @@ namespace GrocerySupplyManagementApp.Forms
             var supplierName = TxtSupplierName.Text;
             _supplierService.DeleteSupplier(supplierName);
 
-            DialogResult result = MessageBox.Show(supplierName + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+            DialogResult result = MessageBox.Show(supplierName + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
                 ClearAllFields();

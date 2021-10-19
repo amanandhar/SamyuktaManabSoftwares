@@ -136,7 +136,7 @@ namespace GrocerySupplyManagementApp.Forms
                     _bankTransactionService.AddBankTransaction(bankTransaction);
                 }
 
-                DialogResult result = MessageBox.Show(ComboPayment.Text.Trim() + " has been saved successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(ComboPayment.Text.Trim() + " has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -162,7 +162,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
                         {
-                            DialogResult result = MessageBox.Show("Expense has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            DialogResult result = MessageBox.Show("Expense has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (result == DialogResult.OK)
                             {
                                 ClearAllFields();

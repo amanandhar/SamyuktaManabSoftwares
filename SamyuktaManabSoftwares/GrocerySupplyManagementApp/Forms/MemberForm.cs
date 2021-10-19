@@ -168,7 +168,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _bankTransactionService.AddBankTransaction(bankTransaction);
                     }
 
-                    DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearTransactionFields();
@@ -252,7 +252,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _memberService.AddMember(member);
 
-                DialogResult result = MessageBox.Show(member.MemberId + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(member.MemberId + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearMemberFields();
@@ -322,7 +322,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _memberService.UpdateMember(memberId, member);
-                DialogResult result = MessageBox.Show(memberId + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(memberId + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearMemberFields();
@@ -344,7 +344,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
                     var memberId = TxtMemberId.Text;
@@ -357,7 +357,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (_memberService.DeleteMember(memberId))
                     {
-                        DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
                             ClearMemberFields();

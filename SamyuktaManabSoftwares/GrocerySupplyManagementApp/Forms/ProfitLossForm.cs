@@ -127,7 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (Excel.Export(excelData, title, sheetname, filename))
                     {
-                        MessageBox.Show(filename + " has been saved successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(filename + " has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {

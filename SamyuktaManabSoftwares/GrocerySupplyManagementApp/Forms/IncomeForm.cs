@@ -94,7 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _bankTransactionService.AddBankTransaction(bankTransaction);
             }
 
-            DialogResult result = MessageBox.Show(ComboIncome.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+            DialogResult result = MessageBox.Show(ComboIncome.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
                 ClearAllFields();
@@ -114,7 +114,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
                         {
-                            DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (result == DialogResult.OK)
                             {
                                 ClearAllFields();

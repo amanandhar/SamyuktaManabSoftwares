@@ -153,7 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _pricedItemService.AddPricedItem(pricedItem);
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -223,7 +223,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -241,7 +241,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
                     var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
@@ -253,7 +253,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (_pricedItemService.DeletePricedItem(_selectedId))
                     {
-                        DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
                             ClearAllFields();

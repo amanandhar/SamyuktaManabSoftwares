@@ -6,5 +6,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         EndOfDay GetEndOfDay(string date);
         EndOfDay GetNextEndOfDay(long id);
+        bool IsEndOfDayExist(string endOfDay);
     }
 }

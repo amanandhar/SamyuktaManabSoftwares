@@ -189,7 +189,7 @@ namespace GrocerySupplyManagementApp.Forms
                     };
 
                     _userTransactionService.AddUserTransaction(userTransaction);
-                    DialogResult informationResult = MessageBox.Show("Payment has been added successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult informationResult = MessageBox.Show("Payment has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (informationResult == DialogResult.OK)
                     {
                         ClearAllMemberFields();
@@ -430,7 +430,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboDeliveryPerson.Text = string.Empty;
 
                     DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?",
-                        "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
                         OpenInvoiceReport(_companyInfoService, _reportService, _selectedInvoiceNo);

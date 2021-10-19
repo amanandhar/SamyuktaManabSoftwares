@@ -140,7 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
 
-                    DialogResult result = MessageBox.Show("Purchased successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show("Purchased successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         Close();

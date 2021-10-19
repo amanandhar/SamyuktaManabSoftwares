@@ -22,5 +22,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _endOfDayRepository.GetNextEndOfDay(id);
         }
+
+        public bool IsEndOfDayExist(string endOfDay)
+        {
+            return _endOfDayRepository.IsEndOfDayExist(endOfDay);
+        }
     }
 }

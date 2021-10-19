@@ -110,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _itemCategoryService.AddItemCategory(itemCategory);
 
-                DialogResult result = MessageBox.Show(item.Code + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(item.Code + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -150,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
                     };
 
                     _itemService.UpdateItem(selectedItemId, item);
-                    DialogResult result = MessageBox.Show(item.Code + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show(item.Code + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
@@ -172,12 +172,12 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (selectedItemId != 0)
                 {
-                    DialogResult questionResult = MessageBox.Show("Do you want to delete?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult questionResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (questionResult == DialogResult.Yes)
                     {
                         _itemService.DeleteItem(selectedItemId);
                         _itemCategoryService.DeleteItemCategory(RichItemCode.Text);
-                        DialogResult actionResult = MessageBox.Show("Item has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        DialogResult actionResult = MessageBox.Show("Item has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (actionResult == DialogResult.OK)
                         {
                             ClearAllFields();

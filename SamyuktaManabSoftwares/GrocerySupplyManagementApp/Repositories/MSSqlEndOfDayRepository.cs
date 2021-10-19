@@ -100,5 +100,43 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return endOfDay;
         }
+
+        public bool IsEndOfDayExist(string endOfDay)
+        {
+            var result = false;
+            var query = @"SELECT " +
+                "TOP 1 " +
+                "[Id] " +
+                "FROM " + Constants.TABLE_END_OF_DAY + " " +
+                "WHERE 1 = 1 " +
+                "AND [DateInBs] = @DateInBS ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateInBS", ((object)endOfDay) ?? DBNull.Value);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                result = true; 
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

@@ -77,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 if (string.IsNullOrWhiteSpace(username.Trim()) || string.IsNullOrWhiteSpace(password.Trim()))
                 {
-                    var error = MessageBox.Show("Username or Password is empty.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var error = MessageBox.Show("Username or Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (error == DialogResult.OK)
                     {
                         return;
@@ -93,7 +93,7 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    var error = MessageBox.Show("Username or Password is invalid.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var error = MessageBox.Show("Username or Password is invalid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (error == DialogResult.OK)
                     {
                         return;

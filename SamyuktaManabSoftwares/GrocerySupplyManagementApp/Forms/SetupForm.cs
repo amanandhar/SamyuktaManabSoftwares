@@ -12,6 +12,7 @@ namespace GrocerySupplyManagementApp.Forms
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
         private readonly ISettingService _settingService;
+        private readonly IEndOfDayService _endOfDayService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -28,11 +29,13 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Constructor
-        public SetupForm(string username, ISettingService settingService)
+        public SetupForm(string username, ISettingService settingService,
+            IEndOfDayService endOfDayService)
         {
             InitializeComponent();
 
             _settingService = settingService;
+            _endOfDayService = endOfDayService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -61,36 +64,50 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var setting = new Setting
-                {
-                    Discount = Convert.ToDecimal(TxtBoxDiscount.Text.Trim()),
-                    Vat = Convert.ToDecimal(TxtBoxVat.Text.Trim()),
-                    DeliveryCharge = Convert.ToDecimal(TxtBoxDeliveryCharge.Text.Trim()),
-                    FiscalYear = TxtBoxFiscalYear.Text.Trim(),
-                    StartingDate = TxtBoxCompanyStartingDt.Text.Trim(),
-                    StartingBillNo = TxtBoxStartingBillNo.Text.Trim(),
-                    StartingInvoiceNo = TxtBoxStartingInvoiceNo.Text.Trim(),
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                var newEndOfDay = TxtBoxCompanyStartingDt.Text.Trim();
 
-                var truncate = true;
-                _settingService.AddSetting(setting, truncate);
-
-                if(!string.IsNullOrWhiteSpace(TxtBoxCompanyStartingDt.Text.Trim()))
+                if(_endOfDayService.IsEndOfDayExist(newEndOfDay))
                 {
-                    _settingService.DeletePreviousTransactions(TxtBoxCompanyStartingDt.Text.Trim());
+                    var setting = new Setting
+                    {
+                        Discount = Convert.ToDecimal(TxtBoxDiscount.Text.Trim()),
+                        Vat = Convert.ToDecimal(TxtBoxVat.Text.Trim()),
+                        DeliveryCharge = Convert.ToDecimal(TxtBoxDeliveryCharge.Text.Trim()),
+                        FiscalYear = TxtBoxFiscalYear.Text.Trim(),
+                        StartingDate = newEndOfDay,
+                        StartingBillNo = TxtBoxStartingBillNo.Text.Trim(),
+                        StartingInvoiceNo = TxtBoxStartingInvoiceNo.Text.Trim(),
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
+
+                    var truncate = true;
+                    _settingService.AddSetting(setting, truncate);
+
+                    if (!string.IsNullOrWhiteSpace(newEndOfDay))
+                    {
+                        _settingService.DeletePreviousTransactions(newEndOfDay);
+                    }
+
+                    DialogResult result = MessageBox.Show("Setting has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        EnableFields();
+                        EnableFields(Action.Save);
+
+                        //Close the application
+                        Application.Exit();
+                    }
                 }
-
-                DialogResult result = MessageBox.Show("Setting has been saved successfully.", "Message", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
+                else
                 {
-                    EnableFields();
-                    EnableFields(Action.Save);
-
-                    //Close the application
-                    Application.Exit();
+                    DialogResult result = MessageBox.Show(newEndOfDay + " is not valid date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
                 }
+                
             }
             catch (Exception ex)
             {

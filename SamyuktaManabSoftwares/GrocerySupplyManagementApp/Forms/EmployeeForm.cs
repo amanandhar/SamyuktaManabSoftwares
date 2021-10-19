@@ -166,7 +166,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _employeeService.AddEmployee(employee);
 
-                DialogResult result = MessageBox.Show(employee.EmployeeId + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(employee.EmployeeId + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -247,7 +247,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _employeeService.UpdateEmployee(employeeId, employee);
-                DialogResult result = MessageBox.Show(employeeId + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(employeeId + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -271,7 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
                     var employeeId = RichEmployeeId.Text;
@@ -281,7 +281,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         if (_employeeService.DeleteEmployee(employeeId))
                         {
-                            DialogResult result = MessageBox.Show(employeeId + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                            DialogResult result = MessageBox.Show(employeeId + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (result == DialogResult.OK)
                             {
                                 ClearAllFields();

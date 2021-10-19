@@ -121,7 +121,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _userService.AddUser(user);
 
-                    DialogResult result = MessageBox.Show(user.Username + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show(user.Username + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
@@ -200,7 +200,7 @@ namespace GrocerySupplyManagementApp.Forms
                     };
 
                     _userService.UpdateUser(username, user);
-                    DialogResult result = MessageBox.Show(username + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show(username + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
@@ -220,13 +220,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
                     var username = TxtUsername.Text;
                     if (_userService.DeleteUser(username))
                     {
-                        DialogResult result = MessageBox.Show(username + " has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                        DialogResult result = MessageBox.Show(username + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
                             ClearAllFields();

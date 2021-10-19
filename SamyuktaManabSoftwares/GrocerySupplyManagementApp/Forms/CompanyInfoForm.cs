@@ -110,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 _companyInfoService.DeleteCompanyInfo();
                 _companyInfoService.AddCompanyInfo(companyInfo);
-                DialogResult result = MessageBox.Show(RichCompanyName.Text + " has been updated successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(RichCompanyName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();

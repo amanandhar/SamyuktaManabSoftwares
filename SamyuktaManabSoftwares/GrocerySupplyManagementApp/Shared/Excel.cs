@@ -20,7 +20,7 @@ namespace GrocerySupplyManagementApp.Shared
                 var xlApp = new MsExcel.Application();
                 if (xlApp == null)
                 {
-                    MessageBox.Show("Excel is not properly installed in you computer!");
+                    MessageBox.Show("Excel is not properly installed in you computer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

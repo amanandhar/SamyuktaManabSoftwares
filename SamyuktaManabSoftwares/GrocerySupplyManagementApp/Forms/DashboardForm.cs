@@ -118,7 +118,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
-        private readonly IEndOfDayService _endOfDateService;
+        private readonly IEndOfDayService _endOfDayService;
         private readonly IEmployeeService _employeeService;
         private readonly IReportService _reportService;
         private readonly IUserService _userService;
@@ -140,7 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
             IMemberService memberService, ISupplierService supplierService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService, IStockService stockService,
-            IEndOfDayService endOfDateService, IEmployeeService employeeService,
+            IEndOfDayService endOfDayService, IEmployeeService employeeService,
             IReportService reportService, IUserService userService,
             IItemCategoryService itemCategoryService, IShareMemberService shareMemberService,
             IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
@@ -162,7 +162,7 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _stockService = stockService;
-            _endOfDateService = endOfDateService;
+            _endOfDayService = endOfDayService;
             _employeeService = employeeService;
             _reportService = reportService;
             _userService = userService;
@@ -257,11 +257,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockSummary_Click(object sender, EventArgs e)
         {
-           OpenChildForm(new StockSummaryForm(_username, 
-               _settingService, _itemService, 
-               _pricedItemService, _purchasedItemService,
-                _soldItemService, _stockService,
-                _userTransactionService, _stockAdjustmentService));
+           OpenChildForm(new StockSummaryForm( 
+               _settingService, _purchasedItemService, 
+               _soldItemService, _stockService,
+               _stockAdjustmentService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -413,7 +412,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSetup_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SetupForm(_username, _settingService));
+            OpenChildForm(new SetupForm(_username, _settingService, _endOfDayService));
             SelectButton(sender as Button, true);
         }
 
@@ -427,11 +426,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    var currentEOD = _endOfDateService.GetEndOfDay(_setting.StartingDate);
-                    var nextEOD = _endOfDateService.GetNextEndOfDay(currentEOD.Id);
+                    var currentEOD = _endOfDayService.GetEndOfDay(_setting.StartingDate);
+                    var nextEOD = _endOfDayService.GetNextEndOfDay(currentEOD.Id);
 
                     var setting = new Setting
                     {
@@ -477,7 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void LoadFiscalYear()
         {
-            var eod = _endOfDateService.GetEndOfDay(_setting.StartingDate);
+            var eod = _endOfDayService.GetEndOfDay(_setting.StartingDate);
 
             RichBoxDateInAd.Text = "Date in AD: " + eod.DateInAd.ToString("yyyy-MM-dd");
             RichBoxDateInAd.SelectionAlignment = HorizontalAlignment.Center;

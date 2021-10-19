@@ -145,7 +145,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
                 _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
 
-                DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();

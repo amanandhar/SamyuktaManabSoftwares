@@ -82,9 +82,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxFiscalYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxFiscalYear.Location = new System.Drawing.Point(664, 37);
             this.TxtBoxFiscalYear.Name = "TxtBoxFiscalYear";
-            this.TxtBoxFiscalYear.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxFiscalYear.Size = new System.Drawing.Size(216, 29);
-            this.TxtBoxFiscalYear.TabIndex = 21;
+            this.TxtBoxFiscalYear.TabIndex = 4;
             this.TxtBoxFiscalYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // TxtBoxCompanyStartingDt
@@ -94,9 +93,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxCompanyStartingDt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxCompanyStartingDt.Location = new System.Drawing.Point(664, 99);
             this.TxtBoxCompanyStartingDt.Name = "TxtBoxCompanyStartingDt";
-            this.TxtBoxCompanyStartingDt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxCompanyStartingDt.Size = new System.Drawing.Size(216, 29);
-            this.TxtBoxCompanyStartingDt.TabIndex = 20;
+            this.TxtBoxCompanyStartingDt.TabIndex = 5;
             this.TxtBoxCompanyStartingDt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // TxtBoxStartingBillNo
@@ -106,9 +104,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxStartingBillNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxStartingBillNo.Location = new System.Drawing.Point(664, 164);
             this.TxtBoxStartingBillNo.Name = "TxtBoxStartingBillNo";
-            this.TxtBoxStartingBillNo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxStartingBillNo.Size = new System.Drawing.Size(216, 29);
-            this.TxtBoxStartingBillNo.TabIndex = 19;
+            this.TxtBoxStartingBillNo.TabIndex = 6;
             this.TxtBoxStartingBillNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label7
@@ -140,9 +137,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxStartingInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxStartingInvoiceNo.Location = new System.Drawing.Point(664, 231);
             this.TxtBoxStartingInvoiceNo.Name = "TxtBoxStartingInvoiceNo";
-            this.TxtBoxStartingInvoiceNo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBoxStartingInvoiceNo.Size = new System.Drawing.Size(216, 29);
-            this.TxtBoxStartingInvoiceNo.TabIndex = 18;
+            this.TxtBoxStartingInvoiceNo.TabIndex = 7;
             this.TxtBoxStartingInvoiceNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // TxtBoxVat
@@ -153,7 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxVat.Location = new System.Drawing.Point(247, 99);
             this.TxtBoxVat.Name = "TxtBoxVat";
             this.TxtBoxVat.Size = new System.Drawing.Size(216, 29);
-            this.TxtBoxVat.TabIndex = 10;
+            this.TxtBoxVat.TabIndex = 2;
             this.TxtBoxVat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
@@ -197,7 +193,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxDeliveryCharge.Location = new System.Drawing.Point(247, 163);
             this.TxtBoxDeliveryCharge.Name = "TxtBoxDeliveryCharge";
             this.TxtBoxDeliveryCharge.Size = new System.Drawing.Size(216, 29);
-            this.TxtBoxDeliveryCharge.TabIndex = 8;
+            this.TxtBoxDeliveryCharge.TabIndex = 3;
             this.TxtBoxDeliveryCharge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
@@ -257,7 +253,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(527, 40);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(140, 40);
-            this.BtnSave.TabIndex = 3;
+            this.BtnSave.TabIndex = 9;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
@@ -277,7 +273,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Location = new System.Drawing.Point(386, 40);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(140, 40);
-            this.BtnEdit.TabIndex = 2;
+            this.BtnEdit.TabIndex = 8;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;

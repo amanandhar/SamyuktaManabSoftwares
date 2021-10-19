@@ -4,7 +4,6 @@ using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,38 +15,27 @@ namespace GrocerySupplyManagementApp.Forms
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
         private readonly ISettingService _settingService;
-        private readonly IItemService _itemService;
-        private readonly IPricedItemService _pricedItemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemItemService;
         private readonly IStockService _stockService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
 
-        private readonly string _username;
         private readonly Setting _setting;
         private readonly string _endOfDay;
 
         #region Constructor
-        public StockSummaryForm(string username, 
-            ISettingService settingService, IItemService itemService,
-            IPricedItemService pricedItemService,
+        public StockSummaryForm(ISettingService settingService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemItemService, 
-            IStockService stockService, IUserTransactionService userTransactionService,
-            IStockAdjustmentService stockAdjustmentService)
+            IStockService stockService, IStockAdjustmentService stockAdjustmentService)
         {
             InitializeComponent();
 
             _settingService = settingService;
-            _itemService = itemService;
-            _pricedItemService = pricedItemService;
             _purchasedItemService = purchasedItemService;
             _soldItemItemService = soldItemItemService;
             _stockService = stockService;
-            _userTransactionService = userTransactionService;
             _stockAdjustmentService = stockAdjustmentService;
 
-            _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
             _endOfDay = _setting.StartingDate;
         }
@@ -56,8 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void StockForm_Load(object sender, EventArgs e)
         {
-            MaskDtEODFrom.Text = _endOfDay;
-            MaskDtEODTo.Text = _endOfDay;
+            MaskDtEOD.Text = _endOfDay;
             _purchasedItemService.GetPurchasedItemDetails().ToList().ForEach(purchasedItem =>
             {
                 ComboItemCode.Items.Add(purchasedItem.Code);
@@ -74,6 +61,20 @@ namespace GrocerySupplyManagementApp.Forms
             LoadItems();
         }
 
+        #endregion
+
+        #region Radio Button Event
+        private void RadioBtnAll_CheckedChanged(object sender, EventArgs e)
+        {
+            MaskDtEOD.Clear();
+        }
+        #endregion
+
+        #region Mask Date Event
+        private void MaskDtEOD_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioBtnAll.Checked = false;
+        }
         #endregion
 
         #region DataGrid Event
@@ -159,8 +160,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var stockFilter = new StockFilter
             {
-                DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text),
-                DateTo = UtilityService.GetDate(MaskDtEODTo.Text),
+                DateFrom = UtilityService.GetDate(MaskDtEOD.Text),
+                DateTo = UtilityService.GetDate(MaskDtEOD.Text),
                 ItemCode = ComboItemCode.Text
             };
 

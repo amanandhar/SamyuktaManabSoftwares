@@ -160,11 +160,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockMgmt_Click(object sender, EventArgs e)
         {
-            StockSummaryForm stockForm = new StockSummaryForm(_username,
-               _settingService, _itemService,
-               _pricedItemService, _purchasedItemService,
+            StockSummaryForm stockForm = new StockSummaryForm(
+                _settingService, _purchasedItemService,
                 _soldItemService, _stockService,
-                _userTransactionService, _stockAdjustmentService);
+                _stockAdjustmentService);
             stockForm.Show();
         }
 
@@ -195,7 +194,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     var currentEOD = _endOfDateService.GetEndOfDay(_setting.StartingDate);

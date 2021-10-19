@@ -164,7 +164,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _userTransactionService.AddUserTransaction(userTransactionPurchase);
 
-                    DialogResult result = MessageBox.Show("Item/s have been returned successfully.", "Message", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show("Item/s have been returned successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();

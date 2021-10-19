@@ -182,7 +182,7 @@ namespace GrocerySupplyManagementApp.Forms
                         };
                         _bankTransactionService.AddBankTransaction(bankTransaction);
 
-                        DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
                             ClearAllFields();

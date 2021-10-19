@@ -88,7 +88,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _bankTransactionService.AddBankTransaction(bankTransaction);
-                DialogResult result = MessageBox.Show(ComboActionType.Text + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(ComboActionType.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
@@ -139,11 +139,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var name = TxtBankName.Text;
-                var accountNo = TxtAccountNo.Text;
+                var name = TxtBankName.Text.Trim();
+                var accountNo = TxtAccountNo.Text.Trim();
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(accountNo))
                 {
-                    DialogResult result = MessageBox.Show("Bank name and account number are required.", "Warning", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show("Please enter following fields: \n * Bank Name \n * Account Number", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (result == DialogResult.OK)
                     {
                         return;
@@ -162,7 +162,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _bankService.AddBank(bank);
 
-                    DialogResult result = MessageBox.Show(bank.Name + " has been added successfully.", "Message", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show(bank.Name + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
@@ -193,7 +193,7 @@ namespace GrocerySupplyManagementApp.Forms
             };
 
             _bankService.UpdateBank(selectedBankId, bank);
-            MessageBox.Show(TxtBankName.Text + " is updated successfully.", "Message", MessageBoxButtons.OK);
+            MessageBox.Show(TxtBankName.Text + " is updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnDeleteBank_Click(object sender, EventArgs e)
@@ -208,7 +208,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _bankService.DeleteBank(selectedBankId);
                 _bankTransactionService.DeleteBankTransaction(selectedBankId);
 
-                DialogResult result = MessageBox.Show(TxtBankName.Text + " is deleted successfully.", "Message", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(TxtBankName.Text + " is deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();

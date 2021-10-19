@@ -112,7 +112,7 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Message", MessageBoxButtons.OK);
+                            DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             if (billResult == DialogResult.OK)
                             {
                                 LoadDailyTransactions();
@@ -135,7 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                     }
 
-                    DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Message", MessageBoxButtons.OK);
+                    DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         LoadDailyTransactions();
