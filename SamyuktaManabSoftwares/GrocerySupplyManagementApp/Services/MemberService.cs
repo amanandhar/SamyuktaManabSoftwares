@@ -24,30 +24,6 @@ namespace GrocerySupplyManagementApp.Services
             return _memberRepository.GetMember(memberId);
         }
 
-        public string GetNewMemberId()
-        {
-            string memberId;
-            var id = (_memberRepository.GetLastMemberId() + 1).ToString();
-            if (id.Length == 1)
-            {
-                memberId = "000" + id;
-            }
-            else if (id.Length == 2)
-            {
-                memberId = "00" + id;
-            }
-            else if (id.Length == 3)
-            {
-                memberId = "0" + id;
-            }
-            else
-            {
-                memberId = id;
-            }
-
-            return "M" + memberId;
-        }
-
         public Member AddMember(Member member)
         {
             member.Counter = _memberRepository.GetLastMemberId() + 1;

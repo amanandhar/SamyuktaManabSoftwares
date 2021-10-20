@@ -303,12 +303,6 @@
     <Compile Include="Forms\CompanyInfoForm.Designer.cs">
       <DependentUpon>CompanyInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForm1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DashboardForm1.Designer.cs">
-      <DependentUpon>DashboardForm1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\PricedItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -589,9 +583,6 @@
     <EmbeddedResource Include="Forms\CompanyInfoForm.resx">
       <DependentUpon>CompanyInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForm1.resx">
-      <DependentUpon>DashboardForm1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PricedItemForm.resx">
       <DependentUpon>PricedItemForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -647,7 +638,6 @@
     <EmbeddedResource Include="Forms\DailyTransactionForm.resx">
       <DependentUpon>DailyTransactionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\BalanceSheet.rdlc" />
     <EmbeddedResource Include="Reports\InvoiceReport.rdlc" />
     <None Include=".Designer.gitignore" />
     <None Include=".gitignore">

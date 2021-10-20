@@ -7,7 +7,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     {
         IEnumerable<Member> GetMembers();
         Member GetMember(string memberId);
-        string GetNewMemberId();
 
         Member AddMember(Member member);
 

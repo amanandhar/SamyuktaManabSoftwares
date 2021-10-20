@@ -77,7 +77,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (_userTransactionService.AddUserTransaction(userTransaction) != null)
             {
-                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
                 ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                 var bankTransaction = new BankTransaction
                 {

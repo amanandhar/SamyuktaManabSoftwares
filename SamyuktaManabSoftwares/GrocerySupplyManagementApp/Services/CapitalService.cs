@@ -23,11 +23,6 @@ namespace GrocerySupplyManagementApp.Services
             return _capitalRepository.GetSupplierTotalBalance(supplierTransactionFilter);
         }
 
-        public decimal GetUserTransactionBalance(DailyTransactionFilter dailyTransactionFilter)
-        {
-            return _capitalRepository.GetUserTransactionBalance(dailyTransactionFilter);
-        }
-
         public decimal GetCashInHand(UserTransactionFilter userTransactionFilter)
         {
             return _capitalRepository.GetCashInHand(userTransactionFilter);
@@ -66,11 +61,6 @@ namespace GrocerySupplyManagementApp.Services
         public decimal GetTotalBalance(string endOfDay, string action, string actionType)
         {
             return _capitalRepository.GetTotalBalance(endOfDay, action, actionType);
-        }
-
-        public decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType)
-        {
-            return _capitalRepository.GetPreviousTotalBalance(endOfDay, action, actionType);
         }
     }
 }

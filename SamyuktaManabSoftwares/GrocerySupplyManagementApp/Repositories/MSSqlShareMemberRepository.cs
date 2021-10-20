@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
@@ -15,51 +14,6 @@ namespace GrocerySupplyManagementApp.Repositories
         public MSSqlShareMemberRepository()
         {
             connectionString = UtilityService.GetConnectionString();
-        }
-
-        public IEnumerable<ShareMember> GetShareMembers()
-        {
-            var shareMembers = new List<ShareMember>();
-            var query = @"SELECT " +
-                "[Id], [Name], " +
-                "[Address], [ContactNo], [ImagePath], " +
-                "[AddedDate], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_SHARE_MEMBER;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var shareMember = new ShareMember
-                                {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    Name = reader["Name"].ToString(),
-                                    Address = reader["Address"].ToString(),
-                                    ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
-                                    ImagePath = reader["ImagePath"].ToString(),
-                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(6) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                                };
-
-                                shareMembers.Add(shareMember);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return shareMembers;
         }
 
         public ShareMember GetShareMember(long id)

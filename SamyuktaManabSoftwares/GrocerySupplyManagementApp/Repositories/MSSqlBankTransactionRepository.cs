@@ -19,52 +19,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public BankTransaction GetBankTransaction(long id)
-        {
-            var bankTransaction = new BankTransaction();
-            var query = @"SELECT " +
-                "[Id], [EndOfDay], [BankId], [TransactionId], [Action], " +
-                "[Debit], [Credit], [Narration], [AddedDate], [UpdatedDate] " + 
-                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND Id = @Id ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                bankTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
-                                bankTransaction.EndOfDay = reader["EndOfDay"].ToString();
-                                bankTransaction.BankId = Convert.ToInt64(reader["BankId"].ToString());
-                                bankTransaction.TransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString());
-                                bankTransaction.Action = reader.IsDBNull(4) ? '1' : Convert.ToChar(reader["Action"].ToString());
-                                bankTransaction.Debit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString());
-                                bankTransaction.Credit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString());
-                                bankTransaction.Narration = reader["Narration"].ToString();
-                                bankTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                bankTransaction.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return bankTransaction;
-        }
-
         public IEnumerable<BankTransaction> GetBankTransactions(long bankId)
         {
             var bankTransactions = new List<BankTransaction>();

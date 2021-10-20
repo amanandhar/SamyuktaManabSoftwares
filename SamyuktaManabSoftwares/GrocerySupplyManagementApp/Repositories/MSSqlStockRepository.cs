@@ -254,7 +254,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return stockViewList;
         }
 
-        public List<StockView> CalculateStock(List<Stock> stocks)
+        private List<StockView> CalculateStock(List<Stock> stocks)
         {
             try
             {

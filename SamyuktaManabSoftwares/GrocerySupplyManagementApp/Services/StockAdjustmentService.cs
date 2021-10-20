@@ -16,16 +16,6 @@ namespace GrocerySupplyManagementApp.Services
             _stockAdjustmentRepository = stockAdjustmentRepository;
         }
 
-        public IEnumerable<StockAdjustment> GetStockAdjustments()
-        {
-            return _stockAdjustmentRepository.GetStockAdjustments();
-        }
-
-        public StockAdjustment GetStockAdjustment(long id)
-        {
-            return _stockAdjustmentRepository.GetStockAdjustment(id);
-        }
-
         public IEnumerable<StockAdjustmentView> GetStockAdjustmentViewList()
         {
             return _stockAdjustmentRepository.GetStockAdjustmentViewList();
@@ -44,16 +34,6 @@ namespace GrocerySupplyManagementApp.Services
         public StockAdjustment AddStockAdjustment(StockAdjustment stockAdjustment)
         {
             return _stockAdjustmentRepository.AddStockAdjustment(stockAdjustment);
-        }
-
-        public StockAdjustment UpdateStockAdjustment(long id, StockAdjustment stockAdjustment)
-        {
-            return _stockAdjustmentRepository.UpdateStockAdjustment(id, stockAdjustment);
-        }
-
-        public bool DeleteStockAdjustment(long id)
-        {
-            return _stockAdjustmentRepository.DeleteStockAdjustment(id);
         }
 
         public bool DeleteStockAdjustmentByUserTransaction(long userTrasactionId)

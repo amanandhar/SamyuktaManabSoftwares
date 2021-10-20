@@ -143,84 +143,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return balance;
         }
 
-        public decimal GetUserTransactionBalance(DailyTransactionFilter dailyTransactionFilter)
-        {
-            decimal total = Constants.DEFAULT_DECIMAL_VALUE;
-            var query = @"SELECT " +
-                "SUM(ut.[DueReceivedAmount]) + SUM(ut.[ReceivedAmount]) - SUM(ut.[DuePaymentAmount]) - SUM(ut.[PaymentAmount]) AS [Total] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "LEFT JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
-                "ON ut.[InvoiceNo] = si.[InvoiceNo] " +
-                "INNNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON si.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 ";
-
-            if (dailyTransactionFilter.Date != null)
-            {
-                query += " AND ut.[EndOfDay] = '" + dailyTransactionFilter.Date + "' ";
-            }
-
-            if (dailyTransactionFilter.Purchase != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.PURCHASE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Purchase + "' ";
-            }
-            else if (dailyTransactionFilter.Sales != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.SALES + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Sales + "' ";
-            }
-            else if (dailyTransactionFilter.Payment != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Payment + "' ";
-            }
-            else if (dailyTransactionFilter.Receipt != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "' ";
-            }
-            else if (dailyTransactionFilter.Expense != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' ";
-            }
-            else if (dailyTransactionFilter.ItemCode != null)
-            {
-                query += " AND i.[ItemCode] = '" + dailyTransactionFilter.ItemCode + "' ";
-            }
-            else if (dailyTransactionFilter.InvoiceNo != null)
-            {
-                query += " AND ut.[InvoiceNo] = '" + dailyTransactionFilter.InvoiceNo + "' ";
-            }
-            else if (dailyTransactionFilter.Username != null)
-            {
-                query += " AND ut.[AddedBy] = '" + dailyTransactionFilter.Username + "' ";
-            }
-            else
-            {
-                query += " ";
-            }
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            total = Convert.ToDecimal(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return total;
-        }
-
         public decimal GetCashInHand(UserTransactionFilter userTransactionFilter)
         {
             decimal cashInHand = Constants.DEFAULT_DECIMAL_VALUE;
@@ -509,7 +431,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return balance;
         }
 
-        public decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType)
+        private decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType)
         {
             decimal balance = Constants.DEFAULT_DECIMAL_VALUE;
             var query = string.Empty;

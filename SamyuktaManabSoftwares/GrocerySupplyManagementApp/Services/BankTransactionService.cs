@@ -15,10 +15,6 @@ namespace GrocerySupplyManagementApp.Services
         {
             _bankTransactionRepository = bankTransactionRepository;
         }
-        public BankTransaction GetBankTransaction(long id)
-        {
-            return _bankTransactionRepository.GetBankTransaction(id);
-        }
 
         public IEnumerable<BankTransaction> GetBankTransactions(long bankId)
         {

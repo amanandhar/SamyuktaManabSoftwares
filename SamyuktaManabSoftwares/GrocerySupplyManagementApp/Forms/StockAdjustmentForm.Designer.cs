@@ -360,8 +360,8 @@ namespace GrocerySupplyManagementApp.Forms
             // DataGridStockAdjustmentList
             // 
             this.DataGridStockAdjustmentList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridStockAdjustmentList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DataGridStockAdjustmentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridStockAdjustmentList.GridColor = System.Drawing.Color.White;
             this.DataGridStockAdjustmentList.Location = new System.Drawing.Point(15, 176);
             this.DataGridStockAdjustmentList.Name = "DataGridStockAdjustmentList";
             this.DataGridStockAdjustmentList.Size = new System.Drawing.Size(1070, 409);

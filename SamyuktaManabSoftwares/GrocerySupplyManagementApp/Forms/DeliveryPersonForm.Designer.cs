@@ -233,7 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnShowTransaction);
             this.groupBox4.Location = new System.Drawing.Point(887, 47);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 90);
+            this.groupBox4.Size = new System.Drawing.Size(195, 90);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             // 

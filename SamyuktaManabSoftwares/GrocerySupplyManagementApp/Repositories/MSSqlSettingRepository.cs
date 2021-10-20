@@ -69,55 +69,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return settings;
         }
 
-        public Setting GetSetting(long id)
-        {
-            var setting = new Setting();
-            var query = @"SELECT " +
-                "[Id], [StartingInvoiceNo], [StartingBillNo], [StartingDate], " +
-                "[FiscalYear], [Discount], [Vat], [DeliveryCharge], " +
-                "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_SETTING +
-                "WHERE 1 = 1 " +
-                "AND [Id] = @Id ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                setting.Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString());
-                                setting.StartingInvoiceNo = reader.IsDBNull(1) ? null : reader["StartingInvoiceNo"].ToString();
-                                setting.StartingBillNo = reader.IsDBNull(2) ? null : reader["StartingBillNo"].ToString();
-                                setting.StartingDate = reader.IsDBNull(3) ? null : reader["StartingDate"].ToString();
-                                setting.FiscalYear = reader.IsDBNull(4) ? null : reader["FiscalYear"].ToString();
-                                setting.Discount = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Discount"].ToString());
-                                setting.Vat = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Vat"].ToString());
-                                setting.DeliveryCharge = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["DeliveryCharge"].ToString());
-                                setting.AddedBy = reader.IsDBNull(8) ? null : reader["AddedBy"].ToString();
-                                setting.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                setting.UpdatedBy = reader.IsDBNull(10) ? null : reader["UpdatedBy"].ToString();
-                                setting.UpdatedDate = reader.IsDBNull(11) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return setting;
-        }
-
         public Setting AddSetting(Setting setting, bool truncate = false)
         {
             if (truncate)
@@ -227,36 +178,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return setting;
-        }
-
-        public bool DeleteSetting(long id)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                "FROM " + Constants.TABLE_SETTING + " " +
-                "WHERE 1 = 1 " +
-                "AND [Id] = @Id ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", id);
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
         }
 
         public bool DeletePreviousTransactions(string endOfDay)

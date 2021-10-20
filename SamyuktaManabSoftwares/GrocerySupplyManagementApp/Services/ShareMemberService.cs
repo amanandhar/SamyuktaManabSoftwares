@@ -1,7 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
-using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -17,11 +16,6 @@ namespace GrocerySupplyManagementApp.Services
         public ShareMember GetShareMember(long id)
         {
             return _shareMemberRepository.GetShareMember(id);
-        }
-
-        public IEnumerable<ShareMember> GetShareMembers()
-        {
-            return _shareMemberRepository.GetShareMembers();
         }
 
         public ShareMember AddShareMember(ShareMember shareMember)

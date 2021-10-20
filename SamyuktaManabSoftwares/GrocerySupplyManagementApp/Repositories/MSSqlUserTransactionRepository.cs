@@ -363,136 +363,8 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return supplierTransactionViews;
         }
-
-        public UserTransaction GetUserTransaction(long userTransactionId)
-        {
-            var userTransaction = new UserTransaction();
-            var query = @"SELECT " +
-                "[Id], [EndOfDay], " +
-                "[InvoiceNo], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], " +
-                "[Action], [ActionType], [Bank], [Income], [Expense], [Narration], " +
-                "[DueReceivedAmount], [DuePaymentAmount], [ReceivedAmount], [PaymentAmount], " +
-                "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [Id] = @Id " +
-                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
-                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)userTransactionId) ?? DBNull.Value);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                userTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
-                                userTransaction.EndOfDay = reader["EndOfDay"].ToString();
-                                userTransaction.InvoiceNo = reader["InvoiceNo"].ToString();
-                                userTransaction.BillNo = reader["BillNo"].ToString();
-                                userTransaction.MemberId = reader["MemberId"].ToString();
-                                userTransaction.ShareMemberId = Convert.ToInt64(reader["ShareMemberId"].ToString());
-                                userTransaction.SupplierId = reader["SupplierId"].ToString();
-                                userTransaction.DeliveryPersonId = reader["DeliveryPersonId"].ToString();
-                                userTransaction.Action = reader["Action"].ToString();
-                                userTransaction.ActionType = reader["ActionType"].ToString();
-                                userTransaction.Bank = reader["Bank"].ToString();
-                                userTransaction.Income = reader["Income"].ToString();
-                                userTransaction.Expense = reader["Expense"].ToString();
-                                userTransaction.Narration = reader["Narration"].ToString();
-                                userTransaction.DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString());
-                                userTransaction.DuePaymentAmount = Convert.ToDecimal(reader["DuePaymentAmount"].ToString());
-                                userTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                userTransaction.PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"].ToString());
-                                userTransaction.AddedBy = reader["AddedBy"].ToString();
-                                userTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                userTransaction.UpdatedBy = reader["UpdatedBy"].ToString();
-                                userTransaction.UpdatedDate = reader.IsDBNull(21) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return userTransaction;
-        }
-
-        public UserTransaction GetUserTransaction(string invoiceNo)
-        {
-            var userTransaction = new UserTransaction();
-            var query = @"SELECT " +
-                "[Id], [EndOfDay], " +
-                "[InvoiceNo], [BillNo], [MemberId], [ShareMemberId], [SupplierId], [DeliveryPersonId], " +
-                "[Action], [ActionType], [Bank], [Income], [Expense], [Narration], " +
-                "[DueReceivedAmount], [DuePaymentAmount], [ReceivedAmount], [PaymentAmount], " +
-                "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND ISNULL([InvoiceNo], '') = @InvoiceNo " +
-                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
-                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                userTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
-                                userTransaction.EndOfDay = reader["EndOfDay"].ToString();
-                                userTransaction.InvoiceNo = reader["InvoiceNo"].ToString();
-                                userTransaction.BillNo = reader["BillNo"].ToString();
-                                userTransaction.MemberId = reader["MemberId"].ToString();
-                                userTransaction.ShareMemberId = Convert.ToInt64(reader["ShareMemberId"].ToString());
-                                userTransaction.SupplierId = reader["SupplierId"].ToString();
-                                userTransaction.DeliveryPersonId = reader["DeliveryPersonId"].ToString();
-                                userTransaction.Action = reader["Action"].ToString();
-                                userTransaction.ActionType = reader["ActionType"].ToString();
-                                userTransaction.Bank = reader["Bank"].ToString();
-                                userTransaction.Income = reader["Income"].ToString();
-                                userTransaction.Expense = reader["Expense"].ToString();
-                                userTransaction.Narration = reader["Narration"].ToString();
-                                userTransaction.DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString());
-                                userTransaction.DuePaymentAmount = Convert.ToDecimal(reader["DuePaymentAmount"].ToString());
-                                userTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                userTransaction.PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"].ToString());
-                                userTransaction.AddedBy = reader["AddedBy"].ToString();
-                                userTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                userTransaction.UpdatedBy = reader["UpdatedBy"].ToString();
-                                userTransaction.UpdatedDate = reader.IsDBNull(21) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return userTransaction;
-        }
         
-        public UserTransaction GetLastUserTransaction(string option)
+        public UserTransaction GetLastUserTransaction(string addedBy, string option)
         {
             var userTransaction = new UserTransaction();
             var query = @"SELECT " +
@@ -518,6 +390,11 @@ namespace GrocerySupplyManagementApp.Repositories
                         "AND DATALENGTH([BillNo]) > 0) ";
                 }
             }
+
+            if(!string.IsNullOrWhiteSpace(addedBy))
+            {
+                query += "AND ISNULL([AddedBy], '') = @AddedBy ";
+            }
             
             query += "ORDER BY [Id] DESC ";
             try
@@ -527,7 +404,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-
+                        command.Parameters.AddWithValue("@AddedBy", ((object)addedBy) ?? DBNull.Value);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -637,42 +514,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return invoices;
-        }
-
-        public IEnumerable<string> GetMemberIds()
-        {
-            var memberIds = new List<string>();
-            var query = @"SELECT " +
-                "DISTINCT [MemberId] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "ORDER BY [MemberId] ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var memberId = reader["MemberId"].ToString();
-
-                                memberIds.Add(memberId);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return memberIds;
         }
 
         public IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter)
@@ -1082,35 +923,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
-        }
-
-        public bool DeleteUserTransactionAfterEndOfDay(string endOfDay)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [EndOfDay] > @EndOfDay ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@EndOfDay", ((object)endOfDay) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }

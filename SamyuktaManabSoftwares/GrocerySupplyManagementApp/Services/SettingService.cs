@@ -19,11 +19,6 @@ namespace GrocerySupplyManagementApp.Services
             return _settingRepository.GetSettings();
         }
 
-        public Setting GetSetting(long id)
-        {
-            return _settingRepository.GetSetting(id);
-        }
-
         public Setting AddSetting(Setting setting, bool truncate = false)
         {
             return _settingRepository.AddSetting(setting, truncate);
@@ -32,11 +27,6 @@ namespace GrocerySupplyManagementApp.Services
         public Setting UpdateSetting(long id, Setting setting)
         {
             return _settingRepository.UpdateSetting(id, setting);
-        }
-
-        public bool DeleteSetting(long id)
-        {
-            return _settingRepository.DeleteSetting(id);
         }
 
         public bool DeletePreviousTransactions(string endOfDay)

@@ -11,7 +11,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         Item AddItem(Item item);
 
-        Item UpdateItem(string code, Item item);
         Item UpdateItem(long id, Item item);
 
         bool DeleteItem(long id);

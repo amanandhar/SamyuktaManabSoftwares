@@ -104,8 +104,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Action = Constants.DEDUCT,
-                        ActionType = Constants.ACTION_TYPE_NONE,
+                        Action = Constants.EXPENSE,
+                        ActionType = Constants.DEDUCT,
                         Expense = Constants.STOCK_ADJUSTMENT,
                         Narration = TxtBoxNarration.Text.Trim(),
                         PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
@@ -119,8 +119,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        Action = Constants.ADD,
-                        ActionType = Constants.ACTION_TYPE_NONE,
+                        Action = Constants.INCOME,
+                        ActionType = Constants.ADD,
                         Income = Constants.STOCK_ADJUSTMENT,
                         Narration = TxtBoxNarration.Text.Trim(),
                         ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
@@ -130,7 +130,7 @@ namespace GrocerySupplyManagementApp.Forms
                     _userTransactionService.AddUserTransaction(userTransaction);
                 }
 
-                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
                 var stockAdjustment = new StockAdjustment
                 {
                     EndOfDay = _endOfDay,
@@ -151,6 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ClearAllFields();
                     EnableFields(Action.None);
                     EnableFields(Action.Save);
+                    LoadStockAdjustments();
                 }
             }
             catch(Exception ex)
@@ -171,23 +172,23 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockAdjustmentList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridStockAdjustmentList.Columns["Action"].HeaderText = "Description";
-            DataGridStockAdjustmentList.Columns["Action"].Width = 90;
+            DataGridStockAdjustmentList.Columns["Action"].Width = 100;
             DataGridStockAdjustmentList.Columns["Action"].DisplayIndex = 1;
 
             DataGridStockAdjustmentList.Columns["Narration"].HeaderText = "Narration";
-            DataGridStockAdjustmentList.Columns["Narration"].Width = 70;
+            DataGridStockAdjustmentList.Columns["Narration"].Width = 200;
             DataGridStockAdjustmentList.Columns["Narration"].DisplayIndex = 2;
 
             DataGridStockAdjustmentList.Columns["ItemCode"].HeaderText = "Item Code";
-            DataGridStockAdjustmentList.Columns["ItemCode"].Width = 75;
+            DataGridStockAdjustmentList.Columns["ItemCode"].Width = 100;
             DataGridStockAdjustmentList.Columns["ItemCode"].DisplayIndex = 3;
 
             DataGridStockAdjustmentList.Columns["ItemName"].HeaderText = "Item Name";
-            DataGridStockAdjustmentList.Columns["ItemName"].Width = 150;
+            DataGridStockAdjustmentList.Columns["ItemName"].Width = 200;
             DataGridStockAdjustmentList.Columns["ItemName"].DisplayIndex = 4;
 
             DataGridStockAdjustmentList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridStockAdjustmentList.Columns["Quantity"].Width = 60;
+            DataGridStockAdjustmentList.Columns["Quantity"].Width = 100;
             DataGridStockAdjustmentList.Columns["Quantity"].DisplayIndex = 5;
             DataGridStockAdjustmentList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 

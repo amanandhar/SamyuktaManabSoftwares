@@ -11,12 +11,9 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         IEnumerable<UserTransaction> GetDeliveryPersonTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter);
         IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter);
-        UserTransaction GetUserTransaction(long userTransactionId);
-        UserTransaction GetUserTransaction(string invoiceNo);
-        UserTransaction GetLastUserTransaction(string option);
+        UserTransaction GetLastUserTransaction(string addedBy, string option);
         string GetInvoiceNo();
         IEnumerable<string> GetInvoices();
-        IEnumerable<string> GetMemberIds();
         IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);
         IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter);
         IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);
@@ -25,7 +22,5 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         bool DeleteUserTransaction(long id);
         bool DeleteUserTransaction(string invoiceNo);
-        bool DeleteSupplierInvoice(long userTransactionId);
-        bool DeleteUserTransactionAfterEndOfDay(string endOfDay);
     }
 }

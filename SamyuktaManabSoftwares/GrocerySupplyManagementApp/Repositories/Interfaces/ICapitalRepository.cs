@@ -6,7 +6,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     {
         decimal GetMemberTotalBalance(UserTransactionFilter userTransactionFilter);
         decimal GetSupplierTotalBalance(SupplierTransactionFilter supplierTransactionFilter);
-        decimal GetUserTransactionBalance(DailyTransactionFilter dailyTransactionFilter);
         decimal GetCashInHand(UserTransactionFilter userTransactionFilter);
         decimal GetOpeningCashBalance(string endOfDay);
         decimal GetOpeningCreditBalance(string endOfDay);
@@ -15,6 +14,5 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         decimal GetTotalCashPayment(string endOfDay);
         decimal GetTotalChequePayment(string endOfDay);
         decimal GetTotalBalance(string endOfDay, string action, string actionType);
-        decimal GetPreviousTotalBalance(string endOfDay, string action, string actionType);
     }
 }

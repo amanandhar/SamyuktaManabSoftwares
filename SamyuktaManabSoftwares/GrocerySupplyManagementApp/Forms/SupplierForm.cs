@@ -1,6 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
@@ -202,7 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                     {
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,

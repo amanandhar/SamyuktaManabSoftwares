@@ -377,7 +377,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _posDetailService.AddPOSDetail(posDetail);
 
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
 
                     // Add Sales Discount
                     if (Convert.ToDecimal(TxtDiscount.Text) != Constants.DEFAULT_DECIMAL_VALUE)

@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
@@ -15,89 +14,6 @@ namespace GrocerySupplyManagementApp.Repositories
         public MSSqlItemCategoryRepository()
         {
             connectionString = UtilityService.GetConnectionString();
-        }
-
-        public IEnumerable<ItemCategory> GetItemCategories()
-        {
-            var itemCategories = new List<ItemCategory>();
-            var query = @"SELECT " +
-                "[Id], [Counter], [Name], [ItemCode] " +
-                "FROM " + Constants.TABLE_ITEM_CATEGORY;
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var itemCategory = new ItemCategory
-                                {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    Counter = Convert.ToInt64(reader["Counter"].ToString()),
-                                    Name = reader["Name"].ToString(),
-                                    ItemCode = reader["ItemCode"].ToString()
-                                };
-
-                                itemCategories.Add(itemCategory);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return itemCategories;
-        }
-
-        public ItemCategory GetItemCategory(long id)
-        {
-            var itemCategory = new ItemCategory();
-            var query = @"SELECT " +
-                "[Id], [Counter], [Name], [ItemCode] " +
-                "FROM " + Constants.TABLE_ITEM_CATEGORY + " " +
-                "WHERE 1 = 1 " +
-                "AND Id = @Id";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    itemCategory.Id = Convert.ToInt64(reader["Id"].ToString());
-                                    itemCategory.Counter = Convert.ToInt64(reader["Counter"].ToString());
-                                    itemCategory.Name = reader["Name"].ToString();
-                                    itemCategory.ItemCode = reader["ItemCode"].ToString();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return itemCategory;
         }
 
         public ItemCategory GetItemCategory(string name)

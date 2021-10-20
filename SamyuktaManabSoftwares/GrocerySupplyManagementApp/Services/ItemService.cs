@@ -34,11 +34,6 @@ namespace GrocerySupplyManagementApp.Services
             return _itemRepository.AddItem(item);
         }
 
-        public Item UpdateItem(string code, Item item)
-        {
-            return _itemRepository.UpdateItem(code, item);
-        }
-
         public Item UpdateItem(long id, Item item)
         {
             return _itemRepository.UpdateItem(id, item);

@@ -45,11 +45,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Cyan;
-            this.label3.Location = new System.Drawing.Point(38, 62);
+            this.label3.Location = new System.Drawing.Point(53, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 18);
+            this.label3.Size = new System.Drawing.Size(77, 18);
             this.label3.TabIndex = 2;
-            this.label3.Text = "User Name";
+            this.label3.Text = "Username";
             // 
             // label4
             // 
@@ -57,7 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Cyan;
-            this.label4.Location = new System.Drawing.Point(38, 96);
+            this.label4.Location = new System.Drawing.Point(53, 96);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 18);
             this.label4.TabIndex = 3;
@@ -79,9 +79,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtPassword.BackColor = System.Drawing.Color.Azure;
             this.TxtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtPassword.Location = new System.Drawing.Point(127, 91);
+            this.TxtPassword.Location = new System.Drawing.Point(142, 91);
             this.TxtPassword.Name = "TxtPassword";
-            this.TxtPassword.Size = new System.Drawing.Size(224, 27);
+            this.TxtPassword.Size = new System.Drawing.Size(227, 27);
             this.TxtPassword.TabIndex = 2;
             this.TxtPassword.UseSystemPasswordChar = true;
             this.TxtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
@@ -90,9 +90,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtUsername.BackColor = System.Drawing.Color.Azure;
             this.TxtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtUsername.Location = new System.Drawing.Point(127, 59);
+            this.TxtUsername.Location = new System.Drawing.Point(142, 59);
             this.TxtUsername.Name = "TxtUsername";
-            this.TxtUsername.Size = new System.Drawing.Size(224, 27);
+            this.TxtUsername.Size = new System.Drawing.Size(227, 27);
             this.TxtUsername.TabIndex = 1;
             // 
             // ChkBoxShow
@@ -101,7 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkBoxShow.BackColor = System.Drawing.Color.Transparent;
             this.ChkBoxShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkBoxShow.ForeColor = System.Drawing.Color.Cyan;
-            this.ChkBoxShow.Location = new System.Drawing.Point(38, 146);
+            this.ChkBoxShow.Location = new System.Drawing.Point(53, 146);
             this.ChkBoxShow.Name = "ChkBoxShow";
             this.ChkBoxShow.Size = new System.Drawing.Size(69, 22);
             this.ChkBoxShow.TabIndex = 3;
@@ -120,7 +120,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCancel.ForeColor = System.Drawing.Color.White;
-            this.BtnCancel.Location = new System.Drawing.Point(244, 138);
+            this.BtnCancel.Location = new System.Drawing.Point(259, 138);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(110, 35);
             this.BtnCancel.TabIndex = 5;
@@ -140,7 +140,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnLogin.ForeColor = System.Drawing.Color.White;
-            this.BtnLogin.Location = new System.Drawing.Point(127, 138);
+            this.BtnLogin.Location = new System.Drawing.Point(142, 138);
             this.BtnLogin.Name = "BtnLogin";
             this.BtnLogin.Size = new System.Drawing.Size(110, 35);
             this.BtnLogin.TabIndex = 4;
@@ -155,7 +155,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DodgerBlue;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(434, 231);
+            this.ClientSize = new System.Drawing.Size(434, 197);
             this.Controls.Add(this.BtnCancel);
             this.Controls.Add(this.BtnLogin);
             this.Controls.Add(this.TxtUsername);
@@ -168,7 +168,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaximizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "                             Login         ";
+            this.Text = "   ";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,7 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
-using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -12,16 +11,6 @@ namespace GrocerySupplyManagementApp.Services
         public ItemCategoryService(IItemCategoryRepository itemCategoryRepository)
         {
             _itemCategoryRepository = itemCategoryRepository;
-        }
-
-        public IEnumerable<ItemCategory> GetItemCategories()
-        {
-            return _itemCategoryRepository.GetItemCategories();
-        }
-
-        public ItemCategory GetItemCategory(long id)
-        {
-            return _itemCategoryRepository.GetItemCategory(id);
         }
 
         public ItemCategory GetItemCategory(string name)

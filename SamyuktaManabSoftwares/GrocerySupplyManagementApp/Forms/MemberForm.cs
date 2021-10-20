@@ -150,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
                     {
-                        var lastPosTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
+                        var lastPosTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
                         ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                         var bankTransaction = new BankTransaction
                         {

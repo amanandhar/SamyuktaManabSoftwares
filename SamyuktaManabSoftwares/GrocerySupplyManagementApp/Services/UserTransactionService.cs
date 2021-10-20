@@ -43,19 +43,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetSupplierTransactions(supplierFilter);
         }
 
-        public UserTransaction GetUserTransaction(long userTransactionId)
+        public UserTransaction GetLastUserTransaction(string addedBy, string option)
         {
-            return _userTransactionRepository.GetUserTransaction(userTransactionId);
-        }
-        
-        public UserTransaction GetUserTransaction(string invoiceNo)
-        {
-            return _userTransactionRepository.GetUserTransaction(invoiceNo);
-        }
-
-        public UserTransaction GetLastUserTransaction(string option)
-        {
-            return _userTransactionRepository.GetLastUserTransaction(option);
+            return _userTransactionRepository.GetLastUserTransaction(option, addedBy);
         }
 
         public string GetInvoiceNo()
@@ -99,11 +89,6 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetInvoices();
         }
 
-        public IEnumerable<string> GetMemberIds()
-        {
-            return _userTransactionRepository.GetMemberIds();
-        }
-
         public IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter)
         {
             return _userTransactionRepository.GetDailyTransactions(dailyTransactionFilter);
@@ -132,16 +117,6 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeleteUserTransaction(string invoiceNo)
         {
             return _userTransactionRepository.DeleteUserTransaction(invoiceNo);
-        }
-
-        public bool DeleteSupplierInvoice(long userTransactionId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteUserTransactionAfterEndOfDay(string endOfDay)
-        {
-            return _userTransactionRepository.DeleteUserTransactionAfterEndOfDay(endOfDay);
         }
     }
 }

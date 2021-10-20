@@ -7,7 +7,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 {
     public interface IBankTransactionRepository
     {
-        BankTransaction GetBankTransaction(long id);
         IEnumerable<BankTransaction> GetBankTransactions(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(BankTransactionFilter bankTransactionFilter);

@@ -84,7 +84,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
                     {
-                        var posTransaction = _userTransactionService.GetLastUserTransaction(billInvoiceNo);
+                        var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
                         if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
                         {
                             _userTransactionService.DeleteUserTransaction(id);
@@ -103,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                     else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
                     {
-                        var posTransaction = _userTransactionService.GetLastUserTransaction(billInvoiceNo);
+                        var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
                         if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
                         {
                             _userTransactionService.DeleteUserTransaction(billInvoiceNo);

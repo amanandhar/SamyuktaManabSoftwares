@@ -17,66 +17,6 @@ namespace GrocerySupplyManagementApp.Repositories
             connectionString = UtilityService.GetConnectionString();
         }
 
-        public IEnumerable<User> GetUsers()
-        {
-            var users = new List<User>();
-            var query = @"SELECT " +
-                "[Id], [Username], [Type], " +
-                "[Password], [IsReadOnly], [Bank], [DailySummary], " +
-                "[DailyTransaction], [Employee], [EOD], [ItemPricing], " +
-                "[Member], [POS], [Reports], [Settings], " +
-                "[StockSummary], [Supplier], [AddedDate], [UpdatedDate] " +
-                "FROM [" + Constants.TABLE_USER + "] ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var user = new User
-                                {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    Username = reader["Username"].ToString(),
-                                    Password = reader["Password"].ToString(),
-                                    Type = reader["Type"].ToString(),
-                                    IsReadOnly = Convert.ToBoolean(reader["IsReadOnly"].ToString()),
-                                    Bank = Convert.ToBoolean(reader["Bank"].ToString()),
-                                    DailySummary = Convert.ToBoolean(reader["DailySummary"].ToString()),
-                                    DailyTransaction = Convert.ToBoolean(reader["DailyTransaction"].ToString()),
-                                    Employee = Convert.ToBoolean(reader["Employee"].ToString()),
-                                    EOD = Convert.ToBoolean(reader["EOD"].ToString()),
-                                    ItemPricing = Convert.ToBoolean(reader["ItemPricing"].ToString()),
-                                    Member = Convert.ToBoolean(reader["Member"].ToString()),
-                                    POS = Convert.ToBoolean(reader["POS"].ToString()),
-                                    Reports = Convert.ToBoolean(reader["Reports"].ToString()),
-                                    Settings = Convert.ToBoolean(reader["Settings"].ToString()),
-                                    StockSummary = Convert.ToBoolean(reader["StockSummary"].ToString()),
-                                    Supplier = Convert.ToBoolean(reader["Supplier"].ToString()),
-                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(18) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
-                                };
-
-                                users.Add(user);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return users;
-        }
-
         public IEnumerable<User> GetUsers(string username, string type)
         {
             var users = new List<User>();
@@ -363,59 +303,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return user;
         }
 
-        public User UpdateUser(long id, User user)
-        {
-            string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
-                    "SET " +
-                    "[Username] = @Username, " +
-                    "[Type] = @Type, " +
-                    "[Password] = @Password, [IsReadOnly] = @IsReadOnly, [Bank] = @Bank, " +
-                    "[DailySummary] = @DailySummary, [DailyTransaction] = @DailyTransaction, [Employee] = @Employee, " +
-                    "[EOD] = @EOD, [ItemPricing] = @ItemPricing, [Member] = @Member, " +
-                    "[POS] = @POS, [Reports] = @Reports, [Settings] = @Settings, " +
-                    "[StockSummary] = @StockSummary, [Supplier] = @Supplier, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] = @Id";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Username", ((object)user.Username) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Password", ((object)user.Password) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Type", ((object)user.Type) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@IsReadOnly", ((object)user.IsReadOnly) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Bank", ((object)user.Bank) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DailySummary", ((object)user.DailySummary) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DailyTransaction", ((object)user.DailyTransaction) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Employee", ((object)user.Employee) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@EOD", ((object)user.EOD) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ItemPricing", ((object)user.ItemPricing) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Member", ((object)user.Member) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@POS", ((object)user.POS) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Reports", ((object)user.Reports) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Settings", ((object)user.Settings) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@StockSummary", ((object)user.StockSummary) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Supplier", ((object)user.Supplier) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedBy", ((object)user.UpdatedBy) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)user.UpdatedDate) ?? DBNull.Value);
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return user;
-        }
-
         public User UpdateUser(string username, User user)
         {
             string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
@@ -465,71 +352,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return user;
-        }
-
-        public bool UpdatePassword(string username, string password, string updatedBy, DateTime updatedDate)
-        {
-            var result = false;
-            string query = @"UPDATE [" + Constants.TABLE_USER + "] " +
-                    "SET " +
-                    "[Password] = @Password, " +
-                    "[UpdatedBy] = @UpdatedBy, " +
-                    "[UpdatedDate] = @UpdatedDate " +
-                    "WHERE 1 = 1 " +
-                    "AND ISNULL([Username], '') = @Username";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Password", ((object)password) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedBy", ((object)updatedBy) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)updatedDate) ?? DBNull.Value);
-
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
-        }
-
-        public bool DeleteUser(long id)
-        {
-            bool result = false;
-            string query = @"DELETE " +
-                    "FROM [" + Constants.TABLE_USER + "] " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] = @Id";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
         }
 
         public bool DeleteUser(string username)

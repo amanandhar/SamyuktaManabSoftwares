@@ -227,47 +227,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return item;
         }
 
-        public Item UpdateItem(string code, Item item)
-        {
-            string query = @"UPDATE " + Constants.TABLE_ITEM + " " +
-                "SET " +
-                "[Name] = @Name, " +
-                "[Brand] = @Brand, " +
-                "[Unit] = @Unit, " +
-                "[Threshold] = @Threshold, " +
-                "[UpdatedBy] = @UpdatedBy, " +
-                "[UpdatedDate] = @UpdatedDate " +
-                "WHERE 1 = 1 " +
-                "AND [Code] = @Code ";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Code", code);
-                        command.Parameters.AddWithValue("@Name", item.Name);
-                        command.Parameters.AddWithValue("@Brand", item.Brand);
-                        command.Parameters.AddWithValue("@Unit", item.Unit);
-                        command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedBy", ((object)item.UpdatedBy) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UpdatedDate", ((object)item.UpdatedDate) ?? DBNull.Value);
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return item;
-        }
-
         public Item UpdateItem(long id, Item item)
         {
             string query = @"UPDATE " + Constants.TABLE_ITEM + " " +
