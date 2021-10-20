@@ -53,6 +53,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridBankDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridBankList.Columns["Id"].Visible = false;
+            DataGridBankList.Columns["EndOfDay"].Visible = false;
             DataGridBankList.Columns["AddedBy"].Visible = false;
             DataGridBankList.Columns["AddedDate"].Visible = false;
             DataGridBankList.Columns["UpdatedBy"].Visible = false;

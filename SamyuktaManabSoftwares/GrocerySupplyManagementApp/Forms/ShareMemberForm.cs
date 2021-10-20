@@ -101,6 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
             PicBoxShareMember.Image = null;
+            _uploadedImagePath = string.Empty;
         }
 
         private void BtnShow_Click(object sender, EventArgs e)
@@ -259,12 +260,14 @@ namespace GrocerySupplyManagementApp.Forms
 
                         if(selectedShareMember.ImagePath != _uploadedImagePath)
                         {
-                            if(UtilityService.DeleteImage(selectedShareMember.ImagePath))
+                            if(!string.IsNullOrWhiteSpace(selectedShareMember.ImagePath) && File.Exists(selectedShareMember.ImagePath))
                             {
-                                var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
-                                destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
-                                File.Copy(_uploadedImagePath, destinationFilePath, true);
+                                UtilityService.DeleteImage(selectedShareMember.ImagePath);
                             }
+
+                            var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                         else
                         {
@@ -287,7 +290,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult result = MessageBox.Show(shareMember.Name + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
-                    ClearAllFields();
                     EnableFields(Action.None);
                     EnableFields(Action.Update);
                 }

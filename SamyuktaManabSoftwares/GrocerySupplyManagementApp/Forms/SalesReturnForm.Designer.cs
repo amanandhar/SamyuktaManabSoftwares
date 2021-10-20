@@ -101,7 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtQuantity.Location = new System.Drawing.Point(831, 97);
             this.TxtQuantity.Name = "TxtQuantity";
             this.TxtQuantity.Size = new System.Drawing.Size(69, 26);
-            this.TxtQuantity.TabIndex = 122;
+            this.TxtQuantity.TabIndex = 9;
             // 
             // TxtItemPrice
             // 
@@ -110,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemPrice.Location = new System.Drawing.Point(694, 97);
             this.TxtItemPrice.Name = "TxtItemPrice";
             this.TxtItemPrice.Size = new System.Drawing.Size(96, 26);
-            this.TxtItemPrice.TabIndex = 121;
+            this.TxtItemPrice.TabIndex = 8;
             // 
             // TxtItemName
             // 
@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemName.Location = new System.Drawing.Point(694, 60);
             this.TxtItemName.Name = "TxtItemName";
             this.TxtItemName.Size = new System.Drawing.Size(206, 26);
-            this.TxtItemName.TabIndex = 120;
+            this.TxtItemName.TabIndex = 7;
             // 
             // ComboItemCode
             // 
@@ -129,7 +129,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboItemCode.Location = new System.Drawing.Point(694, 20);
             this.ComboItemCode.Name = "ComboItemCode";
             this.ComboItemCode.Size = new System.Drawing.Size(206, 28);
-            this.ComboItemCode.TabIndex = 119;
+            this.ComboItemCode.TabIndex = 6;
             this.ComboItemCode.SelectedValueChanged += new System.EventHandler(this.ComboItemCode_SelectedValueChanged);
             // 
             // TxtTotalAmount
@@ -139,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtTotalAmount.Location = new System.Drawing.Point(381, 97);
             this.TxtTotalAmount.Name = "TxtTotalAmount";
             this.TxtTotalAmount.Size = new System.Drawing.Size(175, 26);
-            this.TxtTotalAmount.TabIndex = 118;
+            this.TxtTotalAmount.TabIndex = 5;
             // 
             // TxtSalesProfit
             // 
@@ -148,7 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtSalesProfit.Location = new System.Drawing.Point(381, 60);
             this.TxtSalesProfit.Name = "TxtSalesProfit";
             this.TxtSalesProfit.Size = new System.Drawing.Size(175, 26);
-            this.TxtSalesProfit.TabIndex = 117;
+            this.TxtSalesProfit.TabIndex = 4;
             // 
             // ComboInvoiceNo
             // 
@@ -158,7 +158,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboInvoiceNo.Location = new System.Drawing.Point(380, 20);
             this.ComboInvoiceNo.Name = "ComboInvoiceNo";
             this.ComboInvoiceNo.Size = new System.Drawing.Size(176, 28);
-            this.ComboInvoiceNo.TabIndex = 115;
+            this.ComboInvoiceNo.TabIndex = 3;
             this.ComboInvoiceNo.SelectedValueChanged += new System.EventHandler(this.ComboInvoiceNo_SelectedValueChanged);
             // 
             // label9
@@ -205,7 +205,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo.Mask = "   0000-00-00";
             this.MaskDtEODTo.Name = "MaskDtEODTo";
             this.MaskDtEODTo.Size = new System.Drawing.Size(120, 26);
-            this.MaskDtEODTo.TabIndex = 105;
+            this.MaskDtEODTo.TabIndex = 2;
             this.MaskDtEODTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODTo_KeyDown);
             // 
             // MaskDtEODFrom
@@ -216,7 +216,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODFrom.Mask = "   0000-00-00";
             this.MaskDtEODFrom.Name = "MaskDtEODFrom";
             this.MaskDtEODFrom.Size = new System.Drawing.Size(120, 26);
-            this.MaskDtEODFrom.TabIndex = 104;
+            this.MaskDtEODFrom.TabIndex = 1;
             this.MaskDtEODFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODFrom_KeyDown);
             // 
             // label3
@@ -250,7 +250,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.Location = new System.Drawing.Point(39, 26);
             this.RadioAll.Name = "RadioAll";
             this.RadioAll.Size = new System.Drawing.Size(123, 22);
-            this.RadioAll.TabIndex = 20;
+            this.RadioAll.TabIndex = 0;
             this.RadioAll.TabStop = true;
             this.RadioAll.Text = "All Transaction";
             this.RadioAll.UseVisualStyleBackColor = true;
@@ -337,7 +337,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(12, 76);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(120, 32);
-            this.BtnSave.TabIndex = 25;
+            this.BtnSave.TabIndex = 12;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
@@ -357,7 +357,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.Location = new System.Drawing.Point(12, 43);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(120, 32);
-            this.BtnAdd.TabIndex = 19;
+            this.BtnAdd.TabIndex = 11;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
             this.BtnAdd.UseVisualStyleBackColor = false;
@@ -377,7 +377,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.Location = new System.Drawing.Point(12, 10);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(120, 32);
-            this.BtnShow.TabIndex = 24;
+            this.BtnShow.TabIndex = 10;
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
             this.BtnShow.UseVisualStyleBackColor = false;
@@ -397,7 +397,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Location = new System.Drawing.Point(12, 109);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(120, 32);
-            this.BtnDelete.TabIndex = 23;
+            this.BtnDelete.TabIndex = 13;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
             this.BtnDelete.UseVisualStyleBackColor = false;

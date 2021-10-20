@@ -194,6 +194,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
             PicBoxMemberImage.Image = null;
+            _uploadedImagePath = string.Empty;
         }
 
         private void BtnAddMember_Click(object sender, EventArgs e)

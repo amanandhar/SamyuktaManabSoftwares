@@ -126,7 +126,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtUsername.Location = new System.Drawing.Point(112, 23);
             this.TxtUsername.Name = "TxtUsername";
             this.TxtUsername.Size = new System.Drawing.Size(170, 29);
-            this.TxtUsername.TabIndex = 40;
+            this.TxtUsername.TabIndex = 0;
             // 
             // TxtConfirmPassword
             // 
@@ -135,7 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 60);
             this.TxtConfirmPassword.Name = "TxtConfirmPassword";
             this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 29);
-            this.TxtConfirmPassword.TabIndex = 39;
+            this.TxtConfirmPassword.TabIndex = 4;
             this.TxtConfirmPassword.UseSystemPasswordChar = true;
             this.TxtConfirmPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtConfirmPassword_KeyDown);
             // 
@@ -146,7 +146,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtPassword.Location = new System.Drawing.Point(112, 60);
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.Size = new System.Drawing.Size(170, 29);
-            this.TxtPassword.TabIndex = 38;
+            this.TxtPassword.TabIndex = 3;
             this.TxtPassword.UseSystemPasswordChar = true;
             this.TxtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
             // 
@@ -158,7 +158,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUserType.Location = new System.Drawing.Point(435, 22);
             this.ComboUserType.Name = "ComboUserType";
             this.ComboUserType.Size = new System.Drawing.Size(170, 32);
-            this.ComboUserType.TabIndex = 10;
+            this.ComboUserType.TabIndex = 2;
             // 
             // label1
             // 
@@ -176,7 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.Location = new System.Drawing.Point(284, 25);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(40, 29);
-            this.BtnShow.TabIndex = 8;
+            this.BtnShow.TabIndex = 1;
             this.BtnShow.Text = "C";
             this.BtnShow.UseVisualStyleBackColor = true;
             this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
@@ -212,7 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkReadOnly.Location = new System.Drawing.Point(34, 21);
             this.ChkReadOnly.Name = "ChkReadOnly";
             this.ChkReadOnly.Size = new System.Drawing.Size(91, 20);
-            this.ChkReadOnly.TabIndex = 37;
+            this.ChkReadOnly.TabIndex = 5;
             this.ChkReadOnly.Text = "Read Only";
             this.ChkReadOnly.UseVisualStyleBackColor = true;
             this.ChkReadOnly.CheckedChanged += new System.EventHandler(this.ChkReadOnly_CheckedChanged);
@@ -225,7 +225,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkEOD.Location = new System.Drawing.Point(34, 150);
             this.ChkEOD.Name = "ChkEOD";
             this.ChkEOD.Size = new System.Drawing.Size(95, 20);
-            this.ChkEOD.TabIndex = 36;
+            this.ChkEOD.TabIndex = 10;
             this.ChkEOD.Text = "End Of Day";
             this.ChkEOD.UseVisualStyleBackColor = true;
             this.ChkEOD.CheckedChanged += new System.EventHandler(this.ChkEOD_CheckedChanged);
@@ -238,7 +238,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkBank.Location = new System.Drawing.Point(34, 47);
             this.ChkBank.Name = "ChkBank";
             this.ChkBank.Size = new System.Drawing.Size(58, 20);
-            this.ChkBank.TabIndex = 35;
+            this.ChkBank.TabIndex = 6;
             this.ChkBank.Text = "Bank";
             this.ChkBank.UseVisualStyleBackColor = true;
             this.ChkBank.CheckedChanged += new System.EventHandler(this.ChkBank_CheckedChanged);
@@ -251,7 +251,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkEmployee.Location = new System.Drawing.Point(34, 124);
             this.ChkEmployee.Name = "ChkEmployee";
             this.ChkEmployee.Size = new System.Drawing.Size(89, 20);
-            this.ChkEmployee.TabIndex = 34;
+            this.ChkEmployee.TabIndex = 9;
             this.ChkEmployee.Text = "Employee";
             this.ChkEmployee.UseVisualStyleBackColor = true;
             this.ChkEmployee.CheckedChanged += new System.EventHandler(this.ChkEmployee_CheckedChanged);
@@ -264,7 +264,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkMember.Location = new System.Drawing.Point(348, 47);
             this.ChkMember.Name = "ChkMember";
             this.ChkMember.Size = new System.Drawing.Size(77, 20);
-            this.ChkMember.TabIndex = 33;
+            this.ChkMember.TabIndex = 12;
             this.ChkMember.Text = "Member";
             this.ChkMember.UseVisualStyleBackColor = true;
             this.ChkMember.CheckedChanged += new System.EventHandler(this.ChkMember_CheckedChanged);
@@ -277,7 +277,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkStockSummary.Location = new System.Drawing.Point(348, 150);
             this.ChkStockSummary.Name = "ChkStockSummary";
             this.ChkStockSummary.Size = new System.Drawing.Size(121, 20);
-            this.ChkStockSummary.TabIndex = 32;
+            this.ChkStockSummary.TabIndex = 16;
             this.ChkStockSummary.Text = "Stock Summary";
             this.ChkStockSummary.UseVisualStyleBackColor = true;
             this.ChkStockSummary.CheckedChanged += new System.EventHandler(this.ChkStock_CheckedChanged);
@@ -290,7 +290,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkItemPricing.Location = new System.Drawing.Point(34, 176);
             this.ChkItemPricing.Name = "ChkItemPricing";
             this.ChkItemPricing.Size = new System.Drawing.Size(96, 20);
-            this.ChkItemPricing.TabIndex = 31;
+            this.ChkItemPricing.TabIndex = 11;
             this.ChkItemPricing.Text = "Item Pricing";
             this.ChkItemPricing.UseVisualStyleBackColor = true;
             this.ChkItemPricing.CheckedChanged += new System.EventHandler(this.ChkItemPricing_CheckedChanged);
@@ -303,7 +303,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkDailyTransaction.Location = new System.Drawing.Point(34, 98);
             this.ChkDailyTransaction.Name = "ChkDailyTransaction";
             this.ChkDailyTransaction.Size = new System.Drawing.Size(132, 20);
-            this.ChkDailyTransaction.TabIndex = 30;
+            this.ChkDailyTransaction.TabIndex = 8;
             this.ChkDailyTransaction.Text = "Daily Transaction";
             this.ChkDailyTransaction.UseVisualStyleBackColor = true;
             this.ChkDailyTransaction.CheckedChanged += new System.EventHandler(this.ChkDailyExpense_CheckedChanged);
@@ -316,7 +316,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkSupplier.Location = new System.Drawing.Point(348, 176);
             this.ChkSupplier.Name = "ChkSupplier";
             this.ChkSupplier.Size = new System.Drawing.Size(77, 20);
-            this.ChkSupplier.TabIndex = 29;
+            this.ChkSupplier.TabIndex = 17;
             this.ChkSupplier.Text = "Supplier";
             this.ChkSupplier.UseVisualStyleBackColor = true;
             this.ChkSupplier.CheckedChanged += new System.EventHandler(this.ChkSupplier_CheckedChanged);
@@ -329,7 +329,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkDailySummary.Location = new System.Drawing.Point(34, 73);
             this.ChkDailySummary.Name = "ChkDailySummary";
             this.ChkDailySummary.Size = new System.Drawing.Size(118, 20);
-            this.ChkDailySummary.TabIndex = 28;
+            this.ChkDailySummary.TabIndex = 7;
             this.ChkDailySummary.Text = "Daily Summary";
             this.ChkDailySummary.UseVisualStyleBackColor = true;
             this.ChkDailySummary.CheckedChanged += new System.EventHandler(this.ChkDailySummary_CheckedChanged);
@@ -342,7 +342,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkPOS.Location = new System.Drawing.Point(348, 73);
             this.ChkPOS.Name = "ChkPOS";
             this.ChkPOS.Size = new System.Drawing.Size(55, 20);
-            this.ChkPOS.TabIndex = 27;
+            this.ChkPOS.TabIndex = 13;
             this.ChkPOS.Text = "POS";
             this.ChkPOS.UseVisualStyleBackColor = true;
             this.ChkPOS.CheckedChanged += new System.EventHandler(this.ChkPOS_CheckedChanged);
@@ -355,7 +355,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkSettings.Location = new System.Drawing.Point(348, 125);
             this.ChkSettings.Name = "ChkSettings";
             this.ChkSettings.Size = new System.Drawing.Size(75, 20);
-            this.ChkSettings.TabIndex = 26;
+            this.ChkSettings.TabIndex = 15;
             this.ChkSettings.Text = "Settings";
             this.ChkSettings.UseVisualStyleBackColor = true;
             this.ChkSettings.CheckedChanged += new System.EventHandler(this.ChkSetting_CheckedChanged);
@@ -368,7 +368,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkReports.Location = new System.Drawing.Point(348, 99);
             this.ChkReports.Name = "ChkReports";
             this.ChkReports.Size = new System.Drawing.Size(75, 20);
-            this.ChkReports.TabIndex = 25;
+            this.ChkReports.TabIndex = 14;
             this.ChkReports.Text = "Reports";
             this.ChkReports.UseVisualStyleBackColor = true;
             this.ChkReports.CheckedChanged += new System.EventHandler(this.ChkReport_CheckedChanged);
@@ -400,7 +400,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Location = new System.Drawing.Point(497, 23);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(120, 35);
-            this.BtnDelete.TabIndex = 9;
+            this.BtnDelete.TabIndex = 22;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
             this.BtnDelete.UseVisualStyleBackColor = false;
@@ -420,7 +420,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.Location = new System.Drawing.Point(376, 24);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
-            this.BtnUpdate.TabIndex = 8;
+            this.BtnUpdate.TabIndex = 21;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
             this.BtnUpdate.UseVisualStyleBackColor = false;
@@ -440,7 +440,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Location = new System.Drawing.Point(255, 23);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(120, 35);
-            this.BtnEdit.TabIndex = 7;
+            this.BtnEdit.TabIndex = 20;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
@@ -460,7 +460,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(134, 23);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(120, 35);
-            this.BtnSave.TabIndex = 6;
+            this.BtnSave.TabIndex = 19;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
@@ -480,7 +480,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.Location = new System.Drawing.Point(13, 24);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(120, 35);
-            this.BtnAdd.TabIndex = 5;
+            this.BtnAdd.TabIndex = 18;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
             this.BtnAdd.UseVisualStyleBackColor = false;

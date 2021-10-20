@@ -21,7 +21,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             var query = @"SELECT " +
-                "[Id], [Code], [Name], [Brand], [Unit], [Threshold], [AddedDate], [UpdatedDate] " +
+                "[Id], [EndOfDay], [Code], [Name], [Brand], [Unit], [Threshold], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "ORDER BY [Code] ";
 
@@ -39,13 +39,14 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var item = new Item
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    Code = reader.IsDBNull(1) ? string.Empty : reader["Code"].ToString(),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Code = reader.IsDBNull(2) ? string.Empty : reader["Code"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
                                     Threshold = Convert.ToInt32(reader["Threshold"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 items.Add(item);

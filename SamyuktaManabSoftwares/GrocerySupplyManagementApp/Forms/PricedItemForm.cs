@@ -279,6 +279,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
             PicBoxItemImage.Image = null;
+            _uploadedImagePath = string.Empty;
         }
         #endregion
 

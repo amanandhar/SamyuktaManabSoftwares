@@ -591,7 +591,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtDiscountTotal.Text = Math.Round(Convert.ToDecimal(TxtSubTotal.Text) - (Convert.ToDecimal(TxtSubTotal.Text) * (Convert.ToDecimal(TxtDiscountPercent.Text) / 100)), 2).ToString();
             TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
             TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text) + (Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
-            TxtGrandTotal.Text = TxtDeliveryChargeTotal.Text;
+            TxtTotal.Text = TxtDeliveryChargeTotal.Text;
             RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text)
                 ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
                 : RichReceivedAmount.Text), 2).ToString();
@@ -601,7 +601,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
             TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text) + (Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
-            TxtGrandTotal.Text = TxtDeliveryChargeTotal.Text;
+            TxtTotal.Text = TxtDeliveryChargeTotal.Text;
             RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text)
                 ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
                 : RichReceivedAmount.Text), 2).ToString();
@@ -822,7 +822,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtDeliveryChargePercent.Clear();
             TxtDeliveryCharge.Clear();
             TxtDeliveryChargeTotal.Clear();
-            TxtGrandTotal.Clear();
+            TxtTotal.Clear();
             RichReceivedAmount.Clear();
 
             RichBalanceAmount.Clear();
@@ -1097,7 +1097,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDiscountTotal.Text = Math.Round(Convert.ToDecimal(TxtSubTotal.Text) - (Convert.ToDecimal(TxtSubTotal.Text) * (Convert.ToDecimal(TxtDiscountPercent.Text) / 100)), 2).ToString();
                 TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
                 TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text) + (Convert.ToDecimal(TxtDiscountTotal.Text) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text) / 100)), 2).ToString();
-                TxtGrandTotal.Text = TxtDeliveryChargeTotal.Text;
+                TxtTotal.Text = TxtDeliveryChargeTotal.Text;
                 RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text) 
                     ? Constants.DEFAULT_DECIMAL_VALUE.ToString() 
                     : RichReceivedAmount.Text), 2).ToString();
@@ -1155,7 +1155,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDeliveryChargePercent.Text = posDetailView.DeliveryChargePercent.ToString();
                 TxtDeliveryCharge.Text = posDetailView.DeliveryCharge.ToString();
                 TxtDeliveryChargeTotal.Text = (posDetailView.SubTotal - posDetailView.Discount + posDetailView.Vat + posDetailView.DeliveryCharge).ToString();
-                TxtGrandTotal.Text = posDetailView.DueReceivedAmount.ToString();
+                TxtTotal.Text = posDetailView.DueReceivedAmount.ToString();
                 RichReceivedAmount.Text = posDetailView.ReceivedAmount.ToString();
                 RichBalanceAmount.Text = (posDetailView.DueReceivedAmount - posDetailView.ReceivedAmount).ToString();
             }

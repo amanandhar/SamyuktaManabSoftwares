@@ -124,12 +124,33 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var paymentAmount = Convert.ToDecimal(RichAmount.Text);
-                var actionType = ComboPayment.Text;
-                if(actionType.ToLower() == Constants.CASH.ToLower())
+                var paymentType = ComboPayment.Text.Trim();
+                var paymentAmount = RichAmount.Text.Trim();
+                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+
+                if (string.IsNullOrWhiteSpace(paymentType) 
+                    || (paymentType == Constants.CASH || string.IsNullOrWhiteSpace(paymentAmount)))
+                {
+                    DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Bank \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+
+                var paymentAmt = Convert.ToDecimal(paymentAmount);
+                if (paymentType.ToLower() == Constants.CASH.ToLower())
                 {
                     var cashBalance = _capitalService.GetCashBalance(_endOfDay);
-                    if (paymentAmount > cashBalance)
+                    if (paymentAmt > cashBalance)
                     {
                         var warningResult = MessageBox.Show("No sufficient cash available.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         if (warningResult == DialogResult.OK)
@@ -141,10 +162,9 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
-                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankId = Convert.ToInt64(selectedItem?.Id);
                     var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = bankId });
-                    if(paymentAmount > bankBalance)
+                    if(paymentAmt > bankBalance)
                     {
                         var warningResult = MessageBox.Show("No sufficient amount in bank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         if (warningResult == DialogResult.OK)
@@ -156,7 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
                 }
 
                 var balance = Convert.ToDecimal(TxtBalance.Text);
-                if(paymentAmount > balance)
+                if(paymentAmt > balance)
                 {
                     var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (warningResult == DialogResult.OK)
@@ -183,8 +203,6 @@ namespace GrocerySupplyManagementApp.Forms
                     if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                     {
                         var lastUserTransaction = _userTransactionService.GetLastUserTransaction(string.Empty);
-
-                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,

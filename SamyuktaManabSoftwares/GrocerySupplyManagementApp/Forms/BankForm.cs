@@ -34,6 +34,7 @@ namespace GrocerySupplyManagementApp.Forms
             Update,
             Delete,
             Populate,
+            Load,
             None
         }
         #endregion 
@@ -61,6 +62,8 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayTo.Text = _endOfDay;
             LoadDepositTypes();
             LoadActionTypes();
+            EnableFields(Action.None);
+            EnableFields(Action.Load);
         }
         #endregion 
 
@@ -96,7 +99,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboActionType.Text = string.Empty;
                     RichAmount.Clear();
                     ComboDepositType.Text = string.Empty;
-                    EnableFields(Action.Save, true);
+                    EnableFields(Action.Save);
                     var bankTransactionViewList = GetBankTransaction();
                     LoadBankTransaction(bankTransactionViewList);
                 }
@@ -133,6 +136,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAddBank_Click(object sender, EventArgs e)
         {
             TxtBankName.Focus();
+            EnableFields(Action.None);
+            EnableFields(Action.Add);
         }
 
         private void BtnSaveBank_Click(object sender, EventArgs e)
@@ -166,7 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
-                        EnableFields(Action.None, false);
+                        EnableFields(Action.None);
                     }
                 }
             }
@@ -179,7 +184,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEditBank_Click(object sender, EventArgs e)
         {
-            EnableFields(Action.Edit, true);
+            EnableFields(Action.None);
+            EnableFields(Action.Edit);
         }
 
         private void BtnUpdateBank_Click(object sender, EventArgs e)
@@ -212,7 +218,8 @@ namespace GrocerySupplyManagementApp.Forms
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
-                    EnableFields(Action.None, false);
+                    EnableFields(Action.None);
+                    EnableFields(Action.Delete);
                     var bankTransactionViewList = GetBankTransaction();
                     LoadBankTransaction(bankTransactionViewList);
                 }
@@ -316,7 +323,8 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtAccountNo.Text = bankDetail.AccountNo;
                 var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
                 TxtBalance.Text = bankBalance.ToString();
-                EnableFields(Action.Populate, true);
+                EnableFields(Action.None);
+                EnableFields(Action.Populate);
                 ComboActionType.Focus();
                 var bankTransactionViewList = GetBankTransaction();
                 LoadBankTransaction(bankTransactionViewList);
@@ -328,42 +336,46 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void EnableFields(Action action, bool option = true)
+        private void EnableFields(Action action)
         {
             if (action == Action.Add)
             {
-                TxtBankName.Enabled = option;
-                TxtAccountNo.Enabled = option;
+                TxtBankName.Enabled = true;
+                TxtAccountNo.Enabled = true;
             }
             else if (action == Action.Edit)
             {
-                TxtBankName.Enabled = option;
-                TxtAccountNo.Enabled = option;
-                ComboActionType.Enabled = option;
-                RichAmount.Enabled = option;
-                TxtBalance.Enabled = option;
-                ComboDepositType.Enabled = option;
+                TxtBankName.Enabled = true;
+                TxtAccountNo.Enabled = true;
+                ComboActionType.Enabled = true;
+                RichAmount.Enabled = true;
+                TxtBalance.Enabled = true;
+                ComboDepositType.Enabled = true;
             }
             else if (action == Action.Save)
             {
-                ComboActionType.Enabled = option;
-                RichAmount.Enabled = option;
-                ComboDepositType.Enabled = option;
+                ComboActionType.Enabled = true;
+                RichAmount.Enabled = true;
+                ComboDepositType.Enabled = true;
             }
             else if (action == Action.Populate)
             {
-                ComboActionType.Enabled = option;
-                RichAmount.Enabled = option;
-                ComboDepositType.Enabled = option;
+                ComboActionType.Enabled = true;
+                RichAmount.Enabled = true;
+                ComboDepositType.Enabled = true;
+            }
+            else if (action == Action.Load)
+            {
+
             }
             else
             {
-                TxtBankName.Enabled = option;
-                TxtAccountNo.Enabled = option;
-                ComboActionType.Enabled = option;
-                RichAmount.Enabled = option;
-                TxtBalance.Enabled = option;
-                ComboDepositType.Enabled = option;
+                TxtBankName.Enabled = true;
+                TxtAccountNo.Enabled = true;
+                ComboActionType.Enabled = true;
+                RichAmount.Enabled = true;
+                TxtBalance.Enabled = true;
+                ComboDepositType.Enabled = true;
             }
         }
 

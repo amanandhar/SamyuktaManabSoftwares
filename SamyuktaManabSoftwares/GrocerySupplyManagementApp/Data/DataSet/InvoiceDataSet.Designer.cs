@@ -299,9 +299,11 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             private global::System.Data.DataColumn columnDeliveryCharge;
             
-            private global::System.Data.DataColumn columnDueReceivedAmount;
+            private global::System.Data.DataColumn columnTotalAmount;
             
             private global::System.Data.DataColumn columnReceivedAmount;
+            
+            private global::System.Data.DataColumn columnDueReceivedAmount;
             
             private global::System.Data.DataColumn columnItemName;
             
@@ -438,9 +440,9 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DueReceivedAmountColumn {
+            public global::System.Data.DataColumn TotalAmountColumn {
                 get {
-                    return this.columnDueReceivedAmount;
+                    return this.columnTotalAmount;
                 }
             }
             
@@ -449,6 +451,14 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             public global::System.Data.DataColumn ReceivedAmountColumn {
                 get {
                     return this.columnReceivedAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DueReceivedAmountColumn {
+                get {
+                    return this.columnDueReceivedAmount;
                 }
             }
             
@@ -580,8 +590,9 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         string SubTotal, 
                         string Discount, 
                         string DeliveryCharge, 
-                        string DueReceivedAmount, 
+                        string TotalAmount, 
                         string ReceivedAmount, 
+                        string DueReceivedAmount, 
                         string ItemName, 
                         string Brand, 
                         string Unit, 
@@ -604,8 +615,9 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         SubTotal,
                         Discount,
                         DeliveryCharge,
-                        DueReceivedAmount,
+                        TotalAmount,
                         ReceivedAmount,
+                        DueReceivedAmount,
                         ItemName,
                         Brand,
                         Unit,
@@ -648,8 +660,9 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 this.columnSubTotal = base.Columns["SubTotal"];
                 this.columnDiscount = base.Columns["Discount"];
                 this.columnDeliveryCharge = base.Columns["DeliveryCharge"];
-                this.columnDueReceivedAmount = base.Columns["DueReceivedAmount"];
+                this.columnTotalAmount = base.Columns["TotalAmount"];
                 this.columnReceivedAmount = base.Columns["ReceivedAmount"];
+                this.columnDueReceivedAmount = base.Columns["DueReceivedAmount"];
                 this.columnItemName = base.Columns["ItemName"];
                 this.columnBrand = base.Columns["Brand"];
                 this.columnUnit = base.Columns["Unit"];
@@ -685,10 +698,12 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 base.Columns.Add(this.columnDiscount);
                 this.columnDeliveryCharge = new global::System.Data.DataColumn("DeliveryCharge", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDeliveryCharge);
-                this.columnDueReceivedAmount = new global::System.Data.DataColumn("DueReceivedAmount", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDueReceivedAmount);
+                this.columnTotalAmount = new global::System.Data.DataColumn("TotalAmount", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalAmount);
                 this.columnReceivedAmount = new global::System.Data.DataColumn("ReceivedAmount", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnReceivedAmount);
+                this.columnDueReceivedAmount = new global::System.Data.DataColumn("DueReceivedAmount", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDueReceivedAmount);
                 this.columnItemName = new global::System.Data.DataColumn("ItemName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnItemName);
                 this.columnBrand = new global::System.Data.DataColumn("Brand", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1011,17 +1026,17 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DueReceivedAmount {
+            public string TotalAmount {
                 get {
                     try {
-                        return ((string)(this[this.tableInvoice.DueReceivedAmountColumn]));
+                        return ((string)(this[this.tableInvoice.TotalAmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DueReceivedAmount\' in table \'Invoice\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalAmount\' in table \'Invoice\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableInvoice.DueReceivedAmountColumn] = value;
+                    this[this.tableInvoice.TotalAmountColumn] = value;
                 }
             }
             
@@ -1038,6 +1053,22 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 }
                 set {
                     this[this.tableInvoice.ReceivedAmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DueReceivedAmount {
+                get {
+                    try {
+                        return ((string)(this[this.tableInvoice.DueReceivedAmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DueReceivedAmount\' in table \'Invoice\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoice.DueReceivedAmountColumn] = value;
                 }
             }
             
@@ -1323,14 +1354,14 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDueReceivedAmountNull() {
-                return this.IsNull(this.tableInvoice.DueReceivedAmountColumn);
+            public bool IsTotalAmountNull() {
+                return this.IsNull(this.tableInvoice.TotalAmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDueReceivedAmountNull() {
-                this[this.tableInvoice.DueReceivedAmountColumn] = global::System.Convert.DBNull;
+            public void SetTotalAmountNull() {
+                this[this.tableInvoice.TotalAmountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1343,6 +1374,18 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetReceivedAmountNull() {
                 this[this.tableInvoice.ReceivedAmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDueReceivedAmountNull() {
+                return this.IsNull(this.tableInvoice.DueReceivedAmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDueReceivedAmountNull() {
+                this[this.tableInvoice.DueReceivedAmountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

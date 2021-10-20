@@ -830,14 +830,18 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
             var query = @"SELECT " +
-                "bt.[Id], bt.[EndOfDay], ut.[ShareMemberId], sm.[Name], sm.[ContactNo], bt.[Narration] AS [Description], " +
+                "bt.[Id], bt.[EndOfDay], " +
+                "sm.[Id] AS [ShareMemberId], sm.[Name], sm.[ContactNo], " +
+                "bt.[Narration] AS [Description], " +
                 "CASE WHEN bt.[Action] = 1 THEN '" + Constants.DEPOSIT + "' ELSE '" + Constants.WITHDRAWL + "' END AS [Type], " +
                 "bt.[Debit], bt.[Credit], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "INNER JOIN " + Constants.TABLE_SHARE_MEMBER + " sm " +
-                "ON ut.[ShareMemberId] = sm.[Id] " +
+                "FROM " + Constants.TABLE_SHARE_MEMBER + " sm " +
+                "LEFT JOIN " +
+                "( " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "INNER JOIN " + Constants.TABLE_BANK_TRANSACTION + " bt " +
                 "ON ut.[id] = bt.[TransactionId] " +
+                ") " +
+                "ON sm.[Id] = ut.[ShareMemberId] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.DateFrom))
@@ -872,16 +876,16 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 var shareMemberTransactionView = new ShareMemberTransactionView
                                 {
-                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     ShareMemberId = reader["ShareMemberId"].ToString(),
                                     Name = reader["Name"].ToString(),
-                                    ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
+                                    ContactNo = reader.IsDBNull(4) ? 0 : Convert.ToInt64(reader["ContactNo"].ToString()),
                                     Description = reader["Description"].ToString(),
                                     Type = reader["Type"].ToString(),
-                                    Debit = Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Balance = Convert.ToDecimal(reader["Balance"].ToString())
+                                    Debit = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(8) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = reader.IsDBNull(9) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString())
                                 };
 
                                 shareMemberTransactionViewList.Add(shareMemberTransactionView);

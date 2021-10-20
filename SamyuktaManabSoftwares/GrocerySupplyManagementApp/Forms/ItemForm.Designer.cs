@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboCategory.Location = new System.Drawing.Point(141, 17);
             this.ComboCategory.Name = "ComboCategory";
             this.ComboCategory.Size = new System.Drawing.Size(130, 26);
-            this.ComboCategory.TabIndex = 13;
+            this.ComboCategory.TabIndex = 0;
             this.ComboCategory.SelectedValueChanged += new System.EventHandler(this.ComboCategory_SelectedValueChanged);
             // 
             // label3
@@ -118,7 +118,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemBrand.Location = new System.Drawing.Point(732, 52);
             this.RichItemBrand.Name = "RichItemBrand";
             this.RichItemBrand.Size = new System.Drawing.Size(275, 28);
-            this.RichItemBrand.TabIndex = 8;
+            this.RichItemBrand.TabIndex = 5;
             this.RichItemBrand.Text = "";
             // 
             // RichThreshold
@@ -127,7 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichThreshold.Location = new System.Drawing.Point(413, 52);
             this.RichThreshold.Name = "RichThreshold";
             this.RichThreshold.Size = new System.Drawing.Size(170, 28);
-            this.RichThreshold.TabIndex = 12;
+            this.RichThreshold.TabIndex = 4;
             this.RichThreshold.Text = "";
             // 
             // label5
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemName.Location = new System.Drawing.Point(732, 17);
             this.RichItemName.Name = "RichItemName";
             this.RichItemName.Size = new System.Drawing.Size(275, 28);
-            this.RichItemName.TabIndex = 7;
+            this.RichItemName.TabIndex = 2;
             this.RichItemName.Text = "";
             // 
             // label4
@@ -181,7 +181,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUnit.Location = new System.Drawing.Point(141, 52);
             this.ComboUnit.Name = "ComboUnit";
             this.ComboUnit.Size = new System.Drawing.Size(130, 26);
-            this.ComboUnit.TabIndex = 9;
+            this.ComboUnit.TabIndex = 3;
             // 
             // RichItemCode
             // 
@@ -190,7 +190,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemCode.Location = new System.Drawing.Point(414, 16);
             this.RichItemCode.Name = "RichItemCode";
             this.RichItemCode.Size = new System.Drawing.Size(170, 28);
-            this.RichItemCode.TabIndex = 3;
+            this.RichItemCode.TabIndex = 1;
             this.RichItemCode.Text = "";
             // 
             // label1
@@ -232,7 +232,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Location = new System.Drawing.Point(12, 204);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(120, 35);
-            this.BtnDelete.TabIndex = 10;
+            this.BtnDelete.TabIndex = 11;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
             this.BtnDelete.UseVisualStyleBackColor = false;
@@ -252,7 +252,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.Location = new System.Drawing.Point(12, 167);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
-            this.BtnUpdate.TabIndex = 9;
+            this.BtnUpdate.TabIndex = 10;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
             this.BtnUpdate.UseVisualStyleBackColor = false;
@@ -272,7 +272,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Location = new System.Drawing.Point(12, 130);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(120, 35);
-            this.BtnEdit.TabIndex = 8;
+            this.BtnEdit.TabIndex = 9;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
@@ -292,7 +292,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(12, 93);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(120, 35);
-            this.BtnSave.TabIndex = 7;
+            this.BtnSave.TabIndex = 8;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
@@ -312,7 +312,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.Location = new System.Drawing.Point(11, 56);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(120, 35);
-            this.BtnAdd.TabIndex = 6;
+            this.BtnAdd.TabIndex = 7;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextColor = System.Drawing.Color.White;
             this.BtnAdd.UseVisualStyleBackColor = false;
@@ -332,7 +332,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.Location = new System.Drawing.Point(11, 19);
             this.BtnSearch.Name = "BtnSearch";
             this.BtnSearch.Size = new System.Drawing.Size(120, 35);
-            this.BtnSearch.TabIndex = 5;
+            this.BtnSearch.TabIndex = 6;
             this.BtnSearch.Text = "Search";
             this.BtnSearch.TextColor = System.Drawing.Color.White;
             this.BtnSearch.UseVisualStyleBackColor = false;

@@ -94,6 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
             PicBoxEmployeeImage.Image = null;
+            _uploadedImagePath = string.Empty;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)

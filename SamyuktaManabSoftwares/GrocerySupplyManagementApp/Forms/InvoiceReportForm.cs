@@ -76,8 +76,9 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceDataTable.Columns.Add("SubTotal");
             invoiceDataTable.Columns.Add("Discount");
             invoiceDataTable.Columns.Add("DeliveryCharge");
-            invoiceDataTable.Columns.Add("DueReceivedAmount");
+            invoiceDataTable.Columns.Add("TotalAmount");
             invoiceDataTable.Columns.Add("ReceivedAmount");
+            invoiceDataTable.Columns.Add("DueReceivedAmount");
             invoiceDataTable.Columns.Add("AmountInWords");
             invoiceDataTable.Columns.Add("ItemName");
             invoiceDataTable.Columns.Add("Brand");
@@ -103,9 +104,10 @@ namespace GrocerySupplyManagementApp.Forms
                 invoiceRow["SubTotal"] = report.SubTotal;
                 invoiceRow["Discount"] = report.Discount;
                 invoiceRow["DeliveryCharge"] = report.DeliveryCharge;
-                invoiceRow["DueReceivedAmount"] = report.DueReceivedAmount;
+                invoiceRow["TotalAmount"] = report.TotalAmount;
                 invoiceRow["ReceivedAmount"] = report.ReceivedAmount;
-                invoiceRow["AmountInWords"] = UtilityService.ConvertAmount(report.DueReceivedAmount);
+                invoiceRow["DueReceivedAmount"] = report.DueReceivedAmount;
+                invoiceRow["AmountInWords"] = UtilityService.ConvertAmount(report.TotalAmount);
                 invoiceRow["ItemName"] = report.ItemName;
                 invoiceRow["Brand"] = report.Brand;
                 invoiceRow["Volume"] = report.Volume;

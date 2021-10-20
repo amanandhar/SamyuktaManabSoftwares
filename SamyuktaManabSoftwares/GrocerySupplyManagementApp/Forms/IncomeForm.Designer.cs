@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODFrom.Mask = "   0000-00-00";
             this.MaskDtEODFrom.Name = "MaskDtEODFrom";
             this.MaskDtEODFrom.Size = new System.Drawing.Size(125, 26);
-            this.MaskDtEODFrom.TabIndex = 24;
+            this.MaskDtEODFrom.TabIndex = 1;
             this.MaskDtEODFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODFrom_KeyDown);
             this.MaskDtEODFrom.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MaskDateFrom_KeyUp);
             // 
@@ -100,7 +100,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo.Mask = "   0000-00-00";
             this.MaskDtEODTo.Name = "MaskDtEODTo";
             this.MaskDtEODTo.Size = new System.Drawing.Size(125, 26);
-            this.MaskDtEODTo.TabIndex = 23;
+            this.MaskDtEODTo.TabIndex = 2;
             this.MaskDtEODTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODTo_KeyDown);
             // 
             // TxtTotalAmount
@@ -112,7 +112,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtTotalAmount.ReadOnly = true;
             this.TxtTotalAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotalAmount.Size = new System.Drawing.Size(125, 26);
-            this.TxtTotalAmount.TabIndex = 21;
+            this.TxtTotalAmount.TabIndex = 4;
             // 
             // label1
             // 
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboFilteredBy.Location = new System.Drawing.Point(124, 66);
             this.ComboFilteredBy.Name = "ComboFilteredBy";
             this.ComboFilteredBy.Size = new System.Drawing.Size(150, 28);
-            this.ComboFilteredBy.TabIndex = 8;
+            this.ComboFilteredBy.TabIndex = 3;
             this.ComboFilteredBy.SelectedValueChanged += new System.EventHandler(this.ComboFilter_SelectedValueChanged);
             // 
             // RadioAll
@@ -155,7 +155,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.Location = new System.Drawing.Point(12, 24);
             this.RadioAll.Name = "RadioAll";
             this.RadioAll.Size = new System.Drawing.Size(57, 24);
-            this.RadioAll.TabIndex = 19;
+            this.RadioAll.TabIndex = 0;
             this.RadioAll.TabStop = true;
             this.RadioAll.Text = "All  ";
             this.RadioAll.UseVisualStyleBackColor = true;
@@ -201,7 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Location = new System.Drawing.Point(117, 53);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(277, 28);
-            this.ComboBank.TabIndex = 19;
+            this.ComboBank.TabIndex = 7;
             // 
             // label5
             // 
@@ -233,7 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Name = "RichAmount";
             this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichAmount.Size = new System.Drawing.Size(115, 29);
-            this.RichAmount.TabIndex = 17;
+            this.RichAmount.TabIndex = 6;
             this.RichAmount.Text = "";
             this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
             // 
@@ -244,7 +244,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboIncome.Location = new System.Drawing.Point(117, 20);
             this.ComboIncome.Name = "ComboIncome";
             this.ComboIncome.Size = new System.Drawing.Size(160, 28);
-            this.ComboIncome.TabIndex = 14;
+            this.ComboIncome.TabIndex = 5;
             // 
             // groupBox1
             // 
@@ -271,7 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemove.Location = new System.Drawing.Point(18, 82);
             this.BtnRemove.Name = "BtnRemove";
             this.BtnRemove.Size = new System.Drawing.Size(120, 35);
-            this.BtnRemove.TabIndex = 19;
+            this.BtnRemove.TabIndex = 11;
             this.BtnRemove.Text = "Remove";
             this.BtnRemove.TextColor = System.Drawing.Color.White;
             this.BtnRemove.UseVisualStyleBackColor = false;
@@ -291,7 +291,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveIncome.Location = new System.Drawing.Point(17, 46);
             this.BtnSaveIncome.Name = "BtnSaveIncome";
             this.BtnSaveIncome.Size = new System.Drawing.Size(120, 35);
-            this.BtnSaveIncome.TabIndex = 18;
+            this.BtnSaveIncome.TabIndex = 10;
             this.BtnSaveIncome.Text = "Save Income";
             this.BtnSaveIncome.TextColor = System.Drawing.Color.White;
             this.BtnSaveIncome.UseVisualStyleBackColor = false;
@@ -311,7 +311,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.Location = new System.Drawing.Point(17, 10);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(120, 35);
-            this.BtnShow.TabIndex = 17;
+            this.BtnShow.TabIndex = 9;
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
             this.BtnShow.UseVisualStyleBackColor = false;
@@ -389,7 +389,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxNarration.Location = new System.Drawing.Point(117, 86);
             this.TxtBoxNarration.Name = "TxtBoxNarration";
             this.TxtBoxNarration.Size = new System.Drawing.Size(277, 26);
-            this.TxtBoxNarration.TabIndex = 20;
+            this.TxtBoxNarration.TabIndex = 8;
             // 
             // IncomeForm
             // 

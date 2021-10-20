@@ -91,7 +91,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo.Mask = "   0000-00-00";
             this.MaskDtEODTo.Name = "MaskDtEODTo";
             this.MaskDtEODTo.Size = new System.Drawing.Size(105, 24);
-            this.MaskDtEODTo.TabIndex = 27;
+            this.MaskDtEODTo.TabIndex = 2;
             this.MaskDtEODTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODTo_KeyDown);
             // 
             // MaskDtEODFrom
@@ -101,7 +101,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODFrom.Mask = "   0000-00-00";
             this.MaskDtEODFrom.Name = "MaskDtEODFrom";
             this.MaskDtEODFrom.Size = new System.Drawing.Size(105, 24);
-            this.MaskDtEODFrom.TabIndex = 26;
+            this.MaskDtEODFrom.TabIndex = 1;
             this.MaskDtEODFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MaskDtEODFrom_KeyDown);
             // 
             // TxtTotalAmount
@@ -113,7 +113,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtTotalAmount.ReadOnly = true;
             this.TxtTotalAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotalAmount.Size = new System.Drawing.Size(285, 26);
-            this.TxtTotalAmount.TabIndex = 26;
+            this.TxtTotalAmount.TabIndex = 4;
             // 
             // label4
             // 
@@ -157,7 +157,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.Location = new System.Drawing.Point(15, 23);
             this.RadioAll.Name = "RadioAll";
             this.RadioAll.Size = new System.Drawing.Size(47, 24);
-            this.RadioAll.TabIndex = 19;
+            this.RadioAll.TabIndex = 0;
             this.RadioAll.TabStop = true;
             this.RadioAll.Text = "All";
             this.RadioAll.UseVisualStyleBackColor = true;
@@ -170,7 +170,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboFilteredBy.Location = new System.Drawing.Point(167, 50);
             this.ComboFilteredBy.Name = "ComboFilteredBy";
             this.ComboFilteredBy.Size = new System.Drawing.Size(285, 26);
-            this.ComboFilteredBy.TabIndex = 8;
+            this.ComboFilteredBy.TabIndex = 3;
             // 
             // label2
             // 
@@ -191,7 +191,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Location = new System.Drawing.Point(199, 51);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(215, 28);
-            this.ComboBank.TabIndex = 24;
+            this.ComboBank.TabIndex = 8;
             this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
             // 
             // ComboPayment
@@ -201,7 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPayment.Location = new System.Drawing.Point(90, 51);
             this.ComboPayment.Name = "ComboPayment";
             this.ComboPayment.Size = new System.Drawing.Size(107, 28);
-            this.ComboPayment.TabIndex = 21;
+            this.ComboPayment.TabIndex = 7;
             this.ComboPayment.SelectedValueChanged += new System.EventHandler(this.ComboPayment_SelectedValueChanged);
             // 
             // RichAmount
@@ -212,7 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Name = "RichAmount";
             this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RichAmount.Size = new System.Drawing.Size(115, 29);
-            this.RichAmount.TabIndex = 17;
+            this.RichAmount.TabIndex = 6;
             this.RichAmount.Text = "";
             this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
             // 
@@ -223,7 +223,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboExpense.Location = new System.Drawing.Point(90, 20);
             this.ComboExpense.Name = "ComboExpense";
             this.ComboExpense.Size = new System.Drawing.Size(208, 26);
-            this.ComboExpense.TabIndex = 14;
+            this.ComboExpense.TabIndex = 5;
             // 
             // label7
             // 
@@ -263,7 +263,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtNarration.Name = "TxtNarration";
             this.TxtNarration.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.TxtNarration.Size = new System.Drawing.Size(324, 26);
-            this.TxtNarration.TabIndex = 27;
+            this.TxtNarration.TabIndex = 9;
             // 
             // label10
             // 
@@ -312,7 +312,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemove.Location = new System.Drawing.Point(14, 82);
             this.BtnRemove.Name = "BtnRemove";
             this.BtnRemove.Size = new System.Drawing.Size(120, 35);
-            this.BtnRemove.TabIndex = 28;
+            this.BtnRemove.TabIndex = 12;
             this.BtnRemove.Text = "Remove";
             this.BtnRemove.TextColor = System.Drawing.Color.White;
             this.BtnRemove.UseVisualStyleBackColor = false;
@@ -332,7 +332,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveExpense.Location = new System.Drawing.Point(14, 46);
             this.BtnSaveExpense.Name = "BtnSaveExpense";
             this.BtnSaveExpense.Size = new System.Drawing.Size(120, 35);
-            this.BtnSaveExpense.TabIndex = 27;
+            this.BtnSaveExpense.TabIndex = 11;
             this.BtnSaveExpense.Text = "Save ";
             this.BtnSaveExpense.TextColor = System.Drawing.Color.White;
             this.BtnSaveExpense.UseVisualStyleBackColor = false;
@@ -352,7 +352,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.Location = new System.Drawing.Point(14, 10);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(120, 35);
-            this.BtnShow.TabIndex = 26;
+            this.BtnShow.TabIndex = 10;
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
             this.BtnShow.UseVisualStyleBackColor = false;

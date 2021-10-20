@@ -121,7 +121,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.Location = new System.Drawing.Point(717, 16);
             this.BtnSearch.Name = "BtnSearch";
             this.BtnSearch.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearch.TabIndex = 42;
+            this.BtnSearch.TabIndex = 5;
             this.BtnSearch.Text = "Search";
             this.BtnSearch.TextColor = System.Drawing.Color.White;
             this.BtnSearch.UseVisualStyleBackColor = false;
@@ -134,7 +134,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODTo.Mask = "   0000-00-00";
             this.MaskDtEODTo.Name = "MaskDtEODTo";
             this.MaskDtEODTo.Size = new System.Drawing.Size(110, 24);
-            this.MaskDtEODTo.TabIndex = 41;
+            this.MaskDtEODTo.TabIndex = 2;
             // 
             // MaskDtEODFrom
             // 
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskDtEODFrom.Mask = "   0000-00-00";
             this.MaskDtEODFrom.Name = "MaskDtEODFrom";
             this.MaskDtEODFrom.Size = new System.Drawing.Size(110, 24);
-            this.MaskDtEODFrom.TabIndex = 40;
+            this.MaskDtEODFrom.TabIndex = 1;
             // 
             // label5
             // 
@@ -173,7 +173,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtName.Location = new System.Drawing.Point(471, 18);
             this.TxtName.Name = "TxtName";
             this.TxtName.Size = new System.Drawing.Size(245, 26);
-            this.TxtName.TabIndex = 4;
+            this.TxtName.TabIndex = 3;
             // 
             // TxtAmount
             // 
@@ -184,7 +184,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtAmount.Name = "TxtAmount";
             this.TxtAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtAmount.Size = new System.Drawing.Size(135, 26);
-            this.TxtAmount.TabIndex = 3;
+            this.TxtAmount.TabIndex = 4;
             // 
             // label3
             // 
@@ -222,7 +222,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.Location = new System.Drawing.Point(34, 25);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(135, 40);
-            this.BtnShowTransaction.TabIndex = 43;
+            this.BtnShowTransaction.TabIndex = 6;
             this.BtnShowTransaction.Text = "Show";
             this.BtnShowTransaction.TextColor = System.Drawing.Color.White;
             this.BtnShowTransaction.UseVisualStyleBackColor = false;

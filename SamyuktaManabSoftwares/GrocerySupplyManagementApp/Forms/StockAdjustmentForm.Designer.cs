@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxItemName.Location = new System.Drawing.Point(170, 50);
             this.TxtBoxItemName.Name = "TxtBoxItemName";
             this.TxtBoxItemName.Size = new System.Drawing.Size(242, 26);
-            this.TxtBoxItemName.TabIndex = 1;
+            this.TxtBoxItemName.TabIndex = 2;
             // 
             // TxtBoxItemBrand
             // 
@@ -80,7 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxItemBrand.Location = new System.Drawing.Point(170, 82);
             this.TxtBoxItemBrand.Name = "TxtBoxItemBrand";
             this.TxtBoxItemBrand.Size = new System.Drawing.Size(242, 26);
-            this.TxtBoxItemBrand.TabIndex = 2;
+            this.TxtBoxItemBrand.TabIndex = 3;
             // 
             // TxtBoxItemUnit
             // 
@@ -88,7 +88,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxItemUnit.Location = new System.Drawing.Point(791, 19);
             this.TxtBoxItemUnit.Name = "TxtBoxItemUnit";
             this.TxtBoxItemUnit.Size = new System.Drawing.Size(80, 26);
-            this.TxtBoxItemUnit.TabIndex = 3;
+            this.TxtBoxItemUnit.TabIndex = 5;
             // 
             // label1
             // 
@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxNarration.Location = new System.Drawing.Point(565, 84);
             this.TxtBoxNarration.Name = "TxtBoxNarration";
             this.TxtBoxNarration.Size = new System.Drawing.Size(306, 26);
-            this.TxtBoxNarration.TabIndex = 34;
+            this.TxtBoxNarration.TabIndex = 8;
             // 
             // label10
             // 
@@ -207,7 +207,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnClear.Location = new System.Drawing.Point(933, 84);
             this.BtnClear.Name = "BtnClear";
             this.BtnClear.Size = new System.Drawing.Size(125, 35);
-            this.BtnClear.TabIndex = 26;
+            this.BtnClear.TabIndex = 11;
             this.BtnClear.Text = "Clear";
             this.BtnClear.TextColor = System.Drawing.Color.White;
             this.BtnClear.UseVisualStyleBackColor = false;
@@ -227,7 +227,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(933, 47);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(125, 35);
-            this.BtnSave.TabIndex = 28;
+            this.BtnSave.TabIndex = 10;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
@@ -239,7 +239,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxItemPrice.Location = new System.Drawing.Point(565, 18);
             this.TxtBoxItemPrice.Name = "TxtBoxItemPrice";
             this.TxtBoxItemPrice.Size = new System.Drawing.Size(141, 26);
-            this.TxtBoxItemPrice.TabIndex = 31;
+            this.TxtBoxItemPrice.TabIndex = 4;
             // 
             // BtnEdit
             // 
@@ -255,7 +255,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Location = new System.Drawing.Point(933, 10);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(125, 35);
-            this.BtnEdit.TabIndex = 27;
+            this.BtnEdit.TabIndex = 9;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
@@ -286,7 +286,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.Location = new System.Drawing.Point(342, 17);
             this.BtnSearch.Name = "BtnSearch";
             this.BtnSearch.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearch.TabIndex = 29;
+            this.BtnSearch.TabIndex = 1;
             this.BtnSearch.Text = "Search";
             this.BtnSearch.TextColor = System.Drawing.Color.White;
             this.BtnSearch.UseVisualStyleBackColor = false;
@@ -296,13 +296,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboAction.FormattingEnabled = true;
+            this.ComboAction.ItemHeight = 20;
             this.ComboAction.Items.AddRange(new object[] {
             "Add",
             "Deduct"});
             this.ComboAction.Location = new System.Drawing.Point(566, 50);
             this.ComboAction.Name = "ComboAction";
             this.ComboAction.Size = new System.Drawing.Size(140, 28);
-            this.ComboAction.TabIndex = 25;
+            this.ComboAction.TabIndex = 6;
             this.ComboAction.SelectedValueChanged += new System.EventHandler(this.ComboAction_SelectedValueChanged);
             // 
             // TxtBoxItemQuantity
@@ -311,7 +312,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxItemQuantity.Location = new System.Drawing.Point(791, 51);
             this.TxtBoxItemQuantity.Name = "TxtBoxItemQuantity";
             this.TxtBoxItemQuantity.Size = new System.Drawing.Size(80, 26);
-            this.TxtBoxItemQuantity.TabIndex = 21;
+            this.TxtBoxItemQuantity.TabIndex = 7;
             // 
             // label6
             // 

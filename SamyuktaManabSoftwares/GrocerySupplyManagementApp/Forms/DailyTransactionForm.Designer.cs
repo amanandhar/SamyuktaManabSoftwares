@@ -115,7 +115,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBankTransfer.Location = new System.Drawing.Point(482, 66);
             this.ComboBankTransfer.Name = "ComboBankTransfer";
             this.ComboBankTransfer.Size = new System.Drawing.Size(125, 24);
-            this.ComboBankTransfer.TabIndex = 44;
+            this.ComboBankTransfer.TabIndex = 11;
             // 
             // RadioBankTransfer
             // 
@@ -125,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioBankTransfer.Location = new System.Drawing.Point(310, 69);
             this.RadioBankTransfer.Name = "RadioBankTransfer";
             this.RadioBankTransfer.Size = new System.Drawing.Size(119, 22);
-            this.RadioBankTransfer.TabIndex = 43;
+            this.RadioBankTransfer.TabIndex = 10;
             this.RadioBankTransfer.Text = "Bank Transfer";
             this.RadioBankTransfer.UseVisualStyleBackColor = true;
             this.RadioBankTransfer.CheckedChanged += new System.EventHandler(this.RadioBankTransfer_CheckedChanged);
@@ -137,7 +137,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPurchase.Location = new System.Drawing.Point(142, 68);
             this.ComboPurchase.Name = "ComboPurchase";
             this.ComboPurchase.Size = new System.Drawing.Size(125, 24);
-            this.ComboPurchase.TabIndex = 42;
+            this.ComboPurchase.TabIndex = 3;
             // 
             // RadioInvoiceNo
             // 
@@ -147,7 +147,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioInvoiceNo.Location = new System.Drawing.Point(647, 42);
             this.RadioInvoiceNo.Name = "RadioInvoiceNo";
             this.RadioInvoiceNo.Size = new System.Drawing.Size(117, 22);
-            this.RadioInvoiceNo.TabIndex = 35;
+            this.RadioInvoiceNo.TabIndex = 14;
             this.RadioInvoiceNo.Text = "By Invoice No";
             this.RadioInvoiceNo.UseVisualStyleBackColor = true;
             this.RadioInvoiceNo.CheckedChanged += new System.EventHandler(this.RadioInvoiceNo_CheckedChanged);
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboExpensePayment.Location = new System.Drawing.Point(482, 40);
             this.ComboExpensePayment.Name = "ComboExpensePayment";
             this.ComboExpensePayment.Size = new System.Drawing.Size(125, 24);
-            this.ComboExpensePayment.TabIndex = 41;
+            this.ComboExpensePayment.TabIndex = 9;
             // 
             // RadioExpensePayment
             // 
@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioExpensePayment.Location = new System.Drawing.Point(310, 42);
             this.RadioExpensePayment.Name = "RadioExpensePayment";
             this.RadioExpensePayment.Size = new System.Drawing.Size(166, 22);
-            this.RadioExpensePayment.TabIndex = 40;
+            this.RadioExpensePayment.TabIndex = 8;
             this.RadioExpensePayment.Text = "By Expense Payment";
             this.RadioExpensePayment.UseVisualStyleBackColor = true;
             this.RadioExpensePayment.CheckedChanged += new System.EventHandler(this.RadioExpense_CheckedChanged);
@@ -182,7 +182,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioAll.Location = new System.Drawing.Point(37, 15);
             this.RadioAll.Name = "RadioAll";
             this.RadioAll.Size = new System.Drawing.Size(49, 22);
-            this.RadioAll.TabIndex = 2;
+            this.RadioAll.TabIndex = 0;
             this.RadioAll.Text = "All  ";
             this.RadioAll.UseVisualStyleBackColor = true;
             this.RadioAll.CheckedChanged += new System.EventHandler(this.RadioAll_CheckedChanged);
@@ -195,7 +195,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPurchasePayment.Location = new System.Drawing.Point(310, 15);
             this.RadioPurchasePayment.Name = "RadioPurchasePayment";
             this.RadioPurchasePayment.Size = new System.Drawing.Size(172, 22);
-            this.RadioPurchasePayment.TabIndex = 39;
+            this.RadioPurchasePayment.TabIndex = 6;
             this.RadioPurchasePayment.Text = "By Purchase Payment";
             this.RadioPurchasePayment.UseVisualStyleBackColor = true;
             this.RadioPurchasePayment.CheckedChanged += new System.EventHandler(this.RadioPayment_CheckedChanged);
@@ -219,7 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioSales.Location = new System.Drawing.Point(36, 95);
             this.RadioSales.Name = "RadioSales";
             this.RadioSales.Size = new System.Drawing.Size(84, 22);
-            this.RadioSales.TabIndex = 3;
+            this.RadioSales.TabIndex = 4;
             this.RadioSales.Text = "By Sales";
             this.RadioSales.UseVisualStyleBackColor = true;
             this.RadioSales.CheckedChanged += new System.EventHandler(this.RadioSales_CheckedChanged);
@@ -231,7 +231,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboInvoiceNo.Location = new System.Drawing.Point(765, 40);
             this.ComboInvoiceNo.Name = "ComboInvoiceNo";
             this.ComboInvoiceNo.Size = new System.Drawing.Size(125, 24);
-            this.ComboInvoiceNo.TabIndex = 36;
+            this.ComboInvoiceNo.TabIndex = 15;
             // 
             // ComboSales
             // 
@@ -240,7 +240,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboSales.Location = new System.Drawing.Point(142, 94);
             this.ComboSales.Name = "ComboSales";
             this.ComboSales.Size = new System.Drawing.Size(125, 24);
-            this.ComboSales.TabIndex = 38;
+            this.ComboSales.TabIndex = 5;
             // 
             // RadioReceipt
             // 
@@ -250,7 +250,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioReceipt.Location = new System.Drawing.Point(310, 95);
             this.RadioReceipt.Name = "RadioReceipt";
             this.RadioReceipt.Size = new System.Drawing.Size(101, 22);
-            this.RadioReceipt.TabIndex = 14;
+            this.RadioReceipt.TabIndex = 12;
             this.RadioReceipt.Text = "By Receipt ";
             this.RadioReceipt.UseVisualStyleBackColor = true;
             this.RadioReceipt.CheckedChanged += new System.EventHandler(this.RadioReceipt_CheckedChanged);
@@ -284,7 +284,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioPurchase.Location = new System.Drawing.Point(36, 68);
             this.RadioPurchase.Name = "RadioPurchase";
             this.RadioPurchase.Size = new System.Drawing.Size(110, 22);
-            this.RadioPurchase.TabIndex = 18;
+            this.RadioPurchase.TabIndex = 2;
             this.RadioPurchase.Text = "By Purchase";
             this.RadioPurchase.UseVisualStyleBackColor = true;
             this.RadioPurchase.CheckedChanged += new System.EventHandler(this.RadioPurchase_CheckedChanged);
@@ -296,7 +296,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPurchasePayment.Location = new System.Drawing.Point(482, 14);
             this.ComboPurchasePayment.Name = "ComboPurchasePayment";
             this.ComboPurchasePayment.Size = new System.Drawing.Size(125, 24);
-            this.ComboPurchasePayment.TabIndex = 22;
+            this.ComboPurchasePayment.TabIndex = 7;
             // 
             // ComboReceipt
             // 
@@ -309,7 +309,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboReceipt.Location = new System.Drawing.Point(482, 92);
             this.ComboReceipt.Name = "ComboReceipt";
             this.ComboReceipt.Size = new System.Drawing.Size(125, 24);
-            this.ComboReceipt.TabIndex = 23;
+            this.ComboReceipt.TabIndex = 13;
             // 
             // ComboUser
             // 
@@ -318,7 +318,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUser.Location = new System.Drawing.Point(765, 66);
             this.ComboUser.Name = "ComboUser";
             this.ComboUser.Size = new System.Drawing.Size(125, 24);
-            this.ComboUser.TabIndex = 37;
+            this.ComboUser.TabIndex = 16;
             // 
             // TxtTotal
             // 
@@ -328,7 +328,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtTotal.Name = "TxtTotal";
             this.TxtTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotal.Size = new System.Drawing.Size(125, 26);
-            this.TxtTotal.TabIndex = 28;
+            this.TxtTotal.TabIndex = 17;
             // 
             // groupBox2
             // 
@@ -354,7 +354,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Location = new System.Drawing.Point(9, 60);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(125, 40);
-            this.BtnDelete.TabIndex = 1;
+            this.BtnDelete.TabIndex = 19;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
             this.BtnDelete.UseVisualStyleBackColor = false;
@@ -374,7 +374,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.Location = new System.Drawing.Point(9, 18);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(125, 40);
-            this.BtnShow.TabIndex = 0;
+            this.BtnShow.TabIndex = 18;
             this.BtnShow.Text = "Show";
             this.BtnShow.TextColor = System.Drawing.Color.White;
             this.BtnShow.UseVisualStyleBackColor = false;

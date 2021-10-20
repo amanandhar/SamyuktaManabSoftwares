@@ -53,6 +53,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridEmployeeList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridEmployeeList.Columns["Id"].Visible = false;
+            DataGridEmployeeList.Columns["EndOfDay"].Visible = false;
             DataGridEmployeeList.Columns["Counter"].Visible = false;
             DataGridEmployeeList.Columns["TempAddress"].Visible = false;
             DataGridEmployeeList.Columns["PermAddress"].Visible = false;

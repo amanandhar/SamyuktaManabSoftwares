@@ -23,7 +23,8 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "m.[MemberId], m.[Name], m.[Address], m.[ContactNo], m.[AccountNo], " +
                 "ut.[InvoiceNo], ut.[ActionType], ut.[EndOfDay], " +
-                "pd.[SubTotal], pd.[Discount], pd.[DeliveryCharge], ut.[DueReceivedAmount], ut.[ReceivedAmount], " +
+                "pd.[SubTotal], pd.[Discount], pd.[DeliveryCharge], (pd.[SubTotal] - pd.[Discount] + pd.[DeliveryCharge]) AS [TotalAmount], " +
+                "ut.[ReceivedAmount], ut.[DueReceivedAmount], " +
                 "i.[Name] AS [ItemName], i.[Brand], si.[Volume], si.[Unit], " +
                 "si.[Quantity], si.[Price], CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) AS [Amount] " +
                 "FROM " + Constants.TABLE_MEMBER + " m " +
@@ -68,8 +69,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                         SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
                                         Discount = Convert.ToDecimal(reader["Discount"].ToString()),
                                         DeliveryCharge = Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
-                                        DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString()),
+                                        TotalAmount = Convert.ToDecimal(reader["TotalAmount"].ToString()),
                                         ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
+                                        DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString()),
                                         ItemName = reader["ItemName"].ToString(),
                                         Brand = reader["Brand"].ToString(),
                                         Volume = Convert.ToInt64(reader["Volume"].ToString()),

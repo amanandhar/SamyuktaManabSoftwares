@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboAction.Location = new System.Drawing.Point(401, 17);
             this.ComboAction.Name = "ComboAction";
             this.ComboAction.Size = new System.Drawing.Size(120, 26);
-            this.ComboAction.TabIndex = 22;
+            this.ComboAction.TabIndex = 23;
             // 
             // groupBox3
             // 
@@ -123,7 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Size = new System.Drawing.Size(140, 205);
             this.groupBox3.TabIndex = 25;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Creat Mamber";
+            this.groupBox3.Text = "Member";
             // 
             // BtnDelete
             // 
@@ -139,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.Location = new System.Drawing.Point(11, 163);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(120, 35);
-            this.BtnDelete.TabIndex = 46;
+            this.BtnDelete.TabIndex = 20;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.TextColor = System.Drawing.Color.White;
             this.BtnDelete.UseVisualStyleBackColor = false;
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.Location = new System.Drawing.Point(11, 127);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
-            this.BtnUpdate.TabIndex = 45;
+            this.BtnUpdate.TabIndex = 19;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
             this.BtnUpdate.UseVisualStyleBackColor = false;
@@ -179,7 +179,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.Location = new System.Drawing.Point(11, 91);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(120, 35);
-            this.BtnEdit.TabIndex = 44;
+            this.BtnEdit.TabIndex = 18;
             this.BtnEdit.Text = "Edit";
             this.BtnEdit.TextColor = System.Drawing.Color.White;
             this.BtnEdit.UseVisualStyleBackColor = false;
@@ -199,7 +199,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.Location = new System.Drawing.Point(11, 55);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(120, 35);
-            this.BtnSave.TabIndex = 43;
+            this.BtnSave.TabIndex = 17;
             this.BtnSave.Text = "Save";
             this.BtnSave.TextColor = System.Drawing.Color.White;
             this.BtnSave.UseVisualStyleBackColor = false;
@@ -219,7 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddMember.Location = new System.Drawing.Point(10, 19);
             this.BtnAddMember.Name = "BtnAddMember";
             this.BtnAddMember.Size = new System.Drawing.Size(120, 35);
-            this.BtnAddMember.TabIndex = 42;
+            this.BtnAddMember.TabIndex = 16;
             this.BtnAddMember.Text = "Add";
             this.BtnAddMember.TextColor = System.Drawing.Color.White;
             this.BtnAddMember.UseVisualStyleBackColor = false;
@@ -256,7 +256,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtAmount.ReadOnly = true;
             this.TxtAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtAmount.Size = new System.Drawing.Size(125, 26);
-            this.TxtAmount.TabIndex = 23;
+            this.TxtAmount.TabIndex = 24;
             // 
             // textBox2
             // 
@@ -358,7 +358,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtMemberId.Location = new System.Drawing.Point(86, 17);
             this.TxtMemberId.Name = "TxtMemberId";
             this.TxtMemberId.Size = new System.Drawing.Size(75, 26);
-            this.TxtMemberId.TabIndex = 53;
+            this.TxtMemberId.TabIndex = 0;
             // 
             // BtnSearchMember
             // 
@@ -374,7 +374,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchMember.Location = new System.Drawing.Point(290, 16);
             this.BtnSearchMember.Name = "BtnSearchMember";
             this.BtnSearchMember.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearchMember.TabIndex = 39;
+            this.BtnSearchMember.TabIndex = 2;
             this.BtnSearchMember.Text = "Search";
             this.BtnSearchMember.TextColor = System.Drawing.Color.White;
             this.BtnSearchMember.UseVisualStyleBackColor = false;
@@ -389,7 +389,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtAccountNumber.Location = new System.Drawing.Point(202, 17);
             this.TxtAccountNumber.Name = "TxtAccountNumber";
             this.TxtAccountNumber.Size = new System.Drawing.Size(87, 26);
-            this.TxtAccountNumber.TabIndex = 38;
+            this.TxtAccountNumber.TabIndex = 1;
             // 
             // TxtName
             // 
@@ -399,7 +399,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtName.Location = new System.Drawing.Point(86, 47);
             this.TxtName.Name = "TxtName";
             this.TxtName.Size = new System.Drawing.Size(274, 26);
-            this.TxtName.TabIndex = 37;
+            this.TxtName.TabIndex = 3;
             // 
             // TxtAddress
             // 
@@ -408,7 +408,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtAddress.Location = new System.Drawing.Point(86, 77);
             this.TxtAddress.Name = "TxtAddress";
             this.TxtAddress.Size = new System.Drawing.Size(274, 26);
-            this.TxtAddress.TabIndex = 36;
+            this.TxtAddress.TabIndex = 4;
             // 
             // TxtEmail
             // 
@@ -419,7 +419,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtEmail.Location = new System.Drawing.Point(437, 17);
             this.TxtEmail.Name = "TxtEmail";
             this.TxtEmail.Size = new System.Drawing.Size(225, 26);
-            this.TxtEmail.TabIndex = 35;
+            this.TxtEmail.TabIndex = 5;
             // 
             // TxtContactNumber
             // 
@@ -429,7 +429,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtContactNumber.Location = new System.Drawing.Point(437, 47);
             this.TxtContactNumber.Name = "TxtContactNumber";
             this.TxtContactNumber.Size = new System.Drawing.Size(225, 26);
-            this.TxtContactNumber.TabIndex = 34;
+            this.TxtContactNumber.TabIndex = 6;
             // 
             // TxtBalance
             // 
@@ -441,7 +441,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBalance.ReadOnly = true;
             this.TxtBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBalance.Size = new System.Drawing.Size(160, 26);
-            this.TxtBalance.TabIndex = 33;
+            this.TxtBalance.TabIndex = 7;
             // 
             // TxtBalanceStatus
             // 
@@ -451,7 +451,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBalanceStatus.Name = "TxtBalanceStatus";
             this.TxtBalanceStatus.ReadOnly = true;
             this.TxtBalanceStatus.Size = new System.Drawing.Size(63, 26);
-            this.TxtBalanceStatus.TabIndex = 10;
+            this.TxtBalanceStatus.TabIndex = 8;
             // 
             // label14
             // 
@@ -497,7 +497,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboReceipt.Location = new System.Drawing.Point(102, 18);
             this.ComboReceipt.Name = "ComboReceipt";
             this.ComboReceipt.Size = new System.Drawing.Size(135, 26);
-            this.ComboReceipt.TabIndex = 5;
+            this.ComboReceipt.TabIndex = 9;
             this.ComboReceipt.SelectedValueChanged += new System.EventHandler(this.ComboPayment_SelectedValueChanged);
             // 
             // RichAmount
@@ -531,7 +531,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Location = new System.Drawing.Point(45, 48);
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(192, 26);
-            this.ComboBank.TabIndex = 6;
+            this.ComboBank.TabIndex = 10;
             this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
             // 
             // label6
@@ -623,7 +623,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskEndOfDayFrom.Mask = "   0000-00-00";
             this.MaskEndOfDayFrom.Name = "MaskEndOfDayFrom";
             this.MaskEndOfDayFrom.Size = new System.Drawing.Size(100, 24);
-            this.MaskEndOfDayFrom.TabIndex = 39;
+            this.MaskEndOfDayFrom.TabIndex = 21;
             // 
             // MaskEndOfDayTo
             // 
@@ -632,7 +632,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MaskEndOfDayTo.Mask = "   0000-00-00";
             this.MaskEndOfDayTo.Name = "MaskEndOfDayTo";
             this.MaskEndOfDayTo.Size = new System.Drawing.Size(100, 24);
-            this.MaskEndOfDayTo.TabIndex = 40;
+            this.MaskEndOfDayTo.TabIndex = 22;
             // 
             // textBox1
             // 
@@ -676,7 +676,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.Location = new System.Drawing.Point(770, 13);
             this.BtnShowTransaction.Name = "BtnShowTransaction";
             this.BtnShowTransaction.Size = new System.Drawing.Size(140, 35);
-            this.BtnShowTransaction.TabIndex = 47;
+            this.BtnShowTransaction.TabIndex = 25;
             this.BtnShowTransaction.Text = "Show Transaction";
             this.BtnShowTransaction.TextColor = System.Drawing.Color.White;
             this.BtnShowTransaction.UseVisualStyleBackColor = false;
@@ -708,7 +708,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveReceipt.Location = new System.Drawing.Point(10, 54);
             this.BtnSaveReceipt.Name = "BtnSaveReceipt";
             this.BtnSaveReceipt.Size = new System.Drawing.Size(120, 35);
-            this.BtnSaveReceipt.TabIndex = 41;
+            this.BtnSaveReceipt.TabIndex = 15;
             this.BtnSaveReceipt.Text = "Save Receipt";
             this.BtnSaveReceipt.TextColor = System.Drawing.Color.White;
             this.BtnSaveReceipt.UseVisualStyleBackColor = false;
@@ -728,7 +728,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowSales.Location = new System.Drawing.Point(10, 18);
             this.BtnShowSales.Name = "BtnShowSales";
             this.BtnShowSales.Size = new System.Drawing.Size(120, 35);
-            this.BtnShowSales.TabIndex = 40;
+            this.BtnShowSales.TabIndex = 14;
             this.BtnShowSales.Text = "Show Sales";
             this.BtnShowSales.TextColor = System.Drawing.Color.White;
             this.BtnShowSales.UseVisualStyleBackColor = false;
@@ -776,7 +776,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.Location = new System.Drawing.Point(1023, 192);
             this.BtnDeleteImage.Name = "BtnDeleteImage";
             this.BtnDeleteImage.Size = new System.Drawing.Size(52, 22);
-            this.BtnDeleteImage.TabIndex = 43;
+            this.BtnDeleteImage.TabIndex = 13;
             this.BtnDeleteImage.Text = "Delete";
             this.BtnDeleteImage.TextColor = System.Drawing.Color.White;
             this.BtnDeleteImage.UseVisualStyleBackColor = false;
@@ -795,7 +795,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.Location = new System.Drawing.Point(967, 192);
             this.BtnAddImage.Name = "BtnAddImage";
             this.BtnAddImage.Size = new System.Drawing.Size(52, 22);
-            this.BtnAddImage.TabIndex = 42;
+            this.BtnAddImage.TabIndex = 12;
             this.BtnAddImage.Text = "Add";
             this.BtnAddImage.TextColor = System.Drawing.Color.White;
             this.BtnAddImage.UseVisualStyleBackColor = false;
