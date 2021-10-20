@@ -529,7 +529,7 @@
                   <TextRun>
                     <Value>=First(Fields!AmountInWords.Value, "Invoice")</Value>
                     <Style>
-                      <FontSize>6pt</FontSize>
+                      <FontSize>9pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>

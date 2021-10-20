@@ -423,6 +423,12 @@ namespace GrocerySupplyManagementApp.Repositories
                     "( " +
                     "SELECT [Id] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
+                    ") " +
+                    "AND [Id] NOT IN " +
+                    "( " +
+                    "SELECT [Id] " +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
                     ") ";
             }
@@ -448,6 +454,12 @@ namespace GrocerySupplyManagementApp.Repositories
                         "SELECT [Id] " +
                         "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                         "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
+                        ") " +
+                        "AND [Id] NOT IN " +
+                        "( " +
+                        "SELECT [Id] " +
+                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                        "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
                         ") ";
             }
             else
@@ -514,15 +526,21 @@ namespace GrocerySupplyManagementApp.Repositories
                 {
                     query += "SUM([ReceivedAmount]) ";
                 }
-                
+
                 query += "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] NOT IN " +
-                    "( " +
-                    "SELECT [Id] " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
-                    ") ";
+                   "WHERE 1 = 1 " +
+                   "AND [Id] NOT IN " +
+                   "( " +
+                   "SELECT [Id] " +
+                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                   "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
+                   ") " +
+                   "AND [Id] NOT IN " +
+                   "( " +
+                   "SELECT [Id] " +
+                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                   "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
+                   ") ";
             }
             else if (action?.ToLower() == Constants.PAYMENT.ToLower()
                 || action?.ToLower() == Constants.EXPENSE.ToLower()
@@ -538,15 +556,21 @@ namespace GrocerySupplyManagementApp.Repositories
                 {
                     query += "SUM([PaymentAmount]) ";
                 }
-                
+
                 query += "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] NOT IN " +
-                    "( " +
-                    "SELECT [Id] " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
-                    ") ";
+                   "WHERE 1 = 1 " +
+                   "AND [Id] NOT IN " +
+                   "( " +
+                   "SELECT [Id] " +
+                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                   "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
+                   ") " +
+                   "AND [Id] NOT IN " +
+                   "( " +
+                   "SELECT [Id] " +
+                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                   "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
+                   ") ";
             }
             else
             {

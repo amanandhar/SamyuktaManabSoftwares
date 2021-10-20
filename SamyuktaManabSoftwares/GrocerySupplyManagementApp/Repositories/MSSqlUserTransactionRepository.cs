@@ -677,6 +677,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter)
         {
+            var includeBankTransaction = false;
             var transactionViewList = new List<DailyTransactionView>();
             var query = @"SELECT " +
                 "ut.[Id], ut.[EndOfDay], " +
@@ -716,8 +717,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 "WHERE 1 = 1 " +
                 "AND ISNULL(ut.[Income], '') NOT IN " +
                 "(" +
-                "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', '" + Constants.OTHER_INCOME + "', " +
-                "'" + Constants.SALES_DISCOUNT + "', '" + Constants.SALES_PROFIT + "' " +
+                "'" + Constants.DELIVERY_CHARGE + "', '" + Constants.MEMBER_FEE + "', " +
+                "'" + Constants.OTHER_INCOME + "', '" + Constants.SALES_PROFIT + "' " +
+                ") " +
+                "AND ISNULL(ut.[Expense], '') NOT IN " +
+                "( " +
+                "'" + Constants.SALES_DISCOUNT + "' " +
                 ") ";
 
             if (dailyTransactionFilter.Date != null)
@@ -756,6 +761,7 @@ namespace GrocerySupplyManagementApp.Repositories
             else if (dailyTransactionFilter.Username != null)
             {
                 query += " AND ut.[AddedBy] = '" + dailyTransactionFilter.Username + "' ";
+                includeBankTransaction = true;
             }
             else
             {
@@ -763,7 +769,8 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             // Including Owner Equity from Bank Transaction table
-            if (dailyTransactionFilter.Receipt == Constants.OWNER_EQUITY 
+            if (includeBankTransaction 
+                || dailyTransactionFilter.Receipt == Constants.OWNER_EQUITY 
                 || dailyTransactionFilter.IsAll)
             {
                 query += "UNION " +
