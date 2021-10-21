@@ -235,7 +235,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Opening Discount:</Value>
+                    <Value>Opening Discount 3%:</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -244,9 +244,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox19</rd:DefaultName>
             <Top>0.90173in</Top>
-            <Left>4.64166in</Left>
+            <Left>4.64591in</Left>
             <Height>0.25in</Height>
-            <Width>1.19182in</Width>
+            <Width>1.45224in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -278,9 +278,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
             <Top>0.90173in</Top>
-            <Left>5.87515in</Left>
+            <Left>6.16682in</Left>
             <Height>0.25in</Height>
-            <Width>0.82917in</Width>
+            <Width>0.5375in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
