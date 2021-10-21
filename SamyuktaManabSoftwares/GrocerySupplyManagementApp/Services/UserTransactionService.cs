@@ -45,7 +45,7 @@ namespace GrocerySupplyManagementApp.Services
 
         public UserTransaction GetLastUserTransaction(string addedBy, string option)
         {
-            return _userTransactionRepository.GetLastUserTransaction(option, addedBy);
+            return _userTransactionRepository.GetLastUserTransaction(addedBy, option);
         }
 
         public string GetInvoiceNo()

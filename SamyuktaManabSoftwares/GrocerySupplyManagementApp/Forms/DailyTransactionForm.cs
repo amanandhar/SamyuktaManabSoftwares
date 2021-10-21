@@ -82,7 +82,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var expense = selectedRow.Cells["Expense"].Value.ToString();
                     var actionType = selectedRow.Cells["ActionType"].Value.ToString();
 
-                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) && (billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX) || billInvoiceNo.StartsWith(Constants.BONUS_PREFIX)))
+                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) 
+                        && billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX))
                     {
                         var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
                         if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
@@ -93,7 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Message", MessageBoxButtons.OK);
+                            DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (billResult == DialogResult.OK)
                             {
                                 LoadDailyTransactions();
@@ -101,7 +102,8 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                         }
                     }
-                    else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
+                    else if (!string.IsNullOrWhiteSpace(billInvoiceNo) 
+                        && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
                     {
                         var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
                         if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
