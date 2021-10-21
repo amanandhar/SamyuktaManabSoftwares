@@ -129,24 +129,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var paymentAmount = RichAmount.Text.Trim();
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
 
-                    if (string.IsNullOrWhiteSpace(paymentType)
-                        || (paymentType == Constants.CASH || string.IsNullOrWhiteSpace(paymentAmount)))
-                    {
-                        DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        if (result == DialogResult.OK)
-                        {
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Bank \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        if (result == DialogResult.OK)
-                        {
-                            return;
-                        }
-                    }
-
                     var paymentAmt = Convert.ToDecimal(paymentAmount);
                     if (paymentType.ToLower() == Constants.CASH.ToLower())
                     {
@@ -729,19 +711,19 @@ namespace GrocerySupplyManagementApp.Forms
             var amount = RichAmount.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(payment)
+                || (payment == Constants.CASH && string.IsNullOrWhiteSpace(amount)))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Payment " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (string.IsNullOrWhiteSpace(payment)
                 || (payment == Constants.CHEQUE && string.IsNullOrWhiteSpace(bank))
                 || string.IsNullOrWhiteSpace(amount))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Payment " +
                     "\n * Bank " +
-                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else if (string.IsNullOrWhiteSpace(payment)
-                || (payment == Constants.CASH && string.IsNullOrWhiteSpace(amount)))
-            {
-                MessageBox.Show("Please enter following fields: " +
-                    "\n * Payment " +
                     "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else

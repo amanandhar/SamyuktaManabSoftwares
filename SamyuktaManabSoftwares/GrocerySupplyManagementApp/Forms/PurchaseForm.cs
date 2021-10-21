@@ -211,7 +211,10 @@ namespace GrocerySupplyManagementApp.Forms
             if (e.KeyData == Keys.Enter)
             {
                 e.Handled = e.SuppressKeyPress = true;
-                AddToCart();
+                if (ValidatePurchaseInfo())
+                {
+                    AddToCart();
+                }
             }
         }
 
@@ -425,7 +428,6 @@ namespace GrocerySupplyManagementApp.Forms
             var itemName = RichItemName.Text.Trim();
             var unit = RichUnit.Text.Trim();
             var itemCode = RichItemCode.Text.Trim();
-            var billAmount = TxtTotalAmount.Text.Trim();
             var itemBrand = RichItemBrand.Text.Trim();
             var quantity = RichQuantity.Text.Trim();
             var purchasePrice = RichPurchasePrice.Text.Trim();
@@ -434,7 +436,6 @@ namespace GrocerySupplyManagementApp.Forms
                 || string.IsNullOrWhiteSpace(itemName)
                 || string.IsNullOrWhiteSpace(unit)
                 || string.IsNullOrWhiteSpace(itemCode)
-                || string.IsNullOrWhiteSpace(billAmount)
                 || string.IsNullOrWhiteSpace(itemBrand)
                 || string.IsNullOrWhiteSpace(quantity)
                 || string.IsNullOrWhiteSpace(purchasePrice))
@@ -444,7 +445,6 @@ namespace GrocerySupplyManagementApp.Forms
                     "\n * Item Name " +
                     "\n * Unit " +
                     "\n * Item Code " +
-                    "\n * Bill Amount " +
                     "\n * Item Brand " +
                     "\n * Quantity " +
                     "\n * Purchase Price", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);

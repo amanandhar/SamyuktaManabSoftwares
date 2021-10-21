@@ -1249,19 +1249,13 @@ namespace GrocerySupplyManagementApp.Forms
             var isValidated = false;
 
             var memberId = RichMemberId.Text.Trim();
-            var itemCode = RichItemCode.Text.Trim();
-            var itemQuantity = RichItemQuantity.Text.Trim();
             var totalAmount = TxtTotal.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(memberId)
-                || string.IsNullOrWhiteSpace(itemCode)
-                || string.IsNullOrWhiteSpace(itemQuantity)
                 || string.IsNullOrWhiteSpace(totalAmount))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Member Id " +
-                    "\n * Item Code " +
-                    "\n * Item Quantity " +
                     "\n * Total Amount ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else

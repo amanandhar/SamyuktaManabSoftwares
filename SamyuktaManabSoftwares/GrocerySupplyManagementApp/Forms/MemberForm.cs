@@ -743,7 +743,14 @@ namespace GrocerySupplyManagementApp.Forms
             var amount = RichAmount.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(receipt)
-                || string.IsNullOrWhiteSpace(bank)
+                || (receipt == Constants.CASH && string.IsNullOrWhiteSpace(amount)))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Receipt " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (string.IsNullOrWhiteSpace(receipt)
+                || (receipt == Constants.CHEQUE && string.IsNullOrWhiteSpace(bank))
                 || string.IsNullOrWhiteSpace(amount))
             {
                 MessageBox.Show("Please enter following fields: " +
