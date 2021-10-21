@@ -81,41 +81,44 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var item = new Item
+                if(ValidateItemInfo())
                 {
-                    EndOfDay = _endOfDay,
-                    Code = RichItemCode.Text,
-                    Name = RichItemName.Text,
-                    Brand = RichItemBrand.Text,
-                    Unit = ComboUnit.Text,
-                    Threshold = Convert.ToInt32(RichThreshold.Text),
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var item = new Item
+                    {
+                        EndOfDay = _endOfDay,
+                        Code = RichItemCode.Text,
+                        Name = RichItemName.Text,
+                        Brand = RichItemBrand.Text,
+                        Unit = ComboUnit.Text,
+                        Threshold = Convert.ToInt32(RichThreshold.Text),
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _itemService.AddItem(item);
+                    _itemService.AddItem(item);
 
-                var itemCode = item.Code.ToString();
-                var formattedItemCode = itemCode.Substring(1, itemCode.Length - 1);
-                var counter = formattedItemCode.TrimStart(new Char[] { '0' });
-                var itemCategory = new ItemCategory
-                {
-                    EndOfDay = _endOfDay,
-                    Counter = Convert.ToInt64(counter),
-                    Name = ComboCategory.Text,
-                    ItemCode = RichItemCode.Text,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var itemCode = item.Code.ToString();
+                    var formattedItemCode = itemCode.Substring(1, itemCode.Length - 1);
+                    var counter = formattedItemCode.TrimStart(new Char[] { '0' });
+                    var itemCategory = new ItemCategory
+                    {
+                        EndOfDay = _endOfDay,
+                        Counter = Convert.ToInt64(counter),
+                        Name = ComboCategory.Text,
+                        ItemCode = RichItemCode.Text,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _itemCategoryService.AddItemCategory(itemCategory);
+                    _itemCategoryService.AddItemCategory(itemCategory);
 
-                DialogResult result = MessageBox.Show(item.Code + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields(Action.None);
-                    LoadItems();
+                    DialogResult result = MessageBox.Show(item.Code + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields(Action.None);
+                        LoadItems();
+                    }
                 }
             }
             catch (Exception ex)
@@ -136,26 +139,29 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (selectedItemId != 0)
+                if(ValidateItemInfo())
                 {
-                    var item = new Item
+                    if (selectedItemId != 0)
                     {
-                        Code = RichItemCode.Text,
-                        Name = RichItemName.Text,
-                        Brand = RichItemBrand.Text,
-                        Unit = ComboUnit.Text,
-                        Threshold = Convert.ToInt32(RichThreshold.Text),
-                        UpdatedBy = _username,
-                        UpdatedDate = DateTime.Now
-                    };
+                        var item = new Item
+                        {
+                            Code = RichItemCode.Text,
+                            Name = RichItemName.Text,
+                            Brand = RichItemBrand.Text,
+                            Unit = ComboUnit.Text,
+                            Threshold = Convert.ToInt32(RichThreshold.Text),
+                            UpdatedBy = _username,
+                            UpdatedDate = DateTime.Now
+                        };
 
-                    _itemService.UpdateItem(selectedItemId, item);
-                    DialogResult result = MessageBox.Show(item.Code + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
-                    {
-                        ClearAllFields();
-                        EnableFields(Action.None);
-                        LoadItems();
+                        _itemService.UpdateItem(selectedItemId, item);
+                        DialogResult result = MessageBox.Show(item.Code + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            ClearAllFields();
+                            EnableFields(Action.None);
+                            LoadItems();
+                        }
                     }
                 }
             }
@@ -412,6 +418,42 @@ namespace GrocerySupplyManagementApp.Forms
             ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_X, Value = Constants.CATEGORY_X });
             ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Y, Value = Constants.CATEGORY_Y });
             ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Z, Value = Constants.CATEGORY_Z });
+        }
+        #endregion
+
+        #region Validation
+        private bool ValidateItemInfo()
+        {
+            var isValidated = false;
+
+            var category = ComboCategory.Text.Trim();
+            var itemCode = RichItemCode.Text.Trim();
+            var itemName = RichItemName.Text.Trim();
+            var unit = ComboUnit.Text.Trim();
+            var threshold = RichThreshold.Text.Trim();
+            var itemBrand = RichItemBrand.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(category)
+                || string.IsNullOrWhiteSpace(itemCode)
+                || string.IsNullOrWhiteSpace(itemName)
+                || string.IsNullOrWhiteSpace(unit)
+                || string.IsNullOrWhiteSpace(threshold)
+                || string.IsNullOrWhiteSpace(itemBrand))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Category " +
+                    "\n * Item Code " +
+                    "\n * Item Name " +
+                    "\n * Item Unit " +
+                    "\n * Item Threshold " +
+                    "\n * Item Brand", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
         }
         #endregion
     }

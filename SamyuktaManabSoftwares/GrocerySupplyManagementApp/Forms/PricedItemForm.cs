@@ -104,60 +104,63 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
+                if(ValidatePricedItemInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+
                             return;
-                        }
-
-                        return;
-                    }
-                    else
-                    {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
-                        {
-                            UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
-                        }
-
-                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                        if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
-                        {
-                            File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                         else
                         {
-                            File.Copy(PicBoxItemImage.ImageLocation, destinationFilePath, true);
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                            }
+
+                            var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                            if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                            {
+                                File.Copy(_uploadedImagePath, destinationFilePath, true);
+                            }
+                            else
+                            {
+                                File.Copy(PicBoxItemImage.ImageLocation, destinationFilePath, true);
+                            }
                         }
                     }
-                }
 
-                var pricedItem = new PricedItem
-                {
-                    EndOfDay = _endOfDay,
-                    ItemId = _selectedItemId,
-                    Volume = Convert.ToInt64(TxtVolume.Text),
-                    SubCode = TxtItemSubCode.Text,
-                    ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
-                    Profit = Convert.ToDecimal(TxtProfitAmount.Text),
-                    SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                    ImagePath = destinationFilePath,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var pricedItem = new PricedItem
+                    {
+                        EndOfDay = _endOfDay,
+                        ItemId = _selectedItemId,
+                        Volume = Convert.ToInt64(TxtVolume.Text),
+                        SubCode = TxtItemSubCode.Text,
+                        ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
+                        Profit = Convert.ToDecimal(TxtProfitAmount.Text),
+                        SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
+                        ImagePath = destinationFilePath,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _pricedItemService.AddPricedItem(pricedItem);
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields();
+                    _pricedItemService.AddPricedItem(pricedItem);
+                    DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                    }
                 }
             }
             catch (Exception ex)
@@ -178,56 +181,59 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if(ValidatePricedItemInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+
                             return;
                         }
+                        else
+                        {
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                            }
 
-                        return;
+                            var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
+                        }
                     }
                     else
                     {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
-                        {
-                            UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
-                        }
-
-                        var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
+                        destinationFilePath = PicBoxItemImage.ImageLocation;
                     }
-                }
-                else
-                {
-                    destinationFilePath = PicBoxItemImage.ImageLocation;
-                }
 
-                var pricedItem = new PricedItem
-                {
-                    ItemId = _selectedItemId,
-                    Volume = Convert.ToInt64(TxtVolume.Text),
-                    SubCode = TxtItemSubCode.Text,
-                    ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
-                    Profit = Convert.ToDecimal(TxtProfitAmount.Text),
-                    SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                    ImagePath = destinationFilePath,
-                    UpdatedBy = _username,
-                    UpdatedDate = DateTime.Now
-                };
+                    var pricedItem = new PricedItem
+                    {
+                        ItemId = _selectedItemId,
+                        Volume = Convert.ToInt64(TxtVolume.Text),
+                        SubCode = TxtItemSubCode.Text,
+                        ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
+                        Profit = Convert.ToDecimal(TxtProfitAmount.Text),
+                        SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
+                        ImagePath = destinationFilePath,
+                        UpdatedBy = _username,
+                        UpdatedDate = DateTime.Now
+                    };
 
-                _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
-                DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields();
+                    _pricedItemService.UpdatePricedItem(_selectedId, pricedItem);
+                    DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                    }
                 }
             }
             catch (Exception ex)
@@ -370,9 +376,9 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if(action == Action.Add)
             {
+                TxtItemSubCode.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
-                TxtItemSubCode.Enabled = true;
 
                 BtnSave.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -381,9 +387,9 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
+                TxtItemSubCode.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
-                TxtItemSubCode.Enabled = true;
 
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -536,6 +542,33 @@ namespace GrocerySupplyManagementApp.Forms
             ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
 
+        #endregion
+
+        #region Validation
+        private bool ValidatePricedItemInfo()
+        {
+            var isValidated = false;
+
+            var itemSubCode = TxtItemSubCode.Text.Trim();
+            var volume = TxtVolume.Text.Trim();
+            var profitPercent = TxtProfitPercent.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(itemSubCode)
+                || string.IsNullOrWhiteSpace(volume)
+                || string.IsNullOrWhiteSpace(profitPercent))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Item Sub Code " +
+                    "\n * Volume " +
+                    "\n * Profit Percent", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
         #endregion
     }
 }

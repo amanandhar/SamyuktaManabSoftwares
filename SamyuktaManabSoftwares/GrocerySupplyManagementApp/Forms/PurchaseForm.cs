@@ -96,7 +96,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddItem_Click(object sender, EventArgs e)
         {
-            AddToCart();
+            if(ValidatePurchaseInfo())
+            {
+                AddToCart();
+            }
         }
 
         private void BtnSaveItem_Click(object sender, EventArgs e)
@@ -411,6 +414,48 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        #endregion
+
+        #region Validation
+        private bool ValidatePurchaseInfo()
+        {
+            var isValidated = false;
+
+            var billNo = RichBillNo.Text.Trim();
+            var itemName = RichItemName.Text.Trim();
+            var unit = RichUnit.Text.Trim();
+            var itemCode = RichItemCode.Text.Trim();
+            var billAmount = TxtTotalAmount.Text.Trim();
+            var itemBrand = RichItemBrand.Text.Trim();
+            var quantity = RichQuantity.Text.Trim();
+            var purchasePrice = RichPurchasePrice.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(billNo)
+                || string.IsNullOrWhiteSpace(itemName)
+                || string.IsNullOrWhiteSpace(unit)
+                || string.IsNullOrWhiteSpace(itemCode)
+                || string.IsNullOrWhiteSpace(billAmount)
+                || string.IsNullOrWhiteSpace(itemBrand)
+                || string.IsNullOrWhiteSpace(quantity)
+                || string.IsNullOrWhiteSpace(purchasePrice))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Bill No " +
+                    "\n * Item Name " +
+                    "\n * Unit " +
+                    "\n * Item Code " +
+                    "\n * Bill Amount " +
+                    "\n * Item Brand " +
+                    "\n * Quantity " +
+                    "\n * Purchase Price", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
         #endregion
     }
 }

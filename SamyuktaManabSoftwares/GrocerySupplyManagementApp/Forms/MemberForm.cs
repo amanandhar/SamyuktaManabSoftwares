@@ -113,9 +113,11 @@ namespace GrocerySupplyManagementApp.Forms
                 var memberId = TxtMemberId.Text;
                 if (!string.IsNullOrWhiteSpace(invoiceNo) && !string.IsNullOrWhiteSpace(memberId))
                 {
-                    PosForm posForm = new PosForm(memberId, invoiceNo, _companyInfoService, _memberService, 
+                    PosForm posForm = new PosForm(memberId, invoiceNo, 
+                        _companyInfoService, _memberService, 
                         _userTransactionService, _soldItemService, 
-                        _employeeService, _reportService, _posDetailService);
+                        _employeeService, _reportService, 
+                        _posDetailService, _capitalService);
                     posForm.Show();
                 }
             }
@@ -125,55 +127,58 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (Convert.ToDecimal(RichAmount.Text) > Convert.ToDecimal(TxtBalance.Text))
+                if(ValidateMemberTransaction())
                 {
-                    var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (warningResult == DialogResult.OK)
+                    if (Convert.ToDecimal(RichAmount.Text) > Convert.ToDecimal(TxtBalance.Text))
                     {
-                        RichAmount.Focus();
+                        var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (warningResult == DialogResult.OK)
+                        {
+                            RichAmount.Focus();
+                        }
                     }
-                }
-                else
-                {
-                    var userTransaction = new UserTransaction
+                    else
                     {
-                        EndOfDay = _endOfDay,
-                        MemberId = TxtMemberId.Text,
-                        Action = Constants.RECEIPT,
-                        ActionType = ComboReceipt.Text,
-                        Bank = ComboBank.Text,
-                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
-                    _userTransactionService.AddUserTransaction(userTransaction);
-
-                    if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
-                    {
-                        var lastPosTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
-                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                        var bankTransaction = new BankTransaction
+                        var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            BankId = Convert.ToInt64(selectedItem.Id),
-                            TransactionId = lastPosTransaction.Id,
-                            Action = '1',
-                            Debit = Convert.ToDecimal(RichAmount.Text),
-                            Credit = Constants.DEFAULT_DECIMAL_VALUE,
-                            Narration = TxtMemberId.Text + " - " + TxtName.Text,
+                            MemberId = TxtMemberId.Text,
+                            Action = Constants.RECEIPT,
+                            ActionType = ComboReceipt.Text,
+                            Bank = ComboBank.Text,
+                            ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
+                        _userTransactionService.AddUserTransaction(userTransaction);
 
-                        _bankTransactionService.AddBankTransaction(bankTransaction);
-                    }
+                        if (ComboReceipt.Text.ToLower() == Constants.CHEQUE.ToLower())
+                        {
+                            var lastPosTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                            ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                            var bankTransaction = new BankTransaction
+                            {
+                                EndOfDay = _endOfDay,
+                                BankId = Convert.ToInt64(selectedItem.Id),
+                                TransactionId = lastPosTransaction.Id,
+                                Action = '1',
+                                Debit = Convert.ToDecimal(RichAmount.Text),
+                                Credit = Constants.DEFAULT_DECIMAL_VALUE,
+                                Narration = TxtMemberId.Text + " - " + TxtName.Text,
+                                AddedBy = _username,
+                                AddedDate = DateTime.Now
+                            };
 
-                    DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
-                    {
-                        ClearTransactionFields();
-                        var memberTransactionViewList = GetMemberTransactions(TxtMemberId.Text);
-                        LoadMemberTransactions(memberTransactionViewList);
+                            _bankTransactionService.AddBankTransaction(bankTransaction);
+                        }
+
+                        DialogResult result = MessageBox.Show(RichAmount.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            ClearTransactionFields();
+                            var memberTransactionViewList = GetMemberTransactions(TxtMemberId.Text);
+                            LoadMemberTransactions(memberTransactionViewList);
+                        }
                     }
                 }
             }
@@ -210,58 +215,56 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if(ValidateMemberInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
+                            MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-
-                        return;
-                    }
-                    else
-                    {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                        else
                         {
-                            UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                            }
+
+                            var fileName = TxtMemberId.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
-
-                        var fileName = TxtMemberId.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
-                }
 
-                var member = new Member
-                {
-                    EndOfDay = _endOfDay,
-                    MemberId = TxtMemberId.Text,
-                    Name = TxtName.Text,
-                    Address = TxtAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
-                    Email = TxtEmail.Text,
-                    AccountNo = TxtAccountNumber.Text,
-                    ImagePath = destinationFilePath,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var member = new Member
+                    {
+                        EndOfDay = _endOfDay,
+                        MemberId = TxtMemberId.Text,
+                        Name = TxtName.Text,
+                        Address = TxtAddress.Text,
+                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                        Email = TxtEmail.Text,
+                        AccountNo = TxtAccountNumber.Text,
+                        ImagePath = destinationFilePath,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _memberService.AddMember(member);
+                    _memberService.AddMember(member);
 
-                DialogResult result = MessageBox.Show(member.MemberId + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearMemberFields();
-                    ClearTransactionFields();
-                    var memberTransactionViewList = GetMemberTransactions(member.MemberId);
-                    LoadMemberTransactions(memberTransactionViewList);
-                    EnableFields(Action.None);
-                    EnableFields(Action.Save);
+                    DialogResult result = MessageBox.Show(member.MemberId + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearMemberFields();
+                        ClearTransactionFields();
+                        var memberTransactionViewList = GetMemberTransactions(member.MemberId);
+                        LoadMemberTransactions(memberTransactionViewList);
+                        EnableFields(Action.None);
+                        EnableFields(Action.Save);
+                    }
                 }
             }
             catch (Exception ex)
@@ -392,7 +395,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region RichTextBox Events
+        #region Rich Box Events
         private void RichMemberId_KeyUp(object sender, KeyEventArgs e)
         {
             var member = _memberService.GetMember(TxtMemberId.Text);
@@ -404,6 +407,14 @@ namespace GrocerySupplyManagementApp.Forms
                     TxtMemberId.Clear();
                     return;
                 }
+            }
+        }
+
+        private void RichAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
             }
         }
         #endregion
@@ -699,6 +710,54 @@ namespace GrocerySupplyManagementApp.Forms
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
         }
 
+        #endregion
+
+        #region Validation
+        private bool ValidateMemberInfo()
+        {
+            var isValidated = false;
+
+            var memberId = TxtMemberId.Text.Trim();
+            var memberName = TxtName.Text.Trim();
+            if (string.IsNullOrWhiteSpace(memberId)
+                || string.IsNullOrWhiteSpace(memberName))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Member Id " +
+                    "\n * Member Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+
+        private bool ValidateMemberTransaction()
+        {
+            var isValidated = false;
+
+            var receipt = ComboReceipt.Text.Trim();
+            var bank = ComboBank.Text.Trim();
+            var amount = RichAmount.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(receipt)
+                || string.IsNullOrWhiteSpace(bank)
+                || string.IsNullOrWhiteSpace(amount))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Receipt " +
+                    "\n * Bank " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
         #endregion
     }
 }

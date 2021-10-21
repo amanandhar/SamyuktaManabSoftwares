@@ -113,42 +113,45 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var userTransaction = new UserTransaction
+                if(ValidateShareMemberTransaction())
                 {
-                    EndOfDay = _endOfDay,
-                    ShareMemberId = Convert.ToInt64(_selectedShareMemberId),
-                    Action = Constants.RECEIPT,
-                    ActionType = Constants.SHARE_CAPITAL,
-                    Bank = ComboBank.Text,
-                    ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
-                _userTransactionService.AddUserTransaction(userTransaction);
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        ShareMemberId = Convert.ToInt64(_selectedShareMemberId),
+                        Action = Constants.RECEIPT,
+                        ActionType = Constants.SHARE_CAPITAL,
+                        Bank = ComboBank.Text,
+                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
+                    _userTransactionService.AddUserTransaction(userTransaction);
 
-                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
-                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                var bankTransaction = new BankTransaction
-                {
-                    EndOfDay = _endOfDay,
-                    BankId = Convert.ToInt64(selectedItem.Id),
-                    TransactionId = lastUserTransaction.Id,
-                    Action = '1',
-                    Debit = Convert.ToDecimal(RichAmount.Text),
-                    Credit = Constants.DEFAULT_DECIMAL_VALUE,
-                    Narration = ComboNarration.Text,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                    var bankTransaction = new BankTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        BankId = Convert.ToInt64(selectedItem.Id),
+                        TransactionId = lastUserTransaction.Id,
+                        Action = '1',
+                        Debit = Convert.ToDecimal(RichAmount.Text),
+                        Credit = Constants.DEFAULT_DECIMAL_VALUE,
+                        Narration = ComboNarration.Text,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _bankTransactionService.AddBankTransaction(bankTransaction);
-                DialogResult result = MessageBox.Show("Amount has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAmountFields();
-                    EnableFields(Action.None);
-                    EnableFields(Action.PopulateShareMember);
-                    LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                    _bankTransactionService.AddBankTransaction(bankTransaction);
+                    DialogResult result = MessageBox.Show("Amount has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAmountFields();
+                        EnableFields(Action.None);
+                        EnableFields(Action.PopulateShareMember);
+                        LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                    }
                 }
             }
             catch (Exception ex)
@@ -170,52 +173,55 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if(ValidateShareMemberInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+
                             return;
                         }
-
-                        return;
-                    }
-                    else
-                    {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                        else
                         {
-                            UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                            }
+
+                            var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
-
-                        var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
-                }
 
-                var shareMember = new ShareMember
-                {
-                    EndOfDay = _endOfDay,
-                    Name = RichName.Text,
-                    Address = RichAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                    ImagePath = destinationFilePath,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var shareMember = new ShareMember
+                    {
+                        EndOfDay = _endOfDay,
+                        Name = RichName.Text,
+                        Address = RichAddress.Text,
+                        ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
+                        ImagePath = destinationFilePath,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _shareMemberService.AddShareMember(shareMember);
+                    _shareMemberService.AddShareMember(shareMember);
 
-                DialogResult result = MessageBox.Show(shareMember.Name + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields(Action.None);
-                    EnableFields(Action.Save);
+                    DialogResult result = MessageBox.Show(shareMember.Name + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields(Action.None);
+                        EnableFields(Action.Save);
+                    }
                 }
             }
             catch (Exception ex)
@@ -236,62 +242,65 @@ namespace GrocerySupplyManagementApp.Forms
             var shareMemberId = _selectedShareMemberId;
             try
             {
-                var selectedShareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if(ValidateShareMemberInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    var selectedShareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
-                            return;
-                        }
-
-                        return;
-                    }
-                    else
-                    {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
-                        {
-                            UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
-                        }
-
-                        if(selectedShareMember.ImagePath != _uploadedImagePath)
-                        {
-                            if(!string.IsNullOrWhiteSpace(selectedShareMember.ImagePath) && File.Exists(selectedShareMember.ImagePath))
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
                             {
-                                UtilityService.DeleteImage(selectedShareMember.ImagePath);
+                                return;
                             }
 
-                            var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
-                            File.Copy(_uploadedImagePath, destinationFilePath, true);
+                            return;
                         }
                         else
                         {
-                            destinationFilePath = selectedShareMember.ImagePath;
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                            }
+
+                            if (selectedShareMember.ImagePath != _uploadedImagePath)
+                            {
+                                if (!string.IsNullOrWhiteSpace(selectedShareMember.ImagePath) && File.Exists(selectedShareMember.ImagePath))
+                                {
+                                    UtilityService.DeleteImage(selectedShareMember.ImagePath);
+                                }
+
+                                var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
+                                destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                                File.Copy(_uploadedImagePath, destinationFilePath, true);
+                            }
+                            else
+                            {
+                                destinationFilePath = selectedShareMember.ImagePath;
+                            }
                         }
                     }
-                }
 
-                var shareMember = new ShareMember
-                {
-                    Name = RichName.Text,
-                    Address = RichAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                    ImagePath = destinationFilePath,
-                    UpdatedBy = _username,
-                    UpdatedDate = DateTime.Now
-                };
+                    var shareMember = new ShareMember
+                    {
+                        Name = RichName.Text,
+                        Address = RichAddress.Text,
+                        ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
+                        ImagePath = destinationFilePath,
+                        UpdatedBy = _username,
+                        UpdatedDate = DateTime.Now
+                    };
 
-                _shareMemberService.UpdateShareMember(Convert.ToInt64(shareMemberId), shareMember);
-                DialogResult result = MessageBox.Show(shareMember.Name + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    EnableFields(Action.None);
-                    EnableFields(Action.Update);
+                    _shareMemberService.UpdateShareMember(Convert.ToInt64(shareMemberId), shareMember);
+                    DialogResult result = MessageBox.Show(shareMember.Name + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        EnableFields(Action.None);
+                        EnableFields(Action.Update);
+                    }
                 }
             }
             catch (Exception ex)
@@ -334,6 +343,16 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        #endregion
+
+        #region Rich Box Event
+        private void RichAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
         #endregion
 
         #region OpenFileDialog Event
@@ -568,5 +587,49 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
+        #region Validation
+        private bool ValidateShareMemberInfo()
+        {
+            var isValidated = false;
+
+            var name = RichName.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+
+        private bool ValidateShareMemberTransaction()
+        {
+            var isValidated = false;
+
+            var bank = ComboBank.Text.Trim();
+            var amount = RichAmount.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(bank)
+                || string.IsNullOrWhiteSpace(amount))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Bank " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+        #endregion
+
     }
 }

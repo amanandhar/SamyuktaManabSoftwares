@@ -246,6 +246,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Size = new System.Drawing.Size(251, 28);
             this.RichAmount.TabIndex = 7;
             this.RichAmount.Text = "";
+            this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
             // 
             // PicBoxShareMember
             // 

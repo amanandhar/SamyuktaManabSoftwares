@@ -99,65 +99,78 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ComboAction.Text == Constants.DEDUCT)
+                if(ValidateStockAdjustmentInfo())
                 {
-                    var userTransaction = new UserTransaction
+                    if (ComboAction.Text == Constants.DEDUCT)
+                    {
+                        var userTransaction = new UserTransaction
+                        {
+                            EndOfDay = _endOfDay,
+                            Action = Constants.EXPENSE,
+                            ActionType = Constants.DEDUCT,
+                            Expense = Constants.STOCK_ADJUSTMENT,
+                            Narration = TxtBoxNarration.Text.Trim(),
+                            PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
+                            AddedBy = _username,
+                            AddedDate = DateTime.Now
+                        };
+                        _userTransactionService.AddUserTransaction(userTransaction);
+                    }
+                    else if (ComboAction.Text == Constants.ADD)
+                    {
+                        var userTransaction = new UserTransaction
+                        {
+                            EndOfDay = _endOfDay,
+                            Action = Constants.INCOME,
+                            ActionType = Constants.ADD,
+                            Income = Constants.STOCK_ADJUSTMENT,
+                            Narration = TxtBoxNarration.Text.Trim(),
+                            ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
+                            AddedBy = _username,
+                            AddedDate = DateTime.Now
+                        };
+                        _userTransactionService.AddUserTransaction(userTransaction);
+                    }
+
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                    var stockAdjustment = new StockAdjustment
                     {
                         EndOfDay = _endOfDay,
-                        Action = Constants.EXPENSE,
-                        ActionType = Constants.DEDUCT,
-                        Expense = Constants.STOCK_ADJUSTMENT,
-                        Narration = TxtBoxNarration.Text.Trim(),
-                        PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
+                        UserTransactionId = lastUserTransaction.Id,
+                        ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
+                        Unit = TxtBoxItemUnit.Text,
+                        Action = ComboAction.Text,
+                        Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemQuantity.Text),
+                        Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemPrice.Text),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
-                    _userTransactionService.AddUserTransaction(userTransaction);
-                }
-                else if(ComboAction.Text == Constants.ADD)
-                {
-                    var userTransaction = new UserTransaction
+                    _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
+
+                    DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
                     {
-                        EndOfDay = _endOfDay,
-                        Action = Constants.INCOME,
-                        ActionType = Constants.ADD,
-                        Income = Constants.STOCK_ADJUSTMENT,
-                        Narration = TxtBoxNarration.Text.Trim(),
-                        ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
-                    _userTransactionService.AddUserTransaction(userTransaction);
-                }
-
-                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
-                var stockAdjustment = new StockAdjustment
-                {
-                    EndOfDay = _endOfDay,
-                    UserTransactionId = lastUserTransaction.Id,
-                    ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
-                    Unit = TxtBoxItemUnit.Text,
-                    Action = ComboAction.Text,
-                    Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemQuantity.Text),
-                    Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemPrice.Text),
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
-                _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
-
-                DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields(Action.None);
-                    EnableFields(Action.Save);
-                    LoadStockAdjustments();
+                        ClearAllFields();
+                        EnableFields(Action.None);
+                        EnableFields(Action.Save);
+                        LoadStockAdjustments();
+                    }
                 }
             }
             catch(Exception ex)
             {
                 logger.Error(ex);
                 throw ex;
+            }
+        }
+        #endregion
+
+        #region Text Box Event
+        private void TxtBoxItemQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
             }
         }
         #endregion
@@ -312,6 +325,48 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        #endregion
+
+        #region Validation
+        private bool ValidateStockAdjustmentInfo()
+        {
+            var isValidated = false;
+
+            var itemCode = TxtBoxItemCode.Text.Trim();
+            var itemName = TxtBoxItemName.Text.Trim();
+            var itemBrand = TxtBoxItemBrand.Text.Trim();
+            var itemPrice = TxtBoxItemPrice.Text.Trim();
+            var itemUnit = TxtBoxItemUnit.Text.Trim();
+            var stockAction = ComboAction.Text.Trim();
+            var itemQuantity = TxtBoxItemQuantity.Text.Trim();
+            var narration = TxtBoxNarration.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(itemCode)
+                || string.IsNullOrWhiteSpace(itemName)
+                || string.IsNullOrWhiteSpace(itemBrand)
+                || string.IsNullOrWhiteSpace(itemPrice)
+                || string.IsNullOrWhiteSpace(itemUnit)
+                || string.IsNullOrWhiteSpace(stockAction)
+                || string.IsNullOrWhiteSpace(itemQuantity)
+                || string.IsNullOrWhiteSpace(narration))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Item Code " +
+                    "\n * Item Name " +
+                    "\n * Item Brand " +
+                    "\n * Item Price " +
+                    "\n * Item Unit " +
+                    "\n * Stock Action " +
+                    "\n * Item Quantity " +
+                    "\n * Narration", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
         #endregion
     }
 }

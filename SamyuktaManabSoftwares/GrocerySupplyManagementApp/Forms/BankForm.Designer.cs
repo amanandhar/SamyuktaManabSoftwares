@@ -198,6 +198,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichAmount.Size = new System.Drawing.Size(189, 28);
             this.RichAmount.TabIndex = 19;
             this.RichAmount.Text = "";
+            this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
             // 
             // label1
             // 

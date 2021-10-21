@@ -187,11 +187,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(512, 54);
+            this.label9.Location = new System.Drawing.Point(461, 54);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(50, 20);
+            this.label9.Size = new System.Drawing.Size(99, 20);
             this.label9.TabIndex = 32;
-            this.label9.Text = "Stock";
+            this.label9.Text = "Stock Action";
             // 
             // BtnClear
             // 
@@ -313,6 +313,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxItemQuantity.Name = "TxtBoxItemQuantity";
             this.TxtBoxItemQuantity.Size = new System.Drawing.Size(80, 26);
             this.TxtBoxItemQuantity.TabIndex = 7;
+            this.TxtBoxItemQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtBoxItemQuantity_KeyPress);
             // 
             // label6
             // 

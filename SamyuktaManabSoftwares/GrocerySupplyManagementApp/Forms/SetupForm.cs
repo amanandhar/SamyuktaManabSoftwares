@@ -64,50 +64,52 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var newEndOfDay = TxtBoxCompanyStartingDt.Text.Trim();
-
-                if(_endOfDayService.IsEndOfDayExist(newEndOfDay))
+                if(ValidateSettingsInfo())
                 {
-                    var setting = new Setting
-                    {
-                        Discount = Convert.ToDecimal(TxtBoxDiscount.Text.Trim()),
-                        Vat = Convert.ToDecimal(TxtBoxVat.Text.Trim()),
-                        DeliveryCharge = Convert.ToDecimal(TxtBoxDeliveryCharge.Text.Trim()),
-                        FiscalYear = TxtBoxFiscalYear.Text.Trim(),
-                        StartingDate = newEndOfDay,
-                        StartingBillNo = TxtBoxStartingBillNo.Text.Trim(),
-                        StartingInvoiceNo = TxtBoxStartingInvoiceNo.Text.Trim(),
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
+                    var newEndOfDay = TxtBoxCompanyStartingDt.Text.Trim();
 
-                    var truncate = true;
-                    _settingService.AddSetting(setting, truncate);
-
-                    if (!string.IsNullOrWhiteSpace(newEndOfDay))
+                    if (_endOfDayService.IsEndOfDayExist(newEndOfDay))
                     {
-                        _settingService.DeletePreviousTransactions(newEndOfDay);
+                        var setting = new Setting
+                        {
+                            Discount = Convert.ToDecimal(TxtBoxDiscount.Text.Trim()),
+                            Vat = Convert.ToDecimal(TxtBoxVat.Text.Trim()),
+                            DeliveryCharge = Convert.ToDecimal(TxtBoxDeliveryCharge.Text.Trim()),
+                            FiscalYear = TxtBoxFiscalYear.Text.Trim(),
+                            StartingDate = newEndOfDay,
+                            StartingBillNo = TxtBoxStartingBillNo.Text.Trim(),
+                            StartingInvoiceNo = TxtBoxStartingInvoiceNo.Text.Trim(),
+                            AddedBy = _username,
+                            AddedDate = DateTime.Now
+                        };
+
+                        var truncate = true;
+                        _settingService.AddSetting(setting, truncate);
+
+                        if (!string.IsNullOrWhiteSpace(newEndOfDay))
+                        {
+                            _settingService.DeletePreviousTransactions(newEndOfDay);
+                        }
+
+                        DialogResult result = MessageBox.Show("Setting has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            EnableFields();
+                            EnableFields(Action.Save);
+
+                            //Close the application
+                            Application.Exit();
+                        }
                     }
-
-                    DialogResult result = MessageBox.Show("Setting has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
+                    else
                     {
-                        EnableFields();
-                        EnableFields(Action.Save);
-
-                        //Close the application
-                        Application.Exit();
+                        DialogResult result = MessageBox.Show(newEndOfDay + " is not valid date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (result == DialogResult.OK)
+                        {
+                            return;
+                        }
                     }
                 }
-                else
-                {
-                    DialogResult result = MessageBox.Show(newEndOfDay + " is not valid date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (result == DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
-                
             }
             catch (Exception ex)
             {
@@ -168,6 +170,45 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = false;
                 BtnSave.Enabled = false;
             }
+        }
+        #endregion
+
+        #region Validation
+        private bool ValidateSettingsInfo()
+        {
+            var isValidated = false;
+
+            var discount = TxtBoxDiscount.Text.Trim();
+            var vat = TxtBoxVat.Text.Trim();
+            var deliveryCharge = TxtBoxDeliveryCharge.Text.Trim();
+            var fiscalYear = TxtBoxFiscalYear.Text.Trim();
+            var companyStartingDate = TxtBoxCompanyStartingDt.Text.Trim();
+            var startingBillNo = TxtBoxStartingBillNo.Text.Trim();
+            var startingInvoiceNo = TxtBoxStartingInvoiceNo.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(discount)
+                || string.IsNullOrWhiteSpace(vat)
+                || string.IsNullOrWhiteSpace(deliveryCharge)
+                || string.IsNullOrWhiteSpace(fiscalYear)
+                || string.IsNullOrWhiteSpace(companyStartingDate)
+                || string.IsNullOrWhiteSpace(startingBillNo)
+                || string.IsNullOrWhiteSpace(startingInvoiceNo))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Discount " +
+                    "\n * Vat " +
+                    "\n * Delivery Charge " +
+                    "\n * Fiscal Year " +
+                    "\n * Company Starting Date " +
+                    "\n * Starting Bill No " +
+                    "\n * Starting Invoice No", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
         }
         #endregion
     }

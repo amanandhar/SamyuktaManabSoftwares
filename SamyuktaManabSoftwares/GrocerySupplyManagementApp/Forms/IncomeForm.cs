@@ -62,43 +62,54 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSaveIncome_Click(object sender, EventArgs e)
         {
-            var userTransaction = new UserTransaction
+            try
             {
-                EndOfDay = _endOfDay,
-                Action = Constants.INCOME,
-                ActionType = Constants.CHEQUE,
-                Bank = ComboBank.Text.Trim(),
-                Income = ComboIncome.Text.Trim(),
-                Narration = TxtBoxNarration.Text.Trim(),
-                ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
-                AddedBy = _username,
-                AddedDate = DateTime.Now
-            };
-
-            if (_userTransactionService.AddUserTransaction(userTransaction) != null)
-            {
-                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
-                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                var bankTransaction = new BankTransaction
+                if(ValidateIncomeInfo())
                 {
-                    EndOfDay = _endOfDay,
-                    BankId = Convert.ToInt64(selectedItem.Id),
-                    TransactionId = lastUserTransaction.Id,
-                    Action = '1',
-                    Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
-                    Narration = ComboIncome.Text,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var userTransaction = new UserTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        Action = Constants.INCOME,
+                        ActionType = Constants.CHEQUE,
+                        Bank = ComboBank.Text.Trim(),
+                        Income = ComboIncome.Text.Trim(),
+                        Narration = TxtBoxNarration.Text.Trim(),
+                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _bankTransactionService.AddBankTransaction(bankTransaction);
+                    if (_userTransactionService.AddUserTransaction(userTransaction) != null)
+                    {
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                        var bankTransaction = new BankTransaction
+                        {
+                            EndOfDay = _endOfDay,
+                            BankId = Convert.ToInt64(selectedItem.Id),
+                            TransactionId = lastUserTransaction.Id,
+                            Action = '1',
+                            Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
+                            Narration = ComboIncome.Text,
+                            AddedBy = _username,
+                            AddedDate = DateTime.Now
+                        };
+
+                        _bankTransactionService.AddBankTransaction(bankTransaction);
+                    }
+
+                    DialogResult result = MessageBox.Show(ComboIncome.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        LoadIncomeDetails();
+                    }
+                }
             }
-
-            DialogResult result = MessageBox.Show(ComboIncome.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            if (result == DialogResult.OK)
+            catch(Exception ex)
             {
-                ClearAllFields();
-                LoadIncomeDetails();
+                logger.Error(ex);
+                throw ex;
             }
         }
 
@@ -321,6 +332,33 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        #endregion
+
+        #region Validation
+        private bool ValidateIncomeInfo()
+        {
+            var isValidated = false;
+
+            var income = ComboIncome.Text.Trim();
+            var bank = ComboBank.Text.Trim();
+            var amount = RichAmount.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(income)
+                || string.IsNullOrWhiteSpace(bank)
+                || string.IsNullOrWhiteSpace(amount))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Income " +
+                    "\n * Bank " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
         #endregion
     }
 }

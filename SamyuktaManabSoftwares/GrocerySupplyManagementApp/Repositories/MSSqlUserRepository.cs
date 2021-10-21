@@ -207,6 +207,42 @@ namespace GrocerySupplyManagementApp.Repositories
             return user;
         }
 
+        public bool IsUserExist(string username)
+        {
+            var result = false;
+            var query = @"SELECT " +
+                "1 " +
+                "FROM [" + Constants.TABLE_USER + "] " +
+                "WHERE 1 = 1 " +
+                "AND ISNULL([Username], '') = @Username ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", ((object)username) ?? DBNull.Value);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return result;
+        }
+
         public bool IsUserExist(string username, string password)
         {
             var result = false;

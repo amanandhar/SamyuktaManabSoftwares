@@ -854,6 +854,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichPayment.Size = new System.Drawing.Size(105, 28);
             this.RichPayment.TabIndex = 23;
             this.RichPayment.Text = "";
+            this.RichPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichPayment_KeyPress);
             // 
             // groupBox2
             // 

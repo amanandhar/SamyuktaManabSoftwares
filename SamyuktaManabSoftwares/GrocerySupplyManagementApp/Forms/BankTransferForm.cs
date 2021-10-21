@@ -77,7 +77,20 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            SaveBankTransfer();
+            if(ValidateBankTransfer())
+            {
+                SaveBankTransfer();
+            }
+        }
+        #endregion
+
+        #region Rich Box Event
+        private void RichDepositAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
         }
         #endregion
 
@@ -203,5 +216,34 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Validation
+        private bool ValidateBankTransfer()
+        {
+            var isValidated = false;
+
+            var bank = ComboBank.Text.Trim();
+            var cashInHand = TxtCash.Text.Trim();
+            var accountNo = TxtAccountNo.Text.Trim();
+            var depositAmount = RichDepositAmount.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(bank)
+                || string.IsNullOrWhiteSpace(cashInHand)
+                || string.IsNullOrWhiteSpace(accountNo)
+                || string.IsNullOrWhiteSpace(depositAmount))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Bank " +
+                    "\n * Cash In Hand " +
+                    "\n * Account Number " +
+                    "\n * Deposit Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+        #endregion
     }
 }

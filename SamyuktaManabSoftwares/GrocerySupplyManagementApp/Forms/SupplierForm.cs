@@ -123,109 +123,112 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var paymentType = ComboPayment.Text.Trim();
-                var paymentAmount = RichAmount.Text.Trim();
-                ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                if(ValidateSupplierTransaction())
+                {
+                    var paymentType = ComboPayment.Text.Trim();
+                    var paymentAmount = RichAmount.Text.Trim();
+                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
 
-                if (string.IsNullOrWhiteSpace(paymentType) 
-                    || (paymentType == Constants.CASH || string.IsNullOrWhiteSpace(paymentAmount)))
-                {
-                    DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (result == DialogResult.OK)
+                    if (string.IsNullOrWhiteSpace(paymentType)
+                        || (paymentType == Constants.CASH || string.IsNullOrWhiteSpace(paymentAmount)))
                     {
-                        return;
-                    }
-                }
-                else
-                {
-                    DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Bank \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (result == DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
-
-                var paymentAmt = Convert.ToDecimal(paymentAmount);
-                if (paymentType.ToLower() == Constants.CASH.ToLower())
-                {
-                    var cashBalance = _capitalService.GetCashBalance(_endOfDay);
-                    if (paymentAmt > cashBalance)
-                    {
-                        var warningResult = MessageBox.Show("No sufficient cash available.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        if (warningResult == DialogResult.OK)
+                        DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (result == DialogResult.OK)
                         {
-                            RichAmount.Focus();
                             return;
                         }
                     }
-                }
-                else
-                {
-                    var bankId = Convert.ToInt64(selectedItem?.Id);
-                    var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = bankId });
-                    if(paymentAmt > bankBalance)
+                    else
                     {
-                        var warningResult = MessageBox.Show("No sufficient amount in bank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        if (warningResult == DialogResult.OK)
+                        DialogResult result = MessageBox.Show("Please enter following fields: \n * Payment Type \n * Bank \n * Payment Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (result == DialogResult.OK)
                         {
-                            RichAmount.Focus();
                             return;
                         }
                     }
-                }
 
-                var balance = Convert.ToDecimal(TxtBalance.Text);
-                if(paymentAmt > balance)
-                {
-                    var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (warningResult == DialogResult.OK)
+                    var paymentAmt = Convert.ToDecimal(paymentAmount);
+                    if (paymentType.ToLower() == Constants.CASH.ToLower())
                     {
-                        RichAmount.Focus();
+                        var cashBalance = _capitalService.GetCashBalance(_endOfDay);
+                        if (paymentAmt > cashBalance)
+                        {
+                            var warningResult = MessageBox.Show("No sufficient cash available.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (warningResult == DialogResult.OK)
+                            {
+                                RichAmount.Focus();
+                                return;
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    var userTransaction = new UserTransaction
+                    else
                     {
-                        EndOfDay = _endOfDay,
-                        BillNo = TxtBillNo.Text,
-                        SupplierId = TxtSupplierId.Text,
-                        Action = Constants.PAYMENT,
-                        ActionType = ComboPayment.Text,
-                        Bank = ComboBank.Text,
-                        PaymentAmount = Convert.ToDecimal(RichAmount.Text),
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
-                    _userTransactionService.AddUserTransaction(userTransaction);
+                        var bankId = Convert.ToInt64(selectedItem?.Id);
+                        var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = bankId });
+                        if (paymentAmt > bankBalance)
+                        {
+                            var warningResult = MessageBox.Show("No sufficient amount in bank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (warningResult == DialogResult.OK)
+                            {
+                                RichAmount.Focus();
+                                return;
+                            }
+                        }
+                    }
 
-                    if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
+                    var balance = Convert.ToDecimal(TxtBalance.Text);
+                    if (paymentAmt > balance)
                     {
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
-                        var bankTransaction = new BankTransaction
+                        var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (warningResult == DialogResult.OK)
+                        {
+                            RichAmount.Focus();
+                        }
+                    }
+                    else
+                    {
+                        var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            BankId = Convert.ToInt64(selectedItem.Id),
-                            TransactionId = lastUserTransaction.Id,
-                            Action = '0',
-                            Debit = Constants.DEFAULT_DECIMAL_VALUE,
-                            Credit = Convert.ToDecimal(RichAmount.Text),
-                            Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
+                            BillNo = TxtBillNo.Text,
+                            SupplierId = TxtSupplierId.Text,
+                            Action = Constants.PAYMENT,
+                            ActionType = ComboPayment.Text,
+                            Bank = ComboBank.Text,
+                            PaymentAmount = Convert.ToDecimal(RichAmount.Text),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
+                        _userTransactionService.AddUserTransaction(userTransaction);
 
-                        _bankTransactionService.AddBankTransaction(bankTransaction);
-                    }
+                        if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
+                        {
+                            var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                            var bankTransaction = new BankTransaction
+                            {
+                                EndOfDay = _endOfDay,
+                                BankId = Convert.ToInt64(selectedItem.Id),
+                                TransactionId = lastUserTransaction.Id,
+                                Action = '0',
+                                Debit = Constants.DEFAULT_DECIMAL_VALUE,
+                                Credit = Convert.ToDecimal(RichAmount.Text),
+                                Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
+                                AddedBy = _username,
+                                AddedDate = DateTime.Now
+                            };
 
-                    DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
-                    {
-                        ComboPayment.Text = string.Empty;
-                        ComboBank.Text = string.Empty;
-                        RichAmount.Clear();
-                        var supplierTransactionViewList = GetSupplierTransaction();
-                        LoadSupplierTransaction(supplierTransactionViewList);
+                            _bankTransactionService.AddBankTransaction(bankTransaction);
+                        }
+
+                        DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            ComboPayment.Text = string.Empty;
+                            ComboBank.Text = string.Empty;
+                            RichAmount.Clear();
+                            var supplierTransactionViewList = GetSupplierTransaction();
+                            LoadSupplierTransaction(supplierTransactionViewList);
+                        }
                     }
                 }
             }
@@ -248,26 +251,29 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var supplier = new Supplier
+                if(ValidateSupplierInfo())
                 {
-                    EndOfDay = _endOfDay,
-                    SupplierId = TxtSupplierId.Text,
-                    Name = TxtSupplierName.Text,
-                    Address = TxtAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
-                    Email = TxtEmail.Text,
-                    Owner = TxtOwner.Text,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var supplier = new Supplier
+                    {
+                        EndOfDay = _endOfDay,
+                        SupplierId = TxtSupplierId.Text,
+                        Name = TxtSupplierName.Text,
+                        Address = TxtAddress.Text,
+                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                        Email = TxtEmail.Text,
+                        Owner = TxtOwner.Text,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _supplierService.AddSupplier(supplier);
-                DialogResult result = MessageBox.Show(supplier.Name + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields();
-                    EnableFields(Action.SaveSupplier);
+                    _supplierService.AddSupplier(supplier);
+                    DialogResult result = MessageBox.Show(supplier.Name + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                        EnableFields(Action.SaveSupplier);
+                    }
                 }
             }
             catch (Exception ex)
@@ -288,26 +294,29 @@ namespace GrocerySupplyManagementApp.Forms
             var supplierId = TxtSupplierId.Text;
             try
             {
-                var supplier = _supplierService.UpdateSupplier(supplierId, new Supplier
+                if (ValidateSupplierInfo())
                 {
-                    SupplierId = TxtSupplierId.Text,
-                    Name = TxtSupplierName.Text,
-                    Owner = TxtOwner.Text,
-                    Address = TxtAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
-                    Email = TxtEmail.Text,
-                    UpdatedBy = _username,
-                    UpdatedDate = DateTime.Now
-                });
+                    var supplier = _supplierService.UpdateSupplier(supplierId, new Supplier
+                    {
+                        SupplierId = TxtSupplierId.Text,
+                        Name = TxtSupplierName.Text,
+                        Owner = TxtOwner.Text,
+                        Address = TxtAddress.Text,
+                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
+                        Email = TxtEmail.Text,
+                        UpdatedBy = _username,
+                        UpdatedDate = DateTime.Now
+                    });
 
-                DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    DataGridSupplierList.DataSource = null;
-                    EnableFields();
-                    EnableFields(Action.UpdateSupplier);
-                }
+                    DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        DataGridSupplierList.DataSource = null;
+                        EnableFields();
+                        EnableFields(Action.UpdateSupplier);
+                    }
+                }   
             }
             catch (Exception ex)
             {
@@ -688,5 +697,60 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Validation
+        private bool ValidateSupplierInfo()
+        {
+            var isValidated = false;
+
+            var supplierId = TxtSupplierId.Text.Trim();
+            var supplierName = TxtSupplierName.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(supplierId)
+                || string.IsNullOrWhiteSpace(supplierName))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Supplier Id " +
+                    "\n * Supplier Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+
+        private bool ValidateSupplierTransaction()
+        {
+            var isValidated = false;
+
+            var payment = ComboPayment.Text.Trim();
+            var bank = ComboBank.Text.Trim();
+            var amount = RichAmount.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(payment)
+                || (payment == Constants.CHEQUE && string.IsNullOrWhiteSpace(bank))
+                || string.IsNullOrWhiteSpace(amount))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Payment " +
+                    "\n * Bank " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (string.IsNullOrWhiteSpace(payment)
+                || (payment == Constants.CASH && string.IsNullOrWhiteSpace(amount)))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Payment " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+        #endregion
     }
 }

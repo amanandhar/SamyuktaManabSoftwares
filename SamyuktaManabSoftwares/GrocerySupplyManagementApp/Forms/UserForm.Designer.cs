@@ -33,12 +33,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnSearchUser = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtUsername = new System.Windows.Forms.TextBox();
             this.TxtConfirmPassword = new System.Windows.Forms.TextBox();
             this.TxtPassword = new System.Windows.Forms.TextBox();
             this.ComboUserType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.BtnShow = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ChkReadOnly = new System.Windows.Forms.CheckBox();
             this.ChkEOD = new System.Windows.Forms.CheckBox();
@@ -93,7 +93,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(296, 69);
+            this.label4.Location = new System.Drawing.Point(316, 69);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(137, 20);
             this.label4.TabIndex = 3;
@@ -101,12 +101,12 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtnSearchUser);
             this.groupBox1.Controls.Add(this.TxtUsername);
             this.groupBox1.Controls.Add(this.TxtConfirmPassword);
             this.groupBox1.Controls.Add(this.TxtPassword);
             this.groupBox1.Controls.Add(this.ComboUserType);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.BtnShow);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -114,10 +114,30 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
             this.groupBox1.Location = new System.Drawing.Point(236, 58);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(640, 110);
+            this.groupBox1.Size = new System.Drawing.Size(673, 110);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "User Information";
+            // 
+            // BtnSearchUser
+            // 
+            this.BtnSearchUser.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchUser.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchUser.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSearchUser.BorderRadius = 10;
+            this.BtnSearchUser.BorderSize = 0;
+            this.BtnSearchUser.FlatAppearance.BorderSize = 0;
+            this.BtnSearchUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearchUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearchUser.ForeColor = System.Drawing.Color.White;
+            this.BtnSearchUser.Location = new System.Drawing.Point(288, 24);
+            this.BtnSearchUser.Name = "BtnSearchUser";
+            this.BtnSearchUser.Size = new System.Drawing.Size(70, 28);
+            this.BtnSearchUser.TabIndex = 9;
+            this.BtnSearchUser.Text = "Search";
+            this.BtnSearchUser.TextColor = System.Drawing.Color.White;
+            this.BtnSearchUser.UseVisualStyleBackColor = false;
+            this.BtnSearchUser.Click += new System.EventHandler(this.BtnSearchUser_Click);
             // 
             // TxtUsername
             // 
@@ -132,7 +152,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtConfirmPassword.Enabled = false;
             this.TxtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtConfirmPassword.Location = new System.Drawing.Point(435, 60);
+            this.TxtConfirmPassword.Location = new System.Drawing.Point(468, 60);
             this.TxtConfirmPassword.Name = "TxtConfirmPassword";
             this.TxtConfirmPassword.Size = new System.Drawing.Size(170, 29);
             this.TxtConfirmPassword.TabIndex = 4;
@@ -155,7 +175,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUserType.Enabled = false;
             this.ComboUserType.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboUserType.FormattingEnabled = true;
-            this.ComboUserType.Location = new System.Drawing.Point(435, 22);
+            this.ComboUserType.Location = new System.Drawing.Point(468, 22);
             this.ComboUserType.Name = "ComboUserType";
             this.ComboUserType.Size = new System.Drawing.Size(170, 32);
             this.ComboUserType.TabIndex = 2;
@@ -165,21 +185,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(344, 29);
+            this.label1.Location = new System.Drawing.Point(372, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 20);
             this.label1.TabIndex = 9;
             this.label1.Text = "User Type";
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.Location = new System.Drawing.Point(284, 25);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(40, 29);
-            this.BtnShow.TabIndex = 1;
-            this.BtnShow.Text = "C";
-            this.BtnShow.UseVisualStyleBackColor = true;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // groupBox2
             // 
@@ -200,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
             this.groupBox2.Location = new System.Drawing.Point(236, 178);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(640, 300);
+            this.groupBox2.Size = new System.Drawing.Size(396, 231);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "User Permission";
@@ -261,7 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkMember.AutoSize = true;
             this.ChkMember.Enabled = false;
             this.ChkMember.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkMember.Location = new System.Drawing.Point(348, 47);
+            this.ChkMember.Location = new System.Drawing.Point(207, 47);
             this.ChkMember.Name = "ChkMember";
             this.ChkMember.Size = new System.Drawing.Size(77, 20);
             this.ChkMember.TabIndex = 12;
@@ -274,7 +284,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkStockSummary.AutoSize = true;
             this.ChkStockSummary.Enabled = false;
             this.ChkStockSummary.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkStockSummary.Location = new System.Drawing.Point(348, 150);
+            this.ChkStockSummary.Location = new System.Drawing.Point(207, 150);
             this.ChkStockSummary.Name = "ChkStockSummary";
             this.ChkStockSummary.Size = new System.Drawing.Size(121, 20);
             this.ChkStockSummary.TabIndex = 16;
@@ -313,7 +323,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkSupplier.AutoSize = true;
             this.ChkSupplier.Enabled = false;
             this.ChkSupplier.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkSupplier.Location = new System.Drawing.Point(348, 176);
+            this.ChkSupplier.Location = new System.Drawing.Point(207, 176);
             this.ChkSupplier.Name = "ChkSupplier";
             this.ChkSupplier.Size = new System.Drawing.Size(77, 20);
             this.ChkSupplier.TabIndex = 17;
@@ -339,7 +349,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkPOS.AutoSize = true;
             this.ChkPOS.Enabled = false;
             this.ChkPOS.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkPOS.Location = new System.Drawing.Point(348, 73);
+            this.ChkPOS.Location = new System.Drawing.Point(207, 73);
             this.ChkPOS.Name = "ChkPOS";
             this.ChkPOS.Size = new System.Drawing.Size(55, 20);
             this.ChkPOS.TabIndex = 13;
@@ -352,7 +362,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkSettings.AutoSize = true;
             this.ChkSettings.Enabled = false;
             this.ChkSettings.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkSettings.Location = new System.Drawing.Point(348, 125);
+            this.ChkSettings.Location = new System.Drawing.Point(207, 125);
             this.ChkSettings.Name = "ChkSettings";
             this.ChkSettings.Size = new System.Drawing.Size(75, 20);
             this.ChkSettings.TabIndex = 15;
@@ -365,7 +375,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ChkReports.AutoSize = true;
             this.ChkReports.Enabled = false;
             this.ChkReports.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.ChkReports.Location = new System.Drawing.Point(348, 99);
+            this.ChkReports.Location = new System.Drawing.Point(207, 99);
             this.ChkReports.Name = "ChkReports";
             this.ChkReports.Size = new System.Drawing.Size(75, 20);
             this.ChkReports.TabIndex = 14;
@@ -380,9 +390,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnAdd);
-            this.groupBox3.Location = new System.Drawing.Point(236, 487);
+            this.groupBox3.Location = new System.Drawing.Point(670, 178);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(640, 79);
+            this.groupBox3.Size = new System.Drawing.Size(239, 231);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             // 
@@ -397,7 +407,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(497, 23);
+            this.BtnDelete.Location = new System.Drawing.Point(62, 183);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(120, 35);
             this.BtnDelete.TabIndex = 22;
@@ -417,7 +427,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(376, 24);
+            this.BtnUpdate.Location = new System.Drawing.Point(62, 142);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
             this.BtnUpdate.TabIndex = 21;
@@ -437,7 +447,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.White;
-            this.BtnEdit.Location = new System.Drawing.Point(255, 23);
+            this.BtnEdit.Location = new System.Drawing.Point(62, 101);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(120, 35);
             this.BtnEdit.TabIndex = 20;
@@ -457,7 +467,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.White;
-            this.BtnSave.Location = new System.Drawing.Point(134, 23);
+            this.BtnSave.Location = new System.Drawing.Point(62, 60);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(120, 35);
             this.BtnSave.TabIndex = 19;
@@ -477,7 +487,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAdd.ForeColor = System.Drawing.Color.White;
-            this.BtnAdd.Location = new System.Drawing.Point(13, 24);
+            this.BtnAdd.Location = new System.Drawing.Point(62, 19);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(120, 35);
             this.BtnAdd.TabIndex = 18;
@@ -550,7 +560,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.CheckBox ChkReports;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox ChkDailyTransaction;
-        private System.Windows.Forms.Button BtnShow;
         private System.Windows.Forms.CheckBox ChkEOD;
         private System.Windows.Forms.CheckBox ChkReadOnly;
         private System.Windows.Forms.ComboBox ComboUserType;
@@ -565,5 +574,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox TxtUsername;
+        private CustomControls.Button.CustomButton BtnSearchUser;
     }
 }

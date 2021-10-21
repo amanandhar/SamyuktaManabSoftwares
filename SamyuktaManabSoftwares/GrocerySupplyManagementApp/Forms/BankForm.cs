@@ -78,30 +78,33 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var bankTransaction = new BankTransaction
+                if(ValidateBankTransaction())
                 {
-                    EndOfDay = _endOfDay,
-                    BankId = selectedBankId,
-                    Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
-                    Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : Constants.DEFAULT_DECIMAL_VALUE,
-                    Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichAmount.Text),
-                    Narration = ComboDepositType.Text,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var bankTransaction = new BankTransaction
+                    {
+                        EndOfDay = _endOfDay,
+                        BankId = selectedBankId,
+                        Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
+                        Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : Constants.DEFAULT_DECIMAL_VALUE,
+                        Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichAmount.Text),
+                        Narration = ComboDepositType.Text,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _bankTransactionService.AddBankTransaction(bankTransaction);
-                DialogResult result = MessageBox.Show(ComboActionType.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
-                    TxtBalance.Text = totalBalance.ToString();
-                    ComboActionType.Text = string.Empty;
-                    RichAmount.Clear();
-                    ComboDepositType.Text = string.Empty;
-                    EnableFields(Action.Save);
-                    var bankTransactionViewList = GetBankTransaction();
-                    LoadBankTransaction(bankTransactionViewList);
+                    _bankTransactionService.AddBankTransaction(bankTransaction);
+                    DialogResult result = MessageBox.Show(ComboActionType.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
+                        TxtBalance.Text = totalBalance.ToString();
+                        ComboActionType.Text = string.Empty;
+                        RichAmount.Clear();
+                        ComboDepositType.Text = string.Empty;
+                        EnableFields(Action.Save);
+                        var bankTransactionViewList = GetBankTransaction();
+                        LoadBankTransaction(bankTransactionViewList);
+                    }
                 }
             }
             catch (Exception ex)
@@ -143,19 +146,11 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnSaveBank_Click(object sender, EventArgs e)
         {
             try
-            {
-                var name = TxtBankName.Text.Trim();
-                var accountNo = TxtAccountNo.Text.Trim();
-                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(accountNo))
+            {  
+                if(ValidateBankInfo())
                 {
-                    DialogResult result = MessageBox.Show("Please enter following fields: \n * Bank Name \n * Account Number", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (result == DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
-                else
-                {
+                    var name = TxtBankName.Text.Trim();
+                    var accountNo = TxtAccountNo.Text.Trim();
                     var bank = new Bank
                     {
                         EndOfDay = _endOfDay,
@@ -190,16 +185,27 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdateBank_Click(object sender, EventArgs e)
         {
-            var bank = new Bank
+            try
             {
-                Name = TxtBankName.Text,
-                AccountNo = TxtAccountNo.Text,
-                UpdatedBy = _username,
-                UpdatedDate = DateTime.Now
-            };
+                if(ValidateBankInfo())
+                {
+                    var bank = new Bank
+                    {
+                        Name = TxtBankName.Text,
+                        AccountNo = TxtAccountNo.Text,
+                        UpdatedBy = _username,
+                        UpdatedDate = DateTime.Now
+                    };
 
-            _bankService.UpdateBank(selectedBankId, bank);
-            MessageBox.Show(TxtBankName.Text + " is updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _bankService.UpdateBank(selectedBankId, bank);
+                    MessageBox.Show(TxtBankName.Text + " is updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
         }
 
         private void BtnDeleteBank_Click(object sender, EventArgs e)
@@ -244,6 +250,16 @@ namespace GrocerySupplyManagementApp.Forms
             LoadBankTransaction(bankTransactionViewList);
         }
         #endregion
+
+        #region Rich Box Event
+        private void RichAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion  
 
         #region Combo Box Event
         private void ComboDepositType_SelectedValueChanged(object sender, EventArgs e)
@@ -406,6 +422,55 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboActionType.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
             ComboActionType.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
+        }
+        #endregion
+
+        #region Validation
+        private bool ValidateBankInfo()
+        {
+            var isValidated = false;
+
+            var name = TxtBankName.Text.Trim();
+            var accountNo = TxtAccountNo.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(name) 
+                || string.IsNullOrWhiteSpace(accountNo))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Bank Name " +
+                    "\n * Account Number", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+
+        private bool ValidateBankTransaction()
+        {
+            var isValidated = false;
+
+            var depositType = ComboDepositType.Text.Trim();
+            var actionType = ComboActionType.Text.Trim();
+            var amount = RichAmount.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(depositType)
+                || string.IsNullOrWhiteSpace(actionType)
+                || string.IsNullOrWhiteSpace(amount))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Deposit Type " +
+                    "\n * Action Type " +
+                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
         }
         #endregion
     }

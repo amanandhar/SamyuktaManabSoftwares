@@ -43,13 +43,14 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void UserForm_Load(object sender, EventArgs e)
         {
+            EnableFields();
             EnableFields(Action.Load);
             LoadUserTypes();
         }
         #endregion
 
         #region Button Click Event
-        private void BtnShow_Click(object sender, EventArgs e)
+        private void BtnSearchUser_Click(object sender, EventArgs e)
         {
             UserListForm userListForm = new UserListForm(_username, _userService, this);
             userListForm.ShowDialog();
@@ -67,66 +68,77 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var username = TxtUsername.Text;
-                var password = TxtPassword.Text;
-                var confirmPassword = TxtConfirmPassword.Text;
+                if(ValidateUserInfo())
+                {
+                    var username = TxtUsername.Text.Trim();
+                    var password = TxtPassword.Text.Trim();
+                    var confirmPassword = TxtConfirmPassword.Text.Trim();
 
-                if (string.IsNullOrWhiteSpace(username.Trim()))
-                {
-                    var errorResult = MessageBox.Show("Username is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (errorResult == DialogResult.OK)
+                    if (string.IsNullOrWhiteSpace(username))
                     {
-                        TxtUsername.Focus();
+                        var errorResult = MessageBox.Show("Username is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            TxtUsername.Focus();
+                        }
                     }
-                }
-                else if (string.IsNullOrWhiteSpace(password.Trim()))
-                {
-                    var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (errorResult == DialogResult.OK)
+                    else if (string.IsNullOrWhiteSpace(password))
                     {
-                        TxtPassword.Focus();
+                        var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            TxtPassword.Focus();
+                        }
                     }
-                }
-                else if (string.IsNullOrWhiteSpace(confirmPassword.Trim()) || (password.Trim() != confirmPassword.Trim()))
-                {
-                    var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (errorResult == DialogResult.OK)
+                    else if (string.IsNullOrWhiteSpace(confirmPassword) || (password != confirmPassword))
                     {
-                        TxtPassword.Focus();
+                        var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            TxtPassword.Focus();
+                        }
                     }
-                }
-                else
-                {
-                    var user = new User
+                    else if (_userService.IsUserExist(username))
                     {
-                        Username = TxtUsername.Text,
-                        Password = Cryptography.Encrypt(TxtPassword.Text),
-                        Type = ComboUserType.Text,
-                        Bank = ChkBank.Checked,
-                        DailySummary = ChkDailySummary.Checked,
-                        DailyTransaction = ChkDailyTransaction.Checked,
-                        Employee = ChkEmployee.Checked,
-                        EOD = ChkEOD.Checked,
-                        ItemPricing = ChkItemPricing.Checked,
-                        Member = ChkMember.Checked,
-                        POS = ChkPOS.Checked,
-                        IsReadOnly = ChkReadOnly.Checked,
-                        Reports = ChkReports.Checked,
-                        Settings = ChkSettings.Checked,
-                        StockSummary = ChkStockSummary.Checked,
-                        Supplier = ChkSupplier.Checked,
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
+                        var errorResult = MessageBox.Show("Username already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            TxtUsername.Focus();
+                        }
+                    }
+                    else
+                    {
+                        var user = new User
+                        {
+                            Username = TxtUsername.Text,
+                            Password = Cryptography.Encrypt(TxtPassword.Text),
+                            Type = ComboUserType.Text,
+                            Bank = ChkBank.Checked,
+                            DailySummary = ChkDailySummary.Checked,
+                            DailyTransaction = ChkDailyTransaction.Checked,
+                            Employee = ChkEmployee.Checked,
+                            EOD = ChkEOD.Checked,
+                            ItemPricing = ChkItemPricing.Checked,
+                            Member = ChkMember.Checked,
+                            POS = ChkPOS.Checked,
+                            IsReadOnly = ChkReadOnly.Checked,
+                            Reports = ChkReports.Checked,
+                            Settings = ChkSettings.Checked,
+                            StockSummary = ChkStockSummary.Checked,
+                            Supplier = ChkSupplier.Checked,
+                            AddedBy = _username,
+                            AddedDate = DateTime.Now
+                        };
 
-                    _userService.AddUser(user);
+                        _userService.AddUser(user);
 
-                    DialogResult result = MessageBox.Show(user.Username + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
-                    {
-                        ClearAllFields();
-                        EnableFields();
-                        EnableFields(Action.Save);
+                        DialogResult result = MessageBox.Show(user.Username + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            ClearAllFields();
+                            EnableFields();
+                            EnableFields(Action.Save);
+                        }
                     }
                 }
             }
@@ -147,65 +159,68 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var username = TxtUsername.Text;
-                var password = TxtPassword.Text;
-                var confirmPassword = TxtConfirmPassword.Text;
+                if(ValidateUserInfo())
+                {
+                    var username = TxtUsername.Text;
+                    var password = TxtPassword.Text;
+                    var confirmPassword = TxtConfirmPassword.Text;
 
-                if (string.IsNullOrWhiteSpace(username.Trim()))
-                {
-                    var errorResult = MessageBox.Show("Username is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (errorResult == DialogResult.OK)
+                    if (string.IsNullOrWhiteSpace(username.Trim()))
                     {
-                        TxtUsername.Focus();
+                        var errorResult = MessageBox.Show("Username is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            TxtUsername.Focus();
+                        }
                     }
-                }
-                else if (string.IsNullOrWhiteSpace(password.Trim()))
-                {
-                    var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (errorResult == DialogResult.OK)
+                    else if (string.IsNullOrWhiteSpace(password.Trim()))
                     {
-                        TxtPassword.Focus();
+                        var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            TxtPassword.Focus();
+                        }
                     }
-                }
-                else if (string.IsNullOrWhiteSpace(confirmPassword.Trim()) || (password.Trim() != confirmPassword.Trim()))
-                {
-                    var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (errorResult == DialogResult.OK)
+                    else if (string.IsNullOrWhiteSpace(confirmPassword.Trim()) || (password.Trim() != confirmPassword.Trim()))
                     {
-                        TxtPassword.Focus();
+                        var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (errorResult == DialogResult.OK)
+                        {
+                            TxtPassword.Focus();
+                        }
                     }
-                }
-                else
-                {
-                    var user = new User
+                    else
                     {
-                        Username = TxtUsername.Text,
-                        Password = _isPasswordChanged ? Cryptography.Encrypt(TxtPassword.Text) : TxtPassword.Text,
-                        Type = ComboUserType.Text,
-                        Bank = ChkBank.Checked,
-                        DailySummary = ChkDailySummary.Checked,
-                        DailyTransaction = ChkDailyTransaction.Checked,
-                        Employee = ChkEmployee.Checked,
-                        EOD = ChkEOD.Checked,
-                        ItemPricing = ChkItemPricing.Checked,
-                        Member = ChkMember.Checked,
-                        POS = ChkPOS.Checked,
-                        IsReadOnly = ChkReadOnly.Checked,
-                        Reports = ChkReports.Checked,
-                        Settings = ChkSettings.Checked,
-                        StockSummary = ChkStockSummary.Checked,
-                        Supplier = ChkSupplier.Checked,
-                        UpdatedBy = _username,
-                        UpdatedDate = DateTime.Now
-                    };
+                        var user = new User
+                        {
+                            Username = TxtUsername.Text,
+                            Password = _isPasswordChanged ? Cryptography.Encrypt(TxtPassword.Text) : TxtPassword.Text,
+                            Type = ComboUserType.Text,
+                            Bank = ChkBank.Checked,
+                            DailySummary = ChkDailySummary.Checked,
+                            DailyTransaction = ChkDailyTransaction.Checked,
+                            Employee = ChkEmployee.Checked,
+                            EOD = ChkEOD.Checked,
+                            ItemPricing = ChkItemPricing.Checked,
+                            Member = ChkMember.Checked,
+                            POS = ChkPOS.Checked,
+                            IsReadOnly = ChkReadOnly.Checked,
+                            Reports = ChkReports.Checked,
+                            Settings = ChkSettings.Checked,
+                            StockSummary = ChkStockSummary.Checked,
+                            Supplier = ChkSupplier.Checked,
+                            UpdatedBy = _username,
+                            UpdatedDate = DateTime.Now
+                        };
 
-                    _userService.UpdateUser(username, user);
-                    DialogResult result = MessageBox.Show(username + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
-                    {
-                        ClearAllFields();
-                        EnableFields();
-                        EnableFields(Action.Update);
+                        _userService.UpdateUser(username, user);
+                        DialogResult result = MessageBox.Show(username + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            ClearAllFields();
+                            EnableFields();
+                            EnableFields(Action.Update);
+                        }
                     }
                 }
             }
@@ -384,9 +399,6 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Add)
             {
                 BtnSave.Enabled = true;
-                BtnEdit.Enabled = false;
-                BtnUpdate.Enabled = false;
-                BtnDelete.Enabled = false;
 
                 TxtUsername.Enabled = true;
                 TxtPassword.Enabled = true;
@@ -413,12 +425,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
-                BtnAdd.Enabled = false;
-                BtnSave.Enabled = false;
-                BtnEdit.Enabled = false;
-                BtnUpdate.Enabled = true;
-                BtnDelete.Enabled = true;
-
                 TxtUsername.Enabled = true;
                 TxtPassword.Enabled = true;
                 TxtConfirmPassword.Enabled = true;
@@ -437,6 +443,9 @@ namespace GrocerySupplyManagementApp.Forms
                 ChkSettings.Enabled = true;
                 ChkStockSummary.Enabled = true;
                 ChkSupplier.Enabled = true;
+
+                BtnUpdate.Enabled = true;
+                BtnDelete.Enabled = true;
             }
             else if (action == Action.Update)
             {
@@ -448,17 +457,12 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.PopulateUser)
             {
+                BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
             else
             {
-                BtnAdd.Enabled = false;
-                BtnSave.Enabled = false;
-                BtnEdit.Enabled = false;
-                BtnUpdate.Enabled = false;
-                BtnDelete.Enabled = false;
-
                 TxtUsername.Enabled = false;
                 TxtPassword.Enabled = false;
                 TxtConfirmPassword.Enabled = false;
@@ -477,6 +481,12 @@ namespace GrocerySupplyManagementApp.Forms
                 ChkSettings.Enabled = false;
                 ChkStockSummary.Enabled = false;
                 ChkSupplier.Enabled = false;
+
+                BtnAdd.Enabled = false;
+                BtnSave.Enabled = false;
+                BtnEdit.Enabled = false;
+                BtnUpdate.Enabled = false;
+                BtnDelete.Enabled = false;
             }
         }
 
@@ -491,6 +501,35 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUserType.Items.Add(new ComboBoxItem { Id = Constants.GUEST, Value = Constants.GUEST });
         }
         #endregion
- 
+
+        #region Validation
+        private bool ValidateUserInfo()
+        {
+            var isValidated = false;
+
+            var username = TxtUsername.Text.Trim();
+            var userType = ComboUserType.Text.Trim();
+            var password = TxtPassword.Text.Trim();
+            var confirmPassword = TxtConfirmPassword.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(username)
+                || string.IsNullOrWhiteSpace(userType)
+                || string.IsNullOrWhiteSpace(password)
+                || string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Username " +
+                    "\n * User Type " +
+                    "\n * Password " +
+                    "\n * Confirm Password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+        #endregion
     }
 }

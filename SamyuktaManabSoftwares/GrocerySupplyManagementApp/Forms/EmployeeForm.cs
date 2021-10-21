@@ -110,69 +110,72 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if(ValidateMemberInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+
                             return;
                         }
-
-                        return;
-                    }
-                    else
-                    {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER)))
+                        else
                         {
-                            UtilityService.CreateFolder(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER);
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER);
+                            }
+
+                            var fileName = RichEmployeeId.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER, fileName);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
-
-                        var fileName = RichEmployeeId.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER, fileName);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
-                }
 
-                var employee = new Employee
-                {
-                    EndOfDay = _endOfDay,
-                    EmployeeId = RichEmployeeId.Text,
-                    Name = RichName.Text,
-                    TempAddress = RichTempAddress.Text,
-                    PermAddress = RichPermAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNo.Text) ? 0 : Convert.ToInt64(RichContactNo.Text),
-                    Email = RichEmail.Text,
-                    CitizenshipNo = RichCitizenshipNo.Text,
-                    Education = ComboEducation.Text,
-                    DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
-                    Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
-                    FatherName = RichFatherName.Text,
-                    BloodGroup = ComboBloodGroup.Text,
-                    MotherName = RichMotherName.Text,
-                    Gender = ComboGender.Text,
-                    MaritalStatus = ComboMaritalStatus.Text,
-                    SpouseName = RichSpouseName.Text,
-                    Post = ComboPost.Text,
-                    PostStatus = ComboPostStatus.Text,
-                    AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
-                    ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
-                    ImagePath = destinationFilePath,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
+                    var employee = new Employee
+                    {
+                        EndOfDay = _endOfDay,
+                        EmployeeId = RichEmployeeId.Text,
+                        Name = RichName.Text,
+                        TempAddress = RichTempAddress.Text,
+                        PermAddress = RichPermAddress.Text,
+                        ContactNo = string.IsNullOrEmpty(RichContactNo.Text) ? 0 : Convert.ToInt64(RichContactNo.Text),
+                        Email = RichEmail.Text,
+                        CitizenshipNo = RichCitizenshipNo.Text,
+                        Education = ComboEducation.Text,
+                        DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
+                        Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
+                        FatherName = RichFatherName.Text,
+                        BloodGroup = ComboBloodGroup.Text,
+                        MotherName = RichMotherName.Text,
+                        Gender = ComboGender.Text,
+                        MaritalStatus = ComboMaritalStatus.Text,
+                        SpouseName = RichSpouseName.Text,
+                        Post = ComboPost.Text,
+                        PostStatus = ComboPostStatus.Text,
+                        AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
+                        ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
+                        ImagePath = destinationFilePath,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                _employeeService.AddEmployee(employee);
+                    _employeeService.AddEmployee(employee);
 
-                DialogResult result = MessageBox.Show(employee.EmployeeId + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields();
-                    EnableFields(Action.Save);
+                    DialogResult result = MessageBox.Show(employee.EmployeeId + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                        EnableFields(Action.Save);
+                    }
                 }
             }
             catch (Exception ex)
@@ -193,67 +196,70 @@ namespace GrocerySupplyManagementApp.Forms
             var employeeId = RichEmployeeId.Text;
             try
             {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if(ValidateMemberInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+
                             return;
                         }
-
-                        return;
-                    }
-                    else
-                    {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER)))
+                        else
                         {
-                            UtilityService.CreateFolder(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER);
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER);
+                            }
+
+                            var fileName = RichEmployeeId.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER, fileName);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
-
-                        var fileName = RichEmployeeId.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER, fileName);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
-                }
 
-                var employee = new Employee
-                {
-                    EmployeeId = RichEmployeeId.Text,
-                    Name = RichName.Text,
-                    TempAddress = RichTempAddress.Text,
-                    PermAddress = RichPermAddress.Text,
-                    ContactNo = string.IsNullOrEmpty(RichContactNo.Text) ? 0 : Convert.ToInt64(RichContactNo.Text),
-                    Email = RichEmail.Text,
-                    CitizenshipNo = RichCitizenshipNo.Text,
-                    Education = ComboEducation.Text,
-                    DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
-                    Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
-                    BloodGroup = ComboBloodGroup.Text,
-                    FatherName = RichFatherName.Text,
-                    MotherName = RichMotherName.Text,
-                    Gender = ComboGender.Text,
-                    MaritalStatus = ComboMaritalStatus.Text,
-                    SpouseName = RichSpouseName.Text,
-                    Post = ComboPost.Text,
-                    PostStatus = ComboPostStatus.Text,
-                    AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
-                    ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
-                    ImagePath = destinationFilePath,
-                    UpdatedBy = _username,
-                    UpdatedDate = DateTime.Now
-                };
+                    var employee = new Employee
+                    {
+                        EmployeeId = RichEmployeeId.Text,
+                        Name = RichName.Text,
+                        TempAddress = RichTempAddress.Text,
+                        PermAddress = RichPermAddress.Text,
+                        ContactNo = string.IsNullOrEmpty(RichContactNo.Text) ? 0 : Convert.ToInt64(RichContactNo.Text),
+                        Email = RichEmail.Text,
+                        CitizenshipNo = RichCitizenshipNo.Text,
+                        Education = ComboEducation.Text,
+                        DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
+                        Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
+                        BloodGroup = ComboBloodGroup.Text,
+                        FatherName = RichFatherName.Text,
+                        MotherName = RichMotherName.Text,
+                        Gender = ComboGender.Text,
+                        MaritalStatus = ComboMaritalStatus.Text,
+                        SpouseName = RichSpouseName.Text,
+                        Post = ComboPost.Text,
+                        PostStatus = ComboPostStatus.Text,
+                        AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
+                        ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
+                        ImagePath = destinationFilePath,
+                        UpdatedBy = _username,
+                        UpdatedDate = DateTime.Now
+                    };
 
-                _employeeService.UpdateEmployee(employeeId, employee);
-                DialogResult result = MessageBox.Show(employeeId + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields();
-                    EnableFields(Action.Update);
+                    _employeeService.UpdateEmployee(employeeId, employee);
+                    DialogResult result = MessageBox.Show(employeeId + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                        EnableFields(Action.Update);
+                    }
                 }
             }
             catch (Exception ex)
@@ -297,6 +303,16 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 logger.Error(ex);
                 throw ex;
+            }
+        }
+        #endregion
+
+        #region Rich Box Event
+        private void RichAge_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
         #endregion
@@ -573,5 +589,30 @@ namespace GrocerySupplyManagementApp.Forms
             ComboPostStatus.Items.Add(new ComboBoxItem { Id = Constants.POST_STATUS_PERMANENT, Value = Constants.POST_STATUS_PERMANENT });
         }
         #endregion
+
+        #region Validation
+        private bool ValidateMemberInfo()
+        {
+            var isValidated = false;
+
+            var employeeId = RichEmployeeId.Text.Trim();
+            var employeeName = RichName.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(employeeId)
+                || string.IsNullOrWhiteSpace(employeeName))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Employee Id " +
+                    "\n * Employee Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+        #endregion
+
     }
 }

@@ -71,7 +71,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridUserList.Columns["StockSummary"].Visible = false;
             DataGridUserList.Columns["Supplier"].Visible = false;
             DataGridUserList.Columns["AddedDate"].Visible = false;
+            DataGridUserList.Columns["AddedBy"].Visible = false;
             DataGridUserList.Columns["UpdatedDate"].Visible = false;
+            DataGridUserList.Columns["UpdatedBy"].Visible = false;
 
             DataGridUserList.Columns["Username"].HeaderText = "Username";
             DataGridUserList.Columns["Username"].Width = 180;

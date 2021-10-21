@@ -30,7 +30,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion 
 
         #region Constructor
-        public CompanyInfoForm(string username, 
+        public CompanyInfoForm(string username,
             ICompanyInfoService companyInfoService)
         {
             InitializeComponent();
@@ -63,58 +63,61 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if(ValidateCompanyInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
+                        if (!Directory.Exists(_baseImageFolder))
                         {
-                            return;
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, COMPANY_IMAGE_FOLDER)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, COMPANY_IMAGE_FOLDER);
+                            }
+
+                            var fileName = RichCompanyName.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, COMPANY_IMAGE_FOLDER, fileName);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                     }
-                    else
+
+                    var companyInfo = new CompanyInfo
                     {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, COMPANY_IMAGE_FOLDER)))
-                        {
-                            UtilityService.CreateFolder(_baseImageFolder, COMPANY_IMAGE_FOLDER);
-                        }
+                        Name = RichCompanyName.Text,
+                        ShortName = RichShortName.Text,
+                        Type = RichCompanyType.Text,
+                        Address = RichAddress.Text,
+                        ContactNo = Convert.ToInt64(RichContactNo.Text),
+                        EmailId = RichEmailId.Text,
+                        Website = RichWebsite.Text,
+                        FacebookPage = RichFacebookPage.Text,
+                        RegistrationNo = RichRegistrationNo.Text,
+                        RegistrationDate = RichRegistrationDate.Text,
+                        PanVatNo = RichPanVatNo.Text,
+                        LogoPath = destinationFilePath,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                        var fileName = RichCompanyName.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, COMPANY_IMAGE_FOLDER, fileName);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
+                    _companyInfoService.DeleteCompanyInfo();
+                    _companyInfoService.AddCompanyInfo(companyInfo);
+                    DialogResult result = MessageBox.Show(RichCompanyName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                        EnableFields(Action.Load);
+                        LoadCompanyInfo();
                     }
-                }
-
-                var companyInfo = new CompanyInfo
-                {
-                    Name = RichCompanyName.Text,
-                    ShortName = RichShortName.Text,
-                    Type = RichCompanyType.Text,
-                    Address = RichAddress.Text,
-                    ContactNo = Convert.ToInt64(RichContactNo.Text),
-                    EmailId = RichEmailId.Text,
-                    Website = RichWebsite.Text,
-                    FacebookPage = RichFacebookPage.Text,
-                    RegistrationNo = RichRegistrationNo.Text,
-                    RegistrationDate = RichRegistrationDate.Text,
-                    PanVatNo = RichPanVatNo.Text,
-                    LogoPath = destinationFilePath,
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                };
-
-                _companyInfoService.DeleteCompanyInfo();
-                _companyInfoService.AddCompanyInfo(companyInfo);
-                DialogResult result = MessageBox.Show(RichCompanyName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearAllFields();
-                    EnableFields();
-                    EnableFields(Action.Load);
-                    LoadCompanyInfo();
                 }
             }
             catch (Exception ex)
@@ -253,6 +256,36 @@ namespace GrocerySupplyManagementApp.Forms
                 RichWebsite.Enabled = false;
                 RichFacebookPage.Enabled = false;
             }
+        }
+        #endregion
+
+        #region
+        private bool ValidateCompanyInfo()
+        {
+            var isValidated = false;
+
+            var registrationNo = RichRegistrationNo.Text.Trim();
+            var registrationDate = RichRegistrationDate.Text.Trim();
+            var panVatNo = RichPanVatNo.Text.Trim();
+            var companyName = RichCompanyName.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(registrationNo)
+                || string.IsNullOrWhiteSpace(registrationDate)
+                || string.IsNullOrWhiteSpace(panVatNo)
+                || string.IsNullOrWhiteSpace(companyName))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Registration Number " +
+                    "\n * Registration Date " +
+                    "\n * Pan Vat Number " +
+                    "\n * Company Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
         }
         #endregion
     }

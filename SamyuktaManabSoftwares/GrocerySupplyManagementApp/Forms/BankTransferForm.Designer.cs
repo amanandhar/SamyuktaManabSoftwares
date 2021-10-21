@@ -189,6 +189,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichDepositAmount.Size = new System.Drawing.Size(140, 32);
             this.RichDepositAmount.TabIndex = 4;
             this.RichDepositAmount.Text = "";
+            this.RichDepositAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichDepositAmount_KeyPress);
             // 
             // label3
             // 
