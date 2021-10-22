@@ -9,9 +9,6 @@ using System.Linq;
 
 namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 {
-    /// <summary>
-    /// Summary description for BankServiceTest
-    /// </summary>
     [TestClass]
     public class BankServiceTest
     {
@@ -27,7 +24,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.BankService")]
-        public void GetBanks_Returns_Banks()
+        public void GetBanks_ReturnsBanks()
         {
             _bankRepository.Setup(repo => repo.GetBanks())
                 .Returns(new List<Bank>() {
@@ -42,7 +39,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.BankService")]
-        public void GetBank_ReturnsBank_WhenNoError()
+        public void GetBank_ReturnsBank_WhenIdIsPassed()
         {
             long id = 1;
             _bankRepository.Setup(repo => repo.GetBank(It.IsAny<long>()))
@@ -56,7 +53,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.BankService")]
-        public void AddBank_ReturnsBank_WhenBankIsAdded()
+        public void AddBank_ReturnsBank_WhenBankIsPassed()
         {
             _bankRepository.Setup(repo => repo.AddBank(It.IsAny<Bank>()))
                 .Returns(new Bank() { Id = 1, EndOfDay = "2078-01-01", Name = "Test Bank 1", AccountNo = "TestAccNo1", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null });
@@ -69,7 +66,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.BankService")]
-        public void UpdateBank_ReturnsBank_WhenBankIsUpdated()
+        public void UpdateBank_ReturnsBank_WhenIdAndBankArePassed()
         {
             long id = 1;
             _bankRepository.Setup(repo => repo.UpdateBank(It.IsAny<long>(), It.IsAny<Bank>()))
@@ -83,7 +80,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.BankService")]
-        public void DeleteBank_ReturnsTrue_WhenBankIsDeleted()
+        public void DeleteBank_ReturnsTrue_WhenIdIsPassed()
         {
             long id = 1;
             _bankRepository.Setup(repo => repo.DeleteBank(It.IsAny<long>()))

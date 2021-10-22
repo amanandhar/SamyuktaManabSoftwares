@@ -64,6 +64,27 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\Services\BankServiceTest.cs" />
+    <Compile Include="UnitTests\Services\BankTransactionServiceTest.cs" />
+    <Compile Include="UnitTests\Services\CapitalServiceTest.cs" />
+    <Compile Include="UnitTests\Services\CompanyInfoServiceTest.cs" />
+    <Compile Include="UnitTests\Services\EmployeeServiceTest.cs" />
+    <Compile Include="UnitTests\Services\EndOfDayServiceTest.cs" />
+    <Compile Include="UnitTests\Services\IncomeExpenseServiceTest.cs" />
+    <Compile Include="UnitTests\Services\ItemCategoryServiceTest.cs" />
+    <Compile Include="UnitTests\Services\ItemServiceTest.cs" />
+    <Compile Include="UnitTests\Services\MemberServiceTest.cs" />
+    <Compile Include="UnitTests\Services\POSDetailServiceTest.cs" />
+    <Compile Include="UnitTests\Services\PricedItemServiceTest.cs" />
+    <Compile Include="UnitTests\Services\PurchasedItemServiceTest.cs" />
+    <Compile Include="UnitTests\Services\ReportServiceTest.cs" />
+    <Compile Include="UnitTests\Services\SettingServiceTest.cs" />
+    <Compile Include="UnitTests\Services\ShareMemberServiceTest.cs" />
+    <Compile Include="UnitTests\Services\SoldItemServiceTest.cs" />
+    <Compile Include="UnitTests\Services\StockAdjustmentServiceTest.cs" />
+    <Compile Include="UnitTests\Services\StockServiceTest.cs" />
+    <Compile Include="UnitTests\Services\SupplierServiceTest.cs" />
+    <Compile Include="UnitTests\Services\UserServiceTest.cs" />
+    <Compile Include="UnitTests\Services\UserTransactionServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
