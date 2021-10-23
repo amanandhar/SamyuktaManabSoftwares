@@ -24,7 +24,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly Setting _setting;
         private readonly string _endOfDay;
         private string _baseImageFolder;
-        private const string EMPLOYEE_IMAGE_FOLDER = "Employees";
+        private string _employeeImageFolder;
         private string _uploadedImagePath = string.Empty;
 
         #region Enum
@@ -61,7 +61,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void EmployeeForm_Load(object sender, EventArgs e)
         {
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
-            
+            _employeeImageFolder = ConfigurationManager.AppSettings[Constants.EMPLOYEE_IMAGE_FOLDER].ToString();
+
             LoadEducations();
             LoadBloodGroups();
             LoadGenders();
@@ -112,6 +113,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidateMemberInfo())
                 {
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
@@ -128,13 +130,13 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _employeeImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _employeeImageFolder);
                             }
 
-                            var fileName = RichEmployeeId.Text + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER, fileName);
+                            relativeImagePath = RichEmployeeId.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _employeeImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                     }
@@ -162,7 +164,7 @@ namespace GrocerySupplyManagementApp.Forms
                         PostStatus = ComboPostStatus.Text,
                         AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
                         ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
-                        ImagePath = destinationFilePath,
+                        ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -198,6 +200,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidateMemberInfo())
                 {
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
@@ -214,13 +217,13 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _employeeImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _employeeImageFolder);
                             }
 
-                            var fileName = RichEmployeeId.Text + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER, fileName);
+                            relativeImagePath = RichEmployeeId.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _employeeImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                     }
@@ -247,7 +250,7 @@ namespace GrocerySupplyManagementApp.Forms
                         PostStatus = ComboPostStatus.Text,
                         AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
                         ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
-                        ImagePath = destinationFilePath,
+                        ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
@@ -282,19 +285,21 @@ namespace GrocerySupplyManagementApp.Forms
                 if (deleteResult == DialogResult.Yes)
                 {
                     var employeeId = RichEmployeeId.Text;
-                    var fileName = employeeId + ".jpg";
-                    var filePath = Path.Combine(_baseImageFolder, EMPLOYEE_IMAGE_FOLDER, fileName);
-                    if (UtilityService.DeleteImage(filePath))
+                    var relativeImagePath = employeeId + ".jpg";
+                    var absoluteImagePath = Path.Combine(_baseImageFolder, _employeeImageFolder, relativeImagePath);
+                    if(!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                     {
-                        if (_employeeService.DeleteEmployee(employeeId))
+                        UtilityService.DeleteImage(absoluteImagePath);
+                    }
+
+                    if (_employeeService.DeleteEmployee(employeeId))
+                    {
+                        DialogResult result = MessageBox.Show(employeeId + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
                         {
-                            DialogResult result = MessageBox.Show(employeeId + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (result == DialogResult.OK)
-                            {
-                                ClearAllFields();
-                                EnableFields();
-                                EnableFields(Action.Delete);
-                            }
+                            ClearAllFields();
+                            EnableFields();
+                            EnableFields(Action.Delete);
                         }
                     }
                 }
@@ -361,9 +366,14 @@ namespace GrocerySupplyManagementApp.Forms
             MaskDtAppointedDt.Text = employee.AppointedDate;
             MaskDtResignedDt.Text = employee.ResignedDate;
 
-            if (File.Exists(employee.ImagePath))
+            var absoluteImagePath = Path.Combine(_baseImageFolder, _employeeImageFolder, employee.ImagePath);
+            if (File.Exists(absoluteImagePath))
             {
-                PicBoxEmployeeImage.ImageLocation = employee.ImagePath;
+                PicBoxEmployeeImage.ImageLocation = absoluteImagePath;
+            }
+            else
+            {
+                PicBoxEmployeeImage.Image = PicBoxEmployeeImage.InitialImage;
             }
 
             EnableFields();

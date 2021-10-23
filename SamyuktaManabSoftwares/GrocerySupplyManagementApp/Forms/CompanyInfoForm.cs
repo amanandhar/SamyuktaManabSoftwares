@@ -17,7 +17,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly string _username;
         private string _baseImageFolder;
-        private const string COMPANY_IMAGE_FOLDER = "Company";
+        private string _companyImageFolder;
         private string _uploadedImagePath = string.Empty;
 
         #region Enum
@@ -45,6 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void CompanyInfoForm_Load(object sender, EventArgs e)
         {
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
+            _companyImageFolder = ConfigurationManager.AppSettings[Constants.COMPANY_IMAGE_FOLDER].ToString();
             EnableFields();
             EnableFields(Action.Load);
             LoadCompanyInfo();
@@ -65,6 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidateCompanyInfo())
                 {
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
@@ -79,13 +81,13 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, COMPANY_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _companyImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, COMPANY_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _companyImageFolder);
                             }
 
-                            var fileName = RichCompanyName.Text + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, COMPANY_IMAGE_FOLDER, fileName);
+                            relativeImagePath = RichCompanyName.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _companyImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                     }
@@ -103,7 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
                         RegistrationNo = RichRegistrationNo.Text,
                         RegistrationDate = RichRegistrationDate.Text,
                         PanVatNo = RichPanVatNo.Text,
-                        LogoPath = destinationFilePath,
+                        LogoPath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -189,9 +191,15 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmailId.Text = companyInfo.EmailId;
             RichWebsite.Text = companyInfo.Website;
             RichFacebookPage.Text = companyInfo.FacebookPage;
-            if (File.Exists(companyInfo.LogoPath))
+            
+            var absoluteImagePath = Path.Combine(_baseImageFolder, _companyImageFolder, companyInfo.LogoPath);
+            if (File.Exists(absoluteImagePath))
             {
-                PicBoxCompanyLogo.ImageLocation = companyInfo.LogoPath;
+                PicBoxCompanyLogo.ImageLocation = absoluteImagePath;
+            }
+            else
+            {
+                PicBoxCompanyLogo.Image = PicBoxCompanyLogo.InitialImage;
             }
         }
 

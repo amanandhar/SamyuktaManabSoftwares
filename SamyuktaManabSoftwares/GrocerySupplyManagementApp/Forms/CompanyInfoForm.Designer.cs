@@ -29,6 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompanyInfoForm));
             this.label1 = new System.Windows.Forms.Label();
             this.RichRegistrationNo = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -106,6 +107,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // PicBoxCompanyLogo
             // 
+            this.PicBoxCompanyLogo.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxCompanyLogo.Image")));
+            this.PicBoxCompanyLogo.InitialImage = ((System.Drawing.Image)(resources.GetObject("PicBoxCompanyLogo.InitialImage")));
             this.PicBoxCompanyLogo.Location = new System.Drawing.Point(6, 18);
             this.PicBoxCompanyLogo.Name = "PicBoxCompanyLogo";
             this.PicBoxCompanyLogo.Size = new System.Drawing.Size(133, 130);

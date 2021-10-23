@@ -36,7 +36,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly string _endOfDay;
         public DashboardForm _dashboard;
         private string _baseImageFolder;
-        private const string MEMBER_IMAGE_FOLDER = "Members";
+        private string _memberImageFolder;
         private string _uploadedImagePath = string.Empty;
 
         #region Enum
@@ -86,14 +86,16 @@ namespace GrocerySupplyManagementApp.Forms
         #region Load Event
         private void MemberForm_Load(object sender, System.EventArgs e)
         {
+            _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
+            _memberImageFolder = ConfigurationManager.AppSettings[Constants.MEMBER_IMAGE_FOLDER].ToString();
+
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             ClearMemberFields();
             ClearTransactionFields();
             LoadReceiptTypes();
-            EnableFields(Action.None);
+            EnableFields();
             EnableFields(Action.Load);
-            _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
         }
         #endregion
 
@@ -217,7 +219,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ClearMemberFields();
             ClearTransactionFields();
-            EnableFields(Action.None);
+            EnableFields();
             EnableFields(Action.Add);
             TxtMemberId.Focus();
         }
@@ -228,6 +230,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidateMemberInfo())
                 {
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
@@ -239,13 +242,13 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _memberImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _memberImageFolder);
                             }
 
-                            var fileName = TxtMemberId.Text + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                            relativeImagePath = TxtMemberId.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _memberImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                     }
@@ -259,7 +262,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
                         Email = TxtEmail.Text,
                         AccountNo = TxtAccountNumber.Text,
-                        ImagePath = destinationFilePath,
+                        ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -273,7 +276,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ClearTransactionFields();
                         var memberTransactionViewList = GetMemberTransactions(member.MemberId);
                         LoadMemberTransactions(memberTransactionViewList);
-                        EnableFields(Action.None);
+                        EnableFields();
                         EnableFields(Action.Save);
                     }
                 }
@@ -287,7 +290,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            EnableFields(Action.None);
+            EnableFields();
             EnableFields(Action.Edit);
         }
 
@@ -296,6 +299,7 @@ namespace GrocerySupplyManagementApp.Forms
             var memberId = TxtMemberId.Text;
             try
             {
+                string relativeImagePath = null;
                 string destinationFilePath = null;
                 if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                 {
@@ -312,13 +316,13 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                     else
                     {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                        if (!Directory.Exists(Path.Combine(_baseImageFolder, _memberImageFolder)))
                         {
-                            UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                            UtilityService.CreateFolder(_baseImageFolder, _memberImageFolder);
                         }
 
-                        var fileName = TxtMemberId.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                        relativeImagePath = TxtMemberId.Text + ".jpg";
+                        destinationFilePath = Path.Combine(_baseImageFolder, _memberImageFolder, relativeImagePath);
                         File.Copy(_uploadedImagePath, destinationFilePath, true);
                     }
                 }
@@ -331,7 +335,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
                     Email = TxtEmail.Text,
                     AccountNo = TxtAccountNumber.Text,
-                    ImagePath = destinationFilePath,
+                    ImagePath = relativeImagePath,
                     UpdatedBy = _username,
                     UpdatedDate = DateTime.Now
                 };
@@ -344,7 +348,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ClearTransactionFields();
                     var memberTransactionViewList = GetMemberTransactions(memberId);
                     LoadMemberTransactions(memberTransactionViewList);
-                    EnableFields(Action.None);
+                    EnableFields();
                     EnableFields(Action.Update);
                 }
             }
@@ -364,10 +368,11 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var memberId = TxtMemberId.Text;
                     var member = _memberService.GetMember(memberId);
-
-                    if (!string.IsNullOrWhiteSpace(member.ImagePath) && File.Exists(member.ImagePath))
+                    var relativeImagePath = member.ImagePath;
+                    var absoluteImagePath = Path.Combine(_baseImageFolder, _memberImageFolder, relativeImagePath);
+                    if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                     {
-                        UtilityService.DeleteImage(member.ImagePath);
+                        UtilityService.DeleteImage(absoluteImagePath);
                     }
 
                     if (_memberService.DeleteMember(memberId))
@@ -379,7 +384,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ClearTransactionFields();
                             var memberTransactionViewList = GetMemberTransactions(memberId);
                             LoadMemberTransactions(memberTransactionViewList);
-                            EnableFields(Action.None);
+                            EnableFields();
                             EnableFields(Action.Delete);
                         }
                     }
@@ -601,7 +606,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.DataSource = source;
         }
 
-        private void EnableFields(Action action)
+        private void EnableFields(Action action = Action.None)
         {
             if(action == Action.Add)
             {
@@ -612,6 +617,8 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtEmail.Enabled = true;
                 TxtContactNumber.Enabled = true;
 
+                BtnAddImage.Enabled = true;
+                BtnDeleteImage.Enabled = true;
                 BtnSave.Enabled = true;
             }
             else if (action == Action.Save)
@@ -626,6 +633,8 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtEmail.Enabled = true;
                 TxtContactNumber.Enabled = true;
 
+                BtnAddImage.Enabled = true;
+                BtnDeleteImage.Enabled = true;
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
             }
@@ -656,6 +665,8 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtEmail.Enabled = false;
                 TxtContactNumber.Enabled = false;
 
+                BtnAddImage.Enabled = false;
+                BtnDeleteImage.Enabled = false;
                 BtnAddMember.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
@@ -694,18 +705,19 @@ namespace GrocerySupplyManagementApp.Forms
             TxtEmail.Text = member.Email;
             TxtAccountNumber.Text = member.AccountNo;
 
-            if (File.Exists(member.ImagePath))
+            var absoluteImagePath = Path.Combine(_baseImageFolder, _memberImageFolder, member.ImagePath);
+            if (File.Exists(absoluteImagePath))
             {
-                PicBoxMemberImage.ImageLocation = member.ImagePath;
+                PicBoxMemberImage.ImageLocation = absoluteImagePath;
             }
             else
             {
-                PicBoxMemberImage.Image = null;
+                PicBoxMemberImage.Image = PicBoxMemberImage.InitialImage;
             }
 
             ComboReceipt.Enabled = true;
 
-            EnableFields(Action.None);
+            EnableFields();
             EnableFields(Action.PopulateMember);
             var memberTransactionViewList = GetMemberTransactions(memberId);
             LoadMemberTransactions(memberTransactionViewList);

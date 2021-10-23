@@ -100,6 +100,11 @@ namespace GrocerySupplyManagementApp.Shared
 
         //Images
         public const string BASE_IMAGE_FOLDER = "BaseImageFolder";
+        public const string COMPANY_IMAGE_FOLDER = "CompanyImageFolder";
+        public const string EMPLOYEE_IMAGE_FOLDER = "EmployeeImageFolder";
+        public const string ITEM_IMAGE_FOLDER = "ItemImageFolder";
+        public const string MEMBER_IMAGE_FOLDER = "MemberImageFolder";
+        public const string SHARE_MEMBER_IMAGE_FOLDER = "ShareMemberImageFolder";
 
         //Employee
         public const string DELIVERY_PERSON = "Delivery Person";

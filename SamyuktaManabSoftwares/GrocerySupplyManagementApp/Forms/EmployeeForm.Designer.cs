@@ -29,6 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -648,6 +649,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // PicBoxEmployeeImage
             // 
+            this.PicBoxEmployeeImage.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxEmployeeImage.Image")));
+            this.PicBoxEmployeeImage.InitialImage = ((System.Drawing.Image)(resources.GetObject("PicBoxEmployeeImage.InitialImage")));
             this.PicBoxEmployeeImage.Location = new System.Drawing.Point(5, 12);
             this.PicBoxEmployeeImage.Name = "PicBoxEmployeeImage";
             this.PicBoxEmployeeImage.Size = new System.Drawing.Size(133, 143);

@@ -30,7 +30,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly string _endOfDay;
         public DashboardForm _dashboard;
         private string _baseImageFolder;
-        private const string MEMBER_IMAGE_FOLDER = "ShareMembers";
+        private string _shareMemberImageFolder;
         private string _uploadedImagePath = string.Empty;
         private string _selectedShareMemberId;
 
@@ -76,7 +76,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void ShareMemberForm_Load(object sender, EventArgs e)
         {
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
-            EnableFields(Action.None);
+            _shareMemberImageFolder = ConfigurationManager.AppSettings[Constants.SHARE_MEMBER_IMAGE_FOLDER].ToString();
+            EnableFields();
             EnableFields(Action.Load);
             LoadBanks();
             LoadNarration();
@@ -148,7 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
                     if (result == DialogResult.OK)
                     {
                         ClearAmountFields();
-                        EnableFields(Action.None);
+                        EnableFields();
                         EnableFields(Action.PopulateShareMember);
                         LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
                     }
@@ -164,7 +165,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             ClearAllFields();
-            EnableFields(Action.None);
+            EnableFields();
             EnableFields(Action.Add);
             RichName.Focus();
         }
@@ -175,6 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidateShareMemberInfo())
                 {
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
@@ -191,13 +193,13 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _shareMemberImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _shareMemberImageFolder);
                             }
 
-                            var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                            relativeImagePath = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                     }
@@ -208,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Name = RichName.Text,
                         Address = RichAddress.Text,
                         ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                        ImagePath = destinationFilePath,
+                        ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -219,7 +221,7 @@ namespace GrocerySupplyManagementApp.Forms
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
-                        EnableFields(Action.None);
+                        EnableFields();
                         EnableFields(Action.Save);
                     }
                 }
@@ -233,7 +235,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            EnableFields(Action.None);
+            EnableFields();
             EnableFields(Action.Edit);
         }
 
@@ -245,6 +247,7 @@ namespace GrocerySupplyManagementApp.Forms
                 if(ValidateShareMemberInfo())
                 {
                     var selectedShareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
@@ -261,9 +264,9 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _shareMemberImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, MEMBER_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _shareMemberImageFolder);
                             }
 
                             if (selectedShareMember.ImagePath != _uploadedImagePath)
@@ -273,8 +276,8 @@ namespace GrocerySupplyManagementApp.Forms
                                     UtilityService.DeleteImage(selectedShareMember.ImagePath);
                                 }
 
-                                var fileName = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
-                                destinationFilePath = Path.Combine(_baseImageFolder, MEMBER_IMAGE_FOLDER, fileName);
+                                relativeImagePath = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
+                                destinationFilePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, relativeImagePath);
                                 File.Copy(_uploadedImagePath, destinationFilePath, true);
                             }
                             else
@@ -289,7 +292,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Name = RichName.Text,
                         Address = RichAddress.Text,
                         ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
-                        ImagePath = destinationFilePath,
+                        ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
@@ -298,7 +301,7 @@ namespace GrocerySupplyManagementApp.Forms
                     DialogResult result = MessageBox.Show(shareMember.Name + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
-                        EnableFields(Action.None);
+                        EnableFields();
                         EnableFields(Action.Update);
                     }
                 }
@@ -319,9 +322,11 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var shareMemberId = _selectedShareMemberId;
                     var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId)); 
-                    if (!string.IsNullOrWhiteSpace(shareMember.ImagePath) && File.Exists(shareMember.ImagePath)) 
+                    var relativeImagePath = shareMember.ImagePath;
+                    var absoluteImagePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, relativeImagePath);
+                    if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                     {
-                        UtilityService.DeleteImage(shareMember.ImagePath);
+                        UtilityService.DeleteImage(absoluteImagePath);
                     }
 
                     if (_shareMemberService.DeleteShareMember(Convert.ToInt64(shareMemberId)))
@@ -330,7 +335,7 @@ namespace GrocerySupplyManagementApp.Forms
                         if (result == DialogResult.OK)
                         {
                             ClearAllFields();
-                            EnableFields(Action.None);
+                            EnableFields();
                             EnableFields(Action.Delete);
                         }
                     }
@@ -470,7 +475,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridShareMemberList.DataSource = source;
         }
 
-        private void EnableFields(Action action)
+        private void EnableFields(Action action = Action.None)
         {
             if (action == Action.Add)
             {
@@ -572,16 +577,17 @@ namespace GrocerySupplyManagementApp.Forms
             RichAddress.Text = shareMember.Address;
             RichContactNumber.Text = shareMember.ContactNo.ToString();
 
-            if (File.Exists(shareMember.ImagePath))
+            var absoluteImagePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, shareMember.ImagePath);
+            if (File.Exists(absoluteImagePath))
             {
-                PicBoxShareMember.ImageLocation = shareMember.ImagePath;
+                PicBoxShareMember.ImageLocation = absoluteImagePath;
             }
             else
             {
-                PicBoxShareMember.Image = null;
+                PicBoxShareMember.Image = PicBoxShareMember.InitialImage;
             }
 
-            EnableFields(Action.None);
+            EnableFields();
             EnableFields(Action.PopulateShareMember);
             LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId.ToString()));
         }

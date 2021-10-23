@@ -7,6 +7,7 @@ using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -44,6 +45,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
         private const char separator = '.';
         private readonly bool _isPrintOnly = false;
+        private string _baseImageFolder;
+        private string _itemImageFolder;
 
         #region Enum
         private enum Action
@@ -137,7 +140,10 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void PosForm_Load(object sender, EventArgs e)
         {
-            if(!_isPrintOnly)
+            _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
+            _itemImageFolder = ConfigurationManager.AppSettings[Constants.ITEM_IMAGE_FOLDER].ToString();
+
+            if (!_isPrintOnly)
             {
                 LoadItems(_soldItemViewList);
                 LoadDeliveryPersons();
@@ -1080,9 +1086,15 @@ namespace GrocerySupplyManagementApp.Forms
                 // End
 
                 TxtItemStock.Text = stock.ToString();
-                if (File.Exists(pricedItem.ImagePath))
+
+                var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
+                if (File.Exists(absoluteImagePath))
                 {
-                    PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
+                    PicBoxItemImage.ImageLocation = absoluteImagePath;
+                }
+                else
+                {
+                    PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
                 }
 
                 TxtProfitAmount.Text = profitAmount.ToString();

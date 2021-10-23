@@ -31,7 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly Setting _setting;
         private readonly string _endOfDay;
         private string _baseImageFolder;
-        private const string ITEM_IMAGE_FOLDER = "Items";
+        private string _itemImageFolder;
         private string _uploadedImagePath = string.Empty;
         private long _selectedId = 0;
         private long _selectedItemId = 0;
@@ -76,6 +76,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void ItemForm_Load(object sender, EventArgs e)
         {
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
+            _itemImageFolder = ConfigurationManager.AppSettings[Constants.ITEM_IMAGE_FOLDER].ToString();
             LoadItemUnits();
         }
         #endregion
@@ -106,6 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidatePricedItemInfo())
                 {
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
                     {
@@ -122,13 +124,13 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _itemImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
                             }
 
-                            var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                            relativeImagePath = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                             if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                             {
                                 File.Copy(_uploadedImagePath, destinationFilePath, true);
@@ -149,7 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                        ImagePath = destinationFilePath,
+                        ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -183,6 +185,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidatePricedItemInfo())
                 {
+                    string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
@@ -199,13 +202,13 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                         else
                         {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER)))
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _itemImageFolder)))
                             {
-                                UtilityService.CreateFolder(_baseImageFolder, ITEM_IMAGE_FOLDER);
+                                UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
                             }
 
-                            var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
+                            relativeImagePath = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
                     }
@@ -222,7 +225,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text),
-                        ImagePath = destinationFilePath,
+                        ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
@@ -250,11 +253,11 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
-                    var fileName = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
-                    var filePath = Path.Combine(_baseImageFolder, ITEM_IMAGE_FOLDER, fileName);
-                    if (File.Exists(filePath))
+                    var relativeImagePath = TxtItemCode.Text + "-" + TxtItemName.Text + "-" + TxtItemBrand.Text + "-" + TxtVolume.Text + ".jpg";
+                    var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
+                    if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                     {
-                        UtilityService.DeleteImage(filePath);
+                        UtilityService.DeleteImage(absoluteImagePath);
                     }
 
                     if (_pricedItemService.DeletePricedItem(_selectedId))
@@ -476,9 +479,14 @@ namespace GrocerySupplyManagementApp.Forms
                 var salesPrice = customPerUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = Math.Round(salesPrice, 2).ToString();
 
-                if (File.Exists(pricedItem.ImagePath))
+                var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
+                if (File.Exists(absoluteImagePath))
                 {
-                    PicBoxItemImage.ImageLocation = pricedItem.ImagePath;
+                    PicBoxItemImage.ImageLocation = absoluteImagePath;
+                }
+                else
+                {
+                    PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
                 }
 
                 EnableFields(); 

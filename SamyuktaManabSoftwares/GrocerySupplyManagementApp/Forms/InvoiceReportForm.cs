@@ -22,6 +22,9 @@ namespace GrocerySupplyManagementApp.Forms
         private int _pageMarginTop;
         private int _pageMarginBottom;
 
+        private string _baseImageFolder;
+        private string _companyImageFolder;
+
         #region Constructor
         public InvoiceReportForm(ICompanyInfoService companyInfoService, IReportService reportService, 
             string invoiceNo)
@@ -38,6 +41,9 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void InvoiceReportForm_Load(object sender, EventArgs e)
         {
+            _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
+            _companyImageFolder = ConfigurationManager.AppSettings[Constants.COMPANY_IMAGE_FOLDER].ToString();
+
             LoadInvoiceReport();
         }
         #endregion
@@ -125,9 +131,10 @@ namespace GrocerySupplyManagementApp.Forms
 
             this.reportViewerInvoice.LocalReport.EnableExternalImages = true;
             var logoPath = string.Empty;
-            if(File.Exists(companyInfo.LogoPath))
+            var absoluteImagePath = Path.Combine(_baseImageFolder, _companyImageFolder, companyInfo.LogoPath);
+            if (File.Exists(absoluteImagePath))
             {
-                logoPath = new Uri(companyInfo.LogoPath).AbsoluteUri;
+                logoPath = new Uri(absoluteImagePath).AbsoluteUri;
             }
 
             ReportParameter parameter = new ReportParameter
