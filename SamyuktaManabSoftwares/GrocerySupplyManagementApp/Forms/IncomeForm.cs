@@ -119,20 +119,24 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DataGridIncomeList.SelectedRows.Count == 1)
                 {
-                    var selectedRow = DataGridIncomeList.SelectedRows[0];
-                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    if (_userTransactionService.DeleteUserTransaction(id))
+                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (deleteResult == DialogResult.Yes)
                     {
-                        if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
+                        var selectedRow = DataGridIncomeList.SelectedRows[0];
+                        var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                        if (_userTransactionService.DeleteUserTransaction(id))
                         {
-                            DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (result == DialogResult.OK)
+                            if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
                             {
-                                ClearAllFields();
-                                LoadIncomeDetails();
+                                DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    ClearAllFields();
+                                    LoadIncomeDetails();
+                                }
                             }
                         }
-                    }
+                    } 
                 }
             }
             catch (Exception ex)

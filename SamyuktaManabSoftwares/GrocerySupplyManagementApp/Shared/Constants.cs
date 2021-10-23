@@ -198,5 +198,8 @@ namespace GrocerySupplyManagementApp.Shared
         public const string DB_BACKUP_LOCATION = "DatabaseBackupLocation";
         public const string DB_BACKUP_PREFIX = "DatabaseBackupPrefix";
         public const string DB_BACKUP_FREQUENCY = "DatabaseBackupFrequency";
+
+        // MessageBox Message
+        public const string MESSAGE_BOX_DELETE_MESSAGE = "Do you want to delete?";
     }
 }

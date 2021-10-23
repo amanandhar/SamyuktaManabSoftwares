@@ -314,7 +314,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult deleteResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
                     var shareMemberId = _selectedShareMemberId;

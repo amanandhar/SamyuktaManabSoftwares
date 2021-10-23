@@ -178,8 +178,8 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (selectedItemId != 0)
                 {
-                    DialogResult questionResult = MessageBox.Show("Do you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (questionResult == DialogResult.Yes)
+                    DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmation == DialogResult.Yes)
                     {
                         _itemService.DeleteItem(selectedItemId);
                         _itemCategoryService.DeleteItemCategory(RichItemCode.Text);

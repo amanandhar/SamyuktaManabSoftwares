@@ -172,12 +172,16 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DataGridPurchaseList.SelectedRows.Count == 1)
                 {
-                    var selectedRow = DataGridPurchaseList.SelectedRows[0];
-                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    var itemToRemove = _purchasedItemViewList.Single(x => x.Id == id);
-                    _purchasedItemViewList.Remove(itemToRemove);
-                    TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
-                    LoadPurchasedItemViewList(_purchasedItemViewList);
+                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (deleteResult == DialogResult.Yes)
+                    {
+                        var selectedRow = DataGridPurchaseList.SelectedRows[0];
+                        var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                        var itemToRemove = _purchasedItemViewList.Single(x => x.Id == id);
+                        _purchasedItemViewList.Remove(itemToRemove);
+                        TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
+                        LoadPurchasedItemViewList(_purchasedItemViewList);
+                    }  
                 }
             }
             catch (Exception ex)

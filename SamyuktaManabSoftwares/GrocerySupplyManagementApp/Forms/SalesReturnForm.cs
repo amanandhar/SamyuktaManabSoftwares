@@ -189,20 +189,24 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DateGridSalesReturnList.SelectedRows.Count == 1)
                 {
-                    var selectedRow = DateGridSalesReturnList.SelectedRows[0];
-                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (deleteResult == DialogResult.Yes)
+                    {
+                        var selectedRow = DateGridSalesReturnList.SelectedRows[0];
+                        var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
 
-                    //_userTransactionService.DeleteUserTransaction();
-                    //_purchasedItemService.DeletePurchasedItem();
-                    //_userTransactionService.DeleteUserTransaction();
-                    //var totalAmount = _userTransactionService.GetTotalBalance();
-                    //TxtTotalAmount.Text = totalBalance.ToString();
+                        //_userTransactionService.DeleteUserTransaction();
+                        //_purchasedItemService.DeletePurchasedItem();
+                        //_userTransactionService.DeleteUserTransaction();
+                        //var totalAmount = _userTransactionService.GetTotalBalance();
+                        //TxtTotalAmount.Text = totalBalance.ToString();
 
-                    var salesReturnTransactionViewList = GetSalesReturnTransactions();
-                    TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString();
-                    LoadSalesReturnTransactions(salesReturnTransactionViewList);
-                    EnableFields();
-                    EnableFields(Action.DeleteReturn);
+                        var salesReturnTransactionViewList = GetSalesReturnTransactions();
+                        TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString();
+                        LoadSalesReturnTransactions(salesReturnTransactionViewList);
+                        EnableFields();
+                        EnableFields(Action.DeleteReturn);
+                    }   
                 }
             }
             catch (Exception ex)

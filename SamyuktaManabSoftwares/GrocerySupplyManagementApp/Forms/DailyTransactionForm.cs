@@ -75,72 +75,75 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DataGridTransactionList.SelectedRows.Count == 1)
                 {
-                    var selectedRow = DataGridTransactionList.SelectedRows[0];
-                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
-                    var income = selectedRow.Cells["Income"].Value.ToString();
-                    var expense = selectedRow.Cells["Expense"].Value.ToString();
-                    var actionType = selectedRow.Cells["ActionType"].Value.ToString();
-
-                    if (!string.IsNullOrWhiteSpace(billInvoiceNo) 
-                        && billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX))
+                    DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmation == DialogResult.Yes)
                     {
-                        var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
-                        if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
+                        var selectedRow = DataGridTransactionList.SelectedRows[0];
+                        var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                        var billInvoiceNo = selectedRow.Cells["InvoiceBillNo"].Value.ToString();
+                        var income = selectedRow.Cells["Income"].Value.ToString();
+                        var expense = selectedRow.Cells["Expense"].Value.ToString();
+                        var actionType = selectedRow.Cells["ActionType"].Value.ToString();
+
+                        if (!string.IsNullOrWhiteSpace(billInvoiceNo)
+                            && billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX))
+                        {
+                            var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
+                            if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
+                            {
+                                _userTransactionService.DeleteUserTransaction(id);
+                                _purchasedItemService.DeletePurchasedItem(billInvoiceNo);
+                                _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
+                            }
+                            else
+                            {
+                                DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (billResult == DialogResult.OK)
+                                {
+                                    LoadDailyTransactions();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
+                        {
+                            var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
+                            if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
+                            {
+                                _userTransactionService.DeleteUserTransaction(billInvoiceNo);
+                                _soldItemService.DeleteSoldItem(billInvoiceNo);
+                                _posDetailService.DeletePOSDetail(billInvoiceNo);
+                            }
+                            else
+                            {
+                                DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                if (billResult == DialogResult.OK)
+                                {
+                                    LoadDailyTransactions();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (income.Equals(Constants.STOCK_ADJUSTMENT) || expense.Equals(Constants.STOCK_ADJUSTMENT))
                         {
                             _userTransactionService.DeleteUserTransaction(id);
-                            _purchasedItemService.DeletePurchasedItem(billInvoiceNo);
+                            _stockAdjustmentService.DeleteStockAdjustmentByUserTransaction(id);
+                        }
+                        else if (actionType.Equals(Constants.OWNER_EQUITY))
+                        {
+                            _bankTransactionService.DeleteBankTransaction(id);
+                        }
+                        else
+                        {
+                            _userTransactionService.DeleteUserTransaction(id);
                             _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
                         }
-                        else
-                        {
-                            DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (billResult == DialogResult.OK)
-                            {
-                                LoadDailyTransactions();
-                                return;
-                            }
-                        }
-                    }
-                    else if (!string.IsNullOrWhiteSpace(billInvoiceNo) 
-                        && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
-                    {
-                        var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
-                        if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
-                        {
-                            _userTransactionService.DeleteUserTransaction(billInvoiceNo);
-                            _soldItemService.DeleteSoldItem(billInvoiceNo);
-                            _posDetailService.DeletePOSDetail(billInvoiceNo);
-                        }
-                        else
-                        {
-                            DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            if (billResult == DialogResult.OK)
-                            {
-                                LoadDailyTransactions();
-                                return;
-                            }
-                        }
-                    }
-                    else if (income.Equals(Constants.STOCK_ADJUSTMENT) || expense.Equals(Constants.STOCK_ADJUSTMENT))
-                    {
-                        _userTransactionService.DeleteUserTransaction(id);
-                        _stockAdjustmentService.DeleteStockAdjustmentByUserTransaction(id);
-                    }
-                    else if(actionType.Equals(Constants.OWNER_EQUITY))
-                    {
-                        _bankTransactionService.DeleteBankTransaction(id);
-                    }
-                    else
-                    {
-                        _userTransactionService.DeleteUserTransaction(id);
-                        _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
-                    }
 
-                    DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
-                    {
-                        LoadDailyTransactions();
+                        DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            LoadDailyTransactions();
+                        }
                     }
                 }
             }
@@ -213,7 +216,7 @@ namespace GrocerySupplyManagementApp.Forms
                 LoadExpensePayments();
             }
             else
-            { 
+            {
                 ComboExpensePayment.Enabled = false;
             }
         }
@@ -332,7 +335,7 @@ namespace GrocerySupplyManagementApp.Forms
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
 
-            if(selectedFilter != null)
+            if (selectedFilter != null)
             {
                 if (selectedFilter.Name.Equals("RadioPurchase"))
                 {
@@ -479,7 +482,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUser.Items.Clear();
             var user = _userService.GetUser(_username);
             var users = _userService.GetUsers(_username, user.Type);
-            if(users.ToList().Count > 1)
+            if (users.ToList().Count > 1)
             {
                 ComboUser.Enabled = true;
             }

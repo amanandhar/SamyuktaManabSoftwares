@@ -843,7 +843,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.PictureBoxLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PictureBoxLogo.BackColor = System.Drawing.Color.Black;
+            this.PictureBoxLogo.ErrorImage = ((System.Drawing.Image)(resources.GetObject("PictureBoxLogo.ErrorImage")));
             this.PictureBoxLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureBoxLogo.Image")));
+            this.PictureBoxLogo.InitialImage = ((System.Drawing.Image)(resources.GetObject("PictureBoxLogo.InitialImage")));
             this.PictureBoxLogo.Location = new System.Drawing.Point(242, 9);
             this.PictureBoxLogo.Name = "PictureBoxLogo";
             this.PictureBoxLogo.Size = new System.Drawing.Size(615, 582);
