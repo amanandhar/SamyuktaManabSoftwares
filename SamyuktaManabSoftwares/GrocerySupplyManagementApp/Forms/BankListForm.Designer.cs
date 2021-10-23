@@ -68,7 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridBankList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridBankList.Size = new System.Drawing.Size(510, 287);
             this.DataGridBankList.TabIndex = 0;
-            this.DataGridBankList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridBankDetails_CellDoubleClick);
+            this.DataGridBankList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridBankList_CellDoubleClick);
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
             // 
             // BankListForm

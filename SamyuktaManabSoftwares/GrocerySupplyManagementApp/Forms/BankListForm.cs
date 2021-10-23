@@ -34,17 +34,23 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Data Grid Event
-        private void DataGridBankDetails_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridBankList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
             if (dgv == null)
             {
                 return;
             }
-
-            if (dgv.CurrentRow.Selected)
+            else  if (dgv.CurrentRow.Selected)
             {
                 long bankId = Convert.ToInt64(dgv.CurrentRow.Cells["Id"].Value.ToString());
+                _bankListForm.PopulateBank(bankId);
+                this.Close();
+            }
+            else if (e.RowIndex > -1 && e.ColumnIndex > -1 && DataGridBankList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var selectedRow = DataGridBankList.CurrentRow;
+                long bankId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                 _bankListForm.PopulateBank(bankId);
                 this.Close();
             }

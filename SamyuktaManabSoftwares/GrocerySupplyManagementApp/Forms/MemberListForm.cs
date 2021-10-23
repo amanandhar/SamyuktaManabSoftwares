@@ -49,10 +49,16 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 return;
             }
-
-            if (dgv.SelectedRows.Count == 1)
+            else if (dgv.SelectedRows.Count == 1)
             {
                 var selectedRow = dgv.SelectedRows[0];
+                string memberId = selectedRow.Cells["MemberId"].Value.ToString();
+                _memberListForm.PopulateMember(memberId);
+                Close();
+            }
+            else if (e.RowIndex > -1 && e.ColumnIndex > -1 && DataGridMemberList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var selectedRow = DataGridMemberList.CurrentRow;
                 string memberId = selectedRow.Cells["MemberId"].Value.ToString();
                 _memberListForm.PopulateMember(memberId);
                 Close();

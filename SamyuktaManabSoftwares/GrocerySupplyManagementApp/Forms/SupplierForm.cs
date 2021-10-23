@@ -104,12 +104,22 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowPurchase_Click(object sender, EventArgs e)
         {
-            if (DataGridSupplierList.SelectedRows.Count == 1)
+            if(DataGridSupplierList.SelectedCells.Count == 1 
+                || DataGridSupplierList.SelectedRows.Count == 1)
             {
-                var selectedRow = DataGridSupplierList.SelectedRows[0];
-                var action = selectedRow.Cells["Action"].Value.ToString();
+                DataGridViewRow selectedRow;
+                if(DataGridSupplierList.SelectedCells.Count == 1)
+                {
+                    var selectedCell = DataGridSupplierList.SelectedCells[0];
+                    selectedRow = DataGridSupplierList.Rows[selectedCell.RowIndex];
+                }
+                else
+                {
+                    selectedRow = DataGridSupplierList.SelectedRows[0];
+                }
 
-                if (action.ToLower() == Constants.PURCHASE.ToLower())
+                var action = selectedRow?.Cells["Action"]?.Value?.ToString();
+                if (action != null && action.ToLower() == Constants.PURCHASE.ToLower())
                 {
                     var supplierId = TxtSupplierId.Text;
                     var billNo = selectedRow.Cells["BillNo"].Value.ToString();

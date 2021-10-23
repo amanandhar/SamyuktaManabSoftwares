@@ -40,10 +40,20 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 return;
             }
-
-            if (dgv.CurrentRow.Selected)
+            else if (dgv.CurrentRow.Selected)
             {
                 var selectedRow = dgv.SelectedRows[0];
+                if (selectedRow.Cells["Id"].Value != null)
+                {
+                    long itemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                    _unpricedItemListForm.PopulateUnpricedItem(itemId);
+                }
+
+                Close();
+            }
+            else if (e.RowIndex > -1 && e.ColumnIndex > -1 && DataGridUnpricedItemList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var selectedRow = DataGridUnpricedItemList.CurrentRow;
                 if (selectedRow.Cells["Id"].Value != null)
                 {
                     long itemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());

@@ -70,7 +70,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxDateInBs = new System.Windows.Forms.RichTextBox();
             this.RichBoxDateInAd = new System.Windows.Forms.RichTextBox();
             this.PanelBody = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.PictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Timer = new System.Windows.Forms.Timer(this.components);
@@ -832,7 +831,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelBody.AutoSize = true;
             this.PanelBody.BackColor = System.Drawing.Color.White;
             this.PanelBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelBody.Controls.Add(this.label1);
             this.PanelBody.Controls.Add(this.PictureBoxLogo);
             this.PanelBody.Controls.Add(this.tableLayoutPanel1);
             this.PanelBody.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -840,17 +838,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelBody.Name = "PanelBody";
             this.PanelBody.Size = new System.Drawing.Size(1104, 637);
             this.PanelBody.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label1.Location = new System.Drawing.Point(294, 553);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(518, 29);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Samyukta Manab Grocery Management System";
             // 
             // PictureBoxLogo
             // 
@@ -903,6 +890,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.MinimumSize = new System.Drawing.Size(1364, 726);
             this.Name = "DashboardForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.DashboardForm_Load);
             this.PanelLeftSection.ResumeLayout(false);
             this.PanelMenu.ResumeLayout(false);
@@ -913,7 +901,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelHeader.ResumeLayout(false);
             this.PanelHeader.PerformLayout();
             this.PanelBody.ResumeLayout(false);
-            this.PanelBody.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxLogo)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -962,7 +949,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.PictureBox PictureBoxLogo;
         private System.Windows.Forms.Button BtnDailyTransaction;
         private System.Windows.Forms.Button BtnEOD;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel PanelMenu;
         private System.Windows.Forms.Button BtnDeliveryPerson;
         private System.Windows.Forms.Button BtnStockAdjustment;

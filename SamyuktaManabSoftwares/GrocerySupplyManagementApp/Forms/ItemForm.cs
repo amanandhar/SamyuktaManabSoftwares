@@ -81,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateItemInfo())
+                if(ValidateItemInfoOnSave())
                 {
                     var item = new Item
                     {
@@ -139,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateItemInfo())
+                if(ValidateItemInfoOnUpdate())
                 {
                     if (selectedItemId != 0)
                     {
@@ -422,7 +422,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Validation
-        private bool ValidateItemInfo()
+        private bool ValidateItemInfoOnSave()
         {
             var isValidated = false;
 
@@ -442,6 +442,37 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Category " +
+                    "\n * Item Code " +
+                    "\n * Item Name " +
+                    "\n * Item Unit " +
+                    "\n * Item Threshold " +
+                    "\n * Item Brand", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                isValidated = true;
+            }
+
+            return isValidated;
+        }
+
+        private bool ValidateItemInfoOnUpdate()
+        {
+            var isValidated = false;
+
+            var itemCode = RichItemCode.Text.Trim();
+            var itemName = RichItemName.Text.Trim();
+            var unit = ComboUnit.Text.Trim();
+            var threshold = RichThreshold.Text.Trim();
+            var itemBrand = RichItemBrand.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(itemCode)
+                || string.IsNullOrWhiteSpace(itemName)
+                || string.IsNullOrWhiteSpace(unit)
+                || string.IsNullOrWhiteSpace(threshold)
+                || string.IsNullOrWhiteSpace(itemBrand))
+            {
+                MessageBox.Show("Please enter following fields: " +
                     "\n * Item Code " +
                     "\n * Item Name " +
                     "\n * Item Unit " +

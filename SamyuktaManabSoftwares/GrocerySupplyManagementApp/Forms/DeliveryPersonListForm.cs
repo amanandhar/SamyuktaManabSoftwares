@@ -40,10 +40,16 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 return;
             }
-
-            if (dgv.SelectedRows.Count == 1)
+            else if (dgv.SelectedRows.Count == 1)
             {
                 var selectedRow = dgv.SelectedRows[0];
+                long id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                _employeeListForm.PopulateEmployee(id);
+                Close();
+            }
+            else if (e.RowIndex > -1 && e.ColumnIndex > -1 && DataGridDeliveryPersonList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var selectedRow = DataGridDeliveryPersonList.CurrentRow;
                 long id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                 _employeeListForm.PopulateEmployee(id);
                 Close();

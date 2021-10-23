@@ -44,10 +44,16 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 return;
             }
-
-            if (dgv.SelectedRows.Count == 1)
+            else if (dgv.SelectedRows.Count == 1)
             {
                 var selectedRow = dgv.SelectedRows[0];
+                string supplierId = selectedRow.Cells["SupplierId"].Value.ToString();
+                _supplierForm.PopulateSupplier(supplierId);
+                Close();
+            }
+            else if (e.RowIndex > -1 && e.ColumnIndex > -1 && DataGridSupplierList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var selectedRow = DataGridSupplierList.CurrentRow;
                 string supplierId = selectedRow.Cells["SupplierId"].Value.ToString();
                 _supplierForm.PopulateSupplier(supplierId);
                 Close();

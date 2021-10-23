@@ -57,10 +57,16 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 return;
             }
-
-            if (dgv.SelectedRows.Count == 1)
+            else if(dgv.SelectedRows.Count == 1)
             {
                 var selectedRow = dgv.SelectedRows[0];
+                long itemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                _itemListForm.PopulateItem(itemId);
+                this.Close();
+            }
+            else if(e.RowIndex > -1 && e.ColumnIndex > -1 && DataGridItemList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var selectedRow = DataGridItemList.CurrentRow;
                 long itemId = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
                 _itemListForm.PopulateItem(itemId);
                 this.Close();
