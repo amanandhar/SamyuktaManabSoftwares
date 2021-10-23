@@ -166,22 +166,37 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
         }
 
-        private void BtnDeleteItem_Click(object sender, EventArgs e)
+        private void BtnRemoveItem_Click(object sender, EventArgs e)
         {
             try
             {
-                if (DataGridPurchaseList.SelectedRows.Count == 1)
+                if (DataGridPurchaseList.SelectedCells.Count == 1
+                    || DataGridPurchaseList.SelectedRows.Count == 1)
                 {
-                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (deleteResult == DialogResult.Yes)
+                    DataGridViewRow selectedRow;
+                    if (DataGridPurchaseList.SelectedCells.Count == 1)
                     {
-                        var selectedRow = DataGridPurchaseList.SelectedRows[0];
-                        var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                        var itemToRemove = _purchasedItemViewList.Single(x => x.Id == id);
-                        _purchasedItemViewList.Remove(itemToRemove);
-                        TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
-                        LoadPurchasedItemViewList(_purchasedItemViewList);
-                    }  
+                        var selectedCell = DataGridPurchaseList.SelectedCells[0];
+                        selectedRow = DataGridPurchaseList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridPurchaseList.SelectedRows[0];
+                    }
+
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            var itemToRemove = _purchasedItemViewList.Single(x => x.Id == id);
+                            _purchasedItemViewList.Remove(itemToRemove);
+                            TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
+                            LoadPurchasedItemViewList(_purchasedItemViewList);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -343,7 +358,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAddItem.Enabled = true;
                 BtnSaveItem.Enabled = true;
                 BtnClearItem.Enabled = true;
-                BtnDeleteItem.Enabled = true;
+                BtnRemoveItem.Enabled = true;
             }
             else if (action == Action.Load)
             {
@@ -363,7 +378,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAddItem.Enabled = false;
                 BtnSaveItem.Enabled = false;
                 BtnClearItem.Enabled = false;
-                BtnDeleteItem.Enabled = false;
+                BtnRemoveItem.Enabled = false;
             } 
         }
 
@@ -398,7 +413,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             BtnSearchItem.Enabled = false;
             BtnAddItem.Enabled = false;
-            BtnDeleteItem.Enabled = false;
+            BtnRemoveItem.Enabled = false;
             BtnClearItem.Enabled = false;
             BtnSaveItem.Enabled = false;
             BtnAddItem.Enabled = false;

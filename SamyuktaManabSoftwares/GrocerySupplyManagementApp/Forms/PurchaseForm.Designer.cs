@@ -50,7 +50,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.RichPurchasePrice = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtnDeleteItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnRemoveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnClearItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSaveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -298,7 +298,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.BtnDeleteItem);
+            this.groupBox2.Controls.Add(this.BtnRemoveItem);
             this.groupBox2.Controls.Add(this.BtnClearItem);
             this.groupBox2.Controls.Add(this.BtnSaveItem);
             this.groupBox2.Controls.Add(this.BtnAddItem);
@@ -310,25 +310,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Transaction";
             // 
-            // BtnDeleteItem
+            // BtnRemoveItem
             // 
-            this.BtnDeleteItem.BackColor = System.Drawing.Color.Red;
-            this.BtnDeleteItem.BackgroundColor = System.Drawing.Color.Red;
-            this.BtnDeleteItem.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnDeleteItem.BorderRadius = 35;
-            this.BtnDeleteItem.BorderSize = 0;
-            this.BtnDeleteItem.FlatAppearance.BorderSize = 0;
-            this.BtnDeleteItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDeleteItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteItem.ForeColor = System.Drawing.Color.White;
-            this.BtnDeleteItem.Location = new System.Drawing.Point(14, 132);
-            this.BtnDeleteItem.Name = "BtnDeleteItem";
-            this.BtnDeleteItem.Size = new System.Drawing.Size(120, 35);
-            this.BtnDeleteItem.TabIndex = 13;
-            this.BtnDeleteItem.Text = "Delete";
-            this.BtnDeleteItem.TextColor = System.Drawing.Color.White;
-            this.BtnDeleteItem.UseVisualStyleBackColor = false;
-            this.BtnDeleteItem.Click += new System.EventHandler(this.BtnDeleteItem_Click);
+            this.BtnRemoveItem.BackColor = System.Drawing.Color.Red;
+            this.BtnRemoveItem.BackgroundColor = System.Drawing.Color.Red;
+            this.BtnRemoveItem.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnRemoveItem.BorderRadius = 35;
+            this.BtnRemoveItem.BorderSize = 0;
+            this.BtnRemoveItem.FlatAppearance.BorderSize = 0;
+            this.BtnRemoveItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemoveItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRemoveItem.ForeColor = System.Drawing.Color.White;
+            this.BtnRemoveItem.Location = new System.Drawing.Point(14, 132);
+            this.BtnRemoveItem.Name = "BtnRemoveItem";
+            this.BtnRemoveItem.Size = new System.Drawing.Size(120, 35);
+            this.BtnRemoveItem.TabIndex = 13;
+            this.BtnRemoveItem.Text = "Remove";
+            this.BtnRemoveItem.TextColor = System.Drawing.Color.White;
+            this.BtnRemoveItem.UseVisualStyleBackColor = false;
+            this.BtnRemoveItem.Click += new System.EventHandler(this.BtnRemoveItem_Click);
             // 
             // BtnClearItem
             // 
@@ -521,7 +521,7 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnAddItem;
         private CustomControls.Button.CustomButton BtnSaveItem;
         private CustomControls.Button.CustomButton BtnClearItem;
-        private CustomControls.Button.CustomButton BtnDeleteItem;
+        private CustomControls.Button.CustomButton BtnRemoveItem;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label9;
     }

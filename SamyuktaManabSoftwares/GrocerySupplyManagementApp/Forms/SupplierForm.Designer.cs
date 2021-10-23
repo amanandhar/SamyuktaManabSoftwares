@@ -102,7 +102,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Size = new System.Drawing.Size(143, 210);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Create Supplier";
+            this.groupBox3.Text = "Supplier";
             // 
             // BtnDelete
             // 

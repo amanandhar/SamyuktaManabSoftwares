@@ -117,13 +117,26 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (DataGridIncomeList.SelectedRows.Count == 1)
+                if (DataGridIncomeList.SelectedCells.Count == 1
+                    || DataGridIncomeList.SelectedRows.Count == 1)
                 {
+                    DataGridViewRow selectedRow;
+                    if (DataGridIncomeList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridIncomeList.SelectedCells[0];
+                        selectedRow = DataGridIncomeList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridIncomeList.SelectedRows[0];
+                    }
+
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+
                     DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (deleteResult == DialogResult.Yes)
                     {
-                        var selectedRow = DataGridIncomeList.SelectedRows[0];
-                        var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                        var id = Convert.ToInt64(selectedId);
                         if (_userTransactionService.DeleteUserTransaction(id))
                         {
                             if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))

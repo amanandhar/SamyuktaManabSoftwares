@@ -106,10 +106,21 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowSales_Click(object sender, EventArgs e)
         {
-            if (DataGridMemberList.SelectedRows.Count == 1)
+            if (DataGridMemberList.SelectedCells.Count == 1
+                || DataGridMemberList.SelectedRows.Count == 1)
             {
-                var selectedRow = DataGridMemberList.SelectedRows[0];
-                var invoiceNo = selectedRow.Cells["InvoiceNo"].Value.ToString();
+                DataGridViewRow selectedRow;
+                if (DataGridMemberList.SelectedCells.Count == 1)
+                {
+                    var selectedCell = DataGridMemberList.SelectedCells[0];
+                    selectedRow = DataGridMemberList.Rows[selectedCell.RowIndex];
+                }
+                else
+                {
+                    selectedRow = DataGridMemberList.SelectedRows[0];
+                }
+
+                var invoiceNo = selectedRow?.Cells["InvoiceNo"]?.Value?.ToString();
                 var memberId = TxtMemberId.Text;
                 if (!string.IsNullOrWhiteSpace(invoiceNo) && !string.IsNullOrWhiteSpace(memberId))
                 {

@@ -118,15 +118,34 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (DataGridBankList.SelectedRows.Count == 1)
+                if (DataGridBankList.SelectedCells.Count == 1 
+                    || DataGridBankList.SelectedRows.Count == 1)
                 {
-                    var selectedRow = DataGridBankList.SelectedRows[0];
-                    var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
-                    _bankTransactionService.DeleteBankTransaction(id);
-                    var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
-                    TxtBalance.Text = totalBalance.ToString();
-                    var bankTransactionViewList = GetBankTransaction();
-                    LoadBankTransaction(bankTransactionViewList);
+                    DataGridViewRow selectedRow;
+                    if (DataGridBankList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridBankList.SelectedCells[0];
+                        selectedRow = DataGridBankList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridBankList.SelectedRows[0];
+                    }
+
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            _bankTransactionService.DeleteBankTransaction(id);
+                            var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
+                            TxtBalance.Text = totalBalance.ToString();
+                            var bankTransactionViewList = GetBankTransaction();
+                            LoadBankTransaction(bankTransactionViewList);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

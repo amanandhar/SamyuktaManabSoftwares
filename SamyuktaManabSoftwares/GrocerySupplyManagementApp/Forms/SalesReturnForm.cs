@@ -183,30 +183,45 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void BtnRemove_Click(object sender, EventArgs e)
         {
             try
             {
-                if (DateGridSalesReturnList.SelectedRows.Count == 1)
+                if (DateGridSalesReturnList.SelectedCells.Count == 1
+                    || DateGridSalesReturnList.SelectedRows.Count == 1)
                 {
-                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (deleteResult == DialogResult.Yes)
+                    DataGridViewRow selectedRow;
+                    if (DateGridSalesReturnList.SelectedCells.Count == 1)
                     {
-                        var selectedRow = DateGridSalesReturnList.SelectedRows[0];
-                        var id = Convert.ToInt64(selectedRow.Cells["Id"].Value.ToString());
+                        var selectedCell = DateGridSalesReturnList.SelectedCells[0];
+                        selectedRow = DateGridSalesReturnList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DateGridSalesReturnList.SelectedRows[0];
+                    }
 
-                        //_userTransactionService.DeleteUserTransaction();
-                        //_purchasedItemService.DeletePurchasedItem();
-                        //_userTransactionService.DeleteUserTransaction();
-                        //var totalAmount = _userTransactionService.GetTotalBalance();
-                        //TxtTotalAmount.Text = totalBalance.ToString();
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
 
-                        var salesReturnTransactionViewList = GetSalesReturnTransactions();
-                        TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString();
-                        LoadSalesReturnTransactions(salesReturnTransactionViewList);
-                        EnableFields();
-                        EnableFields(Action.DeleteReturn);
-                    }   
+                            //_userTransactionService.DeleteUserTransaction();
+                            //_purchasedItemService.DeletePurchasedItem();
+                            //_userTransactionService.DeleteUserTransaction();
+                            //var totalAmount = _userTransactionService.GetTotalBalance();
+                            //TxtTotalAmount.Text = totalBalance.ToString();
+
+                            var salesReturnTransactionViewList = GetSalesReturnTransactions();
+                            TxtTotalAmount.Text = salesReturnTransactionViewList.ToList().Sum(x => x.Amount).ToString();
+                            LoadSalesReturnTransactions(salesReturnTransactionViewList);
+                            EnableFields();
+                            EnableFields(Action.DeleteReturn);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -383,7 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnShow.Enabled = true;
                 BtnAdd.Enabled = false;
                 BtnSave.Enabled = false;
-                BtnDelete.Enabled = true;
+                BtnRemove.Enabled = true;
             }
         }
 
@@ -414,5 +429,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
     }
 }
