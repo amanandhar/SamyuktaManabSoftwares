@@ -5,7 +5,6 @@ namespace GrocerySupplyManagementApp.ViewModels
     public class MemberView
     {
         public long Id { get; set; }
-        public long Counter { get; set; }
         public string MemberId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

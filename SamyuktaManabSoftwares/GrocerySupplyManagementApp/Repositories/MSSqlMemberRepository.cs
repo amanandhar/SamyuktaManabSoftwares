@@ -21,7 +21,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var members = new List<Member>();
             var query = @"SELECT " +
-                "[Id], [Counter], [MemberId], [Name], " +
+                "[Id], [MemberId], [Name], " +
                 "[Address], [ContactNo], [Email], [AccountNo], [ImagePath], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_MEMBER;
@@ -39,7 +39,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var member = new Member
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
-                                    Counter = Convert.ToInt64(reader["Counter"].ToString()),
                                     MemberId = reader["MemberId"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     Address = reader["Address"].ToString(),
@@ -48,7 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     AccountNo = reader["AccountNo"].ToString(),
                                     ImagePath = reader["ImagePath"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 members.Add(member);
@@ -70,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var member = new Member();
             var query = @"SELECT " +
-                "[Id], [Counter], [MemberId], [Name], " +
+                "[Id], [MemberId], [Name], " +
                 "[Address], [ContactNo], [Email], [AccountNo], [ImagePath], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_MEMBER + " " +
@@ -90,7 +89,6 @@ namespace GrocerySupplyManagementApp.Repositories
                             while (reader.Read())
                             {
                                 member.Id = Convert.ToInt64(reader["Id"].ToString());
-                                member.Counter = Convert.ToInt64(reader["Counter"].ToString());
                                 member.MemberId = reader["MemberId"].ToString();
                                 member.Name = reader["Name"].ToString();
                                 member.Address = reader["Address"].ToString();
@@ -99,7 +97,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 member.AccountNo = reader["AccountNo"].ToString();
                                 member.ImagePath = reader["ImagePath"].ToString();
                                 member.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                member.UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                member.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -114,13 +112,14 @@ namespace GrocerySupplyManagementApp.Repositories
             return member;
         }
 
-        public long GetLastMemberId()
+        public bool IsMemberExist(string memberId)
         {
-            long id = 0;
-            string query = @"SELECT " +
-                "TOP 1 [Counter] " +
+            var result = false;
+            var query = @"SELECT " +
+                "1 " +
                 "FROM " + Constants.TABLE_MEMBER + " " +
-                "ORDER BY [Counter] DESC ";
+                "WHERE 1 = 1 " +
+                "AND ISNULL([MemberId], '') = @MemberId ";
 
             try
             {
@@ -129,10 +128,13 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
+                        command.Parameters.AddWithValue("@MemberId", ((object)memberId) ?? DBNull.Value);
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            id = Convert.ToInt32(result);
+                            if (reader.HasRows)
+                            {
+                                result = true;
+                            }
                         }
                     }
                 }
@@ -143,18 +145,18 @@ namespace GrocerySupplyManagementApp.Repositories
                 UtilityService.ShowExceptionMessageBox();
             }
 
-            return id;
+            return result;
         }
 
         public Member AddMember(Member member)
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
                     "( " +
-                        "[EndOfDay], [Counter], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @Counter, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -164,7 +166,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EndOfDay", member.EndOfDay);
-                        command.Parameters.AddWithValue("@Counter", member.Counter);
                         command.Parameters.AddWithValue("@MemberId", member.MemberId);
                         command.Parameters.AddWithValue("@Name", member.Name);
                         command.Parameters.AddWithValue("@Address", member.Address);
@@ -192,7 +193,6 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_MEMBER + " " +
                 "SET " +
-                "[Counter] = @Counter, " +
                 "[MemberId] = @MemberId, " +
                 "[Name] = @Name, " +
                 "[Address] = @Address, " +
@@ -211,7 +211,6 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Counter", member.Counter);
                         command.Parameters.AddWithValue("@MemberId", memberId);
                         command.Parameters.AddWithValue("@Name", member.Name);
                         command.Parameters.AddWithValue("@Address", member.Address);

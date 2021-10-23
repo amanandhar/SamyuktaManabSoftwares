@@ -24,9 +24,13 @@ namespace GrocerySupplyManagementApp.Services
             return _memberRepository.GetMember(memberId);
         }
 
+        public bool IsMemberExist(string memberId)
+        {
+            return _memberRepository.IsMemberExist(memberId);
+        }
+
         public Member AddMember(Member member)
         {
-            member.Counter = _memberRepository.GetLastMemberId() + 1;
             return _memberRepository.AddMember(member);
         }
 

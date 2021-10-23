@@ -836,7 +836,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtProfitAmount.Clear();
             TxtItemStock.Clear();
             TxtPricedUnit.Clear();
-            PicBoxItemImage.Image = null;
+            PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
         }
 
         private void ClearAllInvoiceFields()

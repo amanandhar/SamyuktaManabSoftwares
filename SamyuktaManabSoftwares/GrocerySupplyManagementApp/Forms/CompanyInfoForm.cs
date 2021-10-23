@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
-            PicBoxCompanyLogo.Image = null;
+            PicBoxCompanyLogo.Image = PicBoxCompanyLogo.InitialImage;
             _uploadedImagePath = string.Empty;
         }
         #endregion
@@ -216,7 +216,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmailId.Clear();
             RichWebsite.Clear();
             RichFacebookPage.Clear();
-            PicBoxCompanyLogo.Image = null;
+            PicBoxCompanyLogo.Image = PicBoxCompanyLogo.InitialImage;
         }
 
         private void EnableFields(Action action = Action.None)

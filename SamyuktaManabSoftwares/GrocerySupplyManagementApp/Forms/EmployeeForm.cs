@@ -94,7 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
-            PicBoxEmployeeImage.Image = null;
+            PicBoxEmployeeImage.Image = PicBoxEmployeeImage.InitialImage;
             _uploadedImagePath = string.Empty;
         }
 
@@ -518,7 +518,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboPostStatus.Text = string.Empty;
             MaskDtAppointedDt.Clear();
             MaskDtResignedDt.Clear();
-            PicBoxEmployeeImage.Image = null;
+            PicBoxEmployeeImage.Image = PicBoxEmployeeImage.InitialImage;
         }
 
         private void LoadEducations()

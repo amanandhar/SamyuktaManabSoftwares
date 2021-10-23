@@ -68,7 +68,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridMemberList.Columns["Id"].Visible = false;
-            DataGridMemberList.Columns["Counter"].Visible = false;
             DataGridMemberList.Columns["Address"].Visible = false;
             DataGridMemberList.Columns["ContactNo"].Visible = false;
             DataGridMemberList.Columns["Email"].Visible = false;
@@ -108,7 +107,6 @@ namespace GrocerySupplyManagementApp.Forms
             _memberViewList = members.ToList().Select(x => new MemberView()
             {
                 Id = x.Id,
-                Counter = x.Counter,
                 MemberId = x.MemberId,
                 Name = x.Name,
                 Address = x.Address,

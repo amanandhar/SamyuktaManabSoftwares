@@ -209,7 +209,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
-            PicBoxMemberImage.Image = null;
+            PicBoxMemberImage.Image = PicBoxMemberImage.InitialImage;
             _uploadedImagePath = string.Empty;
         }
 
@@ -228,6 +228,11 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if(ValidateMemberInfo())
                 {
+                    if(_memberService.IsMemberExist(TxtMemberId.Text.Trim()))
+                    {
+                        MessageBox.Show("MemberId already exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
@@ -682,7 +687,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtContactNumber.Clear();
             TxtEmail.Clear();
             TxtBalance.Clear();
-            PicBoxMemberImage.Image = null;
+            PicBoxMemberImage.Image = PicBoxMemberImage.InitialImage;
         }
 
         private void ClearTransactionFields()

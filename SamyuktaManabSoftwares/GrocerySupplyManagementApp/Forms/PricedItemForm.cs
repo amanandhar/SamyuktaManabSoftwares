@@ -287,7 +287,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDeleteImage_Click(object sender, EventArgs e)
         {
-            PicBoxItemImage.Image = null;
+            PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
             _uploadedImagePath = string.Empty;
         }
         #endregion
@@ -438,7 +438,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtProfitPercent.Clear();
             TxtProfitAmount.Clear();
             TxtSalesPricePerUnit.Clear();
-            PicBoxItemImage.Image = null;
+            PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
         }
 
         public void PopulatePricedItem(long pricedId)
