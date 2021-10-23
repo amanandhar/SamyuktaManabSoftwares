@@ -21,6 +21,8 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public decimal GetTotalIncome(string endOfDay)
         {
+            var totalIncome = Constants.DEFAULT_DECIMAL_VALUE;
+
             try
             {
                 var totalDeliveryCharge = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.DELIVERY_CHARGE });
@@ -29,19 +31,21 @@ namespace GrocerySupplyManagementApp.Repositories
                 var totalSalesProfit = GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay }).ToList().Sum(x => x.Amount);
                 var totalStockAdjustment = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.STOCK_ADJUSTMENT });
 
-                var totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustment;
-
-                return totalIncome;
+                totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustment;
             }
             catch(Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return totalIncome;
         }
 
         public decimal GetTotalExpense(string endOfDay)
         {
+            var totalExpense = Constants.DEFAULT_DECIMAL_VALUE;
+
             try
             {
                 var totalAsset = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET });
@@ -60,24 +64,25 @@ namespace GrocerySupplyManagementApp.Repositories
                 var totalStockAdjustment = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STOCK_ADJUSTMENT });
                 var totalTelephoneInternet = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.TELEPHONE_INTERNET });
 
-                var totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance + totalSalesDiscount
                     + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalStockAdjustment + totalTelephoneInternet;
-
-                return totalExpense;
             }
             catch(Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return totalExpense;
         }
 
         public decimal GetTotalIncome(IncomeTransactionFilter incomeTransactionFilter)
         {
+            var total = Constants.DEFAULT_DECIMAL_VALUE;
+
             try
             {
-                decimal total = Constants.DEFAULT_DECIMAL_VALUE;
                 string query = @"SELECT " +
                         "SUM([DueReceivedAmount] + [ReceivedAmount])" +
                         "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -113,22 +118,23 @@ namespace GrocerySupplyManagementApp.Repositories
                             total = Convert.ToDecimal(result.ToString());
                         }
                     }
-                }
-
-                return total;
+                } 
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return total;
         }
 
         public decimal GetTotalExpense(ExpenseTransactionFilter expenseTransactionFilter)
         {
+            var total = Constants.DEFAULT_DECIMAL_VALUE;
+
             try
             {
-                decimal total = Constants.DEFAULT_DECIMAL_VALUE;
                 string query = @"SELECT " +
                         "SUM([DuePaymentAmount] + [PaymentAmount])" +
                         "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -164,22 +170,24 @@ namespace GrocerySupplyManagementApp.Repositories
                             total = Convert.ToDecimal(result.ToString());
                         }
                     }
-                }
-
-                return total;
+                }   
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return total;
         }
 
         public IEnumerable<IncomeTransactionView> GetIncomeTransactions(IncomeTransactionFilter incomeTransactionFilter)
         {
+            List<IncomeTransactionView> incomeDetails = null;
+
             try
             {
-                var incomeDetails = new List<IncomeTransactionView>();
+                incomeDetails = new List<IncomeTransactionView>();
                 var query = @"SELECT " +
                     "[Id], [EndOfDay], [Income], [InvoiceNo], [Bank], [ReceivedAmount], [AddedDate] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -235,21 +243,23 @@ namespace GrocerySupplyManagementApp.Repositories
                         }
                     }
                 }
-
-                return incomeDetails;
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return incomeDetails;
         }
 
         public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter expenseTransactionFilter)
         {
+            List<ExpenseTransactionView> expenseTransactionViews = null;
+
             try
             {
-                var expenseTransactionViews = new List<ExpenseTransactionView>();
+                expenseTransactionViews = new List<ExpenseTransactionView>();
                 var query = @"SELECT " +
                     "[Id], [EndOfDay], [Action], " +
                     "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
@@ -304,22 +314,24 @@ namespace GrocerySupplyManagementApp.Repositories
                             }
                         }
                     }
-                }
-
-                return expenseTransactionViews; 
+                } 
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return expenseTransactionViews;
         }
 
         public IEnumerable<IncomeTransactionView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter)
         {
+            List<IncomeTransactionView> incomeDetails = null;
+
             try
             {
-                var incomeDetails = new List<IncomeTransactionView>();
+                incomeDetails = new List<IncomeTransactionView>();
                 var query = @"SELECT " +
                     "si.[Id] AS [Id], si.[EndOfDay] AS [EndOfDay], " +
                     "'" + Constants.SALES_PROFIT + "' AS [Description], si.[InvoiceNo] AS [InvoiceNo], " +
@@ -373,15 +385,15 @@ namespace GrocerySupplyManagementApp.Repositories
                             }
                         }
                     }
-                }
-
-                return incomeDetails;
+                }   
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
-            } 
+                UtilityService.ShowExceptionMessageBox();
+            }
+
+            return incomeDetails;
         }
     }
 }

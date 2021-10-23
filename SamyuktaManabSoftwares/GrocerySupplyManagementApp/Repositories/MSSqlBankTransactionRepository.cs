@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return bankTransactions;
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return bankTransactionViews;
@@ -184,7 +184,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return bankTransactionViews;
@@ -234,7 +234,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return bankBalance;
@@ -291,7 +291,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return total;
@@ -331,7 +331,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return bankTransaction;
@@ -359,7 +359,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return result;
@@ -388,7 +388,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return result;

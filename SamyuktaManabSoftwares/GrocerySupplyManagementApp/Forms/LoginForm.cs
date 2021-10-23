@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -10,13 +11,15 @@ namespace GrocerySupplyManagementApp.Forms
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
         private readonly IUserService _userService;
+        private readonly IDatabaseService _databaseService;
         public string Username { get; private set; }
 
         #region Constructor
-        public LoginForm(IUserService userService)
+        public LoginForm(IUserService userService, IDatabaseService databaseService)
         {
             InitializeComponent();
             _userService = userService;
+            _databaseService = databaseService;
         }
         #endregion
 
@@ -79,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var error = MessageBox.Show("Username or Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (error == DialogResult.OK)
-                    {
+                    { 
                         return;
                     }
                 }
@@ -88,6 +91,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var result = _userService.IsUserExist(username, encryptedPassword);
                 if (result)
                 {
+                    BackupDatabsase();
                     Username = username;
                     DialogResult = DialogResult.OK;
                 }
@@ -103,7 +107,18 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        private void BackupDatabsase()
+        {
+            var dbBackupPrefix = ConfigurationManager.AppSettings[Constants.DB_BACKUP_PREFIX].ToString();
+            var dbBackupLocation = ConfigurationManager.AppSettings[Constants.DB_BACKUP_LOCATION].ToString();
+
+            if(!string.IsNullOrWhiteSpace(dbBackupPrefix) && !string.IsNullOrWhiteSpace(dbBackupLocation))
+            {
+                _databaseService.BackupDatabase(dbBackupPrefix, dbBackupLocation);
             }
         }
         #endregion

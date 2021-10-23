@@ -379,10 +379,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockAdjustment_Click(object sender, EventArgs e)
         {
-            var stockAdjustmentForm = new StockAdjustmentForm(_username, _settingService,
+            OpenChildForm(new StockAdjustmentForm(_username, _settingService,
                _itemService, _pricedItemService,
-               _userTransactionService, _stockService, _stockAdjustmentService);
-            stockAdjustmentForm.ShowDialog();
+               _userTransactionService, _stockService, _stockAdjustmentService));
+            SelectButton(sender as Button, true);
         }
 
         private void BtnDeliveryPerson_Click(object sender, EventArgs e)
@@ -460,7 +460,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Shared
 {
@@ -112,6 +113,11 @@ namespace GrocerySupplyManagementApp.Shared
             }
 
             return null;
+        }
+
+        public static void ShowExceptionMessageBox()
+        {
+            MessageBox.Show("Fatal error occurred. \n Please contact administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -194,5 +194,9 @@ namespace GrocerySupplyManagementApp.Shared
         public const string POST_STATUS_TEMPORARY = "Temporary";
         public const string POST_STATUS_PERMANENT = "Permanent";
 
+        // Database
+        public const string DB_BACKUP_LOCATION = "DatabaseBackupLocation";
+        public const string DB_BACKUP_PREFIX = "DatabaseBackupPrefix";
+        public const string DB_BACKUP_FREQUENCY = "DatabaseBackupFrequency";
     }
 }

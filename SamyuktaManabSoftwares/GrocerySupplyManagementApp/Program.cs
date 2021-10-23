@@ -29,9 +29,8 @@ namespace GrocerySupplyManagementApp
                 var container = BuildUnityContainer();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                using (var loginForm = new LoginForm(container.Resolve<IUserService>()))
+                using (var loginForm = new LoginForm(container.Resolve<IUserService>(), container.Resolve<IDatabaseService>()))
                 {
-                    
                     if (loginForm.ShowDialog() == DialogResult.OK)
                     {
                         string username = loginForm.Username;
@@ -69,7 +68,7 @@ namespace GrocerySupplyManagementApp
             catch(Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
 
@@ -98,6 +97,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IPOSDetailService, POSDetailService>();
             container.RegisterType<IIncomeExpenseService, IncomeExpenseService>();
             container.RegisterType<ICapitalService, CapitalService>();
+            container.RegisterType<IDatabaseService, DatabaseService>();
 
             container.RegisterType<ISettingRepository, MSSqlSettingRepository>();
             container.RegisterType<ICompanyInfoRepository, MSSqlCompanyInfoRepository>();
@@ -121,6 +121,7 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IPOSDetailRepository, MSSqlPOSDetailRepository>();
             container.RegisterType<IIncomeExpenseRepository, MSSqlIncomeExpenseRepository>();
             container.RegisterType<ICapitalRepository, MSSqlCapitalRepository>();
+            container.RegisterType<IDatabaseRepository, MSSqlDatabaseRepository>();
 
             return container;
         }

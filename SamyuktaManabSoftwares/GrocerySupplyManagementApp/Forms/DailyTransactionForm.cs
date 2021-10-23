@@ -147,7 +147,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
         #endregion
@@ -491,7 +491,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboUser.SelectedText = _username;
         }
-
 
         #endregion
 

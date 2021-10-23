@@ -51,7 +51,7 @@ namespace GrocerySupplyManagementApp.Services
 
         public string GetLastBillNo()
         {
-            string billNo;
+            string billNo = string.Empty;
             try
             {
                 var lastBillNo = _purchasedItemRepository.GetLastBillNo();
@@ -79,7 +79,7 @@ namespace GrocerySupplyManagementApp.Services
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return billNo;

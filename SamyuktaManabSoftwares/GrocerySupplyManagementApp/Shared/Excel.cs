@@ -66,7 +66,7 @@ namespace GrocerySupplyManagementApp.Shared
             catch(Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return result;

@@ -181,7 +181,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
 
@@ -265,7 +265,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
 
@@ -302,7 +302,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
         #endregion
@@ -330,7 +330,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
         #endregion

@@ -196,7 +196,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return stocks;
@@ -256,9 +256,11 @@ namespace GrocerySupplyManagementApp.Repositories
 
         private List<StockView> CalculateStock(List<Stock> stocks)
         {
+            List<StockView> stockViewList = null;
+            
             try
             {
-                var stockViewList = new List<StockView>();
+                stockViewList = new List<StockView>();
                 int index = 0;
                 var itemCode = string.Empty;
                 foreach (var stock in stocks)
@@ -308,14 +310,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     stockViewList.Add(stockView);
                     index++;
                 }
-
-                return stockViewList;
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return stockViewList;
         }
     }
 }

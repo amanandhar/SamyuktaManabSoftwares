@@ -109,7 +109,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
 

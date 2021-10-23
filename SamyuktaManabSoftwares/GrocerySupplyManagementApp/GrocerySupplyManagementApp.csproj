@@ -398,6 +398,7 @@
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICapitalRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IDatabaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IIncomeExpenseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IItemCategoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyInfoRepository.cs" />
@@ -420,6 +421,7 @@
     <Compile Include="Repositories\MSSqlBankRepository.cs" />
     <Compile Include="Repositories\MSSqlBankTransactionRepository.cs" />
     <Compile Include="Repositories\MSSqlCapitalRepository.cs" />
+    <Compile Include="Repositories\MSSqlDatabaseRepository.cs" />
     <Compile Include="Repositories\MSSqlIncomeExpenseRepository.cs" />
     <Compile Include="Repositories\MSSqlItemCategoryRepository.cs" />
     <Compile Include="Repositories\MSSqlCompanyInfoRepository.cs" />
@@ -442,6 +444,7 @@
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\CompanyInfoService.cs" />
+    <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\EndOfDayService.cs" />
     <Compile Include="Services\CapitalService.cs" />
@@ -450,6 +453,7 @@
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICapitalService.cs" />
     <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
+    <Compile Include="Services\Interfaces\IDatabaseService.cs" />
     <Compile Include="Services\Interfaces\IEmployeeService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
     <Compile Include="Services\Interfaces\IIncomeExpenseService.cs" />

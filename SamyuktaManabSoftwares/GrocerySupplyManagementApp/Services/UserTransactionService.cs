@@ -50,7 +50,7 @@ namespace GrocerySupplyManagementApp.Services
 
         public string GetInvoiceNo()
         {
-            string invoiceNo;
+            string invoiceNo = string.Empty;
             try
             {
                 var lastInvoiceNo = _userTransactionRepository.GetLastInvoiceNo();
@@ -78,7 +78,7 @@ namespace GrocerySupplyManagementApp.Services
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
 
             return invoiceNo;

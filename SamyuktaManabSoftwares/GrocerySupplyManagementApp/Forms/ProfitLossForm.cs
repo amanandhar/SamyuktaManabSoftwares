@@ -138,7 +138,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
         #endregion
@@ -172,10 +172,11 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private List<IncomeExpenseView> GetIncome()
         {
+            List<IncomeExpenseView> incomeExpenseView = null;
             try
             {
                 var endOfDay = UtilityService.GetDate(MaskDtEOD.Text);
-                var incomeExpenseView = new List<IncomeExpenseView>
+                incomeExpenseView = new List<IncomeExpenseView>
                 {
                     new IncomeExpenseView
                     {
@@ -208,14 +209,14 @@ namespace GrocerySupplyManagementApp.Forms
                         Amount = _incomeExpenseService.GetTotalIncome(endOfDay)
                     }
                 };
-
-                return incomeExpenseView;
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return incomeExpenseView;
         }
 
         private void LoadIncome()
@@ -230,16 +231,17 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
 
         private List<IncomeExpenseView> GetExpense()
         {
+            List<IncomeExpenseView> incomeExpenseView = null;
             try
             {
                 var endOfDay = UtilityService.GetDate(MaskDtEOD.Text);
-                var incomeExpenseView = new List<IncomeExpenseView>
+                incomeExpenseView = new List<IncomeExpenseView>
                 {
                     new IncomeExpenseView
                     {
@@ -322,14 +324,14 @@ namespace GrocerySupplyManagementApp.Forms
                         Amount = _incomeExpenseService.GetTotalExpense(endOfDay)
                     }
                 };
-
-                return incomeExpenseView;
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
+
+            return incomeExpenseView;
         }
 
         private void LoadExpense()
@@ -344,7 +346,7 @@ namespace GrocerySupplyManagementApp.Forms
             catch (Exception ex)
             {
                 logger.Error(ex);
-                throw ex;
+                UtilityService.ShowExceptionMessageBox();
             }
         }
 
