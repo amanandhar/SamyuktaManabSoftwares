@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
@@ -181,6 +182,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void DashboardForm_Load(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             LoadFiscalYear();
             GetUserPermissions();
 
@@ -202,6 +205,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnPointOfSales_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             PosForm posForm = new PosForm(_username,
                 _settingService,
                 _bankService, _bankTransactionService,
@@ -216,22 +221,14 @@ namespace GrocerySupplyManagementApp.Forms
                  );
             posForm.ShowDialog();
 
-            //OpenChildForm(new PosForm(
-            //    _userService,
-            //    _bankService, _bankTransactionService,
-            //    _itemService, _pricedItemService,
-            //    _memberService,
-            //    _purchasedItemService, _soldItemService,
-            //    _userTransactionService, _reportService,
-            //    _companyInfoService, _employeeService,
-            //    _stockService
-            //     ));
             HideSubMenu();
             SelectButton(sender as Button);
         }
 
         private void BtnDailySummary_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new SummaryForm(_username,
                 _settingService, _bankTransactionService,
                 _purchasedItemService, _soldItemService,
@@ -244,6 +241,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyTransaction_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new DailyTransactionForm(_username,
                 _settingService,
                _bankTransactionService,
@@ -257,7 +256,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockSummary_Click(object sender, EventArgs e)
         {
-           OpenChildForm(new StockSummaryForm( 
+            ShowSystemStatus();
+
+            OpenChildForm(new StockSummaryForm( 
                _settingService, _purchasedItemService, 
                _soldItemService, _stockService,
                _stockAdjustmentService));
@@ -267,6 +268,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnMember_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new MemberForm(_username,
                 _settingService, _companyInfoService,
                 _bankService, _bankTransactionService,
@@ -279,6 +282,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSupplier_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new SupplierForm(_username,
                 _settingService, _bankService,
                 _bankTransactionService, _itemService,
@@ -290,6 +295,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnItemPricing_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new PricedItemForm(_username,_settingService, 
                 _itemService, _pricedItemService,
                 _purchasedItemService, _soldItemService,
@@ -300,6 +307,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnBank_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new BankForm(_username,
                 _settingService, _bankService,
                 _bankTransactionService));
@@ -309,6 +318,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnEmployee_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new EmployeeForm(_username, _settingService, _employeeService));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -316,12 +327,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnReports_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             SelectButton(sender as Button);
             ShowSubMenu(PanelReportsSubMenu);
         }
 
         private void BtnBalanceSheet_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new BalanceSheetForm(_settingService, _bankTransactionService,
                _stockService, _incomeExpenseService, 
                _capitalService));
@@ -330,6 +345,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyIncome_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new IncomeForm(_username,
                 _settingService, _bankService, 
                 _bankTransactionService, _userTransactionService,
@@ -339,6 +356,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyExpense_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new ExpenseForm(_username,
                 _settingService, _bankService, 
                 _bankTransactionService, _userTransactionService,
@@ -348,6 +367,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnProfitLoss_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new ProfitLossForm(_settingService,
                 _incomeExpenseService));
             SelectButton(sender as Button, true);
@@ -355,12 +376,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSalesPurchaseReport_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new SalesPurchaseForm(_settingService, _userTransactionService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnSalesReturn_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new SalesReturnForm(_username,
                 _settingService, _itemService, 
                 _purchasedItemService, _soldItemService,
@@ -370,6 +395,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShareCapital_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new ShareMemberForm(_username,
                 _settingService, _bankService, 
                 _bankTransactionService, _shareMemberService, 
@@ -379,6 +406,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnStockAdjustment_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new StockAdjustmentForm(_username, _settingService,
                _itemService, _pricedItemService,
                _userTransactionService, _stockService, _stockAdjustmentService));
@@ -387,6 +416,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDeliveryPerson_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new DeliveryPersonForm(_settingService, _userTransactionService,
                     _employeeService));
             SelectButton(sender as Button, true);
@@ -394,36 +425,48 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSettings_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             SelectButton(sender as Button);
             ShowSubMenu(PanelSettingsSubMenu);
         }
 
         private void BtnCompanyInformation_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new CompanyInfoForm(_username, _companyInfoService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnNewCodeSetup_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new ItemForm(_username, _settingService, _itemService, _itemCategoryService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnSetup_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new SetupForm(_username, _settingService, _endOfDayService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnUserSetup_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             OpenChildForm(new UserForm(_username, _userService));
             SelectButton(sender as Button, true);
         }
 
         private void BtnEOD_Click(object sender, EventArgs e)
         {
+            ShowSystemStatus();
+
             try
             {
                 DialogResult result = MessageBox.Show("Would you like to update EOD?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -599,9 +642,50 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 BtnEOD.Visible = false;
             }
-
         }
 
+        private void ShowSystemStatus()
+        {
+            // Balance Sheet Logic - Starts
+            var endOfDay = _setting.StartingDate;
+            var totalIncome = _incomeExpenseService.GetTotalIncome(endOfDay);
+            var totalExpense = _incomeExpenseService.GetTotalExpense(endOfDay);
+
+            var shareCapital = _bankTransactionService
+                .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.SHARE_CAPITAL });
+            var ownerEquity = _bankTransactionService
+                .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.OWNER_EQUITY });
+            var loanAmount = Constants.DEFAULT_DECIMAL_VALUE; // ToDo : Add loan form later
+            var payableAmount = Math.Abs(_capitalService
+                .GetSupplierTotalBalance(new SupplierTransactionFilter() { DateTo = endOfDay }));
+            var netProfit = (totalIncome > totalExpense) ? (totalIncome - totalExpense) : Constants.DEFAULT_DECIMAL_VALUE;
+            var liabilitiesBalance = shareCapital + ownerEquity + loanAmount
+                + payableAmount + netProfit;
+
+            var cashInHand = Math.Abs(_capitalService.GetCashInHand(new UserTransactionFilter { DateTo = endOfDay }));
+            var bankAccount = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { DateTo = endOfDay });
+
+            var stockFilter = new StockFilter() { DateTo = endOfDay };
+            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+            var stockValue = _stockService.GetStockValue(stocks.ToList(), stockFilter);
+
+            var receivableAmount = _capitalService.GetMemberTotalBalance(new UserTransactionFilter() { DateTo = endOfDay });
+            var netLoss = (totalExpense > totalIncome) ? (totalExpense - totalIncome) : Constants.DEFAULT_DECIMAL_VALUE;
+            var assetsBalance = cashInHand + bankAccount + stockValue + receivableAmount + netLoss;
+            // Balance Sheet Logic - Ends
+
+            if (liabilitiesBalance == assetsBalance)
+            {
+                RichBoxSystemStatus.Text = "System Status : No Error";
+            }
+            else
+            {
+                RichBoxSystemStatus.Text = "System Status : Error";
+                RichBoxSystemStatus.BackColor = Color.Red;
+            }
+
+            RichBoxSystemStatus.SelectionAlignment = HorizontalAlignment.Center;
+        }
         #endregion
 
     }

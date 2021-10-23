@@ -73,6 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.RichBoxSystemStatus = new System.Windows.Forms.RichTextBox();
             this.PanelLeftSection.SuspendLayout();
             this.PanelMenu.SuspendLayout();
             this.PanelSettingsSubMenu.SuspendLayout();
@@ -766,7 +767,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxFiscalYear.Margin = new System.Windows.Forms.Padding(0);
             this.RichBoxFiscalYear.Name = "RichBoxFiscalYear";
             this.RichBoxFiscalYear.ReadOnly = true;
-            this.RichBoxFiscalYear.Size = new System.Drawing.Size(220, 28);
+            this.RichBoxFiscalYear.Size = new System.Drawing.Size(176, 28);
             this.RichBoxFiscalYear.TabIndex = 5;
             this.RichBoxFiscalYear.Text = "";
             // 
@@ -776,11 +777,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RichBoxTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxTime.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxTime.Location = new System.Drawing.Point(660, 0);
+            this.RichBoxTime.Location = new System.Drawing.Point(528, 0);
             this.RichBoxTime.Margin = new System.Windows.Forms.Padding(0);
             this.RichBoxTime.Name = "RichBoxTime";
             this.RichBoxTime.ReadOnly = true;
-            this.RichBoxTime.Size = new System.Drawing.Size(220, 28);
+            this.RichBoxTime.Size = new System.Drawing.Size(176, 28);
             this.RichBoxTime.TabIndex = 4;
             this.RichBoxTime.Text = "";
             // 
@@ -790,11 +791,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxUsername.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RichBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxUsername.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxUsername.Location = new System.Drawing.Point(880, 0);
+            this.RichBoxUsername.Location = new System.Drawing.Point(704, 0);
             this.RichBoxUsername.Margin = new System.Windows.Forms.Padding(0);
             this.RichBoxUsername.Name = "RichBoxUsername";
             this.RichBoxUsername.ReadOnly = true;
-            this.RichBoxUsername.Size = new System.Drawing.Size(222, 28);
+            this.RichBoxUsername.Size = new System.Drawing.Size(220, 28);
             this.RichBoxUsername.TabIndex = 3;
             this.RichBoxUsername.Text = "";
             // 
@@ -804,11 +805,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxDateInBs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RichBoxDateInBs.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInBs.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxDateInBs.Location = new System.Drawing.Point(440, 0);
+            this.RichBoxDateInBs.Location = new System.Drawing.Point(352, 0);
             this.RichBoxDateInBs.Margin = new System.Windows.Forms.Padding(0);
             this.RichBoxDateInBs.Name = "RichBoxDateInBs";
             this.RichBoxDateInBs.ReadOnly = true;
-            this.RichBoxDateInBs.Size = new System.Drawing.Size(220, 28);
+            this.RichBoxDateInBs.Size = new System.Drawing.Size(176, 28);
             this.RichBoxDateInBs.TabIndex = 1;
             this.RichBoxDateInBs.Text = "";
             // 
@@ -818,11 +819,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxDateInAd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RichBoxDateInAd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichBoxDateInAd.ForeColor = System.Drawing.Color.Black;
-            this.RichBoxDateInAd.Location = new System.Drawing.Point(220, 0);
+            this.RichBoxDateInAd.Location = new System.Drawing.Point(176, 0);
             this.RichBoxDateInAd.Margin = new System.Windows.Forms.Padding(0);
             this.RichBoxDateInAd.Name = "RichBoxDateInAd";
             this.RichBoxDateInAd.ReadOnly = true;
-            this.RichBoxDateInAd.Size = new System.Drawing.Size(220, 28);
+            this.RichBoxDateInAd.Size = new System.Drawing.Size(176, 28);
             this.RichBoxDateInAd.TabIndex = 0;
             this.RichBoxDateInAd.Text = "";
             // 
@@ -855,12 +856,14 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnCount = 6;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel1.Controls.Add(this.RichBoxSystemStatus, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.RichBoxDateInAd, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.RichBoxTime, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.RichBoxFiscalYear, 0, 0);
@@ -880,6 +883,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.Timer.Enabled = true;
             this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
+            // RichBoxSystemStatus
+            // 
+            this.RichBoxSystemStatus.BackColor = System.Drawing.Color.White;
+            this.RichBoxSystemStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RichBoxSystemStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBoxSystemStatus.ForeColor = System.Drawing.Color.Black;
+            this.RichBoxSystemStatus.Location = new System.Drawing.Point(924, 0);
+            this.RichBoxSystemStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.RichBoxSystemStatus.Name = "RichBoxSystemStatus";
+            this.RichBoxSystemStatus.ReadOnly = true;
+            this.RichBoxSystemStatus.Size = new System.Drawing.Size(178, 28);
+            this.RichBoxSystemStatus.TabIndex = 6;
+            this.RichBoxSystemStatus.Text = "";
             // 
             // DashboardForm
             // 
@@ -954,5 +971,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Panel PanelMenu;
         private System.Windows.Forms.Button BtnDeliveryPerson;
         private System.Windows.Forms.Button BtnStockAdjustment;
+        private System.Windows.Forms.RichTextBox RichBoxSystemStatus;
     }
 }

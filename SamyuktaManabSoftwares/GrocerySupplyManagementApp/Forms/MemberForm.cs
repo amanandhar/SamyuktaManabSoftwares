@@ -91,8 +91,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
-            ClearMemberFields();
-            ClearTransactionFields();
             LoadReceiptTypes();
             EnableFields();
             EnableFields(Action.Load);
