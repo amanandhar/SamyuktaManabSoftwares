@@ -28,7 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public IncomeForm(string username,
-            ISettingService settingService, 
+            ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IUserTransactionService userTransactionService, IIncomeExpenseService incomeExpenseService)
         {
@@ -65,7 +65,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateIncomeInfo())
+                if (ValidateIncomeInfo())
                 {
                     var userTransaction = new UserTransaction
                     {
@@ -91,7 +91,7 @@ namespace GrocerySupplyManagementApp.Forms
                             TransactionId = lastUserTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
-                            Narration = ComboIncome.Text,
+                            Narration = ComboIncome.Text.Trim(),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -99,7 +99,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _bankTransactionService.AddBankTransaction(bankTransaction);
                     }
 
-                    DialogResult result = MessageBox.Show(ComboIncome.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show(ComboIncome.Text.Trim() + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
@@ -107,7 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
@@ -150,7 +150,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 }
                             }
                         }
-                    } 
+                    }
                 }
             }
             catch (Exception ex)
@@ -194,7 +194,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Combo Box Event
         private void ComboFilter_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(ComboFilteredBy.Text))
+            if (!string.IsNullOrWhiteSpace(ComboFilteredBy.Text.Trim()))
             {
                 RadioAll.Checked = false;
             }
@@ -267,14 +267,14 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadIncomeDetails()
         {
             var incomeTransactionFilter = new IncomeTransactionFilter();
-            var income = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text;
-            incomeTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text);
-            incomeTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text);
+            var income = string.IsNullOrWhiteSpace(ComboFilteredBy.Text.Trim()) ? null : ComboFilteredBy.Text.Trim();
+            incomeTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim());
+            incomeTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim());
             incomeTransactionFilter.Income = income;
 
             List<IncomeTransactionView> incomeTransactionViewList;
 
-            if (!string.IsNullOrWhiteSpace(income) 
+            if (!string.IsNullOrWhiteSpace(income)
                 && (
                     income.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower())
                     || income.ToLower().Equals(Constants.MEMBER_FEE.ToLower())

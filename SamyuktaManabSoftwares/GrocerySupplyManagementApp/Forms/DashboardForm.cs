@@ -79,7 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
                 activeForm.Close(); ;
             }
 
-            if(childForm != null)
+            if (childForm != null)
             {
                 activeForm = childForm;
                 childForm.TopLevel = false;
@@ -94,13 +94,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void SelectButton(Button button, bool isSubMenu = false)
         {
-            if(activeButton != null)
+            if (activeButton != null)
             {
                 activeButton.BackColor = isActiveButtonSubMenu ? Color.CornflowerBlue : Color.DodgerBlue;
             }
 
             activeButton = button;
-            isActiveButtonSubMenu = isSubMenu; 
+            isActiveButtonSubMenu = isSubMenu;
             activeButton.BackColor = Color.Silver;
         }
         #endregion
@@ -219,9 +219,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _userTransactionService, _reportService,
                 _companyInfoService, _employeeService,
                 _stockService, _userService,
-                _posDetailService, _stockAdjustmentService,
-                _incomeExpenseService, _capitalService,
-                _atomicTransactionService
+                _posDetailService, _incomeExpenseService,
+                _capitalService, _atomicTransactionService
                  );
             posForm.ShowDialog();
 
@@ -235,9 +234,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             OpenChildForm(new SummaryForm(_username,
                 _settingService, _bankTransactionService,
-                _purchasedItemService, _soldItemService,
                 _userTransactionService, _userService,
-                _stockAdjustmentService, _posDetailService,
                 _capitalService, _atomicTransactionService));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -250,9 +247,7 @@ namespace GrocerySupplyManagementApp.Forms
             OpenChildForm(new DailyTransactionForm(_username,
                 _settingService,
                _bankTransactionService,
-               _purchasedItemService, _soldItemService,
                _userTransactionService, _userService,
-               _stockAdjustmentService, _posDetailService,
                _atomicTransactionService
                ));
             HideSubMenu();
@@ -263,8 +258,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new StockSummaryForm( 
-               _settingService, _purchasedItemService, 
+            OpenChildForm(new StockSummaryForm(
+               _settingService, _purchasedItemService,
                _soldItemService, _stockService,
                _stockAdjustmentService));
             HideSubMenu();
@@ -302,7 +297,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new PricedItemForm(_username,_settingService, 
+            OpenChildForm(new PricedItemForm(_username, _settingService,
                 _itemService, _pricedItemService,
                 _purchasedItemService, _soldItemService,
                 _stockService, this));
@@ -343,7 +338,7 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new BalanceSheetForm(_settingService, _bankTransactionService,
-               _stockService, _incomeExpenseService, 
+               _stockService, _incomeExpenseService,
                _capitalService));
             SelectButton(sender as Button, true);
         }
@@ -353,7 +348,7 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new IncomeForm(_username,
-                _settingService, _bankService, 
+                _settingService, _bankService,
                 _bankTransactionService, _userTransactionService,
                 _incomeExpenseService));
             SelectButton(sender as Button, true);
@@ -364,7 +359,7 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new ExpenseForm(_username,
-                _settingService, _bankService, 
+                _settingService, _bankService,
                 _bankTransactionService, _userTransactionService,
                 _incomeExpenseService, _capitalService));
             SelectButton(sender as Button, true);
@@ -392,7 +387,7 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new SalesReturnForm(_username,
-                _settingService, _itemService, 
+                _settingService, _itemService,
                 _purchasedItemService, _soldItemService,
                 _userTransactionService));
             SelectButton(sender as Button, true);
@@ -403,8 +398,8 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new ShareMemberForm(_username,
-                _settingService, _bankService, 
-                _bankTransactionService, _shareMemberService, 
+                _settingService, _bankService,
+                _bankTransactionService, _shareMemberService,
                 _userTransactionService, this));
             SelectButton(sender as Button, true);
         }

@@ -6,7 +6,6 @@ using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -31,7 +30,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Enum
         private enum Action
         {
-            Clear, 
+            Clear,
             Edit,
             Save,
             PopulateItem,
@@ -100,7 +99,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateStockAdjustmentInfo())
+                if (ValidateStockAdjustmentInfo())
                 {
                     if (ComboAction.Text == Constants.DEDUCT)
                     {
@@ -111,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ActionType = Constants.DEDUCT,
                             Expense = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
-                            PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
+                            PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -126,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ActionType = Constants.ADD,
                             Income = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
-                            ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text),
+                            ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -138,9 +137,9 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         UserTransactionId = lastUserTransaction.Id,
-                        ItemId = _itemService.GetItem(TxtBoxItemCode.Text).Id,
-                        Unit = TxtBoxItemUnit.Text,
-                        Action = ComboAction.Text,
+                        ItemId = _itemService.GetItem(TxtBoxItemCode.Text.Trim()).Id,
+                        Unit = TxtBoxItemUnit.Text.Trim(),
+                        Action = ComboAction.Text.Trim(),
                         Quantity = string.IsNullOrWhiteSpace(TxtBoxItemQuantity.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemQuantity.Text),
                         Price = string.IsNullOrWhiteSpace(TxtBoxItemPrice.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtBoxItemPrice.Text),
                         AddedBy = _username,
@@ -158,7 +157,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
@@ -283,18 +282,18 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(Action action = Action.None)
         {
-            if(action == Action.Load)
+            if (action == Action.Load)
             {
                 BtnEdit.Enabled = true;
             }
-            else if(action == Action.Edit)
+            else if (action == Action.Edit)
             {
                 ComboAction.Enabled = true;
                 TxtBoxItemQuantity.Enabled = true;
 
                 BtnSearch.Enabled = true;
             }
-            else if(action == Action.PopulateItem)
+            else if (action == Action.PopulateItem)
             {
                 ComboAction.Enabled = true;
                 TxtBoxItemQuantity.Enabled = true;
@@ -304,7 +303,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnClear.Enabled = true;
                 BtnSave.Enabled = true;
             }
-            else if(action == Action.Save)
+            else if (action == Action.Save)
             {
                 BtnEdit.Enabled = true;
             }

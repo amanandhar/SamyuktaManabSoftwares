@@ -56,7 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void AddNewCodeForm_Load(object sender, EventArgs e)
         {
             EnableFields(Action.None);
-            
+
             LoadItemCategoris();
             LoadItemUnits();
             LoadItems();
@@ -81,16 +81,16 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateItemInfoOnSave())
+                if (ValidateItemInfoOnSave())
                 {
                     var item = new Item
                     {
                         EndOfDay = _endOfDay,
-                        Code = RichItemCode.Text,
-                        Name = RichItemName.Text,
-                        Brand = RichItemBrand.Text,
-                        Unit = ComboUnit.Text,
-                        Threshold = Convert.ToInt32(RichThreshold.Text),
+                        Code = RichItemCode.Text.Trim(),
+                        Name = RichItemName.Text.Trim(),
+                        Brand = RichItemBrand.Text.Trim(),
+                        Unit = ComboUnit.Text.Trim(),
+                        Threshold = Convert.ToInt32(RichThreshold.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -104,8 +104,8 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         Counter = Convert.ToInt64(counter),
-                        Name = ComboCategory.Text,
-                        ItemCode = RichItemCode.Text,
+                        Name = ComboCategory.Text.Trim(),
+                        ItemCode = RichItemCode.Text.Trim(),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -139,17 +139,17 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateItemInfoOnUpdate())
+                if (ValidateItemInfoOnUpdate())
                 {
                     if (selectedItemId != 0)
                     {
                         var item = new Item
                         {
-                            Code = RichItemCode.Text,
-                            Name = RichItemName.Text,
-                            Brand = RichItemBrand.Text,
-                            Unit = ComboUnit.Text,
-                            Threshold = Convert.ToInt32(RichThreshold.Text),
+                            Code = RichItemCode.Text.Trim(),
+                            Name = RichItemName.Text.Trim(),
+                            Brand = RichItemBrand.Text.Trim(),
+                            Unit = ComboUnit.Text.Trim(),
+                            Threshold = Convert.ToInt32(RichThreshold.Text.Trim()),
                             UpdatedBy = _username,
                             UpdatedDate = DateTime.Now
                         };
@@ -182,7 +182,7 @@ namespace GrocerySupplyManagementApp.Forms
                     if (confirmation == DialogResult.Yes)
                     {
                         _itemService.DeleteItem(selectedItemId);
-                        _itemCategoryService.DeleteItemCategory(RichItemCode.Text);
+                        _itemCategoryService.DeleteItemCategory(RichItemCode.Text.Trim());
                         DialogResult actionResult = MessageBox.Show("Item has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (actionResult == DialogResult.OK)
                         {
@@ -205,7 +205,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboCategory_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBoxItem selectedCategory = (ComboBoxItem)ComboCategory.SelectedItem;
-            var category = selectedCategory?.Value; 
+            var category = selectedCategory?.Value;
             if (!string.IsNullOrWhiteSpace(category))
             {
                 var itemCategory = _itemCategoryService.GetItemCategory(category);
@@ -308,7 +308,6 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnAdd.Enabled = true;
                 BtnSave.Enabled = true;
-
             }
             else if (action == Action.Edit)
             {

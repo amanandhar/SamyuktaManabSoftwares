@@ -41,7 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 return;
             }
-            else  if (dgv.CurrentRow.Selected)
+            else if (dgv.CurrentRow.Selected)
             {
                 long bankId = Convert.ToInt64(dgv.CurrentRow.Cells["Id"].Value.ToString());
                 _bankListForm.PopulateBank(bankId);

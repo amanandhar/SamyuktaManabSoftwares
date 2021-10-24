@@ -26,7 +26,7 @@ namespace GrocerySupplyManagementApp.Forms
         private string _companyImageFolder;
 
         #region Constructor
-        public InvoiceReportForm(ICompanyInfoService companyInfoService, IReportService reportService, 
+        public InvoiceReportForm(ICompanyInfoService companyInfoService, IReportService reportService,
             string invoiceNo)
         {
             InitializeComponent();

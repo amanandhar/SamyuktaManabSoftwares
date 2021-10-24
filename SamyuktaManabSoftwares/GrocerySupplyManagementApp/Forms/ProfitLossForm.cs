@@ -240,7 +240,7 @@ namespace GrocerySupplyManagementApp.Forms
             List<IncomeExpenseView> incomeExpenseView = null;
             try
             {
-                var endOfDay = UtilityService.GetDate(MaskDtEOD.Text);
+                var endOfDay = UtilityService.GetDate(MaskDtEOD.Text.Trim());
                 incomeExpenseView = new List<IncomeExpenseView>
                 {
                     new IncomeExpenseView

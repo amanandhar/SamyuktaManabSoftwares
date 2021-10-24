@@ -28,7 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public ExpenseForm(string username,
-            ISettingService settingService, IBankService bankService, 
+            ISettingService settingService, IBankService bankService,
             IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
             IIncomeExpenseService incomeExpenseService, ICapitalService capitalService)
         {
@@ -60,9 +60,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShow_Click(object sender, EventArgs e)
         {
             var expenseTransactionFilter = new ExpenseTransactionFilter();
-            var expense = string.IsNullOrWhiteSpace(ComboFilteredBy.Text) ? null : ComboFilteredBy.Text;
-            expenseTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text);
-            expenseTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text);
+            var expense = string.IsNullOrWhiteSpace(ComboFilteredBy.Text.Trim()) ? null : ComboFilteredBy.Text.Trim();
+            expenseTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim());
+            expenseTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim());
             expenseTransactionFilter.Expense = expense;
 
             LoadExpenseTransaction(expenseTransactionFilter);
@@ -72,10 +72,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateExpenseInfo())
+                if (ValidateExpenseInfo())
                 {
-                    var paymentAmount = Convert.ToDecimal(RichAmount.Text);
-                    var actionType = ComboPayment.Text;
+                    var paymentAmount = Convert.ToDecimal(RichAmount.Text.Trim());
+                    var actionType = ComboPayment.Text.Trim();
                     if (actionType.ToLower() == Constants.CASH.ToLower())
                     {
                         var cashBalance = _capitalService.GetCashBalance(_endOfDay);
@@ -192,7 +192,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 }
                             }
                         }
-                    } 
+                    }
                 }
             }
             catch (Exception ex)
@@ -237,7 +237,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Combo Box Event
         private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
         {
-            var selectedPayment = ComboPayment.Text;
+            var selectedPayment = ComboPayment.Text.Trim();
             if (!string.IsNullOrWhiteSpace(selectedPayment))
             {
                 if (selectedPayment.ToLower() == Constants.CHEQUE.ToLower())

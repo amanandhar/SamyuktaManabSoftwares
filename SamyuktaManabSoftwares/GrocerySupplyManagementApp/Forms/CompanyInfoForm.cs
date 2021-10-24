@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateCompanyInfo())
+                if (ValidateCompanyInfo())
                 {
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -86,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 UtilityService.CreateFolder(_baseImageFolder, _companyImageFolder);
                             }
 
-                            relativeImagePath = RichCompanyName.Text + ".jpg";
+                            relativeImagePath = RichCompanyName.Text.Trim() + ".jpg";
                             destinationFilePath = Path.Combine(_baseImageFolder, _companyImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
@@ -94,17 +94,17 @@ namespace GrocerySupplyManagementApp.Forms
 
                     var companyInfo = new CompanyInfo
                     {
-                        Name = RichCompanyName.Text,
-                        ShortName = RichShortName.Text,
-                        Type = RichCompanyType.Text,
-                        Address = RichAddress.Text,
-                        ContactNo = Convert.ToInt64(RichContactNo.Text),
-                        EmailId = RichEmailId.Text,
-                        Website = RichWebsite.Text,
-                        FacebookPage = RichFacebookPage.Text,
-                        RegistrationNo = RichRegistrationNo.Text,
-                        RegistrationDate = RichRegistrationDate.Text,
-                        PanVatNo = RichPanVatNo.Text,
+                        Name = RichCompanyName.Text.Trim(),
+                        ShortName = RichShortName.Text.Trim(),
+                        Type = RichCompanyType.Text.Trim(),
+                        Address = RichAddress.Text.Trim(),
+                        ContactNo = Convert.ToInt64(RichContactNo.Text.Trim()),
+                        EmailId = RichEmailId.Text.Trim(),
+                        Website = RichWebsite.Text.Trim(),
+                        FacebookPage = RichFacebookPage.Text.Trim(),
+                        RegistrationNo = RichRegistrationNo.Text.Trim(),
+                        RegistrationDate = RichRegistrationDate.Text.Trim(),
+                        PanVatNo = RichPanVatNo.Text.Trim(),
                         LogoPath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -112,7 +112,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _companyInfoService.DeleteCompanyInfo();
                     _companyInfoService.AddCompanyInfo(companyInfo);
-                    DialogResult result = MessageBox.Show(RichCompanyName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show(RichCompanyName.Text.Trim() + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
@@ -191,7 +191,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichEmailId.Text = companyInfo.EmailId;
             RichWebsite.Text = companyInfo.Website;
             RichFacebookPage.Text = companyInfo.FacebookPage;
-            
+
             var absoluteImagePath = Path.Combine(_baseImageFolder, _companyImageFolder, companyInfo.LogoPath);
             if (File.Exists(absoluteImagePath))
             {

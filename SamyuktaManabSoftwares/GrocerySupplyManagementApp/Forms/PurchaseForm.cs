@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddItem_Click(object sender, EventArgs e)
         {
-            if(ValidatePurchaseInfo())
+            if (ValidatePurchaseInfo())
             {
                 AddToCart();
             }
@@ -120,7 +120,7 @@ namespace GrocerySupplyManagementApp.Forms
                         AddedBy = _username,
                         AddedDate = item.AddedDate
                     }).ToList();
-                   
+
                     purchasedItems.ForEach(purchasedItem =>
                     {
                         _purchasedItemService.AddPurchasedItem(purchasedItem);
@@ -130,7 +130,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction()
                     {
                         EndOfDay = _endOfDay,
-                        BillNo = RichBillNo.Text,
+                        BillNo = RichBillNo.Text.Trim(),
                         SupplierId = _supplierForm.GetSupplierId(),
                         Action = Constants.PURCHASE,
                         ActionType = Constants.CREDIT,
@@ -348,14 +348,14 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     Id = _purchasedItemViewList.Count + 1,
                     EndOfDay = _endOfDay,
-                    BillNo = RichBillNo.Text,
-                    Code = RichItemCode.Text,
-                    Name = RichItemName.Text,
-                    Brand = RichItemBrand.Text,
-                    Unit = RichUnit.Text,
-                    Quantity = Convert.ToDecimal(RichQuantity.Text),
-                    Price = Convert.ToDecimal(RichPurchasePrice.Text),
-                    Total = (Convert.ToDecimal(RichQuantity.Text) * Convert.ToDecimal(RichPurchasePrice.Text)),
+                    BillNo = RichBillNo.Text.Trim(),
+                    Code = RichItemCode.Text.Trim(),
+                    Name = RichItemName.Text.Trim(),
+                    Brand = RichItemBrand.Text.Trim(),
+                    Unit = RichUnit.Text.Trim(),
+                    Quantity = Convert.ToDecimal(RichQuantity.Text.Trim()),
+                    Price = Convert.ToDecimal(RichPurchasePrice.Text.Trim()),
+                    Total = (Convert.ToDecimal(RichQuantity.Text.Trim()) * Convert.ToDecimal(RichPurchasePrice.Text.Trim())),
                     AddedDate = DateTime.Now
                 };
 
@@ -373,12 +373,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(Action action = Action.None)
         {
-            if(action == Action.Add)
+            if (action == Action.Add)
             {
                 BtnSearchItem.Enabled = true;
                 BtnAddBill.Enabled = true;
             }
-            else if(action == Action.PopulateItem)
+            else if (action == Action.PopulateItem)
             {
                 RichTotalAmount.Enabled = true;
                 RichDiscount.Enabled = true;
@@ -413,7 +413,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnSaveItem.Enabled = false;
                 BtnClearItem.Enabled = false;
                 BtnRemoveItem.Enabled = false;
-            } 
+            }
         }
 
         private void ClearAllFields()
@@ -480,7 +480,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (totalAmount >= Constants.DEFAULT_DECIMAL_VALUE)
             {
-                RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT/100), 2).ToString();
+                RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT / 100), 2).ToString();
             }
 
             var vat = string.IsNullOrWhiteSpace(RichVat.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichVat.Text.Trim());

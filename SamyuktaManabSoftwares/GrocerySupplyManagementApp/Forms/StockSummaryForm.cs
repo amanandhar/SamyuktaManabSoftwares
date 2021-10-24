@@ -25,7 +25,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public StockSummaryForm(ISettingService settingService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemItemService, 
+            IPurchasedItemService purchasedItemService, ISoldItemService soldItemItemService,
             IStockService stockService, IStockAdjustmentService stockAdjustmentService)
         {
             InitializeComponent();
@@ -160,17 +160,17 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var stockFilter = new StockFilter
             {
-                DateFrom = UtilityService.GetDate(MaskDtEOD.Text),
-                DateTo = UtilityService.GetDate(MaskDtEOD.Text),
-                ItemCode = ComboItemCode.Text
+                DateFrom = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
+                DateTo = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
+                ItemCode = ComboItemCode.Text.Trim()
             };
 
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter).ToString();
             TxtSales.Text = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter).ToString();
             TxtBoxAdded.Text = _stockAdjustmentService.GetAddedStockTotalQuantity(stockFilter).ToString();
             TxtBoxDeducted.Text = _stockAdjustmentService.GetDeductedStockTotalQuantity(stockFilter).ToString();
-            TxtStock.Text = ((Convert.ToInt64(TxtPurchase.Text) + Convert.ToDecimal(TxtBoxAdded.Text))
-                - (Convert.ToDecimal(TxtBoxDeducted.Text) + Convert.ToDecimal(TxtSales.Text))).ToString();
+            TxtStock.Text = ((Convert.ToInt64(TxtPurchase.Text.Trim()) + Convert.ToDecimal(TxtBoxAdded.Text.Trim()))
+                - (Convert.ToDecimal(TxtBoxDeducted.Text.Trim()) + Convert.ToDecimal(TxtSales.Text.Trim()))).ToString();
 
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var stockValue = _stockService.GetStockValue(stocks.ToList(), stockFilter);

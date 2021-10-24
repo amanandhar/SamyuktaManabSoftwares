@@ -52,7 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
         public SupplierForm(string username,
             ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
-            IItemService itemService, ISupplierService supplierService, 
+            IItemService itemService, ISupplierService supplierService,
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
             ICapitalService capitalService)
         {
@@ -105,11 +105,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowPurchase_Click(object sender, EventArgs e)
         {
-            if(DataGridSupplierList.SelectedCells.Count == 1 
+            if (DataGridSupplierList.SelectedCells.Count == 1
                 || DataGridSupplierList.SelectedRows.Count == 1)
             {
                 DataGridViewRow selectedRow;
-                if(DataGridSupplierList.SelectedCells.Count == 1)
+                if (DataGridSupplierList.SelectedCells.Count == 1)
                 {
                     var selectedCell = DataGridSupplierList.SelectedCells[0];
                     selectedRow = DataGridSupplierList.Rows[selectedCell.RowIndex];
@@ -134,7 +134,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateSupplierTransaction())
+                if (ValidateSupplierTransaction())
                 {
                     var paymentType = ComboPayment.Text.Trim();
                     var paymentAmount = RichAmount.Text.Trim();
@@ -169,7 +169,7 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    var balance = Convert.ToDecimal(TxtBalance.Text);
+                    var balance = Convert.ToDecimal(TxtBalance.Text.Trim());
                     if (paymentAmt > balance)
                     {
                         var warningResult = MessageBox.Show("Receipt cannot be greater than balance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -183,12 +183,12 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            BillNo = TxtBillNo.Text,
-                            SupplierId = TxtSupplierId.Text,
+                            BillNo = TxtBillNo.Text.Trim(),
+                            SupplierId = TxtSupplierId.Text.Trim(),
                             Action = Constants.PAYMENT,
-                            ActionType = ComboPayment.Text,
-                            Bank = ComboBank.Text,
-                            PaymentAmount = Convert.ToDecimal(RichAmount.Text),
+                            ActionType = ComboPayment.Text.Trim(),
+                            Bank = ComboBank.Text.Trim(),
+                            PaymentAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -204,8 +204,8 @@ namespace GrocerySupplyManagementApp.Forms
                                 TransactionId = lastUserTransaction.Id,
                                 Action = '0',
                                 Debit = Constants.DEFAULT_DECIMAL_VALUE,
-                                Credit = Convert.ToDecimal(RichAmount.Text),
-                                Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text,
+                                Credit = Convert.ToDecimal(RichAmount.Text.Trim()),
+                                Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text.Trim(),
                                 AddedBy = _username,
                                 AddedDate = DateTime.Now
                             };
@@ -213,7 +213,7 @@ namespace GrocerySupplyManagementApp.Forms
                             _bankTransactionService.AddBankTransaction(bankTransaction);
                         }
 
-                        DialogResult result = MessageBox.Show(ComboPayment.Text + " has been paid successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult result = MessageBox.Show(ComboPayment.Text.Trim() + " has been paid successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
                             ComboPayment.Text = string.Empty;
@@ -244,17 +244,17 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateSupplierInfo())
+                if (ValidateSupplierInfo())
                 {
                     var supplier = new Supplier
                     {
                         EndOfDay = _endOfDay,
-                        SupplierId = TxtSupplierId.Text,
-                        Name = TxtSupplierName.Text,
-                        Address = TxtAddress.Text,
-                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
-                        Email = TxtEmail.Text,
-                        Owner = TxtOwner.Text,
+                        SupplierId = TxtSupplierId.Text.Trim(),
+                        Name = TxtSupplierName.Text.Trim(),
+                        Address = TxtAddress.Text.Trim(),
+                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(TxtContactNumber.Text.Trim()),
+                        Email = TxtEmail.Text.Trim(),
+                        Owner = TxtOwner.Text.Trim(),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -284,24 +284,24 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            var supplierId = TxtSupplierId.Text;
+            var supplierId = TxtSupplierId.Text.Trim();
             try
             {
                 if (ValidateSupplierInfo())
                 {
                     var supplier = _supplierService.UpdateSupplier(supplierId, new Supplier
                     {
-                        SupplierId = TxtSupplierId.Text,
-                        Name = TxtSupplierName.Text,
-                        Owner = TxtOwner.Text,
-                        Address = TxtAddress.Text,
-                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text) ? 0 : Convert.ToInt64(TxtContactNumber.Text),
-                        Email = TxtEmail.Text,
+                        SupplierId = TxtSupplierId.Text.Trim(),
+                        Name = TxtSupplierName.Text.Trim(),
+                        Owner = TxtOwner.Text.Trim(),
+                        Address = TxtAddress.Text.Trim(),
+                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(TxtContactNumber.Text.Trim()),
+                        Email = TxtEmail.Text.Trim(),
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     });
 
-                    DialogResult result = MessageBox.Show(TxtSupplierName.Text + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show(TxtSupplierName.Text.Trim() + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
@@ -309,7 +309,7 @@ namespace GrocerySupplyManagementApp.Forms
                         EnableFields();
                         EnableFields(Action.UpdateSupplier);
                     }
-                }   
+                }
             }
             catch (Exception ex)
             {
@@ -323,7 +323,7 @@ namespace GrocerySupplyManagementApp.Forms
             DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (deleteResult == DialogResult.Yes)
             {
-                var supplierName = TxtSupplierName.Text;
+                var supplierName = TxtSupplierName.Text.Trim();
                 _supplierService.DeleteSupplier(supplierName);
 
                 DialogResult result = MessageBox.Show(supplierName + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -340,14 +340,14 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
             var supplierFilter = new SupplierTransactionFilter();
-            if (!string.IsNullOrWhiteSpace(TxtSupplierId.Text))
+            if (!string.IsNullOrWhiteSpace(TxtSupplierId.Text.Trim()))
             {
-                supplierFilter.SupplierId = TxtSupplierId.Text;
+                supplierFilter.SupplierId = TxtSupplierId.Text.Trim();
             }
 
-            supplierFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
-            supplierFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
-            supplierFilter.Action = ComboAction.Text;
+            supplierFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
+            supplierFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
+            supplierFilter.Action = ComboAction.Text.Trim();
 
             var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
             var balance = supplierTransactionViewList.Sum(x => x.Balance);
@@ -362,7 +362,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (DataGridSupplierList.SelectedRows.Count == 1)
                 {
-                    var supplierName = TxtSupplierName.Text;
+                    var supplierName = TxtSupplierName.Text.Trim();
                     var id = Convert.ToInt64(DataGridSupplierList.SelectedCells[0].Value.ToString());
                     var particulars = DataGridSupplierList.SelectedCells[2].Value.ToString();
                     if (particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
@@ -411,7 +411,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ComboPaymentType_SelectedValueChanged(object sender, EventArgs e)
         {
-            var selectedPayment = ComboPayment.Text;
+            var selectedPayment = ComboPayment.Text.Trim();
             if (!string.IsNullOrWhiteSpace(selectedPayment))
             {
                 if (selectedPayment.ToLower() == Constants.CHEQUE.ToLower())
@@ -428,7 +428,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                         ComboBank.Enabled = true;
                         ComboBank.Focus();
-                    } 
+                    }
                 }
                 else
                 {
@@ -436,7 +436,7 @@ namespace GrocerySupplyManagementApp.Forms
                     RichAmount.Enabled = true;
                     RichAmount.Focus();
                 }
-            }   
+            }
         }
 
         private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
@@ -498,7 +498,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var supplierId = TxtSupplierId.Text.Trim();
             var balance = _capitalService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = supplierId });
-            
+
             if (balance > 0)
             {
                 TxtBalance.Text = balance.ToString();
@@ -534,7 +534,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(Action action = Action.None)
         {
-            if(action == Action.AddPurchase)
+            if (action == Action.AddPurchase)
             {
             }
             else if (action == Action.AddSupplier)
@@ -643,7 +643,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtAddress.Text = supplier.Address;
             TxtContactNumber.Text = supplier.ContactNo.ToString();
             TxtEmail.Text = supplier.Email;
-            
+
             TxtTotalAmount.Clear();
             ComboAction.Text = string.Empty;
 
@@ -665,12 +665,12 @@ namespace GrocerySupplyManagementApp.Forms
 
         public string GetSupplierName()
         {
-            return TxtSupplierName.Text;
+            return TxtSupplierName.Text.Trim();
         }
 
         public string GetSupplierId()
         {
-            return TxtSupplierId.Text;
+            return TxtSupplierId.Text.Trim();
         }
 
         public void LoadActions()

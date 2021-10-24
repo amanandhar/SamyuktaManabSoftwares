@@ -111,7 +111,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateMemberInfo())
+                if (ValidateMemberInfo())
                 {
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -135,7 +135,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 UtilityService.CreateFolder(_baseImageFolder, _employeeImageFolder);
                             }
 
-                            relativeImagePath = RichEmployeeId.Text + ".jpg";
+                            relativeImagePath = RichEmployeeId.Text.Trim() + ".jpg";
                             destinationFilePath = Path.Combine(_baseImageFolder, _employeeImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
@@ -144,26 +144,26 @@ namespace GrocerySupplyManagementApp.Forms
                     var employee = new Employee
                     {
                         EndOfDay = _endOfDay,
-                        EmployeeId = RichEmployeeId.Text,
-                        Name = RichName.Text,
-                        TempAddress = RichTempAddress.Text,
-                        PermAddress = RichPermAddress.Text,
-                        ContactNo = string.IsNullOrEmpty(RichContactNo.Text) ? 0 : Convert.ToInt64(RichContactNo.Text),
-                        Email = RichEmail.Text,
-                        CitizenshipNo = RichCitizenshipNo.Text,
-                        Education = ComboEducation.Text,
-                        DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
-                        Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
-                        FatherName = RichFatherName.Text,
-                        BloodGroup = ComboBloodGroup.Text,
-                        MotherName = RichMotherName.Text,
-                        Gender = ComboGender.Text,
-                        MaritalStatus = ComboMaritalStatus.Text,
-                        SpouseName = RichSpouseName.Text,
-                        Post = ComboPost.Text,
-                        PostStatus = ComboPostStatus.Text,
-                        AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
-                        ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
+                        EmployeeId = RichEmployeeId.Text.Trim(),
+                        Name = RichName.Text.Trim(),
+                        TempAddress = RichTempAddress.Text.Trim(),
+                        PermAddress = RichPermAddress.Text.Trim(),
+                        ContactNo = string.IsNullOrEmpty(RichContactNo.Text.Trim()) ? 0 : Convert.ToInt64(RichContactNo.Text.Trim()),
+                        Email = RichEmail.Text.Trim(),
+                        CitizenshipNo = RichCitizenshipNo.Text.Trim(),
+                        Education = ComboEducation.Text.Trim(),
+                        DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text.Trim()),
+                        Age = string.IsNullOrEmpty(RichAge.Text.Trim()) ? 0 : Convert.ToInt32(RichAge.Text.Trim()),
+                        FatherName = RichFatherName.Text.Trim(),
+                        BloodGroup = ComboBloodGroup.Text.Trim(),
+                        MotherName = RichMotherName.Text.Trim(),
+                        Gender = ComboGender.Text.Trim(),
+                        MaritalStatus = ComboMaritalStatus.Text.Trim(),
+                        SpouseName = RichSpouseName.Text.Trim(),
+                        Post = ComboPost.Text.Trim(),
+                        PostStatus = ComboPostStatus.Text.Trim(),
+                        AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text.Trim()),
+                        ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text.Trim()),
                         ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -195,10 +195,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            var employeeId = RichEmployeeId.Text;
+            var employeeId = RichEmployeeId.Text.Trim();
             try
             {
-                if(ValidateMemberInfo())
+                if (ValidateMemberInfo())
                 {
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -222,7 +222,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 UtilityService.CreateFolder(_baseImageFolder, _employeeImageFolder);
                             }
 
-                            relativeImagePath = RichEmployeeId.Text + ".jpg";
+                            relativeImagePath = RichEmployeeId.Text.Trim() + ".jpg";
                             destinationFilePath = Path.Combine(_baseImageFolder, _employeeImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
@@ -230,26 +230,26 @@ namespace GrocerySupplyManagementApp.Forms
 
                     var employee = new Employee
                     {
-                        EmployeeId = RichEmployeeId.Text,
-                        Name = RichName.Text,
-                        TempAddress = RichTempAddress.Text,
-                        PermAddress = RichPermAddress.Text,
-                        ContactNo = string.IsNullOrEmpty(RichContactNo.Text) ? 0 : Convert.ToInt64(RichContactNo.Text),
-                        Email = RichEmail.Text,
-                        CitizenshipNo = RichCitizenshipNo.Text,
-                        Education = ComboEducation.Text,
-                        DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text),
-                        Age = string.IsNullOrEmpty(RichAge.Text) ? 0 : Convert.ToInt32(RichAge.Text),
-                        BloodGroup = ComboBloodGroup.Text,
-                        FatherName = RichFatherName.Text,
-                        MotherName = RichMotherName.Text,
-                        Gender = ComboGender.Text,
-                        MaritalStatus = ComboMaritalStatus.Text,
-                        SpouseName = RichSpouseName.Text,
-                        Post = ComboPost.Text,
-                        PostStatus = ComboPostStatus.Text,
-                        AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text),
-                        ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text),
+                        EmployeeId = RichEmployeeId.Text.Trim(),
+                        Name = RichName.Text.Trim(),
+                        TempAddress = RichTempAddress.Text.Trim(),
+                        PermAddress = RichPermAddress.Text.Trim(),
+                        ContactNo = string.IsNullOrEmpty(RichContactNo.Text.Trim()) ? 0 : Convert.ToInt64(RichContactNo.Text.Trim()),
+                        Email = RichEmail.Text.Trim(),
+                        CitizenshipNo = RichCitizenshipNo.Text.Trim(),
+                        Education = ComboEducation.Text.Trim(),
+                        DateOfBirth = UtilityService.GetDate(MaskDtDOB.Text.Trim()),
+                        Age = string.IsNullOrEmpty(RichAge.Text.Trim()) ? 0 : Convert.ToInt32(RichAge.Text.Trim()),
+                        BloodGroup = ComboBloodGroup.Text.Trim(),
+                        FatherName = RichFatherName.Text.Trim(),
+                        MotherName = RichMotherName.Text.Trim(),
+                        Gender = ComboGender.Text.Trim(),
+                        MaritalStatus = ComboMaritalStatus.Text.Trim(),
+                        SpouseName = RichSpouseName.Text.Trim(),
+                        Post = ComboPost.Text.Trim(),
+                        PostStatus = ComboPostStatus.Text.Trim(),
+                        AppointedDate = UtilityService.GetDate(MaskDtAppointedDt.Text.Trim()),
+                        ResignedDate = UtilityService.GetDate(MaskDtResignedDt.Text.Trim()),
                         ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
@@ -287,7 +287,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var employeeId = RichEmployeeId.Text.Trim();
                     var relativeImagePath = employeeId + ".jpg";
                     var absoluteImagePath = Path.Combine(_baseImageFolder, _employeeImageFolder, relativeImagePath);
-                    if(!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
+                    if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                     {
                         UtilityService.DeleteImage(absoluteImagePath);
                     }
@@ -382,7 +382,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(Action action = Action.None)
         {
-            if(action == Action.Load)
+            if (action == Action.Load)
             {
                 BtnAdd.Enabled = true;
             }
@@ -414,11 +414,11 @@ namespace GrocerySupplyManagementApp.Forms
                 MaskDtAppointedDt.Enabled = true;
                 MaskDtResignedDt.Enabled = true;
             }
-            else if(action == Action.Save)
+            else if (action == Action.Save)
             {
                 BtnAdd.Enabled = true;
             }
-            else if(action == Action.Edit)
+            else if (action == Action.Edit)
             {
                 BtnAdd.Enabled = false;
                 BtnUpdate.Enabled = true;

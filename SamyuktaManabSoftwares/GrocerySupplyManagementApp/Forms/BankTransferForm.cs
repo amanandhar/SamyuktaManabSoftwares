@@ -28,7 +28,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public BankTransferForm(string username,
-            ISettingService settingService, IBankService bankService, 
+            ISettingService settingService, IBankService bankService,
             IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
             ICapitalService capitalService)
         {
@@ -78,7 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            if(ValidateBankTransfer())
+            if (ValidateBankTransfer())
             {
                 SaveBankTransfer();
             }
@@ -99,7 +99,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
         {
             var selectedBank = ComboBank.Text;
-            if(!string.IsNullOrWhiteSpace(selectedBank))
+            if (!string.IsNullOrWhiteSpace(selectedBank))
             {
                 var accountNo = _banks.Where(x => x.Name == selectedBank).Select(x => x.AccountNo).FirstOrDefault();
                 TxtAccountNo.Text = accountNo;
@@ -126,7 +126,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichDepositAmount.Clear();
                 RichNarration.Clear();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
@@ -173,7 +173,7 @@ namespace GrocerySupplyManagementApp.Forms
                             Action = Constants.BANK_TRANSFER,
                             ActionType = Constants.CASH,
                             Bank = ComboBank.Text,
-                            PaymentAmount = Convert.ToDecimal(RichDepositAmount.Text),
+                            PaymentAmount = Convert.ToDecimal(RichDepositAmount.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -188,15 +188,15 @@ namespace GrocerySupplyManagementApp.Forms
                             BankId = Convert.ToInt64(selectedItem.Id),
                             TransactionId = lastUserTransaction.Id,
                             Action = '1',
-                            Debit = Convert.ToDecimal(RichDepositAmount.Text),
+                            Debit = Convert.ToDecimal(RichDepositAmount.Text.Trim()),
                             Credit = Constants.DEFAULT_DECIMAL_VALUE,
-                            Narration = RichNarration.Text,
+                            Narration = RichNarration.Text.Trim(),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
                         _bankTransactionService.AddBankTransaction(bankTransaction);
 
-                        DialogResult result = MessageBox.Show(RichDepositAmount.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult result = MessageBox.Show(RichDepositAmount.Text.Trim() + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
                             ClearAllFields();

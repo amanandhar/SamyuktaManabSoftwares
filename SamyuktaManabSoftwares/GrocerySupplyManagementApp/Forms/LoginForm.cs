@@ -33,7 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Radio Button Event
         private void ChkBoxShow_CheckedChanged(object sender, EventArgs e)
         {
-            if(ChkBoxShow.Checked == true)
+            if (ChkBoxShow.Checked == true)
             {
                 TxtPassword.UseSystemPasswordChar = false;
             }
@@ -75,14 +75,14 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var username = TxtUsername.Text;
-                var password = TxtPassword.Text;
+                var username = TxtUsername.Text.Trim();
+                var password = TxtPassword.Text.Trim();
 
-                if (string.IsNullOrWhiteSpace(username.Trim()) || string.IsNullOrWhiteSpace(password.Trim()))
+                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
                     var error = MessageBox.Show("Username or Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (error == DialogResult.OK)
-                    { 
+                    {
                         return;
                     }
                 }
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
             var dbBackupPrefix = ConfigurationManager.AppSettings[Constants.DB_BACKUP_PREFIX].ToString();
             var dbBackupLocation = ConfigurationManager.AppSettings[Constants.DB_BACKUP_LOCATION].ToString();
 
-            if(!string.IsNullOrWhiteSpace(dbBackupPrefix) && !string.IsNullOrWhiteSpace(dbBackupLocation))
+            if (!string.IsNullOrWhiteSpace(dbBackupPrefix) && !string.IsNullOrWhiteSpace(dbBackupLocation))
             {
                 _databaseService.BackupDatabase(dbBackupPrefix, dbBackupLocation);
             }

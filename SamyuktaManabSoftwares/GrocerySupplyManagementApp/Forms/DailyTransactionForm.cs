@@ -18,12 +18,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly ISettingService _settingService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
-        private readonly IStockAdjustmentService _stockAdjustmentService;
-        private readonly IPOSDetailService _posDetailService;
         private readonly IAtomicTransactionService _atomicTransactionService;
 
         private readonly string _username;
@@ -33,9 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public DailyTransactionForm(string username,
             ISettingService settingService, IBankTransactionService bankTransactionService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService, IUserService userService,
-            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
             IAtomicTransactionService atomicTransactionService
             )
         {
@@ -43,12 +37,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             _settingService = settingService;
             _bankTransactionService = bankTransactionService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _userService = userService;
-            _stockAdjustmentService = stockAdjustmentService;
-            _posDetailService = posDetailService;
             _atomicTransactionService = atomicTransactionService;
 
             _username = username;
@@ -107,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
                             if (!string.IsNullOrWhiteSpace(billInvoiceNo)
                                 && billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX))
                             {
-                                // Get the latest transaction
+                                // Get the latest bill number
                                 var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Bill, string.Empty);
                                 if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
                                 {
@@ -115,7 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 }
                                 else
                                 {
-                                    DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     if (billResult == DialogResult.OK)
                                     {
                                         LoadDailyTransactions();
@@ -125,7 +115,7 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                             else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
                             {
-                                // Get the latest transaction
+                                // Get the latest invoice number
                                 var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Invoice, string.Empty);
                                 if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
                                 {
@@ -345,7 +335,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             var dailyTransactionFilter = new DailyTransactionFilter
             {
-                Date = UtilityService.GetDate(MaskDtEOD.Text)
+                Date = UtilityService.GetDate(MaskDtEOD.Text.Trim())
             };
 
             var selectedFilter = GroupFilter.Controls.OfType<RadioButton>()
@@ -355,31 +345,31 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (selectedFilter.Name.Equals("RadioPurchase"))
                 {
-                    dailyTransactionFilter.Purchase = ComboPurchase.Text;
+                    dailyTransactionFilter.Purchase = ComboPurchase.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioSales"))
                 {
-                    dailyTransactionFilter.Sales = ComboSales.Text;
+                    dailyTransactionFilter.Sales = ComboSales.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioPurchasePayment"))
                 {
-                    dailyTransactionFilter.Payment = ComboPurchasePayment.Text;
+                    dailyTransactionFilter.Payment = ComboPurchasePayment.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioExpensePayment"))
                 {
-                    dailyTransactionFilter.Expense = ComboExpensePayment.Text;
+                    dailyTransactionFilter.Expense = ComboExpensePayment.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioBankTransfer"))
                 {
-                    dailyTransactionFilter.BankTransfer = ComboBankTransfer.Text;
+                    dailyTransactionFilter.BankTransfer = ComboBankTransfer.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioReceipt"))
                 {
-                    dailyTransactionFilter.Receipt = ComboReceipt.Text;
+                    dailyTransactionFilter.Receipt = ComboReceipt.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
                 {
-                    dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text;
+                    dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioAll"))
                 {
@@ -387,7 +377,7 @@ namespace GrocerySupplyManagementApp.Forms
                 }
             }
 
-            dailyTransactionFilter.Username = ComboUser.Text;
+            dailyTransactionFilter.Username = ComboUser.Text.Trim();
 
             List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter)
                 .OrderByDescending(x => x.AddedDate)

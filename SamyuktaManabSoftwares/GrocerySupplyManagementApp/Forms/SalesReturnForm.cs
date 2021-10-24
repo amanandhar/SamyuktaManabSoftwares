@@ -41,7 +41,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public SalesReturnForm(string username,
-            ISettingService settingService, IItemService itemService, 
+            ISettingService settingService, IItemService itemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService)
         {
@@ -86,13 +86,13 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     Id = _salesReturnTransactionViewList.Count + 1,
                     EndOfDay = _endOfDay,
-                    Description = ComboInvoiceNo.Text,
-                    ItemCode = ComboItemCode.Text,
-                    ItemName = TxtItemName.Text,
-                    ItemQuantity = Convert.ToDecimal(TxtQuantity.Text),
-                    ItemPrice = Convert.ToDecimal(TxtItemPrice.Text),
-                    SalesProfit = Convert.ToDecimal(TxtSalesProfit.Text),
-                    Amount = Math.Round(Convert.ToDecimal(TxtQuantity.Text) * Convert.ToDecimal(TxtItemPrice.Text), 2) + Convert.ToDecimal(TxtSalesProfit.Text)
+                    Description = ComboInvoiceNo.Text.Trim(),
+                    ItemCode = ComboItemCode.Text.Trim(),
+                    ItemName = TxtItemName.Text.Trim(),
+                    ItemQuantity = Convert.ToDecimal(TxtQuantity.Text.Trim()),
+                    ItemPrice = Convert.ToDecimal(TxtItemPrice.Text.Trim()),
+                    SalesProfit = Convert.ToDecimal(TxtSalesProfit.Text.Trim()),
+                    Amount = Math.Round(Convert.ToDecimal(TxtQuantity.Text.Trim()) * Convert.ToDecimal(TxtItemPrice.Text.Trim()), 2) + Convert.ToDecimal(TxtSalesProfit.Text.Trim())
                 };
 
                 _salesReturnTransactionViewList.Add(salesReturnTransactionView);
@@ -117,7 +117,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var selectedItem = (ComboBoxItem)ComboItemCode.SelectedItem;
                 var itemCode = selectedItem?.Id;
                 var purchasedItem = _purchasedItemService.GetPurchasedItemByItemId(Convert.ToInt64(itemCode));
-                if(purchasedItem != null && !string.IsNullOrWhiteSpace(purchasedItem?.SupplierId))
+                if (purchasedItem != null && !string.IsNullOrWhiteSpace(purchasedItem?.SupplierId))
                 {
                     // Add Expense
                     var userTransactionExpense = new UserTransaction
@@ -343,8 +343,8 @@ namespace GrocerySupplyManagementApp.Forms
         private List<SalesReturnTransactionView> GetSalesReturnTransactions()
         {
             var salesReturnTransactionFilter = new SalesReturnTransactionFilter();
-            salesReturnTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text);
-            salesReturnTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text);
+            salesReturnTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim());
+            salesReturnTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim());
 
             var salesReturnTransactionViewList = _userTransactionService.GetSalesReturnTransactions(salesReturnTransactionFilter).ToList();
             return salesReturnTransactionViewList;
@@ -359,15 +359,15 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(Action action = Action.None)
         {
-            if(action == Action.AddReturn)
+            if (action == Action.AddReturn)
             {
                 BtnSave.Enabled = true;
             }
-            else if(action == Action.DeleteReturn)
+            else if (action == Action.DeleteReturn)
             {
                 BtnAdd.Enabled = true;
             }
-            else if(action == Action.Load)
+            else if (action == Action.Load)
             {
                 ComboInvoiceNo.Enabled = true;
                 TxtSalesProfit.Enabled = true;
@@ -377,11 +377,11 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnAdd.Enabled = true;
             }
-            else if(action == Action.SaveReturn)
+            else if (action == Action.SaveReturn)
             {
                 BtnAdd.Enabled = true;
             }
-            else if(action == Action.ShowReturn)
+            else if (action == Action.ShowReturn)
             {
                 BtnAdd.Enabled = true;
             }
@@ -429,6 +429,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
     }
 }

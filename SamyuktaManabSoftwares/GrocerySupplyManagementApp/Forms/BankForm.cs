@@ -78,22 +78,22 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateBankTransaction())
+                if (ValidateBankTransaction())
                 {
                     var bankTransaction = new BankTransaction
                     {
                         EndOfDay = _endOfDay,
                         BankId = selectedBankId,
-                        Action = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
-                        Debit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text) : Constants.DEFAULT_DECIMAL_VALUE,
-                        Credit = ComboActionType.Text.ToLower() == Constants.DEPOSIT.ToLower() ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichAmount.Text),
-                        Narration = ComboDepositType.Text,
+                        Action = ComboActionType.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
+                        Debit = ComboActionType.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower() ? Convert.ToDecimal(RichAmount.Text.Trim()) : Constants.DEFAULT_DECIMAL_VALUE,
+                        Credit = ComboActionType.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower() ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichAmount.Text.Trim()),
+                        Narration = ComboDepositType.Text.Trim(),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
 
                     _bankTransactionService.AddBankTransaction(bankTransaction);
-                    DialogResult result = MessageBox.Show(ComboActionType.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show(ComboActionType.Text.Trim() + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
@@ -118,7 +118,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (DataGridBankList.SelectedCells.Count == 1 
+                if (DataGridBankList.SelectedCells.Count == 1
                     || DataGridBankList.SelectedRows.Count == 1)
                 {
                     DataGridViewRow selectedRow;
@@ -165,8 +165,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnSaveBank_Click(object sender, EventArgs e)
         {
             try
-            {  
-                if(ValidateBankInfo())
+            {
+                if (ValidateBankInfo())
                 {
                     var name = TxtBankName.Text.Trim();
                     var accountNo = TxtAccountNo.Text.Trim();
@@ -206,21 +206,21 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateBankInfo())
+                if (ValidateBankInfo())
                 {
                     var bank = new Bank
                     {
-                        Name = TxtBankName.Text,
-                        AccountNo = TxtAccountNo.Text,
+                        Name = TxtBankName.Text.Trim(),
+                        AccountNo = TxtAccountNo.Text.Trim(),
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
                     };
 
                     _bankService.UpdateBank(selectedBankId, bank);
-                    MessageBox.Show(TxtBankName.Text + " is updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(TxtBankName.Text.Trim() + " is updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
@@ -232,14 +232,14 @@ namespace GrocerySupplyManagementApp.Forms
             List<BankTransaction> bankTransactions = _bankTransactionService.GetBankTransactions(selectedBankId).ToList();
             if (bankTransactions.Count > 0)
             {
-                MessageBox.Show(TxtBankName.Text + " can't be deleted. Please delete its transactions first.", "Error", MessageBoxButtons.OK);
+                MessageBox.Show(TxtBankName.Text.Trim() + " can't be deleted. Please delete its transactions first.", "Error", MessageBoxButtons.OK);
             }
             else
             {
                 _bankService.DeleteBank(selectedBankId);
                 _bankTransactionService.DeleteBankTransaction(selectedBankId);
 
-                DialogResult result = MessageBox.Show(TxtBankName.Text + " is deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show(TxtBankName.Text.Trim() + " is deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
                     ClearAllFields();
@@ -253,7 +253,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
-            var action = ComboAction.Text;
+            var action = ComboAction.Text.Trim();
             var bankTransactionFilter = new BankTransactionFilter();
 
             if (!string.IsNullOrWhiteSpace(action))
@@ -261,8 +261,8 @@ namespace GrocerySupplyManagementApp.Forms
                 bankTransactionFilter.Action = action.Equals(Constants.DEPOSIT) ? '1' : '0';
             }
 
-            bankTransactionFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text);
-            bankTransactionFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text);
+            bankTransactionFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
+            bankTransactionFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
 
             var bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(bankTransactionFilter).ToList();
             TxtAmount.Text = bankTransactionViewList.Sum(x => x.Balance).ToString();
@@ -452,7 +452,7 @@ namespace GrocerySupplyManagementApp.Forms
             var name = TxtBankName.Text.Trim();
             var accountNo = TxtAccountNo.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(name) 
+            if (string.IsNullOrWhiteSpace(name)
                 || string.IsNullOrWhiteSpace(accountNo))
             {
                 MessageBox.Show("Please enter following fields: " +

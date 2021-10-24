@@ -68,7 +68,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateUserInfo())
+                if (ValidateUserInfo())
                 {
                     var username = TxtUsername.Text.Trim();
                     var password = TxtPassword.Text.Trim();
@@ -110,9 +110,9 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         var user = new User
                         {
-                            Username = TxtUsername.Text,
-                            Password = Cryptography.Encrypt(TxtPassword.Text),
-                            Type = ComboUserType.Text,
+                            Username = TxtUsername.Text.Trim(),
+                            Password = Cryptography.Encrypt(TxtPassword.Text.Trim()),
+                            Type = ComboUserType.Text.Trim(),
                             Bank = ChkBank.Checked,
                             DailySummary = ChkDailySummary.Checked,
                             DailyTransaction = ChkDailyTransaction.Checked,
@@ -159,13 +159,13 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateUserInfo())
+                if (ValidateUserInfo())
                 {
-                    var username = TxtUsername.Text;
-                    var password = TxtPassword.Text;
-                    var confirmPassword = TxtConfirmPassword.Text;
+                    var username = TxtUsername.Text.Trim();
+                    var password = TxtPassword.Text.Trim();
+                    var confirmPassword = TxtConfirmPassword.Text.Trim();
 
-                    if (string.IsNullOrWhiteSpace(username.Trim()))
+                    if (string.IsNullOrWhiteSpace(username))
                     {
                         var errorResult = MessageBox.Show("Username is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         if (errorResult == DialogResult.OK)
@@ -173,7 +173,7 @@ namespace GrocerySupplyManagementApp.Forms
                             TxtUsername.Focus();
                         }
                     }
-                    else if (string.IsNullOrWhiteSpace(password.Trim()))
+                    else if (string.IsNullOrWhiteSpace(password))
                     {
                         var errorResult = MessageBox.Show("Password is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         if (errorResult == DialogResult.OK)
@@ -181,7 +181,7 @@ namespace GrocerySupplyManagementApp.Forms
                             TxtPassword.Focus();
                         }
                     }
-                    else if (string.IsNullOrWhiteSpace(confirmPassword.Trim()) || (password.Trim() != confirmPassword.Trim()))
+                    else if (string.IsNullOrWhiteSpace(confirmPassword) || (password != confirmPassword))
                     {
                         var errorResult = MessageBox.Show("Password does not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         if (errorResult == DialogResult.OK)
@@ -193,9 +193,9 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         var user = new User
                         {
-                            Username = TxtUsername.Text,
-                            Password = _isPasswordChanged ? Cryptography.Encrypt(TxtPassword.Text) : TxtPassword.Text,
-                            Type = ComboUserType.Text,
+                            Username = TxtUsername.Text.Trim(),
+                            Password = _isPasswordChanged ? Cryptography.Encrypt(TxtPassword.Text.Trim()) : TxtPassword.Text.Trim(),
+                            Type = ComboUserType.Text.Trim(),
                             Bank = ChkBank.Checked,
                             DailySummary = ChkDailySummary.Checked,
                             DailyTransaction = ChkDailyTransaction.Checked,
@@ -238,7 +238,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
-                    var username = TxtUsername.Text;
+                    var username = TxtUsername.Text.Trim();
                     if (_userService.DeleteUser(username))
                     {
                         DialogResult result = MessageBox.Show(username + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -299,7 +299,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ChkStock_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ChkDailyExpense_CheckedChanged(object sender, EventArgs e)

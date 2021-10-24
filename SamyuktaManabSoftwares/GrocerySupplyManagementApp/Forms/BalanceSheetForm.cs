@@ -32,8 +32,8 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Constructor
-        public BalanceSheetForm(ISettingService settingService, IBankTransactionService bankTransactionService, 
-            IStockService stockService, IIncomeExpenseService incomeExpenseService, 
+        public BalanceSheetForm(ISettingService settingService, IBankTransactionService bankTransactionService,
+            IStockService stockService, IIncomeExpenseService incomeExpenseService,
             ICapitalService capitalService)
         {
             InitializeComponent();
@@ -63,12 +63,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var endOfDay = UtilityService.GetDate(MaskEndOfDay.Text);
+                var endOfDay = UtilityService.GetDate(MaskEndOfDay.Text.Trim());
                 var totalIncome = _incomeExpenseService.GetTotalIncome(endOfDay);
                 var totalExpense = _incomeExpenseService.GetTotalExpense(endOfDay);
 
                 var shareCapital = _bankTransactionService
-                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1',  Narration = Constants.SHARE_CAPITAL });
+                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.SHARE_CAPITAL });
                 var ownerEquity = _bankTransactionService
                     .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.OWNER_EQUITY });
                 var loanAmount = Constants.DEFAULT_DECIMAL_VALUE; // ToDo : Add loan form later
@@ -79,7 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
                     + payableAmount + netProfit;
 
                 var cashInHand = Math.Abs(_capitalService.GetCashInHand(new UserTransactionFilter { DateTo = endOfDay }));
-                var bankAccount = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { DateTo = endOfDay } );
+                var bankAccount = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { DateTo = endOfDay });
 
                 var stockFilter = new StockFilter() { DateTo = endOfDay };
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
@@ -116,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnExportToExcel_Click(object sender, EventArgs e)
         {
             var dialogResult = SaveFileDialog.ShowDialog();
-            if(dialogResult == DialogResult.OK)
+            if (dialogResult == DialogResult.OK)
             {
                 var excelData = new Dictionary<string, List<ExcelField>>();
 
@@ -158,12 +158,12 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void EnableFields(Action action = Action.None)
         {
-            if(action == Action.Show)
+            if (action == Action.Show)
             {
                 BtnShow.Enabled = true;
                 BtnExportToExcel.Enabled = true;
             }
-            else if(action == Action.Load)
+            else if (action == Action.Load)
             {
                 BtnShow.Enabled = true;
             }

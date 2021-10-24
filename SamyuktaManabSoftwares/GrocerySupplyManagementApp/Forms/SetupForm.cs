@@ -15,9 +15,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IEndOfDayService _endOfDayService;
 
         private readonly string _username;
-        private readonly Setting _setting;
-        private readonly string _endOfDay;
-
+ 
         #region Enum
         private enum Action
         {
@@ -38,8 +36,6 @@ namespace GrocerySupplyManagementApp.Forms
             _endOfDayService = endOfDayService;
 
             _username = username;
-            _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
-            _endOfDay = _setting.StartingDate;
         }
         #endregion
 

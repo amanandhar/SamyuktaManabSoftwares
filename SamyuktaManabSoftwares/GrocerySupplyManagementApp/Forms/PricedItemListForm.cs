@@ -125,8 +125,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void SearchPricedItems()
         {
-            var itemName = RichSearchItemName.Text;
-            var itemCode = RichSearchItemCode.Text;
+            var itemName = RichSearchItemName.Text.Trim();
+            var itemCode = RichSearchItemCode.Text.Trim();
 
             var pricedItemViewList = _pricedItemViewList.Where(x => x.Name.ToLower().StartsWith(itemName.ToLower()) && x.Code.ToLower().StartsWith(itemCode.ToLower())).ToList();
             LoadPricedItems(pricedItemViewList);

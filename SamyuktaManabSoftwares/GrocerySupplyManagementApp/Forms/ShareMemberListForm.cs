@@ -1,5 +1,4 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
@@ -20,8 +19,8 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
         private readonly IShareMemberListForm _shareMemberListForm;
         private List<ShareMemberTransactionView> _shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
-        
-        public ShareMemberListForm(IUserTransactionService userTransactionService, 
+
+        public ShareMemberListForm(IUserTransactionService userTransactionService,
             IShareMemberListForm shareMemberListForm)
         {
             InitializeComponent();
@@ -117,7 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void SearchShareMemberTransactionViewList()
         {
-            var shareMemberName = RichSearchMemberName.Text;
+            var shareMemberName = RichSearchMemberName.Text.Trim();
 
             var shareMemberTransactionViewList = _shareMemberTransactionViewList.Where(x => x.Name.ToLower().StartsWith(shareMemberName.ToLower())).ToList();
             LoadShareTransactionViewList(shareMemberTransactionViewList);

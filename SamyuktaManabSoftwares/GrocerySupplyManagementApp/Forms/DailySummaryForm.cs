@@ -16,12 +16,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private readonly ISettingService _settingService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
-        private readonly IStockAdjustmentService _stockAdjustmentService;
-        private readonly IPOSDetailService _posDetailService;
         private readonly ICapitalService _capitalService;
         private readonly IAtomicTransactionService _atomicTransactionService;
 
@@ -31,21 +27,15 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public SummaryForm(string username, ISettingService settingService, IBankTransactionService bankTransactionService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService, 
             IUserTransactionService userTransactionService, IUserService userService,
-            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
             ICapitalService capitalService, IAtomicTransactionService atomicTransactionService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _bankTransactionService = bankTransactionService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _userService = userService;
-            _stockAdjustmentService = stockAdjustmentService;
-            _posDetailService = posDetailService;
             _capitalService = capitalService;
             _atomicTransactionService = atomicTransactionService;
 
@@ -58,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void SummaryForm_Load(object sender, EventArgs e)
         {
-            MaskEndOfDay.Text = _endOfDay; 
+            MaskEndOfDay.Text = _endOfDay;
         }
         #endregion
 
@@ -103,11 +93,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDailyTransactions_Click(object sender, EventArgs e)
         {
-            DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
+            DailyTransactionForm transactionForm = new DailyTransactionForm(_username,
                 _settingService, _bankTransactionService,
-                _purchasedItemService, _soldItemService,
-                _userTransactionService, _userService, 
-                _stockAdjustmentService, _posDetailService,
+                _userTransactionService, _userService,
                 _atomicTransactionService
                 );
 

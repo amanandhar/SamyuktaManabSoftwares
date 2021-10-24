@@ -117,17 +117,17 @@ namespace GrocerySupplyManagementApp.Forms
             userTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text);
 
             userTransactionFilter.Action = ComboAction.Text;
-           
+
             var userTransactions = _userTransactionService.GetUserTransactions(userTransactionFilter).ToList();
             List<PurchaseSalesTransactionView> purchaseSalesTransactionViewList = userTransactions.OrderBy(x => x.EndOfDay)
                 .Select(userTransaction => new PurchaseSalesTransactionView()
                 {
                     EndOfDay = userTransaction.EndOfDay,
                     Description = userTransaction.Action,
-                    BillInvoiceNo = userTransaction.Action == Constants.PURCHASE 
-                    ? userTransaction?.BillNo 
+                    BillInvoiceNo = userTransaction.Action == Constants.PURCHASE
+                    ? userTransaction?.BillNo
                     : userTransaction?.InvoiceNo,
-                    Amount = userTransaction.Action == Constants.PURCHASE 
+                    Amount = userTransaction.Action == Constants.PURCHASE
                     ? (userTransaction.DuePaymentAmount + userTransaction.PaymentAmount)
                     : (userTransaction.DueReceivedAmount + userTransaction.ReceivedAmount)
                 }).ToList();
@@ -141,7 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ComboAction_SelectedValueChanged(object sender, System.EventArgs e)
         {
-            if(ComboAction.Text.Trim() == Constants.PURCHASE || ComboAction.Text.Trim() == Constants.SALES)
+            if (ComboAction.Text.Trim() == Constants.PURCHASE || ComboAction.Text.Trim() == Constants.SALES)
             {
                 BtnShow.Enabled = true;
             }

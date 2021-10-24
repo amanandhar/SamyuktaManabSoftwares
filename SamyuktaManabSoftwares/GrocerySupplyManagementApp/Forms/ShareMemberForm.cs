@@ -115,7 +115,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateShareMemberTransaction())
+                if (ValidateShareMemberTransaction())
                 {
                     var userTransaction = new UserTransaction
                     {
@@ -123,8 +123,8 @@ namespace GrocerySupplyManagementApp.Forms
                         ShareMemberId = Convert.ToInt64(_selectedShareMemberId),
                         Action = Constants.RECEIPT,
                         ActionType = Constants.SHARE_CAPITAL,
-                        Bank = ComboBank.Text,
-                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text),
+                        Bank = ComboBank.Text.Trim(),
+                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -138,9 +138,9 @@ namespace GrocerySupplyManagementApp.Forms
                         BankId = Convert.ToInt64(selectedItem.Id),
                         TransactionId = lastUserTransaction.Id,
                         Action = '1',
-                        Debit = Convert.ToDecimal(RichAmount.Text),
+                        Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
                         Credit = Constants.DEFAULT_DECIMAL_VALUE,
-                        Narration = ComboNarration.Text,
+                        Narration = ComboNarration.Text.Trim(),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -175,7 +175,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if(ValidateShareMemberInfo())
+                if (ValidateShareMemberInfo())
                 {
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -208,9 +208,9 @@ namespace GrocerySupplyManagementApp.Forms
                     var shareMember = new ShareMember
                     {
                         EndOfDay = _endOfDay,
-                        Name = RichName.Text,
-                        Address = RichAddress.Text,
-                        ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
+                        Name = RichName.Text.Trim(),
+                        Address = RichAddress.Text.Trim(),
+                        ContactNo = string.IsNullOrEmpty(RichContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(RichContactNumber.Text.Trim()),
                         ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -245,7 +245,7 @@ namespace GrocerySupplyManagementApp.Forms
             var shareMemberId = _selectedShareMemberId;
             try
             {
-                if(ValidateShareMemberInfo())
+                if (ValidateShareMemberInfo())
                 {
                     var selectedShareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
                     string relativeImagePath = null;
@@ -277,7 +277,7 @@ namespace GrocerySupplyManagementApp.Forms
                                     UtilityService.DeleteImage(selectedShareMember.ImagePath);
                                 }
 
-                                relativeImagePath = RichName.Text + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
+                                relativeImagePath = RichName.Text.Trim() + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + ".jpg";
                                 destinationFilePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, relativeImagePath);
                                 File.Copy(_uploadedImagePath, destinationFilePath, true);
                             }
@@ -290,9 +290,9 @@ namespace GrocerySupplyManagementApp.Forms
 
                     var shareMember = new ShareMember
                     {
-                        Name = RichName.Text,
-                        Address = RichAddress.Text,
-                        ContactNo = string.IsNullOrEmpty(RichContactNumber.Text) ? 0 : Convert.ToInt64(RichContactNumber.Text),
+                        Name = RichName.Text.Trim(),
+                        Address = RichAddress.Text.Trim(),
+                        ContactNo = string.IsNullOrEmpty(RichContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(RichContactNumber.Text.Trim()),
                         ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
@@ -322,7 +322,7 @@ namespace GrocerySupplyManagementApp.Forms
                 if (deleteResult == DialogResult.Yes)
                 {
                     var shareMemberId = _selectedShareMemberId;
-                    var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId)); 
+                    var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
                     var relativeImagePath = shareMember.ImagePath;
                     var absoluteImagePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, relativeImagePath);
                     if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
@@ -332,7 +332,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (_shareMemberService.DeleteShareMember(Convert.ToInt64(shareMemberId)))
                     {
-                        DialogResult result = MessageBox.Show(RichName.Text + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult result = MessageBox.Show(RichName.Text.Trim() + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
                             ClearAllFields();
@@ -362,7 +362,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region OpenFileDialog Event
-        private void OpenShareMemberImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OpenShareMemberImageDialog_FileOk(object sender, CancelEventArgs e)
         {
             try
             {
@@ -455,7 +455,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CAPITAL, Value = Constants.SHARE_CAPITAL });
         }
-        
+
         private List<ShareMemberTransactionView> GetShareMemberTransactions(string shareMemberId)
         {
             var shareMemberTransactionFilter = new ShareMemberTransactionFilter()

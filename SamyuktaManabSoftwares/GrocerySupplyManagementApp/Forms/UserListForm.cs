@@ -103,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var user = _userService.GetUser(_username);
             var users = _userService.GetUsers(_username, user.Type).ToList();
-            
+
             var bindingList = new BindingList<User>(users);
             var source = new BindingSource(bindingList, null);
             DataGridUserList.DataSource = source;

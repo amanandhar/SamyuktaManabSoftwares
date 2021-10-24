@@ -22,7 +22,7 @@ namespace GrocerySupplyManagementApp.Forms
         private List<MemberView> _memberViewList = new List<MemberView>();
 
         #region Constructor
-        public MemberListForm(IMemberService memberService, ICapitalService capitalService, 
+        public MemberListForm(IMemberService memberService, ICapitalService capitalService,
             IMemberListForm memberListForm)
         {
             InitializeComponent();

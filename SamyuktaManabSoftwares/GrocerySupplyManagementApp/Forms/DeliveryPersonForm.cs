@@ -16,7 +16,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IEmployeeService _employeeService;
-        
+
         private string _selectedEmployeeId;
         private readonly Setting _setting;
         private readonly string _endOfDay;
@@ -57,8 +57,8 @@ namespace GrocerySupplyManagementApp.Forms
             var employeeId = _selectedEmployeeId;
             var deliveryPersonTransactionFilter = new DeliveryPersonTransactionFilter
             {
-                DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text),
-                DateTo = UtilityService.GetDate(MaskDtEODTo.Text),
+                DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim()),
+                DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim()),
                 EmployeeId = employeeId
             };
             LoadDeliveryTransactions(deliveryPersonTransactionFilter);
