@@ -29,14 +29,15 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.RichBillNo = new System.Windows.Forms.RichTextBox();
             this.RichItemName = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RichVat = new System.Windows.Forms.RichTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.RichDiscount = new System.Windows.Forms.RichTextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -58,13 +59,13 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.ChkBoxVat = new System.Windows.Forms.CheckBox();
             this.BtnAddBill = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnRemoveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnClearItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSaveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSearchItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.RichVat = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPurchaseList)).BeginInit();
@@ -128,6 +129,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ChkBoxVat);
             this.groupBox1.Controls.Add(this.RichVat);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.RichDiscount);
@@ -160,12 +162,28 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Purchase Details";
             // 
+            // RichVat
+            // 
+            this.RichVat.BackColor = System.Drawing.Color.White;
+            this.RichVat.Enabled = false;
+            this.RichVat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichVat.Location = new System.Drawing.Point(736, 55);
+            this.RichVat.Multiline = false;
+            this.RichVat.Name = "RichVat";
+            this.RichVat.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichVat.Size = new System.Drawing.Size(93, 28);
+            this.RichVat.TabIndex = 30;
+            this.RichVat.Text = "";
+            this.RichVat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichVat_KeyDown);
+            this.RichVat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichVat_KeyPress);
+            this.RichVat.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichVat_KeyUp);
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(678, 59);
+            this.label12.Location = new System.Drawing.Point(649, 59);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(62, 18);
             this.label12.TabIndex = 29;
@@ -176,7 +194,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichDiscount.BackColor = System.Drawing.Color.White;
             this.RichDiscount.Enabled = false;
             this.RichDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichDiscount.Location = new System.Drawing.Point(580, 53);
+            this.RichDiscount.Location = new System.Drawing.Point(550, 53);
             this.RichDiscount.Multiline = false;
             this.RichDiscount.Name = "RichDiscount";
             this.RichDiscount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -192,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(510, 59);
+            this.label11.Location = new System.Drawing.Point(479, 59);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(67, 18);
             this.label11.TabIndex = 27;
@@ -207,7 +225,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichTotalAmount.Multiline = false;
             this.RichTotalAmount.Name = "RichTotalAmount";
             this.RichTotalAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichTotalAmount.Size = new System.Drawing.Size(154, 28);
+            this.RichTotalAmount.Size = new System.Drawing.Size(125, 28);
             this.RichTotalAmount.TabIndex = 8;
             this.RichTotalAmount.Text = "";
             this.RichTotalAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTotalAmount_KeyDown);
@@ -372,23 +390,23 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridPurchaseList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridPurchaseList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridPurchaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridPurchaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.DataGridPurchaseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridPurchaseList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridPurchaseList.DefaultCellStyle = dataGridViewCellStyle6;
             this.DataGridPurchaseList.Location = new System.Drawing.Point(15, 155);
             this.DataGridPurchaseList.Name = "DataGridPurchaseList";
             this.DataGridPurchaseList.Size = new System.Drawing.Size(990, 413);
@@ -426,6 +444,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.Size = new System.Drawing.Size(312, 31);
             this.label9.TabIndex = 64;
             this.label9.Text = "Purchase Management";
+            // 
+            // ChkBoxVat
+            // 
+            this.ChkBoxVat.AutoSize = true;
+            this.ChkBoxVat.Location = new System.Drawing.Point(715, 62);
+            this.ChkBoxVat.Name = "ChkBoxVat";
+            this.ChkBoxVat.Size = new System.Drawing.Size(15, 14);
+            this.ChkBoxVat.TabIndex = 45;
+            this.ChkBoxVat.UseVisualStyleBackColor = true;
+            this.ChkBoxVat.CheckedChanged += new System.EventHandler(this.ChkBoxVat_CheckedChanged);
             // 
             // BtnAddBill
             // 
@@ -547,19 +575,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchItem.UseVisualStyleBackColor = false;
             this.BtnSearchItem.Click += new System.EventHandler(this.BtnSearchItem_Click);
             // 
-            // RichVat
-            // 
-            this.RichVat.BackColor = System.Drawing.Color.White;
-            this.RichVat.Enabled = false;
-            this.RichVat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichVat.Location = new System.Drawing.Point(746, 55);
-            this.RichVat.Multiline = false;
-            this.RichVat.Name = "RichVat";
-            this.RichVat.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichVat.Size = new System.Drawing.Size(83, 28);
-            this.RichVat.TabIndex = 30;
-            this.RichVat.Text = "";
-            // 
             // PurchaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -621,5 +636,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichDiscount;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RichTextBox RichVat;
+        private System.Windows.Forms.CheckBox ChkBoxVat;
     }
 }

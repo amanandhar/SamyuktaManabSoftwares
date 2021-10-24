@@ -225,6 +225,14 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void RichVat_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void RichQuantity_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -239,6 +247,11 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         private void RichDiscount_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateVatAndPurchasePrice();
+        }
+
+        private void RichVat_KeyUp(object sender, KeyEventArgs e)
         {
             CalculateVatAndPurchasePrice();
         }
@@ -264,6 +277,14 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void RichVat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                CalculateVatAndPurchasePrice();
+            }
+        }
+
         private void RichQuantity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -273,6 +294,21 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     AddToCart();
                 }
+            }
+        }
+
+        #endregion
+
+        #region Checkbox Event
+        private void ChkBoxVat_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkBoxVat.Checked)
+            {
+                RichVat.Enabled = true;
+            }
+            else
+            {
+                RichVat.Enabled = false;
             }
         }
         #endregion
@@ -480,7 +516,10 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (totalAmount >= Constants.DEFAULT_DECIMAL_VALUE)
             {
-                RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT / 100), 2).ToString();
+                if(!ChkBoxVat.Checked)
+                {
+                    RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT / 100), 2).ToString();
+                }
             }
 
             var vat = string.IsNullOrWhiteSpace(RichVat.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichVat.Text.Trim());
