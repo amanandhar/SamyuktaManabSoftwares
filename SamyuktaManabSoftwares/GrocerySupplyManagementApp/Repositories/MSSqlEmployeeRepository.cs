@@ -259,7 +259,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[SpouseName], [Post], [PostStatus], [AppointedDate], [ResignedDate], " +
                 "[ImagePath], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_EMPLOYEE + " " +
-                "WHERE 1=1 " +
+                "WHERE 1 = 1 " +
                 "AND [Post] = '" + Constants.DELIVERY_PERSON + "'";
 
             try
@@ -457,7 +457,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                     "FROM " + Constants.TABLE_EMPLOYEE + " " +
                     "WHERE 1 = 1 " +
-                    "[EmployeeId] = @EmployeeId";
+                    "AND [EmployeeId] = @EmployeeId";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

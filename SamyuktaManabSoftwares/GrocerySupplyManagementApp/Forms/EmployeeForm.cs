@@ -284,7 +284,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
-                    var employeeId = RichEmployeeId.Text;
+                    var employeeId = RichEmployeeId.Text.Trim();
                     var relativeImagePath = employeeId + ".jpg";
                     var absoluteImagePath = Path.Combine(_baseImageFolder, _employeeImageFolder, relativeImagePath);
                     if(!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
