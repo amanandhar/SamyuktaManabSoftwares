@@ -5,16 +5,17 @@ using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
 {
-    public class MSSqlDailyTransactionRepository : IDailyTransactionRepository
+    public class MSSqlAtomicTransactionRepository : IAtomicTransactionRepository
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private readonly string connectionString;
 
-        public MSSqlDailyTransactionRepository()
+        public MSSqlAtomicTransactionRepository()
         {
             connectionString = UtilityService.GetConnectionString();
         }
 
+        #region Daily Transaction Methods
         public bool DeleteBill(long id, string billNo)
         {
             var result = false;
@@ -248,5 +249,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return result;
         }
+
+        #endregion
     }
 }

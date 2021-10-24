@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -81,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (_userTransactionService.AddUserTransaction(userTransaction) != null)
                     {
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
                         ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                         var bankTransaction = new BankTransaction
                         {

@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserService _userService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
         private readonly IPOSDetailService _posDetailService;
+        private readonly IAtomicTransactionService _atomicTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -33,7 +35,8 @@ namespace GrocerySupplyManagementApp.Forms
             ISettingService settingService, IBankTransactionService bankTransactionService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService, IUserService userService,
-            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService
+            IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
+            IAtomicTransactionService atomicTransactionService
             )
         {
             InitializeComponent();
@@ -46,6 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             _userService = userService;
             _stockAdjustmentService = stockAdjustmentService;
             _posDetailService = posDetailService;
+            _atomicTransactionService = atomicTransactionService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -103,12 +107,11 @@ namespace GrocerySupplyManagementApp.Forms
                             if (!string.IsNullOrWhiteSpace(billInvoiceNo)
                                 && billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX))
                             {
-                                var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
+                                // Get the latest transaction
+                                var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Bill, string.Empty);
                                 if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
                                 {
-                                    _userTransactionService.DeleteUserTransaction(id);
-                                    _purchasedItemService.DeletePurchasedItem(billInvoiceNo);
-                                    _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
+                                    _atomicTransactionService.DeleteBill(id, billInvoiceNo);
                                 }
                                 else
                                 {
@@ -122,12 +125,11 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                             else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
                             {
-                                var posTransaction = _userTransactionService.GetLastUserTransaction(_username, billInvoiceNo);
+                                // Get the latest transaction
+                                var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Invoice, string.Empty);
                                 if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
                                 {
-                                    _userTransactionService.DeleteUserTransaction(billInvoiceNo);
-                                    _soldItemService.DeleteSoldItem(billInvoiceNo);
-                                    _posDetailService.DeletePOSDetail(billInvoiceNo);
+                                    _atomicTransactionService.DeleteInvoice(billInvoiceNo);
                                 }
                                 else
                                 {
@@ -141,8 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                             else if (income.Equals(Constants.STOCK_ADJUSTMENT) || expense.Equals(Constants.STOCK_ADJUSTMENT))
                             {
-                                _userTransactionService.DeleteUserTransaction(id);
-                                _stockAdjustmentService.DeleteStockAdjustmentByUserTransaction(id);
+                                _atomicTransactionService.DeleteStockAdjustment(id);
                             }
                             else if (actionType.Equals(Constants.OWNER_EQUITY))
                             {
@@ -150,8 +151,7 @@ namespace GrocerySupplyManagementApp.Forms
                             }
                             else
                             {
-                                _userTransactionService.DeleteUserTransaction(id);
-                                _bankTransactionService.DeleteBankTransactionByUserTransaction(id);
+                                _atomicTransactionService.DeleteBankTransaction(id);
                             }
 
                             DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

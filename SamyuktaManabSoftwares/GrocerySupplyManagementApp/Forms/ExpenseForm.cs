@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.ComponentModel;
@@ -120,7 +121,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (ComboPayment.Text.Trim().ToLower() == Constants.CHEQUE.ToLower())
                     {
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
 
                         ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                         var bankTransaction = new BankTransaction

@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -364,7 +365,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplierTransactionViews;
         }
         
-        public UserTransaction GetLastUserTransaction(string addedBy, string option)
+        public UserTransaction GetLastUserTransaction(TransactionNumberType transactionNumberType, string addedBy)
         {
             var userTransaction = new UserTransaction();
             var query = @"SELECT " +
@@ -377,21 +378,19 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 ";
 
-            if (!string.IsNullOrWhiteSpace(option))
+            
+            if (transactionNumberType == TransactionNumberType.Bill)
             {
-                if(option.StartsWith(Constants.INVOICE_NO_PREFIX))
-                {
-                    query += "AND ([InvoiceNo] IS NOT NULL " +
-                        "AND DATALENGTH([InvoiceNo]) > 0) ";
-                }
-                else if(option.StartsWith(Constants.BILL_NO_PREFIX))
-                {
-                    query += "AND ([BillNo] IS NOT NULL " +
-                        "AND DATALENGTH([BillNo]) > 0) ";
-                }
+                query += "AND ([BillNo] IS NOT NULL " +
+                    "AND DATALENGTH([BillNo]) > 0) ";
+            }
+            else if (transactionNumberType == TransactionNumberType.Invoice)
+            {
+                query += "AND ([InvoiceNo] IS NOT NULL " +
+                    "AND DATALENGTH([InvoiceNo]) > 0) ";
             }
 
-            if(!string.IsNullOrWhiteSpace(addedBy))
+            if (!string.IsNullOrWhiteSpace(addedBy))
             {
                 query += "AND ISNULL([AddedBy], '') = @AddedBy ";
             }

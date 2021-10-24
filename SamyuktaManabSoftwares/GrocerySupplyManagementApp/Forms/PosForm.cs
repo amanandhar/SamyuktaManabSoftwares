@@ -37,6 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IStockAdjustmentService _stockAdjustmentService;
         private readonly IIncomeExpenseService _incomeExpenseService;
         private readonly ICapitalService _capitalService;
+        private readonly IAtomicTransactionService _atomicTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -79,7 +80,8 @@ namespace GrocerySupplyManagementApp.Forms
             ICompanyInfoService companyInfoService, IEmployeeService employeeService,
             IStockService stockService, IUserService userService,
             IPOSDetailService posDetailService, IStockAdjustmentService stockAdjustmentService,
-            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService
+            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService,
+            IAtomicTransactionService atomicTransactionService
             )
         {
             InitializeComponent();
@@ -102,6 +104,7 @@ namespace GrocerySupplyManagementApp.Forms
             _stockAdjustmentService = stockAdjustmentService;
             _incomeExpenseService = incomeExpenseService;
             _capitalService = capitalService;
+            _atomicTransactionService = atomicTransactionService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -234,7 +237,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username, 
                 _settingService, _bankTransactionService, _purchasedItemService,
-               _soldItemService, _userTransactionService, _userService, _stockAdjustmentService, _posDetailService);
+               _soldItemService, _userTransactionService, _userService, 
+               _stockAdjustmentService, _posDetailService, _atomicTransactionService);
             transactionForm.Show();
             EnableFields();
             EnableFields(Action.Transaction);
@@ -391,8 +395,6 @@ namespace GrocerySupplyManagementApp.Forms
                         };
 
                         _posDetailService.AddPOSDetail(posDetail);
-
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
 
                         // Add Sales Discount
                         if (Convert.ToDecimal(TxtDiscount.Text) != Constants.DEFAULT_DECIMAL_VALUE)

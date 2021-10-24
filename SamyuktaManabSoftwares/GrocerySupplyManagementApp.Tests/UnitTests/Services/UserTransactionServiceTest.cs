@@ -2,6 +2,7 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -218,7 +219,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
         public void GetLastUserTransaction_ReturnsUserTransaction_WhenAddedByAndOptionArePassed()
         {
-            _userTransactionRepository.Setup(repo => repo.GetLastUserTransaction(It.IsAny<string>(), It.IsAny<string>()))
+            _userTransactionRepository.Setup(repo => repo.GetLastUserTransaction(It.IsAny<TransactionNumberType>(), It.IsAny<string>()))
                 .Returns(new UserTransaction() 
                 {
                         Id = 1,
@@ -245,7 +246,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         UpdatedDate = null
                     });
 
-            var userTransactions = _sut.GetLastUserTransaction(string.Empty, string.Empty);
+            var userTransactions = _sut.GetLastUserTransaction(TransactionNumberType.None, string.Empty);
 
             Assert.AreEqual(1, userTransactions.Id);
         }

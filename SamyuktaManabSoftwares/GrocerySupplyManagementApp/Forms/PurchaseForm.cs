@@ -83,7 +83,7 @@ namespace GrocerySupplyManagementApp.Forms
             itemListForm.ShowDialog();
             EnableFields(Action.None);
             EnableFields(Action.PopulateItem);
-            RichQuantity.Focus();
+            RichTotalAmount.Focus();
         }
 
         private void BtnAddBill_Click(object sender, EventArgs e)
@@ -193,7 +193,7 @@ namespace GrocerySupplyManagementApp.Forms
                             var id = Convert.ToInt64(selectedId);
                             var itemToRemove = _purchasedItemViewList.Single(x => x.Id == id);
                             _purchasedItemViewList.Remove(itemToRemove);
-                            TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
+                            TxtBillAmount.Text = _purchasedItemViewList.Sum(x => (x.Price * x.Quantity)).ToString();
                             LoadPurchasedItemViewList(_purchasedItemViewList);
                         }
                     }
@@ -209,11 +209,19 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Rich Box Event
-        private void RichQuantity_KeyDown(object sender, KeyEventArgs e)
+        private void RichTotalAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyData == Keys.Enter)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
-                RichPurchasePrice.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void RichDiscount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
             }
         }
 
@@ -225,7 +233,38 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void RichPurchasePrice_KeyDown(object sender, KeyEventArgs e)
+        private void RichTotalAmount_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateVatAndPurchasePrice();
+        }
+
+        private void RichDiscount_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateVatAndPurchasePrice();
+        }
+
+        private void RichQuantity_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateVatAndPurchasePrice();
+        }
+
+        private void RichTotalAmount_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                CalculateVatAndPurchasePrice();
+            }
+        }
+
+        private void RichDiscount_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                CalculateVatAndPurchasePrice();
+            }
+        }
+
+        private void RichQuantity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
             {
@@ -236,15 +275,6 @@ namespace GrocerySupplyManagementApp.Forms
                 }
             }
         }
-
-        private void RichPurchasePrice_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-        }
-
         #endregion
 
         #region DataGrid Event
@@ -262,15 +292,15 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
 
             DataGridPurchaseList.Columns["Code"].HeaderText = "Item Code";
-            DataGridPurchaseList.Columns["Code"].Width = 80;
+            DataGridPurchaseList.Columns["Code"].Width = 125;
             DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
-            DataGridPurchaseList.Columns["Name"].Width = 170;
+            DataGridPurchaseList.Columns["Name"].Width = 200;
             DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
 
             DataGridPurchaseList.Columns["Brand"].HeaderText = "Item Brand";
-            DataGridPurchaseList.Columns["Brand"].Width = 140;
+            DataGridPurchaseList.Columns["Brand"].Width = 175;
             DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
@@ -330,7 +360,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 _purchasedItemViewList.Add(purchasedItemView);
-                TxtTotalAmount.Text = _purchasedItemViewList.Sum(x => x.Total).ToString();
+                TxtBillAmount.Text = _purchasedItemViewList.Sum(x => x.Total).ToString();
                 ClearAllFields();
                 LoadPurchasedItemViewList(_purchasedItemViewList);
             }
@@ -350,8 +380,9 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if(action == Action.PopulateItem)
             {
+                RichTotalAmount.Enabled = true;
+                RichDiscount.Enabled = true;
                 RichQuantity.Enabled = true;
-                RichPurchasePrice.Enabled = true;
 
                 BtnSearchItem.Enabled = true;
                 BtnAddBill.Enabled = true;
@@ -370,6 +401,9 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = false;
                 RichItemBrand.Enabled = false;
                 RichUnit.Enabled = false;
+                RichTotalAmount.Enabled = false;
+                RichDiscount.Enabled = false;
+                RichVat.Enabled = false;
                 RichQuantity.Enabled = false;
                 RichPurchasePrice.Enabled = false;
 
@@ -388,6 +422,9 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemName.Clear();
             RichItemBrand.Clear();
             RichUnit.Clear();
+            RichTotalAmount.Clear();
+            RichDiscount.Clear();
+            RichVat.Clear();
             RichQuantity.Clear();
             RichPurchasePrice.Clear();
         }
@@ -408,7 +445,7 @@ namespace GrocerySupplyManagementApp.Forms
             }).ToList();
 
             LoadPurchasedItemViewList(purchasedItemViewList);
-            TxtTotalAmount.Text = _purchasedItemService.GetPurchasedItemTotalAmount(supplierId, billNo).ToString();
+            TxtBillAmount.Text = _purchasedItemService.GetPurchasedItemTotalAmount(supplierId, billNo).ToString();
             RichBillNo.Text = billNo;
 
             BtnSearchItem.Enabled = false;
@@ -434,6 +471,31 @@ namespace GrocerySupplyManagementApp.Forms
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
             }
+        }
+
+        private void CalculateVatAndPurchasePrice()
+        {
+            var totalAmount = string.IsNullOrWhiteSpace(RichTotalAmount.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichTotalAmount.Text.Trim());
+            var discount = string.IsNullOrWhiteSpace(RichDiscount.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichDiscount.Text.Trim());
+
+            if (totalAmount >= Constants.DEFAULT_DECIMAL_VALUE)
+            {
+                RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT/100), 2).ToString();
+            }
+
+            var vat = string.IsNullOrWhiteSpace(RichVat.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichVat.Text.Trim());
+            var quantity = string.IsNullOrWhiteSpace(RichQuantity.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichQuantity.Text.Trim());
+            decimal purchasePrice;
+            if (quantity > 0)
+            {
+                purchasePrice = Math.Round(((totalAmount - discount + vat) / quantity), 2);
+            }
+            else
+            {
+                purchasePrice = Math.Round((totalAmount - discount + vat), 2);
+            }
+
+            RichPurchasePrice.Text = purchasePrice.ToString();
         }
 
         #endregion

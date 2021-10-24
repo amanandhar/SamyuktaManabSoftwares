@@ -3,6 +3,7 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -132,7 +133,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _userTransactionService.AddUserTransaction(userTransaction);
                     }
 
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(_username, string.Empty);
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
                     var stockAdjustment = new StockAdjustment
                     {
                         EndOfDay = _endOfDay,

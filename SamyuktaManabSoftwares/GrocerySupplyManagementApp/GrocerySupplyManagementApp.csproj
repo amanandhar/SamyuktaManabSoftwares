@@ -395,8 +395,8 @@
     <Compile Include="Forms\DailyTransactionForm.Designer.cs">
       <DependentUpon>DailyTransactionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\Interfaces\IDailyTransactionRepository.cs" />
-    <Compile Include="Repositories\MSSqlDailyTransactionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAtomicTransactionRepository.cs" />
+    <Compile Include="Repositories\MSSqlAtomicTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBankTransactionRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICapitalRepository.cs" />
@@ -446,7 +446,7 @@
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\CompanyInfoService.cs" />
-    <Compile Include="Services\DailyTransactionService.cs" />
+    <Compile Include="Services\AtomicTransactionService.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\EndOfDayService.cs" />
@@ -456,7 +456,7 @@
     <Compile Include="Services\Interfaces\IBankTransactionService.cs" />
     <Compile Include="Services\Interfaces\ICapitalService.cs" />
     <Compile Include="Services\Interfaces\ICompanyInfoService.cs" />
-    <Compile Include="Services\Interfaces\IDailyTransactionService.cs" />
+    <Compile Include="Services\Interfaces\IAtomicTransactionService.cs" />
     <Compile Include="Services\Interfaces\IDatabaseService.cs" />
     <Compile Include="Services\Interfaces\IEmployeeService.cs" />
     <Compile Include="Services\Interfaces\IEndOfDayService.cs" />
@@ -493,6 +493,7 @@
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\Cryptography.cs" />
+    <Compile Include="Shared\Enums\TransactionNumberType.cs" />
     <Compile Include="Shared\Excel.cs" />
     <Compile Include="Shared\LogHelper.cs" />
     <Compile Include="Shared\UtilityService.cs" />

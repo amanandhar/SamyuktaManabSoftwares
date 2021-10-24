@@ -1,5 +1,6 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         IEnumerable<UserTransaction> GetDeliveryPersonTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter);
         IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter);
-        UserTransaction GetLastUserTransaction(string addedBy, string option);
+        UserTransaction GetLastUserTransaction(TransactionNumberType transactionNumberType, string addedBy);
         string GetInvoiceNo();
         IEnumerable<string> GetInvoices();
         IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);

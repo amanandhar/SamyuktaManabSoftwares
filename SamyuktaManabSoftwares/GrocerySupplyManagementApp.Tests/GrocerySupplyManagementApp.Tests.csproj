@@ -63,10 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\Services\AtomicTransactionServiceTest.cs" />
     <Compile Include="UnitTests\Services\BankServiceTest.cs" />
     <Compile Include="UnitTests\Services\BankTransactionServiceTest.cs" />
     <Compile Include="UnitTests\Services\CapitalServiceTest.cs" />
     <Compile Include="UnitTests\Services\CompanyInfoServiceTest.cs" />
+    <Compile Include="UnitTests\Services\DatabaseServiceTest.cs" />
     <Compile Include="UnitTests\Services\EmployeeServiceTest.cs" />
     <Compile Include="UnitTests\Services\EndOfDayServiceTest.cs" />
     <Compile Include="UnitTests\Services\IncomeExpenseServiceTest.cs" />

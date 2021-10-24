@@ -3,6 +3,7 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -43,9 +44,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetSupplierTransactions(supplierFilter);
         }
 
-        public UserTransaction GetLastUserTransaction(string addedBy, string option)
+        public UserTransaction GetLastUserTransaction(TransactionNumberType transactionNumberType, string addedBy)
         {
-            return _userTransactionRepository.GetLastUserTransaction(addedBy, option);
+            return _userTransactionRepository.GetLastUserTransaction(transactionNumberType, addedBy);
         }
 
         public string GetInvoiceNo()
