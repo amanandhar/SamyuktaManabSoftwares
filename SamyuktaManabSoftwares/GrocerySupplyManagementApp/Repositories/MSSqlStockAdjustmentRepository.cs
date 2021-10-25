@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return stockAdjustmentViewList;
@@ -118,7 +118,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return totalCount;
@@ -172,7 +172,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return totalCount;
@@ -212,7 +212,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return stockAdjustment;
@@ -241,7 +241,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return result;

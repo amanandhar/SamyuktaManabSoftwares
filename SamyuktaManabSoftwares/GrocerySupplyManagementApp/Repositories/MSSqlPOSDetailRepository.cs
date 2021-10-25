@@ -80,7 +80,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return posDetailView;
@@ -120,7 +120,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return posDetail;
@@ -149,7 +149,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return result;

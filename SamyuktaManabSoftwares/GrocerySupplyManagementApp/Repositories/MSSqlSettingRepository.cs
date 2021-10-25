@@ -63,7 +63,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return settings;
@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 catch (Exception ex)
                 {
                     logger.Error(ex);
-                    UtilityService.ShowExceptionMessageBox();
+                    throw ex;
                 }
             }
 
@@ -127,7 +127,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return setting;
@@ -174,7 +174,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return setting;
@@ -216,7 +216,7 @@ namespace GrocerySupplyManagementApp.Repositories
             catch (Exception ex)
             {
                 logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
+                throw ex;
             }
 
             return result;
