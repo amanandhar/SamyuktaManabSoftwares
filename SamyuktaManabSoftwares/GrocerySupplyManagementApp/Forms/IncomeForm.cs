@@ -67,13 +67,14 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateIncomeInfo())
                 {
+                    ComboBoxItem selectedBank = (ComboBoxItem)ComboBank.SelectedItem;
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
                         Action = Constants.INCOME,
                         ActionType = Constants.CHEQUE,
-                        Bank = ComboBank.Text.Trim(),
-                        Income = ComboIncome.Text.Trim(),
+                        BankName = selectedBank?.Value,
+                        IncomeExpense = ComboIncome.Text.Trim(),
                         Narration = TxtBoxNarration.Text.Trim(),
                         ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                         AddedBy = _username,
@@ -82,13 +83,13 @@ namespace GrocerySupplyManagementApp.Forms
 
                     if (_userTransactionService.AddUserTransaction(userTransaction) != null)
                     {
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
-                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
+
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
-                            BankId = Convert.ToInt64(selectedItem.Id),
-                            TransactionId = lastUserTransaction.Id,
+                            BankId = Convert.ToInt64(selectedBank?.Id),
+                            UserTransactionId = lastUserTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
                             Narration = ComboIncome.Text.Trim(),
@@ -224,30 +225,28 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridIncomeList.Columns["Description"].HeaderText = "Description";
-            DataGridIncomeList.Columns["Description"].Width = 200;
+            DataGridIncomeList.Columns["Description"].Width = 150;
             DataGridIncomeList.Columns["Description"].DisplayIndex = 1;
+
+            DataGridIncomeList.Columns["Narration"].HeaderText = "Narration";
+            DataGridIncomeList.Columns["Narration"].Width = 150;
+            DataGridIncomeList.Columns["Narration"].DisplayIndex = 2;
 
             DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
             DataGridIncomeList.Columns["InvoiceNo"].Width = 100;
-            DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 2;
+            DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 3;
+
+            DataGridIncomeList.Columns["BankName"].HeaderText = "Bank";
+            DataGridIncomeList.Columns["BankName"].Width = 100;
+            DataGridIncomeList.Columns["BankName"].DisplayIndex = 4;
 
             DataGridIncomeList.Columns["ItemCode"].HeaderText = "Item Code";
             DataGridIncomeList.Columns["ItemCode"].Width = 100;
-            DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 3;
+            DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 5;
 
             DataGridIncomeList.Columns["ItemName"].HeaderText = "Name";
             DataGridIncomeList.Columns["ItemName"].Width = 200;
-            DataGridIncomeList.Columns["ItemName"].DisplayIndex = 4;
-
-            DataGridIncomeList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridIncomeList.Columns["Quantity"].Width = 80;
-            DataGridIncomeList.Columns["Quantity"].DisplayIndex = 5;
-            DataGridIncomeList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridIncomeList.Columns["Profit"].HeaderText = "Profit";
-            DataGridIncomeList.Columns["Profit"].Width = 90;
-            DataGridIncomeList.Columns["Profit"].DisplayIndex = 6;
-            DataGridIncomeList.Columns["Profit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridIncomeList.Columns["ItemName"].DisplayIndex = 6;
 
             DataGridIncomeList.Columns["Amount"].HeaderText = "Amount";
             DataGridIncomeList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -274,10 +273,14 @@ namespace GrocerySupplyManagementApp.Forms
 
             List<IncomeTransactionView> incomeTransactionViewList;
 
-            if (!string.IsNullOrWhiteSpace(income)
+
+            if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
+            {
+                incomeTransactionViewList = _incomeExpenseService.GetDeliveryChargeTransactions(incomeTransactionFilter).ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(income)
                 && (
-                    income.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower())
-                    || income.ToLower().Equals(Constants.MEMBER_FEE.ToLower())
+                    income.ToLower().Equals(Constants.MEMBER_FEE.ToLower())
                     || income.ToLower().Equals(Constants.OTHER_INCOME.ToLower())
                     || income.ToLower().Equals(Constants.STOCK_ADJUSTMENT.ToLower())
                     )
@@ -291,7 +294,8 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                incomeTransactionViewList = _incomeExpenseService.GetIncomeTransactions(incomeTransactionFilter).ToList();
+                incomeTransactionViewList = _incomeExpenseService.GetDeliveryChargeTransactions(incomeTransactionFilter).ToList();
+                incomeTransactionViewList.AddRange(_incomeExpenseService.GetIncomeTransactions(incomeTransactionFilter).ToList());
                 incomeTransactionViewList.AddRange(_incomeExpenseService.GetSalesProfit(incomeTransactionFilter).ToList());
             }
 

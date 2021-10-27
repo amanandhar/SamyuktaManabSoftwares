@@ -1,6 +1,6 @@
 ﻿namespace GrocerySupplyManagementApp.Shared.Enums
 {
-    public enum TransactionNumberType
+    public enum PartyNumberType
     {
         Bill,
         Invoice,

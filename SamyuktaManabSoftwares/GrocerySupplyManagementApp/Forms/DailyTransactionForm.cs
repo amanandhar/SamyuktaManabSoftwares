@@ -89,19 +89,18 @@ namespace GrocerySupplyManagementApp.Forms
                         {
                             var id = Convert.ToInt64(selectedId);
 
-                            var billInvoiceNo = selectedRow?.Cells["InvoiceBillNo"]?.Value?.ToString();
-                            var income = selectedRow?.Cells["Income"]?.Value?.ToString();
-                            var expense = selectedRow?.Cells["Expense"]?.Value?.ToString();
+                            var partyNumber = selectedRow?.Cells["PartyNumber"]?.Value?.ToString();
+                            var incomeExpense = selectedRow?.Cells["IncomeExpense"]?.Value?.ToString();
                             var actionType = selectedRow?.Cells["ActionType"]?.Value?.ToString();
 
-                            if (!string.IsNullOrWhiteSpace(billInvoiceNo)
-                                && billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX))
+                            if (!string.IsNullOrWhiteSpace(partyNumber)
+                                && partyNumber.StartsWith(Constants.BILL_NO_PREFIX))
                             {
                                 // Get the latest bill number
-                                var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Bill, string.Empty);
-                                if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
+                                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Bill, string.Empty);
+                                if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                 {
-                                    _atomicTransactionService.DeleteBill(id, billInvoiceNo);
+                                    _atomicTransactionService.DeleteBill(id, partyNumber);
                                 }
                                 else
                                 {
@@ -113,13 +112,13 @@ namespace GrocerySupplyManagementApp.Forms
                                     }
                                 }
                             }
-                            else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
+                            else if (!string.IsNullOrWhiteSpace(partyNumber) && partyNumber.StartsWith(Constants.INVOICE_NO_PREFIX))
                             {
                                 // Get the latest invoice number
-                                var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Invoice, string.Empty);
-                                if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
+                                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Invoice, string.Empty);
+                                if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                 {
-                                    _atomicTransactionService.DeleteInvoice(billInvoiceNo);
+                                    _atomicTransactionService.DeleteInvoice(partyNumber);
                                 }
                                 else
                                 {
@@ -131,7 +130,7 @@ namespace GrocerySupplyManagementApp.Forms
                                     }
                                 }
                             }
-                            else if (income.Equals(Constants.STOCK_ADJUSTMENT) || expense.Equals(Constants.STOCK_ADJUSTMENT))
+                            else if (incomeExpense.Equals(Constants.STOCK_ADJUSTMENT))
                             {
                                 _atomicTransactionService.DeleteStockAdjustment(id);
                             }
@@ -285,17 +284,16 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridTransactionList.Columns["Id"].Visible = false;
-            DataGridTransactionList.Columns["Income"].Visible = false;
-            DataGridTransactionList.Columns["Expense"].Visible = false;
+            DataGridTransactionList.Columns["IncomeExpense"].Visible = false;
             DataGridTransactionList.Columns["AddedDate"].Visible = false;
 
             DataGridTransactionList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridTransactionList.Columns["EndOfDay"].Width = 100;
             DataGridTransactionList.Columns["EndOfDay"].DisplayIndex = 0;
 
-            DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Mem/Supp";
-            DataGridTransactionList.Columns["MemberSupplierId"].Width = 100;
-            DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
+            DataGridTransactionList.Columns["PartyId"].HeaderText = "Mem/Supp";
+            DataGridTransactionList.Columns["PartyId"].Width = 100;
+            DataGridTransactionList.Columns["PartyId"].DisplayIndex = 1;
 
             DataGridTransactionList.Columns["Action"].HeaderText = "Description";
             DataGridTransactionList.Columns["Action"].Width = 125;
@@ -305,13 +303,13 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridTransactionList.Columns["ActionType"].Width = 150;
             DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
 
-            DataGridTransactionList.Columns["Bank"].HeaderText = "Bank";
-            DataGridTransactionList.Columns["Bank"].Width = 250;
-            DataGridTransactionList.Columns["Bank"].DisplayIndex = 4;
+            DataGridTransactionList.Columns["BankName"].HeaderText = "Bank";
+            DataGridTransactionList.Columns["BankName"].Width = 250;
+            DataGridTransactionList.Columns["BankName"].DisplayIndex = 4;
 
-            DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
-            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 125;
-            DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 5;
+            DataGridTransactionList.Columns["PartyNumber"].HeaderText = "Invoice/Bill";
+            DataGridTransactionList.Columns["PartyNumber"].Width = 125;
+            DataGridTransactionList.Columns["PartyNumber"].DisplayIndex = 5;
 
             DataGridTransactionList.Columns["Amount"].HeaderText = "Amount";
             DataGridTransactionList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;

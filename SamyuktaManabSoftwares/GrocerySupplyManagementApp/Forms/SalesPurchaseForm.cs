@@ -81,9 +81,9 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseSalesTransaction.Columns["Description"].Width = 250;
             DataGridPurchaseSalesTransaction.Columns["Description"].DisplayIndex = 1;
 
-            DataGridPurchaseSalesTransaction.Columns["BillInvoiceNo"].HeaderText = "Bill/Invoice No";
-            DataGridPurchaseSalesTransaction.Columns["BillInvoiceNo"].Width = 250;
-            DataGridPurchaseSalesTransaction.Columns["BillInvoiceNo"].DisplayIndex = 2;
+            DataGridPurchaseSalesTransaction.Columns["PartyNumber"].HeaderText = "Bill/Invoice No";
+            DataGridPurchaseSalesTransaction.Columns["PartyNumber"].Width = 250;
+            DataGridPurchaseSalesTransaction.Columns["PartyNumber"].DisplayIndex = 2;
 
             DataGridPurchaseSalesTransaction.Columns["Amount"].HeaderText = "Amount";
             DataGridPurchaseSalesTransaction.Columns["Amount"].DisplayIndex = 3;
@@ -124,9 +124,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     EndOfDay = userTransaction.EndOfDay,
                     Description = userTransaction.Action,
-                    BillInvoiceNo = userTransaction.Action == Constants.PURCHASE
-                    ? userTransaction?.BillNo
-                    : userTransaction?.InvoiceNo,
+                    PartyNumber = userTransaction.PartyNumber,
                     Amount = userTransaction.Action == Constants.PURCHASE
                     ? (userTransaction.DuePaymentAmount + userTransaction.PaymentAmount)
                     : (userTransaction.DueReceivedAmount + userTransaction.ReceivedAmount)

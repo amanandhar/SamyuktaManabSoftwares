@@ -25,7 +25,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             try
             {
-                var totalDeliveryCharge = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.DELIVERY_CHARGE });
+                var totalDeliveryCharge = GetTotalDeliveryCharge(new IncomeTransactionFilter() { DateTo = endOfDay });
                 var totalMemberFee = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.MEMBER_FEE });
                 var totalOtherIncome = GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.OTHER_INCOME });
                 var totalSalesProfit = GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay }).ToList().Sum(x => x.Amount);
@@ -33,7 +33,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
                 totalIncome = totalDeliveryCharge + totalMemberFee + totalOtherIncome + totalSalesProfit + totalStockAdjustment;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex);
                 throw ex;
@@ -49,7 +49,6 @@ namespace GrocerySupplyManagementApp.Repositories
             try
             {
                 var totalAsset = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET });
-                var totalDeliveryCharge = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.DELIVERY_CHARGE });
                 var totalElectricity = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ELECTRICITY });
                 var totalFuelAndTransportation = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.FUEL_TRANSPORTATION });
                 var totalGuestHospitality = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.GUEST_HOSPITALITY });
@@ -57,18 +56,18 @@ namespace GrocerySupplyManagementApp.Repositories
                 var totalMiscellaneous = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.MISCELLANEOUS });
                 var totalOfficeRent = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.OFFICE_RENT });
                 var totalRepairMaintenance = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.REPAIR_MAINTENANCE });
-                var totalSalesDiscount = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_DISCOUNT });
+                var totalSalesDiscount = GetTotalSalesDiscount(new ExpenseTransactionFilter() { DateTo = endOfDay });
                 var totalSalesReturn = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_RETURN });
                 var totalStaffAllowance = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_ALLOWANCE });
                 var totalStaffSalary = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_SALARY });
                 var totalStockAdjustment = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STOCK_ADJUSTMENT });
                 var totalTelephoneInternet = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.TELEPHONE_INTERNET });
 
-                totalExpense = totalAsset + totalDeliveryCharge + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance + totalSalesDiscount
                     + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalStockAdjustment + totalTelephoneInternet;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex);
                 throw ex;
@@ -101,7 +100,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
                 if (!string.IsNullOrWhiteSpace(incomeTransactionFilter?.Income))
                 {
-                    query += " AND ISNULL([Income], '') = @Income ";
+                    query += " AND ISNULL([IncomeExpense], '') = @IncomeExpense ";
                 }
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -111,14 +110,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter?.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Income", ((object)incomeTransactionFilter?.Income) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)incomeTransactionFilter?.Income) ?? DBNull.Value);
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
                             total = Convert.ToDecimal(result.ToString());
                         }
                     }
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -153,7 +152,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
                 if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.Expense))
                 {
-                    query += " AND ISNULL([Expense], '') = @Expense ";
+                    query += " AND ISNULL([IncomeExpense], '') = @IncomeExpense ";
                 }
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -163,14 +162,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)expenseTransactionFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)expenseTransactionFilter?.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Expense", ((object)expenseTransactionFilter?.Expense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)expenseTransactionFilter?.Expense) ?? DBNull.Value);
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
                             total = Convert.ToDecimal(result.ToString());
                         }
                     }
-                }   
+                }
             }
             catch (Exception ex)
             {
@@ -183,13 +182,13 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public IEnumerable<IncomeTransactionView> GetIncomeTransactions(IncomeTransactionFilter incomeTransactionFilter)
         {
-            List<IncomeTransactionView> incomeDetails = null;
+            List<IncomeTransactionView> incomeDetails;
 
             try
             {
                 incomeDetails = new List<IncomeTransactionView>();
                 var query = @"SELECT " +
-                    "[Id], [EndOfDay], [Income], [InvoiceNo], [Bank], [ReceivedAmount], [AddedDate] " +
+                    "[Id], [EndOfDay], [IncomeExpense], [Narration], [PartyNumber], [BankName], [ReceivedAmount], [AddedDate] " +
                     "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                     "WHERE 1 = 1 " +
                     "AND ISNULL([Action], '') = '" + Constants.INCOME + "' ";
@@ -206,10 +205,10 @@ namespace GrocerySupplyManagementApp.Repositories
 
                 if (!string.IsNullOrEmpty(incomeTransactionFilter?.Income))
                 {
-                    query += "AND ISNULL([Income], '') = @Income ";
+                    query += "AND ISNULL([IncomeExpense], '') = @IncomeExpense ";
                 }
 
-                query += "ORDER BY [Id] ";
+                query += "ORDER BY [AddedDate] DESC ";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -218,7 +217,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Income", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)incomeTransactionFilter.Income) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -228,12 +227,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
-                                    Description = reader["Income"].ToString(),
-                                    InvoiceNo = reader.IsDBNull(3) ? string.Empty : reader["InvoiceNo"].ToString(),
+                                    Description = reader["IncomeExpense"].ToString(),
+                                    Narration = reader["Narration"].ToString(),
+                                    InvoiceNo = reader["PartyNumber"].ToString(),
+                                    BankName = reader["BankName"].ToString(),
                                     ItemCode = string.Empty,
-                                    ItemName = reader["Bank"].ToString(),
-                                    Quantity = Constants.DEFAULT_DECIMAL_VALUE,
-                                    Profit = Constants.DEFAULT_DECIMAL_VALUE,
+                                    ItemName = string.Empty,
                                     Amount = Convert.ToDecimal(reader["ReceivedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
@@ -255,16 +254,15 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter expenseTransactionFilter)
         {
-            List<ExpenseTransactionView> expenseTransactionViews = null;
-
+            List<ExpenseTransactionView> expenseTransactionViews;
             try
             {
                 expenseTransactionViews = new List<ExpenseTransactionView>();
                 var query = @"SELECT " +
                     "[Id], [EndOfDay], [Action], " +
-                    "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [Bank] ELSE [ActionType] END AS [ActionType], " +
-                    "[Expense], [Narration], [PaymentAmount] " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                    "CASE WHEN [ActionType] = '" + Constants.CHEQUE + "' THEN [ActionType] + ' - ' + [BankName] ELSE [ActionType] END AS [ActionType], " +
+                    "[IncomeExpense], [Narration], [PaymentAmount] " +
+                    "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
                     "WHERE 1 = 1 " +
                     "AND [Action] = '" + Constants.EXPENSE + "' ";
 
@@ -281,10 +279,10 @@ namespace GrocerySupplyManagementApp.Repositories
 
                 if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.Expense))
                 {
-                    query += " AND ISNULL([Expense], '') = @Expense ";
+                    query += " AND ISNULL([IncomeExpense], '') = @IncomeExpense ";
                 }
 
-                query += "ORDER BY [Id] ";
+                query += "ORDER BY [AddedDate] DESC";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -293,7 +291,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)expenseTransactionFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)expenseTransactionFilter?.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Expense", ((object)expenseTransactionFilter?.Expense) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@IncomeExpense", ((object)expenseTransactionFilter?.Expense) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -305,7 +303,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Action = reader["Action"].ToString(),
                                     ActionType = reader["ActionType"].ToString(),
-                                    Expense = reader["Expense"].ToString(),
+                                    Expense = reader["IncomeExpense"].ToString(),
                                     Narration = reader["Narration"].ToString(),
                                     Amount = Convert.ToDecimal(reader["PaymentAmount"].ToString())
                                 };
@@ -314,7 +312,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             }
                         }
                     }
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -327,8 +325,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public IEnumerable<IncomeTransactionView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter)
         {
-            List<IncomeTransactionView> incomeDetails = null;
-
+            List<IncomeTransactionView> incomeDetails;
             try
             {
                 incomeDetails = new List<IncomeTransactionView>();
@@ -372,11 +369,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Description = reader["Description"].ToString(),
+                                    Narration = string.Empty,
                                     InvoiceNo = reader["InvoiceNo"].ToString(),
+                                    BankName = string.Empty,
                                     ItemCode = reader["ItemCode"].ToString(),
                                     ItemName = reader["ItemName"].ToString(),
-                                    Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
-                                    Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
@@ -385,7 +382,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             }
                         }
                     }
-                }   
+                }
             }
             catch (Exception ex)
             {
@@ -394,6 +391,228 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return incomeDetails;
+        }
+
+        public decimal GetTotalDeliveryCharge(IncomeTransactionFilter incomeTransactionFilter)
+        {
+            var total = Constants.DEFAULT_DECIMAL_VALUE;
+
+            try
+            {
+                string query = @"SELECT " +
+                        "SUM([DeliveryCharge])" +
+                        "FROM " + Constants.TABLE_POS_DETAIL + " " +
+                        "WHERE 1 = 1 ";
+
+                if (!string.IsNullOrWhiteSpace(incomeTransactionFilter?.DateFrom))
+                {
+                    query += " AND [EndOfDay] >= @DateFrom ";
+                }
+
+                if (!string.IsNullOrWhiteSpace(incomeTransactionFilter?.DateTo))
+                {
+                    query += " AND [EndOfDay] <= @DateTo ";
+                }
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter?.DateTo) ?? DBNull.Value);
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            total = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return total;
+        }
+
+        public IEnumerable<IncomeTransactionView> GetDeliveryChargeTransactions(IncomeTransactionFilter incomeTransactionFilter)
+        {
+            List<IncomeTransactionView> incomeDetails;
+
+            try
+            {
+                incomeDetails = new List<IncomeTransactionView>();
+                var query = @"SELECT " +
+                    "pd.[Id], pd.[EndOfDay], pd.[InvoiceNo], pd.[DeliveryCharge], ut.[AddedDate] " +
+                    "FROM " + Constants.TABLE_POS_DETAIL + " pd " +
+                    "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                    "ON pd.[UserTransactionId] = ut.[Id] " +
+                    "WHERE 1 = 1 " +
+                    "AND pd.[DeliveryCharge] != 0.00 ";
+
+                if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateFrom))
+                {
+                    query += "AND pd.[EndOfDay] >= @DateFrom ";
+                }
+
+                if (!string.IsNullOrEmpty(incomeTransactionFilter?.DateTo))
+                {
+                    query += "AND pd.[EndOfDay] <= @DateTo ";
+                }
+
+                query += "ORDER BY ut.[AddedDate] DESC ";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)incomeTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)incomeTransactionFilter.DateTo) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var incomeDetail = new IncomeTransactionView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Description = Constants.DELIVERY_CHARGE,
+                                    Narration = string.Empty,
+                                    InvoiceNo = reader["InvoiceNo"].ToString(),
+                                    BankName = string.Empty,
+                                    ItemCode = string.Empty,
+                                    ItemName = string.Empty,
+                                    Amount = Convert.ToDecimal(reader["DeliveryCharge"].ToString()),
+                                    AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
+                                };
+
+                                incomeDetails.Add(incomeDetail);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return incomeDetails;
+        }
+
+        public decimal GetTotalSalesDiscount(ExpenseTransactionFilter expenseTransactionFilter)
+        {
+            var total = Constants.DEFAULT_DECIMAL_VALUE;
+
+            try
+            {
+                string query = @"SELECT " +
+                        "SUM([Discount])" +
+                        "FROM " + Constants.TABLE_POS_DETAIL + " " +
+                        "WHERE 1 = 1 ";
+
+                if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.DateFrom))
+                {
+                    query += " AND [EndOfDay] >= @DateFrom ";
+                }
+
+                if (!string.IsNullOrWhiteSpace(expenseTransactionFilter?.DateTo))
+                {
+                    query += " AND [EndOfDay] <= @DateTo ";
+                }
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)expenseTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)expenseTransactionFilter?.DateTo) ?? DBNull.Value);
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            total = Convert.ToDecimal(result.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return total;
+        }
+
+        public IEnumerable<ExpenseTransactionView> GetSalesDiscountTransactions(ExpenseTransactionFilter expenseTransactionFilter)
+        {
+            List<ExpenseTransactionView> expenseTransactionViews;
+            try
+            {
+                expenseTransactionViews = new List<ExpenseTransactionView>();
+                var query = @"SELECT " +
+                    "pd.[Id], pd.[EndOfDay], ut.[ActionType], pd.[Discount] " +
+                    "FROM " + Constants.TABLE_POS_DETAIL + " pd " +
+                    "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                    "ON pd.[UserTransactionId] = ut.[Id] " +
+                    "WHERE 1 = 1 " +
+                    "AND pd.[Discount] != 0.00 ";
+
+                if (!string.IsNullOrEmpty(expenseTransactionFilter?.DateFrom))
+                {
+                    query += "AND pd.[EndOfDay] >= @DateFrom ";
+                }
+
+                if (!string.IsNullOrEmpty(expenseTransactionFilter?.DateTo))
+                {
+                    query += "AND pd.[EndOfDay] <= @DateTo ";
+                }
+
+                query += "ORDER BY ut.[AddedDate] DESC ";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)expenseTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)expenseTransactionFilter?.DateTo) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var expenseTransactionView = new ExpenseTransactionView
+                                {
+                                    Id = Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Action = Constants.EXPENSE,
+                                    ActionType = reader["ActionType"].ToString(),
+                                    Expense = Constants.SALES_DISCOUNT,
+                                    Narration = string.Empty,
+                                    Amount = Convert.ToDecimal(reader["Discount"].ToString())
+                                };
+
+                                expenseTransactionViews.Add(expenseTransactionView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return expenseTransactionViews;
         }
     }
 }

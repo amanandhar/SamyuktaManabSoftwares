@@ -12,17 +12,16 @@ namespace GrocerySupplyManagementApp.Shared
         public const string PAYMENT = "Payment";
         public const string INCOME = "Income";
         public const string EXPENSE = "Expense";
-        public const string ADD = "Add";
-        public const string DEDUCT = "Deduct";
         public const string BANK_TRANSFER = "Bank Transfer";
+        public const string SHARE_CAPITAL = "Share Capital";
         public const string RETURN = "Return";
 
         // Action Type
         public const string CASH = "Cash";
         public const string CREDIT = "Credit";
-        public const string DEBIT = "Debit";
         public const string CHEQUE = "Cheque";
-        public const string ACTION_TYPE_NONE = "None";
+        public const string ADD = "Add";
+        public const string DEDUCT = "Deduct";
 
         public const string CLEAR = "Clear";
         public const string DUE = "Due";
@@ -60,7 +59,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string BILL_NO_PREFIX = "BN";
         public const string INVOICE_NO_PREFIX = "IN";
 
-        public const string SHARE_CAPITAL = "Share Capital";
         public const string OWNER_EQUITY = "Owner Equity";
 
         // Expense 

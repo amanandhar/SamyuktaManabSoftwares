@@ -9,10 +9,9 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
     public interface IUserTransactionRepository
     {
         IEnumerable<UserTransaction> GetUserTransactions(UserTransactionFilter userTransactionFilter);
-        IEnumerable<UserTransaction> GetDeliveryPersonTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter);
         IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter);
-        UserTransaction GetLastUserTransaction(TransactionNumberType transactionNumberType, string addedBy);
+        UserTransaction GetLastUserTransaction(PartyNumberType transactionNumberType, string addedBy);
         string GetLastInvoiceNo();
         IEnumerable<string> GetInvoices();
         IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);

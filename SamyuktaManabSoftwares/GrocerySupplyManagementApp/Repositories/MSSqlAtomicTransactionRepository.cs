@@ -30,6 +30,17 @@ namespace GrocerySupplyManagementApp.Repositories
 
                     try
                     {
+                        // Delete row from bank transaction table
+                        string deleteBankTransaction = @"DELETE " +
+                            "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [UserTransactionId] = @UserTransactionId ";
+                        using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@UserTransactionId", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
                         // Delete row from user transaction table
                         var deleteUserTransaction = @"DELETE " +
                             "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -49,17 +60,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         using (SqlCommand command = new SqlCommand(deletePurchasedItem, connection, sqlTransaction))
                         {
                             command.Parameters.AddWithValue("@BillNo", ((object)billNo) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
-                        // Delete row from bank transaction table
-                        string deleteBankTransaction = @"DELETE " +
-                            "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                            "WHERE 1 = 1 " +
-                            "AND [TransactionId] = @TransactionId ";
-                        using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@TransactionId", ((object)id) ?? DBNull.Value);
                             command.ExecuteNonQuery();
                         }
 
@@ -94,14 +94,25 @@ namespace GrocerySupplyManagementApp.Repositories
 
                     try
                     {
+                        // Delete row from pos detail table
+                        string deletePosDetail = @"DELETE " +
+                            "FROM " + Constants.TABLE_POS_DETAIL + " " +
+                            "WHERE 1 = 1 " +
+                            "AND ISNULL([InvoiceNo], '') = @InvoiceNo";
+                        using (SqlCommand command = new SqlCommand(deletePosDetail, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
                         // Delete row from user transaction table
                         string deleteUserTransaction = @"DELETE " +
                             "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                             "WHERE 1 = 1 " +
-                            "AND [InvoiceNo] = @InvoiceNo ";
+                            "AND [PartyNumber] = @PartyNumber ";
                         using (SqlCommand command = new SqlCommand(deleteUserTransaction, connection, sqlTransaction))
                         {
-                            command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@PartyNumber", ((object)invoiceNo) ?? DBNull.Value);
                             command.ExecuteNonQuery();
                         }
 
@@ -111,17 +122,6 @@ namespace GrocerySupplyManagementApp.Repositories
                             "WHERE 1 = 1 " +
                             "AND InvoiceNo = @InvoiceNo ";
                         using (SqlCommand command = new SqlCommand(deleteSoldItem, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
-                        // Delete row from pos detail table
-                        string deletePosDetail = @"DELETE " +
-                            "FROM " + Constants.TABLE_POS_DETAIL + " " +
-                            "WHERE 1 = 1 " +
-                            "AND ISNULL([InvoiceNo], '') = @InvoiceNo";
-                        using (SqlCommand command = new SqlCommand(deletePosDetail, connection, sqlTransaction))
                         {
                             command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
                             command.ExecuteNonQuery();
@@ -158,17 +158,6 @@ namespace GrocerySupplyManagementApp.Repositories
 
                     try
                     {
-                        // Delete row from user transaction table
-                        string deleteUserTransaction = @"DELETE " +
-                            "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                            "WHERE 1 = 1 " +
-                            "AND [Id] = @Id ";
-                        using (SqlCommand command = new SqlCommand(deleteUserTransaction, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
                         // Delete row from stock adjustment table
                         string deleteStockAdjustment = @"DELETE " +
                             "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
@@ -177,6 +166,17 @@ namespace GrocerySupplyManagementApp.Repositories
                         using (SqlCommand command = new SqlCommand(deleteStockAdjustment, connection, sqlTransaction))
                         {
                             command.Parameters.AddWithValue("@UserTransactionId", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Delete row from user transaction table
+                        string deleteUserTransaction = @"DELETE " +
+                            "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Id] = @Id ";
+                        using (SqlCommand command = new SqlCommand(deleteUserTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
                             command.ExecuteNonQuery();
                         }
 
@@ -211,6 +211,17 @@ namespace GrocerySupplyManagementApp.Repositories
 
                     try
                     {
+                        // Delete row from stock adjustment table
+                        string deleteBankTransaction = @"DELETE " +
+                            "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [UserTransactionId] = @UserTransactionId ";
+                        using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@UserTransactionId", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
                         // Delete row from user transaction table
                         string deleteUserTransaction = @"DELETE " +
                             "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -219,17 +230,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         using (SqlCommand command = new SqlCommand(deleteUserTransaction, connection, sqlTransaction))
                         {
                             command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
-                        // Delete row from stock adjustment table
-                        string deleteBankTransaction = @"DELETE " +
-                            "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                            "WHERE 1 = 1 " +
-                            "AND [TransactionId] = @TransactionId ";
-                        using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@TransactionId", ((object)id) ?? DBNull.Value);
                             command.ExecuteNonQuery();
                         }
 

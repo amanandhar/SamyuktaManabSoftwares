@@ -1,4 +1,5 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services;
 using GrocerySupplyManagementApp.Shared;
@@ -6,6 +7,8 @@ using GrocerySupplyManagementApp.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 {
@@ -23,26 +26,63 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         }
 
         [TestMethod]
+        [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
+        public void GetPosDetails_ReturnsPosDetails_WhenDeliveryPersonTransactionFilterIsPassed()
+        {
+            _posDetailRepository.Setup(repo => repo.GetPOSDetails(It.IsAny<DeliveryPersonTransactionFilter>()))
+                .Returns(new List<POSDetail>() {
+                    new POSDetail()
+                    {
+                    Id = 1,
+                    EndOfDay = "2078-01-01",
+                    InvoiceNo = "InvoiceNo",
+                    SubTotal = 100.00m,
+                    DiscountPercent = 1.00m,
+                    Discount = 1.00m,
+                    VatPercent = 1.00m,
+                    Vat = 1.00m,
+                    DeliveryChargePercent = 1.00m,
+                    DeliveryCharge = 1.00m,
+                    DeliveryPersonId = "E0001"
+                    },
+                    new POSDetail()
+                    {
+                    Id = 1,
+                    EndOfDay = "2078-01-02",
+                    InvoiceNo = "InvoiceNo",
+                    SubTotal = 200.00m,
+                    DiscountPercent = 2.00m,
+                    Discount = 2.00m,
+                    VatPercent = 2.00m,
+                    Vat = 2.00m,
+                    DeliveryChargePercent = 2.00m,
+                    DeliveryCharge = 2.00m,
+                    DeliveryPersonId = "E0002"
+                    },
+                });
+
+            var posDetails = _sut.GetPOSDetails(new DeliveryPersonTransactionFilter());
+
+            Assert.AreEqual(2, posDetails.ToList().Count);
+        }
+
+        [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.POSDetailService")]
         public void GetPOSDetailView_ReturnsPOSDetailView_WhenInvoiceNumberIsPassed()
         {
             _posDetailRepository.Setup(repo => repo.GetPOSDetailView(It.IsAny<string>()))
                 .Returns(
-                new POSDetailView() { 
-                    Id = 1, 
-                    EndOfDay = "2078-01-01", 
-                    InvoiceNo = "InvoiceNo", 
-                    BillNo = "BillNo",
-                    MemberId = "MemberId",
-                    ShareMemberId = 1,
-                    SupplierId = "SupplierId",
-                    DeliveryPersonId = "DeliveryPersonId",
+                new POSDetailView()
+                {
+                    Id = 1,
+                    EndOfDay = "2078-01-01",
                     Action = Constants.SALES,
                     ActionType = Constants.CREDIT,
-                    Bank = "Bank",
-                    Income = "Income",
-                    Expense = null,
-                    Narration = "Narration",
+                    PartyId = "PartyId1",
+                    PartyNumber = "PartyNumber1",
+                    BankName = "BankName1",
+                    IncomeExpense = "IncomeExpense1",
+                    Narration = "Narration1",
                     SubTotal = 100.00m,
                     DiscountPercent = 2,
                     Discount = 2,
@@ -50,12 +90,13 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     Vat = 0,
                     DeliveryChargePercent = 2,
                     DeliveryCharge = 1.96m,
+                    DeliveryPersonId = "DeliveryPersonId1",
                     DueReceivedAmount = 99.04m,
                     ReceivedAmount = 0.00m,
-                    AddedBy = "TestUser1", 
-                    AddedDate = DateTime.Parse("2078-01-01"), 
-                    UpdatedBy = null, 
-                    UpdatedDate = null 
+                    AddedBy = "TestUser1",
+                    AddedDate = DateTime.Parse("2078-01-01"),
+                    UpdatedBy = null,
+                    UpdatedDate = null
                 }
             );
 
@@ -81,7 +122,8 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     VatPercent = 0,
                     Vat = 0,
                     DeliveryChargePercent = 2,
-                    DeliveryCharge = 1.96m
+                    DeliveryCharge = 1.96m,
+                    DeliveryPersonId = "E0001"
                 }
             );
 

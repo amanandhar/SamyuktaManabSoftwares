@@ -117,26 +117,27 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateShareMemberTransaction())
                 {
+                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var userTransaction = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        ShareMemberId = Convert.ToInt64(_selectedShareMemberId),
+                        PartyId = _selectedShareMemberId,
                         Action = Constants.RECEIPT,
                         ActionType = Constants.SHARE_CAPITAL,
-                        Bank = ComboBank.Text.Trim(),
+                        BankName = selectedItem?.Value,
                         ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
                     _userTransactionService.AddUserTransaction(userTransaction);
 
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
-                    ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
+
                     var bankTransaction = new BankTransaction
                     {
                         EndOfDay = _endOfDay,
-                        BankId = Convert.ToInt64(selectedItem.Id),
-                        TransactionId = lastUserTransaction.Id,
+                        BankId = Convert.ToInt64(selectedItem?.Id),
+                        UserTransactionId = lastUserTransaction.Id,
                         Action = '1',
                         Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
                         Credit = Constants.DEFAULT_DECIMAL_VALUE,

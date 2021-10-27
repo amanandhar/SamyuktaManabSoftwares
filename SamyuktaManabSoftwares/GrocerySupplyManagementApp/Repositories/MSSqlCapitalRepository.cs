@@ -29,9 +29,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ELSE ([DueReceivedAmount] - [ReceivedAmount]) " +
                 "END AS [Amount] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND ISNULL([Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
-                "AND ISNULL([Expense], '') != '" + Constants.SALES_DISCOUNT + "' ";
+                "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
@@ -45,11 +43,11 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.MemberId))
             {
-                query += "AND [MemberId] = @MemberId ";
+                query += "AND [PartyId] = @MemberId ";
             }
             else
             {
-                query += "AND [MemberId] IS NOT NULL ";
+                query += "AND [PartyId] IS NOT NULL ";
             }
 
             query += ") Temp";
@@ -100,18 +98,18 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
-            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.SupplierId))
-            {
-                query += "AND [SupplierId] = @SupplierId ";
-            }
-            else
-            {
-                query += "AND [SupplierId] IS NOT NULL ";
-            }
-
             if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.Action))
             {
                 query += "AND [Action] = @Action ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.SupplierId))
+            {
+                query += "AND [PartyId] = @PartyId ";
+            }
+            else
+            {
+                query += "AND [PartyId] IS NOT NULL ";
             }
 
             try
@@ -123,7 +121,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)supplierTransactionFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)supplierTransactionFilter?.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@SupplierId", ((object)supplierTransactionFilter?.SupplierId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@PartyId", ((object)supplierTransactionFilter?.SupplierId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)supplierTransactionFilter?.Action) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
@@ -153,25 +151,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [Action] IN ('" + Constants.SALES + "', '" + Constants.RECEIPT + "') " +
-                "AND [ActionType] = '" + Constants.CASH + "' " +
-                "AND [Id] NOT IN " +
-                "( " +
-                "SELECT [Id] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' ";
-
-            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
-            {
-                query += "AND [EndOfDay] >= @DateFrom ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
-            {
-                query += "AND [EndOfDay] <= @DateTo ";
-            }
-
-            query += ") ";
+                "AND [ActionType] = '" + Constants.CASH + "' ";
 
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
@@ -191,25 +171,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
                 "AND [Action] IN ('" + Constants.BANK_TRANSFER + "', '" + Constants.EXPENSE + "', '" + Constants.PAYMENT + "') " +
-                "AND [ActionType] = '" + Constants.CASH + "' " +
-                "AND [Id] NOT IN " +
-                "( " +
-                "SELECT [Id] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' ";
-
-            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
-            {
-                query += "AND [EndOfDay] >= @DateFrom ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateTo))
-            {
-                query += "AND [EndOfDay] <= @DateTo ";
-            }
-
-            query += ") ";
+                "AND [ActionType] = '" + Constants.CASH + "' ";
 
             if (!string.IsNullOrWhiteSpace(userTransactionFilter?.DateFrom))
             {
@@ -340,19 +302,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
                 query += "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] NOT IN " +
-                    "( " +
-                    "SELECT [Id] " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
-                    ") " +
-                    "AND [Id] NOT IN " +
-                    "( " +
-                    "SELECT [Id] " +
-                    "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                    "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
-                    ") ";
+                    "WHERE 1 = 1 ";
             }
             else if (action?.ToLower() == Constants.PAYMENT.ToLower()
                 || action?.ToLower() == Constants.EXPENSE.ToLower()
@@ -370,19 +320,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
                 query += "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                        "WHERE 1 = 1 " +
-                        "AND [Id] NOT IN " +
-                        "( " +
-                        "SELECT [Id] " +
-                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                        "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
-                        ") " +
-                        "AND [Id] NOT IN " +
-                        "( " +
-                        "SELECT [Id] " +
-                        "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                        "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
-                        ") ";
+                        "WHERE 1 = 1 ";
             }
             else
             {
@@ -450,19 +388,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
                 query += "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                   "WHERE 1 = 1 " +
-                   "AND [Id] NOT IN " +
-                   "( " +
-                   "SELECT [Id] " +
-                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                   "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
-                   ") " +
-                   "AND [Id] NOT IN " +
-                   "( " +
-                   "SELECT [Id] " +
-                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                   "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
-                   ") ";
+                   "WHERE 1 = 1 ";
             }
             else if (action?.ToLower() == Constants.PAYMENT.ToLower()
                 || action?.ToLower() == Constants.EXPENSE.ToLower()
@@ -480,19 +406,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 }
 
                 query += "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                   "WHERE 1 = 1 " +
-                   "AND [Id] NOT IN " +
-                   "( " +
-                   "SELECT [Id] " +
-                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                   "WHERE ISNULL([Income], '') = '" + Constants.DELIVERY_CHARGE + "' " +
-                   ") " +
-                   "AND [Id] NOT IN " +
-                   "( " +
-                   "SELECT [Id] " +
-                   "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                   "WHERE ISNULL([Expense], '') = '" + Constants.SALES_DISCOUNT + "' " +
-                   ") ";
+                   "WHERE 1 = 1 ";
             }
             else
             {

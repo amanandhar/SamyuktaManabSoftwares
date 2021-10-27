@@ -41,7 +41,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Name = reader["Name"].ToString(),
                                     AccountNo = reader["AccountNo"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(4) ? (DateTime?) null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(4) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 banks.Add(bank);
@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Bank GetBank(long id)
         {
-            var bank = new Bank();
+            Bank bank = null;
             var query = @"SELECT " +
                 "[Id], [Name], [AccountNo], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_BANK + " " +
@@ -80,6 +80,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         {
                             if (reader.HasRows)
                             {
+                                bank = new Bank();
                                 while (reader.Read())
                                 {
                                     bank.Id = Convert.ToInt64(reader["Id"].ToString());
@@ -104,7 +105,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public Bank AddBank(Bank bank)
         {
-            string query = @"INSERT INTO " + 
+            string query = @"INSERT INTO " +
                     " " + Constants.TABLE_BANK + " " +
                     "( " +
                         "[EndOfDay], [Name], [AccountNo], [AddedBy], [AddedDate] " +
@@ -125,7 +126,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@AccountNo", ((object)bank.AccountNo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedBy", ((object)bank.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)bank.AddedDate) ?? DBNull.Value);
-                        command.ExecuteNonQuery();  
+                        command.ExecuteNonQuery();
                     }
                 }
             }
@@ -143,7 +144,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"UPDATE " + Constants.TABLE_BANK + " " +
                     "SET " +
                     "[Name] = @Name, [AccountNo] = @AccountNo, [UpdatedBy] = @UpdatedBy, [UpdatedDate] = @UpdatedDate " +
-                    "WHERE 1 = 1 " + 
+                    "WHERE 1 = 1 " +
                     "AND [Id] = @Id";
             try
             {
@@ -173,7 +174,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public bool DeleteBank(long id)
         {
             bool result = false;
-            string query = @"DELETE " + 
+            string query = @"DELETE " +
                     "FROM " + Constants.TABLE_BANK + " " +
                     "WHERE 1 = 1 " +
                     "AND [Id] = @Id";

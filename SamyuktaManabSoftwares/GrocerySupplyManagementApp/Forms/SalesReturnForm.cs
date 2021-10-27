@@ -125,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         Action = Constants.RETURN,
                         ActionType = Constants.CASH,
-                        Expense = Constants.SALES_RETURN,
+                        IncomeExpense = Constants.SALES_RETURN,
                         ReceivedAmount = _salesReturnTransactionViewList.Sum(x => x.SalesProfit),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -153,8 +153,8 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransactionPurchase = new UserTransaction
                     {
                         EndOfDay = _endOfDay,
-                        BillNo = ComboInvoiceNo.Text,
-                        SupplierId = purchasedItem.SupplierId,
+                        PartyId = purchasedItem.SupplierId,
+                        PartyNumber = ComboInvoiceNo.Text,
                         Action = Constants.PURCHASE,
                         ActionType = Constants.CASH,
                         ReceivedAmount = _salesReturnTransactionViewList.Sum(x => x.ItemPrice),

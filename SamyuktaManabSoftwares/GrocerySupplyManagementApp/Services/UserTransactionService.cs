@@ -29,11 +29,6 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetUserTransactions(userTransactionFilter);
         }
 
-        public IEnumerable<UserTransaction> GetDeliveryPersonTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter)
-        {
-            return _userTransactionRepository.GetDeliveryPersonTransactions(deliveryPersonTransactionFilter);
-        }
-
         public IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter)
         {
             return _userTransactionRepository.GetMemberTransactions(memberTransactionFilter);
@@ -44,7 +39,7 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetSupplierTransactions(supplierFilter);
         }
 
-        public UserTransaction GetLastUserTransaction(TransactionNumberType transactionNumberType, string addedBy)
+        public UserTransaction GetLastUserTransaction(PartyNumberType transactionNumberType, string addedBy)
         {
             return _userTransactionRepository.GetLastUserTransaction(transactionNumberType, addedBy);
         }

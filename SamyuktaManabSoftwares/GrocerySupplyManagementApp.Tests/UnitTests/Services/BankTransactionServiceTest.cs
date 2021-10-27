@@ -31,8 +31,8 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
             long id = 1;
             _bankTransactionRepository.Setup(repo => repo.GetBankTransactions(It.IsAny<long>()))
                 .Returns(new List<BankTransaction>() {
-                new BankTransaction() { Id = 1, EndOfDay = "2078-01-01", BankId = 1, TransactionId = 101 , Action = '0', Debit = 10.01m, Credit = 0.00m, Narration = "Debited", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null },
-                new BankTransaction() { Id = 2, EndOfDay = "2078-02-02", BankId = 2, TransactionId = 102 , Action = '1', Debit = 0.00m, Credit = 20.02m, Narration = "Credited", AddedBy = "TestUser2", AddedDate = DateTime.Parse("2078-02-02"), UpdatedBy = null, UpdatedDate = null }
+                new BankTransaction() { Id = 1, EndOfDay = "2078-01-01", BankId = 1, UserTransactionId = 101 , Action = '0', Debit = 10.01m, Credit = 0.00m, Narration = "Debited", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null },
+                new BankTransaction() { Id = 2, EndOfDay = "2078-02-02", BankId = 2, UserTransactionId = 102 , Action = '1', Debit = 0.00m, Credit = 20.02m, Narration = "Credited", AddedBy = "TestUser2", AddedDate = DateTime.Parse("2078-02-02"), UpdatedBy = null, UpdatedDate = null }
             });
 
             var bankTransactions = _sut.GetBankTransactions(id);
@@ -100,7 +100,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         public void AddBankTransaction_ReturnsBankTransaction_WhenBankTransactionIsPassed()
         {
             _bankTransactionRepository.Setup(repo => repo.AddBankTransaction(It.IsAny<BankTransaction>()))
-                .Returns(new BankTransaction() { Id = 1, EndOfDay = "2078-01-01", BankId = 1, TransactionId = 101, Action = '0', Debit = 10.01m, Credit = 0.00m, Narration = "Debited", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null });
+                .Returns(new BankTransaction() { Id = 1, EndOfDay = "2078-01-01", BankId = 1, UserTransactionId = 101, Action = '0', Debit = 10.01m, Credit = 0.00m, Narration = "Debited", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null });
 
             var bankTransaction = _sut.AddBankTransaction(new BankTransaction());
 

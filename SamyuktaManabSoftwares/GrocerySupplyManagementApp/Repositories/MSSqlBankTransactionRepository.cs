@@ -23,7 +23,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var bankTransactions = new List<BankTransaction>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [BankId], [TransactionId], [Action], " +
+                "[Id], [EndOfDay], [BankId], [UserTransactionId], [Action], " +
                 "[Debit], [Credit], [Narration], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
@@ -46,7 +46,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
-                                    TransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
+                                    UserTransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["UserTransactionId"].ToString()),
                                     Action = reader.IsDBNull(4) ? '1' : Convert.ToChar(reader["Action"].ToString()),
                                     Debit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
                                     Credit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
@@ -198,7 +198,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 ";
 
-            if(!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateFrom))
+            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
             }
@@ -208,7 +208,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
-            if(bankTransactionFilter?.BankId > 0)
+            if (bankTransactionFilter?.BankId > 0)
             {
                 query += "AND [BankId] = @BankId ";
             }
@@ -248,7 +248,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 ";
 
-            if(!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateFrom))
+            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateFrom))
             {
                 query += "AND [EndOfDay] >= @DateFrom ";
             }
@@ -301,11 +301,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_BANK_TRANSACTION + " " +
                     "( " +
-                        "[EndOfDay], [BankId], [TransactionId], [Action], [Debit], [Credit], [Narration], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [BankId], [UserTransactionId], [Action], [Debit], [Credit], [Narration], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @BankId, @TransactionId, @Action, @Debit, @Credit, @Narration, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @BankId, @UserTransactionId, @Action, @Debit, @Credit, @Narration, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -316,7 +316,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@EndOfDay", ((object)bankTransaction.EndOfDay) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UserTransactionId", ((object)bankTransaction.UserTransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? Constants.DEFAULT_DECIMAL_VALUE);
@@ -371,7 +371,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [TransactionId] = @TransactionId ";
+                "AND [UserTransactionId] = @UserTransactionId ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -379,7 +379,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@TransactionId", ((object)userTransactionId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@UserTransactionId", ((object)userTransactionId) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }

@@ -139,7 +139,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var paymentType = ComboPayment.Text.Trim();
                     var paymentAmount = RichAmount.Text.Trim();
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-
                     var paymentAmt = Convert.ToDecimal(paymentAmount);
                     if (paymentType.ToLower() == Constants.CASH.ToLower())
                     {
@@ -156,8 +155,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                     else
                     {
-                        var bankId = Convert.ToInt64(selectedItem?.Id);
-                        var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = bankId });
+                        var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = Convert.ToInt64(selectedItem?.Id) });
                         if (paymentAmt > bankBalance)
                         {
                             var warningResult = MessageBox.Show("No sufficient amount in bank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -183,11 +181,10 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            BillNo = TxtBillNo.Text.Trim(),
-                            SupplierId = TxtSupplierId.Text.Trim(),
+                            PartyId = TxtSupplierId.Text.Trim(),
                             Action = Constants.PAYMENT,
                             ActionType = ComboPayment.Text.Trim(),
-                            Bank = ComboBank.Text.Trim(),
+                            BankName = selectedItem?.Value,
                             PaymentAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
@@ -196,12 +193,12 @@ namespace GrocerySupplyManagementApp.Forms
 
                         if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                         {
-                            var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
+                            var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
                             var bankTransaction = new BankTransaction
                             {
                                 EndOfDay = _endOfDay,
-                                BankId = Convert.ToInt64(selectedItem.Id),
-                                TransactionId = lastUserTransaction.Id,
+                                BankId = Convert.ToInt64(selectedItem?.Id),
+                                UserTransactionId = lastUserTransaction.Id,
                                 Action = '0',
                                 Debit = Constants.DEFAULT_DECIMAL_VALUE,
                                 Credit = Convert.ToDecimal(RichAmount.Text.Trim()),
@@ -421,6 +418,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         ComboBank.ValueMember = "Id";
                         ComboBank.DisplayMember = "Value";
+                        ComboBank.Items.Clear();
                         banks.OrderBy(x => x.Name).ToList().ForEach(x =>
                         {
                             ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
@@ -658,7 +656,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         public void PopulateItemsPurchaseDetails(string billNo)
         {
-            TxtBillNo.Text = billNo;
             var supplierTransactionViewList = GetSupplierTransaction();
             LoadSupplierTransaction(supplierTransactionViewList);
         }

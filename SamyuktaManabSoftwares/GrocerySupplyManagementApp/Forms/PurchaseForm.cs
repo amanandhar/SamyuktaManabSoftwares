@@ -130,10 +130,10 @@ namespace GrocerySupplyManagementApp.Forms
                     var userTransaction = new UserTransaction()
                     {
                         EndOfDay = _endOfDay,
-                        BillNo = RichBillNo.Text.Trim(),
-                        SupplierId = _supplierForm.GetSupplierId(),
                         Action = Constants.PURCHASE,
                         ActionType = Constants.CREDIT,
+                        PartyId = _supplierForm.GetSupplierId(),
+                        PartyNumber = RichBillNo.Text.Trim(),
                         DuePaymentAmount = _purchasedItemViewList.Sum(x => x.Total),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -141,7 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     _userTransactionService.AddUserTransaction(userTransaction);
 
-                    _supplierForm.PopulateItemsPurchaseDetails(userTransaction.BillNo);
+                    _supplierForm.PopulateItemsPurchaseDetails(userTransaction.PartyNumber);
 
                     DialogResult result = MessageBox.Show("Purchased successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
@@ -516,7 +516,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (totalAmount >= Constants.DEFAULT_DECIMAL_VALUE)
             {
-                if(!ChkBoxVat.Checked)
+                if (!ChkBoxVat.Checked)
                 {
                     RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT / 100), 2).ToString();
                 }

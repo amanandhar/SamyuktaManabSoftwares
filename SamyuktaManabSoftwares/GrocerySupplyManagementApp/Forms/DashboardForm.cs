@@ -418,8 +418,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new DeliveryPersonForm(_settingService, _userTransactionService,
-                    _employeeService));
+            OpenChildForm(new DeliveryPersonForm(_settingService, _employeeService,
+                    _posDetailService));
             SelectButton(sender as Button, true);
         }
 
@@ -677,6 +677,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (liabilitiesBalance == assetsBalance)
             {
                 RichBoxSystemStatus.Text = "System Status : No Error";
+                RichBoxSystemStatus.BackColor = Color.White;
             }
             else
             {

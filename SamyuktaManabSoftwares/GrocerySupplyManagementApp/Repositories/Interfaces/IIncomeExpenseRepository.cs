@@ -13,5 +13,9 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<IncomeTransactionView> GetIncomeTransactions(IncomeTransactionFilter incomeTransactionFilter);
         IEnumerable<ExpenseTransactionView> GetExpenseTransactions(ExpenseTransactionFilter expenseTransactionFilter);
         IEnumerable<IncomeTransactionView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter);
+        decimal GetTotalDeliveryCharge(IncomeTransactionFilter incomeTransactionFilter);
+        IEnumerable<IncomeTransactionView> GetDeliveryChargeTransactions(IncomeTransactionFilter incomeTransactionFilter);
+        decimal GetTotalSalesDiscount(ExpenseTransactionFilter expenseTransactionFilter);
+        IEnumerable<ExpenseTransactionView> GetSalesDiscountTransactions(ExpenseTransactionFilter expenseTransactionFilter);
     }
 }

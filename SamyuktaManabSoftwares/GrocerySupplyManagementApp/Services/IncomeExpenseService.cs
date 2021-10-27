@@ -47,7 +47,27 @@ namespace GrocerySupplyManagementApp.Services
 
         public IEnumerable<IncomeTransactionView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter)
         {
-           return _incomeExpenseRepository.GetSalesProfit(incomeTransactionFilter);
+            return _incomeExpenseRepository.GetSalesProfit(incomeTransactionFilter);
+        }
+
+        public decimal GetTotalDeliveryCharge(IncomeTransactionFilter incomeTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetTotalDeliveryCharge(incomeTransactionFilter);
+        }
+
+        public IEnumerable<IncomeTransactionView> GetDeliveryChargeTransactions(IncomeTransactionFilter incomeTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetDeliveryChargeTransactions(incomeTransactionFilter);
+        }
+
+        public decimal GetTotalSalesDiscount(ExpenseTransactionFilter expenseTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetTotalSalesDiscount(expenseTransactionFilter);
+        }
+
+        public IEnumerable<ExpenseTransactionView> GetSalesDiscountTransactions(ExpenseTransactionFilter expenseTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetSalesDiscountTransactions(expenseTransactionFilter);
         }
     }
 }

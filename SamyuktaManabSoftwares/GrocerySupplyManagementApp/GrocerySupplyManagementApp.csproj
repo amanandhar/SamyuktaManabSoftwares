@@ -493,7 +493,7 @@
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\Cryptography.cs" />
-    <Compile Include="Shared\Enums\TransactionNumberType.cs" />
+    <Compile Include="Shared\Enums\PartyNumberType.cs" />
     <Compile Include="Shared\Excel.cs" />
     <Compile Include="Shared\LogHelper.cs" />
     <Compile Include="Shared\UtilityService.cs" />

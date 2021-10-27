@@ -33,81 +33,15 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         {
             _userTransactionRepository.Setup(repo => repo.GetUserTransactions(It.IsAny<UserTransactionFilter>()))
                 .Returns(new List<UserTransaction>() {
-                    new UserTransaction() { 
-                        Id = 1, 
-                        EndOfDay = "2078-01-01", 
-                        InvoiceNo = "InvoiceNo1",
-                        BillNo = "BillNo1",
-                        MemberId = "MemberId1",
-                        ShareMemberId = 1,
-                        SupplierId = "SupplierId1",
-                        DeliveryPersonId = "DeliveryPersonId1",
-                        Action = "Action1",
-                        ActionType = "ActionType1",
-                        Bank = "Bank1",
-                        Income = "Income1",
-                        Expense = "Expense1",
-                        Narration = "Narration1",
-                        DueReceivedAmount = 10.00m,
-                        DuePaymentAmount = 0.00m,
-                        ReceivedAmount = 0.00m,
-                        PaymentAmount = 0.00m,
-                        AddedBy = "TestUser1", 
-                        AddedDate = DateTime.Parse("2078-01-01"), 
-                        UpdatedBy = null, 
-                        UpdatedDate = null 
-                    },
-                    new UserTransaction() {
-                        Id = 2,
-                        EndOfDay = "2078-01-02",
-                        InvoiceNo = "InvoiceNo2",
-                        BillNo = "BillNo2",
-                        MemberId = "MemberId2",
-                        ShareMemberId = 2,
-                        SupplierId = "SupplierId2",
-                        DeliveryPersonId = "DeliveryPersonId2",
-                        Action = "Action2",
-                        ActionType = "ActionType2",
-                        Bank = "Bank2",
-                        Income = "Income2",
-                        Expense = "Expense2",
-                        Narration = "Narration2",
-                        DueReceivedAmount = 00.00m,
-                        DuePaymentAmount = 0.00m,
-                        ReceivedAmount = 10.00m,
-                        PaymentAmount = 0.00m,
-                        AddedBy = "TestUser2",
-                        AddedDate = DateTime.Parse("2078-01-02"),
-                        UpdatedBy = null,
-                        UpdatedDate = null
-                    }
-                });
-
-            var userTransactions = _sut.GetUserTransactions(new UserTransactionFilter());
-
-            Assert.AreEqual(2, userTransactions.ToList().Count);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
-        public void GetDeliveryPersonTransactions_ReturnsUserTransactions_WhenDeliveryPersonTransactionFilterIsPassed()
-        {
-            _userTransactionRepository.Setup(repo => repo.GetDeliveryPersonTransactions(It.IsAny<DeliveryPersonTransactionFilter>()))
-                .Returns(new List<UserTransaction>() {
                     new UserTransaction() {
                         Id = 1,
                         EndOfDay = "2078-01-01",
-                        InvoiceNo = "InvoiceNo1",
-                        BillNo = "BillNo1",
-                        MemberId = "MemberId1",
-                        ShareMemberId = 1,
-                        SupplierId = "SupplierId1",
-                        DeliveryPersonId = "DeliveryPersonId1",
                         Action = "Action1",
                         ActionType = "ActionType1",
-                        Bank = "Bank1",
-                        Income = "Income1",
-                        Expense = "Expense1",
+                        PartyId = "PartyId1",
+                        PartyNumber = "PartyNumber1",
+                        BankName = "BankName1",
+                        IncomeExpense = "IncomeExpense1",
                         Narration = "Narration1",
                         DueReceivedAmount = 10.00m,
                         DuePaymentAmount = 0.00m,
@@ -121,17 +55,12 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     new UserTransaction() {
                         Id = 2,
                         EndOfDay = "2078-01-02",
-                        InvoiceNo = "InvoiceNo2",
-                        BillNo = "BillNo2",
-                        MemberId = "MemberId2",
-                        ShareMemberId = 2,
-                        SupplierId = "SupplierId2",
-                        DeliveryPersonId = "DeliveryPersonId2",
                         Action = "Action2",
                         ActionType = "ActionType2",
-                        Bank = "Bank2",
-                        Income = "Income2",
-                        Expense = "Expense2",
+                        PartyId = "PartyId2",
+                        PartyNumber = "PartyNumber2",
+                        BankName = "BankName2",
+                        IncomeExpense = "IncomeExpense2",
                         Narration = "Narration2",
                         DueReceivedAmount = 00.00m,
                         DuePaymentAmount = 0.00m,
@@ -144,7 +73,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     }
                 });
 
-            var userTransactions = _sut.GetDeliveryPersonTransactions(new DeliveryPersonTransactionFilter());
+            var userTransactions = _sut.GetUserTransactions(new UserTransactionFilter());
 
             Assert.AreEqual(2, userTransactions.ToList().Count);
         }
@@ -219,36 +148,31 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
         public void GetLastUserTransaction_ReturnsUserTransaction_WhenAddedByAndOptionArePassed()
         {
-            _userTransactionRepository.Setup(repo => repo.GetLastUserTransaction(It.IsAny<TransactionNumberType>(), It.IsAny<string>()))
-                .Returns(new UserTransaction() 
+            _userTransactionRepository.Setup(repo => repo.GetLastUserTransaction(It.IsAny<PartyNumberType>(), It.IsAny<string>()))
+                .Returns(new UserTransaction()
                 {
-                        Id = 1,
-                        EndOfDay = "2078-01-01",
-                        InvoiceNo = "InvoiceNo1",
-                        BillNo = "BillNo1",
-                        MemberId = "MemberId1",
-                        ShareMemberId = 1,
-                        SupplierId = "SupplierId1",
-                        DeliveryPersonId = "DeliveryPersonId1",
-                        Action = "Action1",
-                        ActionType = "ActionType1",
-                        Bank = "Bank1",
-                        Income = "Income1",
-                        Expense = "Expense1",
-                        Narration = "Narration1",
-                        DueReceivedAmount = 10.00m,
-                        DuePaymentAmount = 0.00m,
-                        ReceivedAmount = 0.00m,
-                        PaymentAmount = 0.00m,
-                        AddedBy = "TestUser1",
-                        AddedDate = DateTime.Parse("2078-01-01"),
-                        UpdatedBy = null,
-                        UpdatedDate = null
-                    });
+                    Id = 1,
+                    EndOfDay = "2078-01-01",
+                    Action = "Action1",
+                    ActionType = "ActionType1",
+                    PartyId = "PartyId1",
+                    PartyNumber = "PartyNumber1",
+                    BankName = "BankName1",
+                    IncomeExpense = "IncomeExpense1",
+                    Narration = "Narration1",
+                    DueReceivedAmount = 10.00m,
+                    DuePaymentAmount = 0.00m,
+                    ReceivedAmount = 0.00m,
+                    PaymentAmount = 0.00m,
+                    AddedBy = "TestUser1",
+                    AddedDate = DateTime.Parse("2078-01-01"),
+                    UpdatedBy = null,
+                    UpdatedDate = null
+                });
 
-            var userTransactions = _sut.GetLastUserTransaction(TransactionNumberType.None, string.Empty);
+            var lastUserTransaction = _sut.GetLastUserTransaction(PartyNumberType.None, string.Empty);
 
-            Assert.AreEqual(1, userTransactions.Id);
+            Assert.AreEqual(1, lastUserTransaction.Id);
         }
 
         [TestMethod]
@@ -287,7 +211,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         {
             _userTransactionRepository.Setup(repo => repo.GetInvoices())
                 .Returns(new List<string>() {
-                    "IN-01-0001", "IN-01-0002" 
+                    "IN-01-0001", "IN-01-0002"
                 });
 
             var invoices = _sut.GetInvoices();
@@ -304,28 +228,26 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     new DailyTransactionView() {
                         Id = 1,
                         EndOfDay = "2078-01-01",
-                        MemberSupplierId = "M0001",
                         Action = "Action1",
                         ActionType = "ActionType1",
-                        Bank = "Bank1",
-                        InvoiceBillNo = "IN-01-0001",
-                        Income = "Income",
-                        Expense = "Expense",
+                        PartyId = "PartyId1",
+                        PartyNumber = "PartyNumber1",
+                        BankName = "BankName1",
+                        IncomeExpense = "IncomeExpense1",
                         Amount = 100.00m,
                         AddedDate = DateTime.Parse("2078-01-01")
                     },
                     new DailyTransactionView() {
                         Id = 2,
                         EndOfDay = "2078-01-02",
-                        MemberSupplierId = "M0002",
                         Action = "Action2",
                         ActionType = "ActionType2",
-                        Bank = "Bank2",
-                        InvoiceBillNo = "BN-01-0001",
-                        Income = "Income",
-                        Expense = "Expense",
+                        PartyId = "PartyId2",
+                        PartyNumber = "PartyNumber2",
+                        BankName = "BankName2",
+                        IncomeExpense = "IncomeExpense2",
                         Amount = 100.00m,
-                        AddedDate = DateTime.Parse("2078-01-01")
+                        AddedDate = DateTime.Parse("2078-01-02")
                     }
                 });
 
@@ -411,21 +333,16 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         public void AddUserTransaction_ReturnsUserTransaction_WhenUserTransactionIsPassed()
         {
             _userTransactionRepository.Setup(repo => repo.AddUserTransaction(It.IsAny<UserTransaction>()))
-                .Returns(new UserTransaction() 
+                .Returns(new UserTransaction()
                 {
                     Id = 1,
                     EndOfDay = "2078-01-01",
-                    InvoiceNo = "InvoiceNo1",
-                    BillNo = "BillNo1",
-                    MemberId = "MemberId1",
-                    ShareMemberId = 1,
-                    SupplierId = "SupplierId1",
-                    DeliveryPersonId = "DeliveryPersonId1",
                     Action = "Action1",
                     ActionType = "ActionType1",
-                    Bank = "Bank1",
-                    Income = "Income1",
-                    Expense = "Expense1",
+                    PartyId = "PartyId1",
+                    PartyNumber = "PartyNumber1",
+                    BankName = "BankName1",
+                    IncomeExpense = "IncomeExpense1",
                     Narration = "Narration1",
                     DueReceivedAmount = 10.00m,
                     DuePaymentAmount = 0.00m,

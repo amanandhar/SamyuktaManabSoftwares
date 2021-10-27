@@ -3,6 +3,7 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -189,9 +190,9 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = TxtInvoiceDate.Text.Trim(),
-                            MemberId = RichMemberId.Text.Trim(),
                             Action = Constants.RECEIPT,
                             ActionType = Constants.CASH,
+                            PartyId = RichMemberId.Text.Trim(),
                             ReceivedAmount = Convert.ToDecimal(RichPayment.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
@@ -367,11 +368,10 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = TxtInvoiceDate.Text.Trim(),
-                            InvoiceNo = TxtInvoiceNo.Text.Trim(),
-                            MemberId = RichMemberId.Text.Trim(),
-                            DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
                             Action = Constants.SALES,
                             ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
+                            PartyId = RichMemberId.Text.Trim(),
+                            PartyNumber = TxtInvoiceNo.Text.Trim(),
                             DueReceivedAmount = string.IsNullOrWhiteSpace(RichBalanceAmount.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichBalanceAmount.Text.Trim()),
                             ReceivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichReceivedAmount.Text.Trim()),
                             AddedBy = _username,
@@ -380,57 +380,22 @@ namespace GrocerySupplyManagementApp.Forms
 
                         _userTransactionService.AddUserTransaction(userTransaction);
 
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Invoice, _username);
+
                         var posDetail = new POSDetail
                         {
                             EndOfDay = _endOfDay,
+                            UserTransactionId = lastUserTransaction.Id,
                             InvoiceNo = TxtInvoiceNo.Text.Trim(),
                             SubTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim()),
                             DiscountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim()),
                             Discount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
                             DeliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()),
                             DeliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
+                            DeliveryPersonId = selectedDeliveryPerson?.Id.Trim()
                         };
 
                         _posDetailService.AddPOSDetail(posDetail);
-
-                        // Add Sales Discount
-                        if (Convert.ToDecimal(TxtDiscount.Text.Trim()) != Constants.DEFAULT_DECIMAL_VALUE)
-                        {
-                            var userTransactionForSalesDiscount = new UserTransaction
-                            {
-                                EndOfDay = _endOfDay,
-                                InvoiceNo = TxtInvoiceNo.Text.Trim(),
-                                MemberId = RichMemberId.Text.Trim(),
-                                Action = Constants.EXPENSE,
-                                ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                                Expense = Constants.SALES_DISCOUNT,
-                                PaymentAmount = Convert.ToDecimal(TxtDiscount.Text.Trim()),
-                                AddedBy = _username,
-                                AddedDate = DateTime.Now
-                            };
-
-                            _userTransactionService.AddUserTransaction(userTransactionForSalesDiscount);
-                        }
-
-                        // Add Delivery Charge
-                        if (Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()) != Constants.DEFAULT_DECIMAL_VALUE)
-                        {
-                            var userTransactionForDeliveryCharge = new UserTransaction
-                            {
-                                EndOfDay = _endOfDay,
-                                InvoiceNo = TxtInvoiceNo.Text.Trim(),
-                                MemberId = RichMemberId.Text.Trim(),
-                                DeliveryPersonId = selectedDeliveryPerson?.Id.Trim(),
-                                Action = Constants.INCOME,
-                                ActionType = RadioBtnCredit.Checked ? Constants.CREDIT : Constants.CASH,
-                                Income = Constants.DELIVERY_CHARGE,
-                                ReceivedAmount = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim()),
-                                AddedBy = _username,
-                                AddedDate = DateTime.Now
-                            };
-
-                            _userTransactionService.AddUserTransaction(userTransactionForDeliveryCharge);
-                        }
 
                         ClearAllMemberFields();
                         ClearAllItemFields();
@@ -443,7 +408,7 @@ namespace GrocerySupplyManagementApp.Forms
                         RadioBtnCredit.Checked = true;
                         ComboDeliveryPerson.Text = string.Empty;
 
-                        DialogResult result = MessageBox.Show(userTransaction.InvoiceNo + " has been added successfully. \n Would you like to print the receipt?",
+                        DialogResult result = MessageBox.Show(userTransaction.PartyNumber + " has been added successfully. \n Would you like to print the receipt?",
                             "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes)
                         {
@@ -521,7 +486,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 e.Handled = e.SuppressKeyPress = true;
 
-                var volumne = string.IsNullOrWhiteSpace(TxtVolume.Text.Trim()) ? 0 : Convert.ToInt64(TxtVolume.Text.Trim());
+                var volumne = string.IsNullOrWhiteSpace(TxtVolume.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtVolume.Text.Trim());
                 var quantity = Convert.ToInt32(RichItemQuantity.Text);
                 var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemStock.Text.Trim());
 
@@ -790,7 +755,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text.Trim())
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : Convert.ToDecimal(TxtItemPrice.Text.Trim()),
-                    Volume = Convert.ToInt64(TxtVolume.Text.Trim()),
+                    Volume = Convert.ToDecimal(TxtVolume.Text.Trim()),
                     Quantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim())
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : Convert.ToDecimal(RichItemQuantity.Text.Trim()),
@@ -1085,7 +1050,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
                 var customPerUnitValue = perUnitValue;
 
-                customPerUnitValue = (perUnitValue * pricedItem.Volume);
+                customPerUnitValue = Math.Round((perUnitValue * pricedItem.Volume), 2);
 
                 var profitPercent = pricedItem.ProfitPercent;
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
@@ -1200,9 +1165,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDeliveryCharge.Text = posDetailView.DeliveryCharge.ToString();
                 TxtDeliveryChargeTotal.Text = (posDetailView.SubTotal - posDetailView.Discount + posDetailView.Vat + posDetailView.DeliveryCharge).ToString();
                 TxtTotal.Text = (posDetailView.SubTotal - posDetailView.Discount + posDetailView.Vat + posDetailView.DeliveryCharge).ToString();
-                RichReceivedAmount.Text = posDetailView.ActionType == Constants.CREDIT
-                    ? posDetailView.DueReceivedAmount.ToString()
-                    : posDetailView.ReceivedAmount.ToString();
+                RichReceivedAmount.Text = posDetailView.ReceivedAmount.ToString();
                 RichBalanceAmount.Text = (Convert.ToDecimal(TxtTotal.Text.Trim()) - Convert.ToDecimal(RichReceivedAmount.Text.Trim())).ToString();
             }
             catch (Exception ex)

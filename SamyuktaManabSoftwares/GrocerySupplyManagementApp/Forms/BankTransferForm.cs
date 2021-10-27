@@ -167,26 +167,26 @@ namespace GrocerySupplyManagementApp.Forms
                     var confirmation = MessageBox.Show("Do you want to save?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmation == DialogResult.Yes)
                     {
+                        ComboBoxItem selectedBank = (ComboBoxItem)ComboBank.SelectedItem;
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
                             Action = Constants.BANK_TRANSFER,
                             ActionType = Constants.CASH,
-                            Bank = ComboBank.Text,
+                            BankName = selectedBank.Value,
                             PaymentAmount = Convert.ToDecimal(RichDepositAmount.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
                         _userTransactionService.AddUserTransaction(userTransaction);
 
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
+                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
 
-                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
-                            BankId = Convert.ToInt64(selectedItem.Id),
-                            TransactionId = lastUserTransaction.Id,
+                            BankId = Convert.ToInt64(selectedBank.Id),
+                            UserTransactionId = lastUserTransaction.Id,
                             Action = '1',
                             Debit = Convert.ToDecimal(RichDepositAmount.Text.Trim()),
                             Credit = Constants.DEFAULT_DECIMAL_VALUE,

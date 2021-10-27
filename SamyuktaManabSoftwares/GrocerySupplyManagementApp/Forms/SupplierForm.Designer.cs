@@ -62,8 +62,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtEmail = new System.Windows.Forms.TextBox();
             this.TxtContactNumber = new System.Windows.Forms.TextBox();
             this.TxtBalance = new System.Windows.Forms.TextBox();
-            this.TxtBillNo = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.TextBoxDebitCredit = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
@@ -387,8 +385,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.TxtEmail);
             this.groupBox1.Controls.Add(this.TxtContactNumber);
             this.groupBox1.Controls.Add(this.TxtBalance);
-            this.groupBox1.Controls.Add(this.TxtBillNo);
-            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.TextBoxDebitCredit);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label14);
@@ -484,7 +480,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtContactNumber.Location = new System.Drawing.Point(489, 45);
             this.TxtContactNumber.Name = "TxtContactNumber";
             this.TxtContactNumber.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtContactNumber.Size = new System.Drawing.Size(105, 26);
+            this.TxtContactNumber.Size = new System.Drawing.Size(147, 26);
             this.TxtContactNumber.TabIndex = 6;
             this.TxtContactNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtContactNumber_KeyPress);
             // 
@@ -499,27 +495,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtBalance.Size = new System.Drawing.Size(213, 26);
             this.TxtBalance.TabIndex = 8;
-            // 
-            // TxtBillNo
-            // 
-            this.TxtBillNo.BackColor = System.Drawing.Color.White;
-            this.TxtBillNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBillNo.Location = new System.Drawing.Point(654, 45);
-            this.TxtBillNo.Name = "TxtBillNo";
-            this.TxtBillNo.ReadOnly = true;
-            this.TxtBillNo.Size = new System.Drawing.Size(111, 26);
-            this.TxtBillNo.TabIndex = 7;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(596, 49);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 18);
-            this.label7.TabIndex = 38;
-            this.label7.Text = "Bill No";
             // 
             // TextBoxDebitCredit
             // 
@@ -829,8 +804,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TextBoxDebitCredit;
         private System.Windows.Forms.RichTextBox RichAmount;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox TxtBillNo;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView DataGridSupplierList;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;

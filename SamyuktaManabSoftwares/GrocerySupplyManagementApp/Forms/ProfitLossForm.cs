@@ -181,7 +181,7 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.DELIVERY_CHARGE,
-                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.DELIVERY_CHARGE })
+                        Amount = _incomeExpenseService.GetTotalDeliveryCharge(new IncomeTransactionFilter() { DateTo = endOfDay})
                     },
                     new IncomeExpenseView
                     {
@@ -291,7 +291,7 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.SALES_DISCOUNT,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_DISCOUNT })
+                        Amount = _incomeExpenseService.GetTotalSalesDiscount(new ExpenseTransactionFilter() { DateTo = endOfDay })
                     },
                     new IncomeExpenseView
                     {

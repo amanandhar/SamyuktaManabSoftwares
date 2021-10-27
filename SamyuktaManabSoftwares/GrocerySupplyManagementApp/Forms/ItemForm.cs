@@ -90,7 +90,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Name = RichItemName.Text.Trim(),
                         Brand = RichItemBrand.Text.Trim(),
                         Unit = ComboUnit.Text.Trim(),
-                        Threshold = Convert.ToInt32(RichThreshold.Text.Trim()),
+                        Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -149,7 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
                             Name = RichItemName.Text.Trim(),
                             Brand = RichItemBrand.Text.Trim(),
                             Unit = ComboUnit.Text.Trim(),
-                            Threshold = Convert.ToInt32(RichThreshold.Text.Trim()),
+                            Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                             UpdatedBy = _username,
                             UpdatedDate = DateTime.Now
                         };

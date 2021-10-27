@@ -108,7 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
                             EndOfDay = _endOfDay,
                             Action = Constants.EXPENSE,
                             ActionType = Constants.DEDUCT,
-                            Expense = Constants.STOCK_ADJUSTMENT,
+                            IncomeExpense = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
                             PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
@@ -123,7 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
                             EndOfDay = _endOfDay,
                             Action = Constants.INCOME,
                             ActionType = Constants.ADD,
-                            Income = Constants.STOCK_ADJUSTMENT,
+                            IncomeExpense = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
                             ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
@@ -132,7 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _userTransactionService.AddUserTransaction(userTransaction);
                     }
 
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
+                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
                     var stockAdjustment = new StockAdjustment
                     {
                         EndOfDay = _endOfDay,

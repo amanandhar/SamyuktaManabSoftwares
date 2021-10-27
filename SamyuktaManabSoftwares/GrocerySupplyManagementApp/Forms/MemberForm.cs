@@ -151,13 +151,14 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                     else
                     {
+                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            MemberId = TxtMemberId.Text.Trim(),
                             Action = Constants.RECEIPT,
                             ActionType = ComboReceipt.Text.Trim(),
-                            Bank = ComboBank.Text.Trim(),
+                            PartyId = TxtMemberId.Text.Trim(),
+                            BankName = selectedItem?.Value,
                             ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
@@ -166,13 +167,13 @@ namespace GrocerySupplyManagementApp.Forms
 
                         if (ComboReceipt.Text.Trim().ToLower() == Constants.CHEQUE.ToLower())
                         {
-                            var lastPosTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
-                            ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
+                            var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
+
                             var bankTransaction = new BankTransaction
                             {
                                 EndOfDay = _endOfDay,
-                                BankId = Convert.ToInt64(selectedItem.Id),
-                                TransactionId = lastPosTransaction.Id,
+                                BankId = Convert.ToInt64(selectedItem?.Id),
+                                UserTransactionId = lastUserTransaction.Id,
                                 Action = '1',
                                 Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
                                 Credit = Constants.DEFAULT_DECIMAL_VALUE,

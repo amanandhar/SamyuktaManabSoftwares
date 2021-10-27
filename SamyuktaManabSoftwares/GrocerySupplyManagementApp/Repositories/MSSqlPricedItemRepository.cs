@@ -28,7 +28,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_PRICED_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND Id = @Id ";
-            
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -44,7 +44,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 pricedItem.SubCode = reader["SubCode"].ToString();
-                                pricedItem.Volume = Convert.ToInt64(reader["Volume"].ToString());
+                                pricedItem.Volume = Convert.ToDecimal(reader["Volume"].ToString());
                                 pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
                                 pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
                                 pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return pricedItem;
         }
-        
+
         public PricedItem GetPricedItem(string itemCode, string itemSubCode)
         {
             var query = @"SELECT " +
@@ -76,7 +76,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ON ISNULL(pi.[ItemId], '') = i.[Id] " +
                 "WHERE 1 = 1 ";
 
-            if(!string.IsNullOrWhiteSpace(itemCode))
+            if (!string.IsNullOrWhiteSpace(itemCode))
             {
                 query += "AND ISNULL(i.[Code], '') = @Code ";
             }
@@ -104,7 +104,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 pricedItem.SubCode = reader["SubCode"].ToString();
-                                pricedItem.Volume = Convert.ToInt64(reader["Volume"].ToString());
+                                pricedItem.Volume = Convert.ToDecimal(reader["Volume"].ToString());
                                 pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
                                 pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
                                 pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
@@ -175,11 +175,12 @@ namespace GrocerySupplyManagementApp.Repositories
             var unpricedItemViewList = new List<UnpricedItemView>();
             var query = @"SELECT " +
                 "DISTINCT i.[Id], i.[Code], i.[Name], i.[Brand] " +
-                "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " + 
+                "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
-                "WHERE 1 = 1 " +
-                "AND NOT EXISTS (SELECT 1 FROM PricedItem WHERE [ItemId] = pi.[ItemId]) " +
+                "WHERE " +
+                "1 = 1 " +
+                "AND NOT EXISTS (SELECT 1 FROM " + Constants.TABLE_PRICED_ITEM + " WHERE [ItemId] = pi.[ItemId]) " +
                 "ORDER BY i.[Code] ";
 
             try
@@ -263,7 +264,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public PricedItem UpdatePricedItem(long id, PricedItem pricedItem)
         {
-            string query = @"UPDATE " + Constants.TABLE_PRICED_ITEM + " " + 
+            string query = @"UPDATE " + Constants.TABLE_PRICED_ITEM + " " +
                 "SET " +
                 "[ItemId] = @ItemId, " +
                 "[SubCode] = @SubCode, " +
