@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using System;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -23,9 +24,34 @@ namespace GrocerySupplyManagementApp.Services
             return _capitalRepository.GetSupplierTotalBalance(supplierTransactionFilter);
         }
 
-        public decimal GetCashInHand(UserTransactionFilter userTransactionFilter)
+        public decimal GetTotalSalesAndReceipt(CapitalTransactionFilter capitalTransactionFilter)
         {
-            return _capitalRepository.GetCashInHand(userTransactionFilter);
+            return _capitalRepository.GetTotalSalesAndReceipt(capitalTransactionFilter);
+        }
+
+        public decimal GetTotalPurchaseAndPayment(CapitalTransactionFilter capitalTransactionFilter)
+        {
+            return _capitalRepository.GetTotalPurchaseAndPayment(capitalTransactionFilter);
+        }
+
+        public decimal GetTotalBankTransfer(CapitalTransactionFilter capitalTransactionFilter)
+        {
+            return _capitalRepository.GetTotalBankTransfer(capitalTransactionFilter);
+        }
+
+        public decimal GetTotalExpense(CapitalTransactionFilter capitalTransactionFilter)
+        {
+            return _capitalRepository.GetTotalExpense(capitalTransactionFilter);
+        }
+
+        public decimal GetCashInHand(CapitalTransactionFilter capitalTransactionFilter)
+        {
+            var totalSalesAndReceiptInCash = GetTotalSalesAndReceipt(capitalTransactionFilter);
+            var totalPurchaseAndPaymentInCash = GetTotalPurchaseAndPayment(capitalTransactionFilter);
+            var totalBankTransferInCash = GetTotalBankTransfer(capitalTransactionFilter);
+            var totalExpenseInCash = GetTotalExpense(capitalTransactionFilter);
+            var cashInHand = Math.Abs(totalSalesAndReceiptInCash - (totalPurchaseAndPaymentInCash + totalBankTransferInCash + totalExpenseInCash));
+            return cashInHand;
         }
 
         public decimal GetOpeningCashBalance(string endOfDay)

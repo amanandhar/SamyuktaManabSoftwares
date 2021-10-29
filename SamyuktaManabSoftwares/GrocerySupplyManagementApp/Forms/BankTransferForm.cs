@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,7 +17,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly ICapitalService _capitalService;
 
         private readonly string _username;
@@ -29,14 +27,12 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public BankTransferForm(string username,
             ISettingService settingService, IBankService bankService,
-            IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
-            ICapitalService capitalService)
+            IBankTransactionService bankTransactionService, ICapitalService capitalService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _bankService = bankService;
-            _userTransactionService = userTransactionService;
             _bankTransactionService = bankTransactionService;
             _capitalService = capitalService;
 
@@ -106,6 +102,11 @@ namespace GrocerySupplyManagementApp.Forms
                 RichDepositAmount.Focus();
             }
         }
+
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
         #endregion
 
         #region Helper Methods
@@ -124,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
                 });
 
-                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
+                TxtCash.Text = _capitalService.GetCashInHand(new CapitalTransactionFilter() { DateTo = _endOfDay, ActionType = Constants.CASH }).ToString();
             }
             catch (Exception ex)
             {
@@ -138,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 ComboBank.Text = string.Empty;
-                TxtCash.Text = _capitalService.GetCashInHand(new UserTransactionFilter()).ToString();
+                TxtCash.Text = _capitalService.GetCashInHand(new CapitalTransactionFilter() { DateTo = _endOfDay, ActionType = Constants.CASH }).ToString();
                 TxtAccountNo.Clear();
                 RichDepositAmount.Clear();
                 RichNarration.Clear();
@@ -168,26 +169,13 @@ namespace GrocerySupplyManagementApp.Forms
                     if (confirmation == DialogResult.Yes)
                     {
                         ComboBoxItem selectedBank = (ComboBoxItem)ComboBank.SelectedItem;
-                        var userTransaction = new UserTransaction
-                        {
-                            EndOfDay = _endOfDay,
-                            Action = Constants.BANK_TRANSFER,
-                            ActionType = Constants.CASH,
-                            BankName = selectedBank.Value,
-                            PaymentAmount = Convert.ToDecimal(RichDepositAmount.Text.Trim()),
-                            AddedBy = _username,
-                            AddedDate = DateTime.Now
-                        };
-                        _userTransactionService.AddUserTransaction(userTransaction);
-
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
 
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
                             BankId = Convert.ToInt64(selectedBank.Id),
-                            UserTransactionId = lastUserTransaction.Id,
-                            Action = '1',
+                            Type = '1',
+                            Action = Constants.BANK_TRANSFER,
                             Debit = Convert.ToDecimal(RichDepositAmount.Text.Trim()),
                             Credit = Constants.DEFAULT_DECIMAL_VALUE,
                             Narration = RichNarration.Text.Trim(),

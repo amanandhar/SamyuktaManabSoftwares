@@ -23,7 +23,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var bankTransactions = new List<BankTransaction>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [BankId], [UserTransactionId], [Action], " +
+                "[Id], [EndOfDay], [BankId], [Type], [Action], [TransactionId], " +
                 "[Debit], [Credit], [Narration], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
@@ -46,13 +46,14 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     BankId = Convert.ToInt64(reader["BankId"].ToString()),
-                                    UserTransactionId = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["UserTransactionId"].ToString()),
-                                    Action = reader.IsDBNull(4) ? '1' : Convert.ToChar(reader["Action"].ToString()),
-                                    Debit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Type = reader.IsDBNull(3) ? '1' : Convert.ToChar(reader["Type"].ToString()),
+                                    Action = reader["Action"].ToString(),
+                                    TransactionId = reader.IsDBNull(5) ? 0 : Convert.ToInt64(reader["TransactionId"].ToString()),
+                                    Debit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
                                     Narration = reader["Narration"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 bankTransactions.Add(bankTransaction);
@@ -75,14 +76,18 @@ namespace GrocerySupplyManagementApp.Repositories
             var bankTransactionViews = new List<BankTransactionView>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], " +
-                "CASE WHEN [Action] = '1' THEN 'Deposit' ELSE 'Withdrawl' END AS Description, [Narration], " +
-                "[Debit], [Credit], " +
-                "(SELECT SUM(ISNULL(b.[Debit], 0) - ISNULL(b.[Credit], 0)) " +
+                "CASE WHEN [Type] = '1' THEN 'Deposit' ELSE 'Withdrawl' END AS Description, " +
+                "[TransactionId], [Debit], [Credit], [Narration], " +
+                "( " +
+                "SELECT SUM(ISNULL(b.[Debit], 0) - ISNULL(b.[Credit], 0)) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " b " +
-                "WHERE b.[AddedDate] <= a.[AddedDate] AND [BankId] = @BankId) as 'Balance' " +
+                "WHERE b.[AddedDate] <= a.[AddedDate] AND [BankId] = @BankId " +
+                ") " +
+                "AS 'Balance' " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " a " +
                 "WHERE 1 = 1 " +
-                "AND [BankId] = @BankId ";
+                "AND [BankId] = @BankId " +
+                "ORDER BY [AddedDate] ";
 
             try
             {
@@ -101,10 +106,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Description = reader["Description"].ToString(),
-                                    Narration = reader["Narration"].ToString(),
+                                    TransactionId = Convert.ToInt64(reader["TransactionId"].ToString()),
                                     Debit = reader.IsDBNull(4) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
                                     Credit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Balance = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString()),
+                                    Narration = reader["Narration"].ToString(),
+                                    Balance = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString()),
                                 };
 
                                 bankTransactionViews.Add(bankTransactionView);
@@ -127,18 +133,13 @@ namespace GrocerySupplyManagementApp.Repositories
             var bankTransactionViews = new List<BankTransactionView>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], " +
-                "CASE WHEN [Action] = '1' THEN 'Deposit' ELSE 'Withdrawl' END AS Description, [Narration], " +
+                "CASE WHEN [Type] = '1' THEN 'Deposit' ELSE 'Withdrawl' END AS Description, [Narration], " +
                 "[Debit], [Credit], " +
                 "(SELECT SUM(ISNULL(b.[Debit], 0) - ISNULL(b.[Credit], 0)) " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " b " +
                 "WHERE b.[AddedDate] <= a.[AddedDate]) as 'Balance' " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " a " +
                 "WHERE 1 = 1 ";
-
-            if (!char.IsWhiteSpace((char)bankTransactionFilter?.Action))
-            {
-                query += "AND [Action] = @Action ";
-            }
 
             if (!string.IsNullOrEmpty(bankTransactionFilter?.DateFrom))
             {
@@ -150,6 +151,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
+            if (!char.IsWhiteSpace((char)bankTransactionFilter?.Type))
+            {
+                query += "AND [Type] = @Type ";
+            }
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -157,9 +163,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Action", ((object)bankTransactionFilter.Action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Type", ((object)bankTransactionFilter.Type) ?? DBNull.Value);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -258,14 +264,14 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
-            if (!char.IsWhiteSpace((char)(bankTransactionFilter?.Action)) || bankTransactionFilter?.Action != null)
+            if (!char.IsWhiteSpace((char)(bankTransactionFilter?.Type)) || bankTransactionFilter?.Type != null)
             {
-                query += "AND [Action] = @Action ";
+                query += "AND [Type] = @Type ";
             }
 
-            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.Narration))
+            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.Action))
             {
-                query += "AND [Narration] = @Narration ";
+                query += "AND [Action] = @Action ";
             }
 
             try
@@ -277,8 +283,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Type", ((object)bankTransactionFilter.Type) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransactionFilter.Action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Narration", ((object)bankTransactionFilter.Narration) ?? DBNull.Value);
 
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
@@ -301,11 +307,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_BANK_TRANSACTION + " " +
                     "( " +
-                        "[EndOfDay], [BankId], [UserTransactionId], [Action], [Debit], [Credit], [Narration], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [BankId], [Type], [Action], [TransactionId], [Debit], [Credit], [Narration], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @BankId, @UserTransactionId, @Action, @Debit, @Credit, @Narration, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @BankId, @Type, @Action, @TransactionId, @Debit, @Credit, @Narration, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -316,8 +322,9 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@EndOfDay", ((object)bankTransaction.EndOfDay) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UserTransactionId", ((object)bankTransaction.UserTransactionId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Type", ((object)bankTransaction.Type) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
@@ -365,13 +372,13 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        public bool DeleteBankTransactionByUserTransaction(long userTransactionId)
+        public bool DeleteBankTransactionByTransactionId(long transactionId)
         {
             bool result = false;
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [UserTransactionId] = @UserTransactionId ";
+                "AND [TransactionId] = @TransactionId ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -379,7 +386,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserTransactionId", ((object)userTransactionId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@TransactionId", ((object)transactionId) ?? DBNull.Value);
                         command.ExecuteNonQuery();
                         result = true;
                     }

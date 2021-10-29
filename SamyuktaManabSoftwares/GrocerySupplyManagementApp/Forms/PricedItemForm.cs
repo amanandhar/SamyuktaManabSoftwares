@@ -290,24 +290,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region OpenFileDialog Event
-        private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            try
-            {
-                Activate();
-                string[] files = OpenItemImageDialog.FileNames;
-                _uploadedImagePath = files[0];
-                PicBoxItemImage.Image = Image.FromFile(_uploadedImagePath);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
-            }
-        }
-        #endregion
-
         #region Textbox Event
 
         private void TxtVolume_KeyPress(object sender, KeyPressEventArgs e)
@@ -340,6 +322,31 @@ namespace GrocerySupplyManagementApp.Forms
             CalculateProfit();
         }
 
+        #endregion
+
+        #region Combo Box Event
+        private void ComboItemUnit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
+        #region OpenFileDialog Event
+        private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                Activate();
+                string[] files = OpenItemImageDialog.FileNames;
+                _uploadedImagePath = files[0];
+                PicBoxItemImage.Image = Image.FromFile(_uploadedImagePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
         #endregion
 
         #region Helper Methods

@@ -243,6 +243,15 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void ComboCategory_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboUnit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
         #endregion
 
         #region Data Grid Event

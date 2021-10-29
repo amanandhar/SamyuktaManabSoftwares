@@ -132,6 +132,7 @@
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DTOs\BankTransactionFilter.cs" />
+    <Compile Include="DTOs\CapitalTransactionFilter.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\DeliveryPersonTransactionFilter.cs" />
     <Compile Include="DTOs\ExcelField.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="DTOs\DailyTransactionFilter.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\BankTransaction.cs" />
+    <Compile Include="Entities\IncomeExpense.cs" />
     <Compile Include="Entities\ItemCategory.cs" />
     <Compile Include="Entities\CompanyInfo.cs" />
     <Compile Include="Entities\Employee.cs" />
@@ -513,6 +515,7 @@
     <Compile Include="ViewModels\PurchaseSalesTransactionView.cs" />
     <Compile Include="ViewModels\SalesReturnTransactionView.cs" />
     <Compile Include="ViewModels\ShareMemberTransactionView.cs" />
+    <Compile Include="ViewModels\ShareMemberView.cs" />
     <Compile Include="ViewModels\SoldItemView.cs" />
     <Compile Include="ViewModels\StockAdjustmentView.cs" />
     <Compile Include="ViewModels\StockView.cs" />
@@ -692,8 +695,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Data\Scripts\CreateTables.sql" />
-    <Content Include="Data\Scripts\TestScript.sql" />
-    <Content Include="Data\Scripts\TruncateTables.sql" />
+    <Content Include="Data\Scripts\DeleteTables.sql" />
     <None Include="Resources\images %2818%29.jpg" />
     <None Include="Resources\images %2818%291.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />

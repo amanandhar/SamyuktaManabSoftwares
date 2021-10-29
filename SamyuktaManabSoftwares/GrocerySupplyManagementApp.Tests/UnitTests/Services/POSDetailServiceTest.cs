@@ -81,7 +81,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     PartyId = "PartyId1",
                     PartyNumber = "PartyNumber1",
                     BankName = "BankName1",
-                    IncomeExpense = "IncomeExpense1",
                     Narration = "Narration1",
                     SubTotal = 100.00m,
                     DiscountPercent = 2,

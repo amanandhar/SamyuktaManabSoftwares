@@ -68,9 +68,9 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalExpense = _incomeExpenseService.GetTotalExpense(endOfDay);
 
                 var shareCapital = _bankTransactionService
-                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.SHARE_CAPITAL });
+                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Type = '1', Action = Constants.SHARE_CAPITAL });
                 var ownerEquity = _bankTransactionService
-                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.OWNER_EQUITY });
+                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Type = '1', Action = Constants.OWNER_EQUITY });
                 var loanAmount = Constants.DEFAULT_DECIMAL_VALUE; // ToDo : Add loan form later
                 var payableAmount = Math.Abs(_capitalService
                     .GetSupplierTotalBalance(new SupplierTransactionFilter() { DateTo = endOfDay }));
@@ -78,7 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var liabilitiesBalance = shareCapital + ownerEquity + loanAmount
                     + payableAmount + netProfit;
 
-                var cashInHand = Math.Abs(_capitalService.GetCashInHand(new UserTransactionFilter { DateTo = endOfDay }));
+                var cashInHand = _capitalService.GetCashInHand(new CapitalTransactionFilter() { DateTo = endOfDay, ActionType = Constants.CASH });
                 var bankAccount = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { DateTo = endOfDay });
 
                 var stockFilter = new StockFilter() { DateTo = endOfDay };

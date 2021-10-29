@@ -16,15 +16,13 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
     public class UserTransactionServiceTest
     {
         private Mock<IUserTransactionRepository> _userTransactionRepository;
-        private Mock<ISettingRepository> _settingRepository;
         private UserTransactionService _sut;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _userTransactionRepository = new Mock<IUserTransactionRepository>();
-            _settingRepository = new Mock<ISettingRepository>();
-            _sut = new UserTransactionService(_userTransactionRepository.Object, _settingRepository.Object);
+            _sut = new UserTransactionService(_userTransactionRepository.Object);
         }
 
         [TestMethod]
@@ -41,7 +39,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         PartyId = "PartyId1",
                         PartyNumber = "PartyNumber1",
                         BankName = "BankName1",
-                        IncomeExpense = "IncomeExpense1",
                         Narration = "Narration1",
                         DueReceivedAmount = 10.00m,
                         DuePaymentAmount = 0.00m,
@@ -60,7 +57,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         PartyId = "PartyId2",
                         PartyNumber = "PartyNumber2",
                         BankName = "BankName2",
-                        IncomeExpense = "IncomeExpense2",
                         Narration = "Narration2",
                         DueReceivedAmount = 00.00m,
                         DuePaymentAmount = 0.00m,
@@ -158,7 +154,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     PartyId = "PartyId1",
                     PartyNumber = "PartyNumber1",
                     BankName = "BankName1",
-                    IncomeExpense = "IncomeExpense1",
                     Narration = "Narration1",
                     DueReceivedAmount = 10.00m,
                     DuePaymentAmount = 0.00m,
@@ -177,50 +172,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
-        public void GetInvoiceNo_ReturnsInvoiceNo_WhenInvoiceNoIsNotPresent()
-        {
-            _userTransactionRepository.Setup(repo => repo.GetLastInvoiceNo())
-                .Returns(string.Empty);
-
-            _settingRepository.Setup(repo => repo.GetSettings())
-               .Returns(new List<Setting>()
-               {
-                   new Setting() {Id = 1, StartingInvoiceNo = "IN-01-0001", StartingBillNo = "BN-01-0001", StartingDate = "2078-02-01", FiscalYear="2078/79", Discount = 2.00m, Vat = 2.00m, DeliveryCharge = 5.00m, AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null}
-               });
-
-            var invoiceNo = _sut.GetInvoiceNo();
-
-            Assert.AreEqual("IN-01-0001", invoiceNo);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
-        public void GetInvoiceNo_ReturnsInvoiceNo_WhenInvoiceNoIsPresent()
-        {
-            _userTransactionRepository.Setup(repo => repo.GetLastInvoiceNo())
-                .Returns("IN-01-0001");
-
-            var invoiceNo = _sut.GetInvoiceNo();
-
-            Assert.AreEqual("IN-01-0002", invoiceNo);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
-        public void GetInvoices_ReturnsInvoices()
-        {
-            _userTransactionRepository.Setup(repo => repo.GetInvoices())
-                .Returns(new List<string>() {
-                    "IN-01-0001", "IN-01-0002"
-                });
-
-            var invoices = _sut.GetInvoices();
-
-            Assert.AreEqual(2, invoices.ToList().Count);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
         public void GetDailyTransactions_ReturnsDailyTransactionViews_WhenDailyTransactionFilterIsPassed()
         {
             _userTransactionRepository.Setup(repo => repo.GetDailyTransactions(It.IsAny<DailyTransactionFilter>()))
@@ -233,7 +184,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         PartyId = "PartyId1",
                         PartyNumber = "PartyNumber1",
                         BankName = "BankName1",
-                        IncomeExpense = "IncomeExpense1",
                         Amount = 100.00m,
                         AddedDate = DateTime.Parse("2078-01-01")
                     },
@@ -245,7 +195,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         PartyId = "PartyId2",
                         PartyNumber = "PartyNumber2",
                         BankName = "BankName2",
-                        IncomeExpense = "IncomeExpense2",
                         Amount = 100.00m,
                         AddedDate = DateTime.Parse("2078-01-02")
                     }
@@ -254,43 +203,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
             var dailyTransactions = _sut.GetDailyTransactions(new DailyTransactionFilter());
 
             Assert.AreEqual(2, dailyTransactions.ToList().Count);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.UserTransactionService")]
-        public void GetShareMemberTransactions_ReturnsShareMemberTransactionViews_WhenShareMemberTransactionFilterIsPassed()
-        {
-            _userTransactionRepository.Setup(repo => repo.GetShareMemberTransactions(It.IsAny<ShareMemberTransactionFilter>()))
-                .Returns(new List<ShareMemberTransactionView>() {
-                    new ShareMemberTransactionView() {
-                        Id = 1,
-                        EndOfDay = "2078-01-01",
-                        ShareMemberId = "1",
-                        Name = "Name1",
-                        ContactNo = 9999999999,
-                        Description = "Description1",
-                        Type = "Type1",
-                        Debit = 100.00m,
-                        Credit = 0.00m,
-                        Balance = 100.00m
-                    },
-                    new ShareMemberTransactionView() {
-                        Id = 2,
-                        EndOfDay = "2078-01-02",
-                        ShareMemberId = "2",
-                        Name = "Name2",
-                        ContactNo = 9999999999,
-                        Description = "Description2",
-                        Type = "Type2",
-                        Debit = 200.00m,
-                        Credit = 0.00m,
-                        Balance = 200.00m
-                    }
-                });
-
-            var shareMemberTransactions = _sut.GetShareMemberTransactions(new ShareMemberTransactionFilter());
-
-            Assert.AreEqual(2, shareMemberTransactions.ToList().Count);
         }
 
         [TestMethod]
@@ -342,7 +254,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     PartyId = "PartyId1",
                     PartyNumber = "PartyNumber1",
                     BankName = "BankName1",
-                    IncomeExpense = "IncomeExpense1",
                     Narration = "Narration1",
                     DueReceivedAmount = 10.00m,
                     DuePaymentAmount = 0.00m,

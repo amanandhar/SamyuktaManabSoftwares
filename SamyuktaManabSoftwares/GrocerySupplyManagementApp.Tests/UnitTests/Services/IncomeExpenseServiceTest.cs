@@ -118,20 +118,20 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     new ExpenseTransactionView() {
                         Id = 1,
                         EndOfDay = "2078-01-01",
-                        Action = "Expense",
-                        ActionType = Constants.CASH,
-                        Expense = "Assets",
+                        Description = "Assets",
                         Narration = "Assets",
-                        Amount = 110.00m
+                        ActionType = Constants.CASH,
+                        Amount = 110.00m,
+                        AddedDate = DateTime.Parse("2021-01-01")
                     },
                     new ExpenseTransactionView() {
                         Id = 1,
                         EndOfDay = "2078-01-01",
-                        Action = "Expense",
-                        ActionType = Constants.CHEQUE,
-                        Expense = "Electricity",
+                        Description = "Electricity",
                         Narration = "Electricity",
-                        Amount = 220.00m
+                        ActionType = Constants.CHEQUE,
+                        Amount = 220.00m,
+                        AddedDate = DateTime.Parse("2021-01-01")
                     }
                 });
 

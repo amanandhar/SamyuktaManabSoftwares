@@ -3,7 +3,6 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IShareMemberService _shareMemberService;
-        private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -33,7 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
         private string _baseImageFolder;
         private string _shareMemberImageFolder;
         private string _uploadedImagePath = string.Empty;
-        private string _selectedShareMemberId;
+        private long _selectedShareMemberId;
 
         #region Enum
         private enum Action
@@ -54,7 +52,6 @@ namespace GrocerySupplyManagementApp.Forms
             ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IShareMemberService shareMemberService,
-            IUserTransactionService userTransactionService,
             DashboardForm dashboardForm)
         {
             InitializeComponent();
@@ -63,7 +60,6 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _shareMemberService = shareMemberService;
-            _userTransactionService = userTransactionService;
             _dashboard = dashboardForm;
 
             _username = username;
@@ -89,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            ShareMemberListForm shareMemberListForm = new ShareMemberListForm(_userTransactionService, this);
+            ShareMemberListForm shareMemberListForm = new ShareMemberListForm(_shareMemberService, this);
             shareMemberListForm.ShowDialog();
         }
 
@@ -118,27 +114,13 @@ namespace GrocerySupplyManagementApp.Forms
                 if (ValidateShareMemberTransaction())
                 {
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                    var userTransaction = new UserTransaction
-                    {
-                        EndOfDay = _endOfDay,
-                        PartyId = _selectedShareMemberId,
-                        Action = Constants.RECEIPT,
-                        ActionType = Constants.SHARE_CAPITAL,
-                        BankName = selectedItem?.Value,
-                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
-                    _userTransactionService.AddUserTransaction(userTransaction);
-
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
-
                     var bankTransaction = new BankTransaction
                     {
                         EndOfDay = _endOfDay,
                         BankId = Convert.ToInt64(selectedItem?.Id),
-                        UserTransactionId = lastUserTransaction.Id,
-                        Action = '1',
+                        Type = '1',
+                        Action = Constants.SHARE_CAPITAL,
+                        TransactionId = _selectedShareMemberId,
                         Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
                         Credit = Constants.DEFAULT_DECIMAL_VALUE,
                         Narration = ComboNarration.Text.Trim(),
@@ -362,6 +344,18 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Combo Box Event
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboNarration_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
         #region OpenFileDialog Event
         private void OpenShareMemberImageDialog_FileOk(object sender, CancelEventArgs e)
         {
@@ -384,7 +378,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridShareMemberList.Columns["Id"].Visible = false;
-            DataGridShareMemberList.Columns["ShareMemberId"].Visible = false;
             DataGridShareMemberList.Columns["Name"].Visible = false;
             DataGridShareMemberList.Columns["ContactNo"].Visible = false;
 
@@ -457,14 +450,14 @@ namespace GrocerySupplyManagementApp.Forms
             ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CAPITAL, Value = Constants.SHARE_CAPITAL });
         }
 
-        private List<ShareMemberTransactionView> GetShareMemberTransactions(string shareMemberId)
+        private List<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
         {
             var shareMemberTransactionFilter = new ShareMemberTransactionFilter()
             {
                 ShareMemberId = shareMemberId
             };
 
-            var shareMemberTransactionViewList = _userTransactionService.GetShareMemberTransactions(shareMemberTransactionFilter).ToList();
+            var shareMemberTransactionViewList = _shareMemberService.GetShareMemberTransactions(shareMemberTransactionFilter).ToList();
             return shareMemberTransactionViewList;
         }
 
@@ -570,10 +563,10 @@ namespace GrocerySupplyManagementApp.Forms
             RichAmount.Clear();
         }
 
-        public void PopulateShareMember(string shareMemberId)
+        public void PopulateShareMember(long shareMemberId)
         {
             _selectedShareMemberId = shareMemberId;
-            var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(_selectedShareMemberId));
+            var shareMember = _shareMemberService.GetShareMember(_selectedShareMemberId);
 
             RichName.Text = shareMember.Name;
             RichAddress.Text = shareMember.Address;
@@ -591,7 +584,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             EnableFields();
             EnableFields(Action.PopulateShareMember);
-            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId.ToString()));
+            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
         }
 
         #endregion

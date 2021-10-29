@@ -25,7 +25,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var userTransactions = new List<UserTransaction>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [Action], [ActionType], " +
-                "[PartyId], [PartyNumber], [BankName], [IncomeExpense], [Narration], " +
+                "[PartyId], [PartyNumber], [BankName], [Narration], " +
                 "[DueReceivedAmount], [DuePaymentAmount], [ReceivedAmount], [PaymentAmount], " +
                 "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
@@ -51,7 +51,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [Action] = @Action ";
             }
 
-            query += "ORDER BY [Id] ";
+            query += "ORDER BY [AddedDate] DESC ";
 
             try
             {
@@ -78,7 +78,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                     PartyId = reader["PartyId"].ToString(),
                                     PartyNumber = reader["PartyNumber"].ToString(),
                                     BankName = reader["BankName"].ToString(),
-                                    IncomeExpense = reader["IncomeExpense"].ToString(),
                                     Narration = reader["Narration"].ToString(),
                                     DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString()),
                                     DuePaymentAmount = Convert.ToDecimal(reader["DuePaymentAmount"].ToString()),
@@ -87,7 +86,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     AddedBy = reader["AddedBy"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedBy = reader["UpdatedBy"].ToString(),
-                                    UpdatedDate = reader.IsDBNull(16) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(15) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 userTransactions.Add(userTransaction);
@@ -136,7 +135,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ut.[Action] = @Action ";
             }
 
-            query += "ORDER BY ut.[Id] DESC";
+            query += "ORDER BY ut.[AddedDate] DESC";
 
             try
             {
@@ -225,7 +224,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ut.[Action] = @Action ";
             }
 
-            query += "ORDER BY ut.[Id] DESC ";
+            query += "ORDER BY ut.[AddedDate] DESC ";
 
             try
             {
@@ -276,12 +275,11 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "TOP 1 " +
                 "[Id], [EndOfDay], [Action], [ActionType], " +
-                "[PartyId], [PartyNumber], [BankName], [IncomeExpense], [Narration], " +
+                "[PartyId], [PartyNumber], [BankName], [Narration], " +
                 "[DueReceivedAmount], [DuePaymentAmount], [ReceivedAmount], [PaymentAmount], " +
                 "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                 "WHERE 1 = 1 ";
-
 
             if (transactionNumberType == PartyNumberType.Bill)
             {
@@ -321,7 +319,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                 userTransaction.PartyId = reader["PartyId"].ToString();
                                 userTransaction.PartyNumber = reader["PartyNumber"].ToString();
                                 userTransaction.BankName = reader["BankName"].ToString();
-                                userTransaction.IncomeExpense = reader["IncomeExpense"].ToString();
                                 userTransaction.Narration = reader["Narration"].ToString();
                                 userTransaction.DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString());
                                 userTransaction.DuePaymentAmount = Convert.ToDecimal(reader["DuePaymentAmount"].ToString());
@@ -330,7 +327,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 userTransaction.AddedBy = reader["AddedBy"].ToString();
                                 userTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 userTransaction.UpdatedBy = reader["UpdatedBy"].ToString();
-                                userTransaction.UpdatedDate = reader.IsDBNull(16) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                userTransaction.UpdatedDate = reader.IsDBNull(15) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -345,98 +342,13 @@ namespace GrocerySupplyManagementApp.Repositories
             return userTransaction;
         }
 
-        public string GetLastInvoiceNo()
-        {
-            string query = @"SELECT " +
-                "TOP 1 " +
-                "[PartyNumber] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "WHERE 1 = 1 " +
-                "AND [PartyNumber] IS NOT NULL " +
-                "AND EXISTS ( " +
-                "SELECT 1 FROM " + Constants.TABLE_USER_TRANSACTION + " ut1 " +
-                "WHERE " +
-                "1 = 1 " +
-                "AND ut.[Id] = ut1.[Id] " +
-                "AND (ut1.[Action] = '" + Constants.SALES + "' OR ut1.[Action] = '" + Constants.RECEIPT + "') " +
-                ") " +
-                "ORDER BY [Id] DESC ";
-            string invoiceNo = string.Empty;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            invoiceNo = result.ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return invoiceNo;
-        }
-
-        public IEnumerable<string> GetInvoices()
-        {
-            var invoices = new List<string>();
-            var query = @"SELECT " +
-                "DISTINCT [PartyNumber] " +
-                "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                "WHERE 1 = 1 " +
-                "AND [PartyNumber] IS NOT NULL " +
-                "AND EXISTS ( " +
-                "SELECT 1 FROM " + Constants.TABLE_USER_TRANSACTION + " ut1 " +
-                "WHERE " +
-                "1 = 1 " +
-                "AND ut.[Id] = ut1.[Id] " +
-                "AND (ut1.[Action] = '" + Constants.SALES + "' OR ut1.[Action] = '" + Constants.RECEIPT + "') " +
-                ") " +
-                "ORDER BY [PartyNumber] ";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var invoice = reader["PartyNumber"].ToString();
-
-                                invoices.Add(invoice);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return invoices;
-        }
-
         public IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter)
         {
             var transactionViewList = new List<DailyTransactionView>();
             var query = @"SELECT " +
                 "ut.[Id], ut.[EndOfDay], " +
                 "ut.[Action], ut.[ActionType], " +
-                "ut.[PartyId], ut.[PartyNumber], ut.[BankName], ut.[IncomeExpense], " +
+                "ut.[PartyId], ut.[PartyNumber], ut.[BankName], " +
                 "CASE " +
                     "WHEN ut.[Action]='" + Constants.PURCHASE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[DuePaymentAmount] " +
                     "WHEN ut.[Action]='" + Constants.PAYMENT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[PaymentAmount] " +
@@ -446,16 +358,11 @@ namespace GrocerySupplyManagementApp.Repositories
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[ReceivedAmount] " +
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[ReceivedAmount] " +
                     "WHEN ut.[Action]='" + Constants.RECEIPT + "' AND ut.[ActionType]='" + Constants.SHARE_CAPITAL + "' THEN ut.[ReceivedAmount] " +
-                    "WHEN ut.[Action]='" + Constants.EXPENSE + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[PaymentAmount] " +
-                    "WHEN ut.[Action]='" + Constants.EXPENSE + "' AND ut.[ActionType]='" + Constants.CREDIT + "' THEN ut.[PaymentAmount] " +
-                    "WHEN ut.[Action]='" + Constants.EXPENSE + "' AND ut.[ActionType]='" + Constants.CHEQUE + "' THEN ut.[PaymentAmount] " +
-                    "WHEN ut.[Action]='" + Constants.BANK_TRANSFER + "' AND ut.[ActionType]='" + Constants.CASH + "' THEN ut.[PaymentAmount] " +
                     "ELSE " + Constants.DEFAULT_DECIMAL_VALUE + " " +
                 "END AS [Amount], " +
                 "ut.[AddedDate] " +
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "WHERE 1 = 1 " +
-                "AND [Action] != '" + Constants.INCOME + "' ";
+                "WHERE 1 = 1 ";
 
             if (dailyTransactionFilter.Date != null)
             {
@@ -474,21 +381,13 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " AND ut.[Action] = '" + Constants.PAYMENT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Payment + "' ";
             }
-            else if (dailyTransactionFilter.Expense != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.EXPENSE + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Expense + "' ";
-            }
-            else if (dailyTransactionFilter.BankTransfer != null)
-            {
-                query += " AND ut.[Action] = '" + Constants.BANK_TRANSFER + "' AND ut.[ActionType] = '" + dailyTransactionFilter.BankTransfer + "' ";
-            }
             else if (dailyTransactionFilter.Receipt != null)
             {
                 query += " AND ut.[Action] = '" + Constants.RECEIPT + "' AND ut.[ActionType] = '" + dailyTransactionFilter.Receipt + "' ";
             }
-            else if (dailyTransactionFilter.InvoiceNo != null)
+            else if (dailyTransactionFilter.PartyNumber != null)
             {
-                query += " AND ISNULL(ut.[PartyNumber], '') = '" + dailyTransactionFilter.InvoiceNo + "' ";
+                query += " AND ISNULL(ut.[PartyNumber], '') = '" + dailyTransactionFilter.PartyNumber + "' ";
             }
             else if (dailyTransactionFilter.Username != null)
             {
@@ -498,6 +397,8 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += " ";
             }
+
+            query += "ORDER BY ut.[AddedDate] DESC ";
 
             try
             {
@@ -519,7 +420,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                     PartyId = reader["PartyId"].ToString(),
                                     PartyNumber = reader["PartyNumber"].ToString(),
                                     BankName = reader["BankName"].ToString(),
-                                    IncomeExpense = reader["IncomeExpense"].ToString(),
                                     Amount = Convert.ToDecimal(reader["Amount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
@@ -537,83 +437,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return transactionViewList;
-        }
-
-        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter)
-        {
-            var shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
-            var query = @"SELECT " +
-                "bt.[Id], bt.[EndOfDay], " +
-                "sm.[Id] AS [ShareMemberId], sm.[Name], sm.[ContactNo], " +
-                "bt.[Narration] AS [Description], " +
-                "CASE WHEN bt.[Action] = 1 THEN '" + Constants.DEPOSIT + "' ELSE '" + Constants.WITHDRAWL + "' END AS [Type], " +
-                "bt.[Debit], bt.[Credit], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
-                "FROM " + Constants.TABLE_SHARE_MEMBER + " sm " +
-                "LEFT JOIN " +
-                "( " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "INNER JOIN " + Constants.TABLE_BANK_TRANSACTION + " bt " +
-                "ON ut.[id] = bt.[UserTransactionId] " +
-                ") " +
-                "ON sm.[Id] = ut.[ShareMemberId] " +
-                "WHERE 1 = 1 ";
-
-            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.DateFrom))
-            {
-                query += "AND ut.[EndOfDay] >= @DateFrom ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.DateTo))
-            {
-                query += "AND ut.[EndOfDay] <= @DateTo ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.ShareMemberId))
-            {
-                query += "AND ISNULL(ut.[ShareMemberId], '') = @ShareMemberId ";
-            }
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)shareMemberTransactionFilter?.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)shareMemberTransactionFilter?.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ShareMemberId", ((object)Convert.ToInt64(shareMemberTransactionFilter?.ShareMemberId)) ?? DBNull.Value);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var shareMemberTransactionView = new ShareMemberTransactionView
-                                {
-                                    Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString()),
-                                    EndOfDay = reader["EndOfDay"].ToString(),
-                                    ShareMemberId = reader["ShareMemberId"].ToString(),
-                                    Name = reader["Name"].ToString(),
-                                    ContactNo = reader.IsDBNull(4) ? 0 : Convert.ToInt64(reader["ContactNo"].ToString()),
-                                    Description = reader["Description"].ToString(),
-                                    Type = reader["Type"].ToString(),
-                                    Debit = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
-                                    Credit = reader.IsDBNull(8) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
-                                    Balance = reader.IsDBNull(9) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString())
-                                };
-
-                                shareMemberTransactionViewList.Add(shareMemberTransactionView);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return shareMemberTransactionViewList;
         }
 
         public IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter)
@@ -643,6 +466,8 @@ namespace GrocerySupplyManagementApp.Repositories
             {
                 query += "AND ut.[EndOfDay] <= @DateTo ";
             }
+
+            query += "ORDER BY ut.[AddedDate] DESC ";
 
             try
             {
@@ -691,14 +516,14 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
                     "(" +
                         "[EndOfDay], [Action], [ActionType], " +
-                        "[PartyId], [PartyNumber], [BankName], [IncomeExpense], [Narration], " +
+                        "[PartyId], [PartyNumber], [BankName], [Narration], " +
                         "[DueReceivedAmount], [DuePaymentAmount], [ReceivedAmount], [PaymentAmount], " +
                         "[AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@EndOfDay, @Action, @ActionType, " +
-                        "@PartyId, @PartyNumber, @BankName, @IncomeExpense, @Narration, " +
+                        "@PartyId, @PartyNumber, @BankName, @Narration, " +
                         "@DueReceivedAmount, @DuePaymentAmount, @ReceivedAmount, @PaymentAmount, " +
                         "@AddedBy, @AddedDate " +
                     ") ";
@@ -715,7 +540,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@PartyId", ((object)userTransaction.PartyId) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@PartyNumber", ((object)userTransaction.PartyNumber) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BankName", ((object)userTransaction.BankName) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@IncomeExpense", ((object)userTransaction.IncomeExpense) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Narration", ((object)userTransaction.Narration) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DueReceivedAmount", ((object)userTransaction.DueReceivedAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@DuePaymentAmount", ((object)userTransaction.DuePaymentAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);

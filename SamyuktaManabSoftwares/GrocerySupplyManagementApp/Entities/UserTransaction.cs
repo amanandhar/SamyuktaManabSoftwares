@@ -11,7 +11,6 @@ namespace GrocerySupplyManagementApp.Entities
         public string PartyId { get; set; }
         public string PartyNumber { get; set; }
         public string BankName { get; set; }
-        public string IncomeExpense { get; set; }
         public string Narration { get; set; }
         public decimal DueReceivedAmount { get; set; }
         public decimal DuePaymentAmount { get; set; }

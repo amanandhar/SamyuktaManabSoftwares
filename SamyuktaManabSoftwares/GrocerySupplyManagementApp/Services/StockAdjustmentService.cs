@@ -31,14 +31,9 @@ namespace GrocerySupplyManagementApp.Services
             return _stockAdjustmentRepository.GetDeductedStockTotalQuantity(stockFilter);
         }
 
-        public StockAdjustment AddStockAdjustment(StockAdjustment stockAdjustment)
+        public StockAdjustment AddStockAdjustment(StockAdjustment stockAdjustment, IncomeExpense incomeExpense, string incomeExpenseType, string username)
         {
-            return _stockAdjustmentRepository.AddStockAdjustment(stockAdjustment);
-        }
-
-        public bool DeleteStockAdjustmentByUserTransaction(long userTrasactionId)
-        {
-            return _stockAdjustmentRepository.DeleteStockAdjustmentByUserTransaction(userTrasactionId);
+            return _stockAdjustmentRepository.AddStockAdjustment(stockAdjustment, incomeExpense, incomeExpenseType, username);
         }
     }
 }

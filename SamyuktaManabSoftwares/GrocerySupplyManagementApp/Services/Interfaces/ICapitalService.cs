@@ -6,7 +6,13 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     {
         decimal GetMemberTotalBalance(UserTransactionFilter userTransactionFilter);
         decimal GetSupplierTotalBalance(SupplierTransactionFilter supplierTransactionFilter);
-        decimal GetCashInHand(UserTransactionFilter userTransactionFilter);
+        
+        decimal GetTotalSalesAndReceipt(CapitalTransactionFilter capitalTransactionFilter);
+        decimal GetTotalPurchaseAndPayment(CapitalTransactionFilter capitalTransactionFilter);
+        decimal GetTotalBankTransfer(CapitalTransactionFilter capitalTransactionFilter);
+        decimal GetTotalExpense(CapitalTransactionFilter capitalTransactionFilter);
+        decimal GetCashInHand(CapitalTransactionFilter capitalTransactionFilter);
+
         decimal GetOpeningCashBalance(string endOfDay);
         decimal GetOpeningCreditBalance(string endOfDay);
         decimal GetCashBalance(string endOfDay);

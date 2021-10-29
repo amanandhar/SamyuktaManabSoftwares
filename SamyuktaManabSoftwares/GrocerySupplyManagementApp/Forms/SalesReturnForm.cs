@@ -20,6 +20,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -43,7 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
         public SalesReturnForm(string username,
             ISettingService settingService, IItemService itemService,
             IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
-            IUserTransactionService userTransactionService)
+            IUserTransactionService userTransactionService, IIncomeExpenseService incomeExpenseService)
         {
             InitializeComponent();
             _settingService = settingService;
@@ -51,6 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
+            _incomeExpenseService = incomeExpenseService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -120,17 +122,17 @@ namespace GrocerySupplyManagementApp.Forms
                 if (purchasedItem != null && !string.IsNullOrWhiteSpace(purchasedItem?.SupplierId))
                 {
                     // Add Expense
-                    var userTransactionExpense = new UserTransaction
+                    var incomeExpense = new IncomeExpense
                     {
                         EndOfDay = _endOfDay,
                         Action = Constants.RETURN,
                         ActionType = Constants.CASH,
-                        IncomeExpense = Constants.SALES_RETURN,
+                        Type = Constants.SALES_RETURN,
                         ReceivedAmount = _salesReturnTransactionViewList.Sum(x => x.SalesProfit),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
-                    _userTransactionService.AddUserTransaction(userTransactionExpense);
+                    _incomeExpenseService.AddIncomeExpense(incomeExpense);
 
                     // Add Purchase
                     List<PurchasedItem> purchasedItems = _salesReturnTransactionViewList.Select(salesReturn => new PurchasedItem
@@ -232,26 +234,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Radio Button Event
-        private void RadioAll_CheckedChanged(object sender, EventArgs e)
-        {
-            MaskDtEODFrom.Clear();
-            MaskDtEODTo.Clear();
-        }
-        #endregion
-
-        #region Mask Date Event 
-        private void MaskDtEODFrom_KeyDown(object sender, KeyEventArgs e)
-        {
-            RadioAll.Checked = false;
-        }
-
-        private void MaskDtEODTo_KeyDown(object sender, KeyEventArgs e)
-        {
-            RadioAll.Checked = false;
-        }
-        #endregion
-
         #region Combo Box Event
         private void ComboInvoiceNo_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -285,6 +267,36 @@ namespace GrocerySupplyManagementApp.Forms
             }
 
             TxtSalesProfit.Focus();
+        }
+
+        private void ComboInvoiceNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboItemCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
+        #region Radio Button Event
+        private void RadioAll_CheckedChanged(object sender, EventArgs e)
+        {
+            MaskDtEODFrom.Clear();
+            MaskDtEODTo.Clear();
+        }
+        #endregion
+
+        #region Mask Date Event 
+        private void MaskDtEODFrom_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
+
+        private void MaskDtEODTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
         }
         #endregion
 

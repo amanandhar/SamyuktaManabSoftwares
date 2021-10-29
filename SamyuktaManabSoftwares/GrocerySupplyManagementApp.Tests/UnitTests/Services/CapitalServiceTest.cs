@@ -45,18 +45,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.CapitalService")]
-        public void GetCashInHand_ReturnsCashInHand_WhenUserTransactionFilterIsPassed()
-        {
-            _capitalRepository.Setup(repo => repo.GetCashInHand(It.IsAny<UserTransactionFilter>()))
-                .Returns(303.03m);
-
-            var cashInHand = _sut.GetCashInHand(new UserTransactionFilter());
-
-            Assert.AreEqual(303.03m, cashInHand);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.CapitalService")]
         public void GetOpeningCashBalance_ReturnsOpeningCashBalance_WhenEndOfDayIsPassed()
         {
             _capitalRepository.Setup(repo => repo.GetOpeningCashBalance(It.IsAny<string>()))

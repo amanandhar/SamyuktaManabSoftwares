@@ -29,7 +29,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
                 "ORDER BY i.[Code] ";
-   
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -171,7 +171,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND pi.[EndOfDay] >= @DateFrom ";
             }
 
-            if(!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
             {
                 query += "AND pi.[EndOfDay] <= @DateTo ";
             }
@@ -210,9 +210,9 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "[EndOfDay], [SupplierId], [BillNo], [ItemId], [Quantity], [Price], [AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE 1 = 1 " + 
+                "WHERE 1 = 1 " +
                 "AND [ItemId] = @ItemId";
-            
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -221,7 +221,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@ItemId", itemId);
-         
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -247,15 +247,17 @@ namespace GrocerySupplyManagementApp.Repositories
             return item;
         }
 
-        public string GetLastBillNo()
+        public string GetLastBillNumber()
         {
-            string billNo = string.Empty;
-            string query = @"SELECT " + 
-                "TOP 1 [BillNo] " + 
+            string billNumber = string.Empty;
+            string query = @"SELECT " +
+                "TOP 1 " +
+                "[BillNo] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
-                "WHERE [BillNo] LIKE '" + Constants.BILL_NO_PREFIX + "%' " +
-                "ORDER BY Id DESC";
-            
+                "WHERE 1 = 1 " +
+                "AND [BillNo] IS NOT NULL " +
+                "ORDER BY [Id] DESC ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -266,7 +268,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            billNo = result.ToString();
+                            billNumber = result.ToString();
                         }
                     }
                 }
@@ -277,7 +279,43 @@ namespace GrocerySupplyManagementApp.Repositories
                 throw ex;
             }
 
-            return billNo;
+            return billNumber;
+        }
+
+        public IEnumerable<string> GetBillNumbers()
+        {
+            var billNumbers = new List<string>();
+            var query = @"SELECT " +
+                "DISTINCT [BillNo] " +
+                "FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND [BillNo] IS NOT NULL " +
+                "ORDER BY [BillNo] ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var billNo = reader["BillNo"].ToString();
+                                billNumbers.Add(billNo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return billNumbers;
         }
 
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)

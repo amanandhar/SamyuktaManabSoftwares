@@ -11,7 +11,6 @@ namespace GrocerySupplyManagementApp.ViewModels
         public string PartyId { get; set; }
         public string PartyNumber { get; set; }
         public string BankName { get; set; }
-        public string IncomeExpense { get; set; }
         public decimal Amount { get; set; }
         public DateTime AddedDate { get; set; }
     }

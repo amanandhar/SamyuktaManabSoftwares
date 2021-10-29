@@ -81,6 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboItemCode.Name = "ComboItemCode";
             this.ComboItemCode.Size = new System.Drawing.Size(116, 26);
             this.ComboItemCode.TabIndex = 3;
+            this.ComboItemCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboItemCode_KeyPress);
             // 
             // label2
             // 

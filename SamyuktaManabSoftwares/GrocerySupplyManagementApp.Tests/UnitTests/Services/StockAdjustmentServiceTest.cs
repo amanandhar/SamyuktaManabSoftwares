@@ -87,12 +87,12 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         [TestCategory("UnitTests"), TestCategory("Services.StockAdjustmentService")]
         public void AddStockAdjustment_ReturnsStockAdjustment_WhenStockAdjustmentIsPassed()
         {
-            _stockAdjustmentRepository.Setup(repo => repo.AddStockAdjustment(It.IsAny<StockAdjustment>()))
+            _stockAdjustmentRepository.Setup(repo => repo.AddStockAdjustment(It.IsAny<StockAdjustment>(), It.IsAny<IncomeExpense>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new StockAdjustment()
                 {
                     Id = 1,
                     EndOfDay = "2078-01-01",
-                    UserTransactionId = 101,
+                    IncomeExpenseId = 101,
                     ItemId = 10,
                     Unit = Constants.KILOGRAM,
                     Action = Constants.ADD,
@@ -104,22 +104,9 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     UpdatedDate = null
                 });
 
-            var stockAdjustment = _sut.AddStockAdjustment(new StockAdjustment());
+            var stockAdjustment = _sut.AddStockAdjustment(new StockAdjustment(), new IncomeExpense(), string.Empty, string.Empty);
 
             Assert.AreEqual(1, stockAdjustment.Id);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.StockAdjustmentService")]
-        public void DeleteStockAdjustmentByUserTransaction_ReturnsTrue_WhenUserTransactionIdIsPassed()
-        {
-            long userTransactionId = 1;
-            _stockAdjustmentRepository.Setup(repo => repo.DeleteStockAdjustmentByUserTransaction(It.IsAny<long>()))
-                .Returns(true);
-
-            var result = _sut.DeleteStockAdjustmentByUserTransaction(userTransactionId);
-
-            Assert.IsTrue(result);
         }
     }
 }

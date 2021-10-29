@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string ADD = "Add";
         public const string DEDUCT = "Deduct";
 
+        public const string DEBIT = "Debit";
         public const string CLEAR = "Clear";
         public const string DUE = "Due";
         public const string OWNED = "Owened";
@@ -34,6 +35,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_COMPANY_INFO = "CompanyInfo";
         public const string TABLE_EMPLOYEE = "Employee";
         public const string TABLE_END_OF_DAY = "EndOfDay";
+        public const string TABLE_INCOME_EXPENSE = "IncomeExpense";
         public const string TABLE_ITEM = "Item";
         public const string TABLE_ITEM_CATEGORY = "ItemCategory";
         public const string TABLE_MEMBER = "Member";

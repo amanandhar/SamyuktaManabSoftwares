@@ -12,8 +12,6 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SalesPurchaseForm : Form
     {
-        private static readonly log4net.ILog logger = LogHelper.GetLogger();
-
         private readonly ISettingService _settingService;
         private readonly IUserTransactionService _userTransactionService;
 
@@ -50,6 +48,25 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Combo Box Event
+        private void ComboAction_SelectedValueChanged(object sender, System.EventArgs e)
+        {
+            if (ComboAction.Text.Trim() == Constants.PURCHASE || ComboAction.Text.Trim() == Constants.SALES)
+            {
+                BtnShow.Enabled = true;
+            }
+            else
+            {
+                BtnShow.Enabled = false;
+            }
+        }
+
+        private void ComboAction_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
         #region Radio Button Event
         private void RadioAll_CheckedChanged(object sender, System.EventArgs e)
         {
@@ -70,7 +87,7 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region #region Data Grid Event
+        #region Data Grid Event
         private void DataGridPurchaseSalesTransaction_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridPurchaseSalesTransaction.Columns["EndOfDay"].HeaderText = "Date";
@@ -136,17 +153,5 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseSalesTransaction.DataSource = source;
         }
         #endregion
-
-        private void ComboAction_SelectedValueChanged(object sender, System.EventArgs e)
-        {
-            if (ComboAction.Text.Trim() == Constants.PURCHASE || ComboAction.Text.Trim() == Constants.SALES)
-            {
-                BtnShow.Enabled = true;
-            }
-            else
-            {
-                BtnShow.Enabled = false;
-            }
-        }
     }
 }

@@ -399,6 +399,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboDeliveryPerson.Name = "ComboDeliveryPerson";
             this.ComboDeliveryPerson.Size = new System.Drawing.Size(150, 28);
             this.ComboDeliveryPerson.TabIndex = 40;
+            this.ComboDeliveryPerson.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboDeliveryPerson_KeyPress);
             // 
             // RichReceivedAmount
             // 

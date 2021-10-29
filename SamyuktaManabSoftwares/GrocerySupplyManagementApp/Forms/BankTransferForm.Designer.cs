@@ -152,6 +152,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Size = new System.Drawing.Size(230, 28);
             this.ComboBank.TabIndex = 1;
             this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
+            this.ComboBank.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboBank_KeyPress);
             // 
             // groupBox1
             // 

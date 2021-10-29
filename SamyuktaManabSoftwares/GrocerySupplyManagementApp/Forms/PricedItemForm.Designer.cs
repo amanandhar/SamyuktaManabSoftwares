@@ -201,6 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboItemUnit.Name = "ComboItemUnit";
             this.ComboItemUnit.Size = new System.Drawing.Size(249, 28);
             this.ComboItemUnit.TabIndex = 5;
+            this.ComboItemUnit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboItemUnit_KeyPress);
             // 
             // TxtTotalStock
             // 

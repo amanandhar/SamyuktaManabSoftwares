@@ -52,7 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.ComboAction = new System.Windows.Forms.ComboBox();
+            this.ComboTransactionFilter = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnSearchSupplier = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtSupplierId = new System.Windows.Forms.TextBox();
@@ -252,6 +252,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Size = new System.Drawing.Size(215, 26);
             this.ComboBank.TabIndex = 11;
             this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
+            this.ComboBank.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboBank_KeyPress);
             // 
             // label15
             // 
@@ -286,6 +287,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPayment.Size = new System.Drawing.Size(145, 26);
             this.ComboPayment.TabIndex = 10;
             this.ComboPayment.SelectedValueChanged += new System.EventHandler(this.ComboPaymentType_SelectedValueChanged);
+            this.ComboPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboPayment_KeyPress);
             // 
             // label11
             // 
@@ -364,16 +366,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.TabIndex = 11;
             this.label6.Text = "Contact ";
             // 
-            // ComboAction
+            // ComboTransactionFilter
             // 
-            this.ComboAction.BackColor = System.Drawing.Color.White;
-            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboAction.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.ComboAction.FormattingEnabled = true;
-            this.ComboAction.Location = new System.Drawing.Point(369, 18);
-            this.ComboAction.Name = "ComboAction";
-            this.ComboAction.Size = new System.Drawing.Size(120, 26);
-            this.ComboAction.TabIndex = 23;
+            this.ComboTransactionFilter.BackColor = System.Drawing.Color.White;
+            this.ComboTransactionFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboTransactionFilter.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.ComboTransactionFilter.FormattingEnabled = true;
+            this.ComboTransactionFilter.Location = new System.Drawing.Point(369, 18);
+            this.ComboTransactionFilter.Name = "ComboTransactionFilter";
+            this.ComboTransactionFilter.Size = new System.Drawing.Size(120, 26);
+            this.ComboTransactionFilter.TabIndex = 23;
+            this.ComboTransactionFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboTransactionFilter_KeyPress);
             // 
             // groupBox1
             // 
@@ -721,7 +724,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.ComboAction);
+            this.groupBox5.Controls.Add(this.ComboTransactionFilter);
             this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.BtnShowTransaction);
@@ -799,7 +802,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox ComboAction;
+        private System.Windows.Forms.ComboBox ComboTransactionFilter;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox TextBoxDebitCredit;
         private System.Windows.Forms.RichTextBox RichAmount;

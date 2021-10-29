@@ -179,6 +179,77 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
+        public string GetLastInvoiceNumber()
+        {
+            string invoiceNumber = string.Empty;
+            string query = @"SELECT " +
+                "TOP 1 " +
+                "[InvoiceNo] " +
+                "FROM " + Constants.TABLE_SOLD_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND [InvoiceNo] IS NOT NULL " +
+                "ORDER BY [Id] DESC ";
+            
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            invoiceNumber = result.ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return invoiceNumber;
+        }
+
+        public IEnumerable<string> GetInvoiceNumbers()
+        {
+            var invoiceNumbers = new List<string>();
+            var query = @"SELECT " +
+                "DISTINCT [InvoiceNo] " +
+                "FROM " + Constants.TABLE_SOLD_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND [InvoiceNo] IS NOT NULL " +
+                "ORDER BY [InvoiceNo] ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var invoiceNo = reader["InvoiceNo"].ToString();
+                                invoiceNumbers.Add(invoiceNo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return invoiceNumbers;
+        }
+
         public SoldItem AddSoldItem(SoldItem soldItem)
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +

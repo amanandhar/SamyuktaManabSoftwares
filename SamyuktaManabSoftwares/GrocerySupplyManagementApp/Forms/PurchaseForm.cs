@@ -25,6 +25,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly string _endOfDay;
         public SupplierForm _supplierForm;
         private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
+        private readonly bool _isReadOnly = false;
 
         #region enum
         private enum Action
@@ -62,6 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
+            _isReadOnly = true;
             LoadForm(supplierId, billNo);
         }
         #endregion
@@ -69,10 +71,13 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void PurchaseForm_Load(object sender, EventArgs e)
         {
-            ClearAllFields();
-            EnableFields(Action.None);
-            EnableFields(Action.Load);
-            RichBillNo.Select();
+            if(!_isReadOnly)
+            {
+                ClearAllFields();
+                EnableFields(Action.None);
+                EnableFields(Action.Load);
+                RichBillNo.Select();
+            }
         }
         #endregion
 
@@ -88,7 +93,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddBill_Click(object sender, EventArgs e)
         {
-            RichBillNo.Text = _purchasedItemService.GetLastBillNo();
+            RichBillNo.Text = _purchasedItemService.GetNewBillNumber();
             EnableFields(Action.None);
             EnableFields(Action.Add);
             RichItemCode.Focus();
@@ -310,6 +315,8 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 RichVat.Enabled = false;
             }
+
+            CalculateVatAndPurchasePrice();
         }
         #endregion
 
@@ -420,6 +427,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichDiscount.Enabled = true;
                 RichQuantity.Enabled = true;
 
+                ChkBoxVat.Enabled = true;
+
                 BtnSearchItem.Enabled = true;
                 BtnAddBill.Enabled = true;
                 BtnAddItem.Enabled = true;
@@ -442,6 +451,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichVat.Enabled = false;
                 RichQuantity.Enabled = false;
                 RichPurchasePrice.Enabled = false;
+
+                ChkBoxVat.Enabled = false;
 
                 BtnSearchItem.Enabled = false;
                 BtnAddBill.Enabled = false;
@@ -485,6 +496,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichBillNo.Text = billNo;
 
             BtnSearchItem.Enabled = false;
+            BtnAddBill.Enabled = false;
             BtnAddItem.Enabled = false;
             BtnRemoveItem.Enabled = false;
             BtnClearItem.Enabled = false;

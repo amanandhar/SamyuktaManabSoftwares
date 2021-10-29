@@ -1,5 +1,7 @@
-﻿using GrocerySupplyManagementApp.Repositories.Interfaces;
+﻿using GrocerySupplyManagementApp.Entities;
+using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -31,6 +33,13 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeleteBankTransaction(long id)
         {
             return _atomicTransactionRepository.DeleteBankTransaction(id);
+        }
+        #endregion
+
+        #region POS Methods
+        public bool SaveSalesDetail(List<SoldItem> soldItems, UserTransaction userTransaction, POSDetail posDetail, string username)
+        {
+            return _atomicTransactionRepository.SaveSalesDetail(soldItems, userTransaction, posDetail, username);
         }
         #endregion
     }

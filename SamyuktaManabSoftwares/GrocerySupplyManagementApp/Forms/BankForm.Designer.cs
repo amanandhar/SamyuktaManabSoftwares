@@ -37,9 +37,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchBank = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label7 = new System.Windows.Forms.Label();
             this.TxtBalance = new System.Windows.Forms.TextBox();
-            this.ComboDepositType = new System.Windows.Forms.ComboBox();
+            this.ComboType = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.ComboActionType = new System.Windows.Forms.ComboBox();
+            this.ComboTransaction = new System.Windows.Forms.ComboBox();
             this.RichAmount = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -59,7 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemoveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSaveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.DataGridBankList = new System.Windows.Forms.DataGridView();
-            this.ComboAction = new System.Windows.Forms.ComboBox();
+            this.ComboTransactionFilter = new System.Windows.Forms.ComboBox();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
             this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -81,9 +81,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.BtnSearchBank);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.TxtBalance);
-            this.groupBox1.Controls.Add(this.ComboDepositType);
+            this.groupBox1.Controls.Add(this.ComboType);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.ComboActionType);
+            this.groupBox1.Controls.Add(this.ComboTransaction);
             this.groupBox1.Controls.Add(this.RichAmount);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label8);
@@ -138,64 +138,66 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(443, 21);
+            this.label7.Location = new System.Drawing.Point(803, 21);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(95, 18);
+            this.label7.Size = new System.Drawing.Size(40, 18);
             this.label7.TabIndex = 29;
-            this.label7.Text = "Deposit Type";
+            this.label7.Text = "Type";
             // 
             // TxtBalance
             // 
             this.TxtBalance.BackColor = System.Drawing.Color.White;
             this.TxtBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBalance.Location = new System.Drawing.Point(904, 50);
+            this.TxtBalance.Location = new System.Drawing.Point(874, 49);
             this.TxtBalance.Name = "TxtBalance";
             this.TxtBalance.ReadOnly = true;
             this.TxtBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtBalance.Size = new System.Drawing.Size(150, 27);
+            this.TxtBalance.Size = new System.Drawing.Size(188, 27);
             this.TxtBalance.TabIndex = 28;
             // 
-            // ComboDepositType
+            // ComboType
             // 
-            this.ComboDepositType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboDepositType.FormattingEnabled = true;
-            this.ComboDepositType.Location = new System.Drawing.Point(540, 18);
-            this.ComboDepositType.Name = "ComboDepositType";
-            this.ComboDepositType.Size = new System.Drawing.Size(188, 26);
-            this.ComboDepositType.TabIndex = 30;
-            this.ComboDepositType.SelectedValueChanged += new System.EventHandler(this.ComboDepositType_SelectedValueChanged);
+            this.ComboType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboType.FormattingEnabled = true;
+            this.ComboType.Location = new System.Drawing.Point(874, 16);
+            this.ComboType.Name = "ComboType";
+            this.ComboType.Size = new System.Drawing.Size(188, 26);
+            this.ComboType.TabIndex = 30;
+            this.ComboType.SelectedValueChanged += new System.EventHandler(this.ComboType_SelectedValueChanged);
+            this.ComboType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboType_KeyPress);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(768, 22);
+            this.label11.Location = new System.Drawing.Point(442, 22);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(133, 18);
             this.label11.TabIndex = 23;
             this.label11.Text = "Deposit / Withdraw";
             // 
-            // ComboActionType
+            // ComboTransaction
             // 
-            this.ComboActionType.Enabled = false;
-            this.ComboActionType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboActionType.FormattingEnabled = true;
-            this.ComboActionType.Location = new System.Drawing.Point(904, 18);
-            this.ComboActionType.Name = "ComboActionType";
-            this.ComboActionType.Size = new System.Drawing.Size(150, 26);
-            this.ComboActionType.TabIndex = 22;
-            this.ComboActionType.SelectedValueChanged += new System.EventHandler(this.ComboActionType_SelectedValueChanged);
+            this.ComboTransaction.Enabled = false;
+            this.ComboTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboTransaction.FormattingEnabled = true;
+            this.ComboTransaction.Location = new System.Drawing.Point(579, 16);
+            this.ComboTransaction.Name = "ComboTransaction";
+            this.ComboTransaction.Size = new System.Drawing.Size(190, 26);
+            this.ComboTransaction.TabIndex = 22;
+            this.ComboTransaction.SelectedValueChanged += new System.EventHandler(this.ComboTransaction_SelectedValueChanged);
+            this.ComboTransaction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboTransaction_KeyPress);
             // 
             // RichAmount
             // 
             this.RichAmount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.RichAmount.Enabled = false;
             this.RichAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichAmount.Location = new System.Drawing.Point(540, 50);
+            this.RichAmount.Location = new System.Drawing.Point(579, 50);
             this.RichAmount.Name = "RichAmount";
             this.RichAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichAmount.Size = new System.Drawing.Size(189, 28);
+            this.RichAmount.Size = new System.Drawing.Size(190, 28);
             this.RichAmount.TabIndex = 19;
             this.RichAmount.Text = "";
             this.RichAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichAmount_KeyPress);
@@ -216,7 +218,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(833, 54);
+            this.label8.Location = new System.Drawing.Point(787, 54);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(68, 18);
             this.label8.TabIndex = 14;
@@ -482,17 +484,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridBankList.TabIndex = 0;
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
             // 
-            // ComboAction
+            // ComboTransactionFilter
             // 
-            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboAction.FormattingEnabled = true;
-            this.ComboAction.Items.AddRange(new object[] {
+            this.ComboTransactionFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboTransactionFilter.FormattingEnabled = true;
+            this.ComboTransactionFilter.Items.AddRange(new object[] {
             "Deposit",
             "Withdrawl"});
-            this.ComboAction.Location = new System.Drawing.Point(396, 18);
-            this.ComboAction.Name = "ComboAction";
-            this.ComboAction.Size = new System.Drawing.Size(120, 26);
-            this.ComboAction.TabIndex = 22;
+            this.ComboTransactionFilter.Location = new System.Drawing.Point(396, 18);
+            this.ComboTransactionFilter.Name = "ComboTransactionFilter";
+            this.ComboTransactionFilter.Size = new System.Drawing.Size(120, 26);
+            this.ComboTransactionFilter.TabIndex = 22;
+            this.ComboTransactionFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboTransactionFilter_KeyPress);
             // 
             // MaskEndOfDayFrom
             // 
@@ -535,7 +538,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.ComboAction);
+            this.groupBox3.Controls.Add(this.ComboTransactionFilter);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.BtnShowTransaction);
@@ -614,12 +617,12 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtAmount;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox ComboActionType;
+        private System.Windows.Forms.ComboBox ComboTransaction;
         private System.Windows.Forms.TextBox TxtBalance;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView DataGridBankList;
-        private System.Windows.Forms.ComboBox ComboAction;
-        private System.Windows.Forms.ComboBox ComboDepositType;
+        private System.Windows.Forms.ComboBox ComboTransactionFilter;
+        private System.Windows.Forms.ComboBox ComboType;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDayTo;

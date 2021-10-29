@@ -305,6 +305,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboAction.Size = new System.Drawing.Size(140, 28);
             this.ComboAction.TabIndex = 6;
             this.ComboAction.SelectedValueChanged += new System.EventHandler(this.ComboAction_SelectedValueChanged);
+            this.ComboAction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboAction_KeyPress);
             // 
             // TxtBoxItemQuantity
             // 

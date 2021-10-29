@@ -2,9 +2,9 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,7 +18,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IIncomeExpenseService _incomeExpenseService;
         private readonly ICapitalService _capitalService;
 
@@ -29,15 +28,14 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public ExpenseForm(string username,
             ISettingService settingService, IBankService bankService,
-            IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService,
-            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService)
+            IBankTransactionService bankTransactionService, IIncomeExpenseService incomeExpenseService, 
+            ICapitalService capitalService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
-            _userTransactionService = userTransactionService;
             _incomeExpenseService = incomeExpenseService;
             _capitalService = capitalService;
 
@@ -59,13 +57,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            var expenseTransactionFilter = new ExpenseTransactionFilter();
-            var expense = string.IsNullOrWhiteSpace(ComboFilteredBy.Text.Trim()) ? null : ComboFilteredBy.Text.Trim();
-            expenseTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim());
-            expenseTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim());
-            expenseTransactionFilter.Expense = expense;
-
-            LoadExpenseTransaction(expenseTransactionFilter);
+            LoadExpenseTransactions();
         }
 
         private void BtnSaveExpense_Click(object sender, EventArgs e)
@@ -104,44 +96,45 @@ namespace GrocerySupplyManagementApp.Forms
                         }
                     }
 
-                    var userTransaction = new UserTransaction
+                    var incomeExpense = new IncomeExpense
                     {
                         EndOfDay = _endOfDay,
                         Action = Constants.EXPENSE,
                         ActionType = ComboPayment.Text.Trim(),
                         BankName = selectedBank?.Value,
-                        IncomeExpense = ComboExpense.Text.Trim(),
+                        Type = ComboExpense.Text.Trim(),
                         Narration = TxtNarration.Text.Trim(),
                         PaymentAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
-                    _userTransactionService.AddUserTransaction(userTransaction);
 
                     if (ComboPayment.Text.Trim().ToLower() == Constants.CHEQUE.ToLower())
                     {
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
-
                         var bankTransaction = new BankTransaction
                         {
                             EndOfDay = _endOfDay,
                             BankId = Convert.ToInt64(selectedBank?.Id),
-                            UserTransactionId = lastUserTransaction.Id,
-                            Action = '0',
+                            Type = '0',
+                            Action = Constants.EXPENSE,
                             Credit = Convert.ToDecimal(RichAmount.Text.Trim()),
                             Narration = ComboExpense.Text.Trim(),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
 
-                        _bankTransactionService.AddBankTransaction(bankTransaction);
+                        _incomeExpenseService.AddExpense(incomeExpense, bankTransaction, _username);
+                    }
+                    else
+                    {
+                        _incomeExpenseService.AddIncomeExpense(incomeExpense);
                     }
 
                     DialogResult result = MessageBox.Show(ComboPayment.Text.Trim() + " has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
-                        LoadExpenseTransaction();
+                        LoadExpenseTransactions();
                     }
                 }
             }
@@ -170,22 +163,28 @@ namespace GrocerySupplyManagementApp.Forms
                         selectedRow = DataGridExpenseList.SelectedRows[0];
                     }
 
-                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
-                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    string description = selectedRow?.Cells["Description"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(description)
+                        && (description == Constants.SALES_DISCOUNT || description == Constants.STOCK_ADJUSTMENT))
                     {
-                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (deleteResult == DialogResult.Yes)
+                        MessageBox.Show("Please delete the main transaction first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                        if (!string.IsNullOrWhiteSpace(selectedId))
                         {
-                            var id = Convert.ToInt64(selectedId);
-                            if (_userTransactionService.DeleteUserTransaction(id))
+                            DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (deleteResult == DialogResult.Yes)
                             {
-                                if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
+                                var id = Convert.ToInt64(selectedId);
+                                if (_incomeExpenseService.DeleteIncomeExpense(id, Constants.EXPENSE))
                                 {
                                     DialogResult result = MessageBox.Show("Expense has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     if (result == DialogResult.OK)
                                     {
                                         ClearAllFields();
-                                        LoadExpenseTransaction();
+                                        LoadExpenseTransactions();
                                     }
                                 }
                             }
@@ -210,27 +209,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
         #endregion
-
-        #region Radio Button Event
-        private void RadioAll_CheckedChanged(object sender, EventArgs e)
-        {
-            MaskDtEODFrom.Clear();
-            MaskDtEODTo.Clear();
-            ComboFilteredBy.Text = string.Empty;
-        }
-        #endregion
-
-        #region Mask Date Event
-        private void MaskDtEODFrom_KeyDown(object sender, KeyEventArgs e)
-        {
-            RadioAll.Checked = false;
-        }
-
-        private void MaskDtEODTo_KeyDown(object sender, KeyEventArgs e)
-        {
-            RadioAll.Checked = false;
-        }
-        #endregion 
 
         #region Combo Box Event
         private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
@@ -268,35 +246,68 @@ namespace GrocerySupplyManagementApp.Forms
         {
             RichAmount.Focus();
         }
+
+        private void ComboExpense_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboPayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
         #endregion
+
+        #region Radio Button Event
+        private void RadioAll_CheckedChanged(object sender, EventArgs e)
+        {
+            MaskDtEODFrom.Clear();
+            MaskDtEODTo.Clear();
+            ComboFilteredBy.Text = string.Empty;
+        }
+        #endregion
+
+        #region Mask Date Event
+        private void MaskDtEODFrom_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
+
+        private void MaskDtEODTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
+        #endregion 
 
         #region Data Grid Event
         private void DataGridExpenseList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridExpenseList.Columns["Id"].Visible = false;
+            DataGridExpenseList.Columns["AddedDate"].Visible = false;
 
             DataGridExpenseList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridExpenseList.Columns["EndOfDay"].Width = 80;
+            DataGridExpenseList.Columns["EndOfDay"].Width = 100;
             DataGridExpenseList.Columns["EndOfDay"].DisplayIndex = 0;
 
-            DataGridExpenseList.Columns["Action"].HeaderText = "Description";
-            DataGridExpenseList.Columns["Action"].Width = 100;
-            DataGridExpenseList.Columns["Action"].DisplayIndex = 1;
-
-            DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
-            DataGridExpenseList.Columns["ActionType"].Width = 220;
-            DataGridExpenseList.Columns["ActionType"].DisplayIndex = 2;
-
-            DataGridExpenseList.Columns["Expense"].HeaderText = "Expense";
-            DataGridExpenseList.Columns["Expense"].Width = 150;
-            DataGridExpenseList.Columns["Expense"].DisplayIndex = 3;
+            DataGridExpenseList.Columns["Description"].HeaderText = "Description";
+            DataGridExpenseList.Columns["Description"].Width = 200;
+            DataGridExpenseList.Columns["Description"].DisplayIndex = 1;
 
             DataGridExpenseList.Columns["Narration"].HeaderText = "Narration";
-            DataGridExpenseList.Columns["Narration"].Width = 190;
-            DataGridExpenseList.Columns["Narration"].DisplayIndex = 4;
+            DataGridExpenseList.Columns["Narration"].Width = 200;
+            DataGridExpenseList.Columns["Narration"].DisplayIndex = 2;
+
+            DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
+            DataGridExpenseList.Columns["ActionType"].Width = 100;
+            DataGridExpenseList.Columns["ActionType"].DisplayIndex = 3;
 
             DataGridExpenseList.Columns["Amount"].HeaderText = "Amount";
-            DataGridExpenseList.Columns["Amount"].DisplayIndex = 5;
+            DataGridExpenseList.Columns["Amount"].DisplayIndex = 4;
             DataGridExpenseList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridExpenseList.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -311,15 +322,35 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadExpenseTransaction(ExpenseTransactionFilter expenseTransaction = null)
+        private void LoadExpenseTransactions()
         {
             try
             {
-                var expenseTransactionViews = _incomeExpenseService.GetExpenseTransactions(expenseTransaction).ToList();
+                var expenseTransactionFilter = new ExpenseTransactionFilter();
+                var expenseType = string.IsNullOrWhiteSpace(ComboFilteredBy.Text.Trim()) ? null : ComboFilteredBy.Text.Trim();
+                expenseTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim());
+                expenseTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim());
+                expenseTransactionFilter.ExpenseType = expenseType;
 
-                TxtTotalAmount.Text = expenseTransactionViews.Sum(x => x.Amount).ToString();
+                List<ExpenseTransactionView> expenseTransactionViewList;
 
-                var bindingList = new BindingList<ExpenseTransactionView>(expenseTransactionViews);
+                if (!string.IsNullOrWhiteSpace(expenseType) && expenseType.ToLower().Equals(Constants.SALES_DISCOUNT.ToLower()))
+                {
+                    expenseTransactionViewList = _incomeExpenseService.GetSalesDiscountTransactions(expenseTransactionFilter).ToList();
+                }
+                else if(!string.IsNullOrWhiteSpace(expenseType) && !expenseType.ToLower().Equals(Constants.SALES_DISCOUNT.ToLower()))
+                {
+                    expenseTransactionViewList = _incomeExpenseService.GetExpenseTransactions(expenseTransactionFilter).ToList();
+                }
+                else
+                {
+                    expenseTransactionViewList = _incomeExpenseService.GetSalesDiscountTransactions(expenseTransactionFilter).ToList();
+                    expenseTransactionViewList.AddRange(_incomeExpenseService.GetExpenseTransactions(expenseTransactionFilter).ToList());
+                }
+
+                TxtTotalAmount.Text = expenseTransactionViewList.Sum(x => x.Amount).ToString();
+
+                var bindingList = new BindingList<ExpenseTransactionView>(expenseTransactionViewList.OrderByDescending(x => x.AddedDate).ToList());
                 var source = new BindingSource(bindingList, null);
                 DataGridExpenseList.DataSource = source;
             }

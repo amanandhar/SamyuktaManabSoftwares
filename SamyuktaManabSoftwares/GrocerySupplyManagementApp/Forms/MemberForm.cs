@@ -173,8 +173,8 @@ namespace GrocerySupplyManagementApp.Forms
                             {
                                 EndOfDay = _endOfDay,
                                 BankId = Convert.ToInt64(selectedItem?.Id),
-                                UserTransactionId = lastUserTransaction.Id,
-                                Action = '1',
+                                TransactionId = lastUserTransaction.Id,
+                                Type = '1',
                                 Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
                                 Credit = Constants.DEFAULT_DECIMAL_VALUE,
                                 Narration = TxtMemberId.Text.Trim() + " - " + TxtName.Text.Trim(),
@@ -440,24 +440,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region OpenFileDialog Event
-        private void OpenMemberImageDialog_FileOk(object sender, CancelEventArgs e)
-        {
-            try
-            {
-                Activate();
-                string[] files = OpenMemberImageDialog.FileNames;
-                _uploadedImagePath = files[0];
-                PicBoxMemberImage.Image = Image.FromFile(_uploadedImagePath);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
-            }
-        }
-        #endregion
-
         #region Combobox Event
         private void ComboPayment_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -496,6 +478,34 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
         {
             RichAmount.Focus();
+        }
+
+        private void ComboReceipt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
+        #region OpenFileDialog Event
+        private void OpenMemberImageDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                Activate();
+                string[] files = OpenMemberImageDialog.FileNames;
+                _uploadedImagePath = files[0];
+                PicBoxMemberImage.Image = Image.FromFile(_uploadedImagePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
         }
         #endregion
 

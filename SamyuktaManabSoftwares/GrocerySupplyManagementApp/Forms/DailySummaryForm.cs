@@ -88,17 +88,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             LoadDailySummary(dailySummaryViewList);
         }
-
-        private void BtnDailyTransactions_Click(object sender, EventArgs e)
-        {
-            DailyTransactionForm transactionForm = new DailyTransactionForm(_username,
-                _settingService, _bankTransactionService,
-                _userTransactionService, _userService,
-                _atomicTransactionService
-                );
-
-            transactionForm.Show();
-        }
         #endregion
 
         #region DataGrid Event 

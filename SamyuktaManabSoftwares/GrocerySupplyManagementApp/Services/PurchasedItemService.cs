@@ -49,12 +49,12 @@ namespace GrocerySupplyManagementApp.Services
             return _purchasedItemRepository.GetPurchasedItemByItemId(itemId);
         }
 
-        public string GetLastBillNo()
+        public string GetNewBillNumber()
         {
             string billNo = string.Empty;
             try
             {
-                var lastBillNo = _purchasedItemRepository.GetLastBillNo();
+                var lastBillNo = _purchasedItemRepository.GetLastBillNumber();
                 if (string.IsNullOrWhiteSpace(lastBillNo))
                 {
                     var setting = _settingRepository.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -83,6 +83,16 @@ namespace GrocerySupplyManagementApp.Services
             }
 
             return billNo;
+        }
+
+        public string GetLastBillNumber()
+        {
+            return _purchasedItemRepository.GetLastBillNumber();
+        }
+
+        public IEnumerable<string> GetBillNumbers()
+        {
+            return _purchasedItemRepository.GetBillNumbers();
         }
 
         public PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem)

@@ -179,6 +179,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUserType.Name = "ComboUserType";
             this.ComboUserType.Size = new System.Drawing.Size(170, 32);
             this.ComboUserType.TabIndex = 2;
+            this.ComboUserType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboUserType_KeyPress);
             // 
             // label1
             // 

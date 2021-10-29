@@ -1,9 +1,9 @@
 ﻿namespace GrocerySupplyManagementApp.DTOs
 {
-    public class IncomeTransactionFilter
+    public class CapitalTransactionFilter
     {
         public string DateFrom { get; set; }
         public string DateTo { get; set; }
-        public string IncomeType { get; set; }
+        public string ActionType { get; set; }
     }
 }

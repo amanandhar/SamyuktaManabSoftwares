@@ -499,6 +499,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboReceipt.Size = new System.Drawing.Size(135, 26);
             this.ComboReceipt.TabIndex = 9;
             this.ComboReceipt.SelectedValueChanged += new System.EventHandler(this.ComboPayment_SelectedValueChanged);
+            this.ComboReceipt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboReceipt_KeyPress);
             // 
             // RichAmount
             // 
@@ -534,6 +535,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Size = new System.Drawing.Size(192, 26);
             this.ComboBank.TabIndex = 10;
             this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
+            this.ComboBank.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboBank_KeyPress);
             // 
             // label6
             // 

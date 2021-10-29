@@ -3,7 +3,6 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.ComponentModel;
@@ -19,9 +18,9 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
+        private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -42,17 +41,17 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public StockAdjustmentForm(string username, ISettingService settingService,
             IItemService itemService, IPricedItemService pricedItemService,
-            IUserTransactionService userTransactionService, IStockService stockService,
-            IStockAdjustmentService stockAdjustmentService)
+            IStockService stockService, IStockAdjustmentService stockAdjustmentService, 
+            IIncomeExpenseService incomeExpenseService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _itemService = itemService;
             _pricedItemService = pricedItemService;
-            _userTransactionService = userTransactionService;
             _stockService = stockService;
             _stockAdjustmentService = stockAdjustmentService;
+            _incomeExpenseService = incomeExpenseService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -74,6 +73,11 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboAction_SelectedValueChanged(object sender, EventArgs e)
         {
             TxtBoxItemQuantity.Focus();
+        }
+
+        private void ComboAction_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
         #endregion
 
@@ -101,42 +105,41 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateStockAdjustmentInfo())
                 {
-                    if (ComboAction.Text == Constants.DEDUCT)
+                    var stockAdjustmentType = ComboAction.Text.Trim();
+                    IncomeExpense incomeExpense;
+                    if (stockAdjustmentType == Constants.DEDUCT)
                     {
-                        var userTransaction = new UserTransaction
+                        incomeExpense = new IncomeExpense
                         {
                             EndOfDay = _endOfDay,
                             Action = Constants.EXPENSE,
                             ActionType = Constants.DEDUCT,
-                            IncomeExpense = Constants.STOCK_ADJUSTMENT,
+                            Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
                             PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
-                        _userTransactionService.AddUserTransaction(userTransaction);
                     }
-                    else if (ComboAction.Text == Constants.ADD)
+                    else
                     {
-                        var userTransaction = new UserTransaction
+                        incomeExpense = new IncomeExpense
                         {
                             EndOfDay = _endOfDay,
                             Action = Constants.INCOME,
                             ActionType = Constants.ADD,
-                            IncomeExpense = Constants.STOCK_ADJUSTMENT,
+                            Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
                             ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
-                        _userTransactionService.AddUserTransaction(userTransaction);
                     }
 
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
+                    var incomeExpenseType = stockAdjustmentType == Constants.DEDUCT ? Constants.EXPENSE : Constants.INCOME;
                     var stockAdjustment = new StockAdjustment
                     {
                         EndOfDay = _endOfDay,
-                        UserTransactionId = lastUserTransaction.Id,
                         ItemId = _itemService.GetItem(TxtBoxItemCode.Text.Trim()).Id,
                         Unit = TxtBoxItemUnit.Text.Trim(),
                         Action = ComboAction.Text.Trim(),
@@ -145,7 +148,8 @@ namespace GrocerySupplyManagementApp.Forms
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
-                    _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
+
+                    _stockAdjustmentService.AddStockAdjustment(stockAdjustment, incomeExpense, incomeExpenseType, _username);
 
                     DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)

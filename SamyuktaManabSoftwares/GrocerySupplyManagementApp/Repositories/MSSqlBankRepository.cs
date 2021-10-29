@@ -22,7 +22,8 @@ namespace GrocerySupplyManagementApp.Repositories
             var banks = new List<Bank>();
             var query = @"SELECT " +
                 "[Id], [Name], [AccountNo], [AddedDate], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_BANK;
+                "FROM " + Constants.TABLE_BANK + " " +
+                "ORDER BY [Name] ";
 
             try
             {

@@ -2,16 +2,17 @@
 
 namespace GrocerySupplyManagementApp.Entities
 {
-    public class StockAdjustment
+    public class IncomeExpense
     {
         public long Id { get; set; }
         public string EndOfDay { get; set; }
-        public long IncomeExpenseId { get; set; }
-        public long ItemId { get; set; }
-        public string Unit { get; set; }
         public string Action { get; set; }
-        public decimal Quantity { get; set; }
-        public decimal Price { get; set; }
+        public string ActionType { get; set; }
+        public string BankName { get; set; }
+        public string Type { get; set; }
+        public string Narration { get; set; }
+        public decimal ReceivedAmount { get; set; }
+        public decimal PaymentAmount { get; set; }
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
         public string UpdatedBy { get; set; }

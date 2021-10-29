@@ -11,8 +11,6 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class UnpricedItemListForm : Form
     {
-        private static readonly log4net.ILog logger = LogHelper.GetLogger();
-
         private readonly IPricedItemService _pricedItemService;
         public IUnpricedItemListForm _unpricedItemListForm;
 

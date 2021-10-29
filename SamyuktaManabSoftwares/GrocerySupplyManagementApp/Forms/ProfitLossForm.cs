@@ -186,12 +186,12 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.MEMBER_FEE,
-                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.MEMBER_FEE })
+                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, IncomeType = Constants.MEMBER_FEE })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.OTHER_INCOME,
-                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.OTHER_INCOME })
+                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, IncomeType = Constants.OTHER_INCOME })
                     },
                     new IncomeExpenseView
                     {
@@ -201,7 +201,7 @@ namespace GrocerySupplyManagementApp.Forms
                      new IncomeExpenseView
                     {
                         Name = Constants.STOCK_ADJUSTMENT,
-                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, Income = Constants.STOCK_ADJUSTMENT })
+                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, IncomeType = Constants.STOCK_ADJUSTMENT })
                     },
                     new IncomeExpenseView
                     {
@@ -246,47 +246,47 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.ASSET,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ASSET })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.ASSET })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.DELIVERY_CHARGE,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.DELIVERY_CHARGE })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.DELIVERY_CHARGE })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.ELECTRICITY,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.ELECTRICITY })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.ELECTRICITY })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.FUEL_TRANSPORTATION,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.FUEL_TRANSPORTATION })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.FUEL_TRANSPORTATION })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.GUEST_HOSPITALITY,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.GUEST_HOSPITALITY })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.GUEST_HOSPITALITY })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.LOAN_INTEREST,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.LOAN_INTEREST })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.LOAN_INTEREST })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.MISCELLANEOUS,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.MISCELLANEOUS })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.MISCELLANEOUS })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.OFFICE_RENT,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.OFFICE_RENT })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.OFFICE_RENT })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.REPAIR_MAINTENANCE,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.REPAIR_MAINTENANCE })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.REPAIR_MAINTENANCE })
                     },
                     new IncomeExpenseView
                     {
@@ -296,27 +296,27 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.SALES_RETURN,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.SALES_RETURN })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.SALES_RETURN })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.STAFF_ALLOWANCE,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_ALLOWANCE })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.STAFF_ALLOWANCE })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.STAFF_SALARY,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STAFF_SALARY })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.STAFF_SALARY })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.STOCK_ADJUSTMENT,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.STOCK_ADJUSTMENT })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.STOCK_ADJUSTMENT })
                     },
                     new IncomeExpenseView
                     {
                         Name = Constants.TELEPHONE_INTERNET,
-                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, Expense = Constants.TELEPHONE_INTERNET })
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.TELEPHONE_INTERNET })
                     },
                     new IncomeExpenseView
                     {

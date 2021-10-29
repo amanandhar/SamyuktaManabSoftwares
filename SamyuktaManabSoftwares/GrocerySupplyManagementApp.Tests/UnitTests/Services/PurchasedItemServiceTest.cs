@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         [TestCategory("UnitTests"), TestCategory("Services.PurchasedItemService")]
         public void GetLastBillNo_ReturnsBillNo_WhenInvoiceNoIsNotPresent()
         {
-            _purchasedItemRepository.Setup(repo => repo.GetLastBillNo())
+            _purchasedItemRepository.Setup(repo => repo.GetLastBillNumber())
                 .Returns(string.Empty);
             _settingRepository.Setup(repo => repo.GetSettings())
                .Returns(new List<Setting>()
@@ -105,7 +105,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                    new Setting() {Id = 1, StartingInvoiceNo = "IN-01-0001", StartingBillNo = "BN-01-0001", StartingDate = "2078-02-01", FiscalYear="2078/79", Discount = 2.00m, Vat = 2.00m, DeliveryCharge = 5.00m, AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null}
                });
 
-            var billNo = _sut.GetLastBillNo();
+            var billNo = _sut.GetLastBillNumber();
 
             Assert.AreEqual("BN-01-0001", billNo);
         }
@@ -114,10 +114,10 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         [TestCategory("UnitTests"), TestCategory("Services.PurchasedItemService")]
         public void GetLastBillNo_ReturnsBillNo_WhenInvoiceNoIsPresent()
         {
-            _purchasedItemRepository.Setup(repo => repo.GetLastBillNo())
+            _purchasedItemRepository.Setup(repo => repo.GetLastBillNumber())
                 .Returns("BN-01-0001");
 
-            var billNo = _sut.GetLastBillNo();
+            var billNo = _sut.GetLastBillNumber();
 
             Assert.AreEqual("BN-01-0002", billNo);
         }

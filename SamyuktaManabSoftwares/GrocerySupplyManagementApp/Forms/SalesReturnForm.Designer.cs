@@ -131,6 +131,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboItemCode.Size = new System.Drawing.Size(206, 28);
             this.ComboItemCode.TabIndex = 6;
             this.ComboItemCode.SelectedValueChanged += new System.EventHandler(this.ComboItemCode_SelectedValueChanged);
+            this.ComboItemCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboItemCode_KeyPress);
             // 
             // TxtTotalAmount
             // 
@@ -160,6 +161,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboInvoiceNo.Size = new System.Drawing.Size(176, 28);
             this.ComboInvoiceNo.TabIndex = 3;
             this.ComboInvoiceNo.SelectedValueChanged += new System.EventHandler(this.ComboInvoiceNo_SelectedValueChanged);
+            this.ComboInvoiceNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboInvoiceNo_KeyPress);
             // 
             // label9
             // 

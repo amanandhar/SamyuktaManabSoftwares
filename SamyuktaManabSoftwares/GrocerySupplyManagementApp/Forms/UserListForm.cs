@@ -11,8 +11,6 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class UserListForm : Form
     {
-        private static readonly log4net.ILog logger = LogHelper.GetLogger();
-
         private readonly IUserService _userService;
         public IUserListForm _userListForm;
 

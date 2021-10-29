@@ -79,9 +79,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
-            LoadActions();
-            LoadPayments();
             ClearAllFields();
+            LoadTransactionFilter();
+            LoadPayments();
             EnableFields();
             EnableFields(Action.Load);
         }
@@ -198,8 +198,8 @@ namespace GrocerySupplyManagementApp.Forms
                             {
                                 EndOfDay = _endOfDay,
                                 BankId = Convert.ToInt64(selectedItem?.Id),
-                                UserTransactionId = lastUserTransaction.Id,
-                                Action = '0',
+                                TransactionId = lastUserTransaction.Id,
+                                Type = '0',
                                 Debit = Constants.DEFAULT_DECIMAL_VALUE,
                                 Credit = Convert.ToDecimal(RichAmount.Text.Trim()),
                                 Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text.Trim(),
@@ -344,7 +344,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             supplierFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
             supplierFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
-            supplierFilter.Action = ComboAction.Text.Trim();
+            supplierFilter.Action = ComboTransactionFilter.Text.Trim();
 
             var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
             var balance = supplierTransactionViewList.Sum(x => x.Balance);
@@ -441,6 +441,21 @@ namespace GrocerySupplyManagementApp.Forms
         {
             RichAmount.Enabled = true;
             RichAmount.Focus();
+        }
+
+        private void ComboPayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboTransactionFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
 
         #endregion
@@ -643,7 +658,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtEmail.Text = supplier.Email;
 
             TxtTotalAmount.Clear();
-            ComboAction.Text = string.Empty;
+            ComboTransactionFilter.Text = string.Empty;
 
             BtnAddPurchase.Enabled = true;
             BtnShowPurchase.Enabled = true;
@@ -670,19 +685,19 @@ namespace GrocerySupplyManagementApp.Forms
             return TxtSupplierId.Text.Trim();
         }
 
-        public void LoadActions()
+        public void LoadTransactionFilter()
         {
-            ComboAction.Items.Clear();
-            ComboAction.ValueMember = "Id";
-            ComboAction.DisplayMember = "Value";
+            ComboTransactionFilter.Items.Clear();
+            ComboTransactionFilter.ValueMember = "Id";
+            ComboTransactionFilter.DisplayMember = "Value";
 
-            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.PAYMENT, Value = Constants.PAYMENT });
-            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE, Value = Constants.PURCHASE });
+            ComboTransactionFilter.Items.Add(new ComboBoxItem { Id = Constants.PAYMENT, Value = Constants.PAYMENT });
+            ComboTransactionFilter.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE, Value = Constants.PURCHASE });
         }
 
         public void LoadPayments()
         {
-            ComboAction.Items.Clear();
+            ComboPayment.Items.Clear();
             ComboPayment.ValueMember = "Id";
             ComboPayment.DisplayMember = "Value";
 
@@ -745,6 +760,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             return isValidated;
         }
+
         #endregion
+
     }
 }

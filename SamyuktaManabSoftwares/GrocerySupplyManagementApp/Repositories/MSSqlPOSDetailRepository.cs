@@ -23,28 +23,30 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var posDetails = new List<POSDetail>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [UserTransactionId], [InvoiceNo], [SubTotal], [DiscountPercent], " +
-                "[Discount], [VatPercent], [Vat], [DeliveryChargePercent], [DeliveryCharge], " +
-                "[DeliveryPersonId] " +
-                "FROM " + Constants.TABLE_POS_DETAIL + " " +
+                "pd.[Id], pd.[EndOfDay], pd.[UserTransactionId], pd.[InvoiceNo], pd.[SubTotal], pd.[DiscountPercent], " +
+                "pd.[Discount], pd.[VatPercent], pd.[Vat], pd.[DeliveryChargePercent], pd.[DeliveryCharge], " +
+                "pd.[DeliveryPersonId] " +
+                "FROM " + Constants.TABLE_POS_DETAIL + " pd " +
+                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "ON pd.[InvoiceNo] = ut.[PartyNumber] " +
                 "WHERE 1 = 1 ";
 
             if (!string.IsNullOrWhiteSpace(deliveryPersonTransactionFilter?.DateFrom))
             {
-                query += "AND [EndOfDay] >= @DateFrom ";
+                query += "AND pd.[EndOfDay] >= @DateFrom ";
             }
 
             if (!string.IsNullOrWhiteSpace(deliveryPersonTransactionFilter?.DateTo))
             {
-                query += "AND [EndOfDay] <= @DateTo ";
+                query += "AND pd.[EndOfDay] <= @DateTo ";
             }
 
             if (!string.IsNullOrWhiteSpace(deliveryPersonTransactionFilter?.EmployeeId))
             {
-                query += "AND ISNULL([DeliveryPersonId], '') = @DeliveryPersonId ";
+                query += "AND ISNULL(pd.[DeliveryPersonId], '') = @DeliveryPersonId ";
             }
 
-            query += "ORDER BY [Id] ";
+            query += "ORDER BY ut.[AddedDate] DESC ";
 
             try
             {
@@ -97,7 +99,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var posDetailView = new POSDetailView();
             var query = @"SELECT " +
                 "ut.[Id], ut.[EndOfDay], ut.[Action], ut.[ActionType], " +
-                "ut.[PartyId], ut.[PartyNumber], ut.[BankName], ut.[IncomeExpense], " +
+                "ut.[PartyId], ut.[PartyNumber], ut.[BankName], " +
                 "ut.[DueReceivedAmount], ut.[ReceivedAmount], " +
                 "ut.[AddedBy], ut.[AddedDate], ut.[UpdatedBy], ut.[UpdatedDate], " +
                 "pd.[SubTotal], pd.[DiscountPercent], pd.[Discount], pd.[VatPercent], pd.[Vat], " +
@@ -129,13 +131,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                     posDetailView.PartyId = reader["PartyId"].ToString();
                                     posDetailView.PartyNumber = reader["PartyNumber"].ToString();
                                     posDetailView.BankName = reader["BankName"].ToString();
-                                    posDetailView.IncomeExpense = reader["IncomeExpense"].ToString();
                                     posDetailView.DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString());
                                     posDetailView.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
                                     posDetailView.AddedBy = reader["AddedBy"].ToString();
                                     posDetailView.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                     posDetailView.UpdatedBy = reader["UpdatedBy"].ToString();
-                                    posDetailView.UpdatedDate = reader.IsDBNull(13) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    posDetailView.UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                                     posDetailView.SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString());
                                     posDetailView.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
                                     posDetailView.Discount = Convert.ToDecimal(reader["Discount"].ToString());
