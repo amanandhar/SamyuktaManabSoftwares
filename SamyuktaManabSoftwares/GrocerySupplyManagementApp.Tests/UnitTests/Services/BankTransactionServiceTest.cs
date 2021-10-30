@@ -85,18 +85,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.BankTransactionService")]
-        public void GetTotalDeposit_ReturnsTotalDeposit_WhenBankTransactionFilterIsPassed()
-        {
-            _bankTransactionRepository.Setup(repo => repo.GetTotalDeposit(It.IsAny<BankTransactionFilter>()))
-                .Returns(100.00m);
-
-            var totalDeposit = _sut.GetTotalDeposit(new BankTransactionFilter());
-
-            Assert.AreEqual(100.00m, totalDeposit);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.BankTransactionService")]
         public void AddBankTransaction_ReturnsBankTransaction_WhenBankTransactionIsPassed()
         {
             _bankTransactionRepository.Setup(repo => repo.AddBankTransaction(It.IsAny<BankTransaction>()))

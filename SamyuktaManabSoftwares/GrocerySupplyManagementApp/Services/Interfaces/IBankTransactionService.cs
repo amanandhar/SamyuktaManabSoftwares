@@ -11,7 +11,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         IEnumerable<BankTransactionView> GetBankTransactionViews(long bankId);
         IEnumerable<BankTransactionView> GetBankTransactionViews(BankTransactionFilter bankTransactionFilter);
         decimal GetTotalBalance(BankTransactionFilter bankTransactionFilter);
-        decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter);
 
         BankTransaction AddBankTransaction(BankTransaction bankTransaction);
 

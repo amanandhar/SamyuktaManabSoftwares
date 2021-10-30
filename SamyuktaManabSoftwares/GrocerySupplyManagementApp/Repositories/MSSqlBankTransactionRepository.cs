@@ -214,6 +214,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
+            if(!string.IsNullOrWhiteSpace(bankTransactionFilter?.Action))
+            {
+                query += "AND [Action] = @Action ";
+            }
+
             if (bankTransactionFilter?.BankId > 0)
             {
                 query += "AND [BankId] = @BankId ";
@@ -228,6 +233,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)bankTransactionFilter?.Action) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@BankId", ((object)bankTransactionFilter?.BankId) ?? DBNull.Value);
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
@@ -244,63 +250,6 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return bankBalance;
-        }
-
-        public decimal GetTotalDeposit(BankTransactionFilter bankTransactionFilter)
-        {
-            decimal total = Constants.DEFAULT_DECIMAL_VALUE;
-            var query = @"SELECT " +
-                "ISNUll(SUM(ISNULL([Debit], 0)), 0) " +
-                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                "WHERE 1 = 1 ";
-
-            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateFrom))
-            {
-                query += "AND [EndOfDay] >= @DateFrom ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.DateTo))
-            {
-                query += "AND [EndOfDay] <= @DateTo ";
-            }
-
-            if (!char.IsWhiteSpace((char)(bankTransactionFilter?.Type)) || bankTransactionFilter?.Type != null)
-            {
-                query += "AND [Type] = @Type ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(bankTransactionFilter?.Action))
-            {
-                query += "AND [Action] = @Action ";
-            }
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Type", ((object)bankTransactionFilter.Type) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)bankTransactionFilter.Action) ?? DBNull.Value);
-
-                        var result = command.ExecuteScalar();
-                        if (result != null && DBNull.Value != result)
-                        {
-                            total = Convert.ToDecimal(result);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return total;
         }
 
         public BankTransaction AddBankTransaction(BankTransaction bankTransaction)

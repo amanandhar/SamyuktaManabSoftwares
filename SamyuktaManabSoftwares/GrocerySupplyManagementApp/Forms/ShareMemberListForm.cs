@@ -28,8 +28,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void ShareMemberListForm_Load(object sender, EventArgs e)
         {
-            var shareMemberTransactionViewList = GetShareMemberTransactionViewList();
-            LoadShareTransactionViewList(shareMemberTransactionViewList);
+            var shareMemberViewList = GetShareMembers();
+            LoadShareViewList(shareMemberViewList);
             RichSearchMemberName.Focus();
         }
         #endregion
@@ -92,13 +92,13 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private List<ShareMemberView> GetShareMemberTransactionViewList()
+        private List<ShareMemberView> GetShareMembers()
         {
             _shareMemberViewList = _shareMemberService.GetShareMembers().ToList();
             return _shareMemberViewList;
         }
 
-        private void LoadShareTransactionViewList(List<ShareMemberView> shareMemberViewList)
+        private void LoadShareViewList(List<ShareMemberView> shareMemberViewList)
         {
             var bindingList = new BindingList<ShareMemberView>(shareMemberViewList);
             var source = new BindingSource(bindingList, null);
@@ -110,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
             var shareMemberName = RichSearchMemberName.Text.Trim();
 
             var shareMemberViewList = _shareMemberViewList.Where(x => x.Name.ToLower().StartsWith(shareMemberName.ToLower())).ToList();
-            LoadShareTransactionViewList(shareMemberViewList);
+            LoadShareViewList(shareMemberViewList);
         }
 
         #endregion

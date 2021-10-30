@@ -68,9 +68,9 @@ namespace GrocerySupplyManagementApp.Forms
                 var totalExpense = _incomeExpenseService.GetTotalExpense(endOfDay);
 
                 var shareCapital = _bankTransactionService
-                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Type = '1', Action = Constants.SHARE_CAPITAL });
+                    .GetTotalBalance(new BankTransactionFilter() { DateTo = endOfDay, Action = Constants.SHARE_CAPITAL });
                 var ownerEquity = _bankTransactionService
-                    .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Type = '1', Action = Constants.OWNER_EQUITY });
+                    .GetTotalBalance(new BankTransactionFilter() { DateTo = endOfDay, Action = Constants.OWNER_EQUITY });
                 var loanAmount = Constants.DEFAULT_DECIMAL_VALUE; // ToDo : Add loan form later
                 var payableAmount = Math.Abs(_capitalService
                     .GetSupplierTotalBalance(new SupplierTransactionFilter() { DateTo = endOfDay }));

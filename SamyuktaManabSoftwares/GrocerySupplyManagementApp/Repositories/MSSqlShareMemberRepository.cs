@@ -23,11 +23,13 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var shareMemberViewList = new List<ShareMemberView>();
             var query = @"SELECT " +
-                "sm.[Id], sm.[Name], sm.[ContactNo], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
+                "sm.[Id], sm.[Name], sm.[ContactNo], " +
+                "ISNULL(SUM(bt.[Debit] - bt.[Credit]), " + Constants.DEFAULT_DECIMAL_VALUE + ") AS [Balance] " +
                 "FROM " + Constants.TABLE_SHARE_MEMBER + " sm " +
                 "LEFT JOIN " + Constants.TABLE_BANK_TRANSACTION + " bt " +
                 "ON sm.[Id] = bt.[TransactionId] " +
                 "WHERE 1 = 1 " +
+                "GROUP BY sm.[Id], sm.[Name], sm.[ContactNo] " +
                 "ORDER BY sm.[Name] ";
 
             try
@@ -114,7 +116,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "sm.[Id], bt.[Id] AS [BankTransactionId], sm.[EndOfDay], sm.[Name], sm.[ContactNo], " +
                 "bt.[Narration] AS [Description], " +
                 "CASE WHEN bt.[Type] = 1 THEN '" + Constants.DEPOSIT + "' ELSE '" + Constants.WITHDRAWL + "' END AS [Type], " +
-                "bt.[Debit], bt.[Credit], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
+                "bt.[Debit], bt.[Credit], " +
+                "0.00 AS [Balance] " +
                 "FROM " + Constants.TABLE_SHARE_MEMBER + " sm " +
                 "INNER JOIN " + Constants.TABLE_BANK_TRANSACTION + " bt " +
                 "ON sm.[Id] = bt.[TransactionId] " +
@@ -136,7 +139,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND sm.[Id] = @Id ";
             }
 
-            query += "ORDER BY sm.[AddedDate] DESC ";
+            query += "ORDER BY sm.[AddedDate] ";
 
             try
             {
@@ -260,23 +263,49 @@ namespace GrocerySupplyManagementApp.Repositories
             return shareMember;
         }
 
+        // Atomic Transaction
         public bool DeleteShareMember(long id)
         {
-            string query = @"DELETE FROM " + Constants.TABLE_SHARE_MEMBER + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [Id] = @Id ";
-            bool result = false;
-
+            var result = false;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                    // Start a local transaction
+                    SqlTransaction sqlTransaction = connection.BeginTransaction();
+
+                    try
                     {
-                        command.Parameters.AddWithValue("@Id", id);
-                        command.ExecuteNonQuery();
+                        // Delete row from bank transaction table
+                        string deleteBankTransaction = @"DELETE " +
+                            "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Action] = '" + Constants.SHARE_CAPITAL + "' " +
+                            "AND [TransactionId] = @TransactionId ";
+                        using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@TransactionId", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Delete row from user transaction table
+                        string deleteShareMember = @"DELETE FROM " + Constants.TABLE_SHARE_MEMBER + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Id] = @Id ";
+                        using (SqlCommand command = new SqlCommand(deleteShareMember, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        sqlTransaction.Commit();
                         result = true;
+                    }
+                    catch
+                    {
+                        sqlTransaction.Rollback();
                     }
                 }
             }

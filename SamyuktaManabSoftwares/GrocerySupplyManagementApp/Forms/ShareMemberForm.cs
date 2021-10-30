@@ -367,6 +367,7 @@ namespace GrocerySupplyManagementApp.Forms
                         DialogResult result = MessageBox.Show(RichName.Text.Trim() + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
+                            DataGridShareMemberList.Rows.Clear();
                             ClearAllFields();
                             EnableFields();
                             EnableFields(Action.Delete);
@@ -528,7 +529,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadShareMemberTransactions(List<ShareMemberTransactionView> shareMemberTransactionViewList)
         {
-            TxtShareAmount.Text = shareMemberTransactionViewList.Sum(x => x.Balance).ToString();
+            TxtShareAmount.Text = shareMemberTransactionViewList.Sum(x => x.Debit - x.Credit).ToString();
 
             var bindingList = new BindingList<ShareMemberTransactionView>(shareMemberTransactionViewList);
             var source = new BindingSource(bindingList, null);
@@ -577,6 +578,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.PopulateShareMember)
             {
                 ComboBank.Enabled = true;
+                ComboTransaction.Enabled = true;
                 ComboNarration.Enabled = true;
                 RichAmount.Enabled = true;
 
@@ -593,6 +595,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtShareAmount.Enabled = false;
 
                 ComboBank.Enabled = false;
+                ComboTransaction.Enabled = false;
                 ComboNarration.Enabled = false;
                 RichAmount.Enabled = false;
                 PicBoxShareMember.Enabled = false;
