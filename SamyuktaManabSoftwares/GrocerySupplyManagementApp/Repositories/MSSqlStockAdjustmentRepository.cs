@@ -23,7 +23,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var stockAdjustmentViewList = new List<StockAdjustmentView>();
             var query = @"SELECT " +
-                "sa.[Id], sa.[EndOfDay], sa.[Action], ie.[Narration], i.[Code], i.[Name], sa.[Quantity], sa.[Price] " +
+                "sa.[Id], sa.[EndOfDay], sa.[IncomeExpenseId], sa.[Action], ie.[Narration], i.[Code], i.[Name], sa.[Quantity], sa.[Price] " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON sa.[ItemId] = i.[Id] " +
@@ -47,6 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
+                                    IncomeExpenseId = Convert.ToInt64(reader["IncomeExpenseId"].ToString()),
                                     Action = reader["Action"].ToString(),
                                     Narration = reader["Narration"].ToString(),
                                     ItemCode = reader["Code"].ToString(),
@@ -225,13 +226,10 @@ namespace GrocerySupplyManagementApp.Repositories
                         }
 
                         // Get last row from income expense table
-                        var lastIncomeExpense = new IncomeExpense();
+                        long lastIncomeExpenseId = 0;
                         var selectLastIncomeExpense = @"SELECT " +
                             "TOP 1 " +
-                            "[Id], [EndOfDay], [Action], [ActionType], " +
-                            "[BankName], [Type], [Narration], " +
-                            "[ReceivedAmount], [PaymentAmount], " +
-                            "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
+                            "[Id] " +
                             "FROM " + Constants.TABLE_INCOME_EXPENSE + " " +
                             "WHERE 1 = 1 " +
                             "AND ISNULL([Action], '') = @Action " +
@@ -247,25 +245,13 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 while (reader.Read())
                                 {
-                                    lastIncomeExpense.Id = Convert.ToInt64(reader["Id"].ToString());
-                                    lastIncomeExpense.EndOfDay = reader["EndOfDay"].ToString();
-                                    lastIncomeExpense.Action = reader["Action"].ToString();
-                                    lastIncomeExpense.ActionType = reader["ActionType"].ToString();
-                                    lastIncomeExpense.BankName = reader["BankName"].ToString();
-                                    lastIncomeExpense.Type = reader["Type"].ToString();
-                                    lastIncomeExpense.Narration = reader["Narration"].ToString();
-                                    lastIncomeExpense.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                    lastIncomeExpense.PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"].ToString());
-                                    lastIncomeExpense.AddedBy = reader["AddedBy"].ToString();
-                                    lastIncomeExpense.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    lastIncomeExpense.UpdatedBy = reader["UpdatedBy"].ToString();
-                                    lastIncomeExpense.UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    lastIncomeExpenseId = Convert.ToInt64(reader["Id"].ToString());
                                 }
                             }
                         }
 
                         // Insert into stock adjustment table
-                        stockAdjustment.IncomeExpenseId = lastIncomeExpense.Id;
+                        stockAdjustment.IncomeExpenseId = lastIncomeExpenseId;
                         string insertStockAdjustment = @"INSERT INTO " +
                             " " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
                             "( " +
@@ -295,6 +281,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     }
                     catch
                     {
+                        stockAdjustment = null;
                         sqlTransaction.Rollback();
                     }
                 }
@@ -306,6 +293,61 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return stockAdjustment;
+        }
+
+        // Atomic Transaction
+        public bool DeleteStockAdjustment(long id, long incomeExpenseId)
+        {
+            var result = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Start a local transaction
+                    SqlTransaction sqlTransaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        // Delete row from stock adjustment table
+                        string deleteStockAdjustment = @"DELETE " +
+                            "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Id] = @Id ";
+                        using (SqlCommand command = new SqlCommand(deleteStockAdjustment, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Delete row from income expense table
+                        var deleteIncomeExpense = @"DELETE " +
+                            "FROM " + Constants.TABLE_INCOME_EXPENSE + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Id] = @Id ";
+                        using (SqlCommand command = new SqlCommand(deleteIncomeExpense, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Id", ((object)incomeExpenseId) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        sqlTransaction.Commit();
+                        result = true;
+                    }
+                    catch
+                    {
+                        sqlTransaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return result;
         }
     }
 }

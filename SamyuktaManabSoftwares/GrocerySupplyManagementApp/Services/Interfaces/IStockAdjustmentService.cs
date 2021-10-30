@@ -12,5 +12,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         decimal GetDeductedStockTotalQuantity(StockFilter stockFilter);
 
         StockAdjustment AddStockAdjustment(StockAdjustment stockAdjustment, IncomeExpense incomeExpense, string incomeExpenseType, string username);
+        
+        bool DeleteStockAdjustment(long id, long incomeExpenseId);
     }
 }

@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -189,17 +188,15 @@ namespace GrocerySupplyManagementApp.Forms
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
-                        _userTransactionService.AddUserTransaction(userTransaction);
 
                         if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                         {
-                            var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
                             var bankTransaction = new BankTransaction
                             {
                                 EndOfDay = _endOfDay,
                                 BankId = Convert.ToInt64(selectedItem?.Id),
-                                TransactionId = lastUserTransaction.Id,
                                 Type = '0',
+                                Action = Constants.PAYMENT,
                                 Debit = Constants.DEFAULT_DECIMAL_VALUE,
                                 Credit = Convert.ToDecimal(RichAmount.Text.Trim()),
                                 Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text.Trim(),
@@ -207,7 +204,11 @@ namespace GrocerySupplyManagementApp.Forms
                                 AddedDate = DateTime.Now
                             };
 
-                            _bankTransactionService.AddBankTransaction(bankTransaction);
+                            _supplierService.AddSupplierPayment(userTransaction, bankTransaction, _username);
+                        }
+                        else
+                        {
+                            _userTransactionService.AddUserTransaction(userTransaction);
                         }
 
                         DialogResult result = MessageBox.Show(ComboPayment.Text.Trim() + " has been paid successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -218,6 +219,51 @@ namespace GrocerySupplyManagementApp.Forms
                             RichAmount.Clear();
                             var supplierTransactionViewList = GetSupplierTransaction();
                             LoadSupplierTransaction(supplierTransactionViewList);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        private void BtnRemovePayment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridSupplierList.SelectedCells.Count == 1
+                    || DataGridSupplierList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridSupplierList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridSupplierList.SelectedCells[0];
+                        selectedRow = DataGridSupplierList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridSupplierList.SelectedRows[0];
+                    }
+
+                    var selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            if (_supplierService.DeleteSupplierPayment(id))
+                            {
+                                DialogResult result = MessageBox.Show("Payment has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    ClearAllFields();
+                                    LoadSupplierTransaction(GetSupplierTransaction());
+                                }
+                            }
                         }
                     }
                 }
@@ -762,6 +808,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
+ 
     }
 }

@@ -99,6 +99,46 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(Action.Edit);
         }
 
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridStockAdjustmentList.SelectedCells.Count == 1
+                    || DataGridStockAdjustmentList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridStockAdjustmentList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridStockAdjustmentList.SelectedCells[0];
+                        selectedRow = DataGridStockAdjustmentList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridStockAdjustmentList.SelectedRows[0];
+                    }
+
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    string selectedIncomeExpenseId = selectedRow?.Cells["IncomeExpenseId"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId) && !string.IsNullOrWhiteSpace(selectedIncomeExpenseId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            var incomeExpenseId = Convert.ToInt64(selectedIncomeExpenseId);
+                            _stockAdjustmentService.DeleteStockAdjustment(id, incomeExpenseId);
+                            LoadStockAdjustments();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
         private void BtnSave_Click(object sender, EventArgs e)
         {
             try
@@ -183,6 +223,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridStockAdjustmentList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridStockAdjustmentList.Columns["Id"].Visible = false;
+            DataGridStockAdjustmentList.Columns["IncomeExpenseId"].Visible = false;
 
             DataGridStockAdjustmentList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridStockAdjustmentList.Columns["EndOfDay"].Width = 75;

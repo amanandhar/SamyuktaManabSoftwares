@@ -53,6 +53,11 @@ namespace GrocerySupplyManagementApp.Services
             supplier.Counter = _supplierRepository.GetLastSupplierId() + 1;
             return _supplierRepository.AddSupplier(supplier);
         }
+       
+        public UserTransaction AddSupplierPayment(UserTransaction userTransaction, BankTransaction bankTransaction, string username)
+        {
+            return _supplierRepository.AddSupplierPayment(userTransaction, bankTransaction, username);
+        }
 
         public Supplier UpdateSupplier(string supplierId, Supplier supplier)
         {
@@ -64,5 +69,9 @@ namespace GrocerySupplyManagementApp.Services
             return _supplierRepository.DeleteSupplier(supplierId);
         }
 
+        public bool DeleteSupplierPayment(long id)
+        {
+            return _supplierRepository.DeleteSupplierPayment(id);
+        }
     }
 }

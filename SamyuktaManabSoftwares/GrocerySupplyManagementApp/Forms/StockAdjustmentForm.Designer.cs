@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnRemove = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtBoxNarration = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.DataGridStockAdjustmentList = new System.Windows.Forms.DataGridView();
-            this.customButton1 = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridStockAdjustmentList)).BeginInit();
             this.SuspendLayout();
@@ -137,7 +137,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.customButton1);
+            this.groupBox1.Controls.Add(this.BtnRemove);
             this.groupBox1.Controls.Add(this.TxtBoxNarration);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
@@ -164,6 +164,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Size = new System.Drawing.Size(1070, 125);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
+            // 
+            // BtnRemove
+            // 
+            this.BtnRemove.BackColor = System.Drawing.Color.Red;
+            this.BtnRemove.BackgroundColor = System.Drawing.Color.Red;
+            this.BtnRemove.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnRemove.BorderRadius = 35;
+            this.BtnRemove.BorderSize = 0;
+            this.BtnRemove.FlatAppearance.BorderSize = 0;
+            this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRemove.ForeColor = System.Drawing.Color.White;
+            this.BtnRemove.Location = new System.Drawing.Point(933, 25);
+            this.BtnRemove.Name = "BtnRemove";
+            this.BtnRemove.Size = new System.Drawing.Size(125, 35);
+            this.BtnRemove.TabIndex = 34;
+            this.BtnRemove.Text = "Remove";
+            this.BtnRemove.TextColor = System.Drawing.Color.White;
+            this.BtnRemove.UseVisualStyleBackColor = false;
+            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // TxtBoxNarration
             // 
@@ -372,25 +392,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridStockAdjustmentList.TabIndex = 23;
             this.DataGridStockAdjustmentList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockAdjustmentList_DataBindingComplete);
             // 
-            // customButton1
-            // 
-            this.customButton1.BackColor = System.Drawing.Color.Red;
-            this.customButton1.BackgroundColor = System.Drawing.Color.Red;
-            this.customButton1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.customButton1.BorderRadius = 35;
-            this.customButton1.BorderSize = 0;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.Location = new System.Drawing.Point(933, 25);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(125, 35);
-            this.customButton1.TabIndex = 34;
-            this.customButton1.Text = "Remove";
-            this.customButton1.TextColor = System.Drawing.Color.White;
-            this.customButton1.UseVisualStyleBackColor = false;
-            // 
             // StockAdjustmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -440,6 +441,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtBoxNarration;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private CustomControls.Button.CustomButton customButton1;
+        private CustomControls.Button.CustomButton BtnRemove;
     }
 }

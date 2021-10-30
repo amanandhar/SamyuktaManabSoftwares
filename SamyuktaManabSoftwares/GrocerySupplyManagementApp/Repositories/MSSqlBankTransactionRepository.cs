@@ -350,6 +350,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
+                "AND [Action] IN ('" + Constants.BANK_TRANSFER + "', '" + Constants.OWNER_EQUITY + "') " + 
                 "AND [Id] = @Id ";
             try
             {
@@ -360,6 +361,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
                         command.ExecuteNonQuery();
+                        result = true;
                     }
                 }
             }
@@ -387,6 +389,38 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@TransactionId", ((object)transactionId) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return result;
+        }
+
+        public bool DeleteBankTransaction(string action, long transactionId)
+        {
+            bool result = false;
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                "WHERE 1 = 1 " +
+                "AND [TransactionId] = @TransactionId " +
+                "AND ISNULL([Action], '') = @Action ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Action", ((object)action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@TransactionId", ((object)transactionId) ?? DBNull.Value);
+
                         command.ExecuteNonQuery();
                         result = true;
                     }

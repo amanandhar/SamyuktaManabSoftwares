@@ -19,7 +19,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly ISoldItemService _soldItemService;
-        private readonly IBankTransactionService _bankTransactionService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
         private readonly IAtomicTransactionService _atomicTransactionService;
@@ -30,9 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public DailyTransactionForm(string username,
-            ISettingService settingService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
-            IBankTransactionService bankTransactionService, IUserTransactionService userTransactionService, 
+            ISettingService settingService, IPurchasedItemService purchasedItemService, 
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService, 
             IUserService userService, IAtomicTransactionService atomicTransactionService
             )
         {
@@ -41,7 +39,6 @@ namespace GrocerySupplyManagementApp.Forms
             _settingService = settingService;
             _purchasedItemService = purchasedItemService;
             _soldItemService = soldItemService;
-            _bankTransactionService = bankTransactionService;
             _userTransactionService = userTransactionService;
             _userService = userService;
             _atomicTransactionService = atomicTransactionService;
@@ -85,59 +82,58 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         selectedRow = DataGridTransactionList.SelectedRows[0];
                     }
-
-                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
-                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    var partyNumber = selectedRow?.Cells["PartyNumber"]?.Value?.ToString();
+                    if(!string.IsNullOrWhiteSpace(partyNumber))
                     {
-                        DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (confirmation == DialogResult.Yes)
+                        string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                        if (!string.IsNullOrWhiteSpace(selectedId))
                         {
-                            var id = Convert.ToInt64(selectedId);
-
-                            var partyNumber = selectedRow?.Cells["PartyNumber"]?.Value?.ToString();
-
-                            if (!string.IsNullOrWhiteSpace(partyNumber)
-                                && partyNumber.StartsWith(Constants.BILL_NO_PREFIX))
+                            DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (confirmation == DialogResult.Yes)
                             {
-                                // Get the latest bill number
-                                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Bill, string.Empty);
-                                if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
+                                var id = Convert.ToInt64(selectedId);
+                                if (partyNumber.StartsWith(Constants.BILL_NO_PREFIX))
                                 {
-                                    _atomicTransactionService.DeleteBill(id, partyNumber);
-                                }
-                                else
-                                {
-                                    DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    if (billResult == DialogResult.OK)
+                                    // Get the latest bill number
+                                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Bill, string.Empty);
+                                    if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                     {
-                                        LoadDailyTransactions();
-                                        return;
+                                        _atomicTransactionService.DeleteBill(id, partyNumber);
+                                    }
+                                    else
+                                    {
+                                        DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        if (billResult == DialogResult.OK)
+                                        {
+                                            LoadDailyTransactions();
+                                            return;
+                                        }
                                     }
                                 }
-                            }
-                            else if (!string.IsNullOrWhiteSpace(partyNumber) && partyNumber.StartsWith(Constants.INVOICE_NO_PREFIX))
-                            {
-                                // Get the latest invoice number
-                                var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Invoice, string.Empty);
-                                if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
+                                else if (partyNumber.StartsWith(Constants.INVOICE_NO_PREFIX))
                                 {
-                                    _atomicTransactionService.DeleteInvoice(partyNumber);
-                                }
-                                else
-                                {
-                                    DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    if (billResult == DialogResult.OK)
+                                    // Get the latest invoice number
+                                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Invoice, string.Empty);
+                                    if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                     {
-                                        LoadDailyTransactions();
-                                        return;
+                                        _atomicTransactionService.DeleteInvoice(partyNumber);
+                                    }
+                                    else
+                                    {
+                                        DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        if (billResult == DialogResult.OK)
+                                        {
+                                            LoadDailyTransactions();
+                                            return;
+                                        }
                                     }
                                 }
-                            }
 
-                            DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (result == DialogResult.OK)
-                            {
-                                LoadDailyTransactions();
+                                DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    LoadDailyTransactions();
+                                }
                             }
                         }
                     }

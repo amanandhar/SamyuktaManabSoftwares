@@ -77,7 +77,8 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields();
             EnableFields(Action.Load);
             LoadBanks();
-            LoadNarration();
+            LoadTrasactions();
+            LoadNarrations();
         }
         #endregion
 
@@ -102,12 +103,12 @@ namespace GrocerySupplyManagementApp.Forms
             _uploadedImagePath = string.Empty;
         }
 
-        private void BtnShow_Click(object sender, EventArgs e)
+        private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
             LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
         }
 
-        private void BtnSaveAmount_Click(object sender, EventArgs e)
+        private void BtnSaveTransaction_Click(object sender, EventArgs e)
         {
             try
             {
@@ -118,11 +119,15 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         BankId = Convert.ToInt64(selectedItem?.Id),
-                        Type = '1',
+                        Type = ComboTransaction.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
                         Action = Constants.SHARE_CAPITAL,
                         TransactionId = _selectedShareMemberId,
-                        Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
-                        Credit = Constants.DEFAULT_DECIMAL_VALUE,
+                        Debit = ComboTransaction.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower()
+                            ? Convert.ToDecimal(RichAmount.Text.Trim())
+                            : Constants.DEFAULT_DECIMAL_VALUE,
+                        Credit = ComboTransaction.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower()
+                            ? Constants.DEFAULT_DECIMAL_VALUE
+                            : Convert.ToDecimal(RichAmount.Text.Trim()),
                         Narration = ComboNarration.Text.Trim(),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -136,6 +141,44 @@ namespace GrocerySupplyManagementApp.Forms
                         EnableFields();
                         EnableFields(Action.PopulateShareMember);
                         LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        private void BtnRemoveTransaction_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridShareMemberList.SelectedCells.Count == 1
+                    || DataGridShareMemberList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridShareMemberList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridShareMemberList.SelectedCells[0];
+                        selectedRow = DataGridShareMemberList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridShareMemberList.SelectedRows[0];
+                    }
+
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            _bankTransactionService.DeleteBankTransaction(Constants.SHARE_CAPITAL, id);
+                            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                        } 
                     }
                 }
             }
@@ -350,6 +393,11 @@ namespace GrocerySupplyManagementApp.Forms
             e.Handled = true;
         }
 
+        private void ComboTransaction_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void ComboNarration_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
@@ -441,7 +489,17 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void LoadNarration()
+        private void LoadTrasactions()
+        {
+            ComboTransaction.Items.Clear();
+            ComboTransaction.ValueMember = "Id";
+            ComboTransaction.DisplayMember = "Value";
+
+            ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
+            ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
+        }
+
+        private void LoadNarrations()
         {
             ComboNarration.Items.Clear();
             ComboNarration.ValueMember = "Id";
@@ -515,8 +573,8 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboNarration.Enabled = true;
                 RichAmount.Enabled = true;
 
-                BtnShow.Enabled = true;
-                BtnSaveAmount.Enabled = true;
+                BtnShowTransaction.Enabled = true;
+                BtnSaveTransaction.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
@@ -534,8 +592,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnAddImage.Enabled = false;
                 BtnDeleteImage.Enabled = false;
-                BtnShow.Enabled = false;
-                BtnSaveAmount.Enabled = false;
+                BtnShowTransaction.Enabled = false;
+                BtnSaveTransaction.Enabled = false;
                 BtnAdd.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
@@ -614,6 +672,7 @@ namespace GrocerySupplyManagementApp.Forms
             var isValidated = false;
 
             var bank = ComboBank.Text.Trim();
+            var transaction = ComboTransaction.Text.Trim();
             var amount = RichAmount.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(bank)
@@ -621,6 +680,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Bank " +
+                    "\n * Transaction " +
                     "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
@@ -631,6 +691,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }

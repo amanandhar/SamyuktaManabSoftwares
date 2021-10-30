@@ -35,5 +35,10 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _stockAdjustmentRepository.AddStockAdjustment(stockAdjustment, incomeExpense, incomeExpenseType, username);
         }
+
+        public bool DeleteStockAdjustment(long id, long incomeExpenseId)
+        {
+            return _stockAdjustmentRepository.DeleteStockAdjustment(id, incomeExpenseId);
+        }
     }
 }

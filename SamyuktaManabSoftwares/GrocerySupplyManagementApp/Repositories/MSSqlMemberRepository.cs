@@ -189,6 +189,125 @@ namespace GrocerySupplyManagementApp.Repositories
             return member;
         }
 
+        // Atomic Transaction
+        public UserTransaction AddMemberReceipt(UserTransaction userTransaction, BankTransaction bankTransaction, string username)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Start a local transaction
+                    SqlTransaction sqlTransaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        // Add row into the user transaction table
+                        string insertUserTransaction = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +
+                            "(" +
+                                "[EndOfDay], [Action], [ActionType], " +
+                                "[PartyId], [PartyNumber], [BankName], [Narration], " +
+                                "[DueReceivedAmount], [DuePaymentAmount], [ReceivedAmount], [PaymentAmount], " +
+                                "[AddedBy], [AddedDate] " +
+                            ") " +
+                            "VALUES " +
+                            "( " +
+                                "@EndOfDay, @Action, @ActionType, " +
+                                "@PartyId, @PartyNumber, @BankName, @Narration, " +
+                                "@DueReceivedAmount, @DuePaymentAmount, @ReceivedAmount, @PaymentAmount, " +
+                                "@AddedBy, @AddedDate " +
+                            ") ";
+
+                        using (SqlCommand command = new SqlCommand(insertUserTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@EndOfDay", userTransaction.EndOfDay);
+                            command.Parameters.AddWithValue("@Action", userTransaction.Action);
+                            command.Parameters.AddWithValue("@ActionType", userTransaction.ActionType);
+                            command.Parameters.AddWithValue("@PartyId", ((object)userTransaction.PartyId) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@PartyNumber", ((object)userTransaction.PartyNumber) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@BankName", ((object)userTransaction.BankName) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Narration", ((object)userTransaction.Narration) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@DueReceivedAmount", ((object)userTransaction.DueReceivedAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@DuePaymentAmount", ((object)userTransaction.DuePaymentAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@ReceivedAmount", ((object)userTransaction.ReceivedAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@PaymentAmount", ((object)userTransaction.PaymentAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@AddedBy", userTransaction.AddedBy);
+                            command.Parameters.AddWithValue("@AddedDate", userTransaction.AddedDate);
+
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Get the last id from the user transaction table
+                        long lastUserTransactionId = 0;
+                        string selectLastTransaction = @"SELECT " +
+                            "TOP 1 " +
+                            "[Id] " +
+                            "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                            "WHERE 1 = 1 " +
+                            "AND ([PartyNumber] IS NOT NULL " +
+                            "AND DATALENGTH([PartyNumber]) > 0) " +
+                            "AND [Action] = '" + Constants.RECEIPT + "' " +
+                            "AND [AddedBy] = @AddedBy " +
+                            "ORDER BY[Id] DESC ";
+
+                        using (SqlCommand command = new SqlCommand(selectLastTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@AddedBy", ((object)username) ?? DBNull.Value);
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    lastUserTransactionId = Convert.ToInt64(reader["Id"].ToString());
+                                }
+                            }
+                        }
+
+                        // Insert into bank transaction table
+                        bankTransaction.TransactionId = lastUserTransactionId;
+                        string insertBankTransaction = @"INSERT INTO " + Constants.TABLE_BANK_TRANSACTION + " " +
+                            "( " +
+                                "[EndOfDay], [BankId], [Type], [Action], [TransactionId], [Debit], [Credit], [Narration], [AddedBy], [AddedDate] " +
+                            ") " +
+                            "VALUES " +
+                            "( " +
+                                "@EndOfDay, @BankId, @Type, @Action, @TransactionId, @Debit, @Credit, @Narration, @AddedBy, @AddedDate " +
+                            ") ";
+
+                        using (SqlCommand command = new SqlCommand(insertBankTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@EndOfDay", ((object)bankTransaction.EndOfDay) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@BankId", ((object)bankTransaction.BankId) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Type", ((object)bankTransaction.Type) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Action", ((object)bankTransaction.Action) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@TransactionId", ((object)bankTransaction.TransactionId) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Debit", ((object)bankTransaction.Debit) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@Credit", ((object)bankTransaction.Credit) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@Narration", ((object)bankTransaction.Narration) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@AddedBy", ((object)bankTransaction.AddedBy) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@AddedDate", ((object)bankTransaction.AddedDate) ?? DBNull.Value);
+
+                            command.ExecuteNonQuery();
+                        }
+
+                        sqlTransaction.Commit();
+                    }
+                    catch
+                    {
+                        userTransaction = null;
+                        sqlTransaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return userTransaction;
+        }
+
         public Member UpdateMember(string memberId, Member member)
         {
             string query = @"UPDATE " + Constants.TABLE_MEMBER + " " +
@@ -251,6 +370,64 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@MemberId", memberId);
                         command.ExecuteNonQuery();
                         result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return result;
+        }
+
+        // Atomic Transaction
+        public bool DeleteMemberReceipt(long id)
+        {
+            var result = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Start a local transaction
+                    SqlTransaction sqlTransaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        // Delete row from bank transaction table
+                        var deleteBankTransaction = @"DELETE " +
+                            "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Action] = '" + Constants.RECEIPT + "' " +
+                            "AND [TransactionId] = @TransactionId ";
+
+                        using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@TransactionId", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Delete row from user transaction table
+                        string deleteUserTransaction = @"DELETE " +
+                            "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Action] = '" + Constants.RECEIPT + "' " +
+                            "AND [Id] = @Id ";
+                        using (SqlCommand command = new SqlCommand(deleteUserTransaction, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        sqlTransaction.Commit();
+                        result = true;
+                    }
+                    catch
+                    {
+                        sqlTransaction.Rollback();
                     }
                 }
             }

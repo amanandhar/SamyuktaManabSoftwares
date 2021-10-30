@@ -233,9 +233,8 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnTransaction_Click(object sender, EventArgs e)
         {
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username,
-                _settingService, 
-                _purchasedItemService, _soldItemService,
-                _bankTransactionService, _userTransactionService, 
+                _settingService, _purchasedItemService, 
+                _soldItemService,_userTransactionService, 
                 _userService, _atomicTransactionService);
             transactionForm.Show();
             EnableFields();

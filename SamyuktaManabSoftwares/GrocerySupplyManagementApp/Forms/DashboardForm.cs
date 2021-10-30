@@ -245,10 +245,9 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new DailyTransactionForm(_username,
-                _settingService,
-                _purchasedItemService, _soldItemService,
-               _bankTransactionService, _userTransactionService,
-               _userService, _atomicTransactionService
+                _settingService, _purchasedItemService, 
+                _soldItemService, _userTransactionService,
+                _userService, _atomicTransactionService
                ));
             HideSubMenu();
             SelectButton(sender as Button);

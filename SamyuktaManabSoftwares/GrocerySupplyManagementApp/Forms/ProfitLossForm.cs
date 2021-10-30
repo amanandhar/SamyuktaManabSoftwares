@@ -176,6 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var endOfDay = UtilityService.GetDate(MaskDtEOD.Text);
+                var salesProfitAmount = _incomeExpenseService.GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay }).ToList().Sum(x => x.Amount);
                 incomeExpenseView = new List<IncomeExpenseView>
                 {
                     new IncomeExpenseView
@@ -196,7 +197,7 @@ namespace GrocerySupplyManagementApp.Forms
                     new IncomeExpenseView
                     {
                         Name = Constants.SALES_PROFIT,
-                        Amount = _incomeExpenseService.GetSalesProfit(new IncomeTransactionFilter() { DateTo = endOfDay }).ToList().Sum(x => x.Amount)
+                        Amount = salesProfitAmount == 0 ? Constants.DEFAULT_DECIMAL_VALUE : salesProfitAmount
                     },
                      new IncomeExpenseView
                     {

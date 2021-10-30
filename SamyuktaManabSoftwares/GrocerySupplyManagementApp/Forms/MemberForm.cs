@@ -163,18 +163,15 @@ namespace GrocerySupplyManagementApp.Forms
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
-                        _userTransactionService.AddUserTransaction(userTransaction);
 
                         if (ComboReceipt.Text.Trim().ToLower() == Constants.CHEQUE.ToLower())
                         {
-                            var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.None, _username);
-
                             var bankTransaction = new BankTransaction
                             {
                                 EndOfDay = _endOfDay,
                                 BankId = Convert.ToInt64(selectedItem?.Id),
-                                TransactionId = lastUserTransaction.Id,
                                 Type = '1',
+                                Action = Constants.RECEIPT,
                                 Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
                                 Credit = Constants.DEFAULT_DECIMAL_VALUE,
                                 Narration = TxtMemberId.Text.Trim() + " - " + TxtName.Text.Trim(),
@@ -182,8 +179,13 @@ namespace GrocerySupplyManagementApp.Forms
                                 AddedDate = DateTime.Now
                             };
 
-                            _bankTransactionService.AddBankTransaction(bankTransaction);
+                            _memberService.AddMemberReceipt(userTransaction, bankTransaction, _username);
                         }
+                        else
+                        {
+                            _userTransactionService.AddUserTransaction(userTransaction);
+                        }
+
 
                         DialogResult result = MessageBox.Show(RichAmount.Text.Trim() + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
@@ -191,6 +193,52 @@ namespace GrocerySupplyManagementApp.Forms
                             ClearTransactionFields();
                             var memberTransactionViewList = GetMemberTransactions(TxtMemberId.Text.Trim());
                             LoadMemberTransactions(memberTransactionViewList);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        private void BtnRemoveReceipt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridMemberList.SelectedCells.Count == 1
+                    || DataGridMemberList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridMemberList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridMemberList.SelectedCells[0];
+                        selectedRow = DataGridMemberList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridMemberList.SelectedRows[0];
+                    }
+
+                    var selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            if (_memberService.DeleteMemberReceipt(id))
+                            {
+                                DialogResult result = MessageBox.Show("Receipt has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    ClearTransactionFields();
+                                    var memberTransactionViewList = GetMemberTransactions(TxtMemberId.Text.Trim());
+                                    LoadMemberTransactions(memberTransactionViewList);
+                                }
+                            }
                         }
                     }
                 }
@@ -416,7 +464,14 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Rich Box Events
+        #region Text Box Event
+        private void TxtMemberId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
+        #endregion  
+
+        #region Rich Box Event
         private void RichMemberId_KeyUp(object sender, KeyEventArgs e)
         {
             var member = _memberService.GetMember(TxtMemberId.Text.Trim());

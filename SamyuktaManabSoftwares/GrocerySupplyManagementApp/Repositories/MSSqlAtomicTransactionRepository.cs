@@ -335,14 +335,11 @@ namespace GrocerySupplyManagementApp.Repositories
                             command.ExecuteNonQuery();
                         }
 
-                        // Get the last row from the user transaction table
-                        var lastUserTransaction = new UserTransaction();
+                        // Get the last id from the user transaction table
+                        long lastUserTransactionId = 0;
                         string selectLastTransaction = @"SELECT " +
                             "TOP 1 " +
-                            "[Id], [EndOfDay], [Action], [ActionType], " +
-                            "[PartyId], [PartyNumber], [BankName], [Narration], " +
-                            "[DueReceivedAmount], [DuePaymentAmount], [ReceivedAmount], [PaymentAmount], " +
-                            "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
+                            "[Id] " +
                             "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                             "WHERE 1 = 1 " +
                             "AND ([PartyNumber] IS NOT NULL " +
@@ -357,28 +354,13 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 while (reader.Read())
                                 {
-                                    lastUserTransaction.Id = Convert.ToInt64(reader["Id"].ToString());
-                                    lastUserTransaction.EndOfDay = reader["EndOfDay"].ToString();
-                                    lastUserTransaction.Action = reader["Action"].ToString();
-                                    lastUserTransaction.ActionType = reader["ActionType"].ToString();
-                                    lastUserTransaction.PartyId = reader["PartyId"].ToString();
-                                    lastUserTransaction.PartyNumber = reader["PartyNumber"].ToString();
-                                    lastUserTransaction.BankName = reader["BankName"].ToString();
-                                    lastUserTransaction.Narration = reader["Narration"].ToString();
-                                    lastUserTransaction.DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString());
-                                    lastUserTransaction.DuePaymentAmount = Convert.ToDecimal(reader["DuePaymentAmount"].ToString());
-                                    lastUserTransaction.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                    lastUserTransaction.PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"].ToString());
-                                    lastUserTransaction.AddedBy = reader["AddedBy"].ToString();
-                                    lastUserTransaction.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    lastUserTransaction.UpdatedBy = reader["UpdatedBy"].ToString();
-                                    lastUserTransaction.UpdatedDate = reader.IsDBNull(15) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    lastUserTransactionId = Convert.ToInt64(reader["Id"].ToString());
                                 }
                             }
                         }
 
                         // Add row into the pos detail table
-                        posDetail.UserTransactionId = lastUserTransaction.Id;
+                        posDetail.UserTransactionId = lastUserTransactionId;
                         string insertPOSDetail = @"INSERT INTO " +
                             " " + Constants.TABLE_POS_DETAIL + " " +
                             "( " +

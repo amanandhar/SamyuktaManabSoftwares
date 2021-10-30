@@ -17,5 +17,6 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 
         bool DeleteBankTransaction(long id);
         bool DeleteBankTransactionByTransactionId(long transactionId);
+        bool DeleteBankTransaction(string action, long transactionId);
     }
 }

@@ -145,6 +145,7 @@ namespace GrocerySupplyManagementApp.Forms
                             {
                                 var id = Convert.ToInt64(selectedId);
                                 _bankTransactionService.DeleteBankTransaction(id);
+
                                 var totalBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter() { BankId = selectedBankId });
                                 TxtBalance.Text = totalBalance.ToString();
                                 var bankTransactionViewList = GetBankTransaction();

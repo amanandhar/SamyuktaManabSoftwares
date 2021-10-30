@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string INCOME = "Income";
         public const string EXPENSE = "Expense";
         public const string BANK_TRANSFER = "Bank Transfer";
+        public const string OWNER_EQUITY = "Owner Equity";
         public const string SHARE_CAPITAL = "Share Capital";
         public const string RETURN = "Return";
 
@@ -60,8 +61,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string BONUS_PREFIX = "BS";
         public const string BILL_NO_PREFIX = "BN";
         public const string INVOICE_NO_PREFIX = "IN";
-
-        public const string OWNER_EQUITY = "Owner Equity";
 
         // Expense 
         public const string ASSET = "Asset";
