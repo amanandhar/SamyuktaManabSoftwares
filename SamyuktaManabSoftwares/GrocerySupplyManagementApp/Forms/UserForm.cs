@@ -271,6 +271,13 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Combo Box Event
+        private void ComboUserType_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
         #region Checkbox Event
         private void ChkPOS_CheckedChanged(object sender, EventArgs e)
         {
@@ -531,5 +538,7 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
+
+        
     }
 }

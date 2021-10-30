@@ -1,7 +1,9 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
+using System.Collections.Generic;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -12,6 +14,11 @@ namespace GrocerySupplyManagementApp.Services
         public POSDetailService(IPOSDetailRepository posDetailRepository)
         {
             _posDetailRepository = posDetailRepository;
+        }
+
+        public IEnumerable<POSDetail> GetPOSDetails(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter)
+        {
+            return _posDetailRepository.GetPOSDetails(deliveryPersonTransactionFilter);
         }
 
         public POSDetailView GetPOSDetailView(string invoiceNo)

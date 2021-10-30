@@ -202,6 +202,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Name = "ComboBank";
             this.ComboBank.Size = new System.Drawing.Size(277, 28);
             this.ComboBank.TabIndex = 7;
+            this.ComboBank.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboBank_KeyPress);
             // 
             // label5
             // 
@@ -245,6 +246,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboIncome.Name = "ComboIncome";
             this.ComboIncome.Size = new System.Drawing.Size(160, 28);
             this.ComboIncome.TabIndex = 5;
+            this.ComboIncome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboIncome_KeyPress);
             // 
             // groupBox1
             // 
@@ -292,7 +294,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveIncome.Name = "BtnSaveIncome";
             this.BtnSaveIncome.Size = new System.Drawing.Size(120, 35);
             this.BtnSaveIncome.TabIndex = 10;
-            this.BtnSaveIncome.Text = "Save Income";
+            this.BtnSaveIncome.Text = "Save";
             this.BtnSaveIncome.TextColor = System.Drawing.Color.White;
             this.BtnSaveIncome.UseVisualStyleBackColor = false;
             this.BtnSaveIncome.Click += new System.EventHandler(this.BtnSaveIncome_Click);

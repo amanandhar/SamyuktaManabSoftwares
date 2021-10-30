@@ -1,7 +1,10 @@
-﻿using GrocerySupplyManagementApp.Entities;
+﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
+using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
@@ -14,6 +17,51 @@ namespace GrocerySupplyManagementApp.Repositories
         public MSSqlShareMemberRepository()
         {
             connectionString = UtilityService.GetConnectionString();
+        }
+
+        public IEnumerable<ShareMemberView> GetShareMembers()
+        {
+            var shareMemberViewList = new List<ShareMemberView>();
+            var query = @"SELECT " +
+                "sm.[Id], sm.[Name], sm.[ContactNo], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
+                "FROM " + Constants.TABLE_SHARE_MEMBER + " sm " +
+                "LEFT JOIN " + Constants.TABLE_BANK_TRANSACTION + " bt " +
+                "ON sm.[Id] = bt.[TransactionId] " +
+                "WHERE 1 = 1 " +
+                "ORDER BY sm.[Name] ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var shareMemberView = new ShareMemberView
+                                {
+                                    Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString()),
+                                    Name = reader["Name"].ToString(),
+                                    ContactNo = reader.IsDBNull(2) ? 0 : Convert.ToInt64(reader["ContactNo"].ToString()),
+                                    Balance = reader.IsDBNull(3) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString())
+                                };
+
+                                shareMemberViewList.Add(shareMemberView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return shareMemberViewList;
         }
 
         public ShareMember GetShareMember(long id)
@@ -33,7 +81,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Id",id);
+                        command.Parameters.AddWithValue("@Id", id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -57,6 +105,80 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return shareMember;
+        }
+
+        public IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter)
+        {
+            var shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
+            var query = @"SELECT " +
+                "sm.[Id], sm.[EndOfDay], sm.[Name], sm.[ContactNo], " +
+                "bt.[Narration] AS [Description], " +
+                "CASE WHEN bt.[Type] = 1 THEN '" + Constants.DEPOSIT + "' ELSE '" + Constants.WITHDRAWL + "' END AS [Type], " +
+                "bt.[Debit], bt.[Credit], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
+                "FROM " + Constants.TABLE_SHARE_MEMBER + " sm " +
+                "INNER JOIN " + Constants.TABLE_BANK_TRANSACTION + " bt " +
+                "ON sm.[Id] = bt.[TransactionId] " +
+                "WHERE 1 = 1 " +
+                "AND bt.[Action] = '" + Constants.SHARE_CAPITAL + "' ";
+
+            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.DateFrom))
+            {
+                query += "AND sm.[EndOfDay] >= @DateFrom ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(shareMemberTransactionFilter?.DateTo))
+            {
+                query += "AND sm.[EndOfDay] <= @DateTo ";
+            }
+
+            if (shareMemberTransactionFilter?.ShareMemberId != 0)
+            {
+                query += "AND sm.[Id] = @Id ";
+            }
+
+            query += "ORDER BY sm.[AddedDate] DESC ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateFrom", ((object)shareMemberTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)shareMemberTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Id", ((object)shareMemberTransactionFilter?.ShareMemberId) ?? DBNull.Value);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var shareMemberTransactionView = new ShareMemberTransactionView
+                                {
+                                    Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString()),
+                                    EndOfDay = reader["EndOfDay"].ToString(),
+                                    Name = reader["Name"].ToString(),
+                                    ContactNo = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["ContactNo"].ToString()),
+                                    Description = reader["Description"].ToString(),
+                                    Type = reader["Type"].ToString(),
+                                    Debit = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Debit"].ToString()),
+                                    Credit = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Credit"].ToString()),
+                                    Balance = reader.IsDBNull(8) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Balance"].ToString())
+                                };
+
+                                shareMemberTransactionViewList.Add(shareMemberTransactionView);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return shareMemberTransactionViewList;
         }
 
         public ShareMember AddShareMember(ShareMember shareMember)

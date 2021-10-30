@@ -3,7 +3,6 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IShareMemberService _shareMemberService;
-        private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -33,7 +31,7 @@ namespace GrocerySupplyManagementApp.Forms
         private string _baseImageFolder;
         private string _shareMemberImageFolder;
         private string _uploadedImagePath = string.Empty;
-        private string _selectedShareMemberId;
+        private long _selectedShareMemberId;
 
         #region Enum
         private enum Action
@@ -54,7 +52,6 @@ namespace GrocerySupplyManagementApp.Forms
             ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
             IShareMemberService shareMemberService,
-            IUserTransactionService userTransactionService,
             DashboardForm dashboardForm)
         {
             InitializeComponent();
@@ -63,7 +60,6 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _shareMemberService = shareMemberService;
-            _userTransactionService = userTransactionService;
             _dashboard = dashboardForm;
 
             _username = username;
@@ -81,7 +77,8 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields();
             EnableFields(Action.Load);
             LoadBanks();
-            LoadNarration();
+            LoadTrasactions();
+            LoadNarrations();
         }
         #endregion
 
@@ -89,7 +86,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            ShareMemberListForm shareMemberListForm = new ShareMemberListForm(_userTransactionService, this);
+            ShareMemberListForm shareMemberListForm = new ShareMemberListForm(_shareMemberService, this);
             shareMemberListForm.ShowDialog();
         }
 
@@ -106,40 +103,31 @@ namespace GrocerySupplyManagementApp.Forms
             _uploadedImagePath = string.Empty;
         }
 
-        private void BtnShow_Click(object sender, EventArgs e)
+        private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
             LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
         }
 
-        private void BtnSaveAmount_Click(object sender, EventArgs e)
+        private void BtnSaveTransaction_Click(object sender, EventArgs e)
         {
             try
             {
                 if (ValidateShareMemberTransaction())
                 {
-                    var userTransaction = new UserTransaction
-                    {
-                        EndOfDay = _endOfDay,
-                        ShareMemberId = Convert.ToInt64(_selectedShareMemberId),
-                        Action = Constants.RECEIPT,
-                        ActionType = Constants.SHARE_CAPITAL,
-                        Bank = ComboBank.Text.Trim(),
-                        ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
-                    _userTransactionService.AddUserTransaction(userTransaction);
-
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
                     var bankTransaction = new BankTransaction
                     {
                         EndOfDay = _endOfDay,
-                        BankId = Convert.ToInt64(selectedItem.Id),
-                        TransactionId = lastUserTransaction.Id,
-                        Action = '1',
-                        Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
-                        Credit = Constants.DEFAULT_DECIMAL_VALUE,
+                        BankId = Convert.ToInt64(selectedItem?.Id),
+                        Type = ComboTransaction.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower() ? '1' : '0',
+                        Action = Constants.SHARE_CAPITAL,
+                        TransactionId = _selectedShareMemberId,
+                        Debit = ComboTransaction.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower()
+                            ? Convert.ToDecimal(RichAmount.Text.Trim())
+                            : Constants.DEFAULT_DECIMAL_VALUE,
+                        Credit = ComboTransaction.Text.Trim().ToLower() == Constants.DEPOSIT.ToLower()
+                            ? Constants.DEFAULT_DECIMAL_VALUE
+                            : Convert.ToDecimal(RichAmount.Text.Trim()),
                         Narration = ComboNarration.Text.Trim(),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -153,6 +141,44 @@ namespace GrocerySupplyManagementApp.Forms
                         EnableFields();
                         EnableFields(Action.PopulateShareMember);
                         LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        private void BtnRemoveTransaction_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridShareMemberList.SelectedCells.Count == 1
+                    || DataGridShareMemberList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridShareMemberList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridShareMemberList.SelectedCells[0];
+                        selectedRow = DataGridShareMemberList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridShareMemberList.SelectedRows[0];
+                    }
+
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            _bankTransactionService.DeleteBankTransaction(Constants.SHARE_CAPITAL, id);
+                            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                        } 
                     }
                 }
             }
@@ -361,6 +387,23 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Combo Box Event
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboTransaction_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboNarration_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
         #region OpenFileDialog Event
         private void OpenShareMemberImageDialog_FileOk(object sender, CancelEventArgs e)
         {
@@ -383,7 +426,6 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridShareMemberList.Columns["Id"].Visible = false;
-            DataGridShareMemberList.Columns["ShareMemberId"].Visible = false;
             DataGridShareMemberList.Columns["Name"].Visible = false;
             DataGridShareMemberList.Columns["ContactNo"].Visible = false;
 
@@ -447,7 +489,17 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void LoadNarration()
+        private void LoadTrasactions()
+        {
+            ComboTransaction.Items.Clear();
+            ComboTransaction.ValueMember = "Id";
+            ComboTransaction.DisplayMember = "Value";
+
+            ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
+            ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
+        }
+
+        private void LoadNarrations()
         {
             ComboNarration.Items.Clear();
             ComboNarration.ValueMember = "Id";
@@ -456,14 +508,14 @@ namespace GrocerySupplyManagementApp.Forms
             ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CAPITAL, Value = Constants.SHARE_CAPITAL });
         }
 
-        private List<ShareMemberTransactionView> GetShareMemberTransactions(string shareMemberId)
+        private List<ShareMemberTransactionView> GetShareMemberTransactions(long shareMemberId)
         {
             var shareMemberTransactionFilter = new ShareMemberTransactionFilter()
             {
                 ShareMemberId = shareMemberId
             };
 
-            var shareMemberTransactionViewList = _userTransactionService.GetShareMemberTransactions(shareMemberTransactionFilter).ToList();
+            var shareMemberTransactionViewList = _shareMemberService.GetShareMemberTransactions(shareMemberTransactionFilter).ToList();
             return shareMemberTransactionViewList;
         }
 
@@ -521,8 +573,8 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboNarration.Enabled = true;
                 RichAmount.Enabled = true;
 
-                BtnShow.Enabled = true;
-                BtnSaveAmount.Enabled = true;
+                BtnShowTransaction.Enabled = true;
+                BtnSaveTransaction.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
@@ -540,8 +592,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnAddImage.Enabled = false;
                 BtnDeleteImage.Enabled = false;
-                BtnShow.Enabled = false;
-                BtnSaveAmount.Enabled = false;
+                BtnShowTransaction.Enabled = false;
+                BtnSaveTransaction.Enabled = false;
                 BtnAdd.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
@@ -569,10 +621,10 @@ namespace GrocerySupplyManagementApp.Forms
             RichAmount.Clear();
         }
 
-        public void PopulateShareMember(string shareMemberId)
+        public void PopulateShareMember(long shareMemberId)
         {
             _selectedShareMemberId = shareMemberId;
-            var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(_selectedShareMemberId));
+            var shareMember = _shareMemberService.GetShareMember(_selectedShareMemberId);
 
             RichName.Text = shareMember.Name;
             RichAddress.Text = shareMember.Address;
@@ -590,7 +642,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             EnableFields();
             EnableFields(Action.PopulateShareMember);
-            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId.ToString()));
+            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
         }
 
         #endregion
@@ -620,6 +672,7 @@ namespace GrocerySupplyManagementApp.Forms
             var isValidated = false;
 
             var bank = ComboBank.Text.Trim();
+            var transaction = ComboTransaction.Text.Trim();
             var amount = RichAmount.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(bank)
@@ -627,6 +680,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Bank " +
+                    "\n * Transaction " +
                     "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
@@ -637,6 +691,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }

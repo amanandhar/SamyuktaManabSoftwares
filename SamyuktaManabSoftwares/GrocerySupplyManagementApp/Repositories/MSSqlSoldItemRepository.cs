@@ -18,7 +18,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             connectionString = UtilityService.GetConnectionString();
         }
-        
+
         public IEnumerable<SoldItem> GetSoldItems()
         {
             var soldItems = new List<SoldItem>();
@@ -48,7 +48,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Unit = reader["Unit"].ToString(),
-                                    Volume = Convert.ToInt64(reader["Volume"].ToString()),
+                                    Volume = Convert.ToDecimal(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
@@ -74,16 +74,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], c.[Code], c.[Name], c.[Brand], c.[Unit], a.[Volume], a.[Quantity], a.[Price], " +
+                "a.[Id], b.[Code], b.[Name], b.[Brand], b.[Unit], a.[Volume], a.[Quantity], a.[Price], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
-                "b.[AddedDate] " +
+                "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " b " +
-                "ON a.[InvoiceNo] = b.[InvoiceNo] " +
-                "AND ISNULL(b.[Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
-                "AND ISNULL(b.[Expense], '') !=  '" + Constants.SALES_DISCOUNT + "' " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " c " +
-                "ON a.[ItemId] = c.[Id] " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " b " +
+                "ON a.[ItemId] = b.[Id] " +
                 "WHERE 1 = 1 " +
                 "AND ISNULL(a.[InvoiceNo], '') = @InvoiceNo " +
                 "ORDER BY 1 ";
@@ -108,7 +104,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemName = reader["Name"].ToString(),
                                     ItemBrand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
-                                    Volume = Convert.ToInt64(reader["Volume"].ToString()),
+                                    Volume = Convert.ToDecimal(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
@@ -136,10 +132,6 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "CAST(SUM(si.[Volume] * si.[Quantity]) AS DECIMAL(18,2)) " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
-                "AND ISNULL(ut.[Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
-                "AND ISNULL(ut.[Expense], '') != '" + Constants.SALES_DISCOUNT + "' " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ISNULL(si.[ItemId], '') = i.[Id] " +
                 "WHERE 1 = 1 ";
@@ -151,12 +143,12 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateFrom))
             {
-                query += "AND ut.[EndOfDay] >= @DateFrom ";
+                query += "AND si.[EndOfDay] >= @DateFrom ";
             }
 
             if (!string.IsNullOrWhiteSpace(stockFilter?.DateTo))
             {
-                query += "AND ut.[EndOfDay] <= @DateTo ";
+                query += "AND si.[EndOfDay] <= @DateTo ";
             }
 
             try
@@ -185,6 +177,77 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             return totalCount;
+        }
+
+        public string GetLastInvoiceNumber()
+        {
+            string invoiceNumber = string.Empty;
+            string query = @"SELECT " +
+                "TOP 1 " +
+                "[InvoiceNo] " +
+                "FROM " + Constants.TABLE_SOLD_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND [InvoiceNo] IS NOT NULL " +
+                "ORDER BY [Id] DESC ";
+            
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            invoiceNumber = result.ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return invoiceNumber;
+        }
+
+        public IEnumerable<string> GetInvoiceNumbers()
+        {
+            var invoiceNumbers = new List<string>();
+            var query = @"SELECT " +
+                "DISTINCT [InvoiceNo] " +
+                "FROM " + Constants.TABLE_SOLD_ITEM + " " +
+                "WHERE 1 = 1 " +
+                "AND [InvoiceNo] IS NOT NULL " +
+                "ORDER BY [InvoiceNo] ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var invoiceNo = reader["InvoiceNo"].ToString();
+                                invoiceNumbers.Add(invoiceNo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return invoiceNumbers;
         }
 
         public SoldItem AddSoldItem(SoldItem soldItem)

@@ -22,24 +22,22 @@ namespace GrocerySupplyManagementApp.Repositories
             var invoiceReportViews = new List<InvoiceReportView>();
             var query = @"SELECT " +
                 "m.[MemberId], m.[Name], m.[Address], m.[ContactNo], m.[AccountNo], " +
-                "ut.[InvoiceNo], ut.[ActionType], ut.[EndOfDay], " +
+                "ut.[PartyNumber], ut.[ActionType], ut.[EndOfDay], " +
                 "pd.[SubTotal], pd.[Discount], pd.[DeliveryCharge], (pd.[SubTotal] - pd.[Discount] + pd.[DeliveryCharge]) AS [TotalAmount], " +
                 "ut.[ReceivedAmount], ut.[DueReceivedAmount], " +
                 "i.[Name] AS [ItemName], i.[Brand], si.[Volume], si.[Unit], " +
                 "si.[Quantity], si.[Price], CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) AS [Amount] " +
                 "FROM " + Constants.TABLE_MEMBER + " m " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON m.[MemberId] = ut.[MemberId] " +
-                "AND ISNULL(ut.[Income], '') != '" + Constants.DELIVERY_CHARGE + "' " +
-                "AND ISNULL(ut.[Expense], '') !=  '" + Constants.SALES_DISCOUNT + "' " +
+                "ON m.[MemberId] = ut.[PartyId] " +
                 "INNER JOIN " + Constants.TABLE_POS_DETAIL + " pd " +
-                "ON pd.[InvoiceNo] = ut.[InvoiceNo] " +
+                "ON pd.[InvoiceNo] = ut.[PartyNumber] " +
                 "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
-                "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
+                "ON si.[InvoiceNo] = ut.[PartyNumber] " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON i.[Id] = si.[ItemId] " +
                 "WHERE 1 = 1 " +
-                "AND ISNULL(ut.[InvoiceNo], '') = @InvoiceNo";
+                "AND ISNULL(ut.[PartyNumber], '') = @PartyNumber";
 
             try
             {
@@ -48,7 +46,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@InvoiceNo", ((object)invoiceNo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@PartyNumber", ((object)invoiceNo) ?? DBNull.Value);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.HasRows)
@@ -63,7 +61,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                         Address = reader["Address"].ToString(),
                                         ContactNo = Convert.ToInt64(reader["ContactNo"].ToString()),
                                         AccountNo = reader["AccountNo"].ToString(),
-                                        InvoiceNo = reader["InvoiceNo"].ToString(),
+                                        InvoiceNo = reader["PartyNumber"].ToString(),
                                         ActionType = reader["ActionType"].ToString(),
                                         EndOfDay = reader["EndOfDay"].ToString(),
                                         SubTotal = Convert.ToDecimal(reader["SubTotal"].ToString()),
@@ -74,7 +72,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                         DueReceivedAmount = Convert.ToDecimal(reader["DueReceivedAmount"].ToString()),
                                         ItemName = reader["ItemName"].ToString(),
                                         Brand = reader["Brand"].ToString(),
-                                        Volume = Convert.ToInt64(reader["Volume"].ToString()),
+                                        Volume = Convert.ToDecimal(reader["Volume"].ToString()),
                                         Unit = reader["Unit"].ToString(),
                                         Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                         Price = Convert.ToDecimal(reader["Price"].ToString()),

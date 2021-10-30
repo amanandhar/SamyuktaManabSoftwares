@@ -403,6 +403,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboMaritalStatus.Name = "ComboMaritalStatus";
             this.ComboMaritalStatus.Size = new System.Drawing.Size(260, 28);
             this.ComboMaritalStatus.TabIndex = 15;
+            this.ComboMaritalStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboMaritalStatus_KeyPress);
             // 
             // ComboGender
             // 
@@ -413,6 +414,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboGender.Name = "ComboGender";
             this.ComboGender.Size = new System.Drawing.Size(260, 28);
             this.ComboGender.TabIndex = 14;
+            this.ComboGender.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboGender_KeyPress);
             // 
             // label18
             // 
@@ -474,6 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPost.Name = "ComboPost";
             this.ComboPost.Size = new System.Drawing.Size(260, 28);
             this.ComboPost.TabIndex = 17;
+            this.ComboPost.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboPost_KeyPress);
             // 
             // ComboPostStatus
             // 
@@ -484,6 +487,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboPostStatus.Name = "ComboPostStatus";
             this.ComboPostStatus.Size = new System.Drawing.Size(260, 28);
             this.ComboPostStatus.TabIndex = 18;
+            this.ComboPostStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboPostStatus_KeyPress);
             // 
             // label21
             // 
@@ -583,6 +587,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboEducation.Name = "ComboEducation";
             this.ComboEducation.Size = new System.Drawing.Size(125, 28);
             this.ComboEducation.TabIndex = 8;
+            this.ComboEducation.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboEducation_KeyPress);
             // 
             // ComboBloodGroup
             // 
@@ -593,6 +598,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBloodGroup.Name = "ComboBloodGroup";
             this.ComboBloodGroup.Size = new System.Drawing.Size(125, 28);
             this.ComboBloodGroup.TabIndex = 11;
+            this.ComboBloodGroup.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboBloodGroup_KeyPress);
             // 
             // RichAge
             // 

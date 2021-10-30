@@ -39,7 +39,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "pi.[AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON pi.[BillNo] = ut.[BillNo] " +
+                "ON pi.[BillNo] = ut.[PartyNumber] " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
@@ -82,7 +82,7 @@ namespace GrocerySupplyManagementApp.Repositories
             }
 
             query += "UNION " +
-                "SELECT si.[EndOfDay], " + 
+                "SELECT si.[EndOfDay], " +
                 "'" + Constants.SALES + "' AS [Description], " +
                 "ut.[ActionType] AS [Type], " +
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
@@ -92,7 +92,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "si.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON si.[InvoiceNo] = ut.[InvoiceNo] " +
+                "ON si.[InvoiceNo] = ut.[PartyNumber] " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON si.[ItemId] = i.[Id] " +
                 "WHERE 1 = 1 " +
@@ -134,7 +134,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND sa.[EndOfDay] <= @DateTo ";
             }
 
-            query += ") " + 
+            query += ") " +
                 "UnionTable " +
                 "ORDER BY UnionTable.[ItemCode], UnionTable.[AddedDate] " +
                 "SELECT t.*, " +
@@ -257,7 +257,7 @@ namespace GrocerySupplyManagementApp.Repositories
         private List<StockView> CalculateStock(List<Stock> stocks)
         {
             List<StockView> stockViewList = null;
-            
+
             try
             {
                 stockViewList = new List<StockView>();

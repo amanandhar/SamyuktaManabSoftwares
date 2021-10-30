@@ -3,7 +3,6 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.ComponentModel;
@@ -19,9 +18,9 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IStockService _stockService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
+        private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -42,17 +41,17 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public StockAdjustmentForm(string username, ISettingService settingService,
             IItemService itemService, IPricedItemService pricedItemService,
-            IUserTransactionService userTransactionService, IStockService stockService,
-            IStockAdjustmentService stockAdjustmentService)
+            IStockService stockService, IStockAdjustmentService stockAdjustmentService, 
+            IIncomeExpenseService incomeExpenseService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _itemService = itemService;
             _pricedItemService = pricedItemService;
-            _userTransactionService = userTransactionService;
             _stockService = stockService;
             _stockAdjustmentService = stockAdjustmentService;
+            _incomeExpenseService = incomeExpenseService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -75,6 +74,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TxtBoxItemQuantity.Focus();
         }
+
+        private void ComboAction_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
         #endregion
 
         #region Button Event
@@ -95,48 +99,87 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(Action.Edit);
         }
 
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridStockAdjustmentList.SelectedCells.Count == 1
+                    || DataGridStockAdjustmentList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridStockAdjustmentList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridStockAdjustmentList.SelectedCells[0];
+                        selectedRow = DataGridStockAdjustmentList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridStockAdjustmentList.SelectedRows[0];
+                    }
+
+                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    string selectedIncomeExpenseId = selectedRow?.Cells["IncomeExpenseId"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId) && !string.IsNullOrWhiteSpace(selectedIncomeExpenseId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            var incomeExpenseId = Convert.ToInt64(selectedIncomeExpenseId);
+                            _stockAdjustmentService.DeleteStockAdjustment(id, incomeExpenseId);
+                            LoadStockAdjustments();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
         private void BtnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 if (ValidateStockAdjustmentInfo())
                 {
-                    if (ComboAction.Text == Constants.DEDUCT)
+                    var stockAdjustmentType = ComboAction.Text.Trim();
+                    IncomeExpense incomeExpense;
+                    if (stockAdjustmentType == Constants.DEDUCT)
                     {
-                        var userTransaction = new UserTransaction
+                        incomeExpense = new IncomeExpense
                         {
                             EndOfDay = _endOfDay,
                             Action = Constants.EXPENSE,
                             ActionType = Constants.DEDUCT,
-                            Expense = Constants.STOCK_ADJUSTMENT,
+                            Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
                             PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
-                        _userTransactionService.AddUserTransaction(userTransaction);
                     }
-                    else if (ComboAction.Text == Constants.ADD)
+                    else
                     {
-                        var userTransaction = new UserTransaction
+                        incomeExpense = new IncomeExpense
                         {
                             EndOfDay = _endOfDay,
                             Action = Constants.INCOME,
                             ActionType = Constants.ADD,
-                            Income = Constants.STOCK_ADJUSTMENT,
+                            Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
                             ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
-                        _userTransactionService.AddUserTransaction(userTransaction);
                     }
 
-                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
+                    var incomeExpenseType = stockAdjustmentType == Constants.DEDUCT ? Constants.EXPENSE : Constants.INCOME;
                     var stockAdjustment = new StockAdjustment
                     {
                         EndOfDay = _endOfDay,
-                        UserTransactionId = lastUserTransaction.Id,
                         ItemId = _itemService.GetItem(TxtBoxItemCode.Text.Trim()).Id,
                         Unit = TxtBoxItemUnit.Text.Trim(),
                         Action = ComboAction.Text.Trim(),
@@ -145,7 +188,8 @@ namespace GrocerySupplyManagementApp.Forms
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
-                    _stockAdjustmentService.AddStockAdjustment(stockAdjustment);
+
+                    _stockAdjustmentService.AddStockAdjustment(stockAdjustment, incomeExpense, incomeExpenseType, _username);
 
                     DialogResult result = MessageBox.Show("Stock adjustment done successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
@@ -179,6 +223,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridStockAdjustmentList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridStockAdjustmentList.Columns["Id"].Visible = false;
+            DataGridStockAdjustmentList.Columns["IncomeExpenseId"].Visible = false;
 
             DataGridStockAdjustmentList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridStockAdjustmentList.Columns["EndOfDay"].Width = 75;

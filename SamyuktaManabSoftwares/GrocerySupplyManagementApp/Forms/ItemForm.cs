@@ -90,7 +90,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Name = RichItemName.Text.Trim(),
                         Brand = RichItemBrand.Text.Trim(),
                         Unit = ComboUnit.Text.Trim(),
-                        Threshold = Convert.ToInt32(RichThreshold.Text.Trim()),
+                        Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -149,7 +149,7 @@ namespace GrocerySupplyManagementApp.Forms
                             Name = RichItemName.Text.Trim(),
                             Brand = RichItemBrand.Text.Trim(),
                             Unit = ComboUnit.Text.Trim(),
-                            Threshold = Convert.ToInt32(RichThreshold.Text.Trim()),
+                            Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                             UpdatedBy = _username,
                             UpdatedDate = DateTime.Now
                         };
@@ -243,12 +243,22 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void ComboCategory_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboUnit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
         #endregion
 
         #region Data Grid Event
         private void DataGridItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridItemList.Columns["Id"].Visible = false;
+            DataGridItemList.Columns["EndOfDay"].Visible = false;
             DataGridItemList.Columns["AddedBy"].Visible = false;
             DataGridItemList.Columns["AddedDate"].Visible = false;
             DataGridItemList.Columns["UpdatedBy"].Visible = false;

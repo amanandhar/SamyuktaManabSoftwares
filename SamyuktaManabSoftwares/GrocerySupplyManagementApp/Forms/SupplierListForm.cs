@@ -12,8 +12,6 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class SupplierListForm : Form
     {
-        private static readonly log4net.ILog logger = LogHelper.GetLogger();
-
         private readonly ISupplierService _supplierService;
         private readonly ICapitalService _capitalService;
 
@@ -95,7 +93,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Name = x.Name,
                 Owner = x.Owner,
                 Balance = _capitalService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = x.SupplierId }),
-            }).ToList();
+            }).OrderByDescending(x => x.Id).ToList();
 
             var bindingList = new BindingList<SupplierView>(supplierViewList.ToList());
             var source = new BindingSource(bindingList, null);

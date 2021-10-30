@@ -12,18 +12,19 @@ namespace GrocerySupplyManagementApp.Shared
         public const string PAYMENT = "Payment";
         public const string INCOME = "Income";
         public const string EXPENSE = "Expense";
-        public const string ADD = "Add";
-        public const string DEDUCT = "Deduct";
         public const string BANK_TRANSFER = "Bank Transfer";
+        public const string OWNER_EQUITY = "Owner Equity";
+        public const string SHARE_CAPITAL = "Share Capital";
         public const string RETURN = "Return";
 
         // Action Type
         public const string CASH = "Cash";
         public const string CREDIT = "Credit";
-        public const string DEBIT = "Debit";
         public const string CHEQUE = "Cheque";
-        public const string ACTION_TYPE_NONE = "None";
+        public const string ADD = "Add";
+        public const string DEDUCT = "Deduct";
 
+        public const string DEBIT = "Debit";
         public const string CLEAR = "Clear";
         public const string DUE = "Due";
         public const string OWNED = "Owened";
@@ -35,6 +36,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_COMPANY_INFO = "CompanyInfo";
         public const string TABLE_EMPLOYEE = "Employee";
         public const string TABLE_END_OF_DAY = "EndOfDay";
+        public const string TABLE_INCOME_EXPENSE = "IncomeExpense";
         public const string TABLE_ITEM = "Item";
         public const string TABLE_ITEM_CATEGORY = "ItemCategory";
         public const string TABLE_MEMBER = "Member";
@@ -59,9 +61,6 @@ namespace GrocerySupplyManagementApp.Shared
         public const string BONUS_PREFIX = "BS";
         public const string BILL_NO_PREFIX = "BN";
         public const string INVOICE_NO_PREFIX = "IN";
-
-        public const string SHARE_CAPITAL = "Share Capital";
-        public const string OWNER_EQUITY = "Owner Equity";
 
         // Expense 
         public const string ASSET = "Asset";

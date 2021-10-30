@@ -245,10 +245,9 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new DailyTransactionForm(_username,
-                _settingService,
-               _bankTransactionService,
-               _userTransactionService, _userService,
-               _atomicTransactionService
+                _settingService, _purchasedItemService, 
+                _soldItemService, _userTransactionService,
+                _userService, _atomicTransactionService
                ));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -349,8 +348,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             OpenChildForm(new IncomeForm(_username,
                 _settingService, _bankService,
-                _bankTransactionService, _userTransactionService,
-                _incomeExpenseService));
+                _bankTransactionService, _incomeExpenseService));
             SelectButton(sender as Button, true);
         }
 
@@ -360,8 +358,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             OpenChildForm(new ExpenseForm(_username,
                 _settingService, _bankService,
-                _bankTransactionService, _userTransactionService,
-                _incomeExpenseService, _capitalService));
+                _bankTransactionService, _incomeExpenseService,
+                _capitalService));
             SelectButton(sender as Button, true);
         }
 
@@ -389,7 +387,7 @@ namespace GrocerySupplyManagementApp.Forms
             OpenChildForm(new SalesReturnForm(_username,
                 _settingService, _itemService,
                 _purchasedItemService, _soldItemService,
-                _userTransactionService));
+                _userTransactionService, _incomeExpenseService));
             SelectButton(sender as Button, true);
         }
 
@@ -400,7 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
             OpenChildForm(new ShareMemberForm(_username,
                 _settingService, _bankService,
                 _bankTransactionService, _shareMemberService,
-                _userTransactionService, this));
+                this));
             SelectButton(sender as Button, true);
         }
 
@@ -408,9 +406,10 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new StockAdjustmentForm(_username, _settingService,
-               _itemService, _pricedItemService,
-               _userTransactionService, _stockService, _stockAdjustmentService));
+            OpenChildForm(new StockAdjustmentForm(_username, 
+                _settingService, _itemService, 
+                _pricedItemService, _stockService,
+               _stockAdjustmentService, _incomeExpenseService));
             SelectButton(sender as Button, true);
         }
 
@@ -418,8 +417,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new DeliveryPersonForm(_settingService, _userTransactionService,
-                    _employeeService));
+            OpenChildForm(new DeliveryPersonForm(_settingService, _employeeService,
+                    _posDetailService));
             SelectButton(sender as Button, true);
         }
 
@@ -652,9 +651,9 @@ namespace GrocerySupplyManagementApp.Forms
             var totalExpense = _incomeExpenseService.GetTotalExpense(endOfDay);
 
             var shareCapital = _bankTransactionService
-                .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.SHARE_CAPITAL });
+                .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Type = '1', Action = Constants.SHARE_CAPITAL });
             var ownerEquity = _bankTransactionService
-                .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Action = '1', Narration = Constants.OWNER_EQUITY });
+                .GetTotalDeposit(new BankTransactionFilter() { DateTo = endOfDay, Type = '1', Action = Constants.OWNER_EQUITY });
             var loanAmount = Constants.DEFAULT_DECIMAL_VALUE; // ToDo : Add loan form later
             var payableAmount = Math.Abs(_capitalService
                 .GetSupplierTotalBalance(new SupplierTransactionFilter() { DateTo = endOfDay }));
@@ -662,7 +661,7 @@ namespace GrocerySupplyManagementApp.Forms
             var liabilitiesBalance = shareCapital + ownerEquity + loanAmount
                 + payableAmount + netProfit;
 
-            var cashInHand = Math.Abs(_capitalService.GetCashInHand(new UserTransactionFilter { DateTo = endOfDay }));
+            var cashInHand = _capitalService.GetCashInHand(new CapitalTransactionFilter() { DateTo = endOfDay, ActionType = Constants.CASH });
             var bankAccount = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { DateTo = endOfDay });
 
             var stockFilter = new StockFilter() { DateTo = endOfDay };
@@ -677,6 +676,7 @@ namespace GrocerySupplyManagementApp.Forms
             if (liabilitiesBalance == assetsBalance)
             {
                 RichBoxSystemStatus.Text = "System Status : No Error";
+                RichBoxSystemStatus.BackColor = Color.White;
             }
             else
             {

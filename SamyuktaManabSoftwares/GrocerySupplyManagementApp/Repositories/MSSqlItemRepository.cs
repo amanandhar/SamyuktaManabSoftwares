@@ -44,7 +44,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Name = reader["Name"].ToString(),
                                     Brand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
-                                    Threshold = Convert.ToInt32(reader["Threshold"].ToString()),
+                                    Threshold = Convert.ToDecimal(reader["Threshold"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
                                     UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
@@ -91,7 +91,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Name = reader["Name"].ToString();
                                 item.Brand = reader["Brand"].ToString();
                                 item.Unit = reader["Unit"].ToString();
-                                item.Threshold = Convert.ToInt32(reader["Threshold"].ToString());
+                                item.Threshold = Convert.ToDecimal(reader["Threshold"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 item.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
@@ -113,7 +113,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var item = new Item();
             var query = @"SELECT " +
                 "[Id], [Code], [Name], [Brand], [Unit], [Threshold], [AddedDate], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_ITEM + " " + 
+                "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id " +
                 "ORDER BY [Code] ";
@@ -126,7 +126,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", itemId);
-       
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -136,7 +136,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Name = reader["Name"].ToString();
                                 item.Brand = reader["Brand"].ToString();
                                 item.Unit = reader["Unit"].ToString();
-                                item.Threshold = Convert.ToInt32(reader["Threshold"].ToString());
+                                item.Threshold = Convert.ToDecimal(reader["Threshold"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 item.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }

@@ -78,6 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BtnShowTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.BtnRemoveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSaveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnShowSales = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -118,9 +119,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnSave);
             this.groupBox3.Controls.Add(this.BtnAddMember);
             this.groupBox3.ForeColor = System.Drawing.Color.Red;
-            this.groupBox3.Location = new System.Drawing.Point(953, 335);
+            this.groupBox3.Location = new System.Drawing.Point(950, 366);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(140, 205);
+            this.groupBox3.Size = new System.Drawing.Size(130, 205);
             this.groupBox3.TabIndex = 25;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Member";
@@ -136,7 +137,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(11, 163);
+            this.BtnDelete.Location = new System.Drawing.Point(6, 163);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(120, 35);
             this.BtnDelete.TabIndex = 20;
@@ -156,7 +157,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(11, 127);
+            this.BtnUpdate.Location = new System.Drawing.Point(6, 127);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(120, 35);
             this.BtnUpdate.TabIndex = 19;
@@ -176,7 +177,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEdit.ForeColor = System.Drawing.Color.White;
-            this.BtnEdit.Location = new System.Drawing.Point(11, 91);
+            this.BtnEdit.Location = new System.Drawing.Point(6, 91);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(120, 35);
             this.BtnEdit.TabIndex = 18;
@@ -196,7 +197,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSave.ForeColor = System.Drawing.Color.White;
-            this.BtnSave.Location = new System.Drawing.Point(11, 55);
+            this.BtnSave.Location = new System.Drawing.Point(6, 55);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(120, 35);
             this.BtnSave.TabIndex = 17;
@@ -216,7 +217,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAddMember.ForeColor = System.Drawing.Color.White;
-            this.BtnAddMember.Location = new System.Drawing.Point(10, 19);
+            this.BtnAddMember.Location = new System.Drawing.Point(6, 19);
             this.BtnAddMember.Name = "BtnAddMember";
             this.BtnAddMember.Size = new System.Drawing.Size(120, 35);
             this.BtnAddMember.TabIndex = 16;
@@ -359,6 +360,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtMemberId.Name = "TxtMemberId";
             this.TxtMemberId.Size = new System.Drawing.Size(75, 26);
             this.TxtMemberId.TabIndex = 0;
+            this.TxtMemberId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMemberId_KeyPress);
             // 
             // BtnSearchMember
             // 
@@ -499,6 +501,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboReceipt.Size = new System.Drawing.Size(135, 26);
             this.ComboReceipt.TabIndex = 9;
             this.ComboReceipt.SelectedValueChanged += new System.EventHandler(this.ComboPayment_SelectedValueChanged);
+            this.ComboReceipt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboReceipt_KeyPress);
             // 
             // RichAmount
             // 
@@ -534,6 +537,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboBank.Size = new System.Drawing.Size(192, 26);
             this.ComboBank.TabIndex = 10;
             this.ComboBank.SelectedValueChanged += new System.EventHandler(this.ComboBank_SelectedValueChanged);
+            this.ComboBank.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboBank_KeyPress);
             // 
             // label6
             // 
@@ -596,7 +600,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.PicBoxMemberImage);
-            this.groupBox2.Location = new System.Drawing.Point(955, 43);
+            this.groupBox2.Location = new System.Drawing.Point(947, 43);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(136, 145);
             this.groupBox2.TabIndex = 36;
@@ -685,15 +689,36 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.BtnRemoveReceipt);
             this.groupBox5.Controls.Add(this.BtnSaveReceipt);
             this.groupBox5.Controls.Add(this.BtnShowSales);
             this.groupBox5.ForeColor = System.Drawing.Color.Red;
-            this.groupBox5.Location = new System.Drawing.Point(953, 224);
+            this.groupBox5.Location = new System.Drawing.Point(951, 224);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(140, 99);
+            this.groupBox5.Size = new System.Drawing.Size(129, 136);
             this.groupBox5.TabIndex = 50;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Transaction";
+            // 
+            // BtnRemoveReceipt
+            // 
+            this.BtnRemoveReceipt.BackColor = System.Drawing.Color.Red;
+            this.BtnRemoveReceipt.BackgroundColor = System.Drawing.Color.Red;
+            this.BtnRemoveReceipt.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnRemoveReceipt.BorderRadius = 35;
+            this.BtnRemoveReceipt.BorderSize = 0;
+            this.BtnRemoveReceipt.FlatAppearance.BorderSize = 0;
+            this.BtnRemoveReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemoveReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRemoveReceipt.ForeColor = System.Drawing.Color.White;
+            this.BtnRemoveReceipt.Location = new System.Drawing.Point(5, 91);
+            this.BtnRemoveReceipt.Name = "BtnRemoveReceipt";
+            this.BtnRemoveReceipt.Size = new System.Drawing.Size(120, 35);
+            this.BtnRemoveReceipt.TabIndex = 21;
+            this.BtnRemoveReceipt.Text = "Remove";
+            this.BtnRemoveReceipt.TextColor = System.Drawing.Color.White;
+            this.BtnRemoveReceipt.UseVisualStyleBackColor = false;
+            this.BtnRemoveReceipt.Click += new System.EventHandler(this.BtnRemoveReceipt_Click);
             // 
             // BtnSaveReceipt
             // 
@@ -706,7 +731,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSaveReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSaveReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSaveReceipt.ForeColor = System.Drawing.Color.White;
-            this.BtnSaveReceipt.Location = new System.Drawing.Point(10, 54);
+            this.BtnSaveReceipt.Location = new System.Drawing.Point(4, 54);
             this.BtnSaveReceipt.Name = "BtnSaveReceipt";
             this.BtnSaveReceipt.Size = new System.Drawing.Size(120, 35);
             this.BtnSaveReceipt.TabIndex = 15;
@@ -726,7 +751,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowSales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShowSales.ForeColor = System.Drawing.Color.White;
-            this.BtnShowSales.Location = new System.Drawing.Point(10, 18);
+            this.BtnShowSales.Location = new System.Drawing.Point(4, 18);
             this.BtnShowSales.Name = "BtnShowSales";
             this.BtnShowSales.Size = new System.Drawing.Size(120, 35);
             this.BtnShowSales.TabIndex = 14;
@@ -893,5 +918,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox TxtMemberId;
+        private CustomControls.Button.CustomButton BtnRemoveReceipt;
     }
 }

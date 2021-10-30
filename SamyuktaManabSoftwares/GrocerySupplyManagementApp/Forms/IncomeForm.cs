@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly string _username;
@@ -28,16 +26,14 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public IncomeForm(string username,
-            ISettingService settingService,
-            IBankService bankService, IBankTransactionService bankTransactionService,
-            IUserTransactionService userTransactionService, IIncomeExpenseService incomeExpenseService)
+            ISettingService settingService, IBankService bankService, 
+            IBankTransactionService bankTransactionService, IIncomeExpenseService incomeExpenseService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
-            _userTransactionService = userTransactionService;
             _incomeExpenseService = incomeExpenseService;
 
             _username = username;
@@ -58,7 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnShow_Click(object sender, EventArgs e)
         {
-            LoadIncomeDetails();
+            LoadIncomeTransactions();
         }
 
         private void BtnSaveIncome_Click(object sender, EventArgs e)
@@ -67,43 +63,39 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateIncomeInfo())
                 {
-                    var userTransaction = new UserTransaction
+                    ComboBoxItem selectedBank = (ComboBoxItem)ComboBank.SelectedItem;
+                    var incomeExpense = new IncomeExpense
                     {
                         EndOfDay = _endOfDay,
                         Action = Constants.INCOME,
                         ActionType = Constants.CHEQUE,
-                        Bank = ComboBank.Text.Trim(),
-                        Income = ComboIncome.Text.Trim(),
+                        BankName = selectedBank?.Value,
+                        Type = ComboIncome.Text.Trim(),
                         Narration = TxtBoxNarration.Text.Trim(),
                         ReceivedAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
 
-                    if (_userTransactionService.AddUserTransaction(userTransaction) != null)
+                    var bankTransaction = new BankTransaction
                     {
-                        var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
-                        ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-                        var bankTransaction = new BankTransaction
-                        {
-                            EndOfDay = _endOfDay,
-                            BankId = Convert.ToInt64(selectedItem.Id),
-                            TransactionId = lastUserTransaction.Id,
-                            Action = '1',
-                            Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
-                            Narration = ComboIncome.Text.Trim(),
-                            AddedBy = _username,
-                            AddedDate = DateTime.Now
-                        };
+                        EndOfDay = _endOfDay,
+                        BankId = Convert.ToInt64(selectedBank?.Id),
+                        Type = '1',
+                        Action = Constants.INCOME,
+                        Debit = Convert.ToDecimal(RichAmount.Text.Trim()),
+                        Narration = ComboIncome.Text.Trim(),
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
 
-                        _bankTransactionService.AddBankTransaction(bankTransaction);
-                    }
+                    _incomeExpenseService.AddIncome(incomeExpense, bankTransaction, _username);
 
                     DialogResult result = MessageBox.Show(ComboIncome.Text.Trim() + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         ClearAllFields();
-                        LoadIncomeDetails();
+                        LoadIncomeTransactions();
                     }
                 }
             }
@@ -132,25 +124,30 @@ namespace GrocerySupplyManagementApp.Forms
                         selectedRow = DataGridIncomeList.SelectedRows[0];
                     }
 
-                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
-
-                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (deleteResult == DialogResult.Yes)
+                    string description = selectedRow?.Cells["Description"]?.Value?.ToString();
+                    if(!string.IsNullOrWhiteSpace(description) 
+                        && (description == Constants.DELIVERY_CHARGE || description == Constants.SALES_PROFIT || description == Constants.STOCK_ADJUSTMENT))
                     {
-                        var id = Convert.ToInt64(selectedId);
-                        if (_userTransactionService.DeleteUserTransaction(id))
+                        MessageBox.Show("Please delete the main transaction first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
                         {
-                            if (_bankTransactionService.DeleteBankTransactionByUserTransaction(id))
+                            var id = Convert.ToInt64(selectedId);
+                            if (_incomeExpenseService.DeleteIncomeExpense(id, Constants.INCOME))
                             {
                                 DialogResult result = MessageBox.Show("Income has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 if (result == DialogResult.OK)
                                 {
                                     ClearAllFields();
-                                    LoadIncomeDetails();
+                                    LoadIncomeTransactions();
                                 }
                             }
                         }
-                    }
+                    } 
                 }
             }
             catch (Exception ex)
@@ -158,26 +155,6 @@ namespace GrocerySupplyManagementApp.Forms
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
             }
-        }
-        #endregion
-
-        #region Radio Button Event
-        private void RadioAll_CheckedChanged(object sender, EventArgs e)
-        {
-            MaskDtEODFrom.Clear();
-            MaskDtEODTo.Clear();
-        }
-        #endregion
-
-        #region Mask Date Event
-        private void MaskDtEODFrom_KeyDown(object sender, KeyEventArgs e)
-        {
-            RadioAll.Checked = false;
-        }
-
-        private void MaskDtEODTo_KeyDown(object sender, KeyEventArgs e)
-        {
-            RadioAll.Checked = false;
         }
         #endregion
 
@@ -203,6 +180,36 @@ namespace GrocerySupplyManagementApp.Forms
                 RadioAll.Checked = true;
             }
         }
+
+        private void ComboIncome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
+        #region Radio Button Event
+        private void RadioAll_CheckedChanged(object sender, EventArgs e)
+        {
+            MaskDtEODFrom.Clear();
+            MaskDtEODTo.Clear();
+        }
+        #endregion
+
+        #region Mask Date Event
+        private void MaskDtEODFrom_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
+
+        private void MaskDtEODTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            RadioAll.Checked = false;
+        }
         #endregion
 
         #region Mask Textbox Event
@@ -224,30 +231,28 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridIncomeList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridIncomeList.Columns["Description"].HeaderText = "Description";
-            DataGridIncomeList.Columns["Description"].Width = 200;
+            DataGridIncomeList.Columns["Description"].Width = 150;
             DataGridIncomeList.Columns["Description"].DisplayIndex = 1;
+
+            DataGridIncomeList.Columns["Narration"].HeaderText = "Narration";
+            DataGridIncomeList.Columns["Narration"].Width = 150;
+            DataGridIncomeList.Columns["Narration"].DisplayIndex = 2;
 
             DataGridIncomeList.Columns["InvoiceNo"].HeaderText = "Invoice No";
             DataGridIncomeList.Columns["InvoiceNo"].Width = 100;
-            DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 2;
+            DataGridIncomeList.Columns["InvoiceNo"].DisplayIndex = 3;
+
+            DataGridIncomeList.Columns["BankName"].HeaderText = "Bank";
+            DataGridIncomeList.Columns["BankName"].Width = 100;
+            DataGridIncomeList.Columns["BankName"].DisplayIndex = 4;
 
             DataGridIncomeList.Columns["ItemCode"].HeaderText = "Item Code";
             DataGridIncomeList.Columns["ItemCode"].Width = 100;
-            DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 3;
+            DataGridIncomeList.Columns["ItemCode"].DisplayIndex = 5;
 
             DataGridIncomeList.Columns["ItemName"].HeaderText = "Name";
             DataGridIncomeList.Columns["ItemName"].Width = 200;
-            DataGridIncomeList.Columns["ItemName"].DisplayIndex = 4;
-
-            DataGridIncomeList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridIncomeList.Columns["Quantity"].Width = 80;
-            DataGridIncomeList.Columns["Quantity"].DisplayIndex = 5;
-            DataGridIncomeList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridIncomeList.Columns["Profit"].HeaderText = "Profit";
-            DataGridIncomeList.Columns["Profit"].Width = 90;
-            DataGridIncomeList.Columns["Profit"].DisplayIndex = 6;
-            DataGridIncomeList.Columns["Profit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridIncomeList.Columns["ItemName"].DisplayIndex = 6;
 
             DataGridIncomeList.Columns["Amount"].HeaderText = "Amount";
             DataGridIncomeList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -264,42 +269,54 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadIncomeDetails()
+        private void LoadIncomeTransactions()
         {
-            var incomeTransactionFilter = new IncomeTransactionFilter();
-            var income = string.IsNullOrWhiteSpace(ComboFilteredBy.Text.Trim()) ? null : ComboFilteredBy.Text.Trim();
-            incomeTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim());
-            incomeTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim());
-            incomeTransactionFilter.Income = income;
+            try
+            {
+                var incomeTransactionFilter = new IncomeTransactionFilter();
+                var incomeType = string.IsNullOrWhiteSpace(ComboFilteredBy.Text.Trim()) ? null : ComboFilteredBy.Text.Trim();
+                incomeTransactionFilter.DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim());
+                incomeTransactionFilter.DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim());
+                incomeTransactionFilter.IncomeType = incomeType;
 
-            List<IncomeTransactionView> incomeTransactionViewList;
+                List<IncomeTransactionView> incomeTransactionViewList;
 
-            if (!string.IsNullOrWhiteSpace(income)
-                && (
-                    income.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower())
-                    || income.ToLower().Equals(Constants.MEMBER_FEE.ToLower())
-                    || income.ToLower().Equals(Constants.OTHER_INCOME.ToLower())
-                    || income.ToLower().Equals(Constants.STOCK_ADJUSTMENT.ToLower())
+                if (!string.IsNullOrWhiteSpace(incomeType) && incomeType.ToLower().Equals(Constants.DELIVERY_CHARGE.ToLower()))
+                {
+                    incomeTransactionViewList = _incomeExpenseService.GetDeliveryChargeTransactions(incomeTransactionFilter).ToList();
+                }
+                else if (!string.IsNullOrWhiteSpace(incomeType)
+                    && (
+                        incomeType.ToLower().Equals(Constants.MEMBER_FEE.ToLower())
+                        || incomeType.ToLower().Equals(Constants.OTHER_INCOME.ToLower())
+                        || incomeType.ToLower().Equals(Constants.STOCK_ADJUSTMENT.ToLower())
+                        )
                     )
-                )
-            {
-                incomeTransactionViewList = _incomeExpenseService.GetIncomeTransactions(incomeTransactionFilter).ToList();
-            }
-            else if (!string.IsNullOrWhiteSpace(income) && income.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
-            {
-                incomeTransactionViewList = _incomeExpenseService.GetSalesProfit(incomeTransactionFilter).ToList();
-            }
-            else
-            {
-                incomeTransactionViewList = _incomeExpenseService.GetIncomeTransactions(incomeTransactionFilter).ToList();
-                incomeTransactionViewList.AddRange(_incomeExpenseService.GetSalesProfit(incomeTransactionFilter).ToList());
-            }
+                {
+                    incomeTransactionViewList = _incomeExpenseService.GetIncomeTransactions(incomeTransactionFilter).ToList();
+                }
+                else if (!string.IsNullOrWhiteSpace(incomeType) && incomeType.ToLower().Equals(Constants.SALES_PROFIT.ToLower()))
+                {
+                    incomeTransactionViewList = _incomeExpenseService.GetSalesProfit(incomeTransactionFilter).ToList();
+                }
+                else
+                {
+                    incomeTransactionViewList = _incomeExpenseService.GetDeliveryChargeTransactions(incomeTransactionFilter).ToList();
+                    incomeTransactionViewList.AddRange(_incomeExpenseService.GetIncomeTransactions(incomeTransactionFilter).ToList());
+                    incomeTransactionViewList.AddRange(_incomeExpenseService.GetSalesProfit(incomeTransactionFilter).ToList());
+                }
 
-            TxtTotalAmount.Text = (incomeTransactionViewList.Sum(x => x.Amount)).ToString();
+                TxtTotalAmount.Text = (incomeTransactionViewList.Sum(x => x.Amount)).ToString();
 
-            var bindingList = new BindingList<IncomeTransactionView>(incomeTransactionViewList.OrderBy(x => x.AddedDate).ToList());
-            var source = new BindingSource(bindingList, null);
-            DataGridIncomeList.DataSource = source;
+                var bindingList = new BindingList<IncomeTransactionView>(incomeTransactionViewList.OrderByDescending(x => x.AddedDate).ToList());
+                var source = new BindingSource(bindingList, null);
+                DataGridIncomeList.DataSource = source;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
         }
 
         private void ClearAllFields()
@@ -318,7 +335,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
-            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
         }
 
         private void LoadFilterIncomes()
@@ -378,5 +394,6 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
+
     }
 }

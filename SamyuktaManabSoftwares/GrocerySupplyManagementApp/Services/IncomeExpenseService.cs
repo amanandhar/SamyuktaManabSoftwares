@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
@@ -47,7 +48,52 @@ namespace GrocerySupplyManagementApp.Services
 
         public IEnumerable<IncomeTransactionView> GetSalesProfit(IncomeTransactionFilter incomeTransactionFilter)
         {
-           return _incomeExpenseRepository.GetSalesProfit(incomeTransactionFilter);
+            return _incomeExpenseRepository.GetSalesProfit(incomeTransactionFilter);
+        }
+
+        public decimal GetTotalDeliveryCharge(IncomeTransactionFilter incomeTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetTotalDeliveryCharge(incomeTransactionFilter);
+        }
+
+        public IEnumerable<IncomeTransactionView> GetDeliveryChargeTransactions(IncomeTransactionFilter incomeTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetDeliveryChargeTransactions(incomeTransactionFilter);
+        }
+
+        public decimal GetTotalSalesDiscount(ExpenseTransactionFilter expenseTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetTotalSalesDiscount(expenseTransactionFilter);
+        }
+
+        public IEnumerable<ExpenseTransactionView> GetSalesDiscountTransactions(ExpenseTransactionFilter expenseTransactionFilter)
+        {
+            return _incomeExpenseRepository.GetSalesDiscountTransactions(expenseTransactionFilter);
+        }
+
+        public IncomeExpense GetLastIncomeExpense(string type, string addedBy)
+        {
+            return _incomeExpenseRepository.GetLastIncomeExpense(type, addedBy);
+        }
+
+        public IncomeExpense AddIncomeExpense(IncomeExpense incomeExpense)
+        {
+            return _incomeExpenseRepository.AddIncomeExpense(incomeExpense);
+        }
+
+        public IncomeExpense AddIncome(IncomeExpense incomeExpense, BankTransaction bankTransaction, string username)
+        {
+            return _incomeExpenseRepository.AddIncome(incomeExpense, bankTransaction, username);
+        }
+
+        public IncomeExpense AddExpense(IncomeExpense incomeExpense, BankTransaction bankTransaction, string username)
+        {
+            return _incomeExpenseRepository.AddExpense(incomeExpense, bankTransaction, username);
+        }
+
+        public bool DeleteIncomeExpense(long id, string type)
+        {
+            return _incomeExpenseRepository.DeleteIncomeExpense(id, type);
         }
     }
 }

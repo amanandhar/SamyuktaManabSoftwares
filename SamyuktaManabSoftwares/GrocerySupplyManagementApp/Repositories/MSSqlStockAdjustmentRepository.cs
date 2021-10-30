@@ -23,14 +23,14 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var stockAdjustmentViewList = new List<StockAdjustmentView>();
             var query = @"SELECT " +
-                "sa.[Id], sa.[EndOfDay], sa.[Action], ut.[Narration], i.[Code], i.[Name], sa.[Quantity], sa.[Price] " +
+                "sa.[Id], sa.[EndOfDay], sa.[IncomeExpenseId], sa.[Action], ie.[Narration], i.[Code], i.[Name], sa.[Quantity], sa.[Price] " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON sa.[ItemId] = i.[Id] " +
-                "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
-                "ON sa.[UserTransactionId] = ut.[Id] " +
+                "INNER JOIN " + Constants.TABLE_INCOME_EXPENSE + " ie " +
+                "ON sa.[IncomeExpenseId] = ie.[Id] " +
                 "WHERE 1 = 1 " +
-                "ORDER BY sa.[AddedDate] ";
+                "ORDER BY sa.[AddedDate] DESC ";
 
             try
             {
@@ -47,6 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
+                                    IncomeExpenseId = Convert.ToInt64(reader["IncomeExpenseId"].ToString()),
                                     Action = reader["Action"].ToString(),
                                     Narration = reader["Narration"].ToString(),
                                     ItemCode = reader["Code"].ToString(),
@@ -178,34 +179,110 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalCount;
         }
 
-        public StockAdjustment AddStockAdjustment(StockAdjustment stockAdjustment)
+        // Atomic Transaction
+        public StockAdjustment AddStockAdjustment(StockAdjustment stockAdjustment, IncomeExpense incomeExpense, string incomeExpenseType, string username)
         {
-            string query = @"INSERT INTO " +
-                    " " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
-                    "( " +
-                        "[EndOfDay], [UserTransactionId], [ItemId], [Unit], [Action], [Quantity], [Price], [AddedBy], [AddedDate] " +
-                    ") " +
-                    "VALUES " +
-                    "( " +
-                        "@EndOfDay, @UserTransactionId, @ItemId, @Unit, @Action, @Quantity, @Price, @AddedBy, @AddedDate " +
-                    ") ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                    // Start a local transaction
+                    SqlTransaction sqlTransaction = connection.BeginTransaction();
+
+                    try
                     {
-                        command.Parameters.AddWithValue("@EndOfDay", ((object)stockAdjustment.EndOfDay) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@UserTransactionId", ((object)stockAdjustment.UserTransactionId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ItemId", ((object)stockAdjustment.ItemId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Unit", ((object)stockAdjustment.Unit) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)stockAdjustment.Action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Quantity", ((object)stockAdjustment.Quantity) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Price", ((object)stockAdjustment.Price) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@AddedBy", ((object)stockAdjustment.AddedBy) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@AddedDate", ((object)stockAdjustment.AddedDate) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
+                        // Insert into income expense table
+                        string insertIncomeExpense = "INSERT INTO " + Constants.TABLE_INCOME_EXPENSE + " " +
+                            "(" +
+                                "[EndOfDay], [Action], [ActionType], " +
+                                "[BankName], [Type], [Narration], " +
+                                "[ReceivedAmount], [PaymentAmount], " +
+                                "[AddedBy], [AddedDate] " +
+                            ") " +
+                            "VALUES " +
+                            "( " +
+                                "@EndOfDay, @Action, @ActionType, " +
+                                "@BankName, @Type, @Narration, " +
+                                "@ReceivedAmount, @PaymentAmount, " +
+                                "@AddedBy, @AddedDate " +
+                            ") ";
+
+                        using (SqlCommand command = new SqlCommand(insertIncomeExpense, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@EndOfDay", incomeExpense.EndOfDay);
+                            command.Parameters.AddWithValue("@Action", incomeExpense.Action);
+                            command.Parameters.AddWithValue("@ActionType", incomeExpense.ActionType);
+                            command.Parameters.AddWithValue("@BankName", ((object)incomeExpense.BankName) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Type", ((object)incomeExpense.Type) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Narration", ((object)incomeExpense.Narration) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@ReceivedAmount", ((object)incomeExpense.ReceivedAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@PaymentAmount", ((object)incomeExpense.PaymentAmount) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                            command.Parameters.AddWithValue("@AddedBy", incomeExpense.AddedBy);
+                            command.Parameters.AddWithValue("@AddedDate", incomeExpense.AddedDate);
+
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Get last row from income expense table
+                        long lastIncomeExpenseId = 0;
+                        var selectLastIncomeExpense = @"SELECT " +
+                            "TOP 1 " +
+                            "[Id] " +
+                            "FROM " + Constants.TABLE_INCOME_EXPENSE + " " +
+                            "WHERE 1 = 1 " +
+                            "AND ISNULL([Action], '') = @Action " +
+                            "AND ISNULL([AddedBy], '') = @AddedBy " +
+                            "ORDER BY [Id] DESC ";
+
+                        using (SqlCommand command = new SqlCommand(selectLastIncomeExpense, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Action", ((object)incomeExpenseType) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@AddedBy", ((object)username) ?? DBNull.Value);
+                            
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    lastIncomeExpenseId = Convert.ToInt64(reader["Id"].ToString());
+                                }
+                            }
+                        }
+
+                        // Insert into stock adjustment table
+                        stockAdjustment.IncomeExpenseId = lastIncomeExpenseId;
+                        string insertStockAdjustment = @"INSERT INTO " +
+                            " " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
+                            "( " +
+                                "[EndOfDay], [IncomeExpenseId], [ItemId], [Unit], [Action], [Quantity], [Price], [AddedBy], [AddedDate] " +
+                            ") " +
+                            "VALUES " +
+                            "( " +
+                                "@EndOfDay, @IncomeExpenseId, @ItemId, @Unit, @Action, @Quantity, @Price, @AddedBy, @AddedDate " +
+                            ") ";
+
+                        using (SqlCommand command = new SqlCommand(insertStockAdjustment, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@EndOfDay", ((object)stockAdjustment.EndOfDay) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@IncomeExpenseId", ((object)stockAdjustment.IncomeExpenseId) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@ItemId", ((object)stockAdjustment.ItemId) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Unit", ((object)stockAdjustment.Unit) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Action", ((object)stockAdjustment.Action) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Quantity", ((object)stockAdjustment.Quantity) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@Price", ((object)stockAdjustment.Price) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@AddedBy", ((object)stockAdjustment.AddedBy) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@AddedDate", ((object)stockAdjustment.AddedDate) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+
+                        }
+
+                        sqlTransaction.Commit();
+                    }
+                    catch
+                    {
+                        stockAdjustment = null;
+                        sqlTransaction.Rollback();
                     }
                 }
             }
@@ -218,23 +295,49 @@ namespace GrocerySupplyManagementApp.Repositories
             return stockAdjustment;
         }
 
-        public bool DeleteStockAdjustmentByUserTransaction(long userTrasactionId)
+        // Atomic Transaction
+        public bool DeleteStockAdjustment(long id, long incomeExpenseId)
         {
-            bool result = false;
-            string query = @"DELETE " +
-                    "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
-                    "WHERE 1 = 1 " +
-                    "AND [UserTransactionId] = @UserTransactionId";
+            var result = false;
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                    // Start a local transaction
+                    SqlTransaction sqlTransaction = connection.BeginTransaction();
+
+                    try
                     {
-                        command.Parameters.AddWithValue("@UserTransactionId", ((object)userTrasactionId) ?? DBNull.Value);
-                        command.ExecuteNonQuery();
+                        // Delete row from stock adjustment table
+                        string deleteStockAdjustment = @"DELETE " +
+                            "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Id] = @Id ";
+                        using (SqlCommand command = new SqlCommand(deleteStockAdjustment, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Delete row from income expense table
+                        var deleteIncomeExpense = @"DELETE " +
+                            "FROM " + Constants.TABLE_INCOME_EXPENSE + " " +
+                            "WHERE 1 = 1 " +
+                            "AND [Id] = @Id ";
+                        using (SqlCommand command = new SqlCommand(deleteIncomeExpense, connection, sqlTransaction))
+                        {
+                            command.Parameters.AddWithValue("@Id", ((object)incomeExpenseId) ?? DBNull.Value);
+                            command.ExecuteNonQuery();
+                        }
+
+                        sqlTransaction.Commit();
                         result = true;
+                    }
+                    catch
+                    {
+                        sqlTransaction.Rollback();
                     }
                 }
             }

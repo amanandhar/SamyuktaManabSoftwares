@@ -34,6 +34,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ISNULL([Username], '') = @Username ";
             }
 
+            query += "ORDER BY [Username] ";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

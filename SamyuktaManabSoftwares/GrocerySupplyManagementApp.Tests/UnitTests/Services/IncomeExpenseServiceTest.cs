@@ -77,16 +77,16 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         public void GetIncomeTransactions_ReturnsIncomeTransactionViews_WhenIncomeTransactionFilterIsPassed()
         {
             _incomeExpenseRepository.Setup(repo => repo.GetIncomeTransactions(It.IsAny<IncomeTransactionFilter>()))
-                .Returns(new List<IncomeTransactionView>() { 
-                    new IncomeTransactionView() { 
-                        Id = 1, 
-                        EndOfDay = "2078-01-01", 
+                .Returns(new List<IncomeTransactionView>() {
+                    new IncomeTransactionView() {
+                        Id = 1,
+                        EndOfDay = "2078-01-01",
                         Description = "Test1",
+                        Narration = "Narration1",
                         InvoiceNo = "TestInvoiceNo1",
+                        BankName = "BankName1",
                         ItemCode = "TestItemCode1",
                         ItemName = "TestItemName1",
-                        Quantity = 1.00m,
-                        Profit = 10.00m,
                         Amount = 110.00m,
                         AddedDate = DateTime.Parse("2021-01-01")
                     },
@@ -94,11 +94,11 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         Id = 1,
                         EndOfDay = "2078-01-01",
                         Description = "Test2",
+                        Narration = "Narration2",
                         InvoiceNo = "TestInvoiceNo2",
+                        BankName = "BankName2",
                         ItemCode = "TestItemCode2",
                         ItemName = "TestItemName2",
-                        Quantity = 2.00m,
-                        Profit = 20.00m,
                         Amount = 220.00m,
                         AddedDate = DateTime.Parse("2021-01-02")
                     }
@@ -118,20 +118,20 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                     new ExpenseTransactionView() {
                         Id = 1,
                         EndOfDay = "2078-01-01",
-                        Action = "Expense",
-                        ActionType = Constants.CASH,
-                        Expense = "Assets",
+                        Description = "Assets",
                         Narration = "Assets",
-                        Amount = 110.00m
+                        ActionType = Constants.CASH,
+                        Amount = 110.00m,
+                        AddedDate = DateTime.Parse("2021-01-01")
                     },
                     new ExpenseTransactionView() {
                         Id = 1,
                         EndOfDay = "2078-01-01",
-                        Action = "Expense",
-                        ActionType = Constants.CHEQUE,
-                        Expense = "Electricity",
+                        Description = "Electricity",
                         Narration = "Electricity",
-                        Amount = 220.00m
+                        ActionType = Constants.CHEQUE,
+                        Amount = 220.00m,
+                        AddedDate = DateTime.Parse("2021-01-01")
                     }
                 });
 
@@ -150,11 +150,11 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         Id = 1,
                         EndOfDay = "2078-01-01",
                         Description = "Test1",
+                        Narration = "Narration1",
                         InvoiceNo = "TestInvoiceNo1",
+                        BankName = "BankName1",
                         ItemCode = "TestItemCode1",
                         ItemName = "TestItemName1",
-                        Quantity = 1.00m,
-                        Profit = 10.00m,
                         Amount = 110.00m,
                         AddedDate = DateTime.Parse("2021-01-01")
                     },
@@ -162,11 +162,11 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
                         Id = 1,
                         EndOfDay = "2078-01-01",
                         Description = "Test2",
+                        Narration = "Narration2",
                         InvoiceNo = "TestInvoiceNo2",
+                        BankName = "BankName2",
                         ItemCode = "TestItemCode2",
                         ItemName = "TestItemName2",
-                        Quantity = 2.00m,
-                        Profit = 20.00m,
                         Amount = 220.00m,
                         AddedDate = DateTime.Parse("2021-01-02")
                     }

@@ -18,7 +18,7 @@
         public decimal ReceivedAmount { get; set; }
         public string ItemName { get; set; }
         public string Brand { get; set; }
-        public long Volume { get; set; }
+        public decimal Volume { get; set; }
         public string Unit { get; set; }
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }

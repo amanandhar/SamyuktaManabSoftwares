@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -79,9 +78,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
-            LoadActions();
-            LoadPayments();
             ClearAllFields();
+            LoadTransactionFilter();
+            LoadPayments();
             EnableFields();
             EnableFields(Action.Load);
         }
@@ -139,7 +138,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var paymentType = ComboPayment.Text.Trim();
                     var paymentAmount = RichAmount.Text.Trim();
                     ComboBoxItem selectedItem = (ComboBoxItem)ComboBank.SelectedItem;
-
                     var paymentAmt = Convert.ToDecimal(paymentAmount);
                     if (paymentType.ToLower() == Constants.CASH.ToLower())
                     {
@@ -156,8 +154,7 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                     else
                     {
-                        var bankId = Convert.ToInt64(selectedItem?.Id);
-                        var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = bankId });
+                        var bankBalance = _bankTransactionService.GetTotalBalance(new BankTransactionFilter { BankId = Convert.ToInt64(selectedItem?.Id) });
                         if (paymentAmt > bankBalance)
                         {
                             var warningResult = MessageBox.Show("No sufficient amount in bank.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -183,26 +180,23 @@ namespace GrocerySupplyManagementApp.Forms
                         var userTransaction = new UserTransaction
                         {
                             EndOfDay = _endOfDay,
-                            BillNo = TxtBillNo.Text.Trim(),
-                            SupplierId = TxtSupplierId.Text.Trim(),
+                            PartyId = TxtSupplierId.Text.Trim(),
                             Action = Constants.PAYMENT,
                             ActionType = ComboPayment.Text.Trim(),
-                            Bank = ComboBank.Text.Trim(),
+                            BankName = selectedItem?.Value,
                             PaymentAmount = Convert.ToDecimal(RichAmount.Text.Trim()),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
-                        _userTransactionService.AddUserTransaction(userTransaction);
 
                         if (ComboPayment.Text.ToLower() == Constants.CHEQUE.ToLower())
                         {
-                            var lastUserTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.None, _username);
                             var bankTransaction = new BankTransaction
                             {
                                 EndOfDay = _endOfDay,
-                                BankId = Convert.ToInt64(selectedItem.Id),
-                                TransactionId = lastUserTransaction.Id,
-                                Action = '0',
+                                BankId = Convert.ToInt64(selectedItem?.Id),
+                                Type = '0',
+                                Action = Constants.PAYMENT,
                                 Debit = Constants.DEFAULT_DECIMAL_VALUE,
                                 Credit = Convert.ToDecimal(RichAmount.Text.Trim()),
                                 Narration = TxtSupplierId.Text + " - " + TxtSupplierName.Text.Trim(),
@@ -210,7 +204,11 @@ namespace GrocerySupplyManagementApp.Forms
                                 AddedDate = DateTime.Now
                             };
 
-                            _bankTransactionService.AddBankTransaction(bankTransaction);
+                            _supplierService.AddSupplierPayment(userTransaction, bankTransaction, _username);
+                        }
+                        else
+                        {
+                            _userTransactionService.AddUserTransaction(userTransaction);
                         }
 
                         DialogResult result = MessageBox.Show(ComboPayment.Text.Trim() + " has been paid successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -221,6 +219,51 @@ namespace GrocerySupplyManagementApp.Forms
                             RichAmount.Clear();
                             var supplierTransactionViewList = GetSupplierTransaction();
                             LoadSupplierTransaction(supplierTransactionViewList);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        private void BtnRemovePayment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridSupplierList.SelectedCells.Count == 1
+                    || DataGridSupplierList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridSupplierList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridSupplierList.SelectedCells[0];
+                        selectedRow = DataGridSupplierList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridSupplierList.SelectedRows[0];
+                    }
+
+                    var selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+                            var id = Convert.ToInt64(selectedId);
+                            if (_supplierService.DeleteSupplierPayment(id))
+                            {
+                                DialogResult result = MessageBox.Show("Payment has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    ClearAllFields();
+                                    LoadSupplierTransaction(GetSupplierTransaction());
+                                }
+                            }
                         }
                     }
                 }
@@ -347,7 +390,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             supplierFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
             supplierFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
-            supplierFilter.Action = ComboAction.Text.Trim();
+            supplierFilter.Action = ComboTransactionFilter.Text.Trim();
 
             var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
             var balance = supplierTransactionViewList.Sum(x => x.Balance);
@@ -421,6 +464,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         ComboBank.ValueMember = "Id";
                         ComboBank.DisplayMember = "Value";
+                        ComboBank.Items.Clear();
                         banks.OrderBy(x => x.Name).ToList().ForEach(x =>
                         {
                             ComboBank.Items.Add(new ComboBoxItem { Id = x.Id.ToString(), Value = x.Name });
@@ -443,6 +487,21 @@ namespace GrocerySupplyManagementApp.Forms
         {
             RichAmount.Enabled = true;
             RichAmount.Focus();
+        }
+
+        private void ComboPayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboTransactionFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
 
         #endregion
@@ -645,7 +704,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtEmail.Text = supplier.Email;
 
             TxtTotalAmount.Clear();
-            ComboAction.Text = string.Empty;
+            ComboTransactionFilter.Text = string.Empty;
 
             BtnAddPurchase.Enabled = true;
             BtnShowPurchase.Enabled = true;
@@ -658,7 +717,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         public void PopulateItemsPurchaseDetails(string billNo)
         {
-            TxtBillNo.Text = billNo;
             var supplierTransactionViewList = GetSupplierTransaction();
             LoadSupplierTransaction(supplierTransactionViewList);
         }
@@ -673,19 +731,19 @@ namespace GrocerySupplyManagementApp.Forms
             return TxtSupplierId.Text.Trim();
         }
 
-        public void LoadActions()
+        public void LoadTransactionFilter()
         {
-            ComboAction.Items.Clear();
-            ComboAction.ValueMember = "Id";
-            ComboAction.DisplayMember = "Value";
+            ComboTransactionFilter.Items.Clear();
+            ComboTransactionFilter.ValueMember = "Id";
+            ComboTransactionFilter.DisplayMember = "Value";
 
-            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.PAYMENT, Value = Constants.PAYMENT });
-            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE, Value = Constants.PURCHASE });
+            ComboTransactionFilter.Items.Add(new ComboBoxItem { Id = Constants.PAYMENT, Value = Constants.PAYMENT });
+            ComboTransactionFilter.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE, Value = Constants.PURCHASE });
         }
 
         public void LoadPayments()
         {
-            ComboAction.Items.Clear();
+            ComboPayment.Items.Clear();
             ComboPayment.ValueMember = "Id";
             ComboPayment.DisplayMember = "Value";
 
@@ -748,6 +806,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             return isValidated;
         }
+
         #endregion
+ 
     }
 }

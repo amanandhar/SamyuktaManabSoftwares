@@ -22,11 +22,12 @@ namespace GrocerySupplyManagementApp.Repositories
             var employees = new List<Employee>();
             var query = @"SELECT " +
                 "[Id], [Counter], [EmployeeId], [Name], [TempAddress], [PermAddress], " +
-                "[ContactNo], [Email], [CitizenshipNo], [Education], [DateOfBirth], " + 
+                "[ContactNo], [Email], [CitizenshipNo], [Education], [DateOfBirth], " +
                 "[Age], [BloodGroup], [FatherName], [MotherName], [Gender], [MaritalStatus], " +
                 "[SpouseName], [Post], [PostStatus], [AppointedDate], [ResignedDate], " +
                 "[ImagePath], [AddedDate], [UpdatedDate] " +
-                "FROM " + Constants.TABLE_EMPLOYEE;
+                "FROM " + Constants.TABLE_EMPLOYEE + " " +
+                "ORDER BY [Name] DESC ";
 
             try
             {
@@ -260,7 +261,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[ImagePath], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_EMPLOYEE + " " +
                 "WHERE 1 = 1 " +
-                "AND [Post] = '" + Constants.DELIVERY_PERSON + "'";
+                "AND [Post] = '" + Constants.DELIVERY_PERSON + "' " +
+                "ORDER BY [Name] ";
 
             try
             {

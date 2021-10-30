@@ -312,6 +312,38 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Combo Box Event
+        private void ComboEducation_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboBloodGroup_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboGender_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboMaritalStatus_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboPost_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboPostStatus_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
         #region Rich Box Event
         private void RichAge_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -623,6 +655,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }

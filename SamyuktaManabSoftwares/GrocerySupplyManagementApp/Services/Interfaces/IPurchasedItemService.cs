@@ -12,7 +12,9 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         decimal GetPurchasedItemTotalAmount(string supplierId, string billNo);
         long GetPurchasedItemTotalQuantity(StockFilter stockFilter);
         PurchasedItem GetPurchasedItemByItemId(long itemId);
-        string GetLastBillNo();
+        string GetNewBillNumber();
+        string GetLastBillNumber();
+        IEnumerable<string> GetBillNumbers();
 
         PurchasedItem AddPurchasedItem(PurchasedItem purchasedItem);
 

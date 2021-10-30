@@ -34,6 +34,11 @@ namespace GrocerySupplyManagementApp.Services
             return _memberRepository.AddMember(member);
         }
 
+        public UserTransaction AddMemberReceipt(UserTransaction userTransaction, BankTransaction bankTransaction, string username)
+        {
+            return _memberRepository.AddMemberReceipt(userTransaction, bankTransaction, username);
+        }
+
         public Member UpdateMember(string memberId, Member member)
         {
             return _memberRepository.UpdateMember(memberId, member);
@@ -42,6 +47,11 @@ namespace GrocerySupplyManagementApp.Services
         public bool DeleteMember(string memberId)
         {
             return _memberRepository.DeleteMember(memberId);
+        }
+
+        public bool DeleteMemberReceipt(long id)
+        {
+            return _memberRepository.DeleteMemberReceipt(id);
         }
     }
 }

@@ -9,14 +9,10 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     public interface IUserTransactionService
     {
         IEnumerable<UserTransaction> GetUserTransactions(UserTransactionFilter userTransactionFilter);
-        IEnumerable<UserTransaction> GetDeliveryPersonTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter);
         IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter);
         IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter);
-        UserTransaction GetLastUserTransaction(TransactionNumberType transactionNumberType, string addedBy);
-        string GetInvoiceNo();
-        IEnumerable<string> GetInvoices();
+        UserTransaction GetLastUserTransaction(PartyNumberType transactionNumberType, string addedBy);
         IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);
-        IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter);
         IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);
 
         UserTransaction AddUserTransaction(UserTransaction userTransaction);

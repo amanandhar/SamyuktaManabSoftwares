@@ -17,7 +17,8 @@ namespace GrocerySupplyManagementApp.Forms
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
         private readonly ISettingService _settingService;
-        private readonly IBankTransactionService _bankTransactionService;
+        private readonly IPurchasedItemService _purchasedItemService;
+        private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
         private readonly IAtomicTransactionService _atomicTransactionService;
@@ -28,15 +29,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public DailyTransactionForm(string username,
-            ISettingService settingService, IBankTransactionService bankTransactionService,
-            IUserTransactionService userTransactionService, IUserService userService,
-            IAtomicTransactionService atomicTransactionService
+            ISettingService settingService, IPurchasedItemService purchasedItemService, 
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService, 
+            IUserService userService, IAtomicTransactionService atomicTransactionService
             )
         {
             InitializeComponent();
 
             _settingService = settingService;
-            _bankTransactionService = bankTransactionService;
+            _purchasedItemService = purchasedItemService;
+            _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _userService = userService;
             _atomicTransactionService = atomicTransactionService;
@@ -52,7 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             MaskDtEOD.Text = _endOfDay;
             EnableCombos(false);
-            LoadUsers();
+            LoadUsernames();
             MaskDtEOD.Focus();
         }
         #endregion
@@ -80,74 +82,58 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         selectedRow = DataGridTransactionList.SelectedRows[0];
                     }
-
-                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
-                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    var partyNumber = selectedRow?.Cells["PartyNumber"]?.Value?.ToString();
+                    if(!string.IsNullOrWhiteSpace(partyNumber))
                     {
-                        DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (confirmation == DialogResult.Yes)
+                        string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
+                        if (!string.IsNullOrWhiteSpace(selectedId))
                         {
-                            var id = Convert.ToInt64(selectedId);
-
-                            var billInvoiceNo = selectedRow?.Cells["InvoiceBillNo"]?.Value?.ToString();
-                            var income = selectedRow?.Cells["Income"]?.Value?.ToString();
-                            var expense = selectedRow?.Cells["Expense"]?.Value?.ToString();
-                            var actionType = selectedRow?.Cells["ActionType"]?.Value?.ToString();
-
-                            if (!string.IsNullOrWhiteSpace(billInvoiceNo)
-                                && billInvoiceNo.StartsWith(Constants.BILL_NO_PREFIX))
+                            DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (confirmation == DialogResult.Yes)
                             {
-                                // Get the latest bill number
-                                var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Bill, string.Empty);
-                                if (posTransaction.BillNo.ToLower() == billInvoiceNo.ToLower())
+                                var id = Convert.ToInt64(selectedId);
+                                if (partyNumber.StartsWith(Constants.BILL_NO_PREFIX))
                                 {
-                                    _atomicTransactionService.DeleteBill(id, billInvoiceNo);
-                                }
-                                else
-                                {
-                                    DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    if (billResult == DialogResult.OK)
+                                    // Get the latest bill number
+                                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Bill, string.Empty);
+                                    if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                     {
-                                        LoadDailyTransactions();
-                                        return;
+                                        _atomicTransactionService.DeleteBill(id, partyNumber);
+                                    }
+                                    else
+                                    {
+                                        DialogResult billResult = MessageBox.Show("Please delete latest bill number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        if (billResult == DialogResult.OK)
+                                        {
+                                            LoadDailyTransactions();
+                                            return;
+                                        }
                                     }
                                 }
-                            }
-                            else if (!string.IsNullOrWhiteSpace(billInvoiceNo) && billInvoiceNo.StartsWith(Constants.INVOICE_NO_PREFIX))
-                            {
-                                // Get the latest invoice number
-                                var posTransaction = _userTransactionService.GetLastUserTransaction(TransactionNumberType.Invoice, string.Empty);
-                                if (posTransaction.InvoiceNo.ToLower() == billInvoiceNo.ToLower())
+                                else if (partyNumber.StartsWith(Constants.INVOICE_NO_PREFIX))
                                 {
-                                    _atomicTransactionService.DeleteInvoice(billInvoiceNo);
-                                }
-                                else
-                                {
-                                    DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    if (billResult == DialogResult.OK)
+                                    // Get the latest invoice number
+                                    var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Invoice, string.Empty);
+                                    if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                     {
-                                        LoadDailyTransactions();
-                                        return;
+                                        _atomicTransactionService.DeleteInvoice(partyNumber);
+                                    }
+                                    else
+                                    {
+                                        DialogResult billResult = MessageBox.Show("Please delete latest invoice number first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        if (billResult == DialogResult.OK)
+                                        {
+                                            LoadDailyTransactions();
+                                            return;
+                                        }
                                     }
                                 }
-                            }
-                            else if (income.Equals(Constants.STOCK_ADJUSTMENT) || expense.Equals(Constants.STOCK_ADJUSTMENT))
-                            {
-                                _atomicTransactionService.DeleteStockAdjustment(id);
-                            }
-                            else if (actionType.Equals(Constants.OWNER_EQUITY))
-                            {
-                                _bankTransactionService.DeleteBankTransaction(id);
-                            }
-                            else
-                            {
-                                _atomicTransactionService.DeleteBankTransaction(id);
-                            }
 
-                            DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (result == DialogResult.OK)
-                            {
-                                LoadDailyTransactions();
+                                DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    LoadDailyTransactions();
+                                }
                             }
                         }
                     }
@@ -199,46 +185,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RadioPayment_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioPurchasePayment.Checked)
+            if (RadioPayment.Checked)
             {
                 ClearCombos();
                 EnableCombos(false);
-                ComboPurchasePayment.Enabled = true;
-                LoadPurchasePayments();
+                ComboPayment.Enabled = true;
+                LoadPayments();
             }
             else
             {
-                ComboPurchasePayment.Enabled = false;
-            }
-        }
-
-        private void RadioExpense_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioExpensePayment.Checked)
-            {
-                ClearCombos();
-                EnableCombos(false);
-                ComboExpensePayment.Enabled = true;
-                LoadExpensePayments();
-            }
-            else
-            {
-                ComboExpensePayment.Enabled = false;
-            }
-        }
-
-        private void RadioBankTransfer_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioBankTransfer.Checked)
-            {
-                ClearCombos();
-                EnableCombos(false);
-                ComboBankTransfer.Enabled = true;
-                LoadBankTransfers();
-            }
-            else
-            {
-                ComboBankTransfer.Enabled = false;
+                ComboPayment.Enabled = false;
             }
         }
 
@@ -259,17 +215,60 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RadioInvoiceNo_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioInvoiceNo.Checked)
+            if (RadioPartyNo.Checked)
             {
                 ClearCombos();
                 EnableCombos(false);
-                ComboInvoiceNo.Enabled = true;
-                LoadInvoiceNos();
+                ComboPartyNo.Enabled = true;
+                LoadPartyNos();
             }
             else
             {
-                ComboInvoiceNo.Enabled = false;
+                ComboPartyNo.Enabled = false;
             }
+        }
+
+        #endregion
+
+        #region Combo Box Event
+        private void ComboPurchase_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboSales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboPurchasePayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboExpensePayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboBankTransfer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboReceipt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboInvoiceNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboUser_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
 
         #endregion
@@ -285,33 +284,31 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridTransactionList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridTransactionList.Columns["Id"].Visible = false;
-            DataGridTransactionList.Columns["Income"].Visible = false;
-            DataGridTransactionList.Columns["Expense"].Visible = false;
             DataGridTransactionList.Columns["AddedDate"].Visible = false;
 
             DataGridTransactionList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridTransactionList.Columns["EndOfDay"].Width = 100;
             DataGridTransactionList.Columns["EndOfDay"].DisplayIndex = 0;
 
-            DataGridTransactionList.Columns["MemberSupplierId"].HeaderText = "Mem/Supp";
-            DataGridTransactionList.Columns["MemberSupplierId"].Width = 100;
-            DataGridTransactionList.Columns["MemberSupplierId"].DisplayIndex = 1;
-
             DataGridTransactionList.Columns["Action"].HeaderText = "Description";
             DataGridTransactionList.Columns["Action"].Width = 125;
-            DataGridTransactionList.Columns["Action"].DisplayIndex = 2;
+            DataGridTransactionList.Columns["Action"].DisplayIndex = 1;
+
+            DataGridTransactionList.Columns["PartyId"].HeaderText = "Mem/Supp Id";
+            DataGridTransactionList.Columns["PartyId"].Width = 150;
+            DataGridTransactionList.Columns["PartyId"].DisplayIndex = 2;
+
+            DataGridTransactionList.Columns["PartyNumber"].HeaderText = "Invoice/Bill No";
+            DataGridTransactionList.Columns["PartyNumber"].Width = 125;
+            DataGridTransactionList.Columns["PartyNumber"].DisplayIndex = 3;
 
             DataGridTransactionList.Columns["ActionType"].HeaderText = "Type";
             DataGridTransactionList.Columns["ActionType"].Width = 150;
-            DataGridTransactionList.Columns["ActionType"].DisplayIndex = 3;
+            DataGridTransactionList.Columns["ActionType"].DisplayIndex = 4;
 
-            DataGridTransactionList.Columns["Bank"].HeaderText = "Bank";
-            DataGridTransactionList.Columns["Bank"].Width = 250;
-            DataGridTransactionList.Columns["Bank"].DisplayIndex = 4;
-
-            DataGridTransactionList.Columns["InvoiceBillNo"].HeaderText = "Invoice/Bill";
-            DataGridTransactionList.Columns["InvoiceBillNo"].Width = 125;
-            DataGridTransactionList.Columns["InvoiceBillNo"].DisplayIndex = 5;
+            DataGridTransactionList.Columns["BankName"].HeaderText = "Bank";
+            DataGridTransactionList.Columns["BankName"].Width = 250;
+            DataGridTransactionList.Columns["BankName"].DisplayIndex = 5;
 
             DataGridTransactionList.Columns["Amount"].HeaderText = "Amount";
             DataGridTransactionList.Columns["Amount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -351,25 +348,17 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     dailyTransactionFilter.Sales = ComboSales.Text.Trim();
                 }
-                else if (selectedFilter.Name.Equals("RadioPurchasePayment"))
+                else if (selectedFilter.Name.Equals("RadioPayment"))
                 {
-                    dailyTransactionFilter.Payment = ComboPurchasePayment.Text.Trim();
-                }
-                else if (selectedFilter.Name.Equals("RadioExpensePayment"))
-                {
-                    dailyTransactionFilter.Expense = ComboExpensePayment.Text.Trim();
-                }
-                else if (selectedFilter.Name.Equals("RadioBankTransfer"))
-                {
-                    dailyTransactionFilter.BankTransfer = ComboBankTransfer.Text.Trim();
+                    dailyTransactionFilter.Payment = ComboPayment.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioReceipt"))
                 {
                     dailyTransactionFilter.Receipt = ComboReceipt.Text.Trim();
                 }
-                else if (selectedFilter.Name.Equals("RadioInvoiceNo"))
+                else if (selectedFilter.Name.Equals("RadioPartyNo"))
                 {
-                    dailyTransactionFilter.InvoiceNo = ComboInvoiceNo.Text.Trim();
+                    dailyTransactionFilter.PartyNumber = ComboPartyNo.Text.Trim();
                 }
                 else if (selectedFilter.Name.Equals("RadioAll"))
                 {
@@ -377,11 +366,9 @@ namespace GrocerySupplyManagementApp.Forms
                 }
             }
 
-            dailyTransactionFilter.Username = ComboUser.Text.Trim();
+            dailyTransactionFilter.Username = ComboUsername.Text.Trim();
 
-            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter)
-                .OrderByDescending(x => x.AddedDate)
-                .ToList();
+            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter).ToList();
             TxtTotal.Text = dailyTransactions.Sum(x => x.Amount).ToString();
 
             var bindingList = new BindingList<DailyTransactionView>(dailyTransactions);
@@ -393,23 +380,18 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ComboPurchase.Text = string.Empty;
             ComboSales.Text = string.Empty;
-            ComboPurchasePayment.Text = string.Empty;
-            ComboExpensePayment.Text = string.Empty;
-            ComboBankTransfer.Text = string.Empty;
+            ComboPayment.Text = string.Empty;
             ComboReceipt.Text = string.Empty;
-            ComboInvoiceNo.Text = string.Empty;
+            ComboPartyNo.Text = string.Empty;
         }
 
         private void EnableCombos(bool option)
         {
             ComboPurchase.Enabled = option;
             ComboSales.Enabled = option;
-            ComboPurchasePayment.Enabled = option;
+            ComboPayment.Enabled = option;
             ComboReceipt.Enabled = option;
-            ComboExpensePayment.Enabled = option;
-            ComboBankTransfer.Enabled = option;
-            ComboUser.Enabled = option;
-            ComboInvoiceNo.Enabled = option;
+            ComboPartyNo.Enabled = option;
         }
 
         private void LoadPurchases()
@@ -432,33 +414,14 @@ namespace GrocerySupplyManagementApp.Forms
             ComboSales.Items.Add(new ComboBoxItem { Id = Constants.CREDIT, Value = Constants.CREDIT });
         }
 
-        private void LoadPurchasePayments()
+        private void LoadPayments()
         {
-            ComboPurchasePayment.Items.Clear();
-            ComboPurchasePayment.ValueMember = "Id";
-            ComboPurchasePayment.DisplayMember = "Value";
+            ComboPayment.Items.Clear();
+            ComboPayment.ValueMember = "Id";
+            ComboPayment.DisplayMember = "Value";
 
-            ComboPurchasePayment.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
-            ComboPurchasePayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
-        }
-
-        private void LoadExpensePayments()
-        {
-            ComboExpensePayment.Items.Clear();
-            ComboExpensePayment.ValueMember = "Id";
-            ComboExpensePayment.DisplayMember = "Value";
-
-            ComboExpensePayment.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
-            ComboExpensePayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
-        }
-
-        private void LoadBankTransfers()
-        {
-            ComboBankTransfer.Items.Clear();
-            ComboBankTransfer.ValueMember = "Id";
-            ComboBankTransfer.DisplayMember = "Value";
-
-            ComboBankTransfer.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboPayment.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
+            ComboPayment.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
         }
 
         private void LoadReceipts()
@@ -469,36 +432,37 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
-            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.OWNER_EQUITY, Value = Constants.OWNER_EQUITY });
-            ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.SHARE_CAPITAL, Value = Constants.SHARE_CAPITAL });
         }
 
-        private void LoadInvoiceNos()
+        private void LoadPartyNos()
         {
-            ComboInvoiceNo.Items.Clear();
-            var invoices = _userTransactionService.GetInvoices();
-            foreach (var invoice in invoices)
+            ComboPartyNo.Items.Clear();
+            var partyNumbers = _soldItemService.GetInvoiceNumbers().ToList();
+            partyNumbers.AddRange(_purchasedItemService.GetBillNumbers().ToList());
+            partyNumbers = partyNumbers.OrderBy(x => x).ToList();
+
+            foreach (var partyNumber in partyNumbers)
             {
-                ComboInvoiceNo.Items.Add(invoice);
+                ComboPartyNo.Items.Add(partyNumber);
             }
         }
 
-        private void LoadUsers()
+        private void LoadUsernames()
         {
-            ComboUser.Items.Clear();
+            ComboUsername.Items.Clear();
             var user = _userService.GetUser(_username);
             var users = _userService.GetUsers(_username, user.Type);
             if (users.ToList().Count > 1)
             {
-                ComboUser.Enabled = true;
+                ComboUsername.Enabled = true;
             }
 
             users.OrderBy(x => x.Username).ToList().ForEach(x =>
             {
-                ComboUser.Items.Add(x.Username);
+                ComboUsername.Items.Add(x.Username);
             });
 
-            ComboUser.SelectedText = _username;
+            ComboUsername.SelectedText = _username;
         }
 
         #endregion

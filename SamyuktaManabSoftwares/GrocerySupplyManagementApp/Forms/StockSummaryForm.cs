@@ -63,6 +63,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region Combo Box Event
+        private void ComboItemCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
         #region Radio Button Event
         private void RadioBtnAll_CheckedChanged(object sender, EventArgs e)
         {
@@ -195,5 +202,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
     }
 }

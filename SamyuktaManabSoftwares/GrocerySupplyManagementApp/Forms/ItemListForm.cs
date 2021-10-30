@@ -1,7 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
-using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,8 +11,6 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class ItemListForm : Form
     {
-        private static readonly log4net.ILog logger = LogHelper.GetLogger();
-
         private readonly IItemService _itemService;
         private readonly IItemListForm _itemListForm;
         private List<Item> _items = new List<Item>();

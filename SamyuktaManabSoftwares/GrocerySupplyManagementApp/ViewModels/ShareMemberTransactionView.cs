@@ -4,7 +4,6 @@
     {
         public long Id { get; set; }
         public string EndOfDay { get; set; }
-        public string ShareMemberId { get; set; }
         public string Name { get; set; }
         public long ContactNo { get; set; }
         public string Description { get; set; }

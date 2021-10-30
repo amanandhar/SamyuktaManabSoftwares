@@ -11,25 +11,23 @@ namespace GrocerySupplyManagementApp.Forms
 {
     public partial class DeliveryPersonForm : Form, IEmployeeListForm
     {
-        private static readonly log4net.ILog logger = LogHelper.GetLogger();
-
         private readonly ISettingService _settingService;
-        private readonly IUserTransactionService _userTransactionService;
         private readonly IEmployeeService _employeeService;
+        private readonly IPOSDetailService _posDetailService;
 
         private string _selectedEmployeeId;
         private readonly Setting _setting;
         private readonly string _endOfDay;
 
         #region Constructor
-        public DeliveryPersonForm(ISettingService settingService, IUserTransactionService userTransactionService,
-            IEmployeeService employeeService)
+        public DeliveryPersonForm(ISettingService settingService,
+            IEmployeeService employeeService, IPOSDetailService posDetailService)
         {
             InitializeComponent();
 
             _settingService = settingService;
-            _userTransactionService = userTransactionService;
             _employeeService = employeeService;
+            _posDetailService = posDetailService;
 
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
             _endOfDay = _setting.StartingDate;
@@ -61,6 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim()),
                 EmployeeId = employeeId
             };
+
             LoadDeliveryTransactions(deliveryPersonTransactionFilter);
         }
         #endregion
@@ -69,23 +68,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridDeliveryPersonList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridDeliveryPersonList.Columns["Id"].Visible = false;
-            DataGridDeliveryPersonList.Columns["BillNo"].Visible = false;
-            DataGridDeliveryPersonList.Columns["MemberId"].Visible = false;
-            DataGridDeliveryPersonList.Columns["ShareMemberId"].Visible = false;
-            DataGridDeliveryPersonList.Columns["SupplierId"].Visible = false;
-            DataGridDeliveryPersonList.Columns["Action"].Visible = false;
-            DataGridDeliveryPersonList.Columns["ActionType"].Visible = false;
-            DataGridDeliveryPersonList.Columns["Bank"].Visible = false;
-            DataGridDeliveryPersonList.Columns["Income"].Visible = false;
-            DataGridDeliveryPersonList.Columns["Expense"].Visible = false;
-            DataGridDeliveryPersonList.Columns["Narration"].Visible = false;
-            DataGridDeliveryPersonList.Columns["DueReceivedAmount"].Visible = false;
-            DataGridDeliveryPersonList.Columns["DuePaymentAmount"].Visible = false;
-            DataGridDeliveryPersonList.Columns["PaymentAmount"].Visible = false;
-            DataGridDeliveryPersonList.Columns["AddedBy"].Visible = false;
-            DataGridDeliveryPersonList.Columns["AddedDate"].Visible = false;
-            DataGridDeliveryPersonList.Columns["UpdatedBy"].Visible = false;
-            DataGridDeliveryPersonList.Columns["UpdatedDate"].Visible = false;
+            DataGridDeliveryPersonList.Columns["UserTransactionId"].Visible = false;
+            DataGridDeliveryPersonList.Columns["SubTotal"].Visible = false;
+            DataGridDeliveryPersonList.Columns["DiscountPercent"].Visible = false;
+            DataGridDeliveryPersonList.Columns["Discount"].Visible = false;
+            DataGridDeliveryPersonList.Columns["VatPercent"].Visible = false;
+            DataGridDeliveryPersonList.Columns["Vat"].Visible = false;
+            DataGridDeliveryPersonList.Columns["DeliveryChargePercent"].Visible = false;
 
             DataGridDeliveryPersonList.Columns["EndOfDay"].HeaderText = "Date";
             DataGridDeliveryPersonList.Columns["EndOfDay"].Width = 100;
@@ -99,10 +88,10 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["InvoiceNo"].Width = 100;
             DataGridDeliveryPersonList.Columns["InvoiceNo"].DisplayIndex = 2;
 
-            DataGridDeliveryPersonList.Columns["ReceivedAmount"].HeaderText = "Delivery Charge";
-            DataGridDeliveryPersonList.Columns["ReceivedAmount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridDeliveryPersonList.Columns["ReceivedAmount"].DisplayIndex = 3;
-            DataGridDeliveryPersonList.Columns["ReceivedAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridDeliveryPersonList.Columns["DeliveryCharge"].HeaderText = "Delivery Charge";
+            DataGridDeliveryPersonList.Columns["DeliveryCharge"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridDeliveryPersonList.Columns["DeliveryCharge"].DisplayIndex = 3;
+            DataGridDeliveryPersonList.Columns["DeliveryCharge"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridDeliveryPersonList.Rows)
             {
@@ -123,11 +112,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadDeliveryTransactions(DeliveryPersonTransactionFilter deliveryPersonTransactionFilter)
         {
-            var userTransations = _userTransactionService.GetDeliveryPersonTransactions(deliveryPersonTransactionFilter);
+            var posDetails = _posDetailService.GetPOSDetails(deliveryPersonTransactionFilter);
 
-            TxtAmount.Text = userTransations.ToList().Sum(x => x.ReceivedAmount).ToString();
+            TxtAmount.Text = posDetails.ToList().Sum(x => x.DeliveryCharge).ToString();
 
-            var bindingList = new BindingList<UserTransaction>(userTransations.ToList());
+            var bindingList = new BindingList<POSDetail>(posDetails.ToList());
             var source = new BindingSource(bindingList, null);
             DataGridDeliveryPersonList.DataSource = source;
         }

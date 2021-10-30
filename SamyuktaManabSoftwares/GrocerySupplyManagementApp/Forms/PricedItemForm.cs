@@ -144,7 +144,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         ItemId = _selectedItemId,
-                        Volume = Convert.ToInt64(TxtVolume.Text.Trim()),
+                        Volume = Convert.ToDecimal(TxtVolume.Text.Trim()),
                         SubCode = TxtItemSubCode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
@@ -218,7 +218,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var pricedItem = new PricedItem
                     {
                         ItemId = _selectedItemId,
-                        Volume = Convert.ToInt64(TxtVolume.Text.Trim()),
+                        Volume = Convert.ToDecimal(TxtVolume.Text.Trim()),
                         SubCode = TxtItemSubCode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
@@ -290,24 +290,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region OpenFileDialog Event
-        private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            try
-            {
-                Activate();
-                string[] files = OpenItemImageDialog.FileNames;
-                _uploadedImagePath = files[0];
-                PicBoxItemImage.Image = Image.FromFile(_uploadedImagePath);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
-            }
-        }
-        #endregion
-
         #region Textbox Event
 
         private void TxtVolume_KeyPress(object sender, KeyPressEventArgs e)
@@ -340,6 +322,31 @@ namespace GrocerySupplyManagementApp.Forms
             CalculateProfit();
         }
 
+        #endregion
+
+        #region Combo Box Event
+        private void ComboItemUnit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        #endregion
+
+        #region OpenFileDialog Event
+        private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                Activate();
+                string[] files = OpenItemImageDialog.FileNames;
+                _uploadedImagePath = files[0];
+                PicBoxItemImage.Image = Image.FromFile(_uploadedImagePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
         #endregion
 
         #region Helper Methods
@@ -467,7 +474,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtItemSubCode.Text = pricedItem.SubCode;
                 TxtVolume.Text = pricedItem.Volume.ToString();
-                TxtCustomPerUnitValue.Text = (perUnitValue * pricedItem.Volume).ToString();
+                TxtCustomPerUnitValue.Text = Math.Round((perUnitValue * pricedItem.Volume), 2).ToString();
 
                 var profitPercent = pricedItem.ProfitPercent;
                 TxtProfitPercent.Text = profitPercent.ToString();

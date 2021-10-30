@@ -184,10 +184,8 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             bool result = false;
             string query = @" " +
-                "DELETE FROM " + Constants.TABLE_BANK + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_BANK_TRANSACTION + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_EMPLOYEE + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
-                "DELETE FROM " + Constants.TABLE_ITEM + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_ITEM_CATEGORY + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_MEMBER + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_POS_DETAIL + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
@@ -197,6 +195,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 "DELETE FROM " + Constants.TABLE_SOLD_ITEM + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_SUPPLIER + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_ITEM + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_BANK + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
+                "DELETE FROM " + Constants.TABLE_INCOME_EXPENSE + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 "DELETE FROM " + Constants.TABLE_USER_TRANSACTION + " WHERE 1 = 1 AND [EndOfDay] > @EndOfDay; " +
                 " ";
 

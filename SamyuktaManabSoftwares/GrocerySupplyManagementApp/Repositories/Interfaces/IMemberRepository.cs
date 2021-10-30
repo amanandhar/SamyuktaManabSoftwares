@@ -10,9 +10,11 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         bool IsMemberExist(string memberId);
 
         Member AddMember(Member member);
+        UserTransaction AddMemberReceipt(UserTransaction userTransaction, BankTransaction bankTransaction, string username);
 
         Member UpdateMember(string memberId, Member member);
 
         bool DeleteMember(string memberId);
+        bool DeleteMemberReceipt(long id);
     }
 }

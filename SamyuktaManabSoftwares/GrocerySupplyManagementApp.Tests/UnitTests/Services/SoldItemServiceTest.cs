@@ -15,14 +15,16 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
     [TestClass]
     public class SoldItemServiceTest
     {
+        private Mock<ISettingRepository> _settingRepository;
         private Mock<ISoldItemRepository> _soldItemRepository;
         private SoldItemService _sut;
 
         [TestInitialize]
         public void TestInitialize()
         {
+            _settingRepository = new Mock<ISettingRepository>();
             _soldItemRepository = new Mock<ISoldItemRepository>();
-            _sut = new SoldItemService(_soldItemRepository.Object);
+            _sut = new SoldItemService(_settingRepository.Object, _soldItemRepository.Object);
         }
 
         [TestMethod]
