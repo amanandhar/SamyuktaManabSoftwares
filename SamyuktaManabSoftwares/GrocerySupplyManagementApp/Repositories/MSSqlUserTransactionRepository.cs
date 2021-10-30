@@ -224,7 +224,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ut.[Action] = @Action ";
             }
 
-            query += "ORDER BY ut.[AddedDate] DESC ";
+            query += "ORDER BY ut.[AddedDate] ";
 
             try
             {

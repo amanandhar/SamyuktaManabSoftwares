@@ -467,7 +467,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // ComboTransaction
             // 
-            this.ComboTransaction.Enabled = false;
             this.ComboTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboTransaction.FormattingEnabled = true;
             this.ComboTransaction.Location = new System.Drawing.Point(86, 47);
@@ -517,7 +516,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemoveTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnRemoveTransaction.BorderRadius = 35;
             this.BtnRemoveTransaction.BorderSize = 0;
-            this.BtnRemoveTransaction.Enabled = false;
             this.BtnRemoveTransaction.FlatAppearance.BorderSize = 0;
             this.BtnRemoveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRemoveTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

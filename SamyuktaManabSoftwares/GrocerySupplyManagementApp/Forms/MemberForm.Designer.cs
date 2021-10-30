@@ -392,6 +392,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtAccountNumber.Name = "TxtAccountNumber";
             this.TxtAccountNumber.Size = new System.Drawing.Size(87, 26);
             this.TxtAccountNumber.TabIndex = 1;
+            this.TxtAccountNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtAccountNumber_KeyPress);
             // 
             // TxtName
             // 

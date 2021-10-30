@@ -469,6 +469,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
         }
+
+        private void TxtAccountNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
         #endregion  
 
         #region Rich Box Event
@@ -859,5 +864,6 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
+
     }
 }

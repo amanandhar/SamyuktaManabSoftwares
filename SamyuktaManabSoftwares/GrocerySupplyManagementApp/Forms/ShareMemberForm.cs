@@ -169,15 +169,21 @@ namespace GrocerySupplyManagementApp.Forms
                         selectedRow = DataGridShareMemberList.SelectedRows[0];
                     }
 
-                    string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
-                    if (!string.IsNullOrWhiteSpace(selectedId))
+                    string bankTransactionId = selectedRow?.Cells["BankTransactionId"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(bankTransactionId))
                     {
                         DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (deleteResult == DialogResult.Yes)
                         {
-                            var id = Convert.ToInt64(selectedId);
-                            _bankTransactionService.DeleteBankTransaction(Constants.SHARE_CAPITAL, id);
-                            LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                            var id = Convert.ToInt64(bankTransactionId);
+                            if(_bankTransactionService.DeleteShareMemberTransaction(id))
+                            {
+                                DialogResult result = MessageBox.Show("Trasaction has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    LoadShareMemberTransactions(GetShareMemberTransactions(_selectedShareMemberId));
+                                }
+                            }  
                         } 
                     }
                 }
@@ -426,6 +432,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridShareMemberList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridShareMemberList.Columns["Id"].Visible = false;
+            DataGridShareMemberList.Columns["BankTransactionId"].Visible = false;
             DataGridShareMemberList.Columns["Name"].Visible = false;
             DataGridShareMemberList.Columns["ContactNo"].Visible = false;
 
@@ -495,8 +502,8 @@ namespace GrocerySupplyManagementApp.Forms
             ComboTransaction.ValueMember = "Id";
             ComboTransaction.DisplayMember = "Value";
 
-            ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
-            ComboNarration.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
+            ComboTransaction.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
+            ComboTransaction.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
         }
 
         private void LoadNarrations()
@@ -608,17 +615,21 @@ namespace GrocerySupplyManagementApp.Forms
             RichAddress.Clear();
             RichContactNumber.Clear();
             TxtShareAmount.Clear();
-            ComboNarration.Text = string.Empty;
+            
             ComboBank.Text = string.Empty;
+            ComboTransaction.Text = string.Empty;
             RichAmount.Clear();
+            ComboNarration.Text = string.Empty;
+            
             PicBoxShareMember.Image = PicBoxShareMember.InitialImage;
         }
 
         private void ClearAmountFields()
         {
-            ComboNarration.Text = string.Empty;
             ComboBank.Text = string.Empty;
+            ComboTransaction.Text = string.Empty;
             RichAmount.Clear();
+            ComboNarration.Text = string.Empty;
         }
 
         public void PopulateShareMember(long shareMemberId)
@@ -674,14 +685,18 @@ namespace GrocerySupplyManagementApp.Forms
             var bank = ComboBank.Text.Trim();
             var transaction = ComboTransaction.Text.Trim();
             var amount = RichAmount.Text.Trim();
+            var narration = ComboNarration.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(bank)
-                || string.IsNullOrWhiteSpace(amount))
+                || string.IsNullOrWhiteSpace(transaction)
+                || string.IsNullOrWhiteSpace(amount)
+                || string.IsNullOrWhiteSpace(narration))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Bank " +
                     "\n * Transaction " +
-                    "\n * Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Amount " +
+                    "\n * Narration", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {

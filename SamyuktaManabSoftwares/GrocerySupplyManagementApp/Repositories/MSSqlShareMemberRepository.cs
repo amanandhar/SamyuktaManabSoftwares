@@ -111,7 +111,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var shareMemberTransactionViewList = new List<ShareMemberTransactionView>();
             var query = @"SELECT " +
-                "sm.[Id], sm.[EndOfDay], sm.[Name], sm.[ContactNo], " +
+                "sm.[Id], bt.[Id] AS [BankTransactionId], sm.[EndOfDay], sm.[Name], sm.[ContactNo], " +
                 "bt.[Narration] AS [Description], " +
                 "CASE WHEN bt.[Type] = 1 THEN '" + Constants.DEPOSIT + "' ELSE '" + Constants.WITHDRAWL + "' END AS [Type], " +
                 "bt.[Debit], bt.[Credit], (bt.[Debit] - bt.[Credit]) AS [Balance] " +
@@ -156,6 +156,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 var shareMemberTransactionView = new ShareMemberTransactionView
                                 {
                                     Id = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["Id"].ToString()),
+                                    BankTransactionId = reader.IsDBNull(0) ? 0 : Convert.ToInt64(reader["BankTransactionId"].ToString()),
                                     EndOfDay = reader["EndOfDay"].ToString(),
                                     Name = reader["Name"].ToString(),
                                     ContactNo = reader.IsDBNull(3) ? 0 : Convert.ToInt64(reader["ContactNo"].ToString()),

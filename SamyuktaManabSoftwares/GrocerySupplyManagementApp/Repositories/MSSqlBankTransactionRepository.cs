@@ -403,14 +403,14 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        public bool DeleteBankTransaction(string action, long transactionId)
+        public bool DeleteShareMemberTransaction(long id)
         {
             bool result = false;
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                 "WHERE 1 = 1 " +
-                "AND [TransactionId] = @TransactionId " +
-                "AND ISNULL([Action], '') = @Action ";
+                "AND [Id] = @Id " +
+                "AND [Action] = '" + Constants.SHARE_CAPITAL + "' ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -418,8 +418,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Action", ((object)action) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@TransactionId", ((object)transactionId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
 
                         command.ExecuteNonQuery();
                         result = true;

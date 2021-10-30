@@ -323,9 +323,8 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         if (string.IsNullOrWhiteSpace(ComboDeliveryPerson.Text.Trim()) && TxtDeliveryChargePercent.Text.Trim() != "0.00")
                         {
-                            DialogResult dialogResult = MessageBox.Show("Would you like to choose delivery person: \n Delivery Person",
-                            "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                            if (dialogResult == DialogResult.Yes)
+                            DialogResult dialogResult = MessageBox.Show("Please choose delivery person.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (dialogResult == DialogResult.OK)
                             {
                                 ComboDeliveryPerson.Focus();
                                 return;
@@ -575,6 +574,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void TxtDiscountPercent_KeyUp(object sender, KeyEventArgs e)
         {
+            if(string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim()))
+            {
+                TxtDiscountPercent.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
+            }
+
             TxtDiscount.Text = Math.Round((Convert.ToDecimal(TxtSubTotal.Text.Trim()) * (Convert.ToDecimal(TxtDiscountPercent.Text.Trim()) / 100)), 2).ToString();
             TxtDiscountTotal.Text = Math.Round(Convert.ToDecimal(TxtSubTotal.Text.Trim()) - (Convert.ToDecimal(TxtSubTotal.Text.Trim()) * (Convert.ToDecimal(TxtDiscountPercent.Text.Trim()) / 100)), 2).ToString();
             TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text.Trim()) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()) / 100)), 2).ToString();
@@ -587,6 +591,11 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void TxtDeliveryChargePercent_KeyUp(object sender, KeyEventArgs e)
         {
+            if(string.IsNullOrWhiteSpace(TxtDeliveryChargePercent.Text.Trim()))
+            {
+                TxtDeliveryChargePercent.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
+            }
+
             TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text.Trim()) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()) / 100)), 2).ToString();
             TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text.Trim()) + (Convert.ToDecimal(TxtDiscountTotal.Text.Trim()) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()) / 100)), 2).ToString();
             TxtTotal.Text = TxtDeliveryChargeTotal.Text.Trim();

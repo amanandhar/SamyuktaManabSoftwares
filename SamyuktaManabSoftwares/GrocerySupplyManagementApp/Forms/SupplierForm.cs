@@ -260,8 +260,8 @@ namespace GrocerySupplyManagementApp.Forms
                                 DialogResult result = MessageBox.Show("Payment has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 if (result == DialogResult.OK)
                                 {
-                                    ClearAllFields();
-                                    LoadSupplierTransaction(GetSupplierTransaction());
+                                    var supplierTransactionViewList = GetSupplierTransaction();
+                                    LoadSupplierTransaction(supplierTransactionViewList);
                                 }
                             }
                         }
@@ -630,6 +630,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAddPurchase.Enabled = true;
                 BtnShowPurchase.Enabled = true;
                 BtnSavePayment.Enabled = true;
+                BtnRemovePayment.Enabled = true;
             }
             else if (action == Action.Load)
             {
@@ -667,6 +668,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAddPurchase.Enabled = false;
                 BtnShowPurchase.Enabled = false;
                 BtnSavePayment.Enabled = false;
+                BtnRemovePayment.Enabled = false;
                 BtnAddSupplier.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;

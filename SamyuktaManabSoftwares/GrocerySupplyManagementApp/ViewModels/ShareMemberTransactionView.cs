@@ -3,6 +3,7 @@
     public class ShareMemberTransactionView
     {
         public long Id { get; set; }
+        public long BankTransactionId { get; set; }
         public string EndOfDay { get; set; }
         public string Name { get; set; }
         public long ContactNo { get; set; }

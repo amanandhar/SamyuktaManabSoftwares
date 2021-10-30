@@ -34,6 +34,13 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Rich Textbox Event
+        private void RichSearchMemberName_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchShareMemberTransactionViewList();
+        }
+        #endregion
+
         #region Data Grid Event
         private void DataGridShareMemberList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -81,13 +88,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridShareMemberList.RowHeadersWidth = 50;
                 DataGridShareMemberList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
-        }
-        #endregion
-
-        #region Rich Textbox Event
-        private void RichSearchMemberName_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchShareMemberTransactionViewList();
         }
         #endregion
 

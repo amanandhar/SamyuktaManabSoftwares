@@ -892,14 +892,11 @@ namespace GrocerySupplyManagementApp.Repositories
                             command.ExecuteNonQuery();
                         }
 
-                        // Get last row from income expense table
-                        var lastIncomeExpense = new IncomeExpense();
+                        // Get last id from income expense table
+                        long lastIncomeExpenseId = 0;
                         var selectLastIncomeExpense = @"SELECT " +
                             "TOP 1 " +
-                            "[Id], [EndOfDay], [Action], [ActionType], " +
-                            "[BankName], [Type], [Narration], " +
-                            "[ReceivedAmount], [PaymentAmount], " +
-                            "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
+                            "[Id] " +
                             "FROM " + Constants.TABLE_INCOME_EXPENSE + " " +
                             "WHERE 1 = 1 " +
                             "AND ISNULL([Action], '') = '" + Constants.EXPENSE + "' " +
@@ -913,25 +910,13 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 while (reader.Read())
                                 {
-                                    lastIncomeExpense.Id = Convert.ToInt64(reader["Id"].ToString());
-                                    lastIncomeExpense.EndOfDay = reader["EndOfDay"].ToString();
-                                    lastIncomeExpense.Action = reader["Action"].ToString();
-                                    lastIncomeExpense.ActionType = reader["ActionType"].ToString();
-                                    lastIncomeExpense.BankName = reader["BankName"].ToString();
-                                    lastIncomeExpense.Type = reader["Type"].ToString();
-                                    lastIncomeExpense.Narration = reader["Narration"].ToString();
-                                    lastIncomeExpense.ReceivedAmount = Convert.ToDecimal(reader["ReceivedAmount"].ToString());
-                                    lastIncomeExpense.PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"].ToString());
-                                    lastIncomeExpense.AddedBy = reader["AddedBy"].ToString();
-                                    lastIncomeExpense.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                    lastIncomeExpense.UpdatedBy = reader["UpdatedBy"].ToString();
-                                    lastIncomeExpense.UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                    lastIncomeExpenseId = Convert.ToInt64(reader["Id"].ToString());
                                 }
                             }
                         }
 
                         // Insert into bank transaction table
-                        bankTransaction.TransactionId = lastIncomeExpense.Id;
+                        bankTransaction.TransactionId = lastIncomeExpenseId;
                         string insertBankTransaction = @"INSERT INTO " + Constants.TABLE_BANK_TRANSACTION + " " +
                             "( " +
                                 "[EndOfDay], [BankId], [Type], [Action], [TransactionId], [Debit], [Credit], [Narration], [AddedBy], [AddedDate] " +

@@ -242,11 +242,9 @@ namespace GrocerySupplyManagementApp.Repositories
                             "[Id] " +
                             "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
                             "WHERE 1 = 1 " +
-                            "AND ([PartyNumber] IS NOT NULL " +
-                            "AND DATALENGTH([PartyNumber]) > 0) " +
                             "AND [Action] = '" + Constants.PAYMENT + "' " +
                             "AND [AddedBy] = @AddedBy " +
-                            "ORDER BY[Id] DESC ";
+                            "ORDER BY [Id] DESC ";
 
                         using (SqlCommand command = new SqlCommand(selectLastTransaction, connection, sqlTransaction))
                         {
