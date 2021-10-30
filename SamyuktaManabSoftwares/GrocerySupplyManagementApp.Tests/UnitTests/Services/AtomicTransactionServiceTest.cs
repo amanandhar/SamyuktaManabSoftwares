@@ -45,19 +45,6 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.AtomicTransactionService")]
-        public void DeleteStockAdjustment_ReturnsTrue_WhenIdIsPassed()
-        {
-            long id = 1;
-            _atomicTransactionRepository.Setup(repo => repo.DeleteStockAdjustment(It.IsAny<long>()))
-                .Returns(true);
-
-            var result = _sut.DeleteStockAdjustment(id);
-
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTests"), TestCategory("Services.AtomicTransactionService")]
         public void DeleteBankTransaction_ReturnsTrue_WhenIdIsPassed()
         {
             long id = 1;

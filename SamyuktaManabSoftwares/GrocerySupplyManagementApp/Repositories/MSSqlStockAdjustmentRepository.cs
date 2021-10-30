@@ -225,7 +225,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             command.ExecuteNonQuery();
                         }
 
-                        // Get last row from income expense table
+                        // Get last id from income expense table
                         long lastIncomeExpenseId = 0;
                         var selectLastIncomeExpense = @"SELECT " +
                             "TOP 1 " +

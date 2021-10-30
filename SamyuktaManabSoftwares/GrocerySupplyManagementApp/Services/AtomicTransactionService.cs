@@ -25,11 +25,6 @@ namespace GrocerySupplyManagementApp.Services
             return _atomicTransactionRepository.DeleteInvoice(invoiceNo);
         }
 
-        public bool DeleteStockAdjustment(long id)
-        {
-            return _atomicTransactionRepository.DeleteStockAdjustment(id);
-        }
-
         public bool DeleteBankTransaction(long id)
         {
             return _atomicTransactionRepository.DeleteBankTransaction(id);

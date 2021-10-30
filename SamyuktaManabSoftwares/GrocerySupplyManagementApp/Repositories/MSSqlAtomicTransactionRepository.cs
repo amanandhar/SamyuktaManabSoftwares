@@ -36,10 +36,10 @@ namespace GrocerySupplyManagementApp.Repositories
                         string deleteBankTransaction = @"DELETE " +
                             "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                             "WHERE 1 = 1 " +
-                            "AND [UserTransactionId] = @UserTransactionId ";
+                            "AND [TransactionId] = @TransactionId ";
                         using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
                         {
-                            command.Parameters.AddWithValue("@UserTransactionId", ((object)id) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@TransactionId", ((object)id) ?? DBNull.Value);
                             command.ExecuteNonQuery();
                         }
 
@@ -148,60 +148,6 @@ namespace GrocerySupplyManagementApp.Repositories
             return result;
         }
 
-        public bool DeleteStockAdjustment(long id)
-        {
-            var result = false;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    // Start a local transaction
-                    SqlTransaction sqlTransaction = connection.BeginTransaction();
-
-                    try
-                    {
-                        // Delete row from stock adjustment table
-                        string deleteStockAdjustment = @"DELETE " +
-                            "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " " +
-                            "WHERE 1 = 1 " +
-                            "AND [UserTransactionId] = @UserTransactionId";
-                        using (SqlCommand command = new SqlCommand(deleteStockAdjustment, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@UserTransactionId", ((object)id) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
-                        // Delete row from user transaction table
-                        string deleteUserTransaction = @"DELETE " +
-                            "FROM " + Constants.TABLE_USER_TRANSACTION + " " +
-                            "WHERE 1 = 1 " +
-                            "AND [Id] = @Id ";
-                        using (SqlCommand command = new SqlCommand(deleteUserTransaction, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
-                        sqlTransaction.Commit();
-                        result = true;
-                    }
-                    catch
-                    {
-                        sqlTransaction.Rollback();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw ex;
-            }
-
-            return result;
-        }
-
         public bool DeleteBankTransaction(long id)
         {
             var result = false;
@@ -220,10 +166,10 @@ namespace GrocerySupplyManagementApp.Repositories
                         string deleteBankTransaction = @"DELETE " +
                             "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
                             "WHERE 1 = 1 " +
-                            "AND [UserTransactionId] = @UserTransactionId ";
+                            "AND [TransactionId] = @TransactionId ";
                         using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
                         {
-                            command.Parameters.AddWithValue("@UserTransactionId", ((object)id) ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@TransactionId", ((object)id) ?? DBNull.Value);
                             command.ExecuteNonQuery();
                         }
 
