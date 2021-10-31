@@ -331,32 +331,32 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridPurchaseList.Columns["BillNo"].HeaderText = "Bill No";
-            DataGridPurchaseList.Columns["BillNo"].Width = 90;
+            DataGridPurchaseList.Columns["BillNo"].Width = 80;
             DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
 
             DataGridPurchaseList.Columns["Code"].HeaderText = "Item Code";
-            DataGridPurchaseList.Columns["Code"].Width = 125;
+            DataGridPurchaseList.Columns["Code"].Width = 95;
             DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
-            DataGridPurchaseList.Columns["Name"].Width = 200;
+            DataGridPurchaseList.Columns["Name"].Width = 220;
             DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
 
             DataGridPurchaseList.Columns["Brand"].HeaderText = "Item Brand";
-            DataGridPurchaseList.Columns["Brand"].Width = 175;
+            DataGridPurchaseList.Columns["Brand"].Width = 140;
             DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
-            DataGridPurchaseList.Columns["Unit"].Width = 50;
+            DataGridPurchaseList.Columns["Unit"].Width = 47;
             DataGridPurchaseList.Columns["Unit"].DisplayIndex = 5;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
-            DataGridPurchaseList.Columns["Quantity"].Width = 60;
+            DataGridPurchaseList.Columns["Quantity"].Width = 55;
             DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 6;
             DataGridPurchaseList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Price"].HeaderText = "Price";
-            DataGridPurchaseList.Columns["Price"].Width = 70;
+            DataGridPurchaseList.Columns["Price"].Width = 67;
             DataGridPurchaseList.Columns["Price"].DisplayIndex = 7;
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
