@@ -347,13 +347,13 @@ namespace GrocerySupplyManagementApp.Repositories
             return supplier;
         }
 
-        public bool DeleteSupplier(string name)
+        public bool DeleteSupplier(string supplierId)
         {
+            bool result = false;
             string query = @"DELETE " +
                 "FROM " + Constants.TABLE_SUPPLIER + " " +
                 "WHERE 1 = 1 " +
-                "AND [Name] = @Name ";
-            bool result = false;
+                "AND [SupplierId] = @SupplierId ";
 
             try
             {
@@ -362,7 +362,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@SupplierId", supplierId);
                         command.ExecuteNonQuery();
                         result = true;
                     }

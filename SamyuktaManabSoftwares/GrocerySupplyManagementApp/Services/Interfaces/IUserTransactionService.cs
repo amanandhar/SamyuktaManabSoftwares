@@ -10,7 +10,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
     {
         IEnumerable<UserTransaction> GetUserTransactions(UserTransactionFilter userTransactionFilter);
         IEnumerable<MemberTransactionView> GetMemberTransactions(MemberTransactionFilter memberTransactionFilter);
-        IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter);
+        IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierTransactionFilter);
         UserTransaction GetLastUserTransaction(PartyNumberType transactionNumberType, string addedBy);
         IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);
         IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);

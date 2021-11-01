@@ -263,49 +263,24 @@ namespace GrocerySupplyManagementApp.Repositories
             return shareMember;
         }
 
-        // Atomic Transaction
         public bool DeleteShareMember(long id)
         {
             var result = false;
+            string query = @"DELETE " +
+                "FROM " + Constants.TABLE_SHARE_MEMBER + " " +
+                "WHERE 1 = 1 " +
+                "AND [Id] = @Id ";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    // Start a local transaction
-                    SqlTransaction sqlTransaction = connection.BeginTransaction();
-
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        // Delete row from bank transaction table
-                        string deleteBankTransaction = @"DELETE " +
-                            "FROM " + Constants.TABLE_BANK_TRANSACTION + " " +
-                            "WHERE 1 = 1 " +
-                            "AND [Action] = '" + Constants.SHARE_CAPITAL + "' " +
-                            "AND [TransactionId] = @TransactionId ";
-                        using (SqlCommand command = new SqlCommand(deleteBankTransaction, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@TransactionId", ((object)id) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
-                        // Delete row from user transaction table
-                        string deleteShareMember = @"DELETE FROM " + Constants.TABLE_SHARE_MEMBER + " " +
-                            "WHERE 1 = 1 " +
-                            "AND [Id] = @Id ";
-                        using (SqlCommand command = new SqlCommand(deleteShareMember, connection, sqlTransaction))
-                        {
-                            command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
-                            command.ExecuteNonQuery();
-                        }
-
-                        sqlTransaction.Commit();
+                        command.Parameters.AddWithValue("@Id", ((object)id) ?? DBNull.Value);
+                        command.ExecuteNonQuery();
                         result = true;
-                    }
-                    catch
-                    {
-                        sqlTransaction.Rollback();
                     }
                 }
             }

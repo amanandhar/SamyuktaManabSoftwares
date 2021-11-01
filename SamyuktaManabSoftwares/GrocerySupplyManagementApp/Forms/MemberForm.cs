@@ -3,7 +3,6 @@ using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
-using GrocerySupplyManagementApp.Shared.Enums;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly ICompanyInfoService _companyInfoService;
         private readonly IBankService _bankService;
-        private readonly IBankTransactionService _bankTransactionService;
         private readonly IMemberService _memberService;
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
@@ -57,8 +55,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public MemberForm(string username,
             ISettingService settingService, ICompanyInfoService companyInfoService,
-            IBankService bankService, IBankTransactionService bankTransactionService,
-            IMemberService memberService, ISoldItemService soldItemService,
+            IBankService bankService, IMemberService memberService, ISoldItemService soldItemService,
             IUserTransactionService userTransactionService, IEmployeeService employeeService,
             IReportService reportService, IPOSDetailService posDetailService,
             ICapitalService capitalService, DashboardForm dashboardForm)
@@ -68,7 +65,6 @@ namespace GrocerySupplyManagementApp.Forms
             _settingService = settingService;
             _companyInfoService = companyInfoService;
             _bankService = bankService;
-            _bankTransactionService = bankTransactionService;
             _memberService = memberService;
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
@@ -416,31 +412,52 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (deleteResult == DialogResult.Yes)
+                var memberId = TxtMemberId.Text.Trim();
+                if(!string.IsNullOrWhiteSpace(memberId))
                 {
-                    var memberId = TxtMemberId.Text.Trim();
-                    var member = _memberService.GetMember(memberId);
-                    var relativeImagePath = member.ImagePath;
-                    var absoluteImagePath = Path.Combine(_baseImageFolder, _memberImageFolder, relativeImagePath);
-                    if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
-                    {
-                        UtilityService.DeleteImage(absoluteImagePath);
-                    }
+                    var memberTransactions = _userTransactionService
+                    .GetMemberTransactions(new MemberTransactionFilter() { MemberId = memberId })
+                    .ToList();
 
-                    if (_memberService.DeleteMember(memberId))
+                    if(memberTransactions.Count > 0)
                     {
-                        DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        if (result == DialogResult.OK)
+                        DialogResult dialogResult = MessageBox.Show("Please delete transactions first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if(dialogResult == DialogResult.OK)
                         {
-                            ClearMemberFields();
-                            ClearTransactionFields();
-                            var memberTransactionViewList = GetMemberTransactions(memberId);
-                            LoadMemberTransactions(memberTransactionViewList);
-                            EnableFields();
-                            EnableFields(Action.Delete);
+                            return;
                         }
                     }
+                    else
+                    {
+                        DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (deleteResult == DialogResult.Yes)
+                        {
+
+                            var member = _memberService.GetMember(memberId);
+                            var relativeImagePath = member.ImagePath;
+                            var absoluteImagePath = Path.Combine(_baseImageFolder, _memberImageFolder, relativeImagePath);
+                            if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
+                            {
+                                UtilityService.DeleteImage(absoluteImagePath);
+                            }
+
+                            if (_memberService.DeleteMember(memberId))
+                            {
+                                DialogResult result = MessageBox.Show(memberId + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (result == DialogResult.OK)
+                                {
+                                    ClearMemberFields();
+                                    ClearTransactionFields();
+                                    EnableFields();
+                                    EnableFields(Action.Delete);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select the memeber first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)

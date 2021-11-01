@@ -30,9 +30,9 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetMemberTransactions(memberTransactionFilter);
         }
 
-        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter)
+        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierTransactionFilter)
         {
-            return _userTransactionRepository.GetSupplierTransactions(supplierFilter);
+            return _userTransactionRepository.GetSupplierTransactions(supplierTransactionFilter);
         }
 
         public UserTransaction GetLastUserTransaction(PartyNumberType transactionNumberType, string addedBy)

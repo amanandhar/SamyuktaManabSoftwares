@@ -180,7 +180,7 @@ namespace GrocerySupplyManagementApp.Repositories
             return memberTransactionViews;
         }
 
-        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierFilter)
+        public IEnumerable<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierTransactionFilter)
         {
             var supplierTransactionViews = new List<SupplierTransactionView>();
             var query = @"SELECT " +
@@ -195,7 +195,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut1 " +
                 "WHERE 1 = 1 " +
                 "AND ut1.[AddedDate] <= ut.[AddedDate] ";
-            if (!string.IsNullOrWhiteSpace(supplierFilter.SupplierId))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.SupplierId))
             {
                 query += "AND ISNULL(ut1.[PartyId], '') = @PartyId ";
             }
@@ -204,22 +204,22 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "WHERE 1 = 1 ";
 
-            if (!string.IsNullOrWhiteSpace(supplierFilter?.DateFrom))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.DateFrom))
             {
                 query += "AND ut.[EndOfDay] >= @DateFrom ";
             }
 
-            if (!string.IsNullOrWhiteSpace(supplierFilter?.DateTo))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.DateTo))
             {
                 query += "AND ut.[EndOfDay] <= @DateTo ";
             }
 
-            if (!string.IsNullOrWhiteSpace(supplierFilter.SupplierId))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter.SupplierId))
             {
                 query += "AND ISNULL(ut.[PartyId], '') = @PartyId ";
             }
 
-            if (!string.IsNullOrWhiteSpace(supplierFilter?.Action))
+            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.Action))
             {
                 query += "AND ut.[Action] = @Action ";
             }
@@ -233,10 +233,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)supplierFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)supplierFilter.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@PartyId", ((object)supplierFilter.SupplierId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)supplierFilter.Action) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)supplierTransactionFilter.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)supplierTransactionFilter.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@PartyId", ((object)supplierTransactionFilter.SupplierId) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@Action", ((object)supplierTransactionFilter.Action) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

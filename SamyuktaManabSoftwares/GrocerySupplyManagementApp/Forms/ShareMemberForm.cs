@@ -350,27 +350,40 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (deleteResult == DialogResult.Yes)
+                var shareMemberId = _selectedShareMemberId;
+                var shareMemeberTransactions = _shareMemberService.GetShareMemberTransactions(new ShareMemberTransactionFilter() { ShareMemberId = shareMemberId }).ToList();
+                if(shareMemeberTransactions.Count > 0)
                 {
-                    var shareMemberId = _selectedShareMemberId;
-                    var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
-                    var relativeImagePath = shareMember.ImagePath;
-                    var absoluteImagePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, relativeImagePath);
-                    if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
+                    DialogResult dialogResult = MessageBox.Show("Please delete transactions first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.OK)
                     {
-                        UtilityService.DeleteImage(absoluteImagePath);
+                        return;
                     }
-
-                    if (_shareMemberService.DeleteShareMember(Convert.ToInt64(shareMemberId)))
+                }
+                else
+                {
+                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (deleteResult == DialogResult.Yes)
                     {
-                        DialogResult result = MessageBox.Show(RichName.Text.Trim() + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        if (result == DialogResult.OK)
+
+                        var shareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
+                        var relativeImagePath = shareMember.ImagePath;
+                        var absoluteImagePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, relativeImagePath);
+                        if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                         {
-                            DataGridShareMemberList.Rows.Clear();
-                            ClearAllFields();
-                            EnableFields();
-                            EnableFields(Action.Delete);
+                            UtilityService.DeleteImage(absoluteImagePath);
+                        }
+
+                        if (_shareMemberService.DeleteShareMember(Convert.ToInt64(shareMemberId)))
+                        {
+                            DialogResult result = MessageBox.Show(RichName.Text.Trim() + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (result == DialogResult.OK)
+                            {
+                                DataGridShareMemberList.Rows.Clear();
+                                ClearAllFields();
+                                EnableFields();
+                                EnableFields(Action.Delete);
+                            }
                         }
                     }
                 }
@@ -408,6 +421,16 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboNarration_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ComboBank_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboTransaction.Focus();
+        }
+
+        private void ComboTransaction_SelectedValueChanged(object sender, EventArgs e)
+        {
+            RichAmount.Focus();
         }
         #endregion
 
@@ -529,9 +552,28 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadShareMemberTransactions(List<ShareMemberTransactionView> shareMemberTransactionViewList)
         {
-            TxtShareAmount.Text = shareMemberTransactionViewList.Sum(x => x.Debit - x.Credit).ToString();
+            decimal currentTotal = 0.00m;
+            var shareMemberTransactionViewListWithBalance = shareMemberTransactionViewList.OrderBy(x => x.Id)
+                .Select(x =>
+                {
+                    currentTotal += (x.Debit - x.Credit);
+                    return new ShareMemberTransactionView()
+                    {
+                        Id = x.Id,
+                        BankTransactionId = x.BankTransactionId,
+                        EndOfDay = x.EndOfDay,
+                        Name = x.Name,
+                        ContactNo = x.ContactNo,
+                        Description = x.Description,
+                        Type = x.Type,
+                        Credit = x.Credit,
+                        Debit = x.Debit,
+                        Balance = currentTotal
+                    };
+                }).ToList();
 
-            var bindingList = new BindingList<ShareMemberTransactionView>(shareMemberTransactionViewList);
+            TxtShareAmount.Text = shareMemberTransactionViewListWithBalance.Sum(x => (x.Debit - x.Credit)).ToString();
+            var bindingList = new BindingList<ShareMemberTransactionView>(shareMemberTransactionViewListWithBalance);
             var source = new BindingSource(bindingList, null);
             DataGridShareMemberList.DataSource = source;
         }
@@ -709,5 +751,6 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
+
     }
 }

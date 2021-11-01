@@ -363,20 +363,42 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (deleteResult == DialogResult.Yes)
+            var supplierId = TxtSupplierId.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(supplierId))
             {
-                var supplierName = TxtSupplierName.Text.Trim();
-                _supplierService.DeleteSupplier(supplierName);
+                var supplierTransactions = _userTransactionService
+                    .GetSupplierTransactions(new SupplierTransactionFilter() { SupplierId = supplierId })
+                    .ToList();
 
-                DialogResult result = MessageBox.Show(supplierName + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
+                if (supplierTransactions.Count > 0)
                 {
-                    ClearAllFields();
-                    DataGridSupplierList.DataSource = null;
-                    EnableFields();
-                    EnableFields(Action.DeleteSupplier);
+                    DialogResult dialogResult = MessageBox.Show("Please delete transactions first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        return;
+                    }
                 }
+                else
+                {
+                    DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (deleteResult == DialogResult.Yes)
+                    {
+                        _supplierService.DeleteSupplier(supplierId);
+
+                        DialogResult result = MessageBox.Show(supplierId + " has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (result == DialogResult.OK)
+                        {
+                            ClearAllFields();
+                            DataGridSupplierList.DataSource = null;
+                            EnableFields();
+                            EnableFields(Action.DeleteSupplier);
+                        }
+                    }
+                }
+            }    
+            else
+            {
+                MessageBox.Show("Please select the memeber first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

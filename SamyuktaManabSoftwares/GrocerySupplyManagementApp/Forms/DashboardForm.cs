@@ -271,8 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
 
             OpenChildForm(new MemberForm(_username,
                 _settingService, _companyInfoService,
-                _bankService, _bankTransactionService,
-                _memberService, _soldItemService,
+                _bankService, _memberService, _soldItemService,
                 _userTransactionService, _employeeService,
                 _reportService, _posDetailService, _capitalService, this));
             HideSubMenu();
