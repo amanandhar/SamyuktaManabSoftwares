@@ -36,7 +36,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPOSDetailService _posDetailService;
         private readonly IIncomeExpenseService _incomeExpenseService;
         private readonly ICapitalService _capitalService;
-        private readonly IAtomicTransactionService _atomicTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -79,7 +78,7 @@ namespace GrocerySupplyManagementApp.Forms
             ICompanyInfoService companyInfoService, IEmployeeService employeeService,
             IStockService stockService, IUserService userService,
             IPOSDetailService posDetailService, IIncomeExpenseService incomeExpenseService,
-            ICapitalService capitalService, IAtomicTransactionService atomicTransactionService
+            ICapitalService capitalService
             )
         {
             InitializeComponent();
@@ -101,7 +100,6 @@ namespace GrocerySupplyManagementApp.Forms
             _posDetailService = posDetailService;
             _incomeExpenseService = incomeExpenseService;
             _capitalService = capitalService;
-            _atomicTransactionService = atomicTransactionService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -235,7 +233,7 @@ namespace GrocerySupplyManagementApp.Forms
             DailyTransactionForm transactionForm = new DailyTransactionForm(_username,
                 _settingService, _purchasedItemService, 
                 _soldItemService,_userTransactionService, 
-                _userService, _atomicTransactionService);
+                _userService);
             transactionForm.Show();
             EnableFields();
             EnableFields(Action.Transaction);
@@ -390,7 +388,7 @@ namespace GrocerySupplyManagementApp.Forms
                             DeliveryPersonId = selectedDeliveryPerson?.Id.Trim()
                         };
 
-                        _atomicTransactionService.SaveSalesDetail(soldItems, userTransaction, posDetail, _username);
+                        _userTransactionService.SaveSalesDetail(soldItems, userTransaction, posDetail, _username);
 
                         ClearAllMemberFields();
                         ClearAllItemFields();

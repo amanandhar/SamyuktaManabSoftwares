@@ -129,7 +129,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPOSDetailService _posDetailService;
         private readonly IIncomeExpenseService _incomeExpenseService;
         private readonly ICapitalService _capitalService;
-        private readonly IAtomicTransactionService _atomicTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -146,8 +145,7 @@ namespace GrocerySupplyManagementApp.Forms
             IReportService reportService, IUserService userService,
             IItemCategoryService itemCategoryService, IShareMemberService shareMemberService,
             IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
-            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService,
-            IAtomicTransactionService atomicTransactionService
+            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService
             )
         {
             InitializeComponent();
@@ -175,7 +173,6 @@ namespace GrocerySupplyManagementApp.Forms
             _posDetailService = posDetailService;
             _incomeExpenseService = incomeExpenseService;
             _capitalService = capitalService;
-            _atomicTransactionService = atomicTransactionService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -220,7 +217,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _companyInfoService, _employeeService,
                 _stockService, _userService,
                 _posDetailService, _incomeExpenseService,
-                _capitalService, _atomicTransactionService
+                _capitalService
                  );
             posForm.ShowDialog();
 
@@ -232,10 +229,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new SummaryForm(_username,
-                _settingService, _bankTransactionService,
-                _userTransactionService, _userService,
-                _capitalService, _atomicTransactionService));
+            OpenChildForm(new SummaryForm(_settingService, _capitalService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -245,9 +239,9 @@ namespace GrocerySupplyManagementApp.Forms
             ShowSystemStatus();
 
             OpenChildForm(new DailyTransactionForm(_username,
-                _settingService, _purchasedItemService, 
+                _settingService, _purchasedItemService,
                 _soldItemService, _userTransactionService,
-                _userService, _atomicTransactionService
+                _userService
                ));
             HideSubMenu();
             SelectButton(sender as Button);
@@ -405,8 +399,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new StockAdjustmentForm(_username, 
-                _settingService, _itemService, 
+            OpenChildForm(new StockAdjustmentForm(_username,
+                _settingService, _itemService,
                 _pricedItemService, _stockService,
                _stockAdjustmentService, _incomeExpenseService));
             SelectButton(sender as Button, true);

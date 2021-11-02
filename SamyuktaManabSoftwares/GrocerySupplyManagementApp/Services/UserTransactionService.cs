@@ -64,5 +64,25 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _userTransactionRepository.DeleteUserTransaction(invoiceNo);
         }
+
+        #region Daily Transaction Methods
+        public bool DeleteBill(long id, string billNo)
+        {
+            return _userTransactionRepository.DeleteBill(id, billNo);
+        }
+
+        public bool DeleteInvoice(string invoiceNo)
+        {
+            return _userTransactionRepository.DeleteInvoice(invoiceNo);
+        }
+
+        #endregion
+
+        #region POS Methods
+        public bool SaveSalesDetail(List<SoldItem> soldItems, UserTransaction userTransaction, POSDetail posDetail, string username)
+        {
+            return _userTransactionRepository.SaveSalesDetail(soldItems, userTransaction, posDetail, username);
+        }
+        #endregion
     }
 }

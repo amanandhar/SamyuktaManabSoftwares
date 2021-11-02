@@ -56,8 +56,7 @@ namespace GrocerySupplyManagementApp
                             container.Resolve<IStockAdjustmentService>(),
                             container.Resolve<IPOSDetailService>(),
                             container.Resolve<IIncomeExpenseService>(),
-                            container.Resolve<ICapitalService>(),
-                            container.Resolve<IAtomicTransactionService>()
+                            container.Resolve<ICapitalService>()
                             ));
                     }
                     else
@@ -99,7 +98,6 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IIncomeExpenseService, IncomeExpenseService>();
             container.RegisterType<ICapitalService, CapitalService>();
             container.RegisterType<IDatabaseService, DatabaseService>();
-            container.RegisterType<IAtomicTransactionService, AtomicTransactionService>();
 
             container.RegisterType<ISettingRepository, MSSqlSettingRepository>();
             container.RegisterType<ICompanyInfoRepository, MSSqlCompanyInfoRepository>();
@@ -124,7 +122,6 @@ namespace GrocerySupplyManagementApp
             container.RegisterType<IIncomeExpenseRepository, MSSqlIncomeExpenseRepository>();
             container.RegisterType<ICapitalRepository, MSSqlCapitalRepository>();
             container.RegisterType<IDatabaseRepository, MSSqlDatabaseRepository>();
-            container.RegisterType<IAtomicTransactionRepository, MSSqlAtomicTransactionRepository>();
 
             return container;
         }

@@ -19,5 +19,14 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 
         bool DeleteUserTransaction(long id);
         bool DeleteUserTransaction(string invoiceNo);
+
+        #region Daily Transaction Methods
+        bool DeleteBill(long id, string billNo);
+        bool DeleteInvoice(string invoiceNo);
+        #endregion
+
+        #region POS Methods
+        bool SaveSalesDetail(List<SoldItem> soldItems, UserTransaction userTransaction, POSDetail posDetail, string username);
+        #endregion
     }
 }

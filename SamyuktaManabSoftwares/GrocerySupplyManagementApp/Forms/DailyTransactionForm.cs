@@ -21,7 +21,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISoldItemService _soldItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
-        private readonly IAtomicTransactionService _atomicTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -29,9 +28,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public DailyTransactionForm(string username,
-            ISettingService settingService, IPurchasedItemService purchasedItemService, 
-            ISoldItemService soldItemService, IUserTransactionService userTransactionService, 
-            IUserService userService, IAtomicTransactionService atomicTransactionService
+            ISettingService settingService, IPurchasedItemService purchasedItemService,
+            ISoldItemService soldItemService, IUserTransactionService userTransactionService,
+            IUserService userService
             )
         {
             InitializeComponent();
@@ -41,7 +40,6 @@ namespace GrocerySupplyManagementApp.Forms
             _soldItemService = soldItemService;
             _userTransactionService = userTransactionService;
             _userService = userService;
-            _atomicTransactionService = atomicTransactionService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -83,7 +81,7 @@ namespace GrocerySupplyManagementApp.Forms
                         selectedRow = DataGridTransactionList.SelectedRows[0];
                     }
                     var partyNumber = selectedRow?.Cells["PartyNumber"]?.Value?.ToString();
-                    if(!string.IsNullOrWhiteSpace(partyNumber))
+                    if (!string.IsNullOrWhiteSpace(partyNumber))
                     {
                         string selectedId = selectedRow?.Cells["Id"]?.Value?.ToString();
                         if (!string.IsNullOrWhiteSpace(selectedId))
@@ -98,7 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
                                     var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Bill, string.Empty);
                                     if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                     {
-                                        _atomicTransactionService.DeleteBill(id, partyNumber);
+                                        _userTransactionService.DeleteBill(id, partyNumber);
                                     }
                                     else
                                     {
@@ -116,7 +114,7 @@ namespace GrocerySupplyManagementApp.Forms
                                     var lastUserTransaction = _userTransactionService.GetLastUserTransaction(PartyNumberType.Invoice, string.Empty);
                                     if (lastUserTransaction.PartyNumber.ToLower() == partyNumber.ToLower())
                                     {
-                                        _atomicTransactionService.DeleteInvoice(partyNumber);
+                                        _userTransactionService.DeleteInvoice(partyNumber);
                                     }
                                     else
                                     {

@@ -13,31 +13,19 @@ namespace GrocerySupplyManagementApp.Forms
     public partial class SummaryForm : Form
     {
         private readonly ISettingService _settingService;
-        private readonly IBankTransactionService _bankTransactionService;
-        private readonly IUserTransactionService _userTransactionService;
-        private readonly IUserService _userService;
         private readonly ICapitalService _capitalService;
-        private readonly IAtomicTransactionService _atomicTransactionService;
 
-        private readonly string _username;
         private readonly Setting _setting;
         private readonly string _endOfDay;
 
         #region Constructor
-        public SummaryForm(string username, ISettingService settingService, IBankTransactionService bankTransactionService,
-            IUserTransactionService userTransactionService, IUserService userService,
-            ICapitalService capitalService, IAtomicTransactionService atomicTransactionService)
+        public SummaryForm(ISettingService settingService, ICapitalService capitalService)
         {
             InitializeComponent();
 
             _settingService = settingService;
-            _bankTransactionService = bankTransactionService;
-            _userTransactionService = userTransactionService;
-            _userService = userService;
             _capitalService = capitalService;
-            _atomicTransactionService = atomicTransactionService;
 
-            _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
             _endOfDay = _setting.StartingDate;
         }
