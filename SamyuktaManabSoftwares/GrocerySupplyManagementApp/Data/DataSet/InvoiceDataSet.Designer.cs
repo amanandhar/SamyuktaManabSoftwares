@@ -307,8 +307,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             private global::System.Data.DataColumn columnItemName;
             
-            private global::System.Data.DataColumn columnBrand;
-            
             private global::System.Data.DataColumn columnUnit;
             
             private global::System.Data.DataColumn columnQuantity;
@@ -472,14 +470,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BrandColumn {
-                get {
-                    return this.columnBrand;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn UnitColumn {
                 get {
                     return this.columnUnit;
@@ -594,7 +584,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         string ReceivedAmount, 
                         string DueReceivedAmount, 
                         string ItemName, 
-                        string Brand, 
                         string Unit, 
                         string Quantity, 
                         string Price, 
@@ -619,7 +608,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         ReceivedAmount,
                         DueReceivedAmount,
                         ItemName,
-                        Brand,
                         Unit,
                         Quantity,
                         Price,
@@ -664,7 +652,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 this.columnReceivedAmount = base.Columns["ReceivedAmount"];
                 this.columnDueReceivedAmount = base.Columns["DueReceivedAmount"];
                 this.columnItemName = base.Columns["ItemName"];
-                this.columnBrand = base.Columns["Brand"];
                 this.columnUnit = base.Columns["Unit"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnPrice = base.Columns["Price"];
@@ -706,8 +693,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 base.Columns.Add(this.columnDueReceivedAmount);
                 this.columnItemName = new global::System.Data.DataColumn("ItemName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnItemName);
-                this.columnBrand = new global::System.Data.DataColumn("Brand", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBrand);
                 this.columnUnit = new global::System.Data.DataColumn("Unit", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUnit);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1090,22 +1075,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Brand {
-                get {
-                    try {
-                        return ((string)(this[this.tableInvoice.BrandColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Brand\' in table \'Invoice\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableInvoice.BrandColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Unit {
                 get {
                     try {
@@ -1398,18 +1367,6 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetItemNameNull() {
                 this[this.tableInvoice.ItemNameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsBrandNull() {
-                return this.IsNull(this.tableInvoice.BrandColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetBrandNull() {
-                this[this.tableInvoice.BrandColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

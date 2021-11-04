@@ -42,13 +42,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemUnit = new System.Windows.Forms.TextBox();
             this.TxtItemStock = new System.Windows.Forms.TextBox();
             this.TxtItemPrice = new System.Windows.Forms.TextBox();
-            this.TxtItemBrand = new System.Windows.Forms.TextBox();
             this.TxtItemName = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.TxtProfitAmount = new System.Windows.Forms.TextBox();
@@ -150,13 +148,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.TxtItemUnit);
             this.groupBox4.Controls.Add(this.TxtItemStock);
             this.groupBox4.Controls.Add(this.TxtItemPrice);
-            this.groupBox4.Controls.Add(this.TxtItemBrand);
             this.groupBox4.Controls.Add(this.TxtItemName);
             this.groupBox4.Controls.Add(this.label18);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.TxtProfitAmount);
@@ -256,16 +252,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemPrice.Size = new System.Drawing.Size(95, 26);
             this.TxtItemPrice.TabIndex = 52;
             // 
-            // TxtItemBrand
-            // 
-            this.TxtItemBrand.BackColor = System.Drawing.Color.White;
-            this.TxtItemBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemBrand.Location = new System.Drawing.Point(106, 82);
-            this.TxtItemBrand.Name = "TxtItemBrand";
-            this.TxtItemBrand.ReadOnly = true;
-            this.TxtItemBrand.Size = new System.Drawing.Size(290, 26);
-            this.TxtItemBrand.TabIndex = 51;
-            // 
             // TxtItemName
             // 
             this.TxtItemName.BackColor = System.Drawing.Color.White;
@@ -319,17 +305,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label15.Size = new System.Drawing.Size(42, 18);
             this.label15.TabIndex = 45;
             this.label15.Text = "Price";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label14.Location = new System.Drawing.Point(16, 85);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(79, 18);
-            this.label14.TabIndex = 44;
-            this.label14.Text = "Item Brand";
             // 
             // label13
             // 
@@ -1317,7 +1292,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
@@ -1335,7 +1309,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtAddress;
         private System.Windows.Forms.TextBox TxtContactNo;
         private System.Windows.Forms.TextBox TxtItemName;
-        private System.Windows.Forms.TextBox TxtItemBrand;
         private System.Windows.Forms.TextBox TxtItemPrice;
         private System.Windows.Forms.TextBox TxtItemStock;
         private System.Windows.Forms.TextBox TxtItemUnit;

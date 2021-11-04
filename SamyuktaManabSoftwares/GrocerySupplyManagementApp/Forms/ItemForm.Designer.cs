@@ -34,8 +34,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.ComboCategory = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.RichItemBrand = new System.Windows.Forms.RichTextBox();
             this.RichThreshold = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,8 +61,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.ComboCategory);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.RichItemBrand);
             this.groupBox1.Controls.Add(this.RichThreshold);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label2);
@@ -100,27 +96,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboCategory.TabIndex = 1;
             this.ComboCategory.SelectedValueChanged += new System.EventHandler(this.ComboCategory_SelectedValueChanged);
             this.ComboCategory.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboCategory_KeyPress);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(644, 56);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 18);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Item Brand";
-            // 
-            // RichItemBrand
-            // 
-            this.RichItemBrand.Enabled = false;
-            this.RichItemBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichItemBrand.Location = new System.Drawing.Point(732, 52);
-            this.RichItemBrand.Name = "RichItemBrand";
-            this.RichItemBrand.Size = new System.Drawing.Size(275, 28);
-            this.RichItemBrand.TabIndex = 6;
-            this.RichItemBrand.Text = "";
             // 
             // RichThreshold
             // 
@@ -415,11 +390,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RichTextBox RichItemBrand;
         private System.Windows.Forms.RichTextBox RichItemName;
         private System.Windows.Forms.RichTextBox RichItemCode;
         private System.Windows.Forms.DataGridView DataGridItemList;

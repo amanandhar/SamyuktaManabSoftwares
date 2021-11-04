@@ -88,7 +88,6 @@ namespace GrocerySupplyManagementApp.Forms
                         EndOfDay = _endOfDay,
                         Code = RichItemCode.Text.Trim(),
                         Name = RichItemName.Text.Trim(),
-                        Brand = RichItemBrand.Text.Trim(),
                         Unit = ComboUnit.Text.Trim(),
                         Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                         AddedBy = _username,
@@ -147,7 +146,6 @@ namespace GrocerySupplyManagementApp.Forms
                         {
                             Code = RichItemCode.Text.Trim(),
                             Name = RichItemName.Text.Trim(),
-                            Brand = RichItemBrand.Text.Trim(),
                             Unit = ComboUnit.Text.Trim(),
                             Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                             UpdatedBy = _username,
@@ -272,17 +270,13 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Name"].Width = 250;
             DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
-            DataGridItemList.Columns["Brand"].HeaderText = "Brand";
-            DataGridItemList.Columns["Brand"].Width = 250;
-            DataGridItemList.Columns["Brand"].DisplayIndex = 2;
-
             DataGridItemList.Columns["Unit"].HeaderText = "Unit";
             DataGridItemList.Columns["Unit"].Width = 80;
-            DataGridItemList.Columns["Unit"].DisplayIndex = 3;
+            DataGridItemList.Columns["Unit"].DisplayIndex = 2;
 
             DataGridItemList.Columns["Threshold"].HeaderText = "Threshold";
             DataGridItemList.Columns["Threshold"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridItemList.Columns["Threshold"].DisplayIndex = 4;
+            DataGridItemList.Columns["Threshold"].DisplayIndex = 3;
 
             foreach (DataGridViewRow row in DataGridItemList.Rows)
             {
@@ -312,7 +306,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ComboCategory.Enabled = true;
                 RichItemName.Enabled = true;
-                RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
 
@@ -323,7 +316,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 ComboCategory.Enabled = true;
                 RichItemName.Enabled = true;
-                RichItemBrand.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
 
@@ -335,7 +327,6 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboCategory.Enabled = false;
                 RichItemCode.Enabled = false;
                 RichItemName.Enabled = false;
-                RichItemBrand.Enabled = false;
                 ComboUnit.Enabled = false;
                 RichThreshold.Enabled = false;
 
@@ -351,7 +342,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboCategory.Text = string.Empty;
             RichItemCode.Clear();
             RichItemName.Clear();
-            RichItemBrand.Clear();
             ComboUnit.Text = string.Empty;
             RichThreshold.Clear();
         }
@@ -364,7 +354,6 @@ namespace GrocerySupplyManagementApp.Forms
                 selectedItemId = itemId;
                 RichItemCode.Text = item.Code;
                 RichItemName.Text = item.Name;
-                RichItemBrand.Text = item.Brand;
                 ComboUnit.Text = item.Unit;
                 RichThreshold.Text = item.Threshold.ToString();
 
@@ -440,22 +429,19 @@ namespace GrocerySupplyManagementApp.Forms
             var itemName = RichItemName.Text.Trim();
             var unit = ComboUnit.Text.Trim();
             var threshold = RichThreshold.Text.Trim();
-            var itemBrand = RichItemBrand.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(category)
                 || string.IsNullOrWhiteSpace(itemCode)
                 || string.IsNullOrWhiteSpace(itemName)
                 || string.IsNullOrWhiteSpace(unit)
-                || string.IsNullOrWhiteSpace(threshold)
-                || string.IsNullOrWhiteSpace(itemBrand))
+                || string.IsNullOrWhiteSpace(threshold))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Category " +
                     "\n * Item Code " +
                     "\n * Item Name " +
                     "\n * Item Unit " +
-                    "\n * Item Threshold " +
-                    "\n * Item Brand", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Item Threshold ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -473,20 +459,17 @@ namespace GrocerySupplyManagementApp.Forms
             var itemName = RichItemName.Text.Trim();
             var unit = ComboUnit.Text.Trim();
             var threshold = RichThreshold.Text.Trim();
-            var itemBrand = RichItemBrand.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(itemCode)
                 || string.IsNullOrWhiteSpace(itemName)
                 || string.IsNullOrWhiteSpace(unit)
-                || string.IsNullOrWhiteSpace(threshold)
-                || string.IsNullOrWhiteSpace(itemBrand))
+                || string.IsNullOrWhiteSpace(threshold))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Item Code " +
                     "\n * Item Name " +
                     "\n * Item Unit " +
-                    "\n * Item Threshold " +
-                    "\n * Item Brand", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Item Threshold ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {

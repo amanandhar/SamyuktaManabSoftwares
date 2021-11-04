@@ -129,7 +129,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var pricedItemViewList = new List<PricedItemView>();
             var query = @"SELECT " +
-                "DISTINCT pi.[Id], i.[Code], pi.[SubCode], i.[Name], i.[Brand] " +
+                "DISTINCT pi.[Id], i.[Code], pi.[SubCode], i.[Name] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
@@ -151,8 +151,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
                                     SubCode = reader["SubCode"].ToString(),
-                                    Name = reader["Name"].ToString(),
-                                    Brand = reader["Brand"].ToString()
+                                    Name = reader["Name"].ToString()
                                 };
 
                                 pricedItemViewList.Add(pricedItemView);
@@ -174,7 +173,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var unpricedItemViewList = new List<UnpricedItemView>();
             var query = @"SELECT " +
-                "DISTINCT i.[Id], i.[Code], i.[Name], i.[Brand] " +
+                "DISTINCT i.[Id], i.[Code], i.[Name] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
@@ -199,7 +198,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
                                     Name = reader["Name"].ToString(),
-                                    Brand = reader["Brand"].ToString()
                                 };
 
                                 unpricedItemViewList.Add(unpricedItemView);

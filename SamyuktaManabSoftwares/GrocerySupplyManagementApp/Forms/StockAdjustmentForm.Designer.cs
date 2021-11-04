@@ -31,11 +31,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.TxtBoxItemCode = new System.Windows.Forms.TextBox();
             this.TxtBoxItemName = new System.Windows.Forms.TextBox();
-            this.TxtBoxItemBrand = new System.Windows.Forms.TextBox();
             this.TxtBoxItemUnit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnRemove = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -75,14 +73,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtBoxItemName.Size = new System.Drawing.Size(242, 26);
             this.TxtBoxItemName.TabIndex = 2;
             // 
-            // TxtBoxItemBrand
-            // 
-            this.TxtBoxItemBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBoxItemBrand.Location = new System.Drawing.Point(102, 82);
-            this.TxtBoxItemBrand.Name = "TxtBoxItemBrand";
-            this.TxtBoxItemBrand.Size = new System.Drawing.Size(242, 26);
-            this.TxtBoxItemBrand.TabIndex = 3;
-            // 
             // TxtBoxItemUnit
             // 
             this.TxtBoxItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -113,17 +103,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.TabIndex = 10;
             this.label2.Text = "Item Name";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(10, 85);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 20);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Item Brand";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -153,10 +132,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.TxtBoxItemCode);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.TxtBoxItemName);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.TxtBoxItemBrand);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.TxtBoxItemUnit);
             this.groupBox1.Location = new System.Drawing.Point(15, 45);
@@ -418,11 +395,9 @@ namespace GrocerySupplyManagementApp.Forms
 
         private System.Windows.Forms.TextBox TxtBoxItemCode;
         private System.Windows.Forms.TextBox TxtBoxItemName;
-        private System.Windows.Forms.TextBox TxtBoxItemBrand;
         private System.Windows.Forms.TextBox TxtBoxItemUnit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox TxtBoxItemQuantity;

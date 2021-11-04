@@ -127,7 +127,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
                             }
 
-                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtItemBrand.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
+                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
                             destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                             if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                             {
@@ -205,7 +205,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
                             }
 
-                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtItemBrand.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
+                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
                             destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
@@ -251,7 +251,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
-                    var relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtItemBrand.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
+                    var relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
                     var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                     if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                     {
@@ -408,7 +408,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtItemCode.Enabled = false;
                 TxtItemName.Enabled = false;
-                TxtItemBrand.Enabled = false;
                 ComboItemUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;
                 TxtPerUnitValue.Enabled = false;
@@ -433,7 +432,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TxtItemCode.Clear();
             TxtItemName.Clear();
-            TxtItemBrand.Clear();
             ComboItemUnit.Text = string.Empty;
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
@@ -459,7 +457,6 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemCode.Text = item.Code;
                 TxtVolume.Text = pricedItem.Volume.ToString();
                 TxtItemName.Text = item.Name;
-                TxtItemBrand.Text = item.Brand;
                 ComboItemUnit.Text = item.Unit;
                 StockFilter stockFilter = new StockFilter
                 {
@@ -514,7 +511,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var item = _itemService.GetItem(_selectedItemId);
                 TxtItemCode.Text = item.Code;
                 TxtItemName.Text = item.Name;
-                TxtItemBrand.Text = item.Brand;
                 ComboItemUnit.Text = item.Unit;
                 StockFilter stockFilter = new StockFilter
                 {

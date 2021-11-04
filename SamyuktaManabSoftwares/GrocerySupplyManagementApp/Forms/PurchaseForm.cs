@@ -342,27 +342,23 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["Name"].Width = 220;
             DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
 
-            DataGridPurchaseList.Columns["Brand"].HeaderText = "Item Brand";
-            DataGridPurchaseList.Columns["Brand"].Width = 140;
-            DataGridPurchaseList.Columns["Brand"].DisplayIndex = 4;
-
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
             DataGridPurchaseList.Columns["Unit"].Width = 47;
-            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 5;
+            DataGridPurchaseList.Columns["Unit"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
             DataGridPurchaseList.Columns["Quantity"].Width = 55;
-            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 6;
+            DataGridPurchaseList.Columns["Quantity"].DisplayIndex = 5;
             DataGridPurchaseList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Price"].HeaderText = "Price";
             DataGridPurchaseList.Columns["Price"].Width = 67;
-            DataGridPurchaseList.Columns["Price"].DisplayIndex = 7;
+            DataGridPurchaseList.Columns["Price"].DisplayIndex = 6;
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridPurchaseList.Columns["Total"].DisplayIndex = 9;
+            DataGridPurchaseList.Columns["Total"].DisplayIndex = 7;
             DataGridPurchaseList.Columns["Total"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -394,7 +390,6 @@ namespace GrocerySupplyManagementApp.Forms
                     BillNo = RichBillNo.Text.Trim(),
                     Code = RichItemCode.Text.Trim(),
                     Name = RichItemName.Text.Trim(),
-                    Brand = RichItemBrand.Text.Trim(),
                     Unit = RichUnit.Text.Trim(),
                     Quantity = Convert.ToDecimal(RichQuantity.Text.Trim()),
                     Price = Convert.ToDecimal(RichPurchasePrice.Text.Trim()),
@@ -444,7 +439,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 RichItemCode.Enabled = false;
                 RichItemName.Enabled = false;
-                RichItemBrand.Enabled = false;
                 RichUnit.Enabled = false;
                 RichTotalAmount.Enabled = false;
                 RichDiscount.Enabled = false;
@@ -467,7 +461,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             RichItemCode.Clear();
             RichItemName.Clear();
-            RichItemBrand.Clear();
             RichUnit.Clear();
             RichTotalAmount.Clear();
             RichDiscount.Clear();
@@ -484,7 +477,6 @@ namespace GrocerySupplyManagementApp.Forms
                 BillNo = purchasedItem.BillNo,
                 Code = _itemService.GetItem(purchasedItem.ItemId).Code,
                 Name = _itemService.GetItem(purchasedItem.ItemId).Name,
-                Brand = _itemService.GetItem(purchasedItem.ItemId).Brand,
                 Unit = _itemService.GetItem(purchasedItem.ItemId).Unit,
                 Quantity = purchasedItem.Quantity,
                 Price = purchasedItem.Price,
@@ -511,7 +503,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var item = _itemService.GetItem(itemCode);
                 RichItemCode.Text = item.Code;
                 RichItemName.Text = item.Name;
-                RichItemBrand.Text = item.Brand;
                 RichUnit.Text = item.Unit;
             }
             catch (Exception ex)
@@ -560,7 +551,6 @@ namespace GrocerySupplyManagementApp.Forms
             var itemName = RichItemName.Text.Trim();
             var unit = RichUnit.Text.Trim();
             var itemCode = RichItemCode.Text.Trim();
-            var itemBrand = RichItemBrand.Text.Trim();
             var quantity = RichQuantity.Text.Trim();
             var purchasePrice = RichPurchasePrice.Text.Trim();
 
@@ -568,7 +558,6 @@ namespace GrocerySupplyManagementApp.Forms
                 || string.IsNullOrWhiteSpace(itemName)
                 || string.IsNullOrWhiteSpace(unit)
                 || string.IsNullOrWhiteSpace(itemCode)
-                || string.IsNullOrWhiteSpace(itemBrand)
                 || string.IsNullOrWhiteSpace(quantity)
                 || string.IsNullOrWhiteSpace(purchasePrice))
             {
@@ -577,7 +566,6 @@ namespace GrocerySupplyManagementApp.Forms
                     "\n * Item Name " +
                     "\n * Unit " +
                     "\n * Item Code " +
-                    "\n * Item Brand " +
                     "\n * Quantity " +
                     "\n * Purchase Price", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

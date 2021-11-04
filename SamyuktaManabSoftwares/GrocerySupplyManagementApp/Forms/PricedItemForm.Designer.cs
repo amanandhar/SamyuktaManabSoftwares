@@ -31,7 +31,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PricedItemForm));
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,7 +43,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7 = new System.Windows.Forms.Label();
             this.TxtPerUnitValue = new System.Windows.Forms.TextBox();
             this.TxtItemName = new System.Windows.Forms.TextBox();
-            this.TxtItemBrand = new System.Windows.Forms.TextBox();
             this.TxtItemCode = new System.Windows.Forms.TextBox();
             this.TxtItemSubCode = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -88,18 +86,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.Size = new System.Drawing.Size(85, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "Item Code";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(88, 173);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 20);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Item Brand";
             // 
             // label3
             // 
@@ -176,10 +162,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.TxtPerUnitValue);
             this.groupBox2.Controls.Add(this.TxtItemName);
-            this.groupBox2.Controls.Add(this.TxtItemBrand);
             this.groupBox2.Controls.Add(this.TxtItemCode);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label5);
@@ -245,15 +229,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemName.Name = "TxtItemName";
             this.TxtItemName.Size = new System.Drawing.Size(250, 29);
             this.TxtItemName.TabIndex = 3;
-            // 
-            // TxtItemBrand
-            // 
-            this.TxtItemBrand.Enabled = false;
-            this.TxtItemBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemBrand.Location = new System.Drawing.Point(184, 169);
-            this.TxtItemBrand.Name = "TxtItemBrand";
-            this.TxtItemBrand.Size = new System.Drawing.Size(250, 29);
-            this.TxtItemBrand.TabIndex = 4;
             // 
             // TxtItemCode
             // 
@@ -654,7 +629,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -664,7 +638,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtSalesPricePerUnit;
         private System.Windows.Forms.TextBox TxtPerUnitValue;
         private System.Windows.Forms.TextBox TxtItemName;
-        private System.Windows.Forms.TextBox TxtItemBrand;
         private System.Windows.Forms.TextBox TxtItemCode;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.OpenFileDialog OpenItemImageDialog;

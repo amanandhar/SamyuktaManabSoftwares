@@ -24,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var purchasedItemViewList = new List<PurchasedItemListView>();
             string query = @"SELECT " +
                 "DISTINCT " +
-                "i.[Id] AS [ItemId], i.[Code] AS [ItemCode], i.[Name] AS [ItemName], i.[Brand] AS [ItemBrand] " +
+                "i.[Id] AS [ItemId], i.[Code] AS [ItemCode], i.[Name] AS [ItemName] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
@@ -45,8 +45,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Code = reader["ItemCode"].ToString(),
-                                    Name = reader["ItemName"].ToString(),
-                                    Brand = reader["ItemBrand"].ToString()
+                                    Name = reader["ItemName"].ToString()
                                 };
 
                                 purchasedItemViewList.Add(purchasedItemView);

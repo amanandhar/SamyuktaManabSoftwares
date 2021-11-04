@@ -289,7 +289,6 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtBoxItemCode.Text = item.Code;
                 TxtBoxItemName.Text = item.Name;
-                TxtBoxItemBrand.Text = item.Brand;
                 TxtBoxItemUnit.Text = item.Unit;
                 TxtBoxItemPrice.Text = perUnitValue.ToString();
 
@@ -307,7 +306,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TxtBoxItemCode.Clear();
             TxtBoxItemName.Clear();
-            TxtBoxItemBrand.Clear();
             TxtBoxItemUnit.Clear();
             TxtBoxItemPrice.Clear();
             ComboAction.Text = string.Empty;
@@ -356,7 +354,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtBoxItemCode.Enabled = false;
                 TxtBoxItemName.Enabled = false;
-                TxtBoxItemBrand.Enabled = false;
                 TxtBoxItemUnit.Enabled = false;
                 TxtBoxItemPrice.Enabled = false;
                 ComboAction.Enabled = false;
@@ -379,7 +376,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             var itemCode = TxtBoxItemCode.Text.Trim();
             var itemName = TxtBoxItemName.Text.Trim();
-            var itemBrand = TxtBoxItemBrand.Text.Trim();
             var itemPrice = TxtBoxItemPrice.Text.Trim();
             var itemUnit = TxtBoxItemUnit.Text.Trim();
             var stockAction = ComboAction.Text.Trim();
@@ -388,7 +384,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             if (string.IsNullOrWhiteSpace(itemCode)
                 || string.IsNullOrWhiteSpace(itemName)
-                || string.IsNullOrWhiteSpace(itemBrand)
                 || string.IsNullOrWhiteSpace(itemPrice)
                 || string.IsNullOrWhiteSpace(itemUnit)
                 || string.IsNullOrWhiteSpace(stockAction)
@@ -398,7 +393,6 @@ namespace GrocerySupplyManagementApp.Forms
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Item Code " +
                     "\n * Item Name " +
-                    "\n * Item Brand " +
                     "\n * Item Price " +
                     "\n * Item Unit " +
                     "\n * Stock Action " +

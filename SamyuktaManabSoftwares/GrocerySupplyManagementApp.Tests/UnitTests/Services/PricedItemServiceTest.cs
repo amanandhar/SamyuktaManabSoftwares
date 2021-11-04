@@ -59,8 +59,8 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
             _pricedItemRepository.Setup(repo => repo.GetPricedItemViewList())
                 .Returns( new List<PricedItemView>()
                 {
-                    new PricedItemView() { Id = 1, Code = "Code1", SubCode = "SubCode1", Name = "Name1", Brand = "Brand1" },
-                    new PricedItemView() { Id = 2, Code = "Code2", SubCode = "SubCode2", Name = "Name2", Brand = "Brand2" }
+                    new PricedItemView() { Id = 1, Code = "Code1", SubCode = "SubCode1", Name = "Name1" },
+                    new PricedItemView() { Id = 2, Code = "Code2", SubCode = "SubCode2", Name = "Name2" }
                 }
             );
 
@@ -76,8 +76,8 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
             _pricedItemRepository.Setup(repo => repo.GetUnpricedItemViewList())
                 .Returns(new List<UnpricedItemView>()
                 {
-                    new UnpricedItemView() { Id = 1, Code = "Code1", Name = "Name1", Brand = "Brand1" },
-                    new UnpricedItemView() { Id = 2, Code = "Code2", Name = "Name2", Brand = "Brand2" }
+                    new UnpricedItemView() { Id = 1, Code = "Code1", Name = "Name1" },
+                    new UnpricedItemView() { Id = 2, Code = "Code2", Name = "Name2" }
                 }
             );
 

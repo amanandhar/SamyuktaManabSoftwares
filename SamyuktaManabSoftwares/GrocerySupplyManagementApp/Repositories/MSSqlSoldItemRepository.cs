@@ -74,7 +74,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], b.[Code], b.[Name], b.[Brand], b.[Unit], a.[Volume], a.[Quantity], a.[Price], " +
+                "a.[Id], b.[Code], b.[Name], b.[Unit], a.[Volume], a.[Quantity], a.[Price], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
@@ -102,7 +102,6 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     ItemCode = reader["Code"].ToString(),
                                     ItemName = reader["Name"].ToString(),
-                                    ItemBrand = reader["Brand"].ToString(),
                                     Unit = reader["Unit"].ToString(),
                                     Volume = Convert.ToDecimal(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),

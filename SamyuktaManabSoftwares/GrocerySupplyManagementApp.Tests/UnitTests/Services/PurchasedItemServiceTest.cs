@@ -32,8 +32,8 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         {
             _purchasedItemRepository.Setup(repo => repo.GetPurchasedItemDetails())
                 .Returns(new List<PurchasedItemListView>() {
-                new PurchasedItemListView() { Id = 1, Code = "Code1", Name = "Name1", Brand = "Brand1" },
-                new PurchasedItemListView() { Id = 2, Code = "Code2", Name = "Name2", Brand = "Brand2" }
+                new PurchasedItemListView() { Id = 1, Code = "Code1", Name = "Name1" },
+                new PurchasedItemListView() { Id = 2, Code = "Code2", Name = "Name2" }
             });
 
             var purchasedItemListViews = _sut.GetPurchasedItemDetails();
