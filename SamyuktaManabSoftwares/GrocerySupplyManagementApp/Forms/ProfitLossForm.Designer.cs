@@ -132,7 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
             // MaskDtEOD
             // 
             this.MaskDtEOD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaskDtEOD.Location = new System.Drawing.Point(111, 16);
+            this.MaskDtEOD.Location = new System.Drawing.Point(208, 16);
             this.MaskDtEOD.Mask = "   0000-00-00";
             this.MaskDtEOD.Name = "MaskDtEOD";
             this.MaskDtEOD.Size = new System.Drawing.Size(116, 26);
@@ -143,7 +143,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label5.Location = new System.Drawing.Point(28, 19);
+            this.label5.Location = new System.Drawing.Point(164, 20);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 18);
             this.label5.TabIndex = 101;
@@ -217,7 +217,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridExpenseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridExpenseList.Location = new System.Drawing.Point(5, 25);
             this.DataGridExpenseList.Name = "DataGridExpenseList";
-            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 395);
+            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 400);
             this.DataGridExpenseList.TabIndex = 1;
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
             // 
@@ -255,7 +255,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridIncomeList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 395);
+            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 400);
             this.DataGridIncomeList.TabIndex = 0;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeList_DataBindingComplete);
             // 

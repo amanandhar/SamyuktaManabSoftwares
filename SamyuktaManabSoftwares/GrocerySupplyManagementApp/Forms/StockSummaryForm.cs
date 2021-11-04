@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridStockList.Columns["Description"].HeaderText = "Description";
-            DataGridStockList.Columns["Description"].Width = 90;
+            DataGridStockList.Columns["Description"].Width = 85;
             DataGridStockList.Columns["Description"].DisplayIndex = 1;
 
             DataGridStockList.Columns["Type"].HeaderText = "Type";
@@ -118,7 +118,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["PurchaseQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridStockList.Columns["SalesQuantity"].HeaderText = "Sales";
-            DataGridStockList.Columns["SalesQuantity"].Width = 60;
+            DataGridStockList.Columns["SalesQuantity"].Width = 65;
             DataGridStockList.Columns["SalesQuantity"].DisplayIndex = 6;
             DataGridStockList.Columns["SalesQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 

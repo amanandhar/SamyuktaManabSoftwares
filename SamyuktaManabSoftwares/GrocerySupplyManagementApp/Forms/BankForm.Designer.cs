@@ -148,7 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtBalance.BackColor = System.Drawing.Color.White;
             this.TxtBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBalance.Location = new System.Drawing.Point(874, 49);
+            this.TxtBalance.Location = new System.Drawing.Point(864, 49);
             this.TxtBalance.Name = "TxtBalance";
             this.TxtBalance.ReadOnly = true;
             this.TxtBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -159,7 +159,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ComboType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboType.FormattingEnabled = true;
-            this.ComboType.Location = new System.Drawing.Point(874, 16);
+            this.ComboType.Location = new System.Drawing.Point(864, 16);
             this.ComboType.Name = "ComboType";
             this.ComboType.Size = new System.Drawing.Size(188, 26);
             this.ComboType.TabIndex = 30;
@@ -171,7 +171,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(442, 22);
+            this.label11.Location = new System.Drawing.Point(442, 20);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(133, 18);
             this.label11.TabIndex = 23;
@@ -275,8 +275,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnEditBank);
             this.groupBox2.Controls.Add(this.BtnSaveBank);
             this.groupBox2.Controls.Add(this.BtnAddBank);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
-            this.groupBox2.Location = new System.Drawing.Point(947, 271);
+            this.groupBox2.Location = new System.Drawing.Point(947, 251);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(140, 215);
             this.groupBox2.TabIndex = 2;
@@ -409,8 +410,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox4.Controls.Add(this.BtnRemoveTransaction);
             this.groupBox4.Controls.Add(this.BtnSaveTransaction);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Red;
-            this.groupBox4.Location = new System.Drawing.Point(947, 146);
+            this.groupBox4.Location = new System.Drawing.Point(947, 140);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(140, 105);
             this.groupBox4.TabIndex = 13;
@@ -480,7 +482,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridBankList.Location = new System.Drawing.Point(14, 140);
             this.DataGridBankList.Name = "DataGridBankList";
-            this.DataGridBankList.Size = new System.Drawing.Size(920, 400);
+            this.DataGridBankList.Size = new System.Drawing.Size(920, 405);
             this.DataGridBankList.TabIndex = 0;
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
             // 

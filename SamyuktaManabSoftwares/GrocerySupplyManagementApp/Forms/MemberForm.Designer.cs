@@ -346,7 +346,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
-            this.groupBox1.Location = new System.Drawing.Point(17, 47);
+            this.groupBox1.Location = new System.Drawing.Point(13, 47);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(674, 115);
             this.groupBox1.TabIndex = 22;
@@ -572,7 +572,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridMemberList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridMemberList.Location = new System.Drawing.Point(17, 166);
+            this.DataGridMemberList.Location = new System.Drawing.Point(13, 166);
             this.DataGridMemberList.Name = "DataGridMemberList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -582,7 +582,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridMemberList.Size = new System.Drawing.Size(927, 375);
+            this.DataGridMemberList.Size = new System.Drawing.Size(925, 377);
             this.DataGridMemberList.TabIndex = 32;
             this.DataGridMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberTransactionList_DataBindingComplete);
             // 
@@ -771,7 +771,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.ForeColor = System.Drawing.Color.Red;
-            this.groupBox6.Location = new System.Drawing.Point(698, 47);
+            this.groupBox6.Location = new System.Drawing.Point(691, 47);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(247, 115);
             this.groupBox6.TabIndex = 51;
@@ -784,7 +784,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.BackColor = System.Drawing.Color.DodgerBlue;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Cyan;
-            this.label11.Location = new System.Drawing.Point(389, 4);
+            this.label11.Location = new System.Drawing.Point(410, 4);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(293, 31);
             this.label11.TabIndex = 52;

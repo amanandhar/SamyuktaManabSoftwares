@@ -682,21 +682,21 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 210;
+                DataGridSoldItemList.Columns["ItemName"].Width = 340;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";
-                DataGridSoldItemList.Columns["Volume"].Width = 65;
+                DataGridSoldItemList.Columns["Volume"].Width = 70;
                 DataGridSoldItemList.Columns["Volume"].DisplayIndex = 2;
                 DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
-                DataGridSoldItemList.Columns["Unit"].Width = 47;
+                DataGridSoldItemList.Columns["Unit"].Width = 55;
                 DataGridSoldItemList.Columns["Unit"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
-                DataGridSoldItemList.Columns["Quantity"].Width = 63;
+                DataGridSoldItemList.Columns["Quantity"].Width = 65;
                 DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 4;
                 DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 

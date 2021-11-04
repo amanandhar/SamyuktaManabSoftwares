@@ -331,7 +331,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridPurchaseList.Columns["BillNo"].HeaderText = "Bill No";
-            DataGridPurchaseList.Columns["BillNo"].Width = 80;
+            DataGridPurchaseList.Columns["BillNo"].Width = 90;
             DataGridPurchaseList.Columns["BillNo"].DisplayIndex = 1;
 
             DataGridPurchaseList.Columns["Code"].HeaderText = "Item Code";
@@ -339,11 +339,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["Code"].DisplayIndex = 2;
 
             DataGridPurchaseList.Columns["Name"].HeaderText = "Item Name";
-            DataGridPurchaseList.Columns["Name"].Width = 220;
+            DataGridPurchaseList.Columns["Name"].Width = 290;
             DataGridPurchaseList.Columns["Name"].DisplayIndex = 3;
 
             DataGridPurchaseList.Columns["Unit"].HeaderText = "Unit";
-            DataGridPurchaseList.Columns["Unit"].Width = 47;
+            DataGridPurchaseList.Columns["Unit"].Width = 55;
             DataGridPurchaseList.Columns["Unit"].DisplayIndex = 4;
 
             DataGridPurchaseList.Columns["Quantity"].HeaderText = "Quantity";
@@ -352,7 +352,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPurchaseList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridPurchaseList.Columns["Price"].HeaderText = "Price";
-            DataGridPurchaseList.Columns["Price"].Width = 67;
+            DataGridPurchaseList.Columns["Price"].Width = 90;
             DataGridPurchaseList.Columns["Price"].DisplayIndex = 6;
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Format = "0.00";
             DataGridPurchaseList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;

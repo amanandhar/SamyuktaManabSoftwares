@@ -96,7 +96,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnAddSupplier);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.Red;
-            this.groupBox3.Location = new System.Drawing.Point(944, 358);
+            this.groupBox3.Location = new System.Drawing.Point(944, 341);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(143, 210);
             this.groupBox3.TabIndex = 31;
@@ -399,7 +399,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
             this.groupBox1.Location = new System.Drawing.Point(16, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(778, 120);
+            this.groupBox1.Size = new System.Drawing.Size(778, 115);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Supplier\'sDetails";
@@ -566,7 +566,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridSupplierList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridSupplierList.Location = new System.Drawing.Point(16, 173);
+            this.DataGridSupplierList.Location = new System.Drawing.Point(16, 168);
             this.DataGridSupplierList.Name = "DataGridSupplierList";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -576,7 +576,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridSupplierList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridSupplierList.Size = new System.Drawing.Size(915, 360);
+            this.DataGridSupplierList.Size = new System.Drawing.Size(915, 370);
             this.DataGridSupplierList.TabIndex = 42;
             this.DataGridSupplierList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridSupplierTransaction_DataBindingComplete);
             // 
@@ -607,7 +607,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnShowPurchase);
             this.groupBox2.Controls.Add(this.BtnAddPurchase);
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
-            this.groupBox2.Location = new System.Drawing.Point(944, 176);
+            this.groupBox2.Location = new System.Drawing.Point(944, 165);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(143, 176);
             this.groupBox2.TabIndex = 46;
@@ -740,7 +740,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.ForeColor = System.Drawing.Color.Red;
             this.groupBox4.Location = new System.Drawing.Point(801, 47);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(286, 120);
+            this.groupBox4.Size = new System.Drawing.Size(286, 115);
             this.groupBox4.TabIndex = 51;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Payment";
@@ -770,7 +770,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label5.BackColor = System.Drawing.Color.DodgerBlue;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Cyan;
-            this.label5.Location = new System.Drawing.Point(386, 5);
+            this.label5.Location = new System.Drawing.Point(390, 5);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(296, 31);
             this.label5.TabIndex = 53;
