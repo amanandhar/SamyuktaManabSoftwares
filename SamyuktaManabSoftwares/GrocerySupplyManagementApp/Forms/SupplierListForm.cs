@@ -93,7 +93,7 @@ namespace GrocerySupplyManagementApp.Forms
                 Name = x.Name,
                 Owner = x.Owner,
                 Balance = _capitalService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = x.SupplierId }),
-            }).OrderByDescending(x => x.Id).ToList();
+            }).OrderBy(x => x.SupplierId).ToList();
 
             var bindingList = new BindingList<SupplierView>(supplierViewList.ToList());
             var source = new BindingSource(bindingList, null);

@@ -191,7 +191,18 @@ namespace GrocerySupplyManagementApp.Forms
             LblCompanyShortName.Text = companyInfo.ShortName;
             lblCompanyName.Text = companyInfo.Name;
         }
-        #endregion 
+        #endregion
+
+        #region Form Closing Event
+        private void DashboardForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to exit the application?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+        #endregion
 
         #region Timer
         private void Timer_Tick(object sender, EventArgs e)
@@ -680,6 +691,6 @@ namespace GrocerySupplyManagementApp.Forms
             RichBoxSystemStatus.SelectionAlignment = HorizontalAlignment.Center;
         }
         #endregion
-
+ 
     }
 }

@@ -72,8 +72,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelBody = new System.Windows.Forms.Panel();
             this.PictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.RichBoxSystemStatus = new System.Windows.Forms.RichTextBox();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.PanelLeftSection.SuspendLayout();
             this.PanelMenu.SuspendLayout();
             this.PanelSettingsSubMenu.SuspendLayout();
@@ -878,12 +878,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1102, 28);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
-            // Timer
-            // 
-            this.Timer.Enabled = true;
-            this.Timer.Interval = 1000;
-            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
-            // 
             // RichBoxSystemStatus
             // 
             this.RichBoxSystemStatus.BackColor = System.Drawing.Color.White;
@@ -898,6 +892,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBoxSystemStatus.TabIndex = 6;
             this.RichBoxSystemStatus.Text = "";
             // 
+            // Timer
+            // 
+            this.Timer.Enabled = true;
+            this.Timer.Interval = 1000;
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -910,6 +910,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.Name = "DashboardForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DashboardForm_FormClosing);
             this.Load += new System.EventHandler(this.DashboardForm_Load);
             this.PanelLeftSection.ResumeLayout(false);
             this.PanelMenu.ResumeLayout(false);

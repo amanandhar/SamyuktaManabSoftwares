@@ -366,7 +366,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             dailyTransactionFilter.Username = ComboUsername.Text.Trim();
 
-            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter).ToList();
+            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter)
+                .OrderByDescending(x => x.AddedDate).ToList();
             TxtTotal.Text = dailyTransactions.Sum(x => x.Amount).ToString();
 
             var bindingList = new BindingList<DailyTransactionView>(dailyTransactions);

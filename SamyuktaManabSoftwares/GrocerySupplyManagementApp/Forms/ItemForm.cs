@@ -174,7 +174,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (selectedItemId != 0)
+                if (selectedItemId != 0 && !string.IsNullOrWhiteSpace(RichItemCode.Text.Trim()))
                 {
                     DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmation == DialogResult.Yes)
@@ -300,7 +300,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if (action == Action.Show)
             {
+                BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
             }
             else if (action == Action.Add)
             {
@@ -334,6 +336,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
+                BtnDelete.Enabled = false;
             }
         }
 

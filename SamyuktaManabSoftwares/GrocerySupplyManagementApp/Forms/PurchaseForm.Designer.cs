@@ -29,8 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -43,10 +43,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichDiscount = new System.Windows.Forms.RichTextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.RichTotalAmount = new System.Windows.Forms.RichTextBox();
+            this.RichUnit = new System.Windows.Forms.RichTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.RichQuantity = new System.Windows.Forms.RichTextBox();
             this.BtnSearchItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.RichUnit = new System.Windows.Forms.RichTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.RichItemCode = new System.Windows.Forms.RichTextBox();
@@ -77,9 +77,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label2.Location = new System.Drawing.Point(450, 23);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 18);
+            this.label2.Size = new System.Drawing.Size(52, 18);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Item Name";
+            this.label2.Text = "Name";
             // 
             // label3
             // 
@@ -119,9 +119,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemName.BackColor = System.Drawing.Color.White;
             this.RichItemName.Enabled = false;
             this.RichItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichItemName.Location = new System.Drawing.Point(540, 19);
+            this.RichItemName.Location = new System.Drawing.Point(508, 19);
             this.RichItemName.Name = "RichItemName";
-            this.RichItemName.Size = new System.Drawing.Size(245, 28);
+            this.RichItemName.Size = new System.Drawing.Size(285, 28);
             this.RichItemName.TabIndex = 5;
             this.RichItemName.Text = "";
             // 
@@ -238,6 +238,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichTotalAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichTotalAmount_KeyPress);
             this.RichTotalAmount.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTotalAmount_KeyUp);
             // 
+            // RichUnit
+            // 
+            this.RichUnit.BackColor = System.Drawing.Color.White;
+            this.RichUnit.Enabled = false;
+            this.RichUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichUnit.Location = new System.Drawing.Point(957, 59);
+            this.RichUnit.Name = "RichUnit";
+            this.RichUnit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichUnit.Size = new System.Drawing.Size(90, 28);
+            this.RichUnit.TabIndex = 7;
+            this.RichUnit.Text = "";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -285,18 +297,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchItem.UseVisualStyleBackColor = false;
             this.BtnSearchItem.Click += new System.EventHandler(this.BtnSearchItem_Click);
             // 
-            // RichUnit
-            // 
-            this.RichUnit.BackColor = System.Drawing.Color.White;
-            this.RichUnit.Enabled = false;
-            this.RichUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichUnit.Location = new System.Drawing.Point(957, 59);
-            this.RichUnit.Name = "RichUnit";
-            this.RichUnit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichUnit.Size = new System.Drawing.Size(90, 28);
-            this.RichUnit.TabIndex = 7;
-            this.RichUnit.Text = "";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -323,9 +323,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.RichItemCode.Enabled = false;
             this.RichItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichItemCode.Location = new System.Drawing.Point(877, 20);
+            this.RichItemCode.Location = new System.Drawing.Point(893, 20);
             this.RichItemCode.Name = "RichItemCode";
-            this.RichItemCode.Size = new System.Drawing.Size(100, 28);
+            this.RichItemCode.Size = new System.Drawing.Size(84, 28);
             this.RichItemCode.TabIndex = 3;
             this.RichItemCode.Text = "";
             // 
@@ -356,7 +356,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(784, 24);
+            this.label8.Location = new System.Drawing.Point(799, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 18);
             this.label8.TabIndex = 24;
@@ -473,23 +473,23 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridPurchaseList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridPurchaseList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridPurchaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridPurchaseList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridPurchaseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridPurchaseList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridPurchaseList.DefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridPurchaseList.Location = new System.Drawing.Point(10, 151);
             this.DataGridPurchaseList.Name = "DataGridPurchaseList";
             this.DataGridPurchaseList.Size = new System.Drawing.Size(912, 439);

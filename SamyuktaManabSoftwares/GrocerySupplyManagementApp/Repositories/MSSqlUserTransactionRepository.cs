@@ -344,6 +344,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter)
         {
+            var includeBankTransaction = false;
             var transactionViewList = new List<DailyTransactionView>();
             var query = @"SELECT " +
                 "ut.[Id], ut.[EndOfDay], " +
@@ -392,13 +393,33 @@ namespace GrocerySupplyManagementApp.Repositories
             else if (dailyTransactionFilter.Username != null)
             {
                 query += " AND ut.[AddedBy] = '" + dailyTransactionFilter.Username + "' ";
+                includeBankTransaction = true;
             }
             else
             {
                 query += " ";
             }
 
-            query += "ORDER BY ut.[AddedDate] DESC ";
+            if (includeBankTransaction
+                || dailyTransactionFilter.Payment == Constants.CASH
+                || dailyTransactionFilter.IsAll)
+            {
+                query += "UNION " +
+                "SELECT bt.[Id], bt.[EndOfDay], bt.[Action], " +
+                "bt.[Narration] AS [ActionType], " +
+                "'' AS [PartyId], '' AS [PartyNumber], " +
+                "b.[Name] AS [BankName], bt.[Debit] AS [Amount], bt.[AddedDate] " +
+                "FROM " + Constants.TABLE_BANK_TRANSACTION + " bt " +
+                "INNER JOIN " + Constants.TABLE_BANK + " b " +
+                "ON bt.[BankId] = b.[Id] " +
+                "WHERE 1 = 1 " +
+                "AND ISNULL(bt.[Action], '') = '" + Constants.BANK_TRANSFER + "' ";
+
+                if (dailyTransactionFilter.Date != null)
+                {
+                    query += "AND bt.[EndOfDay] = '" + dailyTransactionFilter.Date + "' ";
+                }
+            }
 
             try
             {
