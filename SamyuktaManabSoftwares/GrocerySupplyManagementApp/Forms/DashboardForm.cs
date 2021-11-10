@@ -472,35 +472,42 @@ namespace GrocerySupplyManagementApp.Forms
 
             try
             {
-                DialogResult result = MessageBox.Show("Would you like to update EOD?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                if(activeForm != null)
                 {
-                    var currentEOD = _endOfDayService.GetEndOfDay(_setting.StartingDate);
-                    var nextEOD = _endOfDayService.GetNextEndOfDay(currentEOD.Id);
-
-                    var setting = new Setting
-                    {
-                        Id = _setting.Id,
-                        StartingInvoiceNo = _setting.StartingInvoiceNo,
-                        StartingBillNo = _setting.StartingBillNo,
-                        StartingDate = nextEOD.DateInBs,
-                        FiscalYear = _setting.FiscalYear,
-                        Discount = _setting.Discount,
-                        Vat = _setting.Vat,
-                        DeliveryCharge = _setting.DeliveryCharge,
-                        UpdatedBy = _username,
-                        UpdatedDate = DateTime.Now
-                    };
-
-                    if (_settingService.UpdateSetting(setting.Id, setting).Id == setting.Id)
-                    {
-                        LoadFiscalYear();
-                        Application.Exit();
-                    }
+                    MessageBox.Show("Please close the active form first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    return;
+                    DialogResult result = MessageBox.Show("Would you like to update EOD?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        var currentEOD = _endOfDayService.GetEndOfDay(_setting.StartingDate);
+                        var nextEOD = _endOfDayService.GetNextEndOfDay(currentEOD.Id);
+
+                        var setting = new Setting
+                        {
+                            Id = _setting.Id,
+                            StartingInvoiceNo = _setting.StartingInvoiceNo,
+                            StartingBillNo = _setting.StartingBillNo,
+                            StartingDate = nextEOD.DateInBs,
+                            FiscalYear = _setting.FiscalYear,
+                            Discount = _setting.Discount,
+                            Vat = _setting.Vat,
+                            DeliveryCharge = _setting.DeliveryCharge,
+                            UpdatedBy = _username,
+                            UpdatedDate = DateTime.Now
+                        };
+
+                        if (_settingService.UpdateSetting(setting.Id, setting).Id == setting.Id)
+                        {
+                            LoadFiscalYear();
+                            Application.Exit();
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
             catch (Exception ex)

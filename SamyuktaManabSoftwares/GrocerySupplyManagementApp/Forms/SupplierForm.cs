@@ -99,7 +99,7 @@ namespace GrocerySupplyManagementApp.Forms
             PurchaseForm purchaseForm = new PurchaseForm(_username,
                 _settingService, _itemService,
                 _purchasedItemService, _userTransactionService, this);
-            purchaseForm.Show();
+            purchaseForm.ShowDialog();
         }
 
         private void BtnShowPurchase_Click(object sender, EventArgs e)

@@ -43,7 +43,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemCode = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnUpdate = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -183,7 +182,6 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.BtnDelete);
             this.groupBox2.Controls.Add(this.BtnUpdate);
             this.groupBox2.Controls.Add(this.BtnEdit);
             this.groupBox2.Controls.Add(this.BtnSave);
@@ -191,29 +189,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnSearch);
             this.groupBox2.Location = new System.Drawing.Point(937, 49);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(150, 257);
+            this.groupBox2.Size = new System.Drawing.Size(150, 216);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            // 
-            // BtnDelete
-            // 
-            this.BtnDelete.BackColor = System.Drawing.Color.Red;
-            this.BtnDelete.BackgroundColor = System.Drawing.Color.Red;
-            this.BtnDelete.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnDelete.BorderRadius = 35;
-            this.BtnDelete.BorderSize = 0;
-            this.BtnDelete.FlatAppearance.BorderSize = 0;
-            this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(12, 204);
-            this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(120, 35);
-            this.BtnDelete.TabIndex = 12;
-            this.BtnDelete.Text = "Delete";
-            this.BtnDelete.TextColor = System.Drawing.Color.White;
-            this.BtnDelete.UseVisualStyleBackColor = false;
-            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // BtnUpdate
             // 
@@ -407,7 +385,6 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnSave;
         private CustomControls.Button.CustomButton BtnEdit;
         private CustomControls.Button.CustomButton BtnUpdate;
-        private CustomControls.Button.CustomButton BtnDelete;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label6;
     }

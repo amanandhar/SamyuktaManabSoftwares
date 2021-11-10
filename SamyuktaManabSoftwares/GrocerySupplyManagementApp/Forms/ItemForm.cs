@@ -302,7 +302,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
-                BtnDelete.Enabled = true;
             }
             else if (action == Action.Add)
             {
@@ -336,7 +335,6 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
-                BtnDelete.Enabled = false;
             }
         }
 
