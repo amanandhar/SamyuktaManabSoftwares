@@ -648,6 +648,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSalesReturn.Text = "Sales Return";
             this.BtnSalesReturn.TextColor = System.Drawing.Color.White;
             this.BtnSalesReturn.UseVisualStyleBackColor = false;
+            this.BtnSalesReturn.Click += new System.EventHandler(this.BtnSalesReturn_Click);
             // 
             // BtnAddSale
             // 

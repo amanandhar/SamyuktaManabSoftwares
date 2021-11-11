@@ -126,7 +126,7 @@ namespace GrocerySupplyManagementApp.Forms
                         _userTransactionService, _soldItemService,
                         _employeeService, _reportService,
                         _posDetailService, _capitalService);
-                    posForm.Show();
+                    posForm.ShowDialog();
                 }
             }
         }

@@ -59,6 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
             LoadToPrintInvoice,
             None,
             RemoveItem,
+            SalesReturn,
             SaveAndPrint,
             SaveReceipt,
             SearchMember,
@@ -168,6 +169,11 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemCode.Focus();
         }
 
+        private void BtnSalesReturn_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void BtnSaveReceipt_Click(object sender, EventArgs e)
         {
             try
@@ -234,9 +240,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _purchasedItemService, 
                 _soldItemService,_userTransactionService, 
                 _userService);
-            transactionForm.Show();
-            EnableFields();
-            EnableFields(Action.Transaction);
+            transactionForm.ShowDialog();
         }
 
         private void BtnAddReceipt_Click(object sender, EventArgs e)
@@ -253,9 +257,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _bankService,
                 _bankTransactionService, _incomeExpenseService,
                 _capitalService);
-            expenseForm.Show();
-            EnableFields();
-            EnableFields(Action.AddExpense);
+            expenseForm.ShowDialog();
         }
 
         private void BtnBankTransfer_Click(object sender, EventArgs e)
@@ -263,9 +265,7 @@ namespace GrocerySupplyManagementApp.Forms
             BankTransferForm bankTransferForm = new BankTransferForm(_username,
                 _settingService, _bankService,
                 _bankTransactionService, _capitalService);
-            bankTransferForm.Show();
-            EnableFields();
-            EnableFields(Action.BankTransfer);
+            bankTransferForm.ShowDialog();
         }
 
         private void BtnRemoveItem_Click(object sender, EventArgs e)
@@ -827,25 +827,22 @@ namespace GrocerySupplyManagementApp.Forms
             TxtDeliveryChargeTotal.Clear();
             TxtTotal.Clear();
             RichReceivedAmount.Clear();
-
             RichBalanceAmount.Clear();
         }
 
         private void EnableFields(Action action = Action.None)
         {
-            if (action == Action.AddExpense)
+            if (action == Action.SalesReturn 
+                || action == Action.Transaction
+                || action == Action.AddExpense
+                || action == Action.BankTransfer
+                )
             {
-                BtnSearchMember.Enabled = true;
-                BtnSearchItem.Enabled = true;
-                BtnTransaction.Enabled = true;
-                BtnAddExpense.Enabled = true;
-                BtnBankTransfer.Enabled = true;
-                BtnAddSale.Enabled = true;
+                return;
             }
             else if (action == Action.AddReceipt)
             {
                 BtnSearchMember.Enabled = true;
-                BtnSearchItem.Enabled = true;
                 BtnSaveReceipt.Enabled = true;
                 BtnTransaction.Enabled = true;
                 BtnAddExpense.Enabled = true;
@@ -854,26 +851,14 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.AddSale)
             {
+                BtnSearchMember.Enabled = true;
+                BtnSearchItem.Enabled = true;
                 BtnTransaction.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
-                BtnSearchMember.Enabled = true;
-                BtnSearchItem.Enabled = true;
             }
             else if (action == Action.AddToCart)
-            {
-                BtnSearchMember.Enabled = true;
-                BtnSearchItem.Enabled = true;
-                BtnTransaction.Enabled = true;
-                BtnAddExpense.Enabled = true;
-                BtnBankTransfer.Enabled = true;
-                BtnRemoveItem.Enabled = true;
-                BtnAddToCart.Enabled = true;
-                BtnSaveInvoice.Enabled = true;
-                BtnAddSale.Enabled = true;
-            }
-            else if (action == Action.BankTransfer)
             {
                 BtnSearchMember.Enabled = true;
                 BtnSearchItem.Enabled = true;
@@ -941,18 +926,6 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnBankTransfer.Enabled = true;
                 BtnRemoveItem.Enabled = true;
                 BtnAddToCart.Enabled = true;
-                BtnAddSale.Enabled = true;
-            }
-            else if (action == Action.Transaction)
-            {
-                BtnSearchMember.Enabled = true;
-                BtnSearchItem.Enabled = true;
-                BtnTransaction.Enabled = true;
-                BtnAddExpense.Enabled = true;
-                BtnBankTransfer.Enabled = true;
-                BtnRemoveItem.Enabled = true;
-                BtnAddToCart.Enabled = true;
-                BtnSaveInvoice.Enabled = true;
                 BtnAddSale.Enabled = true;
             }
             else
@@ -1233,13 +1206,16 @@ namespace GrocerySupplyManagementApp.Forms
             var isValidated = false;
 
             var memberId = RichMemberId.Text.Trim();
+            var invoiceNo = TxtInvoiceNo.Text.Trim();
             var totalAmount = TxtTotal.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(memberId)
+                || string.IsNullOrWhiteSpace(invoiceNo)
                 || string.IsNullOrWhiteSpace(totalAmount))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Member Id " +
+                    "\n * Invoice Number " +
                     "\n * Total Amount ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else

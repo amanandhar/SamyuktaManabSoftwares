@@ -76,7 +76,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if (activeForm != null)
             {
-                activeForm.Close(); ;
+                activeForm.Close();
             }
 
             if (childForm != null)
@@ -523,6 +523,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void LblCompanyShortName_Click(object sender, EventArgs e)
         {
             OpenChildForm(null);
+            activeForm = null;
         }
         #endregion
 
