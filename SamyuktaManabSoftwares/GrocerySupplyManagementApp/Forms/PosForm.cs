@@ -44,6 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
         private const char separator = '.';
         private readonly bool _isPrintOnly = false;
+        private bool _isAddReceipt = false;
         private string _baseImageFolder;
         private string _itemImageFolder;
 
@@ -166,7 +167,14 @@ namespace GrocerySupplyManagementApp.Forms
             memberListForm.ShowDialog();
             EnableFields();
             EnableFields(Action.SearchMember);
-            RichItemCode.Focus();
+            if (_isAddReceipt)
+            {
+                RichPayment.Focus();
+            }
+            else
+            {
+                RichItemCode.Focus();
+            }
         }
 
         private void BtnSalesReturn_Click(object sender, EventArgs e)
@@ -245,10 +253,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnAddReceipt_Click(object sender, EventArgs e)
         {
-            RichPayment.Enabled = true;
             EnableFields();
             EnableFields(Action.AddReceipt);
-            RichPayment.Focus();
+            _isAddReceipt = true;
+            RichMemberId.Focus();
         }
 
         private void BtnAddExpense_Click(object sender, EventArgs e)
@@ -428,6 +436,8 @@ namespace GrocerySupplyManagementApp.Forms
             TxtInvoiceDate.Text = _endOfDay;
             RichMemberId.Enabled = true;
             RichItemCode.Enabled = true;
+
+            _isAddReceipt = false;
 
             EnableFields();
             EnableFields(Action.AddSale);
@@ -842,18 +852,26 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.AddReceipt)
             {
+                RichMemberId.Enabled = true;
+                RichPayment.Enabled = true;
+
                 BtnSearchMember.Enabled = true;
                 BtnSaveReceipt.Enabled = true;
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
             }
             else if (action == Action.AddSale)
             {
+                RichMemberId.Enabled = true;
+                RichItemCode.Enabled = true;
+
                 BtnSearchMember.Enabled = true;
                 BtnSearchItem.Enabled = true;
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
@@ -863,6 +881,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnSearchMember.Enabled = true;
                 BtnSearchItem.Enabled = true;
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnRemoveItem.Enabled = true;
@@ -873,6 +892,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Load)
             {
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
@@ -886,6 +906,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnSearchMember.Enabled = true;
                 BtnSearchItem.Enabled = true;
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnRemoveItem.Enabled = true;
@@ -896,6 +917,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.SaveAndPrint)
             {
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
@@ -903,14 +925,26 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.SaveReceipt)
             {
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnAddSale.Enabled = true;
             }
             else if (action == Action.SearchMember)
             {
+                RichMemberId.Enabled = true;
+
+                if (_isAddReceipt)
+                {
+                    RichPayment.Enabled = true;
+                }
+                else
+                {
+                    BtnSearchItem.Enabled = true;
+                }
+
                 BtnSearchMember.Enabled = true;
-                BtnSearchItem.Enabled = true;
+                BtnSaveReceipt.Enabled = true;
                 BtnTransaction.Enabled = true;
                 BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
@@ -919,9 +953,13 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.SearchPricedItem)
             {
+                RichMemberId.Enabled = true;
+                RichItemCode.Enabled = true;
+
                 BtnSearchMember.Enabled = true;
                 BtnSearchItem.Enabled = true;
                 BtnTransaction.Enabled = true;
+                BtnAddReceipt.Enabled = true;
                 BtnAddExpense.Enabled = true;
                 BtnBankTransfer.Enabled = true;
                 BtnRemoveItem.Enabled = true;
@@ -930,6 +968,10 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
+                RichMemberId.Enabled = false;
+                RichItemCode.Enabled = false;
+                RichPayment.Enabled = false;
+
                 BtnSearchMember.Enabled = false;
                 BtnSearchItem.Enabled = false;
                 BtnSaveReceipt.Enabled = false;
@@ -967,9 +1009,6 @@ namespace GrocerySupplyManagementApp.Forms
 
                 List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(new UserTransactionFilter() { MemberId = memberId }).ToList();
                 TxtBalance.Text = _capitalService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = memberId }).ToString();
-
-                BtnAddReceipt.Enabled = true;
-                RichItemCode.Focus();
             }
             catch (Exception ex)
             {
