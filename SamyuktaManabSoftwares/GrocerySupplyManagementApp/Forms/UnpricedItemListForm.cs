@@ -1,8 +1,8 @@
 ﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
-using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,6 +13,7 @@ namespace GrocerySupplyManagementApp.Forms
     {
         private readonly IPricedItemService _pricedItemService;
         public IUnpricedItemListForm _unpricedItemListForm;
+        private List<UnpricedItemView> _unpricedItemViewList = new List<UnpricedItemView>();
 
         #region Constructor
         public UnpricedItemListForm(IPricedItemService pricedItemService, IUnpricedItemListForm unpricedItemListForm)
@@ -27,7 +28,21 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void UnpricedItemListForm_Load(object sender, EventArgs e)
         {
-            LoadUnpricedItems();
+            _unpricedItemViewList = GetUnpricedItems();
+            LoadUnpricedItems(_unpricedItemViewList);
+            RichSearchItemName.Focus();
+        }
+        #endregion
+
+        #region Rich Textbox Event
+        private void RichSearchItemName_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchUnpricedItems();
+        }
+
+        private void RichSearchItemCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchUnpricedItems();
         }
         #endregion
 
@@ -84,13 +99,26 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private void LoadUnpricedItems()
+        private List<UnpricedItemView> GetUnpricedItems()
         {
-            var unpricedItemViewList = _pricedItemService.GetUnpricedItemViewList();
+            var unpricedItemViewList = _pricedItemService.GetUnpricedItemViewList().ToList();
+            return unpricedItemViewList;
+        }
 
-            var bindingList = new BindingList<UnpricedItemView>(unpricedItemViewList.ToList());
+        private void LoadUnpricedItems(List<UnpricedItemView> unpricedItemViewList)
+        {
+            var bindingList = new BindingList<UnpricedItemView>(unpricedItemViewList);
             var source = new BindingSource(bindingList, null);
             DataGridUnpricedItemList.DataSource = source;
+        }
+
+        private void SearchUnpricedItems()
+        {
+            var itemName = RichSearchItemName.Text.Trim();
+            var itemCode = RichSearchItemCode.Text.Trim();
+
+            var unpricedItemViewList = _unpricedItemViewList.Where(x => x.Name.ToLower().StartsWith(itemName.ToLower()) && x.Code.ToLower().StartsWith(itemCode.ToLower())).ToList();
+            LoadUnpricedItems(unpricedItemViewList);
         }
         #endregion
     }

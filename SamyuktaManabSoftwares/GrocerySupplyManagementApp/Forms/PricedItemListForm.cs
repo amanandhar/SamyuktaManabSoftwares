@@ -37,6 +37,18 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Rich Textbox Event
+        private void RichSearchItemName_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchPricedItems();
+        }
+
+        private void RichSearchItemCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchPricedItems();
+        }
+        #endregion
+
         #region Data Grid Event
         private void DataGridPricedItemList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -90,18 +102,6 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridPricedItemList.RowHeadersWidth = 50;
                 DataGridPricedItemList.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
-        }
-        #endregion
-
-        #region Rich Textbox Event
-        private void RichSearchItemName_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchPricedItems();
-        }
-
-        private void RichSearchItemCode_KeyUp(object sender, KeyEventArgs e)
-        {
-            SearchPricedItems();
         }
         #endregion
 
