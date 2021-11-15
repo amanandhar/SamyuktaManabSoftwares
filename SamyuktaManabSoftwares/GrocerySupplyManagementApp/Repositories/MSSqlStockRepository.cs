@@ -87,7 +87,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "ut.[ActionType] AS [Type], " +
                 "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
                 "si.[Unit] AS [Unit], " +
-                "0 AS [PurchaseQuantity], (si.[Volume] * si.[Quantity]) AS [SalesQuantity], " +
+                "0 AS [PurchaseQuantity], CAST((si.[Volume] * si.[Quantity]) AS DECIMAL(18,3)) AS [SalesQuantity], " +
                 "0.00 AS [PurchasePrice], si.[Price] AS [SalesPrice], " +
                 "si.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
