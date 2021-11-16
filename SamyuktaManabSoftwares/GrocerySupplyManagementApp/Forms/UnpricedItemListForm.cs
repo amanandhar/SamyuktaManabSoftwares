@@ -30,7 +30,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             _unpricedItemViewList = GetUnpricedItems();
             LoadUnpricedItems(_unpricedItemViewList);
-            RichSearchItemName.Focus();
+            RichSearchItemName.Select();
         }
         #endregion
 

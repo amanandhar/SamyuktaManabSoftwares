@@ -1,7 +1,6 @@
 ﻿using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
-using GrocerySupplyManagementApp.Shared;
 using System;
 using System.ComponentModel;
 using System.Linq;

@@ -31,6 +31,11 @@ namespace GrocerySupplyManagementApp.Services
             return _shareMemberRepository.GetShareMemberTransactions(shareMemberTransactionFilter);
         }
 
+        public bool IsShareMemberExist(string shareMemberId)
+        {
+            return _shareMemberRepository.IsShareMemberExist(shareMemberId);
+        }
+
         public ShareMember AddShareMember(ShareMember shareMember)
         {
             return _shareMemberRepository.AddShareMember(shareMember);

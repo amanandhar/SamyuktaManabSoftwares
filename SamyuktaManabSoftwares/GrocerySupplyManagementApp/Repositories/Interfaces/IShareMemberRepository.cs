@@ -10,6 +10,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<ShareMemberView> GetShareMembers();
         ShareMember GetShareMember(long id);
         IEnumerable<ShareMemberTransactionView> GetShareMemberTransactions(ShareMemberTransactionFilter shareMemberTransactionFilter);
+        bool IsShareMemberExist(string shareMemberId);
 
         ShareMember AddShareMember(ShareMember shareMember);
 

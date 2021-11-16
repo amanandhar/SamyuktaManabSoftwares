@@ -84,6 +84,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridDeliveryPersonList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(6, 10);
             this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
+            this.DataGridDeliveryPersonList.ReadOnly = true;
             this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(1065, 442);
             this.DataGridDeliveryPersonList.TabIndex = 0;
             this.DataGridDeliveryPersonList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridDeliveryPersonList_DataBindingComplete);

@@ -538,7 +538,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
-        
     }
 }

@@ -49,6 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSupplierList.DefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridSupplierList.Location = new System.Drawing.Point(12, 12);
             this.DataGridSupplierList.Name = "DataGridSupplierList";
+            this.DataGridSupplierList.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

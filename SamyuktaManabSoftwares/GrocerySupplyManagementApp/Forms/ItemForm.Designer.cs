@@ -317,6 +317,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridItemList.GridColor = System.Drawing.Color.DarkGray;
             this.DataGridItemList.Location = new System.Drawing.Point(16, 150);
             this.DataGridItemList.Name = "DataGridItemList";
+            this.DataGridItemList.ReadOnly = true;
             this.DataGridItemList.Size = new System.Drawing.Size(910, 445);
             this.DataGridItemList.TabIndex = 3;
             this.DataGridItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridItemList_DataBindingComplete);

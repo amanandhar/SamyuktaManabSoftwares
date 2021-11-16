@@ -35,9 +35,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridDeliveryPersonList
             // 
+            this.DataGridDeliveryPersonList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridDeliveryPersonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(12, 11);
             this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
+            this.DataGridDeliveryPersonList.ReadOnly = true;
             this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(510, 340);
             this.DataGridDeliveryPersonList.TabIndex = 0;
             this.DataGridDeliveryPersonList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridDeliveryPersonList_CellDoubleClick);

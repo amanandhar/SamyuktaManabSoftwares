@@ -73,7 +73,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridShareMemberList
             // 
-            this.DataGridShareMemberList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridShareMemberList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridShareMemberList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -94,6 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridShareMemberList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridShareMemberList.Location = new System.Drawing.Point(12, 55);
             this.DataGridShareMemberList.Name = "DataGridShareMemberList";
+            this.DataGridShareMemberList.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

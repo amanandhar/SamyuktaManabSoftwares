@@ -45,6 +45,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridUnpricedItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridUnpricedItemList.Location = new System.Drawing.Point(12, 49);
             this.DataGridUnpricedItemList.Name = "DataGridUnpricedItemList";
+            this.DataGridUnpricedItemList.ReadOnly = true;
             this.DataGridUnpricedItemList.Size = new System.Drawing.Size(510, 250);
             this.DataGridUnpricedItemList.TabIndex = 0;
             this.DataGridUnpricedItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridUnpricedItemList_CellDoubleClick);

@@ -482,6 +482,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridBankList.Location = new System.Drawing.Point(14, 140);
             this.DataGridBankList.Name = "DataGridBankList";
+            this.DataGridBankList.ReadOnly = true;
             this.DataGridBankList.Size = new System.Drawing.Size(920, 405);
             this.DataGridBankList.TabIndex = 0;
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);

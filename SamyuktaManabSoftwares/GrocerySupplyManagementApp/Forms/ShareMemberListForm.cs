@@ -1,5 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
 using System;
@@ -30,7 +29,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var shareMemberViewList = GetShareMembers();
             LoadShareViewList(shareMemberViewList);
-            RichSearchMemberName.Focus();
+            RichSearchMemberName.Select();
         }
         #endregion
 

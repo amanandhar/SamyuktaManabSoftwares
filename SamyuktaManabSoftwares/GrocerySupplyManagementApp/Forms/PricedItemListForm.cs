@@ -33,7 +33,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             _pricedItemViewList = GetPricedItems();
             LoadPricedItems(_pricedItemViewList);
-            RichSearchItemName.Focus();
+            RichSearchItemName.Select();
         }
         #endregion
 

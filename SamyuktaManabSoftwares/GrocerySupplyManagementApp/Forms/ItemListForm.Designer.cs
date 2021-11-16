@@ -54,6 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridItemList.Location = new System.Drawing.Point(12, 57);
             this.DataGridItemList.Name = "DataGridItemList";
+            this.DataGridItemList.ReadOnly = true;
             this.DataGridItemList.Size = new System.Drawing.Size(510, 242);
             this.DataGridItemList.TabIndex = 0;
             this.DataGridItemList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridItemList_CellDoubleClick);

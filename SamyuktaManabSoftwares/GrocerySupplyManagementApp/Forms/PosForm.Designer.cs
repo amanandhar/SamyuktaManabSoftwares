@@ -35,7 +35,6 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.RichItemQuantity = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.BtnSearchItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtPricedUnit = new System.Windows.Forms.TextBox();
             this.TxtVolume = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -73,15 +72,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.BtnSalesReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddSale = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSaveInvoice = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddToCart = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnRemoveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnBankTransfer = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddExpense = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.RichPayment = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.TxtInvoiceDate = new System.Windows.Forms.TextBox();
@@ -93,8 +83,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioBtnCredit = new System.Windows.Forms.RadioButton();
             this.RadioBtnCash = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtnSaveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSearchMember = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtContactNo = new System.Windows.Forms.TextBox();
             this.TxtAddress = new System.Windows.Forms.TextBox();
             this.TxtName = new System.Windows.Forms.TextBox();
@@ -111,6 +99,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSoldItemList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.BtnSalesReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddSale = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSaveInvoice = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddToCart = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnRemoveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnBankTransfer = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddExpense = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSearchItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSaveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSearchMember = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -165,27 +165,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabIndex = 22;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Item Details";
-            // 
-            // BtnSearchItem
-            // 
-            this.BtnSearchItem.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchItem.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnSearchItem.BorderRadius = 10;
-            this.BtnSearchItem.BorderSize = 0;
-            this.BtnSearchItem.Enabled = false;
-            this.BtnSearchItem.FlatAppearance.BorderSize = 0;
-            this.BtnSearchItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSearchItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearchItem.ForeColor = System.Drawing.Color.White;
-            this.BtnSearchItem.Location = new System.Drawing.Point(321, 22);
-            this.BtnSearchItem.Name = "BtnSearchItem";
-            this.BtnSearchItem.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearchItem.TabIndex = 60;
-            this.BtnSearchItem.Text = "Search";
-            this.BtnSearchItem.TextColor = System.Drawing.Color.White;
-            this.BtnSearchItem.UseVisualStyleBackColor = false;
-            this.BtnSearchItem.Click += new System.EventHandler(this.BtnSearchItem_Click);
             // 
             // TxtPricedUnit
             // 
@@ -629,6 +608,362 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox7.TabIndex = 26;
             this.groupBox7.TabStop = false;
             // 
+            // RichPayment
+            // 
+            this.RichPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.RichPayment.Enabled = false;
+            this.RichPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichPayment.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.RichPayment.Location = new System.Drawing.Point(212, 139);
+            this.RichPayment.Name = "RichPayment";
+            this.RichPayment.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RichPayment.Size = new System.Drawing.Size(107, 28);
+            this.RichPayment.TabIndex = 23;
+            this.RichPayment.Text = "";
+            this.RichPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichPayment_KeyPress);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox2.Controls.Add(this.TxtInvoiceDate);
+            this.groupBox2.Controls.Add(this.TxtInvoiceNo);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.groupBox3);
+            this.groupBox2.Controls.Add(this.RadioBtnCredit);
+            this.groupBox2.Controls.Add(this.RadioBtnCash);
+            this.groupBox2.Controls.Add(this.ComboDeliveryPerson);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.Color.Red;
+            this.groupBox2.Location = new System.Drawing.Point(876, 49);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(465, 195);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Sales Details";
+            // 
+            // TxtInvoiceDate
+            // 
+            this.TxtInvoiceDate.BackColor = System.Drawing.Color.White;
+            this.TxtInvoiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtInvoiceDate.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.TxtInvoiceDate.Location = new System.Drawing.Point(105, 105);
+            this.TxtInvoiceDate.Name = "TxtInvoiceDate";
+            this.TxtInvoiceDate.ReadOnly = true;
+            this.TxtInvoiceDate.Size = new System.Drawing.Size(150, 26);
+            this.TxtInvoiceDate.TabIndex = 25;
+            this.TxtInvoiceDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TxtInvoiceNo
+            // 
+            this.TxtInvoiceNo.BackColor = System.Drawing.Color.White;
+            this.TxtInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtInvoiceNo.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.TxtInvoiceNo.Location = new System.Drawing.Point(105, 74);
+            this.TxtInvoiceNo.Name = "TxtInvoiceNo";
+            this.TxtInvoiceNo.ReadOnly = true;
+            this.TxtInvoiceNo.Size = new System.Drawing.Size(150, 26);
+            this.TxtInvoiceNo.TabIndex = 24;
+            this.TxtInvoiceNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label3.Location = new System.Drawing.Point(14, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 18);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Invoice No.";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(13, 109);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 18);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Invoice Date";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.PicBoxItemImage);
+            this.groupBox3.Location = new System.Drawing.Point(270, 8);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(186, 180);
+            this.groupBox3.TabIndex = 21;
+            this.groupBox3.TabStop = false;
+            // 
+            // PicBoxItemImage
+            // 
+            this.PicBoxItemImage.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxItemImage.Image")));
+            this.PicBoxItemImage.InitialImage = ((System.Drawing.Image)(resources.GetObject("PicBoxItemImage.InitialImage")));
+            this.PicBoxItemImage.Location = new System.Drawing.Point(3, 10);
+            this.PicBoxItemImage.Name = "PicBoxItemImage";
+            this.PicBoxItemImage.Size = new System.Drawing.Size(180, 167);
+            this.PicBoxItemImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PicBoxItemImage.TabIndex = 0;
+            this.PicBoxItemImage.TabStop = false;
+            // 
+            // RadioBtnCredit
+            // 
+            this.RadioBtnCredit.AutoSize = true;
+            this.RadioBtnCredit.Checked = true;
+            this.RadioBtnCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioBtnCredit.ForeColor = System.Drawing.Color.Red;
+            this.RadioBtnCredit.Location = new System.Drawing.Point(175, 31);
+            this.RadioBtnCredit.Name = "RadioBtnCredit";
+            this.RadioBtnCredit.Size = new System.Drawing.Size(69, 24);
+            this.RadioBtnCredit.TabIndex = 20;
+            this.RadioBtnCredit.TabStop = true;
+            this.RadioBtnCredit.Text = "Credit";
+            this.RadioBtnCredit.UseVisualStyleBackColor = true;
+            this.RadioBtnCredit.CheckedChanged += new System.EventHandler(this.RadioBtnCredit_CheckedChanged);
+            // 
+            // RadioBtnCash
+            // 
+            this.RadioBtnCash.AutoSize = true;
+            this.RadioBtnCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioBtnCash.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.RadioBtnCash.Location = new System.Drawing.Point(26, 31);
+            this.RadioBtnCash.Name = "RadioBtnCash";
+            this.RadioBtnCash.Size = new System.Drawing.Size(64, 24);
+            this.RadioBtnCash.TabIndex = 19;
+            this.RadioBtnCash.Text = "Cash";
+            this.RadioBtnCash.UseVisualStyleBackColor = true;
+            this.RadioBtnCash.CheckedChanged += new System.EventHandler(this.RadioBtnCash_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox1.Controls.Add(this.BtnSaveReceipt);
+            this.groupBox1.Controls.Add(this.BtnSearchMember);
+            this.groupBox1.Controls.Add(this.TxtContactNo);
+            this.groupBox1.Controls.Add(this.TxtAddress);
+            this.groupBox1.Controls.Add(this.TxtName);
+            this.groupBox1.Controls.Add(this.TxtAccNo);
+            this.groupBox1.Controls.Add(this.RichMemberId);
+            this.groupBox1.Controls.Add(this.label24);
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Controls.Add(this.label21);
+            this.groupBox1.Controls.Add(this.label20);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.linkLabel13);
+            this.groupBox1.Controls.Add(this.TxtBalance);
+            this.groupBox1.Controls.Add(this.RichPayment);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.Red;
+            this.groupBox1.Location = new System.Drawing.Point(15, 49);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(420, 195);
+            this.groupBox1.TabIndex = 20;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Member Details";
+            // 
+            // TxtContactNo
+            // 
+            this.TxtContactNo.BackColor = System.Drawing.Color.White;
+            this.TxtContactNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtContactNo.Location = new System.Drawing.Point(100, 111);
+            this.TxtContactNo.Name = "TxtContactNo";
+            this.TxtContactNo.ReadOnly = true;
+            this.TxtContactNo.Size = new System.Drawing.Size(290, 26);
+            this.TxtContactNo.TabIndex = 57;
+            // 
+            // TxtAddress
+            // 
+            this.TxtAddress.BackColor = System.Drawing.Color.White;
+            this.TxtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAddress.Location = new System.Drawing.Point(100, 82);
+            this.TxtAddress.Name = "TxtAddress";
+            this.TxtAddress.ReadOnly = true;
+            this.TxtAddress.Size = new System.Drawing.Size(290, 26);
+            this.TxtAddress.TabIndex = 56;
+            // 
+            // TxtName
+            // 
+            this.TxtName.BackColor = System.Drawing.Color.White;
+            this.TxtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtName.Location = new System.Drawing.Point(100, 53);
+            this.TxtName.Name = "TxtName";
+            this.TxtName.ReadOnly = true;
+            this.TxtName.Size = new System.Drawing.Size(290, 26);
+            this.TxtName.TabIndex = 55;
+            // 
+            // TxtAccNo
+            // 
+            this.TxtAccNo.BackColor = System.Drawing.Color.White;
+            this.TxtAccNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtAccNo.Location = new System.Drawing.Point(224, 23);
+            this.TxtAccNo.Name = "TxtAccNo";
+            this.TxtAccNo.ReadOnly = true;
+            this.TxtAccNo.Size = new System.Drawing.Size(95, 27);
+            this.TxtAccNo.TabIndex = 54;
+            this.TxtAccNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // RichMemberId
+            // 
+            this.RichMemberId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.RichMemberId.Enabled = false;
+            this.RichMemberId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichMemberId.Location = new System.Drawing.Point(100, 23);
+            this.RichMemberId.Name = "RichMemberId";
+            this.RichMemberId.Size = new System.Drawing.Size(80, 28);
+            this.RichMemberId.TabIndex = 53;
+            this.RichMemberId.Text = "";
+            this.RichMemberId.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichMemberId_KeyDown);
+            this.RichMemberId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichMemberId_KeyPress);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label24.Location = new System.Drawing.Point(16, 143);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(61, 18);
+            this.label24.TabIndex = 51;
+            this.label24.Text = "Balance";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label23.Location = new System.Drawing.Point(16, 115);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(64, 18);
+            this.label23.TabIndex = 50;
+            this.label23.Text = "Contact ";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label22.Location = new System.Drawing.Point(16, 86);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(62, 18);
+            this.label22.TabIndex = 49;
+            this.label22.Text = "Address";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label21.Location = new System.Drawing.Point(16, 56);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(48, 18);
+            this.label21.TabIndex = 48;
+            this.label21.Text = "Name";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label20.Location = new System.Drawing.Point(184, 27);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(36, 18);
+            this.label20.TabIndex = 47;
+            this.label20.Text = "A/C ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(17, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 18);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Member ID";
+            // 
+            // linkLabel13
+            // 
+            this.linkLabel13.AutoSize = true;
+            this.linkLabel13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel13.LinkColor = System.Drawing.SystemColors.HotTrack;
+            this.linkLabel13.Location = new System.Drawing.Point(23, 138);
+            this.linkLabel13.Name = "linkLabel13";
+            this.linkLabel13.Size = new System.Drawing.Size(0, 18);
+            this.linkLabel13.TabIndex = 35;
+            // 
+            // TxtBalance
+            // 
+            this.TxtBalance.BackColor = System.Drawing.Color.White;
+            this.TxtBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBalance.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.TxtBalance.Location = new System.Drawing.Point(100, 140);
+            this.TxtBalance.Name = "TxtBalance";
+            this.TxtBalance.ReadOnly = true;
+            this.TxtBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtBalance.Size = new System.Drawing.Size(110, 26);
+            this.TxtBalance.TabIndex = 27;
+            // 
+            // DataGridSoldItemList
+            // 
+            this.DataGridSoldItemList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridSoldItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridSoldItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridSoldItemList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridSoldItemList.Location = new System.Drawing.Point(14, 253);
+            this.DataGridSoldItemList.Name = "DataGridSoldItemList";
+            this.DataGridSoldItemList.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DataGridSoldItemList.Size = new System.Drawing.Size(852, 313);
+            this.DataGridSoldItemList.TabIndex = 31;
+            this.DataGridSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(-1, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1356, 47);
+            this.textBox1.TabIndex = 32;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.Cyan;
+            this.label19.Location = new System.Drawing.Point(400, 4);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(594, 37);
+            this.label19.TabIndex = 33;
+            this.label19.Text = "Welcome to Point of Sales Dashboard";
+            // 
             // BtnSalesReturn
             // 
             this.BtnSalesReturn.BackColor = System.Drawing.Color.DodgerBlue;
@@ -818,162 +1153,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnTransaction.UseVisualStyleBackColor = false;
             this.BtnTransaction.Click += new System.EventHandler(this.BtnTransaction_Click);
             // 
-            // RichPayment
+            // BtnSearchItem
             // 
-            this.RichPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.RichPayment.Enabled = false;
-            this.RichPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichPayment.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.RichPayment.Location = new System.Drawing.Point(212, 139);
-            this.RichPayment.Name = "RichPayment";
-            this.RichPayment.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichPayment.Size = new System.Drawing.Size(107, 28);
-            this.RichPayment.TabIndex = 23;
-            this.RichPayment.Text = "";
-            this.RichPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichPayment_KeyPress);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.groupBox2.Controls.Add(this.TxtInvoiceDate);
-            this.groupBox2.Controls.Add(this.TxtInvoiceNo);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Controls.Add(this.RadioBtnCredit);
-            this.groupBox2.Controls.Add(this.RadioBtnCash);
-            this.groupBox2.Controls.Add(this.ComboDeliveryPerson);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.Color.Red;
-            this.groupBox2.Location = new System.Drawing.Point(876, 49);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(465, 195);
-            this.groupBox2.TabIndex = 21;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Sales Details";
-            // 
-            // TxtInvoiceDate
-            // 
-            this.TxtInvoiceDate.BackColor = System.Drawing.Color.White;
-            this.TxtInvoiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtInvoiceDate.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.TxtInvoiceDate.Location = new System.Drawing.Point(105, 105);
-            this.TxtInvoiceDate.Name = "TxtInvoiceDate";
-            this.TxtInvoiceDate.ReadOnly = true;
-            this.TxtInvoiceDate.Size = new System.Drawing.Size(150, 26);
-            this.TxtInvoiceDate.TabIndex = 25;
-            this.TxtInvoiceDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TxtInvoiceNo
-            // 
-            this.TxtInvoiceNo.BackColor = System.Drawing.Color.White;
-            this.TxtInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtInvoiceNo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.TxtInvoiceNo.Location = new System.Drawing.Point(105, 74);
-            this.TxtInvoiceNo.Name = "TxtInvoiceNo";
-            this.TxtInvoiceNo.ReadOnly = true;
-            this.TxtInvoiceNo.Size = new System.Drawing.Size(150, 26);
-            this.TxtInvoiceNo.TabIndex = 24;
-            this.TxtInvoiceNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(14, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 18);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Invoice No.";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(13, 109);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 18);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Invoice Date";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.PicBoxItemImage);
-            this.groupBox3.Location = new System.Drawing.Point(270, 8);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(186, 180);
-            this.groupBox3.TabIndex = 21;
-            this.groupBox3.TabStop = false;
-            // 
-            // PicBoxItemImage
-            // 
-            this.PicBoxItemImage.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxItemImage.Image")));
-            this.PicBoxItemImage.InitialImage = ((System.Drawing.Image)(resources.GetObject("PicBoxItemImage.InitialImage")));
-            this.PicBoxItemImage.Location = new System.Drawing.Point(3, 10);
-            this.PicBoxItemImage.Name = "PicBoxItemImage";
-            this.PicBoxItemImage.Size = new System.Drawing.Size(180, 167);
-            this.PicBoxItemImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PicBoxItemImage.TabIndex = 0;
-            this.PicBoxItemImage.TabStop = false;
-            // 
-            // RadioBtnCredit
-            // 
-            this.RadioBtnCredit.AutoSize = true;
-            this.RadioBtnCredit.Checked = true;
-            this.RadioBtnCredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioBtnCredit.ForeColor = System.Drawing.Color.Red;
-            this.RadioBtnCredit.Location = new System.Drawing.Point(175, 31);
-            this.RadioBtnCredit.Name = "RadioBtnCredit";
-            this.RadioBtnCredit.Size = new System.Drawing.Size(69, 24);
-            this.RadioBtnCredit.TabIndex = 20;
-            this.RadioBtnCredit.TabStop = true;
-            this.RadioBtnCredit.Text = "Credit";
-            this.RadioBtnCredit.UseVisualStyleBackColor = true;
-            this.RadioBtnCredit.CheckedChanged += new System.EventHandler(this.RadioBtnCredit_CheckedChanged);
-            // 
-            // RadioBtnCash
-            // 
-            this.RadioBtnCash.AutoSize = true;
-            this.RadioBtnCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioBtnCash.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.RadioBtnCash.Location = new System.Drawing.Point(26, 31);
-            this.RadioBtnCash.Name = "RadioBtnCash";
-            this.RadioBtnCash.Size = new System.Drawing.Size(64, 24);
-            this.RadioBtnCash.TabIndex = 19;
-            this.RadioBtnCash.Text = "Cash";
-            this.RadioBtnCash.UseVisualStyleBackColor = true;
-            this.RadioBtnCash.CheckedChanged += new System.EventHandler(this.RadioBtnCash_CheckedChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.groupBox1.Controls.Add(this.BtnSaveReceipt);
-            this.groupBox1.Controls.Add(this.BtnSearchMember);
-            this.groupBox1.Controls.Add(this.TxtContactNo);
-            this.groupBox1.Controls.Add(this.TxtAddress);
-            this.groupBox1.Controls.Add(this.TxtName);
-            this.groupBox1.Controls.Add(this.TxtAccNo);
-            this.groupBox1.Controls.Add(this.RichMemberId);
-            this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Controls.Add(this.label23);
-            this.groupBox1.Controls.Add(this.label22);
-            this.groupBox1.Controls.Add(this.label21);
-            this.groupBox1.Controls.Add(this.label20);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.linkLabel13);
-            this.groupBox1.Controls.Add(this.TxtBalance);
-            this.groupBox1.Controls.Add(this.RichPayment);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.Red;
-            this.groupBox1.Location = new System.Drawing.Point(15, 49);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 195);
-            this.groupBox1.TabIndex = 20;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Member Details";
+            this.BtnSearchItem.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchItem.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSearchItem.BorderRadius = 10;
+            this.BtnSearchItem.BorderSize = 0;
+            this.BtnSearchItem.Enabled = false;
+            this.BtnSearchItem.FlatAppearance.BorderSize = 0;
+            this.BtnSearchItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearchItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearchItem.ForeColor = System.Drawing.Color.White;
+            this.BtnSearchItem.Location = new System.Drawing.Point(321, 22);
+            this.BtnSearchItem.Name = "BtnSearchItem";
+            this.BtnSearchItem.Size = new System.Drawing.Size(70, 28);
+            this.BtnSearchItem.TabIndex = 60;
+            this.BtnSearchItem.Text = "Search";
+            this.BtnSearchItem.TextColor = System.Drawing.Color.White;
+            this.BtnSearchItem.UseVisualStyleBackColor = false;
+            this.BtnSearchItem.Click += new System.EventHandler(this.BtnSearchItem_Click);
             // 
             // BtnSaveReceipt
             // 
@@ -1016,204 +1215,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchMember.TextColor = System.Drawing.Color.White;
             this.BtnSearchMember.UseVisualStyleBackColor = false;
             this.BtnSearchMember.Click += new System.EventHandler(this.BtnSearchMember_Click);
-            // 
-            // TxtContactNo
-            // 
-            this.TxtContactNo.BackColor = System.Drawing.Color.White;
-            this.TxtContactNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtContactNo.Location = new System.Drawing.Point(100, 111);
-            this.TxtContactNo.Name = "TxtContactNo";
-            this.TxtContactNo.ReadOnly = true;
-            this.TxtContactNo.Size = new System.Drawing.Size(290, 26);
-            this.TxtContactNo.TabIndex = 57;
-            // 
-            // TxtAddress
-            // 
-            this.TxtAddress.BackColor = System.Drawing.Color.White;
-            this.TxtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAddress.Location = new System.Drawing.Point(100, 82);
-            this.TxtAddress.Name = "TxtAddress";
-            this.TxtAddress.ReadOnly = true;
-            this.TxtAddress.Size = new System.Drawing.Size(290, 26);
-            this.TxtAddress.TabIndex = 56;
-            // 
-            // TxtName
-            // 
-            this.TxtName.BackColor = System.Drawing.Color.White;
-            this.TxtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtName.Location = new System.Drawing.Point(100, 53);
-            this.TxtName.Name = "TxtName";
-            this.TxtName.ReadOnly = true;
-            this.TxtName.Size = new System.Drawing.Size(290, 26);
-            this.TxtName.TabIndex = 55;
-            // 
-            // TxtAccNo
-            // 
-            this.TxtAccNo.BackColor = System.Drawing.Color.White;
-            this.TxtAccNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAccNo.Location = new System.Drawing.Point(224, 23);
-            this.TxtAccNo.Name = "TxtAccNo";
-            this.TxtAccNo.ReadOnly = true;
-            this.TxtAccNo.Size = new System.Drawing.Size(95, 27);
-            this.TxtAccNo.TabIndex = 54;
-            this.TxtAccNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // RichMemberId
-            // 
-            this.RichMemberId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.RichMemberId.Enabled = false;
-            this.RichMemberId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichMemberId.Location = new System.Drawing.Point(100, 23);
-            this.RichMemberId.Name = "RichMemberId";
-            this.RichMemberId.Size = new System.Drawing.Size(80, 28);
-            this.RichMemberId.TabIndex = 53;
-            this.RichMemberId.Text = "";
-            this.RichMemberId.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichMemberId_KeyDown);
-            this.RichMemberId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichMemberId_KeyPress);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label24.Location = new System.Drawing.Point(16, 143);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(61, 18);
-            this.label24.TabIndex = 51;
-            this.label24.Text = "Balance";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label23.Location = new System.Drawing.Point(16, 115);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(64, 18);
-            this.label23.TabIndex = 50;
-            this.label23.Text = "Contact ";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label22.Location = new System.Drawing.Point(16, 86);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(62, 18);
-            this.label22.TabIndex = 49;
-            this.label22.Text = "Address";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label21.Location = new System.Drawing.Point(16, 56);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(48, 18);
-            this.label21.TabIndex = 48;
-            this.label21.Text = "Name";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label20.Location = new System.Drawing.Point(184, 27);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(36, 18);
-            this.label20.TabIndex = 47;
-            this.label20.Text = "A/C ";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(17, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 18);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "Member ID";
-            // 
-            // linkLabel13
-            // 
-            this.linkLabel13.AutoSize = true;
-            this.linkLabel13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel13.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.linkLabel13.Location = new System.Drawing.Point(23, 138);
-            this.linkLabel13.Name = "linkLabel13";
-            this.linkLabel13.Size = new System.Drawing.Size(0, 18);
-            this.linkLabel13.TabIndex = 35;
-            // 
-            // TxtBalance
-            // 
-            this.TxtBalance.BackColor = System.Drawing.Color.White;
-            this.TxtBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBalance.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.TxtBalance.Location = new System.Drawing.Point(100, 140);
-            this.TxtBalance.Name = "TxtBalance";
-            this.TxtBalance.ReadOnly = true;
-            this.TxtBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtBalance.Size = new System.Drawing.Size(110, 26);
-            this.TxtBalance.TabIndex = 27;
-            // 
-            // DataGridSoldItemList
-            // 
-            this.DataGridSoldItemList.BackgroundColor = System.Drawing.Color.White;
-            this.DataGridSoldItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSoldItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridSoldItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridSoldItemList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridSoldItemList.Location = new System.Drawing.Point(14, 253);
-            this.DataGridSoldItemList.Name = "DataGridSoldItemList";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridSoldItemList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridSoldItemList.Size = new System.Drawing.Size(852, 313);
-            this.DataGridSoldItemList.TabIndex = 31;
-            this.DataGridSoldItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPosSoldItemList_DataBindingComplete);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(-1, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1356, 47);
-            this.textBox1.TabIndex = 32;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.Cyan;
-            this.label19.Location = new System.Drawing.Point(400, 4);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(594, 37);
-            this.label19.TabIndex = 33;
-            this.label19.Text = "Welcome to Point of Sales Dashboard";
             // 
             // PosForm
             // 

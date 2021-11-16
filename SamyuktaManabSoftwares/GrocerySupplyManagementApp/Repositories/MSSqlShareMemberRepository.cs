@@ -185,6 +185,42 @@ namespace GrocerySupplyManagementApp.Repositories
             return shareMemberTransactionViewList;
         }
 
+        public bool IsShareMemberExist(string shareMemberId)
+        {
+            var result = false;
+            var query = @"SELECT " +
+                "1 " +
+                "FROM " + Constants.TABLE_SHARE_MEMBER + " " +
+                "WHERE 1 = 1 " +
+                "AND ISNULL([ShareMemberId], '') = @ShareMemberId ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ShareMemberId", ((object)shareMemberId) ?? DBNull.Value);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return result;
+        }
+
         public ShareMember AddShareMember(ShareMember shareMember)
         {
             string query = @"INSERT INTO " + Constants.TABLE_SHARE_MEMBER + " " +

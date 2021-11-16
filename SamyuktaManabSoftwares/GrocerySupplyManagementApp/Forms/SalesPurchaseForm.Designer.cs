@@ -212,6 +212,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridPurchaseSalesTransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridPurchaseSalesTransaction.Location = new System.Drawing.Point(18, 130);
             this.DataGridPurchaseSalesTransaction.Name = "DataGridPurchaseSalesTransaction";
+            this.DataGridPurchaseSalesTransaction.ReadOnly = true;
             this.DataGridPurchaseSalesTransaction.Size = new System.Drawing.Size(1070, 450);
             this.DataGridPurchaseSalesTransaction.TabIndex = 17;
             this.DataGridPurchaseSalesTransaction.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridPurchaseSalesTransaction_DataBindingComplete);

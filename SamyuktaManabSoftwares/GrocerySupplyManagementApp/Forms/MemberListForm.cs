@@ -38,7 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var memberViewList = GetMembers();
             LoadMembers(memberViewList);
-            RichSearchMemberName.Focus();
+            RichSearchMemberName.Select();
         }
         #endregion
 

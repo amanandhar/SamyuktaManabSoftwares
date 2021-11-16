@@ -342,6 +342,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridIncomeList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridIncomeList.Location = new System.Drawing.Point(18, 175);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
+            this.DataGridIncomeList.ReadOnly = true;
             this.DataGridIncomeList.Size = new System.Drawing.Size(1070, 420);
             this.DataGridIncomeList.TabIndex = 32;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeView_DataBindingComplete);

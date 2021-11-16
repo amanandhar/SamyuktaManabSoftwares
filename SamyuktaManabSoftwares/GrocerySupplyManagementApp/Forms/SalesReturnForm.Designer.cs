@@ -412,6 +412,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DateGridSalesReturnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DateGridSalesReturnList.Location = new System.Drawing.Point(15, 210);
             this.DateGridSalesReturnList.Name = "DateGridSalesReturnList";
+            this.DateGridSalesReturnList.ReadOnly = true;
             this.DateGridSalesReturnList.Size = new System.Drawing.Size(1075, 380);
             this.DateGridSalesReturnList.TabIndex = 21;
             this.DateGridSalesReturnList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DateGridSalesReturnList_DataBindingComplete);

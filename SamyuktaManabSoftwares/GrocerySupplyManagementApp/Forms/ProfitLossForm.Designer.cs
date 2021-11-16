@@ -217,6 +217,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridExpenseList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridExpenseList.Location = new System.Drawing.Point(5, 25);
             this.DataGridExpenseList.Name = "DataGridExpenseList";
+            this.DataGridExpenseList.ReadOnly = true;
             this.DataGridExpenseList.Size = new System.Drawing.Size(510, 400);
             this.DataGridExpenseList.TabIndex = 1;
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
@@ -247,6 +248,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridIncomeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridIncomeList.Location = new System.Drawing.Point(5, 25);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
+            this.DataGridIncomeList.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
