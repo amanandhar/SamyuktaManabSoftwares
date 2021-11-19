@@ -69,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var member = new Member();
             var query = @"SELECT " +
-                "[Id], [MemberId], [Name], " +
+                "[Id], [MemberId], [ShareMemberId], [Name], " +
                 "[Address], [ContactNo], [Email], [AccountNo], [ImagePath], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_MEMBER + " " +
@@ -90,6 +90,7 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 member.Id = Convert.ToInt64(reader["Id"].ToString());
                                 member.MemberId = reader["MemberId"].ToString();
+                                member.ShareMemberId = reader["ShareMemberId"].ToString();
                                 member.Name = reader["Name"].ToString();
                                 member.Address = reader["Address"].ToString();
                                 member.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
@@ -97,7 +98,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 member.AccountNo = reader["AccountNo"].ToString();
                                 member.ImagePath = reader["ImagePath"].ToString();
                                 member.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                member.UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                member.UpdatedDate = reader.IsDBNull(10) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -152,11 +153,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_MEMBER + " " +
                     "( " +
-                        "[EndOfDay], [MemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [MemberId], [ShareMemberId], [Name], [Address], [ContactNo], [Email], [AccountNo], [ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @MemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @MemberId, @ShareMemberId, @Name, @Address, @ContactNo, @Email, @AccountNo, @ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -167,6 +168,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@EndOfDay", member.EndOfDay);
                         command.Parameters.AddWithValue("@MemberId", member.MemberId);
+                        command.Parameters.AddWithValue("@ShareMemberId", member.ShareMemberId);
                         command.Parameters.AddWithValue("@Name", member.Name);
                         command.Parameters.AddWithValue("@Address", member.Address);
                         command.Parameters.AddWithValue("@ContactNo", member.ContactNo);
@@ -311,6 +313,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"UPDATE " + Constants.TABLE_MEMBER + " " +
                 "SET " +
                 "[MemberId] = @MemberId, " +
+                "[ShareMemberId] = @ShareMemberId, " +
                 "[Name] = @Name, " +
                 "[Address] = @Address, " +
                 "[ContactNo] = @ContactNo, " +
@@ -329,6 +332,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@MemberId", memberId);
+                        command.Parameters.AddWithValue("@ShareMemberId", member.ShareMemberId);
                         command.Parameters.AddWithValue("@Name", member.Name);
                         command.Parameters.AddWithValue("@Address", member.Address);
                         command.Parameters.AddWithValue("@ContactNo", member.ContactNo);

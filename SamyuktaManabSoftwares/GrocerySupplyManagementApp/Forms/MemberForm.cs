@@ -306,6 +306,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         MemberId = TxtMemberId.Text.Trim(),
+                        ShareMemberId = TxtShareMemberId.Text.Trim(),
                         Name = TxtName.Text.Trim(),
                         Address = TxtAddress.Text.Trim(),
                         ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(TxtContactNumber.Text.Trim()),
@@ -348,57 +349,67 @@ namespace GrocerySupplyManagementApp.Forms
             var memberId = TxtMemberId.Text;
             try
             {
-                string relativeImagePath = null;
-                string destinationFilePath = null;
-                if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                if (ValidateMemberInfo())
                 {
-                    if (!Directory.Exists(_baseImageFolder))
+                    if (_memberService.IsMemberExist(TxtMemberId.Text.Trim()))
                     {
-                        DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (errorResult == DialogResult.OK)
-                        {
-                            return;
-                        }
-
+                        MessageBox.Show("MemberId already exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    else
+
+                    string relativeImagePath = null;
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                     {
-                        if (!Directory.Exists(Path.Combine(_baseImageFolder, _memberImageFolder)))
+                        if (!Directory.Exists(_baseImageFolder))
                         {
-                            UtilityService.CreateFolder(_baseImageFolder, _memberImageFolder);
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+
+                            return;
                         }
+                        else
+                        {
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _memberImageFolder)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, _memberImageFolder);
+                            }
 
-                        relativeImagePath = TxtMemberId.Text + ".jpg";
-                        destinationFilePath = Path.Combine(_baseImageFolder, _memberImageFolder, relativeImagePath);
-                        File.Copy(_uploadedImagePath, destinationFilePath, true);
+                            relativeImagePath = TxtMemberId.Text + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _memberImageFolder, relativeImagePath);
+                            File.Copy(_uploadedImagePath, destinationFilePath, true);
+                        }
                     }
-                }
 
-                var member = new Member
-                {
-                    MemberId = TxtMemberId.Text.Trim(),
-                    Name = TxtName.Text.Trim(),
-                    Address = TxtAddress.Text.Trim(),
-                    ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(TxtContactNumber.Text.Trim()),
-                    Email = TxtEmail.Text.Trim(),
-                    AccountNo = TxtAccountNumber.Text.Trim(),
-                    ImagePath = relativeImagePath,
-                    UpdatedBy = _username,
-                    UpdatedDate = DateTime.Now
-                };
+                    var member = new Member
+                    {
+                        MemberId = TxtMemberId.Text.Trim(),
+                        ShareMemberId = TxtShareMemberId.Text.Trim(),
+                        Name = TxtName.Text.Trim(),
+                        Address = TxtAddress.Text.Trim(),
+                        ContactNo = string.IsNullOrEmpty(TxtContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(TxtContactNumber.Text.Trim()),
+                        Email = TxtEmail.Text.Trim(),
+                        AccountNo = TxtAccountNumber.Text.Trim(),
+                        ImagePath = relativeImagePath,
+                        UpdatedBy = _username,
+                        UpdatedDate = DateTime.Now
+                    };
 
-                _memberService.UpdateMember(memberId, member);
-                DialogResult result = MessageBox.Show(memberId + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (result == DialogResult.OK)
-                {
-                    ClearMemberFields();
-                    ClearTransactionFields();
-                    var memberTransactionViewList = GetMemberTransactions(memberId);
-                    LoadMemberTransactions(memberTransactionViewList);
-                    EnableFields();
-                    EnableFields(Action.Update);
+                    _memberService.UpdateMember(memberId, member);
+                    DialogResult result = MessageBox.Show(memberId + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearMemberFields();
+                        ClearTransactionFields();
+                        var memberTransactionViewList = GetMemberTransactions(memberId);
+                        LoadMemberTransactions(memberTransactionViewList);
+                        EnableFields();
+                        EnableFields(Action.Update);
+                    }
                 }
             }
             catch (Exception ex)
@@ -488,6 +499,11 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         private void TxtAccountNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
+
+        private void TxtShareMemberId_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
         }
@@ -706,6 +722,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtAccountNumber.Enabled = true;
                 TxtName.Enabled = true;
                 TxtAddress.Enabled = true;
+                TxtShareMemberId.Enabled = true;
                 TxtEmail.Enabled = true;
                 TxtContactNumber.Enabled = true;
 
@@ -722,6 +739,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtAccountNumber.Enabled = true;
                 TxtName.Enabled = true;
                 TxtAddress.Enabled = true;
+                TxtShareMemberId.Enabled = true;
                 TxtEmail.Enabled = true;
                 TxtContactNumber.Enabled = true;
 
@@ -754,6 +772,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtAccountNumber.Enabled = false;
                 TxtName.Enabled = false;
                 TxtAddress.Enabled = false;
+                TxtShareMemberId.Enabled = false;
                 TxtEmail.Enabled = false;
                 TxtContactNumber.Enabled = false;
 
@@ -773,8 +792,9 @@ namespace GrocerySupplyManagementApp.Forms
             TxtAccountNumber.Clear();
             TxtName.Clear();
             TxtAddress.Clear();
-            TxtContactNumber.Clear();
+            TxtShareMemberId.Clear();
             TxtEmail.Clear();
+            TxtContactNumber.Clear();
             TxtBalance.Clear();
             PicBoxMemberImage.Image = PicBoxMemberImage.InitialImage;
         }
@@ -793,6 +813,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtMemberId.Text = member.MemberId;
             TxtName.Text = member.Name;
             TxtAddress.Text = member.Address;
+            TxtShareMemberId.Text = member.ShareMemberId;
             TxtContactNumber.Text = member.ContactNo.ToString();
             TxtEmail.Text = member.Email;
             TxtAccountNumber.Text = member.AccountNo;
@@ -834,12 +855,16 @@ namespace GrocerySupplyManagementApp.Forms
 
             var memberId = TxtMemberId.Text.Trim();
             var memberName = TxtName.Text.Trim();
+            var shareMemberId = TxtShareMemberId.Text.Trim();
+
             if (string.IsNullOrWhiteSpace(memberId)
-                || string.IsNullOrWhiteSpace(memberName))
+                || string.IsNullOrWhiteSpace(memberName)
+                || string.IsNullOrWhiteSpace(shareMemberId))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Member Id " +
-                    "\n * Member Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Member Name" +
+                    "\n * Share Member Id", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -881,6 +906,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }

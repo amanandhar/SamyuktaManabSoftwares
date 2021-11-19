@@ -69,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public ShareMember GetShareMember(long id)
         {
             var query = @"SELECT " +
-                "[Id], [Name], " +
+                "[Id], [ShareMemberId], [Name], " +
                 "[Address], [ContactNo], [ImagePath], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SHARE_MEMBER + " " +
@@ -89,12 +89,13 @@ namespace GrocerySupplyManagementApp.Repositories
                             while (reader.Read())
                             {
                                 shareMember.Id = Convert.ToInt64(reader["Id"].ToString());
+                                shareMember.ShareMemberId = reader["ShareMemberId"].ToString();
                                 shareMember.Name = reader["Name"].ToString();
                                 shareMember.Address = reader["Address"].ToString();
                                 shareMember.ContactNo = Convert.ToInt64(reader["ContactNo"].ToString());
                                 shareMember.ImagePath = reader["ImagePath"].ToString();
                                 shareMember.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                shareMember.UpdatedDate = reader.IsDBNull(6) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                shareMember.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -225,11 +226,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SHARE_MEMBER + " " +
                     "( " +
-                        "[EndOfDay], [Name], [Address], [ContactNo], [ImagePath], [AddedBy], [AddedDate] " +
+                        "[ShareMemberId], [EndOfDay], [Name], [Address], [ContactNo], [ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @Name, @Address, @ContactNo, @ImagePath, @AddedBy, @AddedDate " +
+                        "@ShareMemberId, @EndOfDay, @Name, @Address, @ContactNo, @ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -239,6 +240,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EndOfDay", shareMember.EndOfDay);
+                        command.Parameters.AddWithValue("@ShareMemberId", shareMember.ShareMemberId);
                         command.Parameters.AddWithValue("@Name", shareMember.Name);
                         command.Parameters.AddWithValue("@Address", shareMember.Address);
                         command.Parameters.AddWithValue("@ContactNo", shareMember.ContactNo);
@@ -263,6 +265,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"UPDATE " + Constants.TABLE_SHARE_MEMBER + " " +
                 "SET " +
+                "[ShareMemberId] = @ShareMemberId, " +
                 "[Name] = @Name, " +
                 "[Address] = @Address, " +
                 "[ContactNo] = @ContactNo, " +
@@ -279,6 +282,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
+                        command.Parameters.AddWithValue("@ShareMemberId", shareMember.ShareMemberId);
                         command.Parameters.AddWithValue("@Name", shareMember.Name);
                         command.Parameters.AddWithValue("@Address", shareMember.Address);
                         command.Parameters.AddWithValue("@ContactNo", shareMember.ContactNo);

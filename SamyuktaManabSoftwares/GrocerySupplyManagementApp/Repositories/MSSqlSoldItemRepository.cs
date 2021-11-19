@@ -129,7 +129,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalCount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
-                "CAST(SUM(si.[Volume] * si.[Quantity]) AS DECIMAL(18,2)) " +
+                "CAST(SUM(si.[Volume] * si.[Quantity]) AS DECIMAL(18,3)) " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ISNULL(si.[ItemId], '') = i.[Id] " +

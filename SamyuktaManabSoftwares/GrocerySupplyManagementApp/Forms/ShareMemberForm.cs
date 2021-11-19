@@ -200,7 +200,7 @@ namespace GrocerySupplyManagementApp.Forms
             ClearAllFields();
             EnableFields();
             EnableFields(Action.Add);
-            RichName.Focus();
+            RichShareMemberId.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -209,6 +209,11 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateShareMemberInfo())
                 {
+                    if (_shareMemberService.IsShareMemberExist(RichShareMemberId.Text.Trim()))
+                    {
+                        MessageBox.Show("Share Member Id already exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
@@ -240,6 +245,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var shareMember = new ShareMember
                     {
                         EndOfDay = _endOfDay,
+                        ShareMemberId = RichShareMemberId.Text.Trim(),
                         Name = RichName.Text.Trim(),
                         Address = RichAddress.Text.Trim(),
                         ContactNo = string.IsNullOrEmpty(RichContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(RichContactNumber.Text.Trim()),
@@ -279,6 +285,12 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateShareMemberInfo())
                 {
+                    if (_shareMemberService.IsShareMemberExist(RichShareMemberId.Text.Trim()))
+                    {
+                        MessageBox.Show("Share Member Id already exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     var selectedShareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -322,6 +334,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                     var shareMember = new ShareMember
                     {
+                        ShareMemberId = RichShareMemberId.Text.Trim(),
                         Name = RichName.Text.Trim(),
                         Address = RichAddress.Text.Trim(),
                         ContactNo = string.IsNullOrEmpty(RichContactNumber.Text.Trim()) ? 0 : Convert.ToInt64(RichContactNumber.Text.Trim()),
@@ -398,6 +411,11 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Rich Box Event
+        private void RichShareMemberId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
+
         private void RichAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -582,6 +600,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if (action == Action.Add)
             {
+                RichShareMemberId.Enabled = true;
                 RichName.Enabled = true;
                 RichAddress.Enabled = true;
                 RichContactNumber.Enabled = true;
@@ -596,6 +615,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
+                RichShareMemberId.Enabled = true;
                 RichName.Enabled = true;
                 RichAddress.Enabled = true;
                 RichContactNumber.Enabled = true;
@@ -631,6 +651,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
+                RichShareMemberId.Enabled = false;
                 RichName.Enabled = false;
                 RichAddress.Enabled = false;
                 RichContactNumber.Enabled = false;
@@ -656,6 +677,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void ClearAllFields()
         {
+            RichShareMemberId.Clear();
             RichName.Clear();
             RichAddress.Clear();
             RichContactNumber.Clear();
@@ -682,6 +704,7 @@ namespace GrocerySupplyManagementApp.Forms
             _selectedShareMemberId = shareMemberId;
             var shareMember = _shareMemberService.GetShareMember(_selectedShareMemberId);
 
+            RichShareMemberId.Text = shareMember.ShareMemberId;
             RichName.Text = shareMember.Name;
             RichAddress.Text = shareMember.Address;
             RichContactNumber.Text = shareMember.ContactNo.ToString();
@@ -707,12 +730,14 @@ namespace GrocerySupplyManagementApp.Forms
         private bool ValidateShareMemberInfo()
         {
             var isValidated = false;
-
+            var shareMemberId = RichShareMemberId.Text.Trim();
             var name = RichName.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(shareMemberId)
+                || string.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show("Please enter following fields: " +
+                    "\n * Share Member Id " + 
                     "\n * Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
@@ -751,6 +776,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }
