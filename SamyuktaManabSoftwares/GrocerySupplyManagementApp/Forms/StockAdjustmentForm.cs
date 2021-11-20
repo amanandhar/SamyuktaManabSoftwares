@@ -20,7 +20,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPricedItemService _pricedItemService;
         private readonly IStockService _stockService;
         private readonly IStockAdjustmentService _stockAdjustmentService;
-        private readonly IIncomeExpenseService _incomeExpenseService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -41,8 +40,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public StockAdjustmentForm(string username, ISettingService settingService,
             IItemService itemService, IPricedItemService pricedItemService,
-            IStockService stockService, IStockAdjustmentService stockAdjustmentService, 
-            IIncomeExpenseService incomeExpenseService)
+            IStockService stockService, IStockAdjustmentService stockAdjustmentService)
         {
             InitializeComponent();
 
@@ -51,7 +49,6 @@ namespace GrocerySupplyManagementApp.Forms
             _pricedItemService = pricedItemService;
             _stockService = stockService;
             _stockAdjustmentService = stockAdjustmentService;
-            _incomeExpenseService = incomeExpenseService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -156,7 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ActionType = Constants.DEDUCT,
                             Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
-                            PaymentAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
+                            PaymentAmount = Math.Round(Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()) * Convert.ToDecimal(TxtBoxItemQuantity.Text.Trim()), 2),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -170,7 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ActionType = Constants.ADD,
                             Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
-                            ReceivedAmount = Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()),
+                            ReceivedAmount = Math.Round(Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()) * Convert.ToDecimal(TxtBoxItemQuantity.Text.Trim()), 2),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };

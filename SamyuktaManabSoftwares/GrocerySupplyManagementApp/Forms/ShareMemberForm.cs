@@ -285,12 +285,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateShareMemberInfo())
                 {
-                    if (_shareMemberService.IsShareMemberExist(RichShareMemberId.Text.Trim()))
-                    {
-                        MessageBox.Show("Share Member Id already exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
                     var selectedShareMember = _shareMemberService.GetShareMember(Convert.ToInt64(shareMemberId));
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -655,6 +649,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichName.Enabled = false;
                 RichAddress.Enabled = false;
                 RichContactNumber.Enabled = false;
+                TxtMemberSales.Enabled = false;
                 TxtShareAmount.Enabled = false;
 
                 ComboBank.Enabled = false;
@@ -681,6 +676,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichName.Clear();
             RichAddress.Clear();
             RichContactNumber.Clear();
+            TxtMemberSales.Clear();
             TxtShareAmount.Clear();
             
             ComboBank.Text = string.Empty;

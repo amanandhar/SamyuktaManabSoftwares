@@ -351,12 +351,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateMemberInfo())
                 {
-                    if (_memberService.IsMemberExist(TxtMemberId.Text.Trim()))
-                    {
-                        MessageBox.Show("MemberId already exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
                     string relativeImagePath = null;
                     string destinationFilePath = null;
                     if (!string.IsNullOrWhiteSpace(_uploadedImagePath))

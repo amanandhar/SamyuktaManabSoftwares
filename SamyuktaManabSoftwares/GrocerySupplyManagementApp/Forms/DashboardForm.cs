@@ -421,7 +421,7 @@ namespace GrocerySupplyManagementApp.Forms
             OpenChildForm(new StockAdjustmentForm(_username,
                 _settingService, _itemService,
                 _pricedItemService, _stockService,
-               _stockAdjustmentService, _incomeExpenseService));
+               _stockAdjustmentService));
             SelectButton(sender as Button, true);
         }
 
