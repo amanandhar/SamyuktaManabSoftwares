@@ -532,6 +532,46 @@ namespace GrocerySupplyManagementApp.Repositories
             return salesReturnTransactionViewList;
         }
 
+        public decimal GetTotalMemberSaleAmount(string shareMemberId)
+        {
+            decimal totalAmount = Constants.DEFAULT_DECIMAL_VALUE;
+            var query = @"SELECT " +
+                "SUM(ut.[DueReceivedAmount] + ut.[ReceivedAmount]) " +
+                "FROM " + Constants.TABLE_USER_TRANSACTION + " ut " +
+                "INNER JOIN " +
+                " " + Constants.TABLE_MEMBER + " m " +
+                "ON " +
+                "ut.[PartyId] = m.[MemberId] " +
+                "WHERE 1 = 1 " +
+                "AND ISNULL(ut.[Action], '') = '" + Constants.SALES + "' " +
+                "AND ISNULL(m.[ShareMemberId], '') = @ShareMemberId ";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ShareMemberId", ((object)shareMemberId) ?? DBNull.Value);
+
+                        var result = command.ExecuteScalar();
+                        if (result != null && DBNull.Value != result)
+                        {
+                            totalAmount = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return totalAmount;
+        }
+
         public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
             string query = "INSERT INTO " + Constants.TABLE_USER_TRANSACTION + " " +

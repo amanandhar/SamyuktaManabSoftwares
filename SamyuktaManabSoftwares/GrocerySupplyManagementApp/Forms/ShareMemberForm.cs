@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IBankService _bankService;
         private readonly IBankTransactionService _bankTransactionService;
         private readonly IShareMemberService _shareMemberService;
+        private readonly IUserTransactionService _userTransactionService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -51,7 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
         public ShareMemberForm(string username,
             ISettingService settingService,
             IBankService bankService, IBankTransactionService bankTransactionService,
-            IShareMemberService shareMemberService,
+            IShareMemberService shareMemberService, IUserTransactionService userTransactionService,
             DashboardForm dashboardForm)
         {
             InitializeComponent();
@@ -60,6 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
             _bankService = bankService;
             _bankTransactionService = bankTransactionService;
             _shareMemberService = shareMemberService;
+            _userTransactionService = userTransactionService;
             _dashboard = dashboardForm;
 
             _username = username;
@@ -704,6 +706,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichName.Text = shareMember.Name;
             RichAddress.Text = shareMember.Address;
             RichContactNumber.Text = shareMember.ContactNo.ToString();
+            TxtMemberSales.Text = _userTransactionService.GetTotalMemberSaleAmount(shareMember.ShareMemberId).ToString();
 
             var absoluteImagePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, shareMember.ImagePath);
             if (File.Exists(absoluteImagePath))

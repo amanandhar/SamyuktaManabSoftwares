@@ -410,6 +410,7 @@ namespace GrocerySupplyManagementApp.Forms
             OpenChildForm(new ShareMemberForm(_username,
                 _settingService, _bankService,
                 _bankTransactionService, _shareMemberService,
+                _userTransactionService,
                 this));
             SelectButton(sender as Button, true);
         }

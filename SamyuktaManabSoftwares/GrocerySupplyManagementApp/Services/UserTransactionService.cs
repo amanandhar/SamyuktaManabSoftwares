@@ -50,6 +50,11 @@ namespace GrocerySupplyManagementApp.Services
             return _userTransactionRepository.GetSalesReturnTransactions(salesReturnTransactionFilter);
         }
 
+        public decimal GetTotalMemberSaleAmount(string shareMemberId)
+        {
+            return _userTransactionRepository.GetTotalMemberSaleAmount(shareMemberId);
+        }
+
         public UserTransaction AddUserTransaction(UserTransaction userTransaction)
         {
             return _userTransactionRepository.AddUserTransaction(userTransaction);
@@ -75,7 +80,6 @@ namespace GrocerySupplyManagementApp.Services
         {
             return _userTransactionRepository.DeleteInvoice(invoiceNo);
         }
-
         #endregion
 
         #region POS Methods

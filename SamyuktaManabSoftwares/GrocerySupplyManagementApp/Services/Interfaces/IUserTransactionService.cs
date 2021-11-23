@@ -14,6 +14,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         UserTransaction GetLastUserTransaction(PartyNumberType transactionNumberType, string addedBy);
         IEnumerable<DailyTransactionView> GetDailyTransactions(DailyTransactionFilter dailyTransactionFilter);
         IEnumerable<SalesReturnTransactionView> GetSalesReturnTransactions(SalesReturnTransactionFilter salesReturnTransactionFilter);
+        decimal GetTotalMemberSaleAmount(string shareMemberId);
 
         UserTransaction AddUserTransaction(UserTransaction userTransaction);
 
