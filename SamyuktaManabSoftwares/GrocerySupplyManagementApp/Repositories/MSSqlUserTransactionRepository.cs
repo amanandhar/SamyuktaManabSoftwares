@@ -130,17 +130,6 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ISNULL(ut.[PartyId], '') = @MemberId ";
             }
 
-            if (!string.IsNullOrWhiteSpace(memberTransactionFilter?.Action))
-            {
-                if(memberTransactionFilter.Action == Constants.DEBIT)
-                {
-                    query += "AND ISNULL(DueReceivedAmount, '') > 0.00 ";
-                }
-                else
-                {
-                    query += "AND ISNULL(ReceivedAmount, '') > 0.00 ";
-                }
-            }
 
             query += "ORDER BY ut.[AddedDate] DESC";
 
@@ -154,7 +143,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@DateFrom", ((object)memberTransactionFilter?.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)memberTransactionFilter?.DateTo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@MemberId", ((object)memberTransactionFilter?.MemberId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)memberTransactionFilter?.Action) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -202,6 +190,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_USER_TRANSACTION + " ut1 " +
                 "WHERE 1 = 1 " +
                 "AND ut1.[AddedDate] <= ut.[AddedDate] ";
+            
             if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.SupplierId))
             {
                 query += "AND ISNULL(ut1.[PartyId], '') = @PartyId ";

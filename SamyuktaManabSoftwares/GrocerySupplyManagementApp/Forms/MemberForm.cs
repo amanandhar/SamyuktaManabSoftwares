@@ -475,12 +475,19 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
-            var memberTransactionFilter = new MemberTransactionFilter();
             var dateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
             var dateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
+            var memberId = TxtMemberId.Text.Trim();
             var action = ComboAction.Text.Trim();
 
-            memberTransactionFilter.Action = action;
+            var memberTransactionFilter = new MemberTransactionFilter()
+            {
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+                MemberId = memberId,
+                Action = action
+            };
+
             var memberTransactionViewList = GetMemberTransactions(memberTransactionFilter);
             TxtAmount.Text = action == Constants.DEBIT
                 ? memberTransactionViewList.Sum(x => x.DueReceivedAmount).ToString()
@@ -695,7 +702,12 @@ namespace GrocerySupplyManagementApp.Forms
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (memberTransactionFilter.Action == Constants.DEBIT) ? x.DueReceivedAmount : x.ReceivedAmount;
+                               var temp = memberTransactionFilter.Action == Constants.DEBIT
+                                    ? ((x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? x.ReceivedAmount : x.DueReceivedAmount)
+                                    : x.ReceivedAmount;
+
+                               balance += temp;
+
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -703,8 +715,12 @@ namespace GrocerySupplyManagementApp.Forms
                                    Action = x.Action,
                                    ActionType = x.ActionType,
                                    InvoiceNo = x.InvoiceNo,
-                                   DueReceivedAmount = x.DueReceivedAmount,
-                                   ReceivedAmount = x.ReceivedAmount,
+                                   DueReceivedAmount = memberTransactionFilter.Action == Constants.DEBIT
+                                        ? ((x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? x.ReceivedAmount : x.DueReceivedAmount)
+                                        : Constants.DEFAULT_DECIMAL_VALUE,
+                                   ReceivedAmount = memberTransactionFilter.Action == Constants.DEBIT
+                                        ? Constants.DEFAULT_DECIMAL_VALUE
+                                        : x.ReceivedAmount,
                                    Balance = balance
                                };
                            }
