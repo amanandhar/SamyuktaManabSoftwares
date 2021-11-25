@@ -211,7 +211,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnEditBank_Click(object sender, EventArgs e)
         {
             EnableFields();
-            EnableFields(Action.Add);
+            EnableFields(Action.Edit);
             TxtBankName.Focus();
         }
 

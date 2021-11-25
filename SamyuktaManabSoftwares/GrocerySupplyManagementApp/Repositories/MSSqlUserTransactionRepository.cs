@@ -132,7 +132,14 @@ namespace GrocerySupplyManagementApp.Repositories
 
             if (!string.IsNullOrWhiteSpace(memberTransactionFilter?.Action))
             {
-                query += "AND ut.[Action] = @Action ";
+                if(memberTransactionFilter.Action == Constants.DEBIT)
+                {
+                    query += "AND ISNULL(DueReceivedAmount, '') > 0.00 ";
+                }
+                else
+                {
+                    query += "AND ISNULL(ReceivedAmount, '') > 0.00 ";
+                }
             }
 
             query += "ORDER BY ut.[AddedDate] DESC";

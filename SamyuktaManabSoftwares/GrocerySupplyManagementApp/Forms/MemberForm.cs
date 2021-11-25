@@ -89,6 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             LoadReceiptTypes();
+            LoadTrasactionActions();
             EnableFields();
             EnableFields(Action.Load);
         }
@@ -481,8 +482,10 @@ namespace GrocerySupplyManagementApp.Forms
 
             memberTransactionFilter.Action = action;
             var memberTransactionViewList = GetMemberTransactions(memberTransactionFilter);
-            TxtAmount.Text = memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString();
-            LoadMemberTransactions(memberTransactionViewList);
+            TxtAmount.Text = action == Constants.DEBIT
+                ? memberTransactionViewList.Sum(x => x.DueReceivedAmount).ToString()
+                : memberTransactionViewList.Sum(x => x.ReceivedAmount).ToString();
+            LoadMemberTransactions(memberTransactionViewList, Convert.ToDecimal(TxtAmount.Text));
         }
         #endregion
 
@@ -575,6 +578,18 @@ namespace GrocerySupplyManagementApp.Forms
         private void ComboBank_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ComboAction_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ComboAction.Text))
+            {
+                BtnShowTransaction.Enabled = true;
+            }
+            else
+            {
+                BtnShowTransaction.Enabled = false;
+            }
         }
         #endregion
 
@@ -680,7 +695,7 @@ namespace GrocerySupplyManagementApp.Forms
                            .OrderBy(x => x.Id)
                            .Select(x =>
                            {
-                               balance += (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? Constants.DEFAULT_DECIMAL_VALUE : (x.DueReceivedAmount - x.ReceivedAmount);
+                               balance += (memberTransactionFilter.Action == Constants.DEBIT) ? x.DueReceivedAmount : x.ReceivedAmount;
                                return new MemberTransactionView
                                {
                                    Id = x.Id,
@@ -688,7 +703,7 @@ namespace GrocerySupplyManagementApp.Forms
                                    Action = x.Action,
                                    ActionType = x.ActionType,
                                    InvoiceNo = x.InvoiceNo,
-                                   DueReceivedAmount = (x.Action == Constants.SALES && x.ActionType == Constants.CASH) ? x.ReceivedAmount : x.DueReceivedAmount,
+                                   DueReceivedAmount = x.DueReceivedAmount,
                                    ReceivedAmount = x.ReceivedAmount,
                                    Balance = balance
                                };
@@ -698,10 +713,15 @@ namespace GrocerySupplyManagementApp.Forms
             return memberTransactionViews;
         }
 
-        private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList)
+        private void LoadMemberTransactions(List<MemberTransactionView> memberTransactionViewList, decimal balance = Constants.DEFAULT_DECIMAL_VALUE)
         {
-            TxtBalance.Text = memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString();
-            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) > Constants.DEFAULT_DECIMAL_VALUE ? Constants.DUE : (Convert.ToDecimal(TxtBalance.Text) == Constants.DEFAULT_DECIMAL_VALUE ? Constants.CLEAR : Constants.OWNED);
+            TxtBalance.Text = balance == Constants.DEFAULT_DECIMAL_VALUE
+                ? memberTransactionViewList.Sum(x => (x.DueReceivedAmount - x.ReceivedAmount)).ToString()
+                : balance.ToString();
+
+            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) > Constants.DEFAULT_DECIMAL_VALUE 
+                ? Constants.DUE 
+                : (Convert.ToDecimal(TxtBalance.Text) == Constants.DEFAULT_DECIMAL_VALUE ? Constants.CLEAR : Constants.OWNED);
 
             var bindingList = new BindingList<MemberTransactionView>(memberTransactionViewList);
             var source = new BindingSource(bindingList, null);
@@ -759,6 +779,13 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAddMember.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
+
+                MaskEndOfDayFrom.Enabled = true;
+                MaskEndOfDayTo.Enabled = true;
+                ComboAction.Enabled = true;
+
+                ComboAction.Text = string.Empty;
+                TxtAmount.Clear();
             }
             else
             {
@@ -777,6 +804,11 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
                 BtnDelete.Enabled = false;
+
+                MaskEndOfDayFrom.Enabled = false;
+                MaskEndOfDayTo.Enabled = false;
+                ComboAction.Enabled = false;
+                BtnShowTransaction.Enabled = false;
             }
         }
 
@@ -838,6 +870,16 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CASH, Value = Constants.CASH });
             ComboReceipt.Items.Add(new ComboBoxItem { Id = Constants.CHEQUE, Value = Constants.CHEQUE });
+        }
+
+        private void LoadTrasactionActions()
+        {
+            ComboAction.Items.Clear();
+            ComboAction.ValueMember = "Id";
+            ComboAction.DisplayMember = "Value";
+
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.DEBIT, Value = Constants.DEBIT });
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.CREDIT, Value = Constants.CREDIT });
         }
 
         #endregion
