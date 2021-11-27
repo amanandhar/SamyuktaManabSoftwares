@@ -651,7 +651,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichName.Enabled = false;
                 RichAddress.Enabled = false;
                 RichContactNumber.Enabled = false;
-                TxtMemberSales.Enabled = false;
+                TxtTotalMemberSales.Enabled = false;
                 TxtShareAmount.Enabled = false;
 
                 ComboBank.Enabled = false;
@@ -678,7 +678,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichName.Clear();
             RichAddress.Clear();
             RichContactNumber.Clear();
-            TxtMemberSales.Clear();
+            TxtTotalMemberSales.Clear();
             TxtShareAmount.Clear();
             
             ComboBank.Text = string.Empty;
@@ -706,7 +706,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichName.Text = shareMember.Name;
             RichAddress.Text = shareMember.Address;
             RichContactNumber.Text = shareMember.ContactNo.ToString();
-            TxtMemberSales.Text = _userTransactionService.GetTotalMemberSaleAmount(shareMember.ShareMemberId).ToString();
+            TxtTotalMemberSales.Text = _userTransactionService.GetTotalMemberSaleAmount(shareMember.ShareMemberId).ToString();
 
             var absoluteImagePath = Path.Combine(_baseImageFolder, _shareMemberImageFolder, shareMember.ImagePath);
             if (File.Exists(absoluteImagePath))

@@ -287,7 +287,7 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else if (!string.IsNullOrWhiteSpace(incomeType)
                     && (
-                        incomeType.ToLower().Equals(Constants.MEMBER_FEE.ToLower())
+                        incomeType.ToLower().Equals(Constants.BANK_INTEREST.ToLower())
                         || incomeType.ToLower().Equals(Constants.OTHER_INCOME.ToLower())
                         || incomeType.ToLower().Equals(Constants.STOCK_ADJUSTMENT.ToLower())
                         )
@@ -333,7 +333,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboIncome.ValueMember = "Id";
             ComboIncome.DisplayMember = "Value";
 
-            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
+            ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.BANK_INTEREST, Value = Constants.BANK_INTEREST });
             ComboIncome.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
         }
 
@@ -343,8 +343,8 @@ namespace GrocerySupplyManagementApp.Forms
             ComboFilteredBy.ValueMember = "Id";
             ComboFilteredBy.DisplayMember = "Value";
 
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.BANK_INTEREST, Value = Constants.BANK_INTEREST });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.DELIVERY_CHARGE, Value = Constants.DELIVERY_CHARGE });
-            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.MEMBER_FEE, Value = Constants.MEMBER_FEE });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.OTHER_INCOME, Value = Constants.OTHER_INCOME });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.SALES_PROFIT, Value = Constants.SALES_PROFIT });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.STOCK_ADJUSTMENT, Value = Constants.STOCK_ADJUSTMENT });

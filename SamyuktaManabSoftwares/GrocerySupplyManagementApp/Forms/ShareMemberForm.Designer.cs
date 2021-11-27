@@ -34,7 +34,7 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.TxtMemberSales = new System.Windows.Forms.TextBox();
+            this.TxtTotalMemberSales = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.RichShareMemberId = new System.Windows.Forms.RichTextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -85,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.TxtMemberSales);
+            this.groupBox1.Controls.Add(this.TxtTotalMemberSales);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.RichShareMemberId);
             this.groupBox1.Controls.Add(this.label9);
@@ -104,14 +104,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             // 
-            // TxtMemberSales
+            // TxtTotalMemberSales
             // 
-            this.TxtMemberSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtMemberSales.Location = new System.Drawing.Point(117, 78);
-            this.TxtMemberSales.Name = "TxtMemberSales";
-            this.TxtMemberSales.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtMemberSales.Size = new System.Drawing.Size(132, 26);
-            this.TxtMemberSales.TabIndex = 32;
+            this.TxtTotalMemberSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTotalMemberSales.Location = new System.Drawing.Point(117, 78);
+            this.TxtTotalMemberSales.Name = "TxtTotalMemberSales";
+            this.TxtTotalMemberSales.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtTotalMemberSales.Size = new System.Drawing.Size(132, 26);
+            this.TxtTotalMemberSales.TabIndex = 32;
             // 
             // label10
             // 
@@ -120,9 +120,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label10.Location = new System.Drawing.Point(6, 83);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(104, 18);
+            this.label10.Size = new System.Drawing.Size(82, 18);
             this.label10.TabIndex = 31;
-            this.label10.Text = "Member Sales";
+            this.label10.Text = "Total Sales";
             // 
             // RichShareMemberId
             // 
@@ -744,7 +744,7 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnRemoveTransaction;
         private System.Windows.Forms.RichTextBox RichShareMemberId;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox TxtMemberSales;
+        private System.Windows.Forms.TextBox TxtTotalMemberSales;
         private System.Windows.Forms.Label label10;
     }
 }

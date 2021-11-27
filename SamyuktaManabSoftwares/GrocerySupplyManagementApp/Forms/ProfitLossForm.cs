@@ -92,13 +92,12 @@ namespace GrocerySupplyManagementApp.Forms
 
                     var incomeFields = new List<ExcelField>();
                     var incomes = GetIncome();
-
+                    incomeFields.Add(new ExcelField() { Order = 1, Field = Constants.BANK_INTEREST, Value = incomes.Where(x => x.Name == Constants.BANK_INTEREST).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     incomeFields.Add(new ExcelField() { Order = 2, Field = Constants.DELIVERY_CHARGE, Value = incomes.Where(x => x.Name == Constants.DELIVERY_CHARGE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                    incomeFields.Add(new ExcelField() { Order = 3, Field = Constants.MEMBER_FEE, Value = incomes.Where(x => x.Name == Constants.MEMBER_FEE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                    incomeFields.Add(new ExcelField() { Order = 4, Field = Constants.OTHER_INCOME, Value = incomes.Where(x => x.Name == Constants.OTHER_INCOME).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                    incomeFields.Add(new ExcelField() { Order = 5, Field = Constants.SALES_PROFIT, Value = incomes.Where(x => x.Name == Constants.SALES_PROFIT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                    incomeFields.Add(new ExcelField() { Order = 6, Field = Constants.STOCK_ADJUSTMENT, Value = incomes.Where(x => x.Name == Constants.STOCK_ADJUSTMENT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
-                    incomeFields.Add(new ExcelField() { Order = 7, Field = Constants.TOTAL, Value = incomes.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                    incomeFields.Add(new ExcelField() { Order = 3, Field = Constants.OTHER_INCOME, Value = incomes.Where(x => x.Name == Constants.OTHER_INCOME).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                    incomeFields.Add(new ExcelField() { Order = 4, Field = Constants.SALES_PROFIT, Value = incomes.Where(x => x.Name == Constants.SALES_PROFIT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                    incomeFields.Add(new ExcelField() { Order = 5, Field = Constants.STOCK_ADJUSTMENT, Value = incomes.Where(x => x.Name == Constants.STOCK_ADJUSTMENT).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                    incomeFields.Add(new ExcelField() { Order = 6, Field = Constants.TOTAL, Value = incomes.Where(x => x.Name == Constants.TOTAL).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     excelData.Add(Constants.INCOME, incomeFields);
 
                     var expenseFields = new List<ExcelField>();
@@ -181,13 +180,13 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     new IncomeExpenseView
                     {
-                        Name = Constants.DELIVERY_CHARGE,
-                        Amount = _incomeExpenseService.GetTotalDeliveryCharge(new IncomeTransactionFilter() { DateTo = endOfDay})
+                        Name = Constants.BANK_INTEREST,
+                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, IncomeType = Constants.BANK_INTEREST })
                     },
                     new IncomeExpenseView
                     {
-                        Name = Constants.MEMBER_FEE,
-                        Amount = _incomeExpenseService.GetTotalIncome(new IncomeTransactionFilter() { DateTo = endOfDay, IncomeType = Constants.MEMBER_FEE })
+                        Name = Constants.DELIVERY_CHARGE,
+                        Amount = _incomeExpenseService.GetTotalDeliveryCharge(new IncomeTransactionFilter() { DateTo = endOfDay})
                     },
                     new IncomeExpenseView
                     {
