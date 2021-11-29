@@ -79,7 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayFrom.Text = _endOfDay;
             MaskEndOfDayTo.Text = _endOfDay;
             ClearAllFields();
-            LoadTransactionFilter();
+            LoadTransactionActions();
             LoadPayments();
             EnableFields();
             EnableFields(Action.Load);
@@ -217,7 +217,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ComboPayment.Text = string.Empty;
                             ComboBank.Text = string.Empty;
                             RichAmount.Clear();
-                            var supplierTransactionViewList = GetSupplierTransaction();
+                            var supplierTransactionViewList = GetSupplierTransactions();
                             LoadSupplierTransaction(supplierTransactionViewList);
                         }
                     }
@@ -260,7 +260,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 DialogResult result = MessageBox.Show("Payment has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 if (result == DialogResult.OK)
                                 {
-                                    var supplierTransactionViewList = GetSupplierTransaction();
+                                    var supplierTransactionViewList = GetSupplierTransactions();
                                     LoadSupplierTransaction(supplierTransactionViewList);
                                 }
                             }
@@ -404,20 +404,30 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
-            var supplierFilter = new SupplierTransactionFilter();
-            if (!string.IsNullOrWhiteSpace(TxtSupplierId.Text.Trim()))
+            var dateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
+            var dateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
+            var supplierId = TxtSupplierId.Text.Trim();
+            var action = ComboAction.Text.Trim();
+
+            var supplierTransactionFilter = new SupplierTransactionFilter()
             {
-                supplierFilter.SupplierId = TxtSupplierId.Text.Trim();
-            }
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+                SupplierId = supplierId,
+                Action = action
+            };
 
-            supplierFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
-            supplierFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
-            supplierFilter.Action = ComboTransactionFilter.Text.Trim();
+            var supplierTransactionViewList = GetSupplierTransactions(supplierTransactionFilter);
+            var balance = action == Constants.DEBIT
+                ? supplierTransactionViewList.Sum(x => x.DuePaymentAmount)
+                : supplierTransactionViewList.Sum(x => x.PaymentAmount);
 
-            var supplierTransactionViewList = GetSupplierTransaction(supplierFilter);
-            var balance = supplierTransactionViewList.Sum(x => x.Balance);
-            TxtTotalAmount.Text = balance.ToString();
+            TxtAmount.Text = balance.ToString();
             TxtBalance.Text = balance.ToString();
+            TxtBalanceStatus.Text = Convert.ToDecimal(TxtBalance.Text) > Constants.DEFAULT_DECIMAL_VALUE
+                ? Constants.DUE
+                : (Convert.ToDecimal(TxtBalance.Text) == Constants.DEFAULT_DECIMAL_VALUE ? Constants.CLEAR : Constants.OWNED);
+
             LoadSupplierTransaction(supplierTransactionViewList);
         }
 
@@ -433,13 +443,13 @@ namespace GrocerySupplyManagementApp.Forms
                     if (particulars.ToLower() != Constants.CASH.ToLower() && particulars.ToLower() != Constants.CHEQUE.ToLower())
                     {
                         _purchasedItemService.DeletePurchasedItem(particulars);
-                        var supplierTransactionViewList = GetSupplierTransaction();
+                        var supplierTransactionViewList = GetSupplierTransactions();
                         LoadSupplierTransaction(supplierTransactionViewList);
                     }
 
                     if (particulars.ToLower() == Constants.CASH.ToLower() || particulars.ToLower() == Constants.CHEQUE.ToLower())
                     {
-                        var supplierTransactionViewList = GetSupplierTransaction();
+                        var supplierTransactionViewList = GetSupplierTransactions();
                         LoadSupplierTransaction(supplierTransactionViewList);
                     }
                 }
@@ -521,9 +531,22 @@ namespace GrocerySupplyManagementApp.Forms
             e.Handled = true;
         }
 
-        private void ComboTransactionFilter_KeyPress(object sender, KeyPressEventArgs e)
+        private void ComboAction_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ComboAction_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+            if (!string.IsNullOrWhiteSpace(ComboAction.Text))
+            {
+                BtnShowTransaction.Enabled = true;
+            }
+            else
+            {
+                BtnShowTransaction.Enabled = false;
+            }
         }
 
         #endregion
@@ -575,25 +598,25 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
-        private List<SupplierTransactionView> GetSupplierTransaction()
+        private List<SupplierTransactionView> GetSupplierTransactions()
         {
             var supplierId = TxtSupplierId.Text.Trim();
             var balance = _capitalService.GetSupplierTotalBalance(new SupplierTransactionFilter() { SupplierId = supplierId });
 
-            if (balance > 0)
+            if (balance > Constants.DEFAULT_DECIMAL_VALUE)
             {
                 TxtBalance.Text = balance.ToString();
-                TextBoxDebitCredit.Text = Constants.DUE;
+                TxtBalanceStatus.Text = Constants.DUE;
             }
-            else if (balance < 0)
+            else if (balance < Constants.DEFAULT_DECIMAL_VALUE)
             {
                 TxtBalance.Text = decimal.Negate(balance).ToString();
-                TextBoxDebitCredit.Text = Constants.OWNED;
+                TxtBalanceStatus.Text = Constants.OWNED;
             }
             else
             {
                 TxtBalance.Text = balance.ToString();
-                TextBoxDebitCredit.Text = Constants.CLEAR;
+                TxtBalanceStatus.Text = Constants.CLEAR;
             }
 
             return _userTransactionService
@@ -601,9 +624,40 @@ namespace GrocerySupplyManagementApp.Forms
                 .ToList();
         }
 
-        private List<SupplierTransactionView> GetSupplierTransaction(SupplierTransactionFilter supplierFilter)
+        private List<SupplierTransactionView> GetSupplierTransactions(SupplierTransactionFilter supplierTransactionFilter)
         {
-            return _userTransactionService.GetSupplierTransactions(supplierFilter).ToList();
+            var supplierTransactions =  _userTransactionService.GetSupplierTransactions(supplierTransactionFilter).ToList();
+
+            decimal balance = Constants.DEFAULT_DECIMAL_VALUE;
+            var supplierTransactionViews = supplierTransactions
+                           .OrderBy(x => x.Id)
+                           .Select(x =>
+                           {
+                               var temp = supplierTransactionFilter.Action == Constants.DEBIT
+                                    ? x.DuePaymentAmount
+                                    : x.PaymentAmount;
+
+                               balance += temp;
+
+                               return new SupplierTransactionView
+                               {
+                                   Id = x.Id,
+                                   EndOfDay = x.EndOfDay,
+                                   Action = x.Action,
+                                   ActionType = x.ActionType,
+                                   BillNo = x.BillNo,
+                                   DuePaymentAmount = supplierTransactionFilter.Action == Constants.DEBIT 
+                                       ? x.DuePaymentAmount
+                                       : Constants.DEFAULT_DECIMAL_VALUE,
+                                   PaymentAmount = supplierTransactionFilter.Action == Constants.DEBIT
+                                       ? Constants.DEFAULT_DECIMAL_VALUE
+                                       : x.PaymentAmount,
+                                   Balance = balance
+                               };
+                           }
+             ).ToList();
+
+            return supplierTransactionViews;
         }
 
         private void LoadSupplierTransaction(List<SupplierTransactionView> supplierTransactionViewList)
@@ -653,6 +707,13 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnShowPurchase.Enabled = true;
                 BtnSavePayment.Enabled = true;
                 BtnRemovePayment.Enabled = true;
+
+                MaskEndOfDayFrom.Enabled = true;
+                MaskEndOfDayTo.Enabled = true;
+                ComboAction.Enabled = true;
+
+                ComboAction.Text = string.Empty;
+                TxtAmount.Clear();
             }
             else if (action == Action.Load)
             {
@@ -696,13 +757,17 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
                 BtnDelete.Enabled = false;
-                BtnShowTransaction.Enabled = true;
 
                 TxtSupplierName.Enabled = false;
                 TxtOwner.Enabled = false;
                 TxtAddress.Enabled = false;
                 TxtContactNumber.Enabled = false;
                 TxtEmail.Enabled = false;
+
+                MaskEndOfDayFrom.Enabled = false;
+                MaskEndOfDayTo.Enabled = false;
+                ComboAction.Enabled = false;
+                BtnShowTransaction.Enabled = false;
             }
         }
 
@@ -727,21 +792,21 @@ namespace GrocerySupplyManagementApp.Forms
             TxtContactNumber.Text = supplier.ContactNo.ToString();
             TxtEmail.Text = supplier.Email;
 
-            TxtTotalAmount.Clear();
-            ComboTransactionFilter.Text = string.Empty;
+            TxtAmount.Clear();
+            ComboAction.Text = string.Empty;
 
             BtnAddPurchase.Enabled = true;
             BtnShowPurchase.Enabled = true;
 
             EnableFields();
             EnableFields(Action.PopulateSupplier);
-            var supplierTransactionViewList = GetSupplierTransaction();
+            var supplierTransactionViewList = GetSupplierTransactions();
             LoadSupplierTransaction(supplierTransactionViewList);
         }
 
         public void PopulateItemsPurchaseDetails(string billNo)
         {
-            var supplierTransactionViewList = GetSupplierTransaction();
+            var supplierTransactionViewList = GetSupplierTransactions();
             LoadSupplierTransaction(supplierTransactionViewList);
         }
 
@@ -755,14 +820,14 @@ namespace GrocerySupplyManagementApp.Forms
             return TxtSupplierId.Text.Trim();
         }
 
-        public void LoadTransactionFilter()
+        public void LoadTransactionActions()
         {
-            ComboTransactionFilter.Items.Clear();
-            ComboTransactionFilter.ValueMember = "Id";
-            ComboTransactionFilter.DisplayMember = "Value";
+            ComboAction.Items.Clear();
+            ComboAction.ValueMember = "Id";
+            ComboAction.DisplayMember = "Value";
 
-            ComboTransactionFilter.Items.Add(new ComboBoxItem { Id = Constants.PAYMENT, Value = Constants.PAYMENT });
-            ComboTransactionFilter.Items.Add(new ComboBoxItem { Id = Constants.PURCHASE, Value = Constants.PURCHASE });
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.DEBIT, Value = Constants.DEBIT });
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.CREDIT, Value = Constants.CREDIT });
         }
 
         public void LoadPayments()
@@ -831,7 +896,6 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
 
-        #endregion
- 
+        #endregion 
     }
 }

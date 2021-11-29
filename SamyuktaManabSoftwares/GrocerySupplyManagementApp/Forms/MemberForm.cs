@@ -587,6 +587,11 @@ namespace GrocerySupplyManagementApp.Forms
             e.Handled = true;
         }
 
+        private void ComboAction_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void ComboAction_SelectedValueChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(ComboAction.Text))

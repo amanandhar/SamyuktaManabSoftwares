@@ -130,7 +130,6 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ISNULL(ut.[PartyId], '') = @MemberId ";
             }
 
-
             query += "ORDER BY ut.[AddedDate] DESC";
 
             try
@@ -215,11 +214,6 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND ISNULL(ut.[PartyId], '') = @PartyId ";
             }
 
-            if (!string.IsNullOrWhiteSpace(supplierTransactionFilter?.Action))
-            {
-                query += "AND ut.[Action] = @Action ";
-            }
-
             query += "ORDER BY ut.[AddedDate] ";
 
             try
@@ -232,7 +226,6 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@DateFrom", ((object)supplierTransactionFilter.DateFrom) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DateTo", ((object)supplierTransactionFilter.DateTo) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@PartyId", ((object)supplierTransactionFilter.SupplierId) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Action", ((object)supplierTransactionFilter.Action) ?? DBNull.Value);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
