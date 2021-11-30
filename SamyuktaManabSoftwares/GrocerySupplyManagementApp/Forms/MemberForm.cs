@@ -489,7 +489,7 @@ namespace GrocerySupplyManagementApp.Forms
             };
 
             var memberTransactionViewList = GetMemberTransactions(memberTransactionFilter);
-            TxtAmount.Text = action == Constants.DEBIT
+            TxtAmount.Text = (action == Constants.DEBIT)
                 ? memberTransactionViewList.Sum(x => x.DueReceivedAmount).ToString()
                 : memberTransactionViewList.Sum(x => x.ReceivedAmount).ToString();
             LoadMemberTransactions(memberTransactionViewList, Convert.ToDecimal(TxtAmount.Text));

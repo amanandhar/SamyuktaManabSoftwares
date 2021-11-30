@@ -29,8 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TxtAccountNo = new System.Windows.Forms.TextBox();
             this.TxtBankName = new System.Windows.Forms.TextBox();
@@ -59,7 +59,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnRemoveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSaveTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.DataGridBankList = new System.Windows.Forms.DataGridView();
-            this.ComboTransactionFilter = new System.Windows.Forms.ComboBox();
+            this.ComboAction = new System.Windows.Forms.ComboBox();
             this.MaskEndOfDayFrom = new System.Windows.Forms.MaskedTextBox();
             this.MaskEndOfDayTo = new System.Windows.Forms.MaskedTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -463,23 +463,23 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridBankList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridBankList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridBankList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridBankList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridBankList.Location = new System.Drawing.Point(14, 140);
             this.DataGridBankList.Name = "DataGridBankList";
             this.DataGridBankList.ReadOnly = true;
@@ -487,18 +487,20 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridBankList.TabIndex = 0;
             this.DataGridBankList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridBankDetails_DataBindingComplete);
             // 
-            // ComboTransactionFilter
+            // ComboAction
             // 
-            this.ComboTransactionFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboTransactionFilter.FormattingEnabled = true;
-            this.ComboTransactionFilter.Items.AddRange(new object[] {
+            this.ComboAction.Enabled = false;
+            this.ComboAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboAction.FormattingEnabled = true;
+            this.ComboAction.Items.AddRange(new object[] {
             "Deposit",
             "Withdrawl"});
-            this.ComboTransactionFilter.Location = new System.Drawing.Point(396, 18);
-            this.ComboTransactionFilter.Name = "ComboTransactionFilter";
-            this.ComboTransactionFilter.Size = new System.Drawing.Size(120, 26);
-            this.ComboTransactionFilter.TabIndex = 22;
-            this.ComboTransactionFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboTransactionFilter_KeyPress);
+            this.ComboAction.Location = new System.Drawing.Point(396, 18);
+            this.ComboAction.Name = "ComboAction";
+            this.ComboAction.Size = new System.Drawing.Size(120, 26);
+            this.ComboAction.TabIndex = 22;
+            this.ComboAction.SelectedValueChanged += new System.EventHandler(this.ComboAction_SelectedValueChanged);
+            this.ComboAction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboAction_KeyPress);
             // 
             // MaskEndOfDayFrom
             // 
@@ -541,7 +543,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.ComboTransactionFilter);
+            this.groupBox3.Controls.Add(this.ComboAction);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.BtnShowTransaction);
@@ -565,6 +567,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShowTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.BtnShowTransaction.BorderRadius = 35;
             this.BtnShowTransaction.BorderSize = 0;
+            this.BtnShowTransaction.Enabled = false;
             this.BtnShowTransaction.FlatAppearance.BorderSize = 0;
             this.BtnShowTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShowTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -624,7 +627,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtBalance;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView DataGridBankList;
-        private System.Windows.Forms.ComboBox ComboTransactionFilter;
+        private System.Windows.Forms.ComboBox ComboAction;
         private System.Windows.Forms.ComboBox ComboType;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.MaskedTextBox MaskEndOfDayFrom;

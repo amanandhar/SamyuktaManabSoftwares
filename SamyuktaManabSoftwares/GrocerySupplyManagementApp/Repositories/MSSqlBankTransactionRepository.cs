@@ -151,9 +151,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 query += "AND [EndOfDay] <= @DateTo ";
             }
 
-            if (!char.IsWhiteSpace((char)bankTransactionFilter?.Type))
+            if (bankTransactionFilter?.BankId != null)
             {
-                query += "AND [Type] = @Type ";
+                query += "AND [BankId] = @BankId ";
             }
 
             try
@@ -163,9 +163,10 @@ namespace GrocerySupplyManagementApp.Repositories
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter.DateFrom) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter.DateTo) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@Type", ((object)bankTransactionFilter.Type) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateFrom", ((object)bankTransactionFilter?.DateFrom) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DateTo", ((object)bankTransactionFilter?.DateTo) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@BankId", ((object)bankTransactionFilter?.BankId) ?? DBNull.Value);
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())

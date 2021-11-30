@@ -64,6 +64,7 @@ namespace GrocerySupplyManagementApp.Forms
             MaskEndOfDayTo.Text = _endOfDay;
             LoadDepositTypes();
             LoadTransaction();
+            LoadTrasactionActions();
             EnableFields();
             EnableFields(Action.Load);
         }
@@ -272,19 +273,26 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnShowTransaction_Click(object sender, EventArgs e)
         {
-            var transaction = ComboTransactionFilter.Text.Trim();
-            var bankTransactionFilter = new BankTransactionFilter();
-
-            if (!string.IsNullOrWhiteSpace(transaction))
+            var dateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
+            var dateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
+            var action = ComboAction.Text.Trim();
+            var type = (action == Constants.DEBIT) ? '1' : '0';
+            var bankId = selectedBankId;
+            
+            var bankTransactionFilter = new BankTransactionFilter()
             {
-                bankTransactionFilter.Type = transaction.Equals(Constants.DEPOSIT) ? '1' : '0';
-            }
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+                Type = type,
+                Action = action,
+                BankId = bankId
+            };
 
-            bankTransactionFilter.DateFrom = UtilityService.GetDate(MaskEndOfDayFrom.Text.Trim());
-            bankTransactionFilter.DateTo = UtilityService.GetDate(MaskEndOfDayTo.Text.Trim());
-
-            var bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(bankTransactionFilter).ToList();
-            TxtAmount.Text = bankTransactionViewList.Sum(x => x.Balance).ToString();
+            var bankTransactionViewList = GetBankTransactionViews(bankTransactionFilter).ToList();
+            TxtAmount.Text = (action == Constants.DEBIT)
+                ? bankTransactionViewList.Sum(x => x.Debit).ToString()
+                : bankTransactionViewList.Sum(x => x.Credit).ToString();
+            TxtBalance.Text = TxtAmount.Text;
             LoadBankTransaction(bankTransactionViewList);
         }
         #endregion
@@ -320,9 +328,21 @@ namespace GrocerySupplyManagementApp.Forms
             e.Handled = true;
         }
 
-        private void ComboTransactionFilter_KeyPress(object sender, KeyPressEventArgs e)
+        private void ComboAction_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ComboAction_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ComboAction.Text))
+            {
+                BtnShowTransaction.Enabled = true;
+            }
+            else
+            {
+                BtnShowTransaction.Enabled = false;
+            }
         }
 
         #endregion
@@ -375,6 +395,42 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var bankTransactionViewList = _bankTransactionService.GetBankTransactionViews(selectedBankId).ToList();
             return bankTransactionViewList;
+        }
+
+        private List<BankTransactionView> GetBankTransactionViews(BankTransactionFilter bankTransactionFilter)
+        {
+            var bankTransactions = _bankTransactionService.GetBankTransactionViews(bankTransactionFilter).ToList();
+
+            decimal balance = Constants.DEFAULT_DECIMAL_VALUE;
+            var bankTransactionViews = bankTransactions
+                           .OrderBy(x => x.Id)
+                           .Select(x =>
+                           {
+                               var temp = bankTransactionFilter.Action == Constants.DEBIT
+                                    ? x.Debit
+                                    : x.Credit;
+
+                               balance += temp;
+
+                               return new BankTransactionView
+                               {
+                                   Id = x.Id,
+                                   TransactionId = x.TransactionId,
+                                   EndOfDay = x.EndOfDay,
+                                   Description = x.Description,
+                                   Narration = x.Narration,
+                                   Debit = bankTransactionFilter.Action == Constants.DEBIT
+                                        ? x.Debit
+                                        : Constants.DEFAULT_DECIMAL_VALUE,
+                                   Credit = bankTransactionFilter.Action == Constants.DEBIT
+                                        ? Constants.DEFAULT_DECIMAL_VALUE
+                                        : x.Credit,
+                                   Balance = balance
+                               };
+                           }
+             ).ToList();
+
+            return bankTransactionViews;
         }
 
         private void LoadBankTransaction(List<BankTransactionView> bankTransactionViewList)
@@ -451,6 +507,13 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAddBank.Enabled = true;
                 BtnEditBank.Enabled = true;
                 BtnDeleteBank.Enabled = true;
+
+                MaskEndOfDayFrom.Enabled = true;
+                MaskEndOfDayTo.Enabled = true;
+                ComboAction.Enabled = true;
+
+                ComboAction.Text = string.Empty;
+                TxtAmount.Clear();
             }
             else if (action == Action.Load)
             {
@@ -472,6 +535,11 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEditBank.Enabled = false;
                 BtnUpdateBank.Enabled = false;
                 BtnDeleteBank.Enabled = false;
+
+                MaskEndOfDayFrom.Enabled = false;
+                MaskEndOfDayTo.Enabled = false;
+                ComboAction.Enabled = false;
+                BtnShowTransaction.Enabled = false;
             }
         }
 
@@ -502,6 +570,16 @@ namespace GrocerySupplyManagementApp.Forms
 
             ComboTransaction.Items.Add(new ComboBoxItem { Id = Constants.DEPOSIT, Value = Constants.DEPOSIT });
             ComboTransaction.Items.Add(new ComboBoxItem { Id = Constants.WITHDRAWL, Value = Constants.WITHDRAWL });
+        }
+
+        private void LoadTrasactionActions()
+        {
+            ComboAction.Items.Clear();
+            ComboAction.ValueMember = "Id";
+            ComboAction.DisplayMember = "Value";
+
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.DEBIT, Value = Constants.DEBIT });
+            ComboAction.Items.Add(new ComboBoxItem { Id = Constants.CREDIT, Value = Constants.CREDIT });
         }
         #endregion
 
@@ -553,6 +631,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }
