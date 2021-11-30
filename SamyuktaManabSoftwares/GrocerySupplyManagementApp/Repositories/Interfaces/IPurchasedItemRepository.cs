@@ -10,7 +10,7 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
         IEnumerable<PurchasedItemListView> GetPurchasedItemDetails();
         IEnumerable<PurchasedItem> GetPurchasedItemBySupplierAndBill(string supplierId, string billNo);
         decimal GetPurchasedItemTotalAmount(string supplierId, string billNo);
-        long GetPurchasedItemTotalQuantity(StockFilter stockFilter);
+        decimal GetPurchasedItemTotalQuantity(StockFilter stockFilter);
         PurchasedItem GetPurchasedItemByItemId(long itemId);
         string GetLastBillNumber();
         IEnumerable<string> GetBillNumbers();

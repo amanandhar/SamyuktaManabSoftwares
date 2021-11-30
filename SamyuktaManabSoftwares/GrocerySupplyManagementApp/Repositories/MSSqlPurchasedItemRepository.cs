@@ -150,9 +150,9 @@ namespace GrocerySupplyManagementApp.Repositories
             return totalAmount;
         }
 
-        public long GetPurchasedItemTotalQuantity(StockFilter stockFilter)
+        public decimal GetPurchasedItemTotalQuantity(StockFilter stockFilter)
         {
-            long totalCount = 0;
+            decimal totalCount = 0;
             var query = @"SELECT " +
                 "SUM([Quantity]) AS 'Quantity' " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
@@ -189,7 +189,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         var result = command.ExecuteScalar();
                         if (result != null && DBNull.Value != result)
                         {
-                            totalCount = Convert.ToInt64(result);
+                            totalCount = Convert.ToDecimal(result);
                         }
                     }
                 }

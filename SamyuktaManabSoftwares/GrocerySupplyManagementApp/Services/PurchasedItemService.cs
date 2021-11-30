@@ -39,7 +39,7 @@ namespace GrocerySupplyManagementApp.Services
             return _purchasedItemRepository.GetPurchasedItemTotalAmount(supplierId, billNo);
         }
 
-        public long GetPurchasedItemTotalQuantity(StockFilter stockFilter)
+        public decimal GetPurchasedItemTotalQuantity(StockFilter stockFilter)
         {
             return _purchasedItemRepository.GetPurchasedItemTotalQuantity(stockFilter);
         }
