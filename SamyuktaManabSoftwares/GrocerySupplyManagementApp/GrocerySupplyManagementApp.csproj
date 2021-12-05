@@ -730,6 +730,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Scripts\TablesWithSampleData.sql" />
     <Content Include="Data\Scripts\CreateTables.sql" />
     <Content Include="Data\Scripts\DeleteTables.sql" />
     <None Include="Resources\images %2818%29.jpg" />

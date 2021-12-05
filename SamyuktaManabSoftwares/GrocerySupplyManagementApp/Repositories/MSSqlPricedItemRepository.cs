@@ -151,7 +151,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
                                     SubCode = reader["SubCode"].ToString(),
-                                    Name = reader["Name"].ToString()
+                                    Name = reader["Name"].ToString(),
+                                    Price = Constants.DEFAULT_DECIMAL_VALUE
                                 };
 
                                 pricedItemViewList.Add(pricedItemView);

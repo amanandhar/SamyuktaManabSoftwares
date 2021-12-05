@@ -235,7 +235,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearchItem_Click(object sender, EventArgs e)
         {
-            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
+            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, _stockService, this);
             pricedItemListForm.ShowDialog();
             EnableFields();
             EnableFields(Action.SearchPricedItem);
@@ -1060,17 +1060,14 @@ namespace GrocerySupplyManagementApp.Forms
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-                var customPerUnitValue = perUnitValue;
-
-                customPerUnitValue = Math.Round((perUnitValue * pricedItem.Volume), 2);
-
+                var customPerUnitValue = Math.Round((perUnitValue * pricedItem.Volume), 2);
                 var profitPercent = pricedItem.ProfitPercent;
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 var salesPrice = customPerUnitValue + profitAmount;
-                TxtItemPrice.Text = Math.Round(salesPrice, 2).ToString();
-                TxtPricedUnit.Text = item.Unit;
                 // End
 
+                TxtItemPrice.Text = Math.Round(salesPrice, 2).ToString();
+                TxtPricedUnit.Text = item.Unit;
                 TxtItemStock.Text = stock.ToString();
 
                 var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);

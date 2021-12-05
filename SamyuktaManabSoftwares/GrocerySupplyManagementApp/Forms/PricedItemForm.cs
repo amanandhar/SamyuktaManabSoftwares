@@ -82,7 +82,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Button Click Event
         private void BtnSearchPricedItem_Click(object sender, EventArgs e)
         {
-            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
+            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, _stockService, this);
             pricedItemListForm.ShowDialog();
         }
 
