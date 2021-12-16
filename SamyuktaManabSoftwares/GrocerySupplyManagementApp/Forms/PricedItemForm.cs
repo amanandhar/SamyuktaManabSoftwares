@@ -314,12 +314,25 @@ namespace GrocerySupplyManagementApp.Forms
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
-            }
+            } 
         }
 
         private void TxtProfitPercent_KeyUp(object sender, KeyEventArgs e)
         {
             CalculateProfit();
+        }
+
+        private void TxtSalesPricePerUnit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtSalesPricePerUnit_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateProfitBySalesPricePerUnit();
         }
 
         #endregion
@@ -359,12 +372,30 @@ namespace GrocerySupplyManagementApp.Forms
                 var customPerUnitValue = Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
                 var profitAmount = (customPerUnitValue * (profitPercent / 100));
                 TxtProfitAmount.Text = profitAmount.ToString("0.00");
-                var salesPrice = customPerUnitValue + profitAmount;
-                TxtSalesPricePerUnit.Text = salesPrice.ToString("0.00");
+                var salesPricePerUnit = customPerUnitValue + profitAmount;
+                TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
             }
             else
             {
                 TxtProfitAmount.Text = string.Empty;
+                TxtSalesPricePerUnit.Text = string.Empty;
+            }
+        }
+
+        private void CalculateProfitBySalesPricePerUnit()
+        {
+            if (!string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim()) 
+                && !string.IsNullOrWhiteSpace(TxtSalesPricePerUnit.Text.Trim()))
+            {
+                var salesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim());
+                var customPerUnitValue = Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
+                TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
+                var profitPercent = ((salesPricePerUnit - customPerUnitValue) * 100) / customPerUnitValue;
+                TxtProfitPercent.Text = profitPercent.ToString("0.0000");
+            }
+            else
+            {
+                TxtProfitPercent.Text = string.Empty;
                 TxtSalesPricePerUnit.Text = string.Empty;
             }
         }
@@ -387,6 +418,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemSubCode.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
+                TxtSalesPricePerUnit.Enabled = true;
 
                 BtnSave.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -398,6 +430,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemSubCode.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
+                TxtSalesPricePerUnit.Enabled = true;
 
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -561,15 +594,18 @@ namespace GrocerySupplyManagementApp.Forms
             var itemSubCode = TxtItemSubCode.Text.Trim();
             var volume = TxtVolume.Text.Trim();
             var profitPercent = TxtProfitPercent.Text.Trim();
+            var salesPricePerUnit = TxtSalesPricePerUnit.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(itemSubCode)
                 || string.IsNullOrWhiteSpace(volume)
-                || string.IsNullOrWhiteSpace(profitPercent))
+                || string.IsNullOrWhiteSpace(profitPercent)
+                || string.IsNullOrWhiteSpace(salesPricePerUnit))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Item Sub Code " +
                     "\n * Volume " +
-                    "\n * Profit Percent", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Profit Percent " +
+                    "\n * Sales Price Per Unit", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
