@@ -305,34 +305,34 @@ namespace GrocerySupplyManagementApp.Forms
             if (!string.IsNullOrWhiteSpace(TxtVolume.Text.Trim()))
             {
                 TxtCustomPerUnitValue.Text = (Convert.ToDecimal(TxtPerUnitValue.Text.Trim()) * Convert.ToDecimal(TxtVolume.Text.Trim())).ToString();
-                CalculateProfit();
+                CalculateProfitAmount();
             }
         }
 
         private void TxtProfitPercent_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            } 
-        }
-
-        private void TxtProfitPercent_KeyUp(object sender, KeyEventArgs e)
-        {
-            CalculateProfit();
-        }
-
-        private void TxtSalesPricePerUnit_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
             {
                 e.Handled = true;
             }
         }
 
-        private void TxtSalesPricePerUnit_KeyUp(object sender, KeyEventArgs e)
+        private void TxtProfitPercent_KeyUp(object sender, KeyEventArgs e)
         {
-            CalculateProfitBySalesPricePerUnit();
+            CalculateProfitAmount();
+        }
+
+        private void TxtProfitAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtProfitAmount_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateProfitPercentage();
         }
 
         #endregion
@@ -364,9 +364,13 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Helper Methods
 
-        private void CalculateProfit()
+        private void CalculateProfitAmount()
         {
-            if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text.Trim()))
+            decimal value;
+            if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text.Trim())
+                && decimal.TryParse(TxtProfitPercent.Text.Trim(), out value)
+                && !string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtCustomPerUnitValue.Text.Trim(), out value))
             {
                 var profitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim());
                 var customPerUnitValue = Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
@@ -382,16 +386,20 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void CalculateProfitBySalesPricePerUnit()
+        private void CalculateProfitPercentage()
         {
-            if (!string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim()) 
-                && !string.IsNullOrWhiteSpace(TxtSalesPricePerUnit.Text.Trim()))
+            decimal value;
+            if (!string.IsNullOrWhiteSpace(TxtProfitAmount.Text.Trim())
+                && decimal.TryParse(TxtProfitAmount.Text.Trim(), out value)
+                && !string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtProfitAmount.Text.Trim(), out value))
             {
-                var salesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim());
+                var profitAmount = Convert.ToDecimal(TxtProfitAmount.Text.Trim());
                 var customPerUnitValue = Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
+                var profitPercent = ((profitAmount / customPerUnitValue) * 100);
+                TxtProfitPercent.Text = profitPercent.ToString("0.000");
+                var salesPricePerUnit = customPerUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
-                var profitPercent = ((salesPricePerUnit - customPerUnitValue) * 100) / customPerUnitValue;
-                TxtProfitPercent.Text = profitPercent.ToString("0.0000");
             }
             else
             {
@@ -418,7 +426,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemSubCode.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
-                TxtSalesPricePerUnit.Enabled = true;
+                TxtProfitAmount.Enabled = true;
 
                 BtnSave.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -430,7 +438,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemSubCode.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
-                TxtSalesPricePerUnit.Enabled = true;
+                TxtProfitAmount.Enabled = true;
 
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -594,18 +602,26 @@ namespace GrocerySupplyManagementApp.Forms
             var itemSubCode = TxtItemSubCode.Text.Trim();
             var volume = TxtVolume.Text.Trim();
             var profitPercent = TxtProfitPercent.Text.Trim();
-            var salesPricePerUnit = TxtSalesPricePerUnit.Text.Trim();
+            var profitAmount = TxtProfitAmount.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(itemSubCode)
                 || string.IsNullOrWhiteSpace(volume)
                 || string.IsNullOrWhiteSpace(profitPercent)
-                || string.IsNullOrWhiteSpace(salesPricePerUnit))
+                || string.IsNullOrWhiteSpace(profitAmount))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Item Sub Code " +
                     "\n * Volume " +
                     "\n * Profit Percent " +
-                    "\n * Sales Price Per Unit", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Profit Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if(profitPercent.IndexOf('.') != -1 && (profitPercent.Length - profitPercent.LastIndexOf('.') > 4))
+            {
+                MessageBox.Show("Please enter 3 decimal only in profit percentage", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (profitAmount.IndexOf('.') != -1 && (profitAmount.Length - profitAmount.LastIndexOf('.') > 3))
+            {
+                MessageBox.Show("Please enter 2 decimal only in profit amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
