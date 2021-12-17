@@ -42,6 +42,7 @@ namespace GrocerySupplyManagementApp.Forms
             Edit,
             Update,
             Delete,
+            Load,
             PopulatePricedItem,
             PopulateUnpricedItem,
             None
@@ -71,11 +72,14 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Form Load Event
-        private void ItemForm_Load(object sender, EventArgs e)
+        private void PricedItemForm_Load(object sender, EventArgs e)
         {
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
             _itemImageFolder = ConfigurationManager.AppSettings[Constants.ITEM_IMAGE_FOLDER].ToString();
             LoadItemUnits();
+            EnableFields();
+            EnableFields(Action.Load);
+            TxtItemCode.Focus();
         }
         #endregion
 
@@ -291,6 +295,36 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Textbox Event
+        private void TxtItemCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
+
+        private void TxtItemCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                try
+                {
+                    var pricedItemCode = TxtItemCode.Text.Trim();
+                    var pricedItem = _pricedItemService.GetPricedItem(pricedItemCode, string.Empty);
+                    if(pricedItem.Id != 0)
+                    {
+                        PopulatePricedItem(pricedItem.Id);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Item with " + pricedItemCode + " does not exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                    UtilityService.ShowExceptionMessageBox();
+                }
+            }
+        }
 
         private void TxtVolume_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -410,7 +444,15 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void EnableFields(Action action = Action.None)
         {
-            if (action == Action.PopulatePricedItem)
+            if (action == Action.Load)
+            {
+                TxtItemCode.Enabled = true;
+
+                BtnAdd.Enabled = true;
+                BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
+            }
+            else if (action == Action.PopulatePricedItem)
             {
                 BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
@@ -599,17 +641,20 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var isValidated = false;
 
+            var itemCode = TxtItemCode.Text.Trim();
             var itemSubCode = TxtItemSubCode.Text.Trim();
             var volume = TxtVolume.Text.Trim();
             var profitPercent = TxtProfitPercent.Text.Trim();
             var profitAmount = TxtProfitAmount.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(itemSubCode)
+            if (string.IsNullOrWhiteSpace(itemCode)
+                || string.IsNullOrWhiteSpace(itemSubCode)
                 || string.IsNullOrWhiteSpace(volume)
                 || string.IsNullOrWhiteSpace(profitPercent)
                 || string.IsNullOrWhiteSpace(profitAmount))
             {
                 MessageBox.Show("Please enter following fields: " +
+                    "\n * Item Code " +
                     "\n * Item Sub Code " +
                     "\n * Volume " +
                     "\n * Profit Percent " +
@@ -625,7 +670,15 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                isValidated = true;
+                var pricedItem = _pricedItemService.GetPricedItem(itemCode, string.Empty);
+                if (pricedItem.Id != 0)
+                {
+                    isValidated = true;
+                }
+                else
+                {
+                    MessageBox.Show("Item with " + itemCode + " does not exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
 
             return isValidated;
