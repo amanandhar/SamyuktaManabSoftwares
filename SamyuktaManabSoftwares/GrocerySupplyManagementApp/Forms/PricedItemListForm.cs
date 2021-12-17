@@ -1,6 +1,4 @@
-﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
-using GrocerySupplyManagementApp.Forms.Interfaces;
+﻿using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using GrocerySupplyManagementApp.ViewModels;
@@ -17,17 +15,15 @@ namespace GrocerySupplyManagementApp.Forms
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
         private readonly IPricedItemService _pricedItemService;
-        private readonly IStockService _stockService;
         private readonly IPricedItemListForm _pricedItemListForm;
         private List<PricedItemView> _pricedItemViewList = new List<PricedItemView>();
 
         #region Constructor
-        public PricedItemListForm(IPricedItemService pricedItemService, IStockService stockService, IPricedItemListForm pricedItemListForm)
+        public PricedItemListForm(IPricedItemService pricedItemService, IPricedItemListForm pricedItemListForm)
         {
             InitializeComponent();
 
             _pricedItemService = pricedItemService;
-            _stockService = stockService;
             _pricedItemListForm = pricedItemListForm;
         }
         #endregion
@@ -97,12 +93,8 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPricedItemList.Columns["SubCode"].DisplayIndex = 1;
 
             DataGridPricedItemList.Columns["Name"].HeaderText = "Name";
-            DataGridPricedItemList.Columns["Name"].Width = 250;
+            DataGridPricedItemList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DataGridPricedItemList.Columns["Name"].DisplayIndex = 2;
-
-            DataGridPricedItemList.Columns["Price"].HeaderText = "Price";
-            DataGridPricedItemList.Columns["Price"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridPricedItemList.Columns["Price"].DisplayIndex = 3;
 
             foreach (DataGridViewRow row in DataGridPricedItemList.Rows)
             {
@@ -116,17 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private List<PricedItemView> GetPricedItems()
         {
-            var pricedItemViewListWithoutPrice = _pricedItemService.GetPricedItemViewList().ToList();
-
-            var pricedItemViewList = pricedItemViewListWithoutPrice.Select(x => new PricedItemView
-            {
-                Id = x.Id,
-                Code = x.Code,
-                SubCode = x.SubCode,
-                Name = x.Name,
-                Price = GetSalesPrice(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code})
-            });
-
+            var pricedItemViewList = _pricedItemService.GetPricedItemViewList().ToList();
             return pricedItemViewList.ToList();
         }
 
@@ -144,20 +126,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             var pricedItemViewList = _pricedItemViewList.Where(x => x.Name.ToLower().StartsWith(itemName.ToLower()) && x.Code.ToLower().StartsWith(itemCode.ToLower())).ToList();
             LoadPricedItems(pricedItemViewList);
-        }
-
-        private decimal GetSalesPrice(PricedItem pricedItem, StockFilter stockFilter)
-        {
-            // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
-            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-            var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var customPerUnitValue = Math.Round((perUnitValue * pricedItem.Volume), 2);
-            var profitPercent = pricedItem.ProfitPercent;
-            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-            var salesPrice = customPerUnitValue + profitAmount;
-            // End
-
-            return salesPrice;
         }
         #endregion
     }

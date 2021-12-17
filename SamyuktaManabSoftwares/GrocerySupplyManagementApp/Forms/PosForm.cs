@@ -235,7 +235,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSearchItem_Click(object sender, EventArgs e)
         {
-            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, _stockService, this);
+            PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
             pricedItemListForm.ShowDialog();
             EnableFields();
             EnableFields(Action.SearchPricedItem);
