@@ -107,7 +107,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (ValidatePricedItemInfo())
+                if (ValidatePricedItemInfo(Action.Save))
                 {
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -185,7 +185,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (ValidatePricedItemInfo())
+                if (ValidatePricedItemInfo(Action.Update))
                 {
                     string relativeImagePath = null;
                     string destinationFilePath = null;
@@ -431,7 +431,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var profitAmount = Convert.ToDecimal(TxtProfitAmount.Text.Trim());
                 var customPerUnitValue = Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
                 var profitPercent = ((profitAmount / customPerUnitValue) * 100);
-                TxtProfitPercent.Text = profitPercent.ToString("0.000");
+                TxtProfitPercent.Text = profitPercent.ToString("0.0000");
                 var salesPricePerUnit = customPerUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
             }
@@ -637,7 +637,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Validation
-        private bool ValidatePricedItemInfo()
+        private bool ValidatePricedItemInfo(Action action)
         {
             var isValidated = false;
 
@@ -660,15 +660,15 @@ namespace GrocerySupplyManagementApp.Forms
                     "\n * Profit Percent " +
                     "\n * Profit Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if(profitPercent.IndexOf('.') != -1 && (profitPercent.Length - profitPercent.LastIndexOf('.') > 4))
+            else if(profitPercent.IndexOf('.') != -1 && (profitPercent.Length - profitPercent.LastIndexOf('.') > 5))
             {
-                MessageBox.Show("Please enter 3 decimal only in profit percentage", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter 4 decimal only in profit percentage", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (profitAmount.IndexOf('.') != -1 && (profitAmount.Length - profitAmount.LastIndexOf('.') > 3))
             {
                 MessageBox.Show("Please enter 2 decimal only in profit amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else
+            else if (action == Action.Update)
             {
                 var pricedItem = _pricedItemService.GetPricedItem(itemCode, string.Empty);
                 if (pricedItem.Id != 0)
@@ -679,6 +679,10 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     MessageBox.Show("Item with " + itemCode + " does not exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+            else
+            {
+                isValidated = true;
             }
 
             return isValidated;
