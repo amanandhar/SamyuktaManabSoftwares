@@ -210,7 +210,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchPricedItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSearchPricedItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSearchPricedItem.ForeColor = System.Drawing.Color.White;
-            this.BtnSearchPricedItem.Location = new System.Drawing.Point(384, 63);
+            this.BtnSearchPricedItem.Location = new System.Drawing.Point(311, 63);
             this.BtnSearchPricedItem.Name = "BtnSearchPricedItem";
             this.BtnSearchPricedItem.Size = new System.Drawing.Size(70, 30);
             this.BtnSearchPricedItem.TabIndex = 2;
@@ -257,7 +257,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtItemCode.Location = new System.Drawing.Point(172, 63);
             this.TxtItemCode.Name = "TxtItemCode";
-            this.TxtItemCode.Size = new System.Drawing.Size(177, 29);
+            this.TxtItemCode.Size = new System.Drawing.Size(133, 29);
             this.TxtItemCode.TabIndex = 1;
             this.TxtItemCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtItemCode_KeyDown);
             this.TxtItemCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtItemCode_KeyPress);
@@ -269,7 +269,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemSubCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtItemSubCode.Location = new System.Drawing.Point(193, 65);
             this.TxtItemSubCode.Name = "TxtItemSubCode";
-            this.TxtItemSubCode.Size = new System.Drawing.Size(105, 29);
+            this.TxtItemSubCode.Size = new System.Drawing.Size(99, 29);
             this.TxtItemSubCode.TabIndex = 9;
             // 
             // label9

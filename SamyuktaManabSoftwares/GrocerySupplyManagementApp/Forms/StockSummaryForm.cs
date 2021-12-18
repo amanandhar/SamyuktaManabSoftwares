@@ -66,7 +66,24 @@ namespace GrocerySupplyManagementApp.Forms
         #region Combo Box Event
         private void ComboItemCode_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = true;
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
+
+        private void ComboItemCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                try
+                {
+                    LoadItems();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                    UtilityService.ShowExceptionMessageBox();
+                }
+            }
         }
         #endregion
 
@@ -202,6 +219,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
     }
 }
