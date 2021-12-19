@@ -9,10 +9,17 @@ namespace GrocerySupplyManagementApp.Services
     public class StockService : IStockService
     {
         private readonly IStockRepository _stockRepository;
+        private readonly IPurchasedItemRepository _purchasedItemRepository;
+        private readonly ISoldItemRepository _soldItemRepository;
+        private readonly IStockAdjustmentRepository _stockAdjustmentRepository;
 
-        public StockService(IStockRepository stockRepository)
+        public StockService(IStockRepository stockRepository, IPurchasedItemRepository purchasedItemRepository,
+            ISoldItemRepository soldItemRepository, IStockAdjustmentRepository stockAdjustmentRepository)
         {
             _stockRepository = stockRepository;
+            _purchasedItemRepository = purchasedItemRepository;
+            _soldItemRepository = soldItemRepository;
+            _stockAdjustmentRepository = stockAdjustmentRepository;
         }
 
         public IEnumerable<Stock> GetStocks(StockFilter stockFilter)
@@ -33,6 +40,16 @@ namespace GrocerySupplyManagementApp.Services
         public List<StockView> GetStockViewList(List<Stock> stocks, StockFilter stockFilter)
         {
             return _stockRepository.GetStockViewList(stocks, stockFilter);
+        }
+
+        public decimal GetTotalStock(StockFilter stockFilter)
+        {
+            var totalPurchasedItem = _purchasedItemRepository.GetPurchasedItemTotalQuantity(stockFilter);
+            var totalSoldItem = _soldItemRepository.GetSoldItemTotalQuantity(stockFilter);
+            var totalAddedItem = _stockAdjustmentRepository.GetAddedStockTotalQuantity(stockFilter);
+            var totalDeductedItem = _stockAdjustmentRepository.GetDeductedStockTotalQuantity(stockFilter);
+            var totalStock = (totalPurchasedItem + totalAddedItem) - (totalSoldItem + totalDeductedItem);
+            return totalStock;
         }
     }
 }

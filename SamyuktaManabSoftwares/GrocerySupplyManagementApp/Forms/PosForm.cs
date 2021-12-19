@@ -878,6 +878,8 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.AddToCart)
             {
+                RichItemCode.Enabled = true;
+
                 BtnSearchMember.Enabled = true;
                 BtnSearchItem.Enabled = true;
                 BtnTransaction.Enabled = true;
@@ -940,6 +942,7 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 else
                 {
+                    RichItemCode.Enabled = true;
                     BtnSearchItem.Enabled = true;
                 }
 
@@ -1041,7 +1044,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = item.Code
                 };
 
-                var stock = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter) - _soldItemService.GetSoldItemTotalQuantity(stockFilter);
+                var stock = _stockService.GetTotalStock(stockFilter);
                 if (stock < item.Threshold)
                 {
                     DialogResult result = MessageBox.Show("Low stock, add more.",

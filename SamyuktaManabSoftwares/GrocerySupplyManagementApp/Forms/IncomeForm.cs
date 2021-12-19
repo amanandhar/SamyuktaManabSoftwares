@@ -308,7 +308,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtTotalAmount.Text = (incomeTransactionViewList.Sum(x => x.Amount)).ToString();
 
-                var bindingList = new BindingList<IncomeTransactionView>(incomeTransactionViewList.OrderByDescending(x => x.AddedDate).ToList());
+                var bindingList = new BindingList<IncomeTransactionView>(incomeTransactionViewList.OrderBy(x => x.AddedDate).ToList());
                 var source = new BindingSource(bindingList, null);
                 DataGridIncomeList.DataSource = source;
             }

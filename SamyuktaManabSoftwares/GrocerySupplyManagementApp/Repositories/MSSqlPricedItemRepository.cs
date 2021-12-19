@@ -133,7 +133,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
-                "ORDER BY i.[Code] ";
+                "ORDER BY i.[Code], pi.[SubCode] ";
 
             try
             {

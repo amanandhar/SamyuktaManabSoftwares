@@ -14,13 +14,20 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
     public class StockServiceTest
     {
         private Mock<IStockRepository> _stockRepository;
+        private Mock<IPurchasedItemRepository> _purchasedItemRepository;
+        private Mock<ISoldItemRepository> _soldItemRepository;
+        private Mock<IStockAdjustmentRepository> _stockAdjustmentRepository;
         private StockService _sut;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _stockRepository = new Mock<IStockRepository>();
-            _sut = new StockService(_stockRepository.Object);
+            _purchasedItemRepository = new Mock<IPurchasedItemRepository>();
+            _soldItemRepository = new Mock<ISoldItemRepository>();
+            _stockAdjustmentRepository = new Mock<IStockAdjustmentRepository>();
+            _sut = new StockService(_stockRepository.Object, _purchasedItemRepository.Object,
+                _soldItemRepository.Object, _stockAdjustmentRepository.Object);
         }
 
         [TestMethod]

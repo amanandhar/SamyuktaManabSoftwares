@@ -209,9 +209,7 @@ namespace GrocerySupplyManagementApp.Forms
         private void LoadTotalStock()
         {
             StockFilter stockFilter = new StockFilter();
-            var totalPurchase = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter);
-            var totalSales = _soldItemItemService.GetSoldItemTotalQuantity(stockFilter);
-            TxtTotalStock.Text = (totalPurchase - totalSales).ToString();
+            TxtTotalStock.Text = _stockService.GetTotalStock(stockFilter).ToString();
 
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var stockValue = _stockService.GetStockValue(stocks.ToList(), stockFilter);

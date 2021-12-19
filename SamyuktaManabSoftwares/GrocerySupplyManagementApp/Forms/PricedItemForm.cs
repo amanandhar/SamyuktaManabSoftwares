@@ -546,7 +546,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = item.Code
                 };
 
-                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter) - _soldItemService.GetSoldItemTotalQuantity(stockFilter)).ToString();
+                TxtTotalStock.Text = _stockService.GetTotalStock(stockFilter).ToString();
 
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
@@ -600,7 +600,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = item.Code
                 };
 
-                TxtTotalStock.Text = (_purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter) - _soldItemService.GetSoldItemTotalQuantity(stockFilter)).ToString();
+                TxtTotalStock.Text = _stockService.GetTotalStock(stockFilter).ToString();
 
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
