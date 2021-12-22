@@ -326,6 +326,40 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void TxtItemSubCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                try
+                {
+                    var itemCode = TxtItemCode.Text.Trim();
+                    var itemSubCode = TxtItemSubCode.Text.Trim();
+
+                    if (!string.IsNullOrWhiteSpace(itemCode) && !string.IsNullOrWhiteSpace(itemSubCode))
+                    {
+                        var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
+                        if (pricedItem.Id != 0)
+                        {
+                            PopulatePricedItem(pricedItem.Id);
+                            EnableFields();
+                            EnableFields(Action.Edit);
+                            TxtItemSubCode.Focus();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Item with item code: " + itemCode + " and" + " sub code: " + itemSubCode + " does not exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                    UtilityService.ShowExceptionMessageBox();
+                }
+            }
+        }
+
         private void TxtVolume_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -454,6 +488,8 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.PopulatePricedItem)
             {
+                TxtItemCode.Enabled = true;
+
                 BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
@@ -477,6 +513,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
+                TxtItemCode.Enabled = true;
                 TxtItemSubCode.Enabled = true;
                 TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
@@ -673,7 +710,14 @@ namespace GrocerySupplyManagementApp.Forms
                 var pricedItem = _pricedItemService.GetPricedItem(itemCode, string.Empty);
                 if (pricedItem.Id != 0)
                 {
-                    isValidated = true;
+                    if (_selectedId != pricedItem.Id)
+                    {
+                        MessageBox.Show("Item code: " + itemCode + " has been changed.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        isValidated = true;
+                    }
                 }
                 else
                 {

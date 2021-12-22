@@ -271,6 +271,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemSubCode.Name = "TxtItemSubCode";
             this.TxtItemSubCode.Size = new System.Drawing.Size(99, 29);
             this.TxtItemSubCode.TabIndex = 9;
+            this.TxtItemSubCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtItemSubCode_KeyDown);
             // 
             // label9
             // 
