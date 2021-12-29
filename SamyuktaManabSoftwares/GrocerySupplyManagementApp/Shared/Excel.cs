@@ -71,5 +71,67 @@ namespace GrocerySupplyManagementApp.Shared
 
             return result;
         }
+
+        public static bool Export(List<ExcelPricedItemField> excelRows, string sheetname, string filename)
+        {
+            var result = false;
+            try
+            {
+                var xlApp = new MsExcel.Application();
+                if (xlApp == null)
+                {
+                    MessageBox.Show("Excel is not properly installed in you computer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    object MissingValue = System.Reflection.Missing.Value;
+
+                    xlApp.Visible = false;
+                    MsExcel.Workbook xlWorkBook = xlApp.Workbooks.Add(MissingValue);
+                    MsExcel.Worksheet xlWorkSheet = xlWorkBook.ActiveSheet as MsExcel.Worksheet;
+                    xlWorkSheet.Name = sheetname;
+
+                    MsExcel.Range range = xlWorkSheet.Cells;
+                    range.NumberFormat = "@";
+                    range.HorizontalAlignment = MsExcel.XlHAlign.xlHAlignRight;
+
+                    xlWorkSheet.Cells[1, 1] = "Code";
+                    xlWorkSheet.Cells[1, 1].Font.FontStyle = "bold";
+                    xlWorkSheet.Cells[1, 2] = "SubCode";
+                    xlWorkSheet.Cells[1, 2].Font.FontStyle = "bold";
+                    xlWorkSheet.Cells[1, 3] = "Name";
+                    xlWorkSheet.Cells[1, 3].Font.FontStyle = "bold";
+                    xlWorkSheet.Cells[1, 4] = "Price";
+                    xlWorkSheet.Cells[1, 4].Font.FontStyle = "bold";
+
+                    int i = 2;
+                    foreach (var excelRow in excelRows)
+                    {
+                        xlWorkSheet.Cells[i, 1] = excelRow.Code;
+                        xlWorkSheet.Cells[i, 2] = excelRow.SubCode;
+                        xlWorkSheet.Cells[i, 3] = excelRow.Name;
+                        xlWorkSheet.Cells[i, 4] = excelRow.Price;
+
+                        i++;
+                    }
+
+                    xlWorkBook.SaveAs(filename);
+                    xlWorkBook.Close(true, MissingValue, MissingValue);
+                    xlApp.UserControl = true;
+                    xlApp.Quit();
+                    Marshal.ReleaseComObject(xlWorkSheet);
+                    Marshal.ReleaseComObject(xlWorkBook);
+                    Marshal.ReleaseComObject(xlApp);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+
+            return result;
+        }
     }
 }

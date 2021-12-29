@@ -208,7 +208,6 @@ namespace GrocerySupplyManagementApp.Repositories
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
-
             var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)) : Constants.DEFAULT_DECIMAL_VALUE;
 
             return perUnitValue;
@@ -220,9 +219,9 @@ namespace GrocerySupplyManagementApp.Repositories
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
-            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.StockValue, 2)) : Constants.DEFAULT_DECIMAL_VALUE;
+            var stockValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.StockValue, 2)) : Constants.DEFAULT_DECIMAL_VALUE;
 
-            return perUnitValue;
+            return stockValue;
         }
 
         public List<StockView> GetStockViewList(List<Stock> stocks, StockFilter stockFilter)

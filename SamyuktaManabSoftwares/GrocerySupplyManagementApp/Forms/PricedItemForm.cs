@@ -4,11 +4,13 @@ using GrocerySupplyManagementApp.Forms.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -19,8 +21,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IPricedItemService _pricedItemService;
-        private readonly IPurchasedItemService _purchasedItemService;
-        private readonly ISoldItemService _soldItemService;
         private readonly IStockService _stockService;
 
         public DashboardForm _dashboard;
@@ -52,7 +52,6 @@ namespace GrocerySupplyManagementApp.Forms
         #region Constructor
         public PricedItemForm(string username, ISettingService settingService,
             IItemService itemService, IPricedItemService pricedItemService,
-            IPurchasedItemService purchasedItemService, ISoldItemService soldItemService,
             IStockService stockService, DashboardForm dashboardForm)
         {
             InitializeComponent();
@@ -60,8 +59,6 @@ namespace GrocerySupplyManagementApp.Forms
             _settingService = settingService;
             _itemService = itemService;
             _pricedItemService = pricedItemService;
-            _purchasedItemService = purchasedItemService;
-            _soldItemService = soldItemService;
             _stockService = stockService;
 
             _dashboard = dashboardForm;
@@ -292,6 +289,13 @@ namespace GrocerySupplyManagementApp.Forms
             PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
             _uploadedImagePath = string.Empty;
         }
+
+        private void BtnExportToExcel_Click(object sender, EventArgs e)
+        {
+            PicBoxLoading.Visible = true;
+            PicBoxLoading.Dock = DockStyle.Fill;
+            BackgroundWorker.RunWorkerAsync();
+        }
         #endregion
 
         #region Textbox Event
@@ -402,7 +406,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             CalculateProfitPercentage();
         }
-
         #endregion
 
         #region Combo Box Event
@@ -430,8 +433,19 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Helper Methods
+        #region BackgroundWorker Event
+        private void BackgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            ExportToExcel();
+        }
 
+        private void BackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            PicBoxLoading.Visible = false;
+        }
+        #endregion
+
+        #region Helper Methods
         private void CalculateProfitAmount()
         {
             decimal value;
@@ -671,6 +685,48 @@ namespace GrocerySupplyManagementApp.Forms
             ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
 
+        private void ExportToExcel()
+        {
+            Thread thread = new Thread((ThreadStart)(() =>
+            {
+                var dialogResult = SaveFileDialog.ShowDialog();
+                var filename = SaveFileDialog.FileName;
+                if (dialogResult == DialogResult.OK)
+                {
+                    var excelData = new Dictionary<string, List<ExcelField>>();
+                    var pricedItemViewListWithoutPrice = _pricedItemService.GetPricedItemViewList();
+                    var excelPricedItemFieldList = pricedItemViewListWithoutPrice.Select(x => new ExcelPricedItemField
+                    {
+                        Id = x.Id,
+                        Code = x.Code,
+                        SubCode = x.SubCode,
+                        Name = x.Name,
+                        Price = GetSalesPrice(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code })
+                    }).ToList();
+
+                    Excel.Export(excelPricedItemFieldList, "Priced Item", filename);
+                }
+            }));
+
+            // Run your code from a thread that joins the STA Thread
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+        }
+
+        private decimal GetSalesPrice(PricedItem pricedItem, StockFilter stockFilter)
+        {
+            // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
+            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+            var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
+            var customPerUnitValue = Math.Round((perUnitValue * pricedItem.Volume), 2);
+            var profitPercent = pricedItem.ProfitPercent;
+            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
+            var salesPrice = customPerUnitValue + profitAmount;
+            // End
+
+            return salesPrice;
+        }
         #endregion
 
         #region Validation
@@ -732,5 +788,6 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
+
     }
 }

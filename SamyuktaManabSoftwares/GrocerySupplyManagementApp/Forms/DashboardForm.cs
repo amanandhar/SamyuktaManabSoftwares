@@ -310,7 +310,6 @@ namespace GrocerySupplyManagementApp.Forms
 
             OpenChildForm(new PricedItemForm(_username, _settingService,
                 _itemService, _pricedItemService,
-                _purchasedItemService, _soldItemService,
                 _stockService, this));
             HideSubMenu();
             SelectButton(sender as Button);

@@ -164,6 +164,7 @@
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\DeliveryPersonTransactionFilter.cs" />
     <Compile Include="DTOs\ExcelField.cs" />
+    <Compile Include="DTOs\ExcelPricedItemField.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\IncomeTransactionFilter.cs" />
     <Compile Include="DTOs\MemberTransactionFilter.cs" />
