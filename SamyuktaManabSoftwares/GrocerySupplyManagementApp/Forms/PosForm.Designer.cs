@@ -35,6 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.RichItemQuantity = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.BtnSearchItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtPricedUnit = new System.Windows.Forms.TextBox();
             this.TxtVolume = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -72,6 +73,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.BtnSalesReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddSale = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSaveInvoice = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddToCart = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnRemoveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnBankTransfer = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddExpense = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAddReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.RichPayment = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.TxtInvoiceDate = new System.Windows.Forms.TextBox();
@@ -83,6 +93,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.RadioBtnCredit = new System.Windows.Forms.RadioButton();
             this.RadioBtnCash = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnSaveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnSearchMember = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtContactNo = new System.Windows.Forms.TextBox();
             this.TxtAddress = new System.Windows.Forms.TextBox();
             this.TxtName = new System.Windows.Forms.TextBox();
@@ -99,18 +111,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridSoldItemList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.BtnSalesReturn = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddSale = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSaveInvoice = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddToCart = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnRemoveItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnBankTransfer = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddExpense = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAddReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSearchItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSaveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSearchMember = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.TxtItemDiscount = new System.Windows.Forms.TextBox();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -140,6 +141,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox4.Controls.Add(this.TxtItemDiscount);
             this.groupBox4.Controls.Add(this.BtnSearchItem);
             this.groupBox4.Controls.Add(this.TxtPricedUnit);
             this.groupBox4.Controls.Add(this.TxtVolume);
@@ -165,6 +167,27 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabIndex = 22;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Item Details";
+            // 
+            // BtnSearchItem
+            // 
+            this.BtnSearchItem.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchItem.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSearchItem.BorderRadius = 10;
+            this.BtnSearchItem.BorderSize = 0;
+            this.BtnSearchItem.Enabled = false;
+            this.BtnSearchItem.FlatAppearance.BorderSize = 0;
+            this.BtnSearchItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearchItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearchItem.ForeColor = System.Drawing.Color.White;
+            this.BtnSearchItem.Location = new System.Drawing.Point(321, 22);
+            this.BtnSearchItem.Name = "BtnSearchItem";
+            this.BtnSearchItem.Size = new System.Drawing.Size(70, 28);
+            this.BtnSearchItem.TabIndex = 60;
+            this.BtnSearchItem.Text = "Search";
+            this.BtnSearchItem.TextColor = System.Drawing.Color.White;
+            this.BtnSearchItem.UseVisualStyleBackColor = false;
+            this.BtnSearchItem.Click += new System.EventHandler(this.BtnSearchItem_Click);
             // 
             // TxtPricedUnit
             // 
@@ -227,7 +250,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemPrice.Name = "TxtItemPrice";
             this.TxtItemPrice.ReadOnly = true;
             this.TxtItemPrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtItemPrice.Size = new System.Drawing.Size(144, 26);
+            this.TxtItemPrice.Size = new System.Drawing.Size(72, 26);
             this.TxtItemPrice.TabIndex = 52;
             // 
             // TxtItemName
@@ -608,6 +631,195 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox7.TabIndex = 26;
             this.groupBox7.TabStop = false;
             // 
+            // BtnSalesReturn
+            // 
+            this.BtnSalesReturn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSalesReturn.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSalesReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSalesReturn.BorderRadius = 35;
+            this.BtnSalesReturn.BorderSize = 0;
+            this.BtnSalesReturn.Enabled = false;
+            this.BtnSalesReturn.FlatAppearance.BorderSize = 0;
+            this.BtnSalesReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSalesReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSalesReturn.ForeColor = System.Drawing.Color.White;
+            this.BtnSalesReturn.Location = new System.Drawing.Point(2, 17);
+            this.BtnSalesReturn.Name = "BtnSalesReturn";
+            this.BtnSalesReturn.Size = new System.Drawing.Size(145, 40);
+            this.BtnSalesReturn.TabIndex = 24;
+            this.BtnSalesReturn.Text = "Sales Return";
+            this.BtnSalesReturn.TextColor = System.Drawing.Color.White;
+            this.BtnSalesReturn.UseVisualStyleBackColor = false;
+            this.BtnSalesReturn.Click += new System.EventHandler(this.BtnSalesReturn_Click);
+            // 
+            // BtnAddSale
+            // 
+            this.BtnAddSale.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddSale.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddSale.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAddSale.BorderRadius = 35;
+            this.BtnAddSale.BorderSize = 0;
+            this.BtnAddSale.Enabled = false;
+            this.BtnAddSale.FlatAppearance.BorderSize = 0;
+            this.BtnAddSale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAddSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddSale.ForeColor = System.Drawing.Color.White;
+            this.BtnAddSale.Location = new System.Drawing.Point(1168, 17);
+            this.BtnAddSale.Name = "BtnAddSale";
+            this.BtnAddSale.Size = new System.Drawing.Size(145, 40);
+            this.BtnAddSale.TabIndex = 23;
+            this.BtnAddSale.Text = "Add Sale";
+            this.BtnAddSale.TextColor = System.Drawing.Color.White;
+            this.BtnAddSale.UseVisualStyleBackColor = false;
+            this.BtnAddSale.Click += new System.EventHandler(this.BtnAddSale_Click);
+            // 
+            // BtnSaveInvoice
+            // 
+            this.BtnSaveInvoice.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSaveInvoice.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSaveInvoice.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSaveInvoice.BorderRadius = 35;
+            this.BtnSaveInvoice.BorderSize = 0;
+            this.BtnSaveInvoice.Enabled = false;
+            this.BtnSaveInvoice.FlatAppearance.BorderSize = 0;
+            this.BtnSaveInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSaveInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSaveInvoice.ForeColor = System.Drawing.Color.White;
+            this.BtnSaveInvoice.Location = new System.Drawing.Point(1022, 17);
+            this.BtnSaveInvoice.Name = "BtnSaveInvoice";
+            this.BtnSaveInvoice.Size = new System.Drawing.Size(145, 40);
+            this.BtnSaveInvoice.TabIndex = 22;
+            this.BtnSaveInvoice.Text = "Save && Print";
+            this.BtnSaveInvoice.TextColor = System.Drawing.Color.White;
+            this.BtnSaveInvoice.UseVisualStyleBackColor = false;
+            this.BtnSaveInvoice.Click += new System.EventHandler(this.BtnSaveInvoice_Click);
+            // 
+            // BtnAddToCart
+            // 
+            this.BtnAddToCart.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddToCart.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddToCart.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAddToCart.BorderRadius = 35;
+            this.BtnAddToCart.BorderSize = 0;
+            this.BtnAddToCart.Enabled = false;
+            this.BtnAddToCart.FlatAppearance.BorderSize = 0;
+            this.BtnAddToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAddToCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddToCart.ForeColor = System.Drawing.Color.White;
+            this.BtnAddToCart.Location = new System.Drawing.Point(876, 17);
+            this.BtnAddToCart.Name = "BtnAddToCart";
+            this.BtnAddToCart.Size = new System.Drawing.Size(145, 40);
+            this.BtnAddToCart.TabIndex = 21;
+            this.BtnAddToCart.Text = "Add To Cart";
+            this.BtnAddToCart.TextColor = System.Drawing.Color.White;
+            this.BtnAddToCart.UseVisualStyleBackColor = false;
+            this.BtnAddToCart.Click += new System.EventHandler(this.BtnAddToCart_Click);
+            // 
+            // BtnRemoveItem
+            // 
+            this.BtnRemoveItem.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnRemoveItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnRemoveItem.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnRemoveItem.BorderRadius = 35;
+            this.BtnRemoveItem.BorderSize = 0;
+            this.BtnRemoveItem.Enabled = false;
+            this.BtnRemoveItem.FlatAppearance.BorderSize = 0;
+            this.BtnRemoveItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemoveItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRemoveItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.BtnRemoveItem.Location = new System.Drawing.Point(730, 17);
+            this.BtnRemoveItem.Name = "BtnRemoveItem";
+            this.BtnRemoveItem.Size = new System.Drawing.Size(145, 40);
+            this.BtnRemoveItem.TabIndex = 20;
+            this.BtnRemoveItem.Text = "Remove Item";
+            this.BtnRemoveItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.BtnRemoveItem.UseVisualStyleBackColor = false;
+            this.BtnRemoveItem.Click += new System.EventHandler(this.BtnRemoveItem_Click);
+            // 
+            // BtnBankTransfer
+            // 
+            this.BtnBankTransfer.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnBankTransfer.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnBankTransfer.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnBankTransfer.BorderRadius = 35;
+            this.BtnBankTransfer.BorderSize = 0;
+            this.BtnBankTransfer.Enabled = false;
+            this.BtnBankTransfer.FlatAppearance.BorderSize = 0;
+            this.BtnBankTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnBankTransfer.ForeColor = System.Drawing.Color.White;
+            this.BtnBankTransfer.Location = new System.Drawing.Point(584, 17);
+            this.BtnBankTransfer.Name = "BtnBankTransfer";
+            this.BtnBankTransfer.Size = new System.Drawing.Size(145, 40);
+            this.BtnBankTransfer.TabIndex = 19;
+            this.BtnBankTransfer.Text = "Bank Transfer";
+            this.BtnBankTransfer.TextColor = System.Drawing.Color.White;
+            this.BtnBankTransfer.UseVisualStyleBackColor = false;
+            this.BtnBankTransfer.Click += new System.EventHandler(this.BtnBankTransfer_Click);
+            // 
+            // BtnAddExpense
+            // 
+            this.BtnAddExpense.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddExpense.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddExpense.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAddExpense.BorderRadius = 35;
+            this.BtnAddExpense.BorderSize = 0;
+            this.BtnAddExpense.Enabled = false;
+            this.BtnAddExpense.FlatAppearance.BorderSize = 0;
+            this.BtnAddExpense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAddExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddExpense.ForeColor = System.Drawing.Color.White;
+            this.BtnAddExpense.Location = new System.Drawing.Point(438, 17);
+            this.BtnAddExpense.Name = "BtnAddExpense";
+            this.BtnAddExpense.Size = new System.Drawing.Size(145, 40);
+            this.BtnAddExpense.TabIndex = 18;
+            this.BtnAddExpense.Text = "Add Expense";
+            this.BtnAddExpense.TextColor = System.Drawing.Color.White;
+            this.BtnAddExpense.UseVisualStyleBackColor = false;
+            this.BtnAddExpense.Click += new System.EventHandler(this.BtnAddExpense_Click);
+            // 
+            // BtnAddReceipt
+            // 
+            this.BtnAddReceipt.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddReceipt.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAddReceipt.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAddReceipt.BorderRadius = 35;
+            this.BtnAddReceipt.BorderSize = 0;
+            this.BtnAddReceipt.Enabled = false;
+            this.BtnAddReceipt.FlatAppearance.BorderSize = 0;
+            this.BtnAddReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAddReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddReceipt.ForeColor = System.Drawing.Color.White;
+            this.BtnAddReceipt.Location = new System.Drawing.Point(292, 17);
+            this.BtnAddReceipt.Name = "BtnAddReceipt";
+            this.BtnAddReceipt.Size = new System.Drawing.Size(145, 40);
+            this.BtnAddReceipt.TabIndex = 17;
+            this.BtnAddReceipt.Text = "Add Receipt";
+            this.BtnAddReceipt.TextColor = System.Drawing.Color.White;
+            this.BtnAddReceipt.UseVisualStyleBackColor = false;
+            this.BtnAddReceipt.Click += new System.EventHandler(this.BtnAddReceipt_Click);
+            // 
+            // BtnTransaction
+            // 
+            this.BtnTransaction.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnTransaction.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnTransaction.BorderRadius = 35;
+            this.BtnTransaction.BorderSize = 0;
+            this.BtnTransaction.Enabled = false;
+            this.BtnTransaction.FlatAppearance.BorderSize = 0;
+            this.BtnTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnTransaction.ForeColor = System.Drawing.Color.White;
+            this.BtnTransaction.Location = new System.Drawing.Point(147, 17);
+            this.BtnTransaction.Name = "BtnTransaction";
+            this.BtnTransaction.Size = new System.Drawing.Size(145, 40);
+            this.BtnTransaction.TabIndex = 16;
+            this.BtnTransaction.Text = "Transaction";
+            this.BtnTransaction.TextColor = System.Drawing.Color.White;
+            this.BtnTransaction.UseVisualStyleBackColor = false;
+            this.BtnTransaction.Click += new System.EventHandler(this.BtnTransaction_Click);
+            // 
             // RichPayment
             // 
             this.RichPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -764,6 +976,48 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Member Details";
+            // 
+            // BtnSaveReceipt
+            // 
+            this.BtnSaveReceipt.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSaveReceipt.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSaveReceipt.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSaveReceipt.BorderRadius = 10;
+            this.BtnSaveReceipt.BorderSize = 0;
+            this.BtnSaveReceipt.Enabled = false;
+            this.BtnSaveReceipt.FlatAppearance.BorderSize = 0;
+            this.BtnSaveReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSaveReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSaveReceipt.ForeColor = System.Drawing.Color.White;
+            this.BtnSaveReceipt.Location = new System.Drawing.Point(320, 138);
+            this.BtnSaveReceipt.Name = "BtnSaveReceipt";
+            this.BtnSaveReceipt.Size = new System.Drawing.Size(70, 28);
+            this.BtnSaveReceipt.TabIndex = 59;
+            this.BtnSaveReceipt.Text = "Save";
+            this.BtnSaveReceipt.TextColor = System.Drawing.Color.White;
+            this.BtnSaveReceipt.UseVisualStyleBackColor = false;
+            this.BtnSaveReceipt.Click += new System.EventHandler(this.BtnSaveReceipt_Click);
+            // 
+            // BtnSearchMember
+            // 
+            this.BtnSearchMember.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchMember.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearchMember.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnSearchMember.BorderRadius = 10;
+            this.BtnSearchMember.BorderSize = 0;
+            this.BtnSearchMember.Enabled = false;
+            this.BtnSearchMember.FlatAppearance.BorderSize = 0;
+            this.BtnSearchMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearchMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearchMember.ForeColor = System.Drawing.Color.White;
+            this.BtnSearchMember.Location = new System.Drawing.Point(320, 22);
+            this.BtnSearchMember.Name = "BtnSearchMember";
+            this.BtnSearchMember.Size = new System.Drawing.Size(70, 28);
+            this.BtnSearchMember.TabIndex = 58;
+            this.BtnSearchMember.Text = "Search";
+            this.BtnSearchMember.TextColor = System.Drawing.Color.White;
+            this.BtnSearchMember.UseVisualStyleBackColor = false;
+            this.BtnSearchMember.Click += new System.EventHandler(this.BtnSearchMember_Click);
             // 
             // TxtContactNo
             // 
@@ -964,257 +1218,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.label19.TabIndex = 33;
             this.label19.Text = "Welcome to Point of Sales Dashboard";
             // 
-            // BtnSalesReturn
+            // TxtItemDiscount
             // 
-            this.BtnSalesReturn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSalesReturn.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSalesReturn.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSalesReturn.BorderRadius = 35;
-            this.BtnSalesReturn.BorderSize = 0;
-            this.BtnSalesReturn.Enabled = false;
-            this.BtnSalesReturn.FlatAppearance.BorderSize = 0;
-            this.BtnSalesReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSalesReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalesReturn.ForeColor = System.Drawing.Color.White;
-            this.BtnSalesReturn.Location = new System.Drawing.Point(2, 17);
-            this.BtnSalesReturn.Name = "BtnSalesReturn";
-            this.BtnSalesReturn.Size = new System.Drawing.Size(145, 40);
-            this.BtnSalesReturn.TabIndex = 24;
-            this.BtnSalesReturn.Text = "Sales Return";
-            this.BtnSalesReturn.TextColor = System.Drawing.Color.White;
-            this.BtnSalesReturn.UseVisualStyleBackColor = false;
-            this.BtnSalesReturn.Click += new System.EventHandler(this.BtnSalesReturn_Click);
-            // 
-            // BtnAddSale
-            // 
-            this.BtnAddSale.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddSale.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddSale.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnAddSale.BorderRadius = 35;
-            this.BtnAddSale.BorderSize = 0;
-            this.BtnAddSale.Enabled = false;
-            this.BtnAddSale.FlatAppearance.BorderSize = 0;
-            this.BtnAddSale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAddSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddSale.ForeColor = System.Drawing.Color.White;
-            this.BtnAddSale.Location = new System.Drawing.Point(1168, 17);
-            this.BtnAddSale.Name = "BtnAddSale";
-            this.BtnAddSale.Size = new System.Drawing.Size(145, 40);
-            this.BtnAddSale.TabIndex = 23;
-            this.BtnAddSale.Text = "Add Sale";
-            this.BtnAddSale.TextColor = System.Drawing.Color.White;
-            this.BtnAddSale.UseVisualStyleBackColor = false;
-            this.BtnAddSale.Click += new System.EventHandler(this.BtnAddSale_Click);
-            // 
-            // BtnSaveInvoice
-            // 
-            this.BtnSaveInvoice.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSaveInvoice.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSaveInvoice.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSaveInvoice.BorderRadius = 35;
-            this.BtnSaveInvoice.BorderSize = 0;
-            this.BtnSaveInvoice.Enabled = false;
-            this.BtnSaveInvoice.FlatAppearance.BorderSize = 0;
-            this.BtnSaveInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSaveInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSaveInvoice.ForeColor = System.Drawing.Color.White;
-            this.BtnSaveInvoice.Location = new System.Drawing.Point(1022, 17);
-            this.BtnSaveInvoice.Name = "BtnSaveInvoice";
-            this.BtnSaveInvoice.Size = new System.Drawing.Size(145, 40);
-            this.BtnSaveInvoice.TabIndex = 22;
-            this.BtnSaveInvoice.Text = "Save && Print";
-            this.BtnSaveInvoice.TextColor = System.Drawing.Color.White;
-            this.BtnSaveInvoice.UseVisualStyleBackColor = false;
-            this.BtnSaveInvoice.Click += new System.EventHandler(this.BtnSaveInvoice_Click);
-            // 
-            // BtnAddToCart
-            // 
-            this.BtnAddToCart.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddToCart.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddToCart.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnAddToCart.BorderRadius = 35;
-            this.BtnAddToCart.BorderSize = 0;
-            this.BtnAddToCart.Enabled = false;
-            this.BtnAddToCart.FlatAppearance.BorderSize = 0;
-            this.BtnAddToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAddToCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddToCart.ForeColor = System.Drawing.Color.White;
-            this.BtnAddToCart.Location = new System.Drawing.Point(876, 17);
-            this.BtnAddToCart.Name = "BtnAddToCart";
-            this.BtnAddToCart.Size = new System.Drawing.Size(145, 40);
-            this.BtnAddToCart.TabIndex = 21;
-            this.BtnAddToCart.Text = "Add To Cart";
-            this.BtnAddToCart.TextColor = System.Drawing.Color.White;
-            this.BtnAddToCart.UseVisualStyleBackColor = false;
-            this.BtnAddToCart.Click += new System.EventHandler(this.BtnAddToCart_Click);
-            // 
-            // BtnRemoveItem
-            // 
-            this.BtnRemoveItem.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnRemoveItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnRemoveItem.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnRemoveItem.BorderRadius = 35;
-            this.BtnRemoveItem.BorderSize = 0;
-            this.BtnRemoveItem.Enabled = false;
-            this.BtnRemoveItem.FlatAppearance.BorderSize = 0;
-            this.BtnRemoveItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnRemoveItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRemoveItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.BtnRemoveItem.Location = new System.Drawing.Point(730, 17);
-            this.BtnRemoveItem.Name = "BtnRemoveItem";
-            this.BtnRemoveItem.Size = new System.Drawing.Size(145, 40);
-            this.BtnRemoveItem.TabIndex = 20;
-            this.BtnRemoveItem.Text = "Remove Item";
-            this.BtnRemoveItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.BtnRemoveItem.UseVisualStyleBackColor = false;
-            this.BtnRemoveItem.Click += new System.EventHandler(this.BtnRemoveItem_Click);
-            // 
-            // BtnBankTransfer
-            // 
-            this.BtnBankTransfer.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnBankTransfer.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnBankTransfer.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnBankTransfer.BorderRadius = 35;
-            this.BtnBankTransfer.BorderSize = 0;
-            this.BtnBankTransfer.Enabled = false;
-            this.BtnBankTransfer.FlatAppearance.BorderSize = 0;
-            this.BtnBankTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnBankTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnBankTransfer.ForeColor = System.Drawing.Color.White;
-            this.BtnBankTransfer.Location = new System.Drawing.Point(584, 17);
-            this.BtnBankTransfer.Name = "BtnBankTransfer";
-            this.BtnBankTransfer.Size = new System.Drawing.Size(145, 40);
-            this.BtnBankTransfer.TabIndex = 19;
-            this.BtnBankTransfer.Text = "Bank Transfer";
-            this.BtnBankTransfer.TextColor = System.Drawing.Color.White;
-            this.BtnBankTransfer.UseVisualStyleBackColor = false;
-            this.BtnBankTransfer.Click += new System.EventHandler(this.BtnBankTransfer_Click);
-            // 
-            // BtnAddExpense
-            // 
-            this.BtnAddExpense.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddExpense.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddExpense.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnAddExpense.BorderRadius = 35;
-            this.BtnAddExpense.BorderSize = 0;
-            this.BtnAddExpense.Enabled = false;
-            this.BtnAddExpense.FlatAppearance.BorderSize = 0;
-            this.BtnAddExpense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAddExpense.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddExpense.ForeColor = System.Drawing.Color.White;
-            this.BtnAddExpense.Location = new System.Drawing.Point(438, 17);
-            this.BtnAddExpense.Name = "BtnAddExpense";
-            this.BtnAddExpense.Size = new System.Drawing.Size(145, 40);
-            this.BtnAddExpense.TabIndex = 18;
-            this.BtnAddExpense.Text = "Add Expense";
-            this.BtnAddExpense.TextColor = System.Drawing.Color.White;
-            this.BtnAddExpense.UseVisualStyleBackColor = false;
-            this.BtnAddExpense.Click += new System.EventHandler(this.BtnAddExpense_Click);
-            // 
-            // BtnAddReceipt
-            // 
-            this.BtnAddReceipt.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddReceipt.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAddReceipt.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnAddReceipt.BorderRadius = 35;
-            this.BtnAddReceipt.BorderSize = 0;
-            this.BtnAddReceipt.Enabled = false;
-            this.BtnAddReceipt.FlatAppearance.BorderSize = 0;
-            this.BtnAddReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAddReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddReceipt.ForeColor = System.Drawing.Color.White;
-            this.BtnAddReceipt.Location = new System.Drawing.Point(292, 17);
-            this.BtnAddReceipt.Name = "BtnAddReceipt";
-            this.BtnAddReceipt.Size = new System.Drawing.Size(145, 40);
-            this.BtnAddReceipt.TabIndex = 17;
-            this.BtnAddReceipt.Text = "Add Receipt";
-            this.BtnAddReceipt.TextColor = System.Drawing.Color.White;
-            this.BtnAddReceipt.UseVisualStyleBackColor = false;
-            this.BtnAddReceipt.Click += new System.EventHandler(this.BtnAddReceipt_Click);
-            // 
-            // BtnTransaction
-            // 
-            this.BtnTransaction.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnTransaction.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnTransaction.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnTransaction.BorderRadius = 35;
-            this.BtnTransaction.BorderSize = 0;
-            this.BtnTransaction.Enabled = false;
-            this.BtnTransaction.FlatAppearance.BorderSize = 0;
-            this.BtnTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnTransaction.ForeColor = System.Drawing.Color.White;
-            this.BtnTransaction.Location = new System.Drawing.Point(147, 17);
-            this.BtnTransaction.Name = "BtnTransaction";
-            this.BtnTransaction.Size = new System.Drawing.Size(145, 40);
-            this.BtnTransaction.TabIndex = 16;
-            this.BtnTransaction.Text = "Transaction";
-            this.BtnTransaction.TextColor = System.Drawing.Color.White;
-            this.BtnTransaction.UseVisualStyleBackColor = false;
-            this.BtnTransaction.Click += new System.EventHandler(this.BtnTransaction_Click);
-            // 
-            // BtnSearchItem
-            // 
-            this.BtnSearchItem.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchItem.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchItem.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnSearchItem.BorderRadius = 10;
-            this.BtnSearchItem.BorderSize = 0;
-            this.BtnSearchItem.Enabled = false;
-            this.BtnSearchItem.FlatAppearance.BorderSize = 0;
-            this.BtnSearchItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSearchItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearchItem.ForeColor = System.Drawing.Color.White;
-            this.BtnSearchItem.Location = new System.Drawing.Point(321, 22);
-            this.BtnSearchItem.Name = "BtnSearchItem";
-            this.BtnSearchItem.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearchItem.TabIndex = 60;
-            this.BtnSearchItem.Text = "Search";
-            this.BtnSearchItem.TextColor = System.Drawing.Color.White;
-            this.BtnSearchItem.UseVisualStyleBackColor = false;
-            this.BtnSearchItem.Click += new System.EventHandler(this.BtnSearchItem_Click);
-            // 
-            // BtnSaveReceipt
-            // 
-            this.BtnSaveReceipt.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSaveReceipt.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSaveReceipt.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnSaveReceipt.BorderRadius = 10;
-            this.BtnSaveReceipt.BorderSize = 0;
-            this.BtnSaveReceipt.Enabled = false;
-            this.BtnSaveReceipt.FlatAppearance.BorderSize = 0;
-            this.BtnSaveReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSaveReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSaveReceipt.ForeColor = System.Drawing.Color.White;
-            this.BtnSaveReceipt.Location = new System.Drawing.Point(320, 138);
-            this.BtnSaveReceipt.Name = "BtnSaveReceipt";
-            this.BtnSaveReceipt.Size = new System.Drawing.Size(70, 28);
-            this.BtnSaveReceipt.TabIndex = 59;
-            this.BtnSaveReceipt.Text = "Save";
-            this.BtnSaveReceipt.TextColor = System.Drawing.Color.White;
-            this.BtnSaveReceipt.UseVisualStyleBackColor = false;
-            this.BtnSaveReceipt.Click += new System.EventHandler(this.BtnSaveReceipt_Click);
-            // 
-            // BtnSearchMember
-            // 
-            this.BtnSearchMember.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchMember.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearchMember.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnSearchMember.BorderRadius = 10;
-            this.BtnSearchMember.BorderSize = 0;
-            this.BtnSearchMember.Enabled = false;
-            this.BtnSearchMember.FlatAppearance.BorderSize = 0;
-            this.BtnSearchMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSearchMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearchMember.ForeColor = System.Drawing.Color.White;
-            this.BtnSearchMember.Location = new System.Drawing.Point(320, 22);
-            this.BtnSearchMember.Name = "BtnSearchMember";
-            this.BtnSearchMember.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearchMember.TabIndex = 58;
-            this.BtnSearchMember.Text = "Search";
-            this.BtnSearchMember.TextColor = System.Drawing.Color.White;
-            this.BtnSearchMember.UseVisualStyleBackColor = false;
-            this.BtnSearchMember.Click += new System.EventHandler(this.BtnSearchMember_Click);
+            this.TxtItemDiscount.BackColor = System.Drawing.Color.White;
+            this.TxtItemDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtItemDiscount.Location = new System.Drawing.Point(320, 140);
+            this.TxtItemDiscount.Name = "TxtItemDiscount";
+            this.TxtItemDiscount.ReadOnly = true;
+            this.TxtItemDiscount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtItemDiscount.Size = new System.Drawing.Size(71, 26);
+            this.TxtItemDiscount.TabIndex = 61;
             // 
             // PosForm
             // 
@@ -1329,5 +1342,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.CheckBox ChkBoxDeliveryChargePercent;
         private System.Windows.Forms.CheckBox ChkBoxDiscountPercent;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox TxtItemDiscount;
     }
 }

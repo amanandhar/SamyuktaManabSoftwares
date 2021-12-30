@@ -21,7 +21,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [Code], [Name], [Unit], [Threshold], [AddedDate], [UpdatedDate] " +
+                "[Id], [EndOfDay], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "ORDER BY [Code] ";
 
@@ -44,8 +44,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Name = reader["Name"].ToString(),
                                     Unit = reader["Unit"].ToString(),
                                     Threshold = Convert.ToDecimal(reader["Threshold"].ToString()),
+                                    DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
+                                    DiscountThreshold = Convert.ToDecimal(reader["DiscountThreshold"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 items.Add(item);
@@ -67,7 +69,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "[Id], [Code], [Name], [Unit], [Threshold], [AddedDate], [UpdatedDate] " +
+                "[Id], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Code] = @Code ";
@@ -90,8 +92,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Name = reader["Name"].ToString();
                                 item.Unit = reader["Unit"].ToString();
                                 item.Threshold = Convert.ToDecimal(reader["Threshold"].ToString());
+                                item.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
+                                item.DiscountThreshold = Convert.ToDecimal(reader["DiscountThreshold"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                item.UpdatedDate = reader.IsDBNull(6) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                item.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -110,7 +114,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "[Id], [Code], [Name], [Unit], [Threshold], [AddedDate], [UpdatedDate] " +
+                "[Id], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id " +
@@ -134,8 +138,10 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Name = reader["Name"].ToString();
                                 item.Unit = reader["Unit"].ToString();
                                 item.Threshold = Convert.ToDecimal(reader["Threshold"].ToString());
+                                item.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
+                                item.DiscountThreshold = Convert.ToDecimal(reader["DiscountThreshold"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                item.UpdatedDate = reader.IsDBNull(6) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                item.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -189,11 +195,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [Code], [Name], [Unit], [Threshold], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @Code, @Name, @Unit, @Threshold, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @Code, @Name, @Unit, @Threshold, @DiscountPercent, @DiscountThreshold, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -207,6 +213,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Unit", ((object)item.Unit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedBy", ((object)item.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)item.AddedDate) ?? DBNull.Value);
 
@@ -231,6 +239,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Code] = @Code, " +
                 "[Unit] = @Unit, " +
                 "[Threshold] = @Threshold, " +
+                "[DiscountPercent] = @DiscountPercent, " +
+                "[DiscountThreshold] = @DiscountThreshold, " +
                 "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
@@ -248,6 +258,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedBy", ((object)item.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)item.UpdatedDate) ?? DBNull.Value);
 

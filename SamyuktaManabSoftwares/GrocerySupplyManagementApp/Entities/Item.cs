@@ -10,6 +10,8 @@ namespace GrocerySupplyManagementApp.Entities
         public string Name { get; set; }
         public string Unit { get; set; }
         public decimal Threshold { get; set; }
+        public decimal DiscountPercent { get; set; }
+        public decimal DiscountThreshold { get; set; }
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
         public string UpdatedBy { get; set; }

@@ -90,6 +90,8 @@ namespace GrocerySupplyManagementApp.Forms
                         Name = RichItemName.Text.Trim(),
                         Unit = ComboUnit.Text.Trim(),
                         Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
+                        DiscountPercent = Convert.ToDecimal(RichDiscountPercent.Text.Trim()),
+                        DiscountThreshold = Convert.ToDecimal(RichDiscountThreshold.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -148,6 +150,8 @@ namespace GrocerySupplyManagementApp.Forms
                             Name = RichItemName.Text.Trim(),
                             Unit = ComboUnit.Text.Trim(),
                             Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
+                            DiscountPercent = Convert.ToDecimal(RichDiscountPercent.Text.Trim()),
+                            DiscountThreshold = Convert.ToDecimal(RichDiscountThreshold.Text.Trim()),
                             UpdatedBy = _username,
                             UpdatedDate = DateTime.Now
                         };
@@ -257,6 +261,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridItemList.Columns["Id"].Visible = false;
             DataGridItemList.Columns["EndOfDay"].Visible = false;
+            DataGridItemList.Columns["DiscountPercent"].Visible = false;
+            DataGridItemList.Columns["DiscountThreshold"].Visible = false;
             DataGridItemList.Columns["AddedBy"].Visible = false;
             DataGridItemList.Columns["AddedDate"].Visible = false;
             DataGridItemList.Columns["UpdatedBy"].Visible = false;
@@ -309,6 +315,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
+                RichDiscountPercent.Enabled = true;
+                RichDiscountThreshold.Enabled = true;
 
                 BtnAdd.Enabled = true;
                 BtnSave.Enabled = true;
@@ -319,6 +327,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = true;
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
+                RichDiscountPercent.Enabled = true;
+                RichDiscountThreshold.Enabled = true;
 
                 BtnUpdate.Enabled = true;
                 BtnSave.Enabled = true;
@@ -330,6 +340,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Enabled = false;
                 ComboUnit.Enabled = false;
                 RichThreshold.Enabled = false;
+                RichDiscountPercent.Enabled = false;
+                RichDiscountThreshold.Enabled = false;
 
                 BtnAdd.Enabled = true;
                 BtnSave.Enabled = false;
@@ -345,6 +357,8 @@ namespace GrocerySupplyManagementApp.Forms
             RichItemName.Clear();
             ComboUnit.Text = string.Empty;
             RichThreshold.Clear();
+            RichDiscountPercent.Clear();
+            RichDiscountThreshold.Clear();
         }
 
         public void PopulateItem(long itemId)
@@ -357,6 +371,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemName.Text = item.Name;
                 ComboUnit.Text = item.Unit;
                 RichThreshold.Text = item.Threshold.ToString();
+                RichDiscountPercent.Text = item.DiscountPercent.ToString();
+                RichDiscountThreshold.Text = item.DiscountThreshold.ToString();
 
                 EnableFields(Action.Show);
             }
