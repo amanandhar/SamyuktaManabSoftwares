@@ -213,8 +213,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Unit", ((object)item.Unit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@AddedBy", ((object)item.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)item.AddedDate) ?? DBNull.Value);
 
@@ -258,8 +258,8 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Name", item.Name);
                         command.Parameters.AddWithValue("@Unit", item.Unit);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@UpdatedBy", ((object)item.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)item.UpdatedDate) ?? DBNull.Value);
 

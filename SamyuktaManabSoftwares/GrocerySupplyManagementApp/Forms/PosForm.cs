@@ -483,9 +483,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RichItemQuantity_KeyUp(object sender, KeyEventArgs e)
         {
-            if(Convert.ToDecimal(RichItemQuantity.Text.Trim()) >= _itemDiscountThreshold)
+            if(!string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim()) 
+                && Convert.ToDecimal(RichItemQuantity.Text.Trim()) >= _itemDiscountThreshold)
             {
-                TxtItemDiscount.Text = ((Convert.ToDecimal(TxtItemPrice.Text.Trim()) * _itemDiscountPercent) / 100).ToString("0.00");
+                TxtItemDiscount.Text = Math.Round((Convert.ToDecimal(TxtItemPrice.Text.Trim()) * _itemDiscountPercent) / 100, 2).ToString();
             }
             else
             {
