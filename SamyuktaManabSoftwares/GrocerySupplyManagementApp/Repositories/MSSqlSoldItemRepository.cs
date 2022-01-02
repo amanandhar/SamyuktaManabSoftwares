@@ -24,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [MemberId], [InvoiceNo], " +
-                "[ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], " +
+                "[ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], [Discount], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
@@ -51,8 +51,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Volume = Convert.ToDecimal(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
+                                    Discount = Convert.ToDecimal(reader["Discount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(11) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 soldItems.Add(soldItem);
@@ -74,7 +75,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], b.[Code], b.[Name], b.[Unit], a.[Volume], a.[Quantity], a.[Price], " +
+                "a.[Id], b.[Code], b.[Name], b.[Unit], a.[Volume], a.[Quantity], a.[Price], a.[Discount], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
@@ -106,6 +107,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Volume = Convert.ToDecimal(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
+                                    ItemDiscount = Convert.ToDecimal(reader["Discount"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
@@ -253,11 +255,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], [AddedBy], [AddedDate]  " +
+                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], [Discount], [AddedBy], [AddedDate]  " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Volume, @Quantity, @Price, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Volume, @Quantity, @Price, @Discount, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -275,6 +277,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Volume", soldItem.Volume);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
+                        command.Parameters.AddWithValue("@Discount", soldItem.Discount);
                         command.Parameters.AddWithValue("@AddedBy", soldItem.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", soldItem.AddedDate);
 

@@ -334,8 +334,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     "si.[Id] AS [Id], si.[EndOfDay] AS [EndOfDay], " +
                     "'" + Constants.SALES_PROFIT + "' AS [Description], si.[InvoiceNo] AS [InvoiceNo], " +
                     "i.[Code] AS [ItemCode], i.[Name] AS [ItemName], " +
-                    "si.[Quantity] AS [Quantity], si.[Profit] AS [Profit], " +
-                    "CAST((si.[Quantity] * si.[Profit]) AS DECIMAL(18, 2)) AS [Amount], si.[AddedDate] AS [AddedDate] " +
+                    "CAST((si.[Quantity] * (si.[Profit] - si.[Discount])) AS DECIMAL(18, 2)) AS [Amount], " +
+                    "si.[AddedDate] AS [AddedDate] " +
                     "FROM " + Constants.TABLE_ITEM + " i " +
                     "INNER JOIN " + Constants.TABLE_SOLD_ITEM + " si " +
                     "ON i.[Id] = si.[ItemId] " +

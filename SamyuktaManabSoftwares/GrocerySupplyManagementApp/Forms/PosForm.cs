@@ -366,6 +366,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 Volume = x.Volume,
                                 Quantity = x.Quantity,
                                 Price = x.ItemPrice,
+                                Discount = x.ItemDiscount,
                                 AddedBy = x.AddedBy,
                                 AddedDate = x.AddedDate
                             };
@@ -705,7 +706,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 340;
+                DataGridSoldItemList.Columns["ItemName"].Width = 260;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";
@@ -728,9 +729,14 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
                 DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
+                DataGridSoldItemList.Columns["ItemDiscount"].HeaderText = "Discount";
+                DataGridSoldItemList.Columns["ItemDiscount"].Width = 80;
+                DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 6;
+                DataGridSoldItemList.Columns["ItemDiscount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
                 DataGridSoldItemList.Columns["Total"].HeaderText = "Total";
                 DataGridSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                DataGridSoldItemList.Columns["Total"].DisplayIndex = 6;
+                DataGridSoldItemList.Columns["Total"].DisplayIndex = 7;
                 DataGridSoldItemList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 foreach (DataGridViewRow row in DataGridSoldItemList.Rows)
@@ -788,6 +794,9 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemPrice = string.IsNullOrWhiteSpace(itemPrice)
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : (Convert.ToDecimal(itemPrice) - Convert.ToDecimal(itemDiscount)),
+                    ItemDiscount = string.IsNullOrWhiteSpace(itemDiscount)
+                        ? Constants.DEFAULT_DECIMAL_VALUE
+                        : Convert.ToDecimal(itemDiscount),
                     Volume = Convert.ToDecimal(volume),
                     Quantity = string.IsNullOrWhiteSpace(itemQuantity)
                         ? Constants.DEFAULT_DECIMAL_VALUE
