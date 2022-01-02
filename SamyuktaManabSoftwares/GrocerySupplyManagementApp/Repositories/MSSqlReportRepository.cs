@@ -26,7 +26,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "pd.[SubTotal], pd.[Discount], pd.[DeliveryCharge], (pd.[SubTotal] - pd.[Discount] + pd.[DeliveryCharge]) AS [TotalAmount], " +
                 "ut.[ReceivedAmount], ut.[DueReceivedAmount], " +
                 "i.[Name] AS [ItemName], si.[Volume], si.[Unit], " +
-                "si.[Quantity], si.[Price], CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) AS [Amount] " +
+                "si.[Quantity], si.[Price], si.[Discount] AS [ItemDiscount], CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) AS [Amount] " +
                 "FROM " + Constants.TABLE_MEMBER + " m " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON m.[MemberId] = ut.[PartyId] " +
@@ -75,6 +75,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                         Unit = reader["Unit"].ToString(),
                                         Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                         Price = Convert.ToDecimal(reader["Price"].ToString()),
+                                        ItemDiscount = Convert.ToDecimal(reader["ItemDiscount"].ToString()),
                                         Amount = Convert.ToDecimal(reader["Amount"].ToString()),
                                         ItemNo = i
                                     };

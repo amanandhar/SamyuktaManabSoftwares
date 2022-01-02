@@ -91,6 +91,7 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceDataTable.Columns.Add("Unit");
             invoiceDataTable.Columns.Add("Quantity");
             invoiceDataTable.Columns.Add("Price");
+            invoiceDataTable.Columns.Add("ItemDiscount");
             invoiceDataTable.Columns.Add("Amount");
             invoiceDataTable.Columns.Add("ItemNo");
 
@@ -118,6 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
                 invoiceRow["Unit"] = report.Unit;
                 invoiceRow["Quantity"] = report.Quantity;
                 invoiceRow["Price"] = report.Price;
+                invoiceRow["ItemDiscount"] = report.ItemDiscount;
                 invoiceRow["Amount"] = report.Amount;
                 invoiceRow["ItemNo"] = report.ItemNo;
 
