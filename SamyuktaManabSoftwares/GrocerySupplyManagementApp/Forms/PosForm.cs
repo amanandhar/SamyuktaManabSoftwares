@@ -504,7 +504,7 @@ namespace GrocerySupplyManagementApp.Forms
                 e.Handled = e.SuppressKeyPress = true;
 
                 var volumne = string.IsNullOrWhiteSpace(TxtVolume.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtVolume.Text.Trim());
-                var quantity = Convert.ToInt32(RichItemQuantity.Text);
+                var quantity = Convert.ToDecimal(RichItemQuantity.Text);
                 var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemStock.Text.Trim());
 
                 if ((volumne * quantity) > stock)
