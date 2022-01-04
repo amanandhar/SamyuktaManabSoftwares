@@ -92,25 +92,24 @@ namespace GrocerySupplyManagementApp.Shared
                     xlWorkSheet.Name = sheetname;
 
                     MsExcel.Range range = xlWorkSheet.Cells;
-                    range.NumberFormat = "@";
                     range.HorizontalAlignment = MsExcel.XlHAlign.xlHAlignRight;
+                    xlWorkSheet.Columns[1].NumberFormat = "@";
+                    xlWorkSheet.Columns[2].NumberFormat = "@";
+                    xlWorkSheet.Columns[3].NumberFormat = "0.00";
 
                     xlWorkSheet.Cells[1, 1] = "Code";
                     xlWorkSheet.Cells[1, 1].Font.FontStyle = "bold";
-                    xlWorkSheet.Cells[1, 2] = "SubCode";
+                    xlWorkSheet.Cells[1, 2] = "Name";
                     xlWorkSheet.Cells[1, 2].Font.FontStyle = "bold";
-                    xlWorkSheet.Cells[1, 3] = "Name";
+                    xlWorkSheet.Cells[1, 3] = "Price";
                     xlWorkSheet.Cells[1, 3].Font.FontStyle = "bold";
-                    xlWorkSheet.Cells[1, 4] = "Price";
-                    xlWorkSheet.Cells[1, 4].Font.FontStyle = "bold";
 
                     int i = 2;
                     foreach (var excelRow in excelRows)
                     {
                         xlWorkSheet.Cells[i, 1] = excelRow.Code;
-                        xlWorkSheet.Cells[i, 2] = excelRow.SubCode;
-                        xlWorkSheet.Cells[i, 3] = excelRow.Name;
-                        xlWorkSheet.Cells[i, 4] = excelRow.Price;
+                        xlWorkSheet.Cells[i, 2] = excelRow.Name;
+                        xlWorkSheet.Cells[i, 3] = excelRow.Price;
 
                         i++;
                     }

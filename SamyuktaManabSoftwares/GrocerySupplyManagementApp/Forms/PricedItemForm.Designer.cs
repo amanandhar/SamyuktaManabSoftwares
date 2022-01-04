@@ -45,12 +45,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtPerUnitValue = new System.Windows.Forms.TextBox();
             this.TxtItemName = new System.Windows.Forms.TextBox();
             this.TxtItemCode = new System.Windows.Forms.TextBox();
-            this.TxtItemSubCode = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.TxtCustomPerUnitValue = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.TxtVolume = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.TxtProfitPercent = new System.Windows.Forms.TextBox();
             this.TxtProfitAmount = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -65,12 +61,12 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.PicBoxLoading = new System.Windows.Forms.PictureBox();
             this.BtnExportToExcel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSearchUnpricedItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.PicBoxLoading = new System.Windows.Forms.PictureBox();
             this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
@@ -267,29 +263,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtItemCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtItemCode_KeyDown);
             this.TxtItemCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtItemCode_KeyPress);
             // 
-            // TxtItemSubCode
-            // 
-            this.TxtItemSubCode.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtItemSubCode.Enabled = false;
-            this.TxtItemSubCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtItemSubCode.Location = new System.Drawing.Point(193, 65);
-            this.TxtItemSubCode.Name = "TxtItemSubCode";
-            this.TxtItemSubCode.Size = new System.Drawing.Size(99, 29);
-            this.TxtItemSubCode.TabIndex = 9;
-            this.TxtItemSubCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtItemSubCode_KeyDown);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label9.Location = new System.Drawing.Point(68, 69);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(119, 20);
-            this.label9.TabIndex = 52;
-            this.label9.Text = "Item Sub Code";
-            // 
             // TxtCustomPerUnitValue
             // 
             this.TxtCustomPerUnitValue.BackColor = System.Drawing.SystemColors.Window;
@@ -312,30 +285,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.Size = new System.Drawing.Size(180, 20);
             this.label11.TabIndex = 46;
             this.label11.Text = "Custom Per Unit Value";
-            // 
-            // TxtVolume
-            // 
-            this.TxtVolume.Enabled = false;
-            this.TxtVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtVolume.Location = new System.Drawing.Point(193, 142);
-            this.TxtVolume.Name = "TxtVolume";
-            this.TxtVolume.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtVolume.Size = new System.Drawing.Size(175, 29);
-            this.TxtVolume.TabIndex = 10;
-            this.TxtVolume.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtVolume_KeyPress);
-            this.TxtVolume.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtVolume_KeyUp);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(122, 146);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(65, 20);
-            this.label12.TabIndex = 39;
-            this.label12.Text = "Volume";
             // 
             // TxtProfitPercent
             // 
@@ -548,15 +497,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.groupBox5.Controls.Add(this.PicBoxLoading);
             this.groupBox5.Controls.Add(this.BtnExportToExcel);
-            this.groupBox5.Controls.Add(this.TxtItemSubCode);
-            this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.label12);
             this.groupBox5.Controls.Add(this.label6);
             this.groupBox5.Controls.Add(this.TxtSalesPricePerUnit);
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Controls.Add(this.BtnSearchUnpricedItem);
-            this.groupBox5.Controls.Add(this.TxtVolume);
             this.groupBox5.Controls.Add(this.TxtCustomPerUnitValue);
             this.groupBox5.Controls.Add(this.TxtProfitPercent);
             this.groupBox5.Controls.Add(this.TxtProfitAmount);
@@ -568,6 +513,17 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox5.TabIndex = 54;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Customized Details";
+            // 
+            // PicBoxLoading
+            // 
+            this.PicBoxLoading.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxLoading.Image")));
+            this.PicBoxLoading.Location = new System.Drawing.Point(47, 398);
+            this.PicBoxLoading.Name = "PicBoxLoading";
+            this.PicBoxLoading.Size = new System.Drawing.Size(100, 64);
+            this.PicBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PicBoxLoading.TabIndex = 53;
+            this.PicBoxLoading.TabStop = false;
+            this.PicBoxLoading.Visible = false;
             // 
             // BtnExportToExcel
             // 
@@ -637,17 +593,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.SaveFileDialog.Filter = "xlsx files (*.xlsx)|*.xlsx";
             this.SaveFileDialog.InitialDirectory = "C:\\";
             // 
-            // PicBoxLoading
-            // 
-            this.PicBoxLoading.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxLoading.Image")));
-            this.PicBoxLoading.Location = new System.Drawing.Point(47, 398);
-            this.PicBoxLoading.Name = "PicBoxLoading";
-            this.PicBoxLoading.Size = new System.Drawing.Size(100, 64);
-            this.PicBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PicBoxLoading.TabIndex = 53;
-            this.PicBoxLoading.TabStop = false;
-            this.PicBoxLoading.Visible = false;
-            // 
             // BackgroundWorker
             // 
             this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
@@ -701,14 +646,10 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtProfitPercent;
         private System.Windows.Forms.TextBox TxtProfitAmount;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.PictureBox PicBoxItemImage;
         private System.Windows.Forms.ComboBox ComboItemUnit;
-        private System.Windows.Forms.TextBox TxtVolume;
         private System.Windows.Forms.TextBox TxtCustomPerUnitValue;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox TxtItemSubCode;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox5;
         private CustomControls.Button.CustomButton BtnSearchPricedItem;
         private CustomControls.Button.CustomButton BtnSearchUnpricedItem;

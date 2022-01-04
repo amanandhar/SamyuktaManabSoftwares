@@ -97,7 +97,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Add);
-            TxtItemSubCode.Focus();
+            TxtProfitPercent.Focus();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -128,7 +128,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
                             }
 
-                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
+                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + ".jpg";
                             destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                             if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
                             {
@@ -145,8 +145,6 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         ItemId = _selectedItemId,
-                        Volume = Convert.ToDecimal(TxtVolume.Text.Trim()),
-                        SubCode = TxtItemSubCode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
@@ -175,7 +173,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Edit);
-            TxtItemSubCode.Focus();
+            TxtProfitPercent.Focus();
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -206,7 +204,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
                             }
 
-                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
+                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + ".jpg";
                             destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                             File.Copy(_uploadedImagePath, destinationFilePath, true);
                         }
@@ -219,8 +217,6 @@ namespace GrocerySupplyManagementApp.Forms
                     var pricedItem = new PricedItem
                     {
                         ItemId = _selectedItemId,
-                        Volume = Convert.ToDecimal(TxtVolume.Text.Trim()),
-                        SubCode = TxtItemSubCode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
@@ -252,7 +248,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DialogResult deleteResult = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteResult == DialogResult.Yes)
                 {
-                    var relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + "-" + TxtVolume.Text.Trim() + ".jpg";
+                    var relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + ".jpg";
                     var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
                     if (!string.IsNullOrWhiteSpace(absoluteImagePath) && File.Exists(absoluteImagePath))
                     {
@@ -312,7 +308,7 @@ namespace GrocerySupplyManagementApp.Forms
                 try
                 {
                     var pricedItemCode = TxtItemCode.Text.Trim();
-                    var pricedItem = _pricedItemService.GetPricedItem(pricedItemCode, string.Empty);
+                    var pricedItem = _pricedItemService.GetPricedItem(pricedItemCode);
                     if(pricedItem.Id != 0)
                     {
                         PopulatePricedItem(pricedItem.Id);
@@ -327,57 +323,6 @@ namespace GrocerySupplyManagementApp.Forms
                     logger.Error(ex);
                     UtilityService.ShowExceptionMessageBox();
                 }
-            }
-        }
-
-        private void TxtItemSubCode_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                e.Handled = e.SuppressKeyPress = true;
-                try
-                {
-                    var itemCode = TxtItemCode.Text.Trim();
-                    var itemSubCode = TxtItemSubCode.Text.Trim();
-
-                    if (!string.IsNullOrWhiteSpace(itemCode) && !string.IsNullOrWhiteSpace(itemSubCode))
-                    {
-                        var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
-                        if (pricedItem.Id != 0)
-                        {
-                            PopulatePricedItem(pricedItem.Id);
-                            EnableFields();
-                            EnableFields(Action.Edit);
-                            TxtItemSubCode.Focus();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Item with item code: " + itemCode + " and" + " sub code: " + itemSubCode + " does not exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex);
-                    UtilityService.ShowExceptionMessageBox();
-                }
-            }
-        }
-
-        private void TxtVolume_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void TxtVolume_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(TxtVolume.Text.Trim()))
-            {
-                TxtCustomPerUnitValue.Text = (Convert.ToDecimal(TxtPerUnitValue.Text.Trim()) * Convert.ToDecimal(TxtVolume.Text.Trim())).ToString();
-                CalculateProfitAmount();
             }
         }
 
@@ -515,8 +460,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Add)
             {
-                TxtItemSubCode.Enabled = true;
-                TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
 
@@ -528,8 +471,6 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Edit)
             {
                 TxtItemCode.Enabled = true;
-                TxtItemSubCode.Enabled = true;
-                TxtVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
 
@@ -545,9 +486,7 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboItemUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;
                 TxtPerUnitValue.Enabled = false;
-                TxtVolume.Enabled = false;
                 TxtCustomPerUnitValue.Enabled = false;
-                TxtItemSubCode.Enabled = false;
                 TxtProfitPercent.Enabled = false;
                 TxtProfitAmount.Enabled = false;
                 TxtSalesPricePerUnit.Enabled = false;
@@ -569,8 +508,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboItemUnit.Text = string.Empty;
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
-            TxtItemSubCode.Clear();
-            TxtVolume.Clear();
             TxtCustomPerUnitValue.Clear();
             TxtProfitPercent.Clear();
             TxtProfitAmount.Clear();
@@ -589,7 +526,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var item = _itemService.GetItem(_selectedItemId);
 
                 TxtItemCode.Text = item.Code;
-                TxtVolume.Text = pricedItem.Volume.ToString();
                 TxtItemName.Text = item.Name;
                 ComboItemUnit.Text = item.Unit;
                 StockFilter stockFilter = new StockFilter
@@ -603,9 +539,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
                 TxtPerUnitValue.Text = perUnitValue.ToString();
 
-                TxtItemSubCode.Text = pricedItem.SubCode;
-                TxtVolume.Text = pricedItem.Volume.ToString();
-                TxtCustomPerUnitValue.Text = Math.Round((perUnitValue * pricedItem.Volume), 2).ToString();
+                TxtCustomPerUnitValue.Text = Math.Round(perUnitValue, 2).ToString();
 
                 var profitPercent = pricedItem.ProfitPercent;
                 TxtProfitPercent.Text = profitPercent.ToString();
@@ -699,7 +633,6 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Id = x.Id,
                         Code = x.Code,
-                        SubCode = x.SubCode,
                         Name = x.Name,
                         Price = GetSalesPrice(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code })
                     }).ToList();
@@ -719,7 +652,7 @@ namespace GrocerySupplyManagementApp.Forms
             // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var customPerUnitValue = Math.Round((perUnitValue * pricedItem.Volume), 2);
+            var customPerUnitValue = Math.Round(perUnitValue, 2);
             var profitPercent = pricedItem.ProfitPercent;
             var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
             var salesPrice = customPerUnitValue + profitAmount;
@@ -735,21 +668,15 @@ namespace GrocerySupplyManagementApp.Forms
             var isValidated = false;
 
             var itemCode = TxtItemCode.Text.Trim();
-            var itemSubCode = TxtItemSubCode.Text.Trim();
-            var volume = TxtVolume.Text.Trim();
             var profitPercent = TxtProfitPercent.Text.Trim();
             var profitAmount = TxtProfitAmount.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(itemCode)
-                || string.IsNullOrWhiteSpace(itemSubCode)
-                || string.IsNullOrWhiteSpace(volume)
                 || string.IsNullOrWhiteSpace(profitPercent)
                 || string.IsNullOrWhiteSpace(profitAmount))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Item Code " +
-                    "\n * Item Sub Code " +
-                    "\n * Volume " +
                     "\n * Profit Percent " +
                     "\n * Profit Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -763,7 +690,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Update)
             {
-                var pricedItem = _pricedItemService.GetPricedItem(itemCode, string.Empty);
+                var pricedItem = _pricedItemService.GetPricedItem(itemCode);
                 if (pricedItem.Id != 0)
                 {
                     if (_selectedId != pricedItem.Id)
