@@ -42,7 +42,6 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly string _endOfDay;
         private string _selectedInvoiceNo;
         private readonly List<SoldItemView> _soldItemViewList = new List<SoldItemView>();
-        private const char separator = '.';
         private readonly bool _isPrintOnly = false;
         private bool _isAddReceipt = false;
         private string _baseImageFolder;
@@ -363,7 +362,6 @@ namespace GrocerySupplyManagementApp.Forms
                                 ItemId = _itemService.GetItem(x.ItemCode).Id,
                                 Profit = x.Profit,
                                 Unit = x.Unit,
-                                Volume = x.Volume,
                                 Quantity = x.Quantity,
                                 Price = x.ItemPrice,
                                 Discount = x.ItemDiscount,
@@ -503,11 +501,10 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 e.Handled = e.SuppressKeyPress = true;
 
-                var volumne = string.IsNullOrWhiteSpace(TxtVolume.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtVolume.Text.Trim());
                 var quantity = Convert.ToDecimal(RichItemQuantity.Text);
                 var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemStock.Text.Trim());
 
-                if ((volumne * quantity) > stock)
+                if (quantity > stock)
                 {
                     DialogResult result = MessageBox.Show("No sufficient stock!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (result == DialogResult.OK)
@@ -550,11 +547,8 @@ namespace GrocerySupplyManagementApp.Forms
                 e.Handled = e.SuppressKeyPress = true;
                 try
                 {
-                    var codes = RichItemCode.Text.Trim().Replace("\n", "").Split(separator);
-                    var itemCode = codes[0];
-                    var itemSubCode = codes.Length > 1 ? codes[1] : string.Empty;
-
-                    var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
+                    var itemCode = RichItemCode.Text.Trim();
+                    var pricedItem = _pricedItemService.GetPricedItem(itemCode);
                     if (pricedItem.ItemId == 0)
                     {
                         DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text.Trim(),
@@ -706,37 +700,32 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 260;
+                DataGridSoldItemList.Columns["ItemName"].Width = 330;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
-
-                DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";
-                DataGridSoldItemList.Columns["Volume"].Width = 70;
-                DataGridSoldItemList.Columns["Volume"].DisplayIndex = 2;
-                DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
                 DataGridSoldItemList.Columns["Unit"].Width = 55;
-                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 3;
+                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 2;
                 DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
                 DataGridSoldItemList.Columns["Quantity"].Width = 65;
-                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 4;
+                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
                 DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
-                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
+                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 4;
                 DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["ItemDiscount"].HeaderText = "Discount";
                 DataGridSoldItemList.Columns["ItemDiscount"].Width = 80;
-                DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 6;
+                DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 5;
                 DataGridSoldItemList.Columns["ItemDiscount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["Total"].HeaderText = "Total";
                 DataGridSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                DataGridSoldItemList.Columns["Total"].DisplayIndex = 7;
+                DataGridSoldItemList.Columns["Total"].DisplayIndex = 6;
                 DataGridSoldItemList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 foreach (DataGridViewRow row in DataGridSoldItemList.Rows)
@@ -774,12 +763,11 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                var itemCode = RichItemCode.Text.Trim().Split(separator)[0];
+                var itemCode = RichItemCode.Text.Trim();
                 var itemName = TxtItemName.Text.Trim();
                 var itemPrice = TxtItemPrice.Text.Trim();
                 var itemDiscount = TxtItemDiscount.Text.Trim();
                 var profitAmount = TxtProfitAmount.Text.Trim();
-                var volume = TxtVolume.Text.Trim();
                 var itemQuantity = RichItemQuantity.Text.Trim();
 
                 _soldItemViewList.Add(new SoldItemView
@@ -797,7 +785,6 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemDiscount = string.IsNullOrWhiteSpace(itemDiscount)
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : Convert.ToDecimal(itemDiscount),
-                    Volume = Convert.ToDecimal(volume),
                     Quantity = string.IsNullOrWhiteSpace(itemQuantity)
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : Convert.ToDecimal(itemQuantity),
@@ -847,8 +834,6 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemPrice.Clear();
             TxtItemDiscount.Clear();
             RichItemQuantity.Clear();
-            TxtItemUnit.Clear();
-            TxtVolume.Clear();
             TxtProfitAmount.Clear();
             TxtItemStock.Clear();
             TxtPricedUnit.Clear();
@@ -1089,15 +1074,14 @@ namespace GrocerySupplyManagementApp.Forms
                     }
                 }
 
-                RichItemCode.Text = item.Code + separator + pricedItem.SubCode;
+                RichItemCode.Text = item.Code;
                 TxtItemName.Text = item.Name;
-                TxtItemUnit.Text = item.Unit;
-                TxtVolume.Text = pricedItem.Volume.ToString();
+
 
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-                var customPerUnitValue = Math.Round((perUnitValue * pricedItem.Volume), 2);
+                var customPerUnitValue = Math.Round(perUnitValue, 2);
                 var profitPercent = pricedItem.ProfitPercent;
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 var salesPrice = customPerUnitValue + profitAmount;

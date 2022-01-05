@@ -30,7 +30,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
             long id = 1;
             _pricedItemRepository.Setup(repo => repo.GetPricedItem(It.IsAny<long>()))
                 .Returns(
-                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, SubCode = "SubCode1", Volume = 10, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
+                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
             );
 
             var pricedItem = _sut.GetPricedItem(id);
@@ -40,14 +40,14 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
 
         [TestMethod]
         [TestCategory("UnitTests"), TestCategory("Services.PricedItemService")]
-        public void GetPricedItem_ReturnsPricedItem_WhenItemCodeAndItemSubCodeArePassed()
+        public void GetPricedItem_ReturnsPricedItem_WhenItemCodeIsPassed()
         {
-            _pricedItemRepository.Setup(repo => repo.GetPricedItem(It.IsAny<string>(), It.IsAny<string>()))
+            _pricedItemRepository.Setup(repo => repo.GetPricedItem(It.IsAny<string>()))
                 .Returns(
-                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, SubCode = "SubCode1", Volume = 10, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
+                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
             );
 
-            var pricedItem = _sut.GetPricedItem(string.Empty, string.Empty);
+            var pricedItem = _sut.GetPricedItem(string.Empty);
 
             Assert.AreEqual(101, pricedItem.ItemId);
         }
@@ -59,8 +59,8 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
             _pricedItemRepository.Setup(repo => repo.GetPricedItemViewList())
                 .Returns( new List<PricedItemView>()
                 {
-                    new PricedItemView() { Id = 1, Code = "Code1", SubCode = "SubCode1", Name = "Name1" },
-                    new PricedItemView() { Id = 2, Code = "Code2", SubCode = "SubCode2", Name = "Name2" }
+                    new PricedItemView() { Id = 1, Code = "Code1", Name = "Name1" },
+                    new PricedItemView() { Id = 2, Code = "Code2", Name = "Name2" }
                 }
             );
 
@@ -92,7 +92,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
         {
             _pricedItemRepository.Setup(repo => repo.AddPricedItem(It.IsAny<PricedItem>()))
                 .Returns(
-                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, SubCode = "SubCode1", Volume = 10, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
+                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
             );
 
             var pricedItem = _sut.AddPricedItem(new PricedItem());
@@ -107,7 +107,7 @@ namespace GrocerySupplyManagementApp.Tests.UnitTests.Services
             long id = 1;
             _pricedItemRepository.Setup(repo => repo.UpdatePricedItem(It.IsAny<long>(), It.IsAny<PricedItem>()))
                 .Returns(
-                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, SubCode = "SubCode1", Volume = 10, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
+                new PricedItem() { Id = 1, EndOfDay = "2078-01-01", ItemId = 101, ProfitPercent = 2.00m, Profit = 10.00m, SalesPricePerUnit = 120.00m, ImagePath = @"D:\Images\CompanyLogo1.jpg", AddedBy = "TestUser1", AddedDate = DateTime.Parse("2078-01-01"), UpdatedBy = null, UpdatedDate = null }
             );
 
             var pricedItem = _sut.UpdatePricedItem(id, new PricedItem());
