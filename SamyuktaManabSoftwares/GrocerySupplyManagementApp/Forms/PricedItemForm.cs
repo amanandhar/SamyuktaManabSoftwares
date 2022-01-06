@@ -590,6 +590,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
                 TxtPerUnitValue.Text = perUnitValue.ToString();
+                TxtCustomPerUnitValue.Text = perUnitValue.ToString();
 
                 EnableFields();
                 EnableFields(Action.PopulateUnpricedItem);
