@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly Setting _setting;
         private readonly string _endOfDay;
         private long selectedItemId = 0;
+        private const char ITEM_CATEGORY_SEPARATOR = '.';
 
         #region Enum
         enum Action
@@ -99,8 +100,8 @@ namespace GrocerySupplyManagementApp.Forms
                     _itemService.AddItem(item);
 
                     var itemCode = item.Code.ToString();
-                    var formattedItemCode = itemCode.Substring(1, itemCode.Length - 1);
-                    var counter = formattedItemCode.TrimStart(new Char[] { '0' });
+                    var formattedItemCode = itemCode.Split(ITEM_CATEGORY_SEPARATOR);
+                    var counter = formattedItemCode[1].TrimStart(new Char[] { '0' });
                     var itemCategory = new ItemCategory
                     {
                         EndOfDay = _endOfDay,
@@ -213,7 +214,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var itemCategory = _itemCategoryService.GetItemCategory(category);
                 if (itemCategory == null || string.IsNullOrWhiteSpace(itemCategory.ItemCode))
                 {
-                    RichItemCode.Text = category + "00101";
+                    RichItemCode.Text = category + ITEM_CATEGORY_SEPARATOR + "00101";
                 }
                 else
                 {
@@ -240,7 +241,7 @@ namespace GrocerySupplyManagementApp.Forms
                         finalItemCode = "0" + finalItemCode;
                     }
 
-                    RichItemCode.Text = category + finalItemCode;
+                    RichItemCode.Text = category + ITEM_CATEGORY_SEPARATOR + finalItemCode;
                 }
             }
         }
@@ -261,8 +262,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             DataGridItemList.Columns["Id"].Visible = false;
             DataGridItemList.Columns["EndOfDay"].Visible = false;
-            DataGridItemList.Columns["DiscountPercent"].Visible = false;
-            DataGridItemList.Columns["DiscountThreshold"].Visible = false;
             DataGridItemList.Columns["AddedBy"].Visible = false;
             DataGridItemList.Columns["AddedDate"].Visible = false;
             DataGridItemList.Columns["UpdatedBy"].Visible = false;
@@ -273,16 +272,27 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridItemList.Columns["Name"].HeaderText = "Name";
-            DataGridItemList.Columns["Name"].Width = 450;
+            DataGridItemList.Columns["Name"].Width = 410;
             DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
             DataGridItemList.Columns["Unit"].HeaderText = "Unit";
-            DataGridItemList.Columns["Unit"].Width = 80;
+            DataGridItemList.Columns["Unit"].Width = 60;
             DataGridItemList.Columns["Unit"].DisplayIndex = 2;
 
             DataGridItemList.Columns["Threshold"].HeaderText = "Threshold";
-            DataGridItemList.Columns["Threshold"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridItemList.Columns["Threshold"].DisplayIndex = 3;
+            DataGridItemList.Columns["Threshold"].Width = 80;
+            DataGridItemList.Columns["Threshold"].DisplayIndex = 4;
+            DataGridItemList.Columns["Threshold"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridItemList.Columns["DiscountPercent"].HeaderText = "Dis. %";
+            DataGridItemList.Columns["DiscountPercent"].Width = 70;
+            DataGridItemList.Columns["DiscountPercent"].DisplayIndex = 5;
+            DataGridItemList.Columns["DiscountPercent"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridItemList.Columns["DiscountThreshold"].HeaderText = "Dis. Threshold";
+            DataGridItemList.Columns["DiscountThreshold"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridItemList.Columns["DiscountThreshold"].DisplayIndex = 6;
+            DataGridItemList.Columns["DiscountThreshold"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridItemList.Rows)
             {
@@ -407,32 +417,56 @@ namespace GrocerySupplyManagementApp.Forms
             ComboCategory.ValueMember = "Id";
             ComboCategory.DisplayMember = "Value";
 
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_A, Value = Constants.CATEGORY_A });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_B, Value = Constants.CATEGORY_B });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_C, Value = Constants.CATEGORY_C });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_D, Value = Constants.CATEGORY_D });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_E, Value = Constants.CATEGORY_E });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_F, Value = Constants.CATEGORY_F });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_G, Value = Constants.CATEGORY_G });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_H, Value = Constants.CATEGORY_H });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_I, Value = Constants.CATEGORY_I });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_J, Value = Constants.CATEGORY_J });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_K, Value = Constants.CATEGORY_K });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_L, Value = Constants.CATEGORY_L });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_M, Value = Constants.CATEGORY_M });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_N, Value = Constants.CATEGORY_N });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_O, Value = Constants.CATEGORY_O });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_P, Value = Constants.CATEGORY_P });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Q, Value = Constants.CATEGORY_Q });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_R, Value = Constants.CATEGORY_R });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_S, Value = Constants.CATEGORY_S });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_T, Value = Constants.CATEGORY_T });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_U, Value = Constants.CATEGORY_U });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_V, Value = Constants.CATEGORY_V });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_W, Value = Constants.CATEGORY_W });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_X, Value = Constants.CATEGORY_X });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Y, Value = Constants.CATEGORY_Y });
-            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_Z, Value = Constants.CATEGORY_Z });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_10, Value = Constants.CATEGORY_10 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_11, Value = Constants.CATEGORY_11 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_12, Value = Constants.CATEGORY_12 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_13, Value = Constants.CATEGORY_13 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_14, Value = Constants.CATEGORY_14 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_15, Value = Constants.CATEGORY_15 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_16, Value = Constants.CATEGORY_16 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_17, Value = Constants.CATEGORY_17 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_18, Value = Constants.CATEGORY_18 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_19, Value = Constants.CATEGORY_19 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_20, Value = Constants.CATEGORY_20 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_21, Value = Constants.CATEGORY_21 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_22, Value = Constants.CATEGORY_22 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_23, Value = Constants.CATEGORY_23 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_24, Value = Constants.CATEGORY_24 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_25, Value = Constants.CATEGORY_25 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_26, Value = Constants.CATEGORY_26 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_27, Value = Constants.CATEGORY_27 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_28, Value = Constants.CATEGORY_28 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_29, Value = Constants.CATEGORY_29 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_30, Value = Constants.CATEGORY_30 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_31, Value = Constants.CATEGORY_31 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_32, Value = Constants.CATEGORY_32 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_33, Value = Constants.CATEGORY_33 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_34, Value = Constants.CATEGORY_34 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_35, Value = Constants.CATEGORY_35 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_36, Value = Constants.CATEGORY_36 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_37, Value = Constants.CATEGORY_37 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_38, Value = Constants.CATEGORY_38 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_39, Value = Constants.CATEGORY_39 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_40, Value = Constants.CATEGORY_40 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_41, Value = Constants.CATEGORY_41 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_42, Value = Constants.CATEGORY_42 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_43, Value = Constants.CATEGORY_43 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_44, Value = Constants.CATEGORY_44 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_45, Value = Constants.CATEGORY_45 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_46, Value = Constants.CATEGORY_46 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_47, Value = Constants.CATEGORY_47 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_48, Value = Constants.CATEGORY_48 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_49, Value = Constants.CATEGORY_49 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_50, Value = Constants.CATEGORY_50 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_51, Value = Constants.CATEGORY_51 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_52, Value = Constants.CATEGORY_52 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_53, Value = Constants.CATEGORY_53 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_54, Value = Constants.CATEGORY_54 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_55, Value = Constants.CATEGORY_55 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_56, Value = Constants.CATEGORY_56 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_57, Value = Constants.CATEGORY_57 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_58, Value = Constants.CATEGORY_58 });
+            ComboCategory.Items.Add(new ComboBoxItem { Id = Constants.CATEGORY_59, Value = Constants.CATEGORY_59 });
         }
         #endregion
 
@@ -446,19 +480,25 @@ namespace GrocerySupplyManagementApp.Forms
             var itemName = RichItemName.Text.Trim();
             var unit = ComboUnit.Text.Trim();
             var threshold = RichThreshold.Text.Trim();
+            var discountPercent = RichDiscountPercent.Text.Trim();
+            var discountThreshold = RichDiscountThreshold.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(category)
                 || string.IsNullOrWhiteSpace(itemCode)
                 || string.IsNullOrWhiteSpace(itemName)
                 || string.IsNullOrWhiteSpace(unit)
-                || string.IsNullOrWhiteSpace(threshold))
+                || string.IsNullOrWhiteSpace(threshold)
+                || string.IsNullOrWhiteSpace(discountPercent)
+                || string.IsNullOrWhiteSpace(discountThreshold))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Category " +
                     "\n * Item Code " +
                     "\n * Item Name " +
                     "\n * Item Unit " +
-                    "\n * Item Threshold ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Item Threshold " +
+                    "\n * Discount Percent " +
+                    "\n * Discount Threshold ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -476,17 +516,23 @@ namespace GrocerySupplyManagementApp.Forms
             var itemName = RichItemName.Text.Trim();
             var unit = ComboUnit.Text.Trim();
             var threshold = RichThreshold.Text.Trim();
+            var discountPercent = RichDiscountPercent.Text.Trim();
+            var discountThreshold = RichDiscountThreshold.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(itemCode)
                 || string.IsNullOrWhiteSpace(itemName)
                 || string.IsNullOrWhiteSpace(unit)
-                || string.IsNullOrWhiteSpace(threshold))
+                || string.IsNullOrWhiteSpace(threshold)
+                || string.IsNullOrWhiteSpace(discountPercent)
+                || string.IsNullOrWhiteSpace(discountThreshold))
             {
                 MessageBox.Show("Please enter following fields: " +
                     "\n * Item Code " +
                     "\n * Item Name " +
                     "\n * Item Unit " +
-                    "\n * Item Threshold ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "\n * Item Threshold " +
+                    "\n * Discount Percent " +
+                    "\n * Discount Threshold ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {

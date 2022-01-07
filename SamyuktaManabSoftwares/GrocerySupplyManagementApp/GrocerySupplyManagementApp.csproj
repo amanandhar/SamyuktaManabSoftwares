@@ -731,6 +731,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Scripts\Test.sql" />
     <Content Include="Data\Scripts\TablesWithSampleData.sql" />
     <Content Include="Data\Scripts\CreateTables.sql" />
     <Content Include="Data\Scripts\DeleteTables.sql" />
