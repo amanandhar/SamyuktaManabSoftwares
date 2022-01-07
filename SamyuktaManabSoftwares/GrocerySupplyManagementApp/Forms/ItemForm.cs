@@ -219,9 +219,9 @@ namespace GrocerySupplyManagementApp.Forms
                 else
                 {
                     var itemCode = itemCategory.ItemCode;
-                    var formattedItemCode = itemCode.Substring(1, itemCode.Length - 1);
-                    formattedItemCode = formattedItemCode.TrimStart(new Char[] { '0' });
-                    var newItemCode = Convert.ToInt64(formattedItemCode) + 1;
+                    var formattedItemCode = itemCode.Split(ITEM_CATEGORY_SEPARATOR);
+                    var counter = formattedItemCode[1].TrimStart(new Char[] { '0' });
+                    var newItemCode = Convert.ToInt64(counter) + 1;
                     var finalItemCode = newItemCode.ToString();
 
                     if (finalItemCode.Length == 1)
