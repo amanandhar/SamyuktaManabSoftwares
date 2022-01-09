@@ -286,6 +286,12 @@ namespace GrocerySupplyManagementApp.Forms
             _uploadedImagePath = string.Empty;
         }
 
+        private void BtnExportToWord_Click(object sender, EventArgs e)
+        {
+            PricedItemListToPrintForm pricedItemListToPrintForm = new PricedItemListToPrintForm(_pricedItemService);
+            pricedItemListToPrintForm.ShowDialog();
+        }
+
         private void BtnExportToExcel_Click(object sender, EventArgs e)
         {
             PicBoxLoading.Visible = true;
@@ -638,7 +644,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Price = GetSalesPrice(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code })
                     }).ToList();
 
-                    Excel.Export(excelPricedItemFieldList, "Priced Item", filename);
+                    MSExcel.Export(excelPricedItemFieldList, "Priced Item", filename);
                 }
             }));
 

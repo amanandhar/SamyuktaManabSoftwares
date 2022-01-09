@@ -142,7 +142,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var sheetname = "Balance Sheet";
                 var filename = SaveFileDialog.FileName;
 
-                if (Excel.Export(excelData, title, sheetname, filename))
+                if (MSExcel.Export(excelData, title, sheetname, filename))
                 {
                     MessageBox.Show(filename + " has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

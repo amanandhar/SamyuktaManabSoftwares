@@ -8,7 +8,7 @@ using MsExcel = Microsoft.Office.Interop.Excel;
 
 namespace GrocerySupplyManagementApp.Shared
 {
-    public class Excel
+    public class MSExcel
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 

@@ -78,6 +78,10 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1449.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -259,6 +263,12 @@
     </Compile>
     <Compile Include="Forms\PricedItemListForm.Designer.cs">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PricedItemListToPrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PricedItemListToPrintForm.Designer.cs">
+      <DependentUpon>PricedItemListToPrintForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SalesPurchaseForm.cs">
       <SubType>Form</SubType>
@@ -521,8 +531,9 @@
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\Cryptography.cs" />
     <Compile Include="Shared\Enums\PartyNumberType.cs" />
-    <Compile Include="Shared\Excel.cs" />
+    <Compile Include="Shared\MSExcel.cs" />
     <Compile Include="Shared\LogHelper.cs" />
+    <Compile Include="Shared\MSWord.cs" />
     <Compile Include="Shared\UtilityService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\BankTransactionView.cs" />
@@ -583,6 +594,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PricedItemListForm.resx">
       <DependentUpon>PricedItemListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PricedItemListToPrintForm.resx">
+      <DependentUpon>PricedItemListToPrintForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesPurchaseForm.resx">
       <DependentUpon>SalesPurchaseForm.cs</DependentUpon>
