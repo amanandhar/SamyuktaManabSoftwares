@@ -1,6 +1,6 @@
 ﻿namespace GrocerySupplyManagementApp.DTOs
 {
-    public class ExcelField
+    public class MSExcelField
     {
         public long Order { get; set; }
         public string Field { get; set; }

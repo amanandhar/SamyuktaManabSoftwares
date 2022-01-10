@@ -167,11 +167,12 @@
     <Compile Include="DTOs\CapitalTransactionFilter.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\DeliveryPersonTransactionFilter.cs" />
-    <Compile Include="DTOs\ExcelField.cs" />
-    <Compile Include="DTOs\ExcelPricedItemField.cs" />
+    <Compile Include="DTOs\MSExcelField.cs" />
+    <Compile Include="DTOs\MSExcelPricedItemField.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
     <Compile Include="DTOs\IncomeTransactionFilter.cs" />
     <Compile Include="DTOs\MemberTransactionFilter.cs" />
+    <Compile Include="DTOs\MSWordField.cs" />
     <Compile Include="DTOs\ShareMemberTransactionFilter.cs" />
     <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\StockFilter.cs" />

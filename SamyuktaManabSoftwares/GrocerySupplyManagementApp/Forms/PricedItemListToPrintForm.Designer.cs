@@ -29,41 +29,42 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.PanelMain = new System.Windows.Forms.Panel();
-            this.BtnExport = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnCancel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PricedItemListToPrintForm));
+            this.PanelBody = new System.Windows.Forms.Panel();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.PanelHeader = new System.Windows.Forms.Panel();
+            this.BtnCancel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnExport = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.PicBoxLoading = new System.Windows.Forms.PictureBox();
+            this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxLoading)).BeginInit();
             this.SuspendLayout();
             // 
-            // PanelMain
+            // PanelBody
             // 
-            this.PanelMain.AutoScroll = true;
-            this.PanelMain.BackColor = System.Drawing.Color.White;
-            this.PanelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelMain.Location = new System.Drawing.Point(12, 12);
-            this.PanelMain.Name = "PanelMain";
-            this.PanelMain.Size = new System.Drawing.Size(510, 250);
-            this.PanelMain.TabIndex = 0;
+            this.PanelBody.AutoScroll = true;
+            this.PanelBody.BackColor = System.Drawing.Color.White;
+            this.PanelBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelBody.Location = new System.Drawing.Point(12, 66);
+            this.PanelBody.Name = "PanelBody";
+            this.PanelBody.Size = new System.Drawing.Size(510, 196);
+            this.PanelBody.TabIndex = 0;
             // 
-            // BtnExport
+            // SaveFileDialog
             // 
-            this.BtnExport.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnExport.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnExport.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnExport.BorderRadius = 35;
-            this.BtnExport.BorderSize = 0;
-            this.BtnExport.FlatAppearance.BorderSize = 0;
-            this.BtnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnExport.ForeColor = System.Drawing.Color.White;
-            this.BtnExport.Location = new System.Drawing.Point(307, 268);
-            this.BtnExport.Name = "BtnExport";
-            this.BtnExport.Size = new System.Drawing.Size(120, 35);
-            this.BtnExport.TabIndex = 16;
-            this.BtnExport.Text = "Export";
-            this.BtnExport.TextColor = System.Drawing.Color.White;
-            this.BtnExport.UseVisualStyleBackColor = false;
-            this.BtnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            this.SaveFileDialog.DefaultExt = "docx";
+            this.SaveFileDialog.FileName = "PriceItemReport";
+            this.SaveFileDialog.Filter = "docx files (*.docx)|*.docx";
+            this.SaveFileDialog.InitialDirectory = "C:\\";
+            // 
+            // PanelHeader
+            // 
+            this.PanelHeader.BackColor = System.Drawing.Color.White;
+            this.PanelHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelHeader.Location = new System.Drawing.Point(12, 13);
+            this.PanelHeader.Name = "PanelHeader";
+            this.PanelHeader.Size = new System.Drawing.Size(510, 54);
+            this.PanelHeader.TabIndex = 26;
             // 
             // BtnCancel
             // 
@@ -85,12 +86,41 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnCancel.UseVisualStyleBackColor = false;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
-            // SaveFileDialog
+            // BtnExport
             // 
-            this.SaveFileDialog.DefaultExt = "docx";
-            this.SaveFileDialog.FileName = "PriceItemReport";
-            this.SaveFileDialog.Filter = "docx files (*.docx)|*.docx";
-            this.SaveFileDialog.InitialDirectory = "C:\\";
+            this.BtnExport.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnExport.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnExport.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnExport.BorderRadius = 35;
+            this.BtnExport.BorderSize = 0;
+            this.BtnExport.FlatAppearance.BorderSize = 0;
+            this.BtnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnExport.ForeColor = System.Drawing.Color.White;
+            this.BtnExport.Location = new System.Drawing.Point(307, 268);
+            this.BtnExport.Name = "BtnExport";
+            this.BtnExport.Size = new System.Drawing.Size(120, 35);
+            this.BtnExport.TabIndex = 16;
+            this.BtnExport.Text = "Export";
+            this.BtnExport.TextColor = System.Drawing.Color.White;
+            this.BtnExport.UseVisualStyleBackColor = false;
+            this.BtnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
+            // PicBoxLoading
+            // 
+            this.PicBoxLoading.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxLoading.Image")));
+            this.PicBoxLoading.Location = new System.Drawing.Point(248, 268);
+            this.PicBoxLoading.Name = "PicBoxLoading";
+            this.PicBoxLoading.Size = new System.Drawing.Size(53, 31);
+            this.PicBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PicBoxLoading.TabIndex = 27;
+            this.PicBoxLoading.TabStop = false;
+            this.PicBoxLoading.Visible = false;
+            // 
+            // BackgroundWorker
+            // 
+            this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
+            this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
             // 
             // PricedItemListToPrintForm
             // 
@@ -98,23 +128,29 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(534, 311);
+            this.Controls.Add(this.PicBoxLoading);
+            this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.BtnCancel);
             this.Controls.Add(this.BtnExport);
-            this.Controls.Add(this.PanelMain);
+            this.Controls.Add(this.PanelBody);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PricedItemListToPrintForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.PricedItemListToPrintForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel PanelMain;
+        private System.Windows.Forms.Panel PanelBody;
         private CustomControls.Button.CustomButton BtnExport;
         private CustomControls.Button.CustomButton BtnCancel;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
+        private System.Windows.Forms.Panel PanelHeader;
+        private System.Windows.Forms.PictureBox PicBoxLoading;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker;
     }
 }

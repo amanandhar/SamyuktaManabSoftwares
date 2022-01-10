@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GrocerySupplyManagementApp.DTOs;
+using System;
+using System.Collections.Generic;
 using MsWord = Microsoft.Office.Interop.Word;
 
 namespace GrocerySupplyManagementApp.Shared
@@ -6,53 +8,71 @@ namespace GrocerySupplyManagementApp.Shared
     public class MSWord
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
+        private const int TABLE_COLUMN_COUNT = 4;
 
-        public static bool Export(string filename)
+        public static bool Export(string filename, List<MSWordField> data)
         {
             var result = false;
 
             try
             {
+                var tableRowCount = 0;
+                if (data.Count == 0)
+                {
+                    return result;
+                }
+                else if (data.Count % TABLE_COLUMN_COUNT == 0)
+                {
+                    tableRowCount = data.Count / TABLE_COLUMN_COUNT;
+                }
+                else
+                {
+                    tableRowCount = (data.Count / TABLE_COLUMN_COUNT) + 1;
+                }
+
                 object objMissing = System.Reflection.Missing.Value;
                 object objEndOfDocument = "\\endofdoc";
 
                 // Create the application
                 MsWord.Application wordApplication = new MsWord.Application
                 {
-                    Visible = true,
+                    Visible = false,
                 };
 
                 // Create the document
                 MsWord.Document wordDocument = wordApplication.Documents.Add(ref objMissing, ref objMissing, ref objMissing, ref objMissing);
                 wordDocument.PageSetup.PaperSize = MsWord.WdPaperSize.wdPaperA4;
-                wordDocument.PageSetup.TopMargin = 0.0F;
+                wordDocument.PageSetup.TopMargin = 25.0F;
                 wordDocument.PageSetup.RightMargin = 0.0F;
-                wordDocument.PageSetup.BottomMargin = 0.0F;
+                wordDocument.PageSetup.BottomMargin = 25.0F;
                 wordDocument.PageSetup.LeftMargin = 0.0F;
 
                 // Create the table
                 MsWord.Table wordTable;
                 MsWord.Range wordRange = wordDocument.Bookmarks.get_Item(ref objEndOfDocument).Range;
-                wordTable = wordDocument.Tables.Add(wordRange, 16, 4, ref objMissing, ref objMissing);
+                wordTable = wordDocument.Tables.Add(wordRange, tableRowCount, TABLE_COLUMN_COUNT, ref objMissing, ref objMissing);
                 wordTable.Borders.InsideLineStyle = MsWord.WdLineStyle.wdLineStyleSingle;
                 wordTable.Borders.OutsideLineStyle = MsWord.WdLineStyle.wdLineStyleSingle;
                 wordTable.Range.Bold = 1;
                 wordTable.Range.ParagraphFormat.Alignment = MsWord.WdParagraphAlignment.wdAlignParagraphCenter;
-                wordTable.Range.ParagraphFormat.SpaceBefore = 2.0F;
-                wordTable.Range.ParagraphFormat.SpaceAfter = 2.0F;
+                wordTable.Range.ParagraphFormat.SpaceBefore = 1.3F;
+                wordTable.Range.ParagraphFormat.SpaceAfter = 1.3F;
+                wordTable.Range.Rows.Height = 30;
 
-                var str = string.Empty;
-                for (int row = 0; row <= 16; row++)
+                var textToPrint = string.Empty;
+                var counter = 0;
+                for (int row = 1; row <= tableRowCount; row++)
                 {
-                    if (row != 0)
+                    for (int column = 1; column <= TABLE_COLUMN_COUNT; column++)
                     {
-                        wordTable.Rows[row].Height = 30;
-                    }
-                    for (int column = 0; column <= 4; column++)
-                    {
-                        str = "Samyukta Manab Grocery" + "\n" + "Item Code: 10.000101" + "\n" + "Price: 999.99";
+                        if(counter >= data.Count)
+                        {
+                            break;
+                        }
 
-                        wordTable.Cell(row, column).Range.Text = str;
+                        textToPrint = "Samyukta Manab Grocery" + "\n" + "Item Code : " + data[counter].Code + "\n" + "Price : " + data[counter].Price;
+                        wordTable.Cell(row, column).Range.Text = textToPrint;
+                        counter++;
                     }
                 }
 

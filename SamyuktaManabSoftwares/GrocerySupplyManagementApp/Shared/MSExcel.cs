@@ -12,7 +12,7 @@ namespace GrocerySupplyManagementApp.Shared
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
 
-        public static bool Export(Dictionary<string, List<ExcelField>> excelSheets, string title, string sheetname, string filename)
+        public static bool Export(Dictionary<string, List<MSExcelField>> excelSheets, string title, string sheetname, string filename)
         {
             var result = false;
             try
@@ -35,13 +35,13 @@ namespace GrocerySupplyManagementApp.Shared
                     xlWorkSheet.Cells[1, j] = title;
                     xlWorkSheet.Cells[1, j].Font.FontStyle = "bold";
 
-                    foreach (KeyValuePair<string, List<ExcelField>> entry in excelSheets)
+                    foreach (KeyValuePair<string, List<MSExcelField>> entry in excelSheets)
                     {
                         int i = 2;
                         xlWorkSheet.Cells[i, j] = entry.Key;
                         xlWorkSheet.Cells[i, j].Font.FontStyle = "bold";
 
-                        List<ExcelField> excelFields = entry.Value;
+                        List<MSExcelField> excelFields = entry.Value;
                         i++;
                         foreach (var excelField in excelFields.ToList().OrderBy(x => x.Order))
                         {
@@ -72,7 +72,7 @@ namespace GrocerySupplyManagementApp.Shared
             return result;
         }
 
-        public static bool Export(List<ExcelPricedItemField> excelRows, string sheetname, string filename)
+        public static bool Export(List<MSExcelPricedItemField> excelRows, string sheetname, string filename)
         {
             var result = false;
             try

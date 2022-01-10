@@ -118,24 +118,24 @@ namespace GrocerySupplyManagementApp.Forms
             var dialogResult = SaveFileDialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                var excelData = new Dictionary<string, List<ExcelField>>();
+                var excelData = new Dictionary<string, List<MSExcelField>>();
 
-                var liabilitiesFields = new List<ExcelField>();
-                liabilitiesFields.Add(new ExcelField() { Order = 1, Field = Constants.SHARE_CAPITAL, Value = RichShareCapital.Text, IsColumn = false });
-                liabilitiesFields.Add(new ExcelField() { Order = 2, Field = Constants.OWNER_EQUITY, Value = RichOwnerEquity.Text, IsColumn = false });
-                liabilitiesFields.Add(new ExcelField() { Order = 3, Field = Constants.LOAN_AMOUNT, Value = RichLoanAmount.Text, IsColumn = false });
-                liabilitiesFields.Add(new ExcelField() { Order = 4, Field = Constants.PAYABLE_AMOUNT, Value = RichPayableAmount.Text, IsColumn = false });
-                liabilitiesFields.Add(new ExcelField() { Order = 5, Field = Constants.NET_PROFIT, Value = RichNetProfit.Text, IsColumn = false });
-                liabilitiesFields.Add(new ExcelField() { Order = 6, Field = Constants.BALANCE, Value = RichLiabilitiesBalance.Text, IsColumn = false });
+                var liabilitiesFields = new List<MSExcelField>();
+                liabilitiesFields.Add(new MSExcelField() { Order = 1, Field = Constants.SHARE_CAPITAL, Value = RichShareCapital.Text, IsColumn = false });
+                liabilitiesFields.Add(new MSExcelField() { Order = 2, Field = Constants.OWNER_EQUITY, Value = RichOwnerEquity.Text, IsColumn = false });
+                liabilitiesFields.Add(new MSExcelField() { Order = 3, Field = Constants.LOAN_AMOUNT, Value = RichLoanAmount.Text, IsColumn = false });
+                liabilitiesFields.Add(new MSExcelField() { Order = 4, Field = Constants.PAYABLE_AMOUNT, Value = RichPayableAmount.Text, IsColumn = false });
+                liabilitiesFields.Add(new MSExcelField() { Order = 5, Field = Constants.NET_PROFIT, Value = RichNetProfit.Text, IsColumn = false });
+                liabilitiesFields.Add(new MSExcelField() { Order = 6, Field = Constants.BALANCE, Value = RichLiabilitiesBalance.Text, IsColumn = false });
                 excelData.Add(Constants.LIABILITIES, liabilitiesFields);
 
-                var assetsFields = new List<ExcelField>();
-                assetsFields.Add(new ExcelField() { Order = 1, Field = Constants.CASH_IN_HAND, Value = RichCashInHand.Text, IsColumn = false });
-                assetsFields.Add(new ExcelField() { Order = 2, Field = Constants.BANK_ACCOUNT, Value = RichBankAccount.Text, IsColumn = false });
-                assetsFields.Add(new ExcelField() { Order = 3, Field = Constants.STOCK_VALUE, Value = RichStockValue.Text, IsColumn = false });
-                assetsFields.Add(new ExcelField() { Order = 4, Field = Constants.RECEIVABLE_AMOUNT, Value = RichReceivableAmount.Text, IsColumn = false });
-                assetsFields.Add(new ExcelField() { Order = 5, Field = Constants.NET_LOSS, Value = RichNetLoss.Text, IsColumn = false });
-                assetsFields.Add(new ExcelField() { Order = 6, Field = Constants.BALANCE, Value = RichAssetsBalance.Text, IsColumn = false });
+                var assetsFields = new List<MSExcelField>();
+                assetsFields.Add(new MSExcelField() { Order = 1, Field = Constants.CASH_IN_HAND, Value = RichCashInHand.Text, IsColumn = false });
+                assetsFields.Add(new MSExcelField() { Order = 2, Field = Constants.BANK_ACCOUNT, Value = RichBankAccount.Text, IsColumn = false });
+                assetsFields.Add(new MSExcelField() { Order = 3, Field = Constants.STOCK_VALUE, Value = RichStockValue.Text, IsColumn = false });
+                assetsFields.Add(new MSExcelField() { Order = 4, Field = Constants.RECEIVABLE_AMOUNT, Value = RichReceivableAmount.Text, IsColumn = false });
+                assetsFields.Add(new MSExcelField() { Order = 5, Field = Constants.NET_LOSS, Value = RichNetLoss.Text, IsColumn = false });
+                assetsFields.Add(new MSExcelField() { Order = 6, Field = Constants.BALANCE, Value = RichAssetsBalance.Text, IsColumn = false });
                 excelData.Add(Constants.ASSETS, assetsFields);
 
                 var title = _endOfDay;

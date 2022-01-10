@@ -288,7 +288,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnExportToWord_Click(object sender, EventArgs e)
         {
-            PricedItemListToPrintForm pricedItemListToPrintForm = new PricedItemListToPrintForm(_pricedItemService);
+            PricedItemListToPrintForm pricedItemListToPrintForm = new PricedItemListToPrintForm(_pricedItemService, _stockService);
             pricedItemListToPrintForm.ShowDialog();
         }
 
@@ -634,9 +634,9 @@ namespace GrocerySupplyManagementApp.Forms
                 var filename = SaveFileDialog.FileName;
                 if (dialogResult == DialogResult.OK)
                 {
-                    var excelData = new Dictionary<string, List<ExcelField>>();
+                    var excelData = new Dictionary<string, List<MSExcelField>>();
                     var pricedItemViewListWithoutPrice = _pricedItemService.GetPricedItemViewList();
-                    var excelPricedItemFieldList = pricedItemViewListWithoutPrice.Select(x => new ExcelPricedItemField
+                    var excelPricedItemFieldList = pricedItemViewListWithoutPrice.Select(x => new MSExcelPricedItemField
                     {
                         Id = x.Id,
                         Code = x.Code,
