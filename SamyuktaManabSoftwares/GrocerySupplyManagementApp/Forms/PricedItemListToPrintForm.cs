@@ -23,14 +23,16 @@ namespace GrocerySupplyManagementApp.Forms
         private Label[] _pricedItemCodeLabels;
         private TextBox[] _pricedItemCountTextboxes;
         private int _pricedItemListCount = 0;
+        private bool _generateBarcode = false;
 
         #region Constructor
-        public PricedItemListToPrintForm(IPricedItemService pricedItemService, IStockService stockService)
+        public PricedItemListToPrintForm(IPricedItemService pricedItemService, IStockService stockService, bool generateBarcode = false)
         {
             InitializeComponent();
 
             _pricedItemService = pricedItemService;
             _stockService = stockService;
+            _generateBarcode = generateBarcode;
         }
         #endregion
 
@@ -198,7 +200,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var filename = SaveFileDialog.FileName;
                     if (dialogResult == DialogResult.OK)
                     {
-                        MSWord.Export(filename, dataToExport);
+                        MSWord.Export(filename, dataToExport, _generateBarcode);
                     }
                 }
                 catch (Exception ex)

@@ -292,6 +292,12 @@ namespace GrocerySupplyManagementApp.Forms
             pricedItemListToPrintForm.ShowDialog();
         }
 
+        private void BtnExportToWordWithBarcode_Click(object sender, EventArgs e)
+        {
+            PricedItemListToPrintForm pricedItemListToPrintForm = new PricedItemListToPrintForm(_pricedItemService, _stockService, true);
+            pricedItemListToPrintForm.ShowDialog();
+        }
+
         private void BtnExportToExcel_Click(object sender, EventArgs e)
         {
             PicBoxLoading.Visible = true;
@@ -722,6 +728,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }

@@ -69,6 +69,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10 = new System.Windows.Forms.Label();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.BtnExportToWordWithBarcode = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -496,6 +497,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.BtnExportToWordWithBarcode);
             this.groupBox5.Controls.Add(this.BtnExportToWord);
             this.groupBox5.Controls.Add(this.BtnExportToExcel);
             this.groupBox5.Controls.Add(this.label6);
@@ -619,6 +621,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
             this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
             // 
+            // BtnExportToWordWithBarcode
+            // 
+            this.BtnExportToWordWithBarcode.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnExportToWordWithBarcode.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnExportToWordWithBarcode.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnExportToWordWithBarcode.BorderRadius = 10;
+            this.BtnExportToWordWithBarcode.BorderSize = 0;
+            this.BtnExportToWordWithBarcode.FlatAppearance.BorderSize = 0;
+            this.BtnExportToWordWithBarcode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnExportToWordWithBarcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnExportToWordWithBarcode.ForeColor = System.Drawing.Color.White;
+            this.BtnExportToWordWithBarcode.Location = new System.Drawing.Point(74, 414);
+            this.BtnExportToWordWithBarcode.Name = "BtnExportToWordWithBarcode";
+            this.BtnExportToWordWithBarcode.Size = new System.Drawing.Size(261, 32);
+            this.BtnExportToWordWithBarcode.TabIndex = 55;
+            this.BtnExportToWordWithBarcode.Text = "Export Price With Barcode To Word";
+            this.BtnExportToWordWithBarcode.TextColor = System.Drawing.Color.White;
+            this.BtnExportToWordWithBarcode.UseVisualStyleBackColor = false;
+            this.BtnExportToWordWithBarcode.Click += new System.EventHandler(this.BtnExportToWordWithBarcode_Click);
+            // 
             // PricedItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -689,5 +711,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.ComponentModel.BackgroundWorker BackgroundWorker;
         private System.Windows.Forms.PictureBox PicBoxLoading;
         private CustomControls.Button.CustomButton BtnExportToWord;
+        private CustomControls.Button.CustomButton BtnExportToWordWithBarcode;
     }
 }

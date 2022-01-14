@@ -1,6 +1,8 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using ZXing;
 using MsWord = Microsoft.Office.Interop.Word;
 
 namespace GrocerySupplyManagementApp.Shared
@@ -10,7 +12,7 @@ namespace GrocerySupplyManagementApp.Shared
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
         private const int TABLE_COLUMN_COUNT = 4;
 
-        public static bool Export(string filename, List<MSWordField> data)
+        public static bool Export(string filename, List<MSWordField> data, bool generateBarcode = false)
         {
             var result = false;
 
@@ -36,7 +38,7 @@ namespace GrocerySupplyManagementApp.Shared
                 // Create the application
                 MsWord.Application wordApplication = new MsWord.Application
                 {
-                    Visible = false,
+                    Visible = false
                 };
 
                 // Create the document
@@ -57,7 +59,16 @@ namespace GrocerySupplyManagementApp.Shared
                 wordTable.Range.ParagraphFormat.Alignment = MsWord.WdParagraphAlignment.wdAlignParagraphCenter;
                 wordTable.Range.ParagraphFormat.SpaceBefore = 1.3F;
                 wordTable.Range.ParagraphFormat.SpaceAfter = 1.3F;
-                wordTable.Range.Rows.Height = 30;
+                wordTable.Range.Rows.Height = generateBarcode ? 80 : 30;
+
+                BarcodeWriter barcodeWriter = null;
+                if (generateBarcode)
+                {
+                    barcodeWriter = new BarcodeWriter() { Format = BarcodeFormat.CODE_39 };
+                    barcodeWriter.Options.Height = 50;
+                    barcodeWriter.Options.Width = 60;
+                    barcodeWriter.Options.Margin = 10;
+                }
 
                 var textToPrint = string.Empty;
                 var counter = 0;
@@ -70,8 +81,23 @@ namespace GrocerySupplyManagementApp.Shared
                             break;
                         }
 
-                        textToPrint = "Samyukta Manab Grocery" + "\n" + "Item Code : " + data[counter].Code + "\n" + "Price : " + data[counter].Price;
-                        wordTable.Cell(row, column).Range.Text = textToPrint;
+                        var range = wordTable.Cell(row, column).Range;
+                        if(generateBarcode)
+                        {
+                            Clipboard.SetImage(barcodeWriter.Write(data[counter].Code));
+                            range.Paste();
+
+                            textToPrint = "Samyukta Manab Grocery" + "\n" + "Price : " + data[counter].Price;
+                            range.InsertBefore(textToPrint);
+
+                            Clipboard.Clear();
+                        }
+                        else
+                        {
+                            textToPrint = "Samyukta Manab Grocery" + "\n" + "Item Code : " + data[counter].Code + "\n" + "Price : " + data[counter].Price;
+                            range.Text = textToPrint;
+                        }
+                      
                         counter++;
                     }
                 }
