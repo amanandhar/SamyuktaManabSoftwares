@@ -238,7 +238,7 @@ namespace GrocerySupplyManagementApp.Forms
                 _posDetailService, _incomeExpenseService,
                 _capitalService
                  );
-            posForm.ShowDialog();
+            posForm.Show();
 
             HideSubMenu();
             SelectButton(sender as Button);

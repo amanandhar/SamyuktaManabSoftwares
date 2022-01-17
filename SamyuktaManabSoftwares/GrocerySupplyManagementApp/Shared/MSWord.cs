@@ -64,7 +64,7 @@ namespace GrocerySupplyManagementApp.Shared
                 BarcodeWriter barcodeWriter = null;
                 if (generateBarcode)
                 {
-                    barcodeWriter = new BarcodeWriter() { Format = BarcodeFormat.CODE_39 };
+                    barcodeWriter = new BarcodeWriter() { Format = BarcodeFormat.CODABAR };
                     barcodeWriter.Options.Height = 50;
                     barcodeWriter.Options.Width = 60;
                     barcodeWriter.Options.Margin = 10;
