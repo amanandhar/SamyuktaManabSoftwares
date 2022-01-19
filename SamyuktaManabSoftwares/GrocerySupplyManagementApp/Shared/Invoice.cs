@@ -15,10 +15,10 @@ namespace GrocerySupplyManagementApp.Shared
             try
             {
                 Graphics graphics = e.Graphics;
-                Font regular12 = new Font("Arial", 12, FontStyle.Regular);
+                //Font regular12 = new Font("Arial", 12, FontStyle.Regular);
                 Font regular10 = new Font("Arial", 10, FontStyle.Regular);
                 Font regular08 = new Font("Arial", 8, FontStyle.Regular);
-                Font bold = new Font("Arial", 12, FontStyle.Bold);
+                //Font bold = new Font("Arial", 12, FontStyle.Bold);
                 SolidBrush solidBrush = new SolidBrush(Color.Black);
 
                 float x = 5;
@@ -44,85 +44,70 @@ namespace GrocerySupplyManagementApp.Shared
                 };
 
                 // Draw header
-                string text = "BAJEKO SEKUWA PVT. LTD";
+                string text = "Samyukta Manab Grocery";
                 graphics.DrawString(text,
-                    regular12, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular12).Height;
-
-                text = "Sorakhutte, kathmandu";
-                graphics.DrawString(text,
-                    regular12, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular12).Height;
-
-                text = "Vat No. : 303954909";
-                graphics.DrawString(text,
-                    regular12, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular12).Height;
-
-                text = "Tax Invoice";
-                graphics.DrawString(text,
-                    regular12, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular12).Height;
-
-                // Draw empty space
-                text = " ";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                text = " ";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                // Draw body
-                text = "Customer: " + "CASH (SK)";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                text = "TPIN: " + "12345";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                text = "Time: " + "01:12 PM";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                text = "Invoice No: " + "SK/07952";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                text = "Date: " + DateTime.Now.ToShortDateString();
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                text = "User: " + "MEGH";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                text = "Miti: " + "23/09/2078";
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                // Draw empty space
-                text = string.Empty;
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                text = string.Empty;
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-                // Empty space Ends
-
-                text = "----------------------------------------------------------------";
-                e.Graphics.DrawString(text,
                     regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
                 y += e.Graphics.MeasureString(text, regular10).Height;
 
-                text = "Sno";
+                text = "Nayabazar - 16";
+                graphics.DrawString(text,
+                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular10).Height;
+
+                text = "PAN No. : 303954909";
+                graphics.DrawString(text,
+                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular10).Height;
+
+                text = "Tax Invoice";
+                graphics.DrawString(text,
+                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular10).Height;
+
+                // Draw empty space
+                text = " ";
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
+
+                // Draw body
+                text = "Customer: " + "CASH";
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+                text = "Time: " + "01:12 PM";
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
+
+                text = "Invoice No: " + "IN-01-0001";
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+                text = "Date: " + DateTime.Now.ToShortDateString();
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
+
+                text = "User: " + "bhai";
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+                text = "Miti: " + "23/09/2078";
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
+
+                // Draw empty space
+                text = string.Empty;
+                graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
+                // Empty space Ends
+
+                text = "-----------------------------------------------------------------------------";
+                e.Graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
+
+                text = "SN";
                 e.Graphics.DrawString(text,
                     regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
                 text = "Particulars";
@@ -140,15 +125,15 @@ namespace GrocerySupplyManagementApp.Shared
 
                 y += e.Graphics.MeasureString(text, regular08).Height;
 
-                text = "----------------------------------------------------------------";
+                text = "-----------------------------------------------------------------------------";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 text = "1";
                 e.Graphics.DrawString(text,
                     regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                text = "NEPALI KHANA SET (VEG)";
+                text = "Newari Basmati Rice-20kg";
                 e.Graphics.DrawString(text,
                     regular08, solidBrush, new RectangleF(x + 30, y, width, height));
                 text = "1.0";
@@ -163,118 +148,96 @@ namespace GrocerySupplyManagementApp.Shared
 
                 y += e.Graphics.MeasureString(text, regular08).Height;
 
-                text = "----------------------------------------------------------------";
+                text = "-----------------------------------------------------------------------------";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 text = "Total :";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
+                    regular08, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
                 text = "295.00";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 text = "Discount :";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
+                    regular08, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
                 text = "-29.50";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 // Draw empty space
                 text = string.Empty;
                 graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
                 // Empty space ends
 
-                text = "----------------------------------------------------------------";
+                text = "-----------------------------------------------------------------------------";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
-                text = "Tax Free Value :";
+                text = "Taxable Amount :";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
-                text = "0.00";
-                e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                text = "Taxable Value :";
-                e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
+                    regular08, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
                 text = "265.50";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                // Draw empty space
-                text = string.Empty;
-                graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-                // Empty space ends
-
-                text = "----------------------------------------------------------------";
-                e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 text = "VAT 13% :";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
+                    regular08, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
                 text = "34.52";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
-
-                text = "ROUND OFF :";
-                e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
-                text = "-0.02";
-                e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 // Draw empty space
                 text = string.Empty;
                 graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
                 // Empty space ends
 
-                text = "----------------------------------------------------------------";
+                text = "-----------------------------------------------------------------------------";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 text = "Grand Total :";
                 e.Graphics.DrawString(text,
-                    bold, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
+                    regular08, solidBrush, new RectangleF(x, y, width - rightOffset, height), drawFormatRight);
                 text = "300.00";
                 e.Graphics.DrawString(text,
-                    bold, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
-                y += e.Graphics.MeasureString(text, bold).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 // Draw empty space
                 text = string.Empty;
                 graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
                 // Empty space ends
 
-                text = "----------------------------------------------------------------";
+                // Draw Footer
+                text = "-----------------------------------------------------------------------------";
                 e.Graphics.DrawString(text,
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text, bold).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
 
                 text = "Rs. Three Hundred only";
                 e.Graphics.DrawString(text,
-                    regular12, solidBrush, new RectangleF(x, y, footerWidth, height), drawFormatLeft);
+                    regular08, solidBrush, new RectangleF(x, y, footerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text, regular08).Height;
+
+                text = "Thank you for doing business with us.";
+                e.Graphics.DrawString(text,
+                    regular08, solidBrush, new RectangleF(x, y, footerWidth, height), drawFormatCenter);
             }
             catch(Exception ex)
             {
