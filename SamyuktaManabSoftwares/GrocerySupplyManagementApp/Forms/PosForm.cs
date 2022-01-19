@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -445,6 +446,18 @@ namespace GrocerySupplyManagementApp.Forms
             EnableFields(Action.AddSale);
             RichMemberId.Focus();
         }
+
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            //printDocThermal.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("72.1mm x 152.4mm", 285, 600);
+            printDocThermal.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("80mm x 210mm", 314, 826);
+            printPreviewDialogThermal.Document = printDocThermal;
+
+            ((Form)printPreviewDialogThermal).WindowState = FormWindowState.Maximized;
+            ((Form)printPreviewDialogThermal).StartPosition = FormStartPosition.CenterScreen;
+
+            printPreviewDialogThermal.ShowDialog();
+        }
         #endregion
 
         #region Rich Box Event
@@ -682,6 +695,13 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDeliveryChargePercent.ReadOnly = true;
                 TxtDeliveryChargePercent.Text = _setting.DeliveryCharge.ToString();
             }
+        }
+        #endregion
+
+        #region Print Document Event
+        private void printDocThermal_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Invoice.PrintThermalInvoice(e);
         }
         #endregion
 

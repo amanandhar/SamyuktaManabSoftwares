@@ -538,6 +538,7 @@
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\Cryptography.cs" />
     <Compile Include="Shared\Enums\PartyNumberType.cs" />
+    <Compile Include="Shared\Invoice.cs" />
     <Compile Include="Shared\MSExcel.cs" />
     <Compile Include="Shared\LogHelper.cs" />
     <Compile Include="Shared\MSWord.cs" />
