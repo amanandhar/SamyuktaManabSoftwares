@@ -449,8 +449,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnPrint_Click(object sender, EventArgs e)
         {
-            //printDocThermal.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("72.1mm x 152.4mm", 285, 600);
-            printDocThermal.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("80mm x 210mm", 314, 826);
+            printDocThermal.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("76mm x 152mm", 299, 598);
             printPreviewDialogThermal.Document = printDocThermal;
 
             ((Form)printPreviewDialogThermal).WindowState = FormWindowState.Maximized;
