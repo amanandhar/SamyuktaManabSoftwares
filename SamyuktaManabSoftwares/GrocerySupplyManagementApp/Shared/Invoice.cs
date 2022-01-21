@@ -16,10 +16,7 @@ namespace GrocerySupplyManagementApp.Shared
             try
             {
                 Graphics graphics = e.Graphics;
-                //Font regular12 = new Font("Arial", 12, FontStyle.Regular);
-                Font regular10 = new Font("Arial", 10, FontStyle.Regular);
                 Font regular08 = new Font("Arial", 8, FontStyle.Regular);
-                //Font bold = new Font("Arial", 12, FontStyle.Bold);
                 SolidBrush solidBrush = new SolidBrush(Color.Black);
 
                 float x = 5;
@@ -48,23 +45,23 @@ namespace GrocerySupplyManagementApp.Shared
                 // Draw header
                 text.Clear().Append("Samyukta Manab Grocery");
                 graphics.DrawString(text.ToString(),
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text.ToString(), regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
 
                 text.Clear().Append("Nayabazar - 16");
                 graphics.DrawString(text.ToString(),
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text.ToString(), regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
 
                 text.Clear().Append("PAN No. : 303954909");
                 graphics.DrawString(text.ToString(),
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text.ToString(), regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
 
                 text.Clear().Append("Tax Invoice");
                 graphics.DrawString(text.ToString(),
-                    regular10, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text.ToString(), regular10).Height;
+                    regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
+                y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
 
                 // Draw empty space
                 text.Clear().Append(" ");
@@ -84,7 +81,7 @@ namespace GrocerySupplyManagementApp.Shared
                 text.Clear().Append("Invoice No: " + "IN-01-0001");
                 graphics.DrawString(text.ToString(),
                     regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
-                text.Clear().Append("Miti: " + "23/09/2078");
+                text.Clear().Append("Date: " + "23/09/2078");
                 graphics.DrawString(text.ToString(),
                     regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
                 y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
@@ -97,30 +94,21 @@ namespace GrocerySupplyManagementApp.Shared
                     regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
                 y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
 
-                // Draw empty space
-                text.Clear().Append(" ");
-                graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatCenter);
-                y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
-                // Empty space Ends
-
                 text.Clear().Append("-----------------------------------------------------------------------------");
                 e.Graphics.DrawString(text.ToString(),
                     regular08, solidBrush, new RectangleF(x, y, headerWidth, height), drawFormatCenter);
                 y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
 
-                text.Clear().Append("SN");
-                e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
+
                 text.Clear().Append("Particulars");
                 e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x + 30, y, width, height));
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
                 text.Clear().Append("Qty");
                 e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x + 180, y, width, height));
+                    regular08, solidBrush, new RectangleF(x + 150, y, width, height));
                 text.Clear().Append("Rate");
                 e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x + 210, y, width, height));
+                    regular08, solidBrush, new RectangleF(x + 190, y, width, height));
                 text.Clear().Append("Amount");
                 e.Graphics.DrawString(text.ToString(),
                     regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
@@ -133,18 +121,15 @@ namespace GrocerySupplyManagementApp.Shared
                 y += e.Graphics.MeasureString(text.ToString(), regular08).Height;
 
                 // Draw Grid
-                text.Clear().Append("1");
-                e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
                 text.Clear().Append("Newari Basmati Rice-20kg");
                 e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x + 30, y, width, height));
+                    regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatLeft);
                 text.Clear().Append("1.0");
                 e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x + 180, y, width, height));
+                    regular08, solidBrush, new RectangleF(x + 150, y, width, height));
                 text.Clear().Append("295.00");
                 e.Graphics.DrawString(text.ToString(),
-                    regular08, solidBrush, new RectangleF(x + 210, y, width, height));
+                    regular08, solidBrush, new RectangleF(x + 190, y, width, height));
                 text.Clear().Append("295.00");
                 e.Graphics.DrawString(text.ToString(),
                     regular08, solidBrush, new RectangleF(x, y, width, height), drawFormatRight);
