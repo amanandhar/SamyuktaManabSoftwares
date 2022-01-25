@@ -293,6 +293,7 @@ namespace GrocerySupplyManagementApp.Forms
                     LoadPosDetails(itemToRemove);
                     EnableFields();
                     EnableFields(Action.RemoveItem);
+                    RichItemCode.Focus();
                 }
             }
             catch (Exception ex)
@@ -940,6 +941,8 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.RemoveItem)
             {
+                RichItemCode.Enabled = true;
+
                 BtnSearchMember.Enabled = true;
                 BtnSearchItem.Enabled = true;
                 BtnTransaction.Enabled = true;
@@ -1082,7 +1085,8 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemCode = item.Code
                 };
 
-                var stock = _stockService.GetTotalStock(stockFilter);
+                var stockFromCart = _soldItemViewList.Where(itemFromCart => itemFromCart.ItemCode == item.Code).Sum(x => x.Quantity);
+                var stock = _stockService.GetTotalStock(stockFilter) - stockFromCart;
                 if (stock < item.Threshold)
                 {
                     DialogResult result = MessageBox.Show("Low stock, add more.",
@@ -1092,10 +1096,13 @@ namespace GrocerySupplyManagementApp.Forms
                         TxtItemStock.ForeColor = Color.Red;
                     }
                 }
+                else
+                {
+                    TxtItemStock.ForeColor = Color.Black;
+                }
 
                 RichItemCode.Text = item.Code;
                 TxtItemName.Text = item.Name;
-
 
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);

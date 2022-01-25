@@ -231,6 +231,8 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         ClearAllFields();
                         EnableFields();
+                        EnableFields(Action.Update);
+                        TxtItemCode.Focus();
                     }
                 }
             }
@@ -490,6 +492,14 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnDelete.Enabled = true;
                 BtnAddImage.Enabled = true;
                 BtnDeleteImage.Enabled = true;
+            }
+            else if (action == Action.Update)
+            {
+                TxtItemCode.Enabled = true;
+
+                BtnAdd.Enabled = true;
+                BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
             }
             else
             {
