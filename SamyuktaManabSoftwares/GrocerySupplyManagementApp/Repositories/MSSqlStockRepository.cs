@@ -208,7 +208,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
-            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2)) : Constants.DEFAULT_DECIMAL_VALUE;
+            var perUnitValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.PerUnitValue, 2, MidpointRounding.AwayFromZero)) : Constants.DEFAULT_DECIMAL_VALUE;
 
             return perUnitValue;
         }
@@ -219,7 +219,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var latestStockView = stockViewList.GroupBy(x => x.ItemCode)
                 .Select(x => x.OrderByDescending(y => y.AddedDate).FirstOrDefault())
                 .ToList();
-            var stockValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.StockValue, 2)) : Constants.DEFAULT_DECIMAL_VALUE;
+            var stockValue = latestStockView.Count > 0 ? latestStockView.Sum(x => Math.Round(x.StockValue, 2, MidpointRounding.AwayFromZero)) : Constants.DEFAULT_DECIMAL_VALUE;
 
             return stockValue;
         }
@@ -291,7 +291,7 @@ namespace GrocerySupplyManagementApp.Repositories
 
                         stockView.SalesPrice = Constants.DEFAULT_DECIMAL_VALUE;
                         stockView.StockValue = stock.TotalPurchasePrice;
-                        stockView.PerUnitValue = stock.TotalPurchasePrice == Constants.DEFAULT_DECIMAL_VALUE ? Constants.DEFAULT_DECIMAL_VALUE : Math.Round((stock.TotalPurchasePrice / stock.PurchaseQuantity), 2);
+                        stockView.PerUnitValue = stock.TotalPurchasePrice == Constants.DEFAULT_DECIMAL_VALUE ? Constants.DEFAULT_DECIMAL_VALUE : Math.Round((stock.TotalPurchasePrice / stock.PurchaseQuantity), 2, MidpointRounding.AwayFromZero);
                     }
                     else
                     {
@@ -299,10 +299,10 @@ namespace GrocerySupplyManagementApp.Repositories
                         stockView.StockValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower())
                             || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
                             ? (stock.TotalPurchasePrice + stockViewList[index - 1].StockValue)
-                            : stockViewList[index - 1].StockValue - Math.Round((stock.SalesQuantity * stockViewList[index - 1].PerUnitValue), 2);
+                            : stockViewList[index - 1].StockValue - Math.Round((stock.SalesQuantity * stockViewList[index - 1].PerUnitValue), 2, MidpointRounding.AwayFromZero);
                         stockView.PerUnitValue = (stock.Description.ToLower().Equals(Constants.PURCHASE.ToLower())
                             || stock.Description.ToLower().Equals(Constants.ADD.ToLower()))
-                            ? stock.StockQuantity == Constants.DEFAULT_DECIMAL_VALUE ? Constants.DEFAULT_DECIMAL_VALUE : Math.Round(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2)
+                            ? stock.StockQuantity == Constants.DEFAULT_DECIMAL_VALUE ? Constants.DEFAULT_DECIMAL_VALUE : Math.Round(((stock.TotalPurchasePrice + stockViewList[index - 1].StockValue) / stock.StockQuantity), 2, MidpointRounding.AwayFromZero)
                             : stockViewList[index - 1].PerUnitValue;
                     }
 

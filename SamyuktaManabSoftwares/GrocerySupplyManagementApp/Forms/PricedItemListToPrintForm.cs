@@ -137,7 +137,7 @@ namespace GrocerySupplyManagementApp.Forms
                 PanelBody.Controls.Add(_pricedItemNameLabels[i]);
                 PanelBody.Controls.Add(_pricedItemCodeLabels[i]);
                 PanelBody.Controls.Add(_pricedItemCountTextboxes[i]);
-            }  
+            }
         }
         #endregion
 
@@ -241,9 +241,9 @@ namespace GrocerySupplyManagementApp.Forms
             // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var customPerUnitValue = Math.Round(perUnitValue, 2);
+            var customPerUnitValue = Math.Round(perUnitValue, 2, MidpointRounding.AwayFromZero);
             var profitPercent = pricedItem.ProfitPercent;
-            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
+            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2, MidpointRounding.AwayFromZero);
             var salesPrice = customPerUnitValue + profitAmount;
             // End
 

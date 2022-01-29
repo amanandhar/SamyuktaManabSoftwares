@@ -94,7 +94,7 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemQuantity = Convert.ToDecimal(TxtQuantity.Text.Trim()),
                     ItemPrice = Convert.ToDecimal(TxtItemPrice.Text.Trim()),
                     SalesProfit = Convert.ToDecimal(TxtSalesProfit.Text.Trim()),
-                    Amount = Math.Round(Convert.ToDecimal(TxtQuantity.Text.Trim()) * Convert.ToDecimal(TxtItemPrice.Text.Trim()), 2) + Convert.ToDecimal(TxtSalesProfit.Text.Trim())
+                    Amount = Math.Round(Convert.ToDecimal(TxtQuantity.Text.Trim()) * Convert.ToDecimal(TxtItemPrice.Text.Trim()), 2, MidpointRounding.AwayFromZero) + Convert.ToDecimal(TxtSalesProfit.Text.Trim())
                 };
 
                 _salesReturnTransactionViewList.Add(salesReturnTransactionView);

@@ -153,7 +153,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ActionType = Constants.DEDUCT,
                             Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
-                            PaymentAmount = Math.Round(Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()) * Convert.ToDecimal(TxtBoxItemQuantity.Text.Trim()), 2),
+                            PaymentAmount = Math.Round(Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()) * Convert.ToDecimal(TxtBoxItemQuantity.Text.Trim()), 2, MidpointRounding.AwayFromZero),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -167,7 +167,7 @@ namespace GrocerySupplyManagementApp.Forms
                             ActionType = Constants.ADD,
                             Type = Constants.STOCK_ADJUSTMENT,
                             Narration = TxtBoxNarration.Text.Trim(),
-                            ReceivedAmount = Math.Round(Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()) * Convert.ToDecimal(TxtBoxItemQuantity.Text.Trim()), 2),
+                            ReceivedAmount = Math.Round(Convert.ToDecimal(TxtBoxItemPrice.Text.Trim()) * Convert.ToDecimal(TxtBoxItemQuantity.Text.Trim()), 2, MidpointRounding.AwayFromZero),
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };

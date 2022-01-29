@@ -71,7 +71,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void PurchaseForm_Load(object sender, EventArgs e)
         {
-            if(!_isReadOnly)
+            if (!_isReadOnly)
             {
                 ClearAllFields();
                 EnableFields(Action.None);
@@ -521,7 +521,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (!ChkBoxVat.Checked)
                 {
-                    RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT / 100), 2).ToString();
+                    RichVat.Text = Math.Round(((totalAmount - discount) * Constants.VAT_DEFAULT_AMOUNT / 100), 2, MidpointRounding.AwayFromZero).ToString();
                 }
             }
 
@@ -530,11 +530,11 @@ namespace GrocerySupplyManagementApp.Forms
             decimal purchasePrice;
             if (quantity > 0)
             {
-                purchasePrice = Math.Round(((totalAmount - discount + vat) / quantity), 2);
+                purchasePrice = Math.Round(((totalAmount - discount + vat) / quantity), 2, MidpointRounding.AwayFromZero);
             }
             else
             {
-                purchasePrice = Math.Round((totalAmount - discount + vat), 2);
+                purchasePrice = Math.Round((totalAmount - discount + vat), 2, MidpointRounding.AwayFromZero);
             }
 
             RichPurchasePrice.Text = purchasePrice.ToString();

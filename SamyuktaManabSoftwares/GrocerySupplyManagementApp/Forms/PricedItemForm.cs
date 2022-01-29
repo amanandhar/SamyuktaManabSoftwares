@@ -323,7 +323,7 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     var pricedItemCode = TxtItemCode.Text.Trim();
                     var pricedItem = _pricedItemService.GetPricedItem(pricedItemCode);
-                    if(pricedItem.Id != 0)
+                    if (pricedItem.Id != 0)
                     {
                         PopulatePricedItem(pricedItem.Id);
                     }
@@ -561,15 +561,15 @@ namespace GrocerySupplyManagementApp.Forms
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
                 TxtPerUnitValue.Text = perUnitValue.ToString();
 
-                TxtCustomPerUnitValue.Text = Math.Round(perUnitValue, 2).ToString();
+                TxtCustomPerUnitValue.Text = Math.Round(perUnitValue, 2, MidpointRounding.AwayFromZero).ToString();
 
                 var profitPercent = pricedItem.ProfitPercent;
                 TxtProfitPercent.Text = profitPercent.ToString();
                 var customPerUnitValue = string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
-                var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
+                var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2, MidpointRounding.AwayFromZero);
                 TxtProfitAmount.Text = profitAmount.ToString();
                 var salesPrice = customPerUnitValue + profitAmount;
-                TxtSalesPricePerUnit.Text = Math.Round(salesPrice, 2).ToString();
+                TxtSalesPricePerUnit.Text = Math.Round(salesPrice, 2, MidpointRounding.AwayFromZero).ToString();
 
                 var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
                 if (File.Exists(absoluteImagePath))
@@ -675,9 +675,9 @@ namespace GrocerySupplyManagementApp.Forms
             // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
             var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
             var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var customPerUnitValue = Math.Round(perUnitValue, 2);
+            var customPerUnitValue = Math.Round(perUnitValue, 2, MidpointRounding.AwayFromZero);
             var profitPercent = pricedItem.ProfitPercent;
-            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
+            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2, MidpointRounding.AwayFromZero);
             var salesPrice = customPerUnitValue + profitAmount;
             // End
 
@@ -703,7 +703,7 @@ namespace GrocerySupplyManagementApp.Forms
                     "\n * Profit Percent " +
                     "\n * Profit Amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if(profitPercent.IndexOf('.') != -1 && (profitPercent.Length - profitPercent.LastIndexOf('.') > 5))
+            else if (profitPercent.IndexOf('.') != -1 && (profitPercent.Length - profitPercent.LastIndexOf('.') > 5))
             {
                 MessageBox.Show("Please enter 4 decimal only in profit percentage", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
