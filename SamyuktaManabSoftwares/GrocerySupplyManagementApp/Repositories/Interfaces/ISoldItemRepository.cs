@@ -15,6 +15,8 @@ namespace GrocerySupplyManagementApp.Repositories.Interfaces
 
         SoldItem AddSoldItem(SoldItem soldItem);
 
+        SoldItem UpdateSoldItemProfit(long id, SoldItem soldItem);
+
         bool DeleteSoldItem(string invoiceNo);
     }
 }

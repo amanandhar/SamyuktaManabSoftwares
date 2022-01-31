@@ -74,7 +74,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], b.[Code], b.[Name], b.[Unit], a.[Quantity], a.[Price], a.[Discount], " +
+                "a.[Id], b.[Code], b.[Name], a.[Profit], b.[Unit], a.[Quantity], a.[Price], a.[Discount], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
@@ -102,6 +102,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     ItemCode = reader["Code"].ToString(),
                                     ItemName = reader["Name"].ToString(),
+                                    Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Unit = reader["Unit"].ToString(),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
@@ -277,6 +278,42 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Discount", soldItem.Discount);
                         command.Parameters.AddWithValue("@AddedBy", soldItem.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", soldItem.AddedDate);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw ex;
+            }
+
+            return soldItem;
+        }
+
+        public SoldItem UpdateSoldItemProfit(long id, SoldItem soldItem)
+        {
+            string query = @"UPDATE " + Constants.TABLE_SOLD_ITEM + " " +
+                "SET " +
+                "[Profit] = @Profit, " +
+                "[Notes] = @Notes, " +
+                "[UpdatedBy] = @UpdatedBy, " +
+                "[UpdatedDate] = @UpdatedDate " +
+                "WHERE 1 = 1 " +
+                "AND [Id] = @Id ";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.Parameters.AddWithValue("@Profit", soldItem.Profit);
+                        command.Parameters.AddWithValue("@Notes", soldItem.Notes);
+                        command.Parameters.AddWithValue("@UpdatedBy", soldItem.UpdatedBy);
+                        command.Parameters.AddWithValue("@UpdatedDate", soldItem.UpdatedDate);
 
                         command.ExecuteNonQuery();
                     }

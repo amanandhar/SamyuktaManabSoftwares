@@ -229,6 +229,7 @@ namespace GrocerySupplyManagementApp.Shared
 
         // MessageBox Message
         public const string MESSAGE_BOX_DELETE_MESSAGE = "Do you want to delete?";
+        public const string MESSAGE_BOX_UPDATE_MESSAGE = "Do you want to update?";
 
         // Vat
         public const decimal VAT_DEFAULT_AMOUNT = 13.00m;

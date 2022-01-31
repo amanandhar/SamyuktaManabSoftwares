@@ -201,6 +201,39 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void BtnEditReceipt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DataGridMemberList.SelectedCells.Count == 1
+                    || DataGridMemberList.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow selectedRow;
+                    if (DataGridMemberList.SelectedCells.Count == 1)
+                    {
+                        var selectedCell = DataGridMemberList.SelectedCells[0];
+                        selectedRow = DataGridMemberList.Rows[selectedCell.RowIndex];
+                    }
+                    else
+                    {
+                        selectedRow = DataGridMemberList.SelectedRows[0];
+                    }
+
+                    var invoiceNo = selectedRow?.Cells["InvoiceNo"]?.Value?.ToString();
+                    if (!string.IsNullOrWhiteSpace(invoiceNo))
+                    {
+                        var soldItemListForm = new SoldItemListForm(_username, invoiceNo, _soldItemService);
+                        soldItemListForm.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
         private void BtnRemoveReceipt_Click(object sender, EventArgs e)
         {
             try
