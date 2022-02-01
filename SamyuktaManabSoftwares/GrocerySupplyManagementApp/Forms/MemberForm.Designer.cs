@@ -29,9 +29,9 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MemberForm));
             this.ComboAction = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -79,6 +79,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BtnShowTransaction = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.BtnEditReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnRemoveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSaveReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnShowSales = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
@@ -86,7 +87,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11 = new System.Windows.Forms.Label();
             this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnEditReceipt = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridMemberList)).BeginInit();
@@ -568,34 +568,34 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.DataGridMemberList.BackgroundColor = System.Drawing.Color.White;
             this.DataGridMemberList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridMemberList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridMemberList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridMemberList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridMemberList.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridMemberList.DefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridMemberList.Location = new System.Drawing.Point(13, 166);
             this.DataGridMemberList.Name = "DataGridMemberList";
             this.DataGridMemberList.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridMemberList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridMemberList.Size = new System.Drawing.Size(925, 377);
             this.DataGridMemberList.TabIndex = 32;
             this.DataGridMemberList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridMemberTransactionList_DataBindingComplete);
@@ -718,6 +718,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox5.TabIndex = 50;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Transaction";
+            // 
+            // BtnEditReceipt
+            // 
+            this.BtnEditReceipt.BackColor = System.Drawing.Color.Red;
+            this.BtnEditReceipt.BackgroundColor = System.Drawing.Color.Red;
+            this.BtnEditReceipt.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnEditReceipt.BorderRadius = 35;
+            this.BtnEditReceipt.BorderSize = 0;
+            this.BtnEditReceipt.FlatAppearance.BorderSize = 0;
+            this.BtnEditReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEditReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEditReceipt.ForeColor = System.Drawing.Color.White;
+            this.BtnEditReceipt.Location = new System.Drawing.Point(5, 91);
+            this.BtnEditReceipt.Name = "BtnEditReceipt";
+            this.BtnEditReceipt.Size = new System.Drawing.Size(120, 35);
+            this.BtnEditReceipt.TabIndex = 18;
+            this.BtnEditReceipt.Text = "Edit Profit";
+            this.BtnEditReceipt.TextColor = System.Drawing.Color.White;
+            this.BtnEditReceipt.UseVisualStyleBackColor = false;
+            this.BtnEditReceipt.Click += new System.EventHandler(this.BtnEditReceipt_Click);
             // 
             // BtnRemoveReceipt
             // 
@@ -845,26 +865,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAddImage.TextColor = System.Drawing.Color.White;
             this.BtnAddImage.UseVisualStyleBackColor = false;
             this.BtnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
-            // 
-            // BtnEditReceipt
-            // 
-            this.BtnEditReceipt.BackColor = System.Drawing.Color.Red;
-            this.BtnEditReceipt.BackgroundColor = System.Drawing.Color.Red;
-            this.BtnEditReceipt.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnEditReceipt.BorderRadius = 35;
-            this.BtnEditReceipt.BorderSize = 0;
-            this.BtnEditReceipt.FlatAppearance.BorderSize = 0;
-            this.BtnEditReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnEditReceipt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEditReceipt.ForeColor = System.Drawing.Color.White;
-            this.BtnEditReceipt.Location = new System.Drawing.Point(5, 91);
-            this.BtnEditReceipt.Name = "BtnEditReceipt";
-            this.BtnEditReceipt.Size = new System.Drawing.Size(120, 35);
-            this.BtnEditReceipt.TabIndex = 18;
-            this.BtnEditReceipt.Text = "Edit Receipt";
-            this.BtnEditReceipt.TextColor = System.Drawing.Color.White;
-            this.BtnEditReceipt.UseVisualStyleBackColor = false;
-            this.BtnEditReceipt.Click += new System.EventHandler(this.BtnEditReceipt_Click);
             // 
             // MemberForm
             // 
