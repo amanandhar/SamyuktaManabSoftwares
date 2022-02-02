@@ -738,5 +738,10 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
+
+        private void TxtItemCode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
