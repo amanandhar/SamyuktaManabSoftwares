@@ -56,11 +56,7 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void AddNewCodeForm_Load(object sender, EventArgs e)
         {
-            EnableFields(Action.None);
-
-            LoadItemCategoris();
-            LoadItemUnits();
-            LoadItems();
+            EnableFields(Action.None);            
         }
         #endregion
 
@@ -71,8 +67,15 @@ namespace GrocerySupplyManagementApp.Forms
             itemListForm.ShowDialog();
         }
 
+        private void BtnShow_Click(object sender, EventArgs e)
+        {
+            LoadItems();
+        }
+
         private void BtnAdd_Click(object sender, EventArgs e)
         {
+            LoadItemCategoris();
+            LoadItemUnits();
             EnableFields(Action.None);
             EnableFields(Action.Add);
             ComboCategory.Select();

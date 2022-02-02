@@ -196,17 +196,20 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Closing Event
         private void DashboardForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (activeForm != null)
+            if(e.CloseReason != CloseReason.ApplicationExitCall)
             {
-                MessageBox.Show("Please close the active form first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                e.Cancel = true;
-            }
-            else
-            {
-                DialogResult result = MessageBox.Show("Do you want to exit the application?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.No)
+                if (activeForm != null)
                 {
+                    MessageBox.Show("Please close the active form first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     e.Cancel = true;
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show("Do you want to exit the application?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                    {
+                        e.Cancel = true;
+                    }
                 }
             }
         }
