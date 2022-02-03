@@ -1101,13 +1101,14 @@ namespace GrocerySupplyManagementApp.Forms
                     TxtItemStock.ForeColor = Color.Black;
                 }
 
-                RichItemCode.Text = item.Code;
+                RichItemCode.Text = item.Code + (string.IsNullOrWhiteSpace(pricedItem.SubCode) ? string.Empty : "." + pricedItem.SubCode);
                 TxtItemName.Text = item.Name;
+                TxtItemVolume.Text = pricedItem.Volume.ToString();
 
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-                var customPerUnitValue = Math.Round(perUnitValue, 2);
+                var customPerUnitValue = Math.Round(perUnitValue * pricedItem.Volume, 2);
                 var profitPercent = pricedItem.ProfitPercent;
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 var salesPrice = customPerUnitValue + profitAmount;

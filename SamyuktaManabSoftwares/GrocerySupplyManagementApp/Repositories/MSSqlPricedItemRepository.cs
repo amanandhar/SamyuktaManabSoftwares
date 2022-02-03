@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var pricedItemViewList = new List<PricedItemView>();
             var query = @"SELECT " +
-                "DISTINCT pi.[Id], i.[Code], i.[Name] " +
+                "DISTINCT pi.[Id], i.[Code], pi.[SubCode], i.[Name] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON pi.[ItemId] = i.[Id] " +
@@ -140,6 +140,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
+                                    SubCode = reader["SubCode"].ToString(),
                                     Name = reader["Name"].ToString()
                                 };
 
@@ -209,12 +210,14 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " + Constants.TABLE_PRICED_ITEM + " " +
                     "( " +
                         "[EndOfDay], [ItemId], " +
+                        "[SubCode], [Volume], " +
                         "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
                         "[ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@EndOfDay, @ItemId, " +
+                        "@SubCode, @Volume, " +
                         "@ProfitPercent, @Profit, @SalesPricePerUnit, " +
                         "@ImagePath, @AddedBy, @AddedDate " +
                     ") ";
@@ -227,6 +230,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@EndOfDay", pricedItem.EndOfDay);
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
+                        command.Parameters.AddWithValue("@SubCode", pricedItem.SubCode);
+                        command.Parameters.AddWithValue("@Volume", pricedItem.Volume);
                         command.Parameters.AddWithValue("@ProfitPercent", pricedItem.ProfitPercent);
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
                         command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);

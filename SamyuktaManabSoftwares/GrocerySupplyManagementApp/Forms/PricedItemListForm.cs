@@ -88,9 +88,13 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPricedItemList.Columns["Code"].Width = 80;
             DataGridPricedItemList.Columns["Code"].DisplayIndex = 0;
 
+            DataGridPricedItemList.Columns["SubCode"].HeaderText = "Sub Code";
+            DataGridPricedItemList.Columns["SubCode"].Width = 120;
+            DataGridPricedItemList.Columns["SubCode"].DisplayIndex = 1;
+
             DataGridPricedItemList.Columns["Name"].HeaderText = "Name";
             DataGridPricedItemList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridPricedItemList.Columns["Name"].DisplayIndex = 1;
+            DataGridPricedItemList.Columns["Name"].DisplayIndex = 2;
 
             foreach (DataGridViewRow row in DataGridPricedItemList.Rows)
             {

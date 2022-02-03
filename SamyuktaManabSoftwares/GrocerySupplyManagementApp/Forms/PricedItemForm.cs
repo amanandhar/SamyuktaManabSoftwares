@@ -38,6 +38,7 @@ namespace GrocerySupplyManagementApp.Forms
         private enum Action
         {
             Add,
+            AddSubCode,
             Save,
             Edit,
             Update,
@@ -145,6 +146,8 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         ItemId = _selectedItemId,
+                        SubCode = TxtItemSubCode.Text.Trim(),
+                        Volume = Convert.ToDecimal(TxtItemVolume.Text.Trim()),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
@@ -340,6 +343,19 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void TxtItemVolume_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtItemVolume_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateCustomPerUnit();
+        }
+
         private void TxtProfitPercent_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
@@ -405,6 +421,25 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
+        private void CalculateCustomPerUnit()
+        {
+            if (!string.IsNullOrWhiteSpace(TxtPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtPerUnitValue.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtItemVolume.Text.Trim())
+                && decimal.TryParse(TxtItemVolume.Text.Trim(), out _))
+            {
+                var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
+                var itemVolume = Convert.ToDecimal(TxtItemVolume.Text.Trim());
+                var customPerUnitValue = Math.Round((perUnitValue * itemVolume), 2);
+                TxtCustomPerUnitValue.Text = customPerUnitValue.ToString("0.00");
+            }
+            else
+            {
+                TxtProfitAmount.Text = string.Empty;
+                TxtCustomPerUnitValue.Text = string.Empty;
+            }
+        }
+
         private void CalculateProfitAmount()
         {
             decimal value;
@@ -456,6 +491,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemCode.Enabled = true;
 
                 BtnAdd.Enabled = true;
+                BtnAddSubCode.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
@@ -464,16 +500,31 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemCode.Enabled = true;
 
                 BtnAdd.Enabled = true;
+                BtnAddSubCode.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
             else if (action == Action.PopulateUnpricedItem)
             {
                 BtnAdd.Enabled = true;
+                BtnAddSubCode.Enabled = true;
                 BtnDelete.Enabled = true;
             }
             else if (action == Action.Add)
             {
+                TxtProfitPercent.Enabled = true;
+                TxtProfitAmount.Enabled = true;
+
+                BtnSave.Enabled = true;
+                BtnDelete.Enabled = true;
+                BtnAddImage.Enabled = true;
+                BtnDeleteImage.Enabled = true;
+            }
+            else if (action == Action.AddSubCode)
+            {
+                TxtItemSubCode.Enabled = true;
+                TxtItemName.Enabled = true;
+                TxtItemVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
 
@@ -498,22 +549,26 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemCode.Enabled = true;
 
                 BtnAdd.Enabled = true;
+                BtnAddSubCode.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
             else
             {
                 TxtItemCode.Enabled = false;
+                TxtItemSubCode.Enabled = false;
                 TxtItemName.Enabled = false;
                 ComboItemUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;
                 TxtPerUnitValue.Enabled = false;
+                TxtItemVolume.Enabled = false;
                 TxtCustomPerUnitValue.Enabled = false;
                 TxtProfitPercent.Enabled = false;
                 TxtProfitAmount.Enabled = false;
                 TxtSalesPricePerUnit.Enabled = false;
 
                 BtnAdd.Enabled = false;
+                BtnAddSubCode.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
@@ -526,10 +581,12 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllFields()
         {
             TxtItemCode.Clear();
+            TxtItemSubCode.Clear();
             TxtItemName.Clear();
             ComboItemUnit.Text = string.Empty;
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
+            TxtItemVolume.Clear();
             TxtCustomPerUnitValue.Clear();
             TxtProfitPercent.Clear();
             TxtProfitAmount.Clear();
@@ -739,9 +796,11 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        private void TxtItemCode_TextChanged(object sender, EventArgs e)
+        private void BtnAddSubCode_Click(object sender, EventArgs e)
         {
-
+            EnableFields();
+            EnableFields(Action.AddSubCode);
+            TxtItemSubCode.Focus();
         }
     }
 }
