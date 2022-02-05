@@ -365,6 +365,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 ItemId = _itemService.GetItem(x.ItemCode).Id,
                                 Profit = x.Profit,
                                 Unit = x.Unit,
+                                Volume = x.Volume,
                                 Quantity = x.Quantity,
                                 Price = x.ItemPrice,
                                 Discount = x.ItemDiscount,
@@ -725,7 +726,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DataGridSoldItemList.Columns["Id"].Visible = false;
                 DataGridSoldItemList.Columns["Profit"].Visible = false;
-                DataGridSoldItemList.Columns["Volume"].Visible = false;
                 DataGridSoldItemList.Columns["AddedBy"].Visible = false;
                 DataGridSoldItemList.Columns["AddedDate"].Visible = false;
 
@@ -734,7 +734,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 330;
+                DataGridSoldItemList.Columns["ItemName"].Width = 290;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
@@ -742,24 +742,29 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["Unit"].DisplayIndex = 2;
                 DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+                DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";
+                DataGridSoldItemList.Columns["Volume"].Width = 65;
+                DataGridSoldItemList.Columns["Volume"].DisplayIndex = 3;
+                DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
                 DataGridSoldItemList.Columns["Quantity"].Width = 65;
-                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 3;
+                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 4;
                 DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
                 DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
-                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 4;
+                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
                 DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["ItemDiscount"].HeaderText = "Discount";
                 DataGridSoldItemList.Columns["ItemDiscount"].Width = 80;
-                DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 5;
+                DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 6;
                 DataGridSoldItemList.Columns["ItemDiscount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["Total"].HeaderText = "Total";
                 DataGridSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                DataGridSoldItemList.Columns["Total"].DisplayIndex = 6;
+                DataGridSoldItemList.Columns["Total"].DisplayIndex = 7;
                 DataGridSoldItemList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 foreach (DataGridViewRow row in DataGridSoldItemList.Rows)
@@ -810,9 +815,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var itemDiscount = TxtItemDiscount.Text.Trim();
                 var profitAmount = TxtProfitAmount.Text.Trim();
                 var itemQuantity = RichItemQuantity.Text.Trim();
-                var volume = Convert.ToDecimal(TxtItemVolume.Text.Trim()) == Constants.DEFAULT_DECIMAL_VALUE 
-                    ? 1 
-                    : Convert.ToDecimal(TxtItemVolume.Text.Trim());
+                var volume = TxtItemVolume.Text.Trim();
 
                 _soldItemViewList.Add(new SoldItemView
                 {
@@ -829,12 +832,15 @@ namespace GrocerySupplyManagementApp.Forms
                     ItemDiscount = string.IsNullOrWhiteSpace(itemDiscount)
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : Convert.ToDecimal(itemDiscount),
+                    Volume = string.IsNullOrWhiteSpace(volume)
+                        ? Constants.DEFAULT_DECIMAL_VALUE
+                        : Convert.ToDecimal(volume),
                     Quantity = string.IsNullOrWhiteSpace(itemQuantity)
                         ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Math.Round(Convert.ToDecimal(itemQuantity) * volume, 3),
+                        : Convert.ToDecimal(itemQuantity),
                     Total = Math.Round((string.IsNullOrWhiteSpace(itemQuantity)
                         ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Convert.ToDecimal(itemQuantity)) * volume
+                        : Convert.ToDecimal(itemQuantity)) 
                         * (string.IsNullOrWhiteSpace(itemPrice)
                             ? Constants.DEFAULT_DECIMAL_VALUE
                             : (Convert.ToDecimal(itemPrice) - Convert.ToDecimal(itemDiscount))), 2),
@@ -1190,12 +1196,6 @@ namespace GrocerySupplyManagementApp.Forms
                             (
                                 Convert.ToDecimal(TxtItemPrice.Text.Trim()) - Convert.ToDecimal(TxtItemDiscount.Text.Trim())
                             ) 
-                            * 
-                            (
-                                Convert.ToDecimal(TxtItemVolume.Text.Trim()) == Constants.DEFAULT_DECIMAL_VALUE
-                                    ? 1 
-                                    : Convert.ToDecimal(TxtItemVolume.Text.Trim())
-                            )
                             * Convert.ToDecimal(RichItemQuantity.Text.Trim()), 2)
                         ).ToString();
                 }
