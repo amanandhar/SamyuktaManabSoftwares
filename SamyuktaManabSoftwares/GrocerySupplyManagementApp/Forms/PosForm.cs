@@ -50,6 +50,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private decimal _itemDiscountPercent;
         private decimal _itemDiscountThreshold;
+        private const char SEPARATOR = '.';
 
         #region Enum
         private enum Action
@@ -450,8 +451,8 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnPrint_Click(object sender, EventArgs e)
         {
-            printDocThermal.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("76mm x 152mm", 299, 598);
-            printPreviewDialogThermal.Document = printDocThermal;
+            PrintDocThermal.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("76mm x 152mm", 299, 598);
+            printPreviewDialogThermal.Document = PrintDocThermal;
 
             ((Form)printPreviewDialogThermal).WindowState = FormWindowState.Maximized;
             ((Form)printPreviewDialogThermal).StartPosition = FormStartPosition.CenterScreen;
@@ -514,10 +515,13 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 e.Handled = e.SuppressKeyPress = true;
 
+                var volume = string.IsNullOrWhiteSpace(TxtItemVolume.Text.Trim()) 
+                    ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemVolume.Text.Trim());
                 var quantity = Convert.ToDecimal(RichItemQuantity.Text);
                 var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemStock.Text.Trim());
-
-                if (quantity > stock)
+                var orderedQuantity = volume == Constants.DEFAULT_DECIMAL_VALUE ? quantity : (volume * quantity);
+                
+                if (orderedQuantity > stock)
                 {
                     DialogResult result = MessageBox.Show("No sufficient stock!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (result == DialogResult.OK)
@@ -561,7 +565,16 @@ namespace GrocerySupplyManagementApp.Forms
                 try
                 {
                     var itemCode = RichItemCode.Text.Trim();
-                    var pricedItem = _pricedItemService.GetPricedItem(itemCode);
+                    var codes = itemCode.Split(SEPARATOR);
+                    var itemSubCode = string.Empty;
+
+                    if (codes.Length == 3)
+                    {
+                        itemCode = codes[0] + SEPARATOR + codes[1];
+                        itemSubCode = codes[2];
+                    }
+
+                    var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
                     if (pricedItem.ItemId == 0)
                     {
                         DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text.Trim(),
@@ -699,7 +712,7 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Print Document Event
-        private void printDocThermal_PrintPage(object sender, PrintPageEventArgs e)
+        private void PrintDocThermal_PrintPage(object sender, PrintPageEventArgs e)
         {
             Invoice.PrintThermalInvoice(e);
         }
@@ -712,6 +725,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DataGridSoldItemList.Columns["Id"].Visible = false;
                 DataGridSoldItemList.Columns["Profit"].Visible = false;
+                DataGridSoldItemList.Columns["Volume"].Visible = false;
                 DataGridSoldItemList.Columns["AddedBy"].Visible = false;
                 DataGridSoldItemList.Columns["AddedDate"].Visible = false;
 
@@ -784,11 +798,21 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var itemCode = RichItemCode.Text.Trim();
+                var codes = itemCode.Split(SEPARATOR);
+                
+                if(codes.Length == 3)
+                {
+                    itemCode = codes[0] + SEPARATOR + codes[1];
+                }
+
                 var itemName = TxtItemName.Text.Trim();
                 var itemPrice = TxtItemPrice.Text.Trim();
                 var itemDiscount = TxtItemDiscount.Text.Trim();
                 var profitAmount = TxtProfitAmount.Text.Trim();
                 var itemQuantity = RichItemQuantity.Text.Trim();
+                var volume = Convert.ToDecimal(TxtItemVolume.Text.Trim()) == Constants.DEFAULT_DECIMAL_VALUE 
+                    ? 1 
+                    : Convert.ToDecimal(TxtItemVolume.Text.Trim());
 
                 _soldItemViewList.Add(new SoldItemView
                 {
@@ -807,10 +831,11 @@ namespace GrocerySupplyManagementApp.Forms
                         : Convert.ToDecimal(itemDiscount),
                     Quantity = string.IsNullOrWhiteSpace(itemQuantity)
                         ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Convert.ToDecimal(itemQuantity),
+                        : Math.Round(Convert.ToDecimal(itemQuantity) * volume, 3),
                     Total = Math.Round((string.IsNullOrWhiteSpace(itemQuantity)
                         ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Convert.ToDecimal(itemQuantity)) * (string.IsNullOrWhiteSpace(itemPrice)
+                        : Convert.ToDecimal(itemQuantity)) * volume
+                        * (string.IsNullOrWhiteSpace(itemPrice)
                             ? Constants.DEFAULT_DECIMAL_VALUE
                             : (Convert.ToDecimal(itemPrice) - Convert.ToDecimal(itemDiscount))), 2),
                     AddedBy = _username,
@@ -854,6 +879,8 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemPrice.Clear();
             TxtItemDiscount.Clear();
             RichItemQuantity.Clear();
+            TxtItemVolume.Clear();
+            TxtPricedUnitSecondary.Clear();
             TxtProfitAmount.Clear();
             TxtItemStock.Clear();
             TxtPricedUnit.Clear();
@@ -1101,14 +1128,17 @@ namespace GrocerySupplyManagementApp.Forms
                     TxtItemStock.ForeColor = Color.Black;
                 }
 
-                RichItemCode.Text = item.Code + (string.IsNullOrWhiteSpace(pricedItem.SubCode) ? string.Empty : "." + pricedItem.SubCode);
+                RichItemCode.Text = item.Code + 
+                    (string.IsNullOrWhiteSpace(pricedItem.SubCode) 
+                    ? string.Empty 
+                    : SEPARATOR + pricedItem.SubCode);
                 TxtItemName.Text = item.Name;
-                TxtItemVolume.Text = pricedItem.Volume.ToString();
 
                 // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-                var customPerUnitValue = Math.Round(perUnitValue * pricedItem.Volume, 2);
+                var volume = pricedItem.Volume == Constants.DEFAULT_DECIMAL_VALUE ? 1 : pricedItem.Volume;
+                var customPerUnitValue = Math.Round(perUnitValue * volume, 2);
                 var profitPercent = pricedItem.ProfitPercent;
                 var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
                 var salesPrice = customPerUnitValue + profitAmount;
@@ -1117,6 +1147,8 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemPrice.Text = Math.Round(salesPrice, 2).ToString();
                 TxtPricedUnit.Text = item.Unit;
                 TxtItemStock.Text = stock.ToString();
+                TxtItemVolume.Text = pricedItem.Volume.ToString();
+                TxtPricedUnitSecondary.Text = item.Unit;
 
                 _itemDiscountPercent = item.DiscountPercent;
                 _itemDiscountThreshold = item.DiscountThreshold;
@@ -1158,6 +1190,12 @@ namespace GrocerySupplyManagementApp.Forms
                             (
                                 Convert.ToDecimal(TxtItemPrice.Text.Trim()) - Convert.ToDecimal(TxtItemDiscount.Text.Trim())
                             ) 
+                            * 
+                            (
+                                Convert.ToDecimal(TxtItemVolume.Text.Trim()) == Constants.DEFAULT_DECIMAL_VALUE
+                                    ? 1 
+                                    : Convert.ToDecimal(TxtItemVolume.Text.Trim())
+                            )
                             * Convert.ToDecimal(RichItemQuantity.Text.Trim()), 2)
                         ).ToString();
                 }

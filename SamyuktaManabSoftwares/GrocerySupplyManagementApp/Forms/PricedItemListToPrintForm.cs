@@ -186,7 +186,7 @@ namespace GrocerySupplyManagementApp.Forms
                             var data = new MSWordField
                             {
                                 Code = itemCode,
-                                Price = GetSalesPrice(_pricedItemService.GetPricedItem(itemCode), new StockFilter() { ItemCode = itemCode })
+                                Price = GetSalesPrice(_pricedItemService.GetPricedItem(itemCode, string.Empty), new StockFilter() { ItemCode = itemCode })
                             };
 
                             for (int x = 0; x < counter; x++)

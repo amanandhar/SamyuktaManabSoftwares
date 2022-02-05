@@ -820,11 +820,11 @@ namespace GrocerySupplyManagementApp.Repositories
                         // Add rows into the sold item table
                         string insertSoldItem = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                             "( " +
-                                "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Quantity], [Price], [Discount], [AddedBy], [AddedDate]  " +
+                                "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], [Discount], [AddedBy], [AddedDate]  " +
                             ") " +
                             "VALUES " +
                             "( " +
-                                "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Quantity, @Price, @Discount, @AddedBy, @AddedDate " +
+                                "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Volume, @Quantity, @Price, @Discount, @AddedBy, @AddedDate " +
                             ") ";
 
                         foreach (var soldItem in soldItems)
@@ -837,6 +837,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
                                 command.Parameters.AddWithValue("@Profit", soldItem.Profit);
                                 command.Parameters.AddWithValue("@Unit", soldItem.Unit);
+                                command.Parameters.AddWithValue("@Volume", soldItem.Volume);
                                 command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                                 command.Parameters.AddWithValue("@Price", soldItem.Price);
                                 command.Parameters.AddWithValue("@Discount", soldItem.Discount);

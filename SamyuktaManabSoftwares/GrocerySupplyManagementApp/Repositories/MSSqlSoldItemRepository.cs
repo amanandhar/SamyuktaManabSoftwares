@@ -24,7 +24,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var soldItems = new List<SoldItem>();
             var query = @"SELECT " +
                 "[Id], [EndOfDay], [MemberId], [InvoiceNo], " +
-                "[ItemId], [Profit], [Unit], [Quantity], [Price], [Discount], " +
+                "[ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], [Discount], " +
                 "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " " +
                 "ORDER BY Id ";
@@ -48,11 +48,12 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemId = Convert.ToInt64(reader["ItemId"].ToString()),
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Unit = reader["Unit"].ToString(),
+                                    Volume = Convert.ToDecimal(reader["Volume"].ToString()),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     Price = Convert.ToDecimal(reader["Price"].ToString()),
                                     Discount = Convert.ToDecimal(reader["Discount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(11) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 soldItems.Add(soldItem);
@@ -74,8 +75,9 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], b.[Code], b.[Name], a.[Profit], b.[Unit], a.[Quantity], a.[Price], a.[Discount], " +
-                "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
+                "a.[Id], b.[Code], b.[Name], a.[Profit], b.[Unit], a.[Volume], a.[Quantity], a.[Price], a.[Discount], " +
+                "CASE WHEN a.[Volume] = 0 THEN CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) " +
+                "ELSE CAST((a.[Volume] * a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) END AS Total, " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " b " +
@@ -130,7 +132,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             decimal totalCount = Constants.DEFAULT_DECIMAL_VALUE;
             var query = @"SELECT " +
-                "SUM(si.[Quantity]) as [Quantity] " +
+                "SUM(CASE WHEN si.[Volume] = 0 THEN si.[Quantity] ELSE CAST((si.[Volume] * si.[Quantity]) AS DECIMAL(18,3)) END) AS [Quantity] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ISNULL(si.[ItemId], '') = i.[Id] " +
@@ -254,11 +256,11 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Quantity], [Price], [Discount], [AddedBy], [AddedDate]  " +
+                        "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Volume], [Quantity], [Price], [Discount], [AddedBy], [AddedDate]  " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Quantity, @Price, @Discount, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Volume, @Quantity, @Price, @Discount, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -273,6 +275,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@ItemId", soldItem.ItemId);
                         command.Parameters.AddWithValue("@Profit", soldItem.Profit);
                         command.Parameters.AddWithValue("@Unit", soldItem.Unit);
+                        command.Parameters.AddWithValue("@Volume", soldItem.Volume);
                         command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
                         command.Parameters.AddWithValue("@Price", soldItem.Price);
                         command.Parameters.AddWithValue("@Discount", soldItem.Discount);
