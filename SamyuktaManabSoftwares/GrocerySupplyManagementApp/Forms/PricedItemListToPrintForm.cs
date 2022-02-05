@@ -1,13 +1,12 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -115,14 +114,14 @@ namespace GrocerySupplyManagementApp.Forms
                 _pricedItemCodeLabels[counter] = new Label
                 {
                     Name = counter.ToString(),
-                    Text = pricedItem.Code,
+                    Text = pricedItem.Code + (string.IsNullOrWhiteSpace(pricedItem.SubCode) ? string.Empty : ("." + pricedItem.SubCode)),
                     Location = new Point(300, 5 + (30 * counter)),
                     Size = new Size(100, 25)
                 };
 
                 _pricedItemCountTextboxes[counter] = new TextBox()
                 {
-                    Name = pricedItem.Code,
+                    Name = pricedItem.Code + (string.IsNullOrWhiteSpace(pricedItem.SubCode) ? string.Empty : ("." + pricedItem.SubCode)),
                     Location = new Point(400, 5 + (30 * counter)),
                     Size = new Size(75, 25)
                 };
@@ -186,7 +185,7 @@ namespace GrocerySupplyManagementApp.Forms
                             var data = new MSWordField
                             {
                                 Code = itemCode,
-                                Price = GetSalesPrice(_pricedItemService.GetPricedItem(itemCode, string.Empty), new StockFilter() { ItemCode = itemCode })
+                                Price = _stockService.GetStockItem(_pricedItemService.GetPricedItem(itemCode, string.Empty), new StockFilter() { ItemCode = itemCode }).SalesPrice
                             };
 
                             for (int x = 0; x < counter; x++)
@@ -236,19 +235,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private decimal GetSalesPrice(PricedItem pricedItem, StockFilter stockFilter)
-        {
-            // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
-            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-            var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var customPerUnitValue = Math.Round(perUnitValue, 2);
-            var profitPercent = pricedItem.ProfitPercent;
-            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-            var salesPrice = customPerUnitValue + profitAmount;
-            // End
-
-            return salesPrice;
-        }
         #endregion
     }
 }

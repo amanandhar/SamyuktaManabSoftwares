@@ -176,7 +176,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Edit);
-            TxtProfitPercent.Focus();
+            TxtItemSubCode.Focus();
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -547,7 +547,8 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
-                TxtItemCode.Enabled = true;
+                TxtItemSubCode.Enabled = true;
+                TxtItemVolume.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
 
@@ -626,20 +627,13 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtTotalStock.Text = _stockService.GetTotalStock(stockFilter).ToString();
 
-                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-                TxtPerUnitValue.Text = perUnitValue.ToString();
+                var stockItem = _stockService.GetStockItem(pricedItem, stockFilter);
+                TxtPerUnitValue.Text = stockItem.PerUnitValue.ToString();
                 TxtItemVolume.Text = pricedItem.Volume.ToString();
-                var volume = pricedItem.Volume == Constants.DEFAULT_DECIMAL_VALUE ? 1 : pricedItem.Volume;
-                TxtCustomPerUnitValue.Text = Math.Round(perUnitValue * volume, 2).ToString();
-
-                var profitPercent = pricedItem.ProfitPercent;
-                TxtProfitPercent.Text = profitPercent.ToString();
-                var customPerUnitValue = string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
-                var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-                TxtProfitAmount.Text = profitAmount.ToString();
-                var salesPrice = customPerUnitValue + profitAmount;
-                TxtSalesPricePerUnit.Text = Math.Round(salesPrice, 2).ToString();
+                TxtCustomPerUnitValue.Text = stockItem.CustomPerUnitValue.ToString();
+                TxtProfitPercent.Text = pricedItem.ProfitPercent.ToString();
+                TxtProfitAmount.Text = stockItem.ProfitAmount.ToString();
+                TxtSalesPricePerUnit.Text = Math.Round(stockItem.SalesPrice, 2).ToString();
 
                 var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
                 if (File.Exists(absoluteImagePath))
@@ -725,9 +719,9 @@ namespace GrocerySupplyManagementApp.Forms
                     var excelPricedItemFieldList = pricedItemViewListWithoutPrice.Select(x => new MSExcelPricedItemField
                     {
                         Id = x.Id,
-                        Code = x.Code,
+                        Code = x.Code + (string.IsNullOrWhiteSpace(x.SubCode) ? string.Empty : "." + x.SubCode),
                         Name = x.Name,
-                        Price = GetSalesPrice(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code })
+                        Price = _stockService.GetStockItem(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code }).SalesPrice
                     }).ToList();
 
                     MSExcel.Export(excelPricedItemFieldList, "Priced Item", filename);
@@ -740,20 +734,6 @@ namespace GrocerySupplyManagementApp.Forms
             thread.Join();
         }
 
-        private decimal GetSalesPrice(PricedItem pricedItem, StockFilter stockFilter)
-        {
-            // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
-            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-            var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var volume = pricedItem.Volume == Constants.DEFAULT_DECIMAL_VALUE ? 1 : pricedItem.Volume;
-            var customPerUnitValue = Math.Round(perUnitValue * volume, 2);
-            var profitPercent = pricedItem.ProfitPercent;
-            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-            var salesPrice = customPerUnitValue + profitAmount;
-            // End
-
-            return salesPrice;
-        }
         #endregion
 
         #region Validation

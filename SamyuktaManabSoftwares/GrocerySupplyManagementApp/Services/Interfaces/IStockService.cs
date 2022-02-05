@@ -1,4 +1,5 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.ViewModels;
 using System.Collections.Generic;
 
@@ -11,5 +12,6 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
         decimal GetStockValue(List<Stock> stocks, StockFilter stockFilter);
         List<StockView> GetStockViewList(List<Stock> stocks, StockFilter stockFilter);
         decimal GetTotalStock(StockFilter stockFilter);
+        StockItem GetStockItem(PricedItem pricedItem, StockFilter stockFilter);
     }
 }

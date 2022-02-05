@@ -183,6 +183,7 @@
     <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\StockFilter.cs" />
     <Compile Include="DTOs\SalesReturnTransactionFilter.cs" />
+    <Compile Include="DTOs\StockItem.cs" />
     <Compile Include="DTOs\SupplierTransactionFilter.cs" />
     <Compile Include="DTOs\UserTransactionFilter.cs" />
     <Compile Include="DTOs\DailyTransactionFilter.cs" />
