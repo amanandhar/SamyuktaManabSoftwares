@@ -14,7 +14,8 @@ namespace GrocerySupplyManagementApp.Entities
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
-        public string Notes { get; set; }
+        public string AdjustedType { get; set; }
+        public decimal AdjustedAmount { get; set; }
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
         public string UpdatedBy { get; set; }

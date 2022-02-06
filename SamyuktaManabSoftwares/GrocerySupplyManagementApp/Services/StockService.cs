@@ -1,8 +1,11 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
+using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GrocerySupplyManagementApp.Services
 {
@@ -50,6 +53,24 @@ namespace GrocerySupplyManagementApp.Services
             var totalDeductedItem = _stockAdjustmentRepository.GetDeductedStockTotalQuantity(stockFilter);
             var totalStock = (totalPurchasedItem + totalAddedItem) - (totalSoldItem + totalDeductedItem);
             return totalStock;
+        }
+
+        public StockItem GetStockItem(PricedItem pricedItem, StockFilter stockFilter)
+        {
+            // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
+            var stocks = GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
+            var perUnitValue = GetPerUnitValue(stocks.ToList(), stockFilter);
+            var profitPercent = pricedItem.ProfitPercent;
+            var profitAmount = Math.Round(perUnitValue * (profitPercent / 100), 2);
+            var salesPrice = perUnitValue + profitAmount;
+            // End
+
+            return new StockItem
+            {
+                PerUnitValue = perUnitValue,
+                ProfitAmount = profitAmount,
+                SalesPrice = salesPrice
+            };
         }
     }
 }

@@ -78,9 +78,9 @@ namespace GrocerySupplyManagementApp.Services
             return _soldItemRepository.AddSoldItem(soldItem);
         }
 
-        public SoldItem UpdateSoldItemProfit(long id, SoldItem soldItem)
+        public SoldItem UpdateAdjustedAmount(long id, SoldItem soldItem)
         {
-            return _soldItemRepository.UpdateSoldItemProfit(id, soldItem);
+            return _soldItemRepository.UpdateAdjustedAmount(id, soldItem);
         }
 
         public bool DeleteSoldItem(string invoiceNo)

@@ -1,13 +1,12 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
-using GrocerySupplyManagementApp.Entities;
 using GrocerySupplyManagementApp.Services.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -183,10 +182,11 @@ namespace GrocerySupplyManagementApp.Forms
                         {
                             var itemCode = _pricedItemCountTextboxes[i].Name;
                             var counter = Convert.ToInt32(_pricedItemCountTextboxes[i].Text);
+                            var stockItem = _stockService.GetStockItem(_pricedItemService.GetPricedItem(itemCode), new StockFilter() { ItemCode = itemCode });
                             var data = new MSWordField
                             {
                                 Code = itemCode,
-                                Price = GetSalesPrice(_pricedItemService.GetPricedItem(itemCode), new StockFilter() { ItemCode = itemCode })
+                                Price = stockItem.SalesPrice
                             };
 
                             for (int x = 0; x < counter; x++)
@@ -234,20 +234,6 @@ namespace GrocerySupplyManagementApp.Forms
                     _pricedItemCountTextboxes[i].Text = string.Empty;
                 }
             }
-        }
-
-        private decimal GetSalesPrice(PricedItem pricedItem, StockFilter stockFilter)
-        {
-            // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
-            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-            var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var customPerUnitValue = Math.Round(perUnitValue, 2);
-            var profitPercent = pricedItem.ProfitPercent;
-            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-            var salesPrice = customPerUnitValue + profitAmount;
-            // End
-
-            return salesPrice;
         }
         #endregion
     }

@@ -292,12 +292,12 @@ namespace GrocerySupplyManagementApp.Repositories
             return soldItem;
         }
 
-        public SoldItem UpdateSoldItemProfit(long id, SoldItem soldItem)
+        public SoldItem UpdateAdjustedAmount(long id, SoldItem soldItem)
         {
             string query = @"UPDATE " + Constants.TABLE_SOLD_ITEM + " " +
                 "SET " +
-                "[Profit] = @Profit, " +
-                "[Notes] = @Notes, " +
+                "[AdjustedType] = @AdjustedType, " +
+                "[AdjustedAmount] = @AdjustedAmount, " +
                 "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
@@ -310,8 +310,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
-                        command.Parameters.AddWithValue("@Profit", soldItem.Profit);
-                        command.Parameters.AddWithValue("@Notes", soldItem.Notes);
+                        command.Parameters.AddWithValue("@AdjustedType", soldItem.AdjustedType);
+                        command.Parameters.AddWithValue("@AdjustedAmount", soldItem.AdjustedAmount);
                         command.Parameters.AddWithValue("@UpdatedBy", soldItem.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", soldItem.UpdatedDate);
 

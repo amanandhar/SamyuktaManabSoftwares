@@ -1104,16 +1104,8 @@ namespace GrocerySupplyManagementApp.Forms
                 RichItemCode.Text = item.Code;
                 TxtItemName.Text = item.Name;
 
-                // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
-                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-                var customPerUnitValue = Math.Round(perUnitValue, 2);
-                var profitPercent = pricedItem.ProfitPercent;
-                var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-                var salesPrice = customPerUnitValue + profitAmount;
-                // End
-
-                TxtItemPrice.Text = Math.Round(salesPrice, 2).ToString();
+                var stockItem  = _stockService.GetStockItem(pricedItem, stockFilter);
+                TxtItemPrice.Text = Math.Round(stockItem.SalesPrice, 2).ToString();
                 TxtPricedUnit.Text = item.Unit;
                 TxtItemStock.Text = stock.ToString();
 
@@ -1130,7 +1122,7 @@ namespace GrocerySupplyManagementApp.Forms
                     PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
                 }
 
-                TxtProfitAmount.Text = profitAmount.ToString();
+                TxtProfitAmount.Text = stockItem.ProfitAmount.ToString();
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Focus();
             }
