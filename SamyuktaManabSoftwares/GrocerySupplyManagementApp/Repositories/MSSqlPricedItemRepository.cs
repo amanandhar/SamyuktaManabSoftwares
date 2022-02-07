@@ -119,10 +119,22 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var pricedItemViewList = new List<PricedItemView>();
             var query = @"SELECT " +
-                "DISTINCT pi.[Id], i.[Code], i.[Name] " +
-                "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
-                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
-                "ON pi.[ItemId] = i.[Id] " +
+                "DISTINCT pi.[Id], i.[Code], i.[Name], SUM(ISNULL(ut.[Quantity], 0.00)) AS [Stock] " +
+                "FROM " + Constants.TABLE_ITEM + " i " +
+                "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " pi " +
+                "ON i.[Id] = pi.[ItemId] " +
+                "INNER JOIN " + 
+                "( " +
+                "SELECT [ItemId], [Quantity] FROM " + Constants.TABLE_PURCHASED_ITEM + " " +
+                "UNION ALL " +
+                "SELECT [ItemId], -[Quantity] FROM " + Constants.TABLE_SOLD_ITEM + " " +
+                "UNION ALL " +
+                "SELECT [ItemId], [Quantity] FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " WHERE ISNULL([Action], '') = '" + Constants.ADD + "' " +
+                "UNION ALL " +
+                "SELECT [ItemId], -[Quantity] FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " WHERE ISNULL([Action], '') = '" + Constants.DEDUCT + "' " +
+                ") ut " +
+                "ON i.[Id] = ut.[ItemId] " +
+                "GROUP BY pi.[Id], i.[Code], i.[Name]" +
                 "ORDER BY i.[Code] ";
 
             try
@@ -140,7 +152,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                 {
                                     Id = Convert.ToInt64(reader["Id"].ToString()),
                                     Code = reader["Code"].ToString(),
-                                    Name = reader["Name"].ToString()
+                                    Name = reader["Name"].ToString(),
+                                    Stock = Convert.ToDecimal(reader["Stock"].ToString())
                                 };
 
                                 pricedItemViewList.Add(pricedItemView);

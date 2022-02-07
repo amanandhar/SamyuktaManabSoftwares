@@ -89,8 +89,13 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPricedItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridPricedItemList.Columns["Name"].HeaderText = "Name";
-            DataGridPricedItemList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridPricedItemList.Columns["Name"].Width = 280;
             DataGridPricedItemList.Columns["Name"].DisplayIndex = 1;
+
+            DataGridPricedItemList.Columns["Stock"].HeaderText = "Stock";
+            DataGridPricedItemList.Columns["Stock"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridPricedItemList.Columns["Stock"].DisplayIndex = 2;
+            DataGridPricedItemList.Columns["Stock"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridPricedItemList.Rows)
             {
@@ -105,7 +110,7 @@ namespace GrocerySupplyManagementApp.Forms
         private List<PricedItemView> GetPricedItems()
         {
             var pricedItemViewList = _pricedItemService.GetPricedItemViewList().ToList();
-            return pricedItemViewList.ToList();
+            return pricedItemViewList;
         }
 
         private void LoadPricedItems(List<PricedItemView> pricedItemViewList)

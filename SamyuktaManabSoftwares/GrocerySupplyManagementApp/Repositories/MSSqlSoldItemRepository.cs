@@ -76,6 +76,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "a.[Id], b.[Code], b.[Name], a.[Profit], b.[Unit], a.[Quantity], a.[Price], a.[Discount], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
+                "a.[AdjustedType], a.[AdjustedAmount], " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " b " +
@@ -108,6 +109,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     ItemDiscount = Convert.ToDecimal(reader["Discount"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
+                                    AdjustedType = reader["AdjustedType"].ToString(),
+                                    AdjustedAmount = Convert.ToDecimal(reader["AdjustedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
 

@@ -13,6 +13,8 @@ namespace GrocerySupplyManagementApp.ViewModels
         public decimal ItemDiscount { get; set; }
         public decimal Quantity { get; set; }
         public decimal Total { get; set; }
+        public string AdjustedType { get; set; }
+        public decimal AdjustedAmount { get; set; }
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
     }

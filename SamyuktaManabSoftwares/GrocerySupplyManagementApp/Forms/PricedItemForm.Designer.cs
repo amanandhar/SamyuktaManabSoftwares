@@ -182,11 +182,11 @@ namespace GrocerySupplyManagementApp.Forms
             // ComboItemUnit
             // 
             this.ComboItemUnit.Enabled = false;
-            this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboItemUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.ComboItemUnit.FormattingEnabled = true;
             this.ComboItemUnit.Location = new System.Drawing.Point(172, 212);
             this.ComboItemUnit.Name = "ComboItemUnit";
-            this.ComboItemUnit.Size = new System.Drawing.Size(313, 28);
+            this.ComboItemUnit.Size = new System.Drawing.Size(313, 32);
             this.ComboItemUnit.TabIndex = 5;
             this.ComboItemUnit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboItemUnit_KeyPress);
             // 
@@ -247,10 +247,10 @@ namespace GrocerySupplyManagementApp.Forms
             // TxtItemName
             // 
             this.TxtItemName.Enabled = false;
-            this.TxtItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.TxtItemName.Location = new System.Drawing.Point(171, 136);
             this.TxtItemName.Name = "TxtItemName";
-            this.TxtItemName.Size = new System.Drawing.Size(315, 26);
+            this.TxtItemName.Size = new System.Drawing.Size(315, 29);
             this.TxtItemName.TabIndex = 3;
             // 
             // TxtItemCode
