@@ -74,15 +74,15 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["AddedDate"].Visible = false;
 
             DataGridMemberList.Columns["MemberId"].HeaderText = "MemberId";
-            DataGridMemberList.Columns["MemberId"].Width = 85;
+            DataGridMemberList.Columns["MemberId"].Width = 80;
             DataGridMemberList.Columns["MemberId"].DisplayIndex = 0;
 
             DataGridMemberList.Columns["AccountNo"].HeaderText = "AccountNo";
-            DataGridMemberList.Columns["AccountNo"].Width = 85;
+            DataGridMemberList.Columns["AccountNo"].Width = 80;
             DataGridMemberList.Columns["AccountNo"].DisplayIndex = 1;
 
             DataGridMemberList.Columns["Name"].HeaderText = "Name";
-            DataGridMemberList.Columns["Name"].Width = 200;
+            DataGridMemberList.Columns["Name"].Width = 195;
             DataGridMemberList.Columns["Name"].DisplayIndex = 2;
 
             DataGridMemberList.Columns["Balance"].HeaderText = "Balance";
