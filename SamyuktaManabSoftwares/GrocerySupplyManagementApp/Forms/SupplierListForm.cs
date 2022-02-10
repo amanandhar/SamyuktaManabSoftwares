@@ -67,7 +67,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridSupplierList.Columns["SupplierId"].DisplayIndex = 0;
 
             DataGridSupplierList.Columns["Name"].HeaderText = "Name";
-            DataGridSupplierList.Columns["Name"].Width = 175;
+            DataGridSupplierList.Columns["Name"].Width = 165;
             DataGridSupplierList.Columns["Name"].DisplayIndex = 1;
 
             DataGridSupplierList.Columns["Owner"].HeaderText = "Owner";

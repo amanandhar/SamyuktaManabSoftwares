@@ -233,5 +233,9 @@ namespace GrocerySupplyManagementApp.Shared
 
         // Vat
         public const decimal VAT_DEFAULT_AMOUNT = 13.00m;
+
+        // Adjustment Type
+        public const string INCREMENT_SIGN = "+";
+        public const string DECREMENT_SIGN = "-";
     }
 }

@@ -84,7 +84,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["UpdatedDate"].Visible = false;
 
             DataGridItemList.Columns["Code"].HeaderText = "Code";
-            DataGridItemList.Columns["Code"].Width = 60;
+            DataGridItemList.Columns["Code"].Width = 80;
             DataGridItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridItemList.Columns["Name"].HeaderText = "Name";

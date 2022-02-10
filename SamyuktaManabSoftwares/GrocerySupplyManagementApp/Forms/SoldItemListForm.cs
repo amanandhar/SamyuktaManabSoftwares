@@ -20,10 +20,10 @@ namespace GrocerySupplyManagementApp.Forms
 
         private Label[] _soldItemNameLabels;
         private Label[] _soldItemCodeLabels;
-        private Label[] _soldItemQuantityLabels;
         private Label[] _soldItemProfitLabels;
+        private Label[] _soldItemPreviousAdjustedAmountLabels;
         private CheckBox[] _soldItemSelectedCheckbox;
-        private TextBox[] _soldItemAdjustedProfitTextboxes;
+        private TextBox[] _soldItemNewAdjustedAmountTextboxes;
 
         #region Constructors
         public SoldItemListForm()
@@ -34,7 +34,7 @@ namespace GrocerySupplyManagementApp.Forms
         public SoldItemListForm(string username, string invoiceNo, ISoldItemService soldItemService)
         {
             InitializeComponent();
-            this.Text = invoiceNo;
+            this.Text = "Adjust profit for invoice: " + invoiceNo;
             
             _invoiceNo = invoiceNo;
             _username = username;
@@ -64,26 +64,38 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     for (int i = 0; i < _soldItemListCount; i++)
                     {
-                        if (decimal.TryParse(_soldItemAdjustedProfitTextboxes[i].Text, out _))
+                        string adjustedAmount = _soldItemNewAdjustedAmountTextboxes[i].Text.Trim();
+                        var adjustedType = Constants.ADD;
+                        if (adjustedAmount.StartsWith(Constants.INCREMENT_SIGN))
+                        {
+                            adjustedAmount = adjustedAmount.Remove(0, 1);
+                        }
+                        else if (adjustedAmount.StartsWith(Constants.DECREMENT_SIGN))
+                        {
+                            adjustedAmount = adjustedAmount.Remove(0, 1);
+                            adjustedType = Constants.DEDUCT;
+                        }
+
+                        if (decimal.TryParse(adjustedAmount, out _))
                         {
                             var soldItem = new SoldItem()
                             {
-                                Id = Convert.ToInt64(_soldItemAdjustedProfitTextboxes[i].Tag),
-                                Profit = Convert.ToDecimal(_soldItemAdjustedProfitTextboxes[i].Text),
-                                Notes = "Profit updated from " + _soldItemProfitLabels[i].Text + " to " + _soldItemAdjustedProfitTextboxes[i].Text,
+                                Id = Convert.ToInt64(_soldItemNewAdjustedAmountTextboxes[i].Tag),
+                                AdjustedType = adjustedType,
+                                AdjustedAmount = Math.Round(Convert.ToDecimal(adjustedAmount), 2),
                                 UpdatedBy = _username,
                                 UpdatedDate = DateTime.Now
                             };
 
-                            var updatedSoldItem = _soldItemService.UpdateSoldItemProfit(soldItem.Id, soldItem);
+                            var updatedSoldItem = _soldItemService.UpdateAdjustedAmount(soldItem.Id, soldItem);
                             if (updatedSoldItem.Id == 0)
                             {
-                                throw new Exception("Error occurred while updating profit for sold item id : " + soldItem.Id);
+                                throw new Exception("Error occurred while adjusting amount for sold item id : " + soldItem.Id);
                             }
                         }
                     }
 
-                    DialogResult result = MessageBox.Show("Profit has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show("Amount has been adjusted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
                         this.PanelBody.Controls.Clear();
@@ -92,7 +104,7 @@ namespace GrocerySupplyManagementApp.Forms
                 }
                 catch (Exception ex)
                 {
-                    logger.Error("Profit was not adjusted successfully!", ex);
+                    logger.Error("Amount was not adjusted successfully!", ex);
                     UtilityService.ShowExceptionMessageBox();
                 }
             }
@@ -107,10 +119,10 @@ namespace GrocerySupplyManagementApp.Forms
 
             _soldItemNameLabels = new Label[_soldItemListCount];
             _soldItemCodeLabels = new Label[_soldItemListCount];
-            _soldItemQuantityLabels = new Label[_soldItemListCount];
             _soldItemProfitLabels = new Label[_soldItemListCount];
+            _soldItemPreviousAdjustedAmountLabels = new Label[_soldItemListCount];
             _soldItemSelectedCheckbox = new CheckBox[_soldItemListCount];
-            _soldItemAdjustedProfitTextboxes = new TextBox[_soldItemListCount];
+            _soldItemNewAdjustedAmountTextboxes = new TextBox[_soldItemListCount];
 
             // Add the header
             PanelHeader.Controls.Add(new Label()
@@ -131,26 +143,26 @@ namespace GrocerySupplyManagementApp.Forms
             });
             PanelHeader.Controls.Add(new Label()
             {
-                Name = "LblHeaderItemQuantity",
-                Text = "Quantity",
+                Name = "LblHeaderItemProfit",
+                Text = "Profit",
                 Location = new Point(260, 5),
                 Size = new Size(60, 20),
                 Font = new Font(Label.DefaultFont, FontStyle.Bold)
             });
             PanelHeader.Controls.Add(new Label()
             {
-                Name = "LblHeaderItemProfit",
-                Text = "Profit",
+                Name = "LblHeaderItemPreviousAdjustedAmount",
+                Text = "Prev Amt",
                 Location = new Point(320, 5),
-                Size = new Size(60, 20),
+                Size = new Size(60, 30),
                 Font = new Font(Label.DefaultFont, FontStyle.Bold)
             });
             PanelHeader.Controls.Add(new Label()
             {
-                Name = "LblHeaderAdjustedItemProfit",
-                Text = "Adj. Profit",
-                Location = new Point(380, 5),
-                Size = new Size(80, 20),
+                Name = "LblHeaderItemNewAdjustedAmount",
+                Text = "New Amt",
+                Location = new Point(400, 5),
+                Size = new Size(90, 30),
                 Font = new Font(Label.DefaultFont, FontStyle.Bold)
             });
 
@@ -175,37 +187,37 @@ namespace GrocerySupplyManagementApp.Forms
                     Size = new Size(60, 25)
                 };
 
-                _soldItemQuantityLabels[counter] = new Label
+                _soldItemProfitLabels[counter] = new Label
                 {
                     Name = counter.ToString(),
-                    Text = soldItem.Quantity.ToString(),
+                    Text = Math.Round(soldItem.Quantity * soldItem.Profit, 2).ToString(),
                     Location = new Point(260, 5 + (30 * counter)),
                     Size = new Size(60, 25)
                 };
 
-                _soldItemProfitLabels[counter] = new Label
+                _soldItemPreviousAdjustedAmountLabels[counter] = new Label
                 {
                     Name = counter.ToString(),
-                    Text = soldItem.Profit.ToString(),
+                    Text = (soldItem.AdjustedType == Constants.ADD ? Constants.INCREMENT_SIGN : Constants.DECREMENT_SIGN) + soldItem.AdjustedAmount.ToString(),
                     Location = new Point(320, 5 + (30 * counter)),
-                    Size = new Size(60, 25)
+                    Size = new Size(60, 30)
                 };
 
-                _soldItemAdjustedProfitTextboxes[counter] = new TextBox()
+                _soldItemNewAdjustedAmountTextboxes[counter] = new TextBox()
                 {
                     Name = counter.ToString(),
-                    Location = new Point(380, 5 + (30 * counter)),
-                    Size = new Size(60, 25),
+                    Location = new Point(400, 5 + (30 * counter)),
+                    Size = new Size(60, 30),
                     Tag = soldItem.Id.ToString(),
                     ReadOnly = true
                 };
 
-                _soldItemAdjustedProfitTextboxes[counter].KeyUp += new KeyEventHandler(TxtHeaderAdjustedProfit_KeyUp);
+                _soldItemNewAdjustedAmountTextboxes[counter].KeyUp += new KeyEventHandler(TxtHeaderAdjustedAmount_KeyUp);
 
                 _soldItemSelectedCheckbox[counter] = new CheckBox()
                 {
                     Name = counter.ToString(),
-                    Location = new Point(460, 5 + (30 * counter)),
+                    Location = new Point(480, 5 + (30 * counter)),
                     Size = new Size(20, 25)
                 };
 
@@ -219,9 +231,9 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 PanelBody.Controls.Add(_soldItemNameLabels[i]);
                 PanelBody.Controls.Add(_soldItemCodeLabels[i]);
-                PanelBody.Controls.Add(_soldItemQuantityLabels[i]);
                 PanelBody.Controls.Add(_soldItemProfitLabels[i]);
-                PanelBody.Controls.Add(_soldItemAdjustedProfitTextboxes[i]);
+                PanelBody.Controls.Add(_soldItemPreviousAdjustedAmountLabels[i]);
+                PanelBody.Controls.Add(_soldItemNewAdjustedAmountTextboxes[i]);
                 PanelBody.Controls.Add(_soldItemSelectedCheckbox[i]);
             }
         }
@@ -231,27 +243,39 @@ namespace GrocerySupplyManagementApp.Forms
             CheckBox checkBox = (sender as CheckBox);
             if (checkBox.Checked)
             {
-                _soldItemAdjustedProfitTextboxes[Convert.ToInt32(checkBox.Name)].ReadOnly = false;
-                _soldItemAdjustedProfitTextboxes[Convert.ToInt32(checkBox.Name)].Focus();
+                _soldItemNewAdjustedAmountTextboxes[Convert.ToInt32(checkBox.Name)].ReadOnly = false;
+                _soldItemNewAdjustedAmountTextboxes[Convert.ToInt32(checkBox.Name)].Focus();
             }
             else
             {
-                _soldItemAdjustedProfitTextboxes[Convert.ToInt32(checkBox.Name)].ReadOnly = true;
+                _soldItemNewAdjustedAmountTextboxes[Convert.ToInt32(checkBox.Name)].ReadOnly = true;
             }
         }
 
-        private void TxtHeaderAdjustedProfit_KeyUp(object sender, KeyEventArgs e)
+        private void TxtHeaderAdjustedAmount_KeyUp(object sender, KeyEventArgs e)
         {
             TextBox textbox = sender as TextBox;
             var index = Convert.ToInt64(textbox.Name.ToString());
-            var adjustedProfit = textbox.Text.Trim();
-            if (!string.IsNullOrWhiteSpace(adjustedProfit) && decimal.TryParse(adjustedProfit, out _))
+            var adjustedAmount = textbox.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(adjustedAmount) 
+                && (adjustedAmount.StartsWith(Constants.INCREMENT_SIGN) || adjustedAmount.StartsWith(Constants.DECREMENT_SIGN) || int.TryParse(adjustedAmount[0].ToString(), out _)))
             {
-                _soldItemAdjustedProfitTextboxes[index].Text = adjustedProfit;
+                if(adjustedAmount.Length == 1)
+                {
+                    _soldItemNewAdjustedAmountTextboxes[index].Text = adjustedAmount;
+                }
+                else if(adjustedAmount.Length > 1 && decimal.TryParse(adjustedAmount.Remove(0, 1), out _))
+                {
+                    _soldItemNewAdjustedAmountTextboxes[index].Text = adjustedAmount;
+                }
+                else
+                {
+                    _soldItemNewAdjustedAmountTextboxes[index].Text = string.Empty;
+                }
             }
             else
             {
-                _soldItemAdjustedProfitTextboxes[index].Text = string.Empty;
+                _soldItemNewAdjustedAmountTextboxes[index].Text = string.Empty;
             }
         }
         #endregion

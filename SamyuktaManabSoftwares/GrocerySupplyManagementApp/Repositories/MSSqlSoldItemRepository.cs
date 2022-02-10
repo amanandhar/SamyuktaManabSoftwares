@@ -76,6 +76,7 @@ namespace GrocerySupplyManagementApp.Repositories
             var query = @"SELECT " +
                 "a.[Id], b.[Code], b.[Name], a.[Profit], b.[Unit], a.[Quantity], a.[Price], a.[Discount], " +
                 "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
+                "a.[AdjustedType], a.[AdjustedAmount], " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " b " +
@@ -108,6 +109,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     ItemDiscount = Convert.ToDecimal(reader["Discount"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),
+                                    AdjustedType = reader["AdjustedType"].ToString(),
+                                    AdjustedAmount = Convert.ToDecimal(reader["AdjustedAmount"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
 
@@ -292,12 +295,12 @@ namespace GrocerySupplyManagementApp.Repositories
             return soldItem;
         }
 
-        public SoldItem UpdateSoldItemProfit(long id, SoldItem soldItem)
+        public SoldItem UpdateAdjustedAmount(long id, SoldItem soldItem)
         {
             string query = @"UPDATE " + Constants.TABLE_SOLD_ITEM + " " +
                 "SET " +
-                "[Profit] = @Profit, " +
-                "[Notes] = @Notes, " +
+                "[AdjustedType] = @AdjustedType, " +
+                "[AdjustedAmount] = @AdjustedAmount, " +
                 "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
@@ -310,8 +313,8 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
-                        command.Parameters.AddWithValue("@Profit", soldItem.Profit);
-                        command.Parameters.AddWithValue("@Notes", soldItem.Notes);
+                        command.Parameters.AddWithValue("@AdjustedType", soldItem.AdjustedType);
+                        command.Parameters.AddWithValue("@AdjustedAmount", soldItem.AdjustedAmount);
                         command.Parameters.AddWithValue("@UpdatedBy", soldItem.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", soldItem.UpdatedDate);
 

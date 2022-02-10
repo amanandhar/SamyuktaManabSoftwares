@@ -183,6 +183,7 @@
     <Compile Include="DTOs\Stock.cs" />
     <Compile Include="DTOs\StockFilter.cs" />
     <Compile Include="DTOs\SalesReturnTransactionFilter.cs" />
+    <Compile Include="DTOs\StockItem.cs" />
     <Compile Include="DTOs\SupplierTransactionFilter.cs" />
     <Compile Include="DTOs\UserTransactionFilter.cs" />
     <Compile Include="DTOs\DailyTransactionFilter.cs" />
@@ -410,12 +411,6 @@
     </Compile>
     <Compile Include="Forms\SalesReturnForm.Designer.cs">
       <DependentUpon>SalesReturnForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SubPricedForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SubPricedForm.Designer.cs">
-      <DependentUpon>SubPricedForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SupplierListForm.cs">
       <SubType>Form</SubType>
@@ -683,9 +678,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesReturnForm.resx">
       <DependentUpon>SalesReturnForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SubPricedForm.resx">
-      <DependentUpon>SubPricedForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SupplierListForm.resx">
       <DependentUpon>SupplierListForm.cs</DependentUpon>

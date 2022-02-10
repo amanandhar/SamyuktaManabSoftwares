@@ -407,17 +407,16 @@ namespace GrocerySupplyManagementApp.Forms
         #region Helper Methods
         private void CalculateProfitAmount()
         {
-            decimal value;
             if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text.Trim())
-                && decimal.TryParse(TxtProfitPercent.Text.Trim(), out value)
-                && !string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim())
-                && decimal.TryParse(TxtCustomPerUnitValue.Text.Trim(), out value))
+                && decimal.TryParse(TxtProfitPercent.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtPerUnitValue.Text.Trim(), out _))
             {
                 var profitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim());
-                var customPerUnitValue = Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
-                var profitAmount = (customPerUnitValue * (profitPercent / 100));
+                var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
+                var profitAmount = (perUnitValue * (profitPercent / 100));
                 TxtProfitAmount.Text = profitAmount.ToString("0.00");
-                var salesPricePerUnit = customPerUnitValue + profitAmount;
+                var salesPricePerUnit = perUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
             }
             else
@@ -429,17 +428,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void CalculateProfitPercentage()
         {
-            decimal value;
             if (!string.IsNullOrWhiteSpace(TxtProfitAmount.Text.Trim())
-                && decimal.TryParse(TxtProfitAmount.Text.Trim(), out value)
-                && !string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim())
-                && decimal.TryParse(TxtProfitAmount.Text.Trim(), out value))
+                && decimal.TryParse(TxtProfitAmount.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtPerUnitValue.Text.Trim(), out _))
             {
                 var profitAmount = Convert.ToDecimal(TxtProfitAmount.Text.Trim());
-                var customPerUnitValue = Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
-                var profitPercent = ((profitAmount / customPerUnitValue) * 100);
+                var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
+                var profitPercent = ((profitAmount / perUnitValue) * 100);
                 TxtProfitPercent.Text = profitPercent.ToString("0.0000");
-                var salesPricePerUnit = customPerUnitValue + profitAmount;
+                var salesPricePerUnit = perUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
             }
             else
@@ -508,7 +506,6 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboItemUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;
                 TxtPerUnitValue.Enabled = false;
-                TxtCustomPerUnitValue.Enabled = false;
                 TxtProfitPercent.Enabled = false;
                 TxtProfitAmount.Enabled = false;
                 TxtSalesPricePerUnit.Enabled = false;
@@ -530,7 +527,6 @@ namespace GrocerySupplyManagementApp.Forms
             ComboItemUnit.Text = string.Empty;
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
-            TxtCustomPerUnitValue.Clear();
             TxtProfitPercent.Clear();
             TxtProfitAmount.Clear();
             TxtSalesPricePerUnit.Clear();
@@ -557,19 +553,11 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtTotalStock.Text = _stockService.GetTotalStock(stockFilter).ToString();
 
-                var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-                var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-                TxtPerUnitValue.Text = perUnitValue.ToString();
-
-                TxtCustomPerUnitValue.Text = Math.Round(perUnitValue, 2).ToString();
-
-                var profitPercent = pricedItem.ProfitPercent;
-                TxtProfitPercent.Text = profitPercent.ToString();
-                var customPerUnitValue = string.IsNullOrWhiteSpace(TxtCustomPerUnitValue.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtCustomPerUnitValue.Text.Trim());
-                var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-                TxtProfitAmount.Text = profitAmount.ToString();
-                var salesPrice = customPerUnitValue + profitAmount;
-                TxtSalesPricePerUnit.Text = Math.Round(salesPrice, 2).ToString();
+                var stockItem = _stockService.GetStockItem(pricedItem, stockFilter);
+                TxtPerUnitValue.Text = stockItem.PerUnitValue.ToString();
+                TxtProfitPercent.Text = pricedItem.ProfitPercent.ToString();
+                TxtProfitAmount.Text = stockItem.ProfitAmount.ToString();
+                TxtSalesPricePerUnit.Text = stockItem.SalesPrice.ToString();
 
                 var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
                 if (File.Exists(absoluteImagePath))
@@ -612,7 +600,6 @@ namespace GrocerySupplyManagementApp.Forms
                 var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
                 var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
                 TxtPerUnitValue.Text = perUnitValue.ToString();
-                TxtCustomPerUnitValue.Text = perUnitValue.ToString();
 
                 EnableFields();
                 EnableFields(Action.PopulateUnpricedItem);
@@ -657,7 +644,7 @@ namespace GrocerySupplyManagementApp.Forms
                         Id = x.Id,
                         Code = x.Code,
                         Name = x.Name,
-                        Price = GetSalesPrice(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code })
+                        Price = _stockService.GetStockItem(_pricedItemService.GetPricedItem(x.Id), new StockFilter() { ItemCode = x.Code }).SalesPrice
                     }).ToList();
 
                     MSExcel.Export(excelPricedItemFieldList, "Priced Item", filename);
@@ -670,19 +657,7 @@ namespace GrocerySupplyManagementApp.Forms
             thread.Join();
         }
 
-        private decimal GetSalesPrice(PricedItem pricedItem, StockFilter stockFilter)
-        {
-            // Start: Calculation Per Unit Value, Custom Per Unit Value, Profit Amount, Sales Price Logic
-            var stocks = _stockService.GetStocks(stockFilter).OrderBy(x => x.ItemCode).ThenBy(x => x.AddedDate);
-            var perUnitValue = _stockService.GetPerUnitValue(stocks.ToList(), stockFilter);
-            var customPerUnitValue = Math.Round(perUnitValue, 2);
-            var profitPercent = pricedItem.ProfitPercent;
-            var profitAmount = Math.Round(customPerUnitValue * (profitPercent / 100), 2);
-            var salesPrice = customPerUnitValue + profitAmount;
-            // End
-
-            return salesPrice;
-        }
+        
         #endregion
 
         #region Validation
@@ -739,9 +714,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        private void TxtItemCode_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

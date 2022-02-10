@@ -16,7 +16,7 @@ namespace GrocerySupplyManagementApp.Services.Interfaces
 
         SoldItem AddSoldItem(SoldItem soldItem);
 
-        SoldItem UpdateSoldItemProfit(long id, SoldItem soldItem);
+        SoldItem UpdateAdjustedAmount(long id, SoldItem soldItem);
 
         bool DeleteSoldItem(string invoiceNo);
     }
