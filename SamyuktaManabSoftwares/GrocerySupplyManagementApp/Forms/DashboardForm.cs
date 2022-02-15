@@ -228,6 +228,18 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnPointOfSales_Click(object sender, EventArgs e)
         {
             ShowSystemStatus();
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form.GetType() == typeof(PosForm))
+                {
+                    //form.Activate();
+                    form.WindowState = FormWindowState.Normal;
+                    form.BringToFront();
+                    HideSubMenu();
+                    SelectButton(sender as Button);
+                    return;
+                }
+            }
 
             PosForm posForm = new PosForm(_username,
                 _settingService,
