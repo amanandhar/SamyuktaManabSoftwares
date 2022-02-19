@@ -162,7 +162,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.Size = new System.Drawing.Size(61, 18);
             this.label4.TabIndex = 36;
             this.label4.Text = "Date To";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // maskedTextBox1
             // 
@@ -173,7 +172,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.maskedTextBox1.Size = new System.Drawing.Size(159, 26);
             this.maskedTextBox1.TabIndex = 35;
             this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox1.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.maskedTextBox1_MaskInputRejected);
             // 
             // RadioBtnAll
             // 
@@ -297,7 +295,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label9.Size = new System.Drawing.Size(103, 18);
             this.label9.TabIndex = 25;
             this.label9.Text = "Opening Value";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label10
             // 
@@ -309,7 +306,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10.Size = new System.Drawing.Size(106, 18);
             this.label10.TabIndex = 27;
             this.label10.Text = "Opening Stock";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // TxtSales
             // 
@@ -389,7 +385,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridStockList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridStockList.Size = new System.Drawing.Size(1100, 436);
             this.DataGridStockList.TabIndex = 17;
-            this.DataGridStockList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridStockList_CellContentClick);
             this.DataGridStockList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockList_DataBindingComplete);
             // 
             // textBox1

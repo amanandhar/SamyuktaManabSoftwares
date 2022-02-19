@@ -45,9 +45,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void StockForm_Load(object sender, EventArgs e)
         {
             MaskDtEOD.Text = _endOfDay;
+            ComboItemCode.Items.Clear();
             _purchasedItemService.GetPurchasedItemDetails().ToList().ForEach(purchasedItem =>
             {
-                ComboItemCode.Items.Add(purchasedItem.Code);
+                ComboItemCode.ValueMember = "Id";
+                ComboItemCode.DisplayMember = "Value";
+
+                ComboItemCode.Items.Add(new ComboBoxItem { Id = purchasedItem.Code, Value = purchasedItem.Code + " - " + purchasedItem.Name });
             });
 
             LoadTotalStock();
@@ -186,7 +190,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 DateFrom = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
                 DateTo = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
-                ItemCode = ComboItemCode.Text.Trim()
+                ItemCode = (ComboItemCode.SelectedItem as ComboBoxItem).Id.Trim()
             };
 
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter).ToString();
@@ -217,30 +221,5 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DataGridStockList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
