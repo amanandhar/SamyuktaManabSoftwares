@@ -1,6 +1,7 @@
 ﻿using GrocerySupplyManagementApp.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using ZXing;
 using MsWord = Microsoft.Office.Interop.Word;
@@ -10,10 +11,10 @@ namespace GrocerySupplyManagementApp.Shared
     public class MSWord
     {
         private static readonly log4net.ILog logger = LogHelper.GetLogger();
-        private const int TABLE_COLUMN_COUNT = 4;
 
         public static bool Export(string filename, List<MSWordField> data, bool generateBarcode = false)
         {
+            int tableColumnCount = generateBarcode ? 6 : 4;
             var result = false;
 
             try
@@ -23,13 +24,13 @@ namespace GrocerySupplyManagementApp.Shared
                 {
                     return result;
                 }
-                else if (data.Count % TABLE_COLUMN_COUNT == 0)
+                else if (data.Count % tableColumnCount == 0)
                 {
-                    tableRowCount = data.Count / TABLE_COLUMN_COUNT;
+                    tableRowCount = data.Count / tableColumnCount;
                 }
                 else
                 {
-                    tableRowCount = (data.Count / TABLE_COLUMN_COUNT) + 1;
+                    tableRowCount = (data.Count / tableColumnCount) + 1;
                 }
 
                 object objMissing = System.Reflection.Missing.Value;
@@ -44,21 +45,32 @@ namespace GrocerySupplyManagementApp.Shared
                 // Create the document
                 MsWord.Document wordDocument = wordApplication.Documents.Add(ref objMissing, ref objMissing, ref objMissing, ref objMissing);
                 wordDocument.PageSetup.PaperSize = MsWord.WdPaperSize.wdPaperA4;
-                wordDocument.PageSetup.TopMargin = 25.0F;
-                wordDocument.PageSetup.RightMargin = 0.0F;
-                wordDocument.PageSetup.BottomMargin = 25.0F;
-                wordDocument.PageSetup.LeftMargin = 0.0F;
+                if(generateBarcode)
+                {
+                    wordDocument.PageSetup.TopMargin = 15.0F;
+                    wordDocument.PageSetup.RightMargin = 5.0F;
+                    wordDocument.PageSetup.BottomMargin = 5.0F;
+                    wordDocument.PageSetup.LeftMargin = 5.0F;
+                }
+                else
+                {
+                    wordDocument.PageSetup.TopMargin = 25.0F;
+                    wordDocument.PageSetup.RightMargin = 0.0F;
+                    wordDocument.PageSetup.BottomMargin = 25.0F;
+                    wordDocument.PageSetup.LeftMargin = 0.0F;
+                }
 
                 // Create the table
                 MsWord.Table wordTable;
                 MsWord.Range wordRange = wordDocument.Bookmarks.get_Item(ref objEndOfDocument).Range;
-                wordTable = wordDocument.Tables.Add(wordRange, tableRowCount, TABLE_COLUMN_COUNT, ref objMissing, ref objMissing);
+                wordTable = wordDocument.Tables.Add(wordRange, tableRowCount, tableColumnCount, ref objMissing, ref objMissing);
                 wordTable.Borders.InsideLineStyle = MsWord.WdLineStyle.wdLineStyleSingle;
                 wordTable.Borders.OutsideLineStyle = MsWord.WdLineStyle.wdLineStyleSingle;
                 wordTable.Range.Bold = 1;
+                wordTable.Range.ParagraphFormat.LineSpacing = 12.00F;
                 wordTable.Range.ParagraphFormat.Alignment = MsWord.WdParagraphAlignment.wdAlignParagraphCenter;
-                wordTable.Range.ParagraphFormat.SpaceBefore = 1.3F;
-                wordTable.Range.ParagraphFormat.SpaceAfter = 1.3F;
+                wordTable.Range.ParagraphFormat.SpaceBefore = generateBarcode ? 0.1F : 1.3F;
+                wordTable.Range.ParagraphFormat.SpaceAfter = generateBarcode ? 0.1F : 1.3F;
                 wordTable.Range.Rows.Height = generateBarcode ? 80 : 30;
 
                 BarcodeWriter barcodeWriter = null;
@@ -74,7 +86,7 @@ namespace GrocerySupplyManagementApp.Shared
                 var counter = 0;
                 for (int row = 1; row <= tableRowCount; row++)
                 {
-                    for (int column = 1; column <= TABLE_COLUMN_COUNT; column++)
+                    for (int column = 1; column <= tableColumnCount; column++)
                     {
                         if(counter >= data.Count)
                         {
@@ -84,10 +96,13 @@ namespace GrocerySupplyManagementApp.Shared
                         var range = wordTable.Cell(row, column).Range;
                         if(generateBarcode)
                         {
-                            Clipboard.SetImage(barcodeWriter.Write(data[counter].Code));
+                            var image = barcodeWriter.Write(data[counter].Code);
+                            Clipboard.SetImage(image);
+                            Thread.Sleep(100);
+
                             range.Paste();
 
-                            textToPrint = "Samyukta Manab Grocery" + "\n" + "Price : " + data[counter].Price;
+                            textToPrint = "Samyukta Manab" + "\n" + "Grocery" + "\n" + "Price : " + data[counter].Price;
                             range.InsertBefore(textToPrint);
 
                             Clipboard.Clear();

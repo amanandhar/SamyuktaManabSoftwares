@@ -186,11 +186,16 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void LoadItems()
         {
+            if(!string.IsNullOrEmpty(ComboItemCode.Text.Trim()) && ComboItemCode.SelectedItem == null) {
+                var comboItem = ComboItemCode.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Id == ComboItemCode.Text.Trim());
+                ComboItemCode.SelectedItem = comboItem;
+            }
+
             var stockFilter = new StockFilter
             {
                 DateFrom = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
                 DateTo = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
-                ItemCode = (ComboItemCode.SelectedItem as ComboBoxItem).Id.Trim()
+                ItemCode = (ComboItemCode.SelectedItem as ComboBoxItem)?.Id?.Trim()
             };
 
             TxtPurchase.Text = _purchasedItemService.GetPurchasedItemTotalQuantity(stockFilter).ToString();
