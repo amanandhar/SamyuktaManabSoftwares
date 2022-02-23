@@ -33,10 +33,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelBody = new System.Windows.Forms.Panel();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.PanelHeader = new System.Windows.Forms.Panel();
-            this.BtnCancel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnExport = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.PicBoxLoading = new System.Windows.Forms.PictureBox();
             this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.PanelFooter = new System.Windows.Forms.Panel();
+            this.BtnCancel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnExport = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxLoading)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,7 +48,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelBody.Location = new System.Drawing.Point(12, 66);
             this.PanelBody.Name = "PanelBody";
-            this.PanelBody.Size = new System.Drawing.Size(510, 196);
+            this.PanelBody.Size = new System.Drawing.Size(510, 175);
             this.PanelBody.TabIndex = 0;
             // 
             // SaveFileDialog
@@ -65,6 +66,31 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelHeader.Name = "PanelHeader";
             this.PanelHeader.Size = new System.Drawing.Size(510, 54);
             this.PanelHeader.TabIndex = 26;
+            // 
+            // PicBoxLoading
+            // 
+            this.PicBoxLoading.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxLoading.Image")));
+            this.PicBoxLoading.Location = new System.Drawing.Point(248, 268);
+            this.PicBoxLoading.Name = "PicBoxLoading";
+            this.PicBoxLoading.Size = new System.Drawing.Size(53, 31);
+            this.PicBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PicBoxLoading.TabIndex = 27;
+            this.PicBoxLoading.TabStop = false;
+            this.PicBoxLoading.Visible = false;
+            // 
+            // BackgroundWorker
+            // 
+            this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
+            this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
+            // 
+            // PanelFooter
+            // 
+            this.PanelFooter.BackColor = System.Drawing.Color.White;
+            this.PanelFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelFooter.Location = new System.Drawing.Point(12, 238);
+            this.PanelFooter.Name = "PanelFooter";
+            this.PanelFooter.Size = new System.Drawing.Size(510, 28);
+            this.PanelFooter.TabIndex = 28;
             // 
             // BtnCancel
             // 
@@ -106,28 +132,13 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnExport.UseVisualStyleBackColor = false;
             this.BtnExport.Click += new System.EventHandler(this.BtnExport_Click);
             // 
-            // PicBoxLoading
-            // 
-            this.PicBoxLoading.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxLoading.Image")));
-            this.PicBoxLoading.Location = new System.Drawing.Point(248, 268);
-            this.PicBoxLoading.Name = "PicBoxLoading";
-            this.PicBoxLoading.Size = new System.Drawing.Size(53, 31);
-            this.PicBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PicBoxLoading.TabIndex = 27;
-            this.PicBoxLoading.TabStop = false;
-            this.PicBoxLoading.Visible = false;
-            // 
-            // BackgroundWorker
-            // 
-            this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
-            this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
-            // 
             // PricedItemListToPrintForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(534, 311);
+            this.Controls.Add(this.PanelFooter);
             this.Controls.Add(this.PicBoxLoading);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.BtnCancel);
@@ -152,5 +163,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Panel PanelHeader;
         private System.Windows.Forms.PictureBox PicBoxLoading;
         private System.ComponentModel.BackgroundWorker BackgroundWorker;
+        private System.Windows.Forms.Panel PanelFooter;
     }
 }

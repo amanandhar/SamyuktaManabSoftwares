@@ -48,9 +48,9 @@ namespace GrocerySupplyManagementApp.Shared
                 if(generateBarcode)
                 {
                     wordDocument.PageSetup.TopMargin = 15.0F;
-                    wordDocument.PageSetup.RightMargin = 5.0F;
+                    wordDocument.PageSetup.RightMargin = 15.0F;
                     wordDocument.PageSetup.BottomMargin = 5.0F;
-                    wordDocument.PageSetup.LeftMargin = 5.0F;
+                    wordDocument.PageSetup.LeftMargin = 15.0F;
                 }
                 else
                 {
