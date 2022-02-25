@@ -44,7 +44,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Form Load Event
         private void StockForm_Load(object sender, EventArgs e)
         {
-            MaskDtEOD.Text = _endOfDay;
+            MaskDtEODFrom.Text = _endOfDay;
+            MaskDtEODTo.Text = _endOfDay;
             ComboItemCode.Items.Clear();
             _purchasedItemService.GetPurchasedItemDetails().ToList().ForEach(purchasedItem =>
             {
@@ -94,7 +95,8 @@ namespace GrocerySupplyManagementApp.Forms
         #region Radio Button Event
         private void RadioBtnAll_CheckedChanged(object sender, EventArgs e)
         {
-            MaskDtEOD.Clear();
+            MaskDtEODFrom.Clear();
+            MaskDtEODTo.Clear();
         }
         #endregion
 
@@ -193,8 +195,8 @@ namespace GrocerySupplyManagementApp.Forms
 
             var stockFilter = new StockFilter
             {
-                DateFrom = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
-                DateTo = UtilityService.GetDate(MaskDtEOD.Text.Trim()),
+                DateFrom = UtilityService.GetDate(MaskDtEODFrom.Text.Trim()),
+                DateTo = UtilityService.GetDate(MaskDtEODTo.Text.Trim()),
                 ItemCode = (ComboItemCode.SelectedItem as ComboBoxItem)?.Id?.Trim()
             };
 
