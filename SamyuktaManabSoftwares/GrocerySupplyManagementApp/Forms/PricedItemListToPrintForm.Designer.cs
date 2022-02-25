@@ -46,9 +46,10 @@ namespace GrocerySupplyManagementApp.Forms
             this.PanelBody.AutoScroll = true;
             this.PanelBody.BackColor = System.Drawing.Color.White;
             this.PanelBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelBody.Location = new System.Drawing.Point(12, 66);
+            this.PanelBody.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PanelBody.Location = new System.Drawing.Point(12, 69);
             this.PanelBody.Name = "PanelBody";
-            this.PanelBody.Size = new System.Drawing.Size(510, 175);
+            this.PanelBody.Size = new System.Drawing.Size(510, 300);
             this.PanelBody.TabIndex = 0;
             // 
             // SaveFileDialog
@@ -62,6 +63,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.PanelHeader.BackColor = System.Drawing.Color.White;
             this.PanelHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PanelHeader.Location = new System.Drawing.Point(12, 13);
             this.PanelHeader.Name = "PanelHeader";
             this.PanelHeader.Size = new System.Drawing.Size(510, 54);
@@ -70,7 +72,7 @@ namespace GrocerySupplyManagementApp.Forms
             // PicBoxLoading
             // 
             this.PicBoxLoading.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxLoading.Image")));
-            this.PicBoxLoading.Location = new System.Drawing.Point(248, 268);
+            this.PicBoxLoading.Location = new System.Drawing.Point(86, 415);
             this.PicBoxLoading.Name = "PicBoxLoading";
             this.PicBoxLoading.Size = new System.Drawing.Size(53, 31);
             this.PicBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -87,9 +89,9 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.PanelFooter.BackColor = System.Drawing.Color.White;
             this.PanelFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelFooter.Location = new System.Drawing.Point(12, 238);
+            this.PanelFooter.Location = new System.Drawing.Point(12, 371);
             this.PanelFooter.Name = "PanelFooter";
-            this.PanelFooter.Size = new System.Drawing.Size(510, 28);
+            this.PanelFooter.Size = new System.Drawing.Size(510, 32);
             this.PanelFooter.TabIndex = 28;
             // 
             // BtnCancel
@@ -103,7 +105,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCancel.ForeColor = System.Drawing.Color.White;
-            this.BtnCancel.Location = new System.Drawing.Point(123, 268);
+            this.BtnCancel.Location = new System.Drawing.Point(146, 414);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(120, 35);
             this.BtnCancel.TabIndex = 25;
@@ -123,7 +125,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnExport.ForeColor = System.Drawing.Color.White;
-            this.BtnExport.Location = new System.Drawing.Point(307, 268);
+            this.BtnExport.Location = new System.Drawing.Point(272, 414);
             this.BtnExport.Name = "BtnExport";
             this.BtnExport.Size = new System.Drawing.Size(120, 35);
             this.BtnExport.TabIndex = 16;
@@ -137,7 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(534, 311);
+            this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.PanelFooter);
             this.Controls.Add(this.PicBoxLoading);
             this.Controls.Add(this.PanelHeader);
