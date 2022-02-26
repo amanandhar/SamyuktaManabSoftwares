@@ -242,6 +242,9 @@ namespace GrocerySupplyManagementApp.Forms
             pricedItemListForm.ShowDialog();
             EnableFields();
             EnableFields(Action.SearchPricedItem);
+            RichItemQuantity.Text = "1";
+            CalculateItemDiscount();
+            BtnAddToCart.Enabled = true;
             RichItemQuantity.Focus();
         }
 
@@ -495,16 +498,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void RichItemQuantity_KeyUp(object sender, KeyEventArgs e)
         {
-            if(!string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim()) 
-                && Convert.ToDecimal(RichItemQuantity.Text.Trim()) >= _itemDiscountThreshold)
-            {
-                TxtItemDiscount.Text = Math.Round((Convert.ToDecimal(TxtItemPrice.Text.Trim()) * _itemDiscountPercent) / 100, 2).ToString();
-            }
-            else
-            {
-                TxtItemDiscount.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
-            }
-            
+            CalculateItemDiscount();            
             BtnAddToCart.Enabled = true;
         }
 
@@ -1126,12 +1120,27 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtProfitAmount.Text = stockItem.ProfitAmount.ToString();
                 RichItemQuantity.Enabled = true;
+                RichItemQuantity.Text = "1";
+                CalculateItemDiscount();
                 RichItemQuantity.Focus();
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        private void CalculateItemDiscount()
+        {
+            if (!string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim())
+                && Convert.ToDecimal(RichItemQuantity.Text.Trim()) >= _itemDiscountThreshold)
+            {
+                TxtItemDiscount.Text = Math.Round((Convert.ToDecimal(TxtItemPrice.Text.Trim()) * _itemDiscountPercent) / 100, 2).ToString();
+            }
+            else
+            {
+                TxtItemDiscount.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
             }
         }
 
