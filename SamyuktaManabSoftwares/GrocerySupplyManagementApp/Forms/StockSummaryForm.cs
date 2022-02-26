@@ -174,6 +174,12 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridStockList.Columns["PerUnitValue"].DefaultCellStyle.Format = "0.00";
 
+            DataGridStockList.Columns["PartyId"].HeaderText = "Party Id";
+            DataGridStockList.Columns["PartyId"].Width = 90;
+            DataGridStockList.Columns["PartyId"].DisplayIndex = 12;
+            DataGridStockList.Columns["PartyId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridStockList.Columns["PartyId"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             foreach (DataGridViewRow row in DataGridStockList.Rows)
             {
                 DataGridStockList.Rows[row.Index].HeaderCell.Value = string.Format("{0} ", row.Index + 1).ToString();

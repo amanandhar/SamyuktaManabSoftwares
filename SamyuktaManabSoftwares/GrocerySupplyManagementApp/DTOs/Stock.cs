@@ -15,6 +15,7 @@ namespace GrocerySupplyManagementApp.DTOs
         public decimal StockQuantity { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal TotalPurchasePrice { get; set; }
+        public string PartyId { get; set; }
         public DateTime AddedDate { get; set; }
     }
 }

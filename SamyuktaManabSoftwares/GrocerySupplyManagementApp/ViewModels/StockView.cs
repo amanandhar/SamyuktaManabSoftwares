@@ -18,6 +18,7 @@ namespace GrocerySupplyManagementApp.ViewModels
         public decimal SalesPrice { get; set; }
         public decimal StockValue { get; set; }
         public decimal PerUnitValue { get; set; }
+        public string PartyId { get; set; }
         public DateTime AddedDate { get; set; }
     }
 }

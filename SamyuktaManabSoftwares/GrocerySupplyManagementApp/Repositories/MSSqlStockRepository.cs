@@ -36,6 +36,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "i.[Unit] AS [Unit], " +
                 "pi.[Quantity] AS [PurchaseQuantity], 0 AS [SalesQuantity], " +
                 "pi.[Price] AS [PurchasePrice], 0.00 AS [SalesPrice], " +
+                "ut.[PartyId], " +
                 "pi.[AddedDate] " +
                 "FROM " + Constants.TABLE_PURCHASED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
@@ -63,6 +64,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "i.[Unit] AS [Unit], " +
                 "sa.[Quantity] AS [PurchaseQuantity], 0 AS [SalesQuantity], " +
                 "sa.[Price] AS [PurchasePrice], 0.00 AS [SalesPrice], " +
+                "'' AS [PartyId], " +
                 "sa.[AddedDate] " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
@@ -89,6 +91,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "si.[Unit] AS [Unit], " +
                 "0 AS [PurchaseQuantity], si.[Quantity] AS [SalesQuantity], " +
                 "0.00 AS [PurchasePrice], si.[Price] AS [SalesPrice], " +
+                "ut.[PartyId], " +
                 "si.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " si " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
@@ -116,6 +119,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "i.[Unit] AS [Unit], " +
                 "0 AS [PurchaseQuantity], sa.[Quantity] AS [SalesQuantity], " +
                 "0.00 AS [PurchasePrice], sa.[Price] AS [SalesPrice], " +
+                "'' AS [PartyId], " +
                 "sa.[AddedDate] " +
                 "FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " sa " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
@@ -184,6 +188,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     StockQuantity = Convert.ToDecimal(reader["StockQuantity"].ToString()),
                                     PurchasePrice = Convert.ToDecimal(reader["PurchasePrice"].ToString()),
                                     TotalPurchasePrice = Convert.ToDecimal(reader["TotalPurchasePrice"].ToString()),
+                                    PartyId = reader["PartyId"].ToString(),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString())
                                 };
 
@@ -282,6 +287,7 @@ namespace GrocerySupplyManagementApp.Repositories
                         PurchasePrice = stock.PurchasePrice,
                         StockQuantity = stock.StockQuantity,
                         TotalPurchasePrice = stock.TotalPurchasePrice,
+                        PartyId = stock.PartyId,
                         AddedDate = stock.AddedDate
                     };
 
