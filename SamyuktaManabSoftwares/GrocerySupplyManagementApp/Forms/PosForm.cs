@@ -248,10 +248,11 @@ namespace GrocerySupplyManagementApp.Forms
             pricedItemListForm.ShowDialog();
             EnableFields();
             EnableFields(Action.SearchPricedItem);
-            RichItemQuantity.Text = "1";
             CalculateItemDiscount();
             BtnAddToCart.Enabled = true;
+            RichItemQuantity.Text = "1";
             RichItemQuantity.Focus();
+            RichItemQuantity.SelectAll();
         }
 
         private void BtnTransaction_Click(object sender, EventArgs e)
@@ -1125,10 +1126,11 @@ namespace GrocerySupplyManagementApp.Forms
                 }
 
                 TxtProfitAmount.Text = stockItem.ProfitAmount.ToString();
+                CalculateItemDiscount();
                 RichItemQuantity.Enabled = true;
                 RichItemQuantity.Text = "1";
-                CalculateItemDiscount();
                 RichItemQuantity.Focus();
+                RichItemQuantity.SelectAll();
             }
             catch (Exception ex)
             {
