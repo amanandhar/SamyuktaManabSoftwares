@@ -148,6 +148,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
+                        Barcode = TxtBarcode.Text.Trim(),
                         ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -220,6 +221,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
+                        Barcode = TxtBarcode.Text.Trim(),
                         ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
@@ -552,7 +554,7 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 TxtTotalStock.Text = _stockService.GetTotalStock(stockFilter).ToString();
-
+                TxtBarcode.Text = string.IsNullOrWhiteSpace(pricedItem.Barcode) ? string.Empty : pricedItem.Barcode;
                 var stockItem = _stockService.GetStockItem(pricedItem, stockFilter);
                 TxtPerUnitValue.Text = stockItem.PerUnitValue.ToString();
                 TxtProfitPercent.Text = pricedItem.ProfitPercent.ToString();
@@ -656,8 +658,6 @@ namespace GrocerySupplyManagementApp.Forms
             thread.Start();
             thread.Join();
         }
-
-        
         #endregion
 
         #region Validation
@@ -713,6 +713,5 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
         #endregion
-
     }
 }

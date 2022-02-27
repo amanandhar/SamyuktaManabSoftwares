@@ -13,6 +13,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ZXing;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -50,6 +51,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private decimal _itemDiscountPercent;
         private decimal _itemDiscountThreshold;
+        private BarcodeReader barcodeReader = null;
 
         #region Enum
         private enum Action
@@ -158,6 +160,10 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 BtnSaveInvoice.Text = "Print Receipt";
             }
+
+            barcodeReader = new BarcodeReader();
+            barcodeReader.Options.ValueChanged += BarcodeReader_OptionsValueChanged;
+            barcodeReader.ResultFound += BarcodeReader_ResultFound;
         }
         #endregion
 
@@ -1341,6 +1347,16 @@ namespace GrocerySupplyManagementApp.Forms
             }
 
             return isValidated;
+        }
+
+        private void BarcodeReader_OptionsValueChanged(object arg1, EventArgs arg2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void BarcodeReader_ResultFound(Result obj)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
