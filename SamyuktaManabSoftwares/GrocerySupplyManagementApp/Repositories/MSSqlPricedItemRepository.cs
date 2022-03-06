@@ -23,7 +23,8 @@ namespace GrocerySupplyManagementApp.Repositories
             var pricedItem = new PricedItem();
             var query = @"SELECT " +
                 "[Id], [ItemId], " +
-                "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
+                "[Barcode], [ProfitPercent], [Profit], [SalesPricePerUnit], " +
+                "[Barcode1], [ProfitPercent1], [Profit1], [SalesPricePerUnit1], " +
                 "[ImagePath], [AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " " +
                 "WHERE 1 = 1 " +
@@ -43,12 +44,17 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
-                                pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
-                                pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
+                                pricedItem.Barcode = reader.IsDBNull(2) ? null : reader["Barcode"].ToString();
+                                pricedItem.ProfitPercent = reader.IsDBNull(3) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["ProfitPercent"].ToString());
+                                pricedItem.Profit = reader.IsDBNull(4) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Profit"].ToString());
+                                pricedItem.SalesPricePerUnit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
+                                pricedItem.Barcode1 = reader.IsDBNull(6) ? null : reader["Barcode1"].ToString();
+                                pricedItem.ProfitPercent1 = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["ProfitPercent1"].ToString());
+                                pricedItem.Profit1 = reader.IsDBNull(8) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Profit1"].ToString());
+                                pricedItem.SalesPricePerUnit1 = reader.IsDBNull(9) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["SalesPricePerUnit1"].ToString());
                                 pricedItem.ImagePath = reader["ImagePath"].ToString();
                                 pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                pricedItem.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                pricedItem.UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -117,21 +123,34 @@ namespace GrocerySupplyManagementApp.Repositories
 
         public PricedItem GetPricedItemByBarcode(string itemBarcode)
         {
-            var query = @"SELECT " +
+            var query = @"IF EXISTS (SELECT TOP 1 1 FROM " + Constants.TABLE_PRICED_ITEM + " " +
+                "WHERE ISNULL([Barcode], '') = @ItemBarcode ) " +
+                "BEGIN " +
+                "SELECT " +
                 "pi.[Id], pi.[ItemId], " +
-                "pi.[ProfitPercent], pi.[Profit], pi.[SalesPricePerUnit], " +
+                "pi.[Barcode], pi.[ProfitPercent], pi.[Profit], pi.[SalesPricePerUnit], " +
                 "pi.[ImagePath], pi.[AddedDate], pi.[UpdatedDate] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ISNULL(pi.[ItemId], '') = i.[Id] " +
-                "WHERE 1 = 1 ";
+                "WHERE 1 = 1 " +
+                "AND ISNULL(pi.[Barcode], '') = @ItemBarcode " +
+                "END " +
+                "ELSE " +
+                "BEGIN " +
+                "SELECT " +
+                "pi.[Id], pi.[ItemId], " +
+                "pi.[Barcode1] AS [Barcode], pi.[ProfitPercent1] AS [ProfitPercent], " +
+                "pi.[Profit1] AS [Profit], pi.[SalesPricePerUnit1] AS [SalesPricePerUnit], " +
+                "pi.[ImagePath], pi.[AddedDate], pi.[UpdatedDate] " +
+                "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
+                "INNER JOIN " + Constants.TABLE_ITEM + " i " +
+                "ON ISNULL(pi.[ItemId], '') = i.[Id] " +
+                "WHERE 1 = 1 " +
+                "AND ISNULL(pi.[Barcode1], '') = @ItemBarcode " +
+                "END ";
 
-            if (!string.IsNullOrWhiteSpace(itemBarcode))
-            {
-                query += "AND ISNULL(i.[Barcode], '') = @ItemBarcode ";
-            }
-
-            var pricedItem = new PricedItem();
+        var pricedItem = new PricedItem();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -147,9 +166,10 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
-                                pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
-                                pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
-                                pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
+                                pricedItem.Barcode = reader.IsDBNull(2) ? null : reader["Barcode"].ToString();
+                                pricedItem.ProfitPercent = reader.IsDBNull(3) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["ProfitPercent"].ToString());
+                                pricedItem.Profit = reader.IsDBNull(4) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Profit"].ToString());
+                                pricedItem.SalesPricePerUnit = reader.IsDBNull(5) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
                                 pricedItem.ImagePath = reader["ImagePath"].ToString();
                                 pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 pricedItem.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
@@ -274,14 +294,16 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"INSERT INTO " + Constants.TABLE_PRICED_ITEM + " " +
                     "( " +
                         "[EndOfDay], [ItemId], " +
-                        "[ProfitPercent], [Profit], [SalesPricePerUnit], " +
-                        "[Barcode], [ImagePath], [AddedBy], [AddedDate] " +
+                        "[Barcode], [ProfitPercent], [Profit], [SalesPricePerUnit], " +
+                        "[Barcode1], [ProfitPercent1], [Profit1], [SalesPricePerUnit1], " +
+                        "[ImagePath], [AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
                         "@EndOfDay, @ItemId, " +
-                        "@ProfitPercent, @Profit, @SalesPricePerUnit, " +
-                        "@Barcode, @ImagePath, @AddedBy, @AddedDate " +
+                        "@Barcode, @ProfitPercent, @Profit, @SalesPricePerUnit, " +
+                        "@Barcode1, @ProfitPercent1, @Profit1, @SalesPricePerUnit1, " +
+                        "@ImagePath, @AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -292,10 +314,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@EndOfDay", pricedItem.EndOfDay);
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
+                        command.Parameters.AddWithValue("@Barcode", pricedItem.Barcode);
                         command.Parameters.AddWithValue("@ProfitPercent", pricedItem.ProfitPercent);
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
                         command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
-                        command.Parameters.AddWithValue("@Barcode", pricedItem.Barcode);
+                        command.Parameters.AddWithValue("@Barcode1", pricedItem.Barcode1);
+                        command.Parameters.AddWithValue("@ProfitPercent1", pricedItem.ProfitPercent1);
+                        command.Parameters.AddWithValue("@Profit1", pricedItem.Profit1);
+                        command.Parameters.AddWithValue("@SalesPricePerUnit1", pricedItem.SalesPricePerUnit1);
                         command.Parameters.AddWithValue("@ImagePath", ((object)pricedItem.ImagePath) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedBy", pricedItem.AddedBy);
                         command.Parameters.AddWithValue("@AddedDate", pricedItem.AddedDate);
@@ -318,10 +344,14 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"UPDATE " + Constants.TABLE_PRICED_ITEM + " " +
                 "SET " +
                 "[ItemId] = @ItemId, " +
+                "[Barcode] = @Barcode, " +
                 "[ProfitPercent] = @ProfitPercent, " +
                 "[Profit] = @Profit, " +
                 "[SalesPricePerUnit] = @SalesPricePerUnit, " +
-                "[Barcode] = @Barcode, " +
+                "[Barcode1] = @Barcode1, " +
+                "[ProfitPercent1] = @ProfitPercent1, " +
+                "[Profit1] = @Profit1, " +
+                "[SalesPricePerUnit1] = @SalesPricePerUnit1, " +
                 "[ImagePath] = @ImagePath, " +
                 "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
@@ -336,10 +366,14 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Id", id);
                         command.Parameters.AddWithValue("@ItemId", pricedItem.ItemId);
+                        command.Parameters.AddWithValue("@Barcode", pricedItem.Barcode);
                         command.Parameters.AddWithValue("@ProfitPercent", pricedItem.ProfitPercent);
                         command.Parameters.AddWithValue("@Profit", pricedItem.Profit);
                         command.Parameters.AddWithValue("@SalesPricePerUnit", pricedItem.SalesPricePerUnit);
-                        command.Parameters.AddWithValue("@Barcode", pricedItem.Barcode);
+                        command.Parameters.AddWithValue("@Barcode1", pricedItem.Barcode1);
+                        command.Parameters.AddWithValue("@ProfitPercent1", pricedItem.ProfitPercent1);
+                        command.Parameters.AddWithValue("@Profit1", pricedItem.Profit1);
+                        command.Parameters.AddWithValue("@SalesPricePerUnit1", pricedItem.SalesPricePerUnit1);
                         command.Parameters.AddWithValue("@ImagePath", ((object)pricedItem.ImagePath) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedBy", pricedItem.UpdatedBy);
                         command.Parameters.AddWithValue("@UpdatedDate", pricedItem.UpdatedDate);

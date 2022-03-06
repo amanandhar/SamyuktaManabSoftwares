@@ -81,6 +81,16 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Button Click Event
+        private void BtnBarcodeClear_Click(object sender, EventArgs e)
+        {
+            TxtBarcode.Clear();
+        }
+
+        private void BtnBarcode1Clear_Click(object sender, EventArgs e)
+        {
+            TxtBarcode1.Clear();
+        }
+
         private void BtnSearchPricedItem_Click(object sender, EventArgs e)
         {
             PricedItemListForm pricedItemListForm = new PricedItemListForm(_pricedItemService, this);
@@ -145,10 +155,14 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         ItemId = _selectedItemId,
+                        Barcode = TxtBarcode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
-                        Barcode = TxtBarcode.Text.Trim(),
+                        Barcode1 = TxtBarcode1.Text.Trim(),
+                        ProfitPercent1 = Convert.ToDecimal(TxtProfitPercent1.Text.Trim()),
+                        Profit1 = Convert.ToDecimal(TxtProfitAmount1.Text.Trim()),
+                        SalesPricePerUnit1 = Convert.ToDecimal(TxtSalesPricePerUnit1.Text.Trim()),
                         ImagePath = relativeImagePath,
                         AddedBy = _username,
                         AddedDate = DateTime.Now
@@ -218,10 +232,14 @@ namespace GrocerySupplyManagementApp.Forms
                     var pricedItem = new PricedItem
                     {
                         ItemId = _selectedItemId,
+                        Barcode = TxtBarcode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
-                        Barcode = TxtBarcode.Text.Trim(),
+                        Barcode1 = TxtBarcode1.Text.Trim(),
+                        ProfitPercent1 = Convert.ToDecimal(TxtProfitPercent1.Text.Trim()),
+                        Profit1 = Convert.ToDecimal(TxtProfitAmount1.Text.Trim()),
+                        SalesPricePerUnit1 = Convert.ToDecimal(TxtSalesPricePerUnit1.Text.Trim()),
                         ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now
@@ -355,6 +373,19 @@ namespace GrocerySupplyManagementApp.Forms
             CalculateProfitAmount();
         }
 
+        private void TxtProfitPercent1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtProfitPercent1_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateProfitAmount1();
+        }
+
         private void TxtProfitAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
@@ -367,6 +398,19 @@ namespace GrocerySupplyManagementApp.Forms
         {
             CalculateProfitPercentage();
         }
+
+        private void TxtProfitAmount1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtProfitAmount1_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateProfitPercentage1();
+        }
         #endregion
 
         #region Combo Box Event
@@ -374,6 +418,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             e.Handled = true;
         }
+
         #endregion
 
         #region OpenFileDialog Event
@@ -428,6 +473,27 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void CalculateProfitAmount1()
+        {
+            if (!string.IsNullOrWhiteSpace(TxtProfitPercent1.Text.Trim())
+                && decimal.TryParse(TxtProfitPercent1.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtPerUnitValue.Text.Trim(), out _))
+            {
+                var profitPercent = Convert.ToDecimal(TxtProfitPercent1.Text.Trim());
+                var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
+                var profitAmount = (perUnitValue * (profitPercent / 100));
+                TxtProfitAmount1.Text = profitAmount.ToString("0.00");
+                var salesPricePerUnit = perUnitValue + profitAmount;
+                TxtSalesPricePerUnit1.Text = salesPricePerUnit.ToString("0.00");
+            }
+            else
+            {
+                TxtProfitAmount1.Text = string.Empty;
+                TxtSalesPricePerUnit1.Text = string.Empty;
+            }
+        }
+
         private void CalculateProfitPercentage()
         {
             if (!string.IsNullOrWhiteSpace(TxtProfitAmount.Text.Trim())
@@ -446,6 +512,27 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtProfitPercent.Text = string.Empty;
                 TxtSalesPricePerUnit.Text = string.Empty;
+            }
+        }
+
+        private void CalculateProfitPercentage1()
+        {
+            if (!string.IsNullOrWhiteSpace(TxtProfitAmount1.Text.Trim())
+                && decimal.TryParse(TxtProfitAmount1.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtPerUnitValue.Text.Trim(), out _))
+            {
+                var profitAmount = Convert.ToDecimal(TxtProfitAmount1.Text.Trim());
+                var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
+                var profitPercent = ((profitAmount / perUnitValue) * 100);
+                TxtProfitPercent1.Text = profitPercent.ToString("0.0000");
+                var salesPricePerUnit = perUnitValue + profitAmount;
+                TxtSalesPricePerUnit1.Text = salesPricePerUnit.ToString("0.00");
+            }
+            else
+            {
+                TxtProfitPercent1.Text = string.Empty;
+                TxtSalesPricePerUnit1.Text = string.Empty;
             }
         }
 
@@ -474,9 +561,16 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Add)
             {
+                TxtBarcode.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
 
+                TxtBarcode1.Enabled = true;
+                TxtProfitPercent1.Enabled = true;
+                TxtProfitAmount1.Enabled = true;
+
+                BtnBarcodeClear.Enabled = true;
+                BtnBarcode1Clear.Enabled = true;
                 BtnSave.Enabled = true;
                 BtnDelete.Enabled = true;
                 BtnAddImage.Enabled = true;
@@ -485,9 +579,17 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Edit)
             {
                 TxtItemCode.Enabled = true;
+
+                TxtBarcode.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
 
+                TxtBarcode1.Enabled = true;
+                TxtProfitPercent1.Enabled = true;
+                TxtProfitAmount1.Enabled = true;
+
+                BtnBarcodeClear.Enabled = true;
+                BtnBarcode1Clear.Enabled = true;
                 BtnUpdate.Enabled = true;
                 BtnDelete.Enabled = true;
                 BtnAddImage.Enabled = true;
@@ -508,10 +610,19 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboItemUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;
                 TxtPerUnitValue.Enabled = false;
+
+                TxtBarcode.Enabled = false;
                 TxtProfitPercent.Enabled = false;
                 TxtProfitAmount.Enabled = false;
                 TxtSalesPricePerUnit.Enabled = false;
 
+                TxtBarcode1.Enabled = false;
+                TxtProfitPercent1.Enabled = false;
+                TxtProfitAmount1.Enabled = false;
+                TxtSalesPricePerUnit1.Enabled = false;
+
+                BtnBarcodeClear.Enabled = false;
+                BtnBarcode1Clear.Enabled = false;
                 BtnAdd.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
@@ -529,9 +640,17 @@ namespace GrocerySupplyManagementApp.Forms
             ComboItemUnit.Text = string.Empty;
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
+
+            TxtBarcode.Clear();
             TxtProfitPercent.Clear();
             TxtProfitAmount.Clear();
             TxtSalesPricePerUnit.Clear();
+
+            TxtBarcode1.Clear();
+            TxtProfitPercent1.Clear();
+            TxtProfitAmount1.Clear();
+            TxtSalesPricePerUnit1.Clear();
+
             PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
         }
 
@@ -556,10 +675,18 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtTotalStock.Text = _stockService.GetTotalStock(stockFilter).ToString();
                 TxtBarcode.Text = string.IsNullOrWhiteSpace(pricedItem.Barcode) ? string.Empty : pricedItem.Barcode;
                 var stockItem = _stockService.GetStockItem(pricedItem, stockFilter);
+
                 TxtPerUnitValue.Text = stockItem.PerUnitValue.ToString();
-                TxtProfitPercent.Text = pricedItem.ProfitPercent.ToString();
+
+                TxtBarcode.Text = string.IsNullOrWhiteSpace(pricedItem.Barcode) ? string.Empty : pricedItem.Barcode;
+                TxtProfitPercent.Text = pricedItem.ProfitPercent == Constants.DEFAULT_DECIMAL_VALUE ? string.Empty : pricedItem.ProfitPercent.ToString();
                 TxtProfitAmount.Text = stockItem.ProfitAmount.ToString();
                 TxtSalesPricePerUnit.Text = stockItem.SalesPrice.ToString();
+
+                TxtBarcode1.Text = string.IsNullOrWhiteSpace(pricedItem.Barcode1) ? string.Empty : pricedItem.Barcode1;
+                TxtProfitPercent1.Text = pricedItem.ProfitPercent == Constants.DEFAULT_DECIMAL_VALUE ? string.Empty : pricedItem.ProfitPercent1.ToString();
+                TxtProfitAmount1.Text = stockItem.ProfitAmount.ToString();
+                TxtSalesPricePerUnit1.Text = stockItem.SalesPrice.ToString();
 
                 var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
                 if (File.Exists(absoluteImagePath))

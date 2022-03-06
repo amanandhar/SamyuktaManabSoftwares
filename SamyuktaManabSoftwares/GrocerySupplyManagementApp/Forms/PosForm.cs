@@ -13,7 +13,6 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using ZXing;
 
 namespace GrocerySupplyManagementApp.Forms
 {
@@ -51,7 +50,6 @@ namespace GrocerySupplyManagementApp.Forms
 
         private decimal _itemDiscountPercent;
         private decimal _itemDiscountThreshold;
-        private BarcodeReader barcodeReader = null;
 
         #region Enum
         private enum Action
@@ -160,10 +158,6 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 BtnSaveInvoice.Text = "Print Receipt";
             }
-
-            barcodeReader = new BarcodeReader();
-            barcodeReader.Options.ValueChanged += BarcodeReader_OptionsValueChanged;
-            barcodeReader.ResultFound += BarcodeReader_ResultFound;
         }
         #endregion
 
@@ -583,6 +577,62 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void RichItemCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+
+                var itemCode = RichItemCode.Text.Trim();
+                if (itemCode.Length == 8 && itemCode.Contains("."))
+                {
+                    try
+                    {
+                        var pricedItem = _pricedItemService.GetPricedItem(itemCode);
+                        if (pricedItem.ItemId == 0)
+                        {
+                            DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text.Trim(),
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (result == DialogResult.OK)
+                            {
+                                return;
+                            }
+                        }
+
+                        CalculatePricedItem(pricedItem);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex);
+                        UtilityService.ShowExceptionMessageBox();
+                    }
+                }
+                else if (itemCode.Length > 8)
+                {
+                    try
+                    {
+                        var pricedItem = _pricedItemService.GetPricedItemByBarcode(itemCode);
+                        if (pricedItem.ItemId == 0)
+                        {
+                            DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text.Trim(),
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (result == DialogResult.OK)
+                            {
+                                return;
+                            }
+                        }
+
+                        CalculatePricedItem(pricedItem);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex);
+                        UtilityService.ShowExceptionMessageBox();
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Text Box Event
@@ -860,6 +910,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtProfitAmount.Clear();
             TxtItemStock.Clear();
             TxtPricedUnit.Clear();
+            TxtBarcode.Clear();
             PicBoxItemImage.Image = PicBoxItemImage.InitialImage;
         }
 
@@ -1111,6 +1162,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemPrice.Text = Math.Round(stockItem.SalesPrice, 2).ToString();
                 TxtPricedUnit.Text = item.Unit;
                 TxtItemStock.Text = stock.ToString();
+                TxtBarcode.Text = pricedItem.Barcode;
 
                 _itemDiscountPercent = item.DiscountPercent;
                 _itemDiscountThreshold = item.DiscountThreshold;
@@ -1351,15 +1403,6 @@ namespace GrocerySupplyManagementApp.Forms
             return isValidated;
         }
 
-        private void BarcodeReader_OptionsValueChanged(object arg1, EventArgs arg2)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void BarcodeReader_ResultFound(Result obj)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }
