@@ -73,7 +73,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             _baseImageFolder = ConfigurationManager.AppSettings[Constants.BASE_IMAGE_FOLDER].ToString();
             _itemImageFolder = ConfigurationManager.AppSettings[Constants.ITEM_IMAGE_FOLDER].ToString();
-            LoadItemUnits();
             EnableFields();
             EnableFields(Action.Load);
             TxtItemCode.Focus();
@@ -89,6 +88,9 @@ namespace GrocerySupplyManagementApp.Forms
         private void BtnBarcode1Clear_Click(object sender, EventArgs e)
         {
             TxtBarcode1.Clear();
+            TxtProfitPercent1.Clear();
+            TxtProfitAmount1.Clear();
+            TxtSalesPricePerUnit1.Clear();
         }
 
         private void BtnSearchPricedItem_Click(object sender, EventArgs e)
@@ -413,14 +415,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Combo Box Event
-        private void ComboItemUnit_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        #endregion
-
         #region OpenFileDialog Event
         private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -607,7 +601,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtItemCode.Enabled = false;
                 TxtItemName.Enabled = false;
-                ComboItemUnit.Enabled = false;
+                TxtItemUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;
                 TxtPerUnitValue.Enabled = false;
 
@@ -637,7 +631,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             TxtItemCode.Clear();
             TxtItemName.Clear();
-            ComboItemUnit.Text = string.Empty;
+            TxtItemUnit.Clear();
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
 
@@ -666,7 +660,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtItemCode.Text = item.Code;
                 TxtItemName.Text = item.Name;
-                ComboItemUnit.Text = item.Unit;
+                TxtItemUnit.Text = item.Unit;
                 StockFilter stockFilter = new StockFilter
                 {
                     ItemCode = item.Code
@@ -683,10 +677,24 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtProfitAmount.Text = stockItem.ProfitAmount.ToString();
                 TxtSalesPricePerUnit.Text = stockItem.SalesPrice.ToString();
 
-                TxtBarcode1.Text = string.IsNullOrWhiteSpace(pricedItem.Barcode1) ? string.Empty : pricedItem.Barcode1;
-                TxtProfitPercent1.Text = pricedItem.ProfitPercent == Constants.DEFAULT_DECIMAL_VALUE ? string.Empty : pricedItem.ProfitPercent1.ToString();
-                TxtProfitAmount1.Text = stockItem.ProfitAmount.ToString();
-                TxtSalesPricePerUnit1.Text = stockItem.SalesPrice.ToString();
+                if (string.IsNullOrWhiteSpace(pricedItem.Barcode1))
+                {
+                    TxtBarcode1.Text = string.Empty;
+                    TxtProfitPercent1.Text = string.Empty;
+                    TxtProfitAmount1.Text = string.Empty;
+                    TxtSalesPricePerUnit1.Text = string.Empty;
+                }
+                else
+                {
+                    TxtBarcode1.Text = pricedItem.Barcode1;
+                    TxtProfitPercent1.Text = pricedItem.ProfitPercent == Constants.DEFAULT_DECIMAL_VALUE ? string.Empty : pricedItem.ProfitPercent1.ToString();
+                  
+                    pricedItem.ProfitPercent = pricedItem.ProfitPercent1;
+
+                    var stockItem1 = _stockService.GetStockItem(pricedItem, stockFilter);
+                    TxtProfitAmount1.Text = stockItem1.ProfitAmount.ToString();
+                    TxtSalesPricePerUnit1.Text = stockItem1.SalesPrice.ToString();
+                }
 
                 var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
                 if (File.Exists(absoluteImagePath))
@@ -718,7 +726,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var item = _itemService.GetItem(_selectedItemId);
                 TxtItemCode.Text = item.Code;
                 TxtItemName.Text = item.Name;
-                ComboItemUnit.Text = item.Unit;
+                TxtItemUnit.Text = item.Unit;
                 StockFilter stockFilter = new StockFilter
                 {
                     ItemCode = item.Code
@@ -738,24 +746,6 @@ namespace GrocerySupplyManagementApp.Forms
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
             }
-        }
-
-        private void LoadItemUnits()
-        {
-            ComboItemUnit.Items.Clear();
-            ComboItemUnit.ValueMember = "Id";
-            ComboItemUnit.DisplayMember = "Value";
-
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.KILOGRAM, Value = Constants.KILOGRAM });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.GRAM, Value = Constants.GRAM });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.LITER, Value = Constants.LITER });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.MILLI_LITER, Value = Constants.MILLI_LITER });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.PIECES, Value = Constants.PIECES });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.PACKET, Value = Constants.PACKET });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.BAG, Value = Constants.BAG });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.BOTTLE, Value = Constants.BOTTLE });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.CAN, Value = Constants.CAN });
-            ComboItemUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
         }
 
         private void ExportToExcel()
