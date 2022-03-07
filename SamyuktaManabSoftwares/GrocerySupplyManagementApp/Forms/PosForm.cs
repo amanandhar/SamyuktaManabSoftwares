@@ -352,7 +352,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                         var balance = string.IsNullOrWhiteSpace(RichBalanceAmount.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(RichBalanceAmount.Text.Trim());
                         if (RadioBtnCash.Checked && 
-                                ((balance != Constants.DEFAULT_DECIMAL_VALUE) || (Convert.ToDecimal(TxtTotal.Text) == Convert.ToDecimal(RichReceivedAmount.Text) - Convert.ToDecimal(TxtChangeMoney.Text))))
+                                (balance != Constants.DEFAULT_DECIMAL_VALUE) 
+                                && (Convert.ToDecimal(TxtTotal.Text) != Convert.ToDecimal(RichReceivedAmount.Text) - Convert.ToDecimal(TxtChangeMoney.Text)))
                         {
                             DialogResult dialogResult = MessageBox.Show("Balance should be zero",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -572,9 +573,13 @@ namespace GrocerySupplyManagementApp.Forms
         private void RichItemCode_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
 
-            if (e.KeyChar == (char)13)
+        private void RichItemCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
             {
+                e.Handled = e.SuppressKeyPress = true;
                 var itemCode = RichItemCode.Text.Trim();
                 if (itemCode.Length == 8 && itemCode.Contains("."))
                 {
@@ -621,35 +626,6 @@ namespace GrocerySupplyManagementApp.Forms
                         logger.Error(ex);
                         UtilityService.ShowExceptionMessageBox();
                     }
-                }
-            }
-        }
-
-        private void RichItemCode_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                e.Handled = e.SuppressKeyPress = true;
-                try
-                {
-                    var itemCode = RichItemCode.Text.Trim();
-                    var pricedItem = _pricedItemService.GetPricedItem(itemCode);
-                    if (pricedItem.ItemId == 0)
-                    {
-                        DialogResult result = MessageBox.Show("Invalid item code : " + RichItemCode.Text.Trim(),
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        if (result == DialogResult.OK)
-                        {
-                            return;
-                        }
-                    }
-
-                    CalculatePricedItem(pricedItem);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex);
-                    UtilityService.ShowExceptionMessageBox();
                 }
             }
         }

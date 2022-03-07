@@ -239,9 +239,9 @@ namespace GrocerySupplyManagementApp.Forms
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
                         SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
                         Barcode1 = TxtBarcode1.Text.Trim(),
-                        ProfitPercent1 = Convert.ToDecimal(TxtProfitPercent1.Text.Trim()),
-                        Profit1 = Convert.ToDecimal(TxtProfitAmount1.Text.Trim()),
-                        SalesPricePerUnit1 = Convert.ToDecimal(TxtSalesPricePerUnit1.Text.Trim()),
+                        ProfitPercent1 = string.IsNullOrWhiteSpace(TxtProfitPercent1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtProfitPercent1.Text.Trim()),
+                        Profit1 = string.IsNullOrWhiteSpace(TxtProfitAmount1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtProfitAmount1.Text.Trim()),
+                        SalesPricePerUnit1 = string.IsNullOrWhiteSpace(TxtSalesPricePerUnit1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtSalesPricePerUnit1.Text.Trim()),
                         ImagePath = relativeImagePath,
                         UpdatedBy = _username,
                         UpdatedDate = DateTime.Now

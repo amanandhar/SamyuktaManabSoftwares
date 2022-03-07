@@ -373,6 +373,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RichItemCode.ForeColor = System.Drawing.SystemColors.ControlText;
             this.RichItemCode.Location = new System.Drawing.Point(99, 23);
+            this.RichItemCode.MaxLength = 0;
             this.RichItemCode.Name = "RichItemCode";
             this.RichItemCode.Size = new System.Drawing.Size(165, 28);
             this.RichItemCode.TabIndex = 14;
