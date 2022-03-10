@@ -117,7 +117,7 @@ namespace GrocerySupplyManagementApp.Shared
 
         public static void ShowExceptionMessageBox()
         {
-            MessageBox.Show("Fatal error occurred. \n Please contact administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Fatal error occurred. \nPlease contact administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
