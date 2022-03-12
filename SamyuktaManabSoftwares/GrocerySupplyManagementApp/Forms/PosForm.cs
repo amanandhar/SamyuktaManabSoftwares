@@ -836,39 +836,47 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var itemCode = RichItemCode.Text.Trim();
                 var itemName = TxtItemName.Text.Trim();
-                var itemPrice = TxtItemPrice.Text.Trim();
-                var itemDiscount = TxtItemDiscount.Text.Trim();
-                var profitAmount = TxtProfitAmount.Text.Trim();
-                var itemQuantity = RichItemQuantity.Text.Trim();
+                var itemUnit = TxtPricedUnit.Text.Trim();
+                var itemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtItemPrice.Text.Trim());
+                var itemDiscount = string.IsNullOrWhiteSpace(TxtItemDiscount.Text.Trim()) 
+                    ? Constants.DEFAULT_DECIMAL_VALUE 
+                    : Convert.ToDecimal(TxtItemDiscount.Text.Trim());
+                var profitAmount = string.IsNullOrWhiteSpace(TxtProfitAmount.Text.Trim()) 
+                    ? Constants.DEFAULT_DECIMAL_VALUE 
+                    : Convert.ToDecimal(TxtProfitAmount.Text.Trim());
+                var itemQuantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichItemQuantity.Text.Trim());
 
-                _soldItemViewList.Add(new SoldItemView
+                if(_soldItemViewList.Any(soldItem => soldItem.ItemCode == itemCode))
                 {
-                    Id = DataGridSoldItemList.RowCount,
-                    ItemCode = itemCode,
-                    ItemName = itemName,
-                    Profit = string.IsNullOrWhiteSpace(itemPrice)
-                        ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Convert.ToDecimal(profitAmount),
-                    Unit = TxtPricedUnit.Text.Trim(),
-                    ItemPrice = string.IsNullOrWhiteSpace(itemPrice)
-                        ? Constants.DEFAULT_DECIMAL_VALUE
-                        : (Convert.ToDecimal(itemPrice) - Convert.ToDecimal(itemDiscount)),
-                    ItemDiscount = string.IsNullOrWhiteSpace(itemDiscount)
-                        ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Convert.ToDecimal(itemDiscount),
-                    Quantity = string.IsNullOrWhiteSpace(itemQuantity)
-                        ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Convert.ToDecimal(itemQuantity),
-                    Total = Math.Round((string.IsNullOrWhiteSpace(itemQuantity)
-                        ? Constants.DEFAULT_DECIMAL_VALUE
-                        : Convert.ToDecimal(itemQuantity)) * (string.IsNullOrWhiteSpace(itemPrice)
-                            ? Constants.DEFAULT_DECIMAL_VALUE
-                            : (Convert.ToDecimal(itemPrice) - Convert.ToDecimal(itemDiscount))), 2),
-                    AddedBy = _username,
-                    AddedDate = DateTime.Now
-                }); ;
-
-
+                    var soldItem = _soldItemViewList.FirstOrDefault(_soldItem => _soldItem.ItemCode == itemCode);
+                    if(soldItem != null)
+                    {
+                        soldItem.Quantity += itemQuantity;
+                        soldItem.Total += Math.Round(itemQuantity * (itemPrice - itemDiscount), 2);
+                    }
+                }
+                else
+                {
+                    _soldItemViewList.Add(new SoldItemView
+                    {
+                        Id = DataGridSoldItemList.RowCount,
+                        ItemCode = itemCode,
+                        ItemName = itemName,
+                        Profit = profitAmount,
+                        Unit = itemUnit,
+                        ItemPrice = itemPrice - itemDiscount,
+                        ItemDiscount = itemDiscount,
+                        Quantity = itemQuantity,
+                        Total = Math.Round(itemQuantity * (itemPrice - itemDiscount), 2),
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    });
+                }
+                
                 LoadItems(_soldItemViewList);
 
                 LoadPosDetails();
