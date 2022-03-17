@@ -471,7 +471,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1103, 44);
+            this.textBox1.Size = new System.Drawing.Size(1115, 44);
             this.textBox1.TabIndex = 48;
             // 
             // label15
@@ -493,7 +493,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2.ForeColor = System.Drawing.Color.Aqua;
             this.textBox2.Location = new System.Drawing.Point(-1, 125);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(1103, 29);
+            this.textBox2.Size = new System.Drawing.Size(1115, 29);
             this.textBox2.TabIndex = 50;
             this.textBox2.Text = "                                                                                 " +
     "                 Balance Sheet";
@@ -511,7 +511,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 602);
+            this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.textBox1);

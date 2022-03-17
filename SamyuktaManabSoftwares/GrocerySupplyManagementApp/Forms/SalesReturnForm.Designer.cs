@@ -87,7 +87,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Red;
-            this.groupBox1.Location = new System.Drawing.Point(12, 46);
+            this.groupBox1.Location = new System.Drawing.Point(12, 44);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(920, 150);
             this.groupBox1.TabIndex = 0;
@@ -319,7 +319,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.BtnAdd);
             this.groupBox3.Controls.Add(this.BtnShow);
             this.groupBox3.Controls.Add(this.BtnRemove);
-            this.groupBox3.Location = new System.Drawing.Point(945, 46);
+            this.groupBox3.Location = new System.Drawing.Point(945, 44);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(145, 150);
             this.groupBox3.TabIndex = 20;
@@ -407,13 +407,13 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DateGridSalesReturnList
             // 
-            this.DateGridSalesReturnList.BackgroundColor = System.Drawing.Color.White;
+            this.DateGridSalesReturnList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DateGridSalesReturnList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DateGridSalesReturnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DateGridSalesReturnList.Location = new System.Drawing.Point(15, 210);
+            this.DateGridSalesReturnList.Location = new System.Drawing.Point(15, 203);
             this.DateGridSalesReturnList.Name = "DateGridSalesReturnList";
             this.DateGridSalesReturnList.ReadOnly = true;
-            this.DateGridSalesReturnList.Size = new System.Drawing.Size(1075, 380);
+            this.DateGridSalesReturnList.Size = new System.Drawing.Size(1075, 385);
             this.DateGridSalesReturnList.TabIndex = 21;
             this.DateGridSalesReturnList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DateGridSalesReturnList_DataBindingComplete);
             // 
@@ -423,7 +423,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.Location = new System.Drawing.Point(-1, -1);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(1103, 44);
+            this.textBox4.Size = new System.Drawing.Size(1115, 44);
             this.textBox4.TabIndex = 22;
             // 
             // label8
@@ -443,7 +443,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.DateGridSalesReturnList);

@@ -56,15 +56,15 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.DataGridDeliveryPersonList);
-            this.groupBox2.Location = new System.Drawing.Point(11, 142);
+            this.groupBox2.Location = new System.Drawing.Point(11, 138);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1077, 455);
+            this.groupBox2.Size = new System.Drawing.Size(1077, 450);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
             // DataGridDeliveryPersonList
             // 
-            this.DataGridDeliveryPersonList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridDeliveryPersonList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -85,7 +85,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(6, 10);
             this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
             this.DataGridDeliveryPersonList.ReadOnly = true;
-            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(1065, 442);
+            this.DataGridDeliveryPersonList.Size = new System.Drawing.Size(1065, 430);
             this.DataGridDeliveryPersonList.TabIndex = 0;
             this.DataGridDeliveryPersonList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridDeliveryPersonList_DataBindingComplete);
             // 
@@ -103,7 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.ForeColor = System.Drawing.Color.Red;
             this.groupBox3.Location = new System.Drawing.Point(13, 47);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(854, 90);
+            this.groupBox3.Size = new System.Drawing.Size(865, 90);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Delivery Person Details";
@@ -119,7 +119,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSearch.ForeColor = System.Drawing.Color.White;
-            this.BtnSearch.Location = new System.Drawing.Point(717, 16);
+            this.BtnSearch.Location = new System.Drawing.Point(737, 16);
             this.BtnSearch.Name = "BtnSearch";
             this.BtnSearch.Size = new System.Drawing.Size(70, 28);
             this.BtnSearch.TabIndex = 5;
@@ -173,7 +173,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtName.Location = new System.Drawing.Point(471, 18);
             this.TxtName.Name = "TxtName";
-            this.TxtName.Size = new System.Drawing.Size(245, 26);
+            this.TxtName.Size = new System.Drawing.Size(265, 26);
             this.TxtName.TabIndex = 3;
             // 
             // TxtAmount
@@ -232,7 +232,7 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.BtnShowTransaction);
-            this.groupBox4.Location = new System.Drawing.Point(887, 47);
+            this.groupBox4.Location = new System.Drawing.Point(893, 47);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(195, 90);
             this.groupBox4.TabIndex = 4;
@@ -245,7 +245,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.ForeColor = System.Drawing.Color.Cyan;
             this.textBox1.Location = new System.Drawing.Point(-1, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1103, 44);
+            this.textBox1.Size = new System.Drawing.Size(1115, 44);
             this.textBox1.TabIndex = 5;
             // 
             // label6
@@ -265,7 +265,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 602);
+            this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox4);

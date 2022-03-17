@@ -372,7 +372,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridStockList
             // 
-            this.DataGridStockList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridStockList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridStockList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -402,7 +402,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridStockList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridStockList.Size = new System.Drawing.Size(1100, 436);
+            this.DataGridStockList.Size = new System.Drawing.Size(1101, 432);
             this.DataGridStockList.TabIndex = 17;
             this.DataGridStockList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridStockList_DataBindingComplete);
             // 

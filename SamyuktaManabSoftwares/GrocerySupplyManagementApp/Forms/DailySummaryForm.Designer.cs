@@ -72,9 +72,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.Controls.Add(this.BtnShow);
             this.groupBox1.Controls.Add(this.MaskEndOfDay);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(18, 49);
+            this.groupBox1.Location = new System.Drawing.Point(18, 46);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1063, 67);
+            this.groupBox1.Size = new System.Drawing.Size(1065, 67);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -89,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(876, 17);
+            this.BtnShow.Location = new System.Drawing.Point(881, 17);
             this.BtnShow.Name = "BtnShow";
             this.BtnShow.Size = new System.Drawing.Size(125, 38);
             this.BtnShow.TabIndex = 5;
@@ -229,9 +229,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(657, 170);
+            this.groupBox3.Location = new System.Drawing.Point(657, 166);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(424, 375);
+            this.groupBox3.Size = new System.Drawing.Size(426, 375);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
@@ -242,7 +242,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.ForeColor = System.Drawing.Color.Cyan;
             this.textBox1.Location = new System.Drawing.Point(0, 7);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(422, 26);
+            this.textBox1.Size = new System.Drawing.Size(426, 26);
             this.textBox1.TabIndex = 31;
             this.textBox1.Text = "                  Cash & Credit Balance In Hand";
             // 
@@ -252,7 +252,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCreditBalance.Location = new System.Drawing.Point(214, 304);
             this.TxtCreditBalance.Name = "TxtCreditBalance";
             this.TxtCreditBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtCreditBalance.Size = new System.Drawing.Size(165, 26);
+            this.TxtCreditBalance.Size = new System.Drawing.Size(175, 26);
             this.TxtCreditBalance.TabIndex = 30;
             // 
             // TxtCashBalance
@@ -261,7 +261,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCashBalance.Location = new System.Drawing.Point(214, 276);
             this.TxtCashBalance.Name = "TxtCashBalance";
             this.TxtCashBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtCashBalance.Size = new System.Drawing.Size(165, 26);
+            this.TxtCashBalance.Size = new System.Drawing.Size(175, 26);
             this.TxtCashBalance.TabIndex = 29;
             // 
             // TxtChequePayment
@@ -270,7 +270,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtChequePayment.Location = new System.Drawing.Point(214, 248);
             this.TxtChequePayment.Name = "TxtChequePayment";
             this.TxtChequePayment.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtChequePayment.Size = new System.Drawing.Size(165, 26);
+            this.TxtChequePayment.Size = new System.Drawing.Size(175, 26);
             this.TxtChequePayment.TabIndex = 28;
             // 
             // TxtCashPayment
@@ -279,7 +279,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCashPayment.Location = new System.Drawing.Point(214, 220);
             this.TxtCashPayment.Name = "TxtCashPayment";
             this.TxtCashPayment.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtCashPayment.Size = new System.Drawing.Size(165, 26);
+            this.TxtCashPayment.Size = new System.Drawing.Size(175, 26);
             this.TxtCashPayment.TabIndex = 27;
             // 
             // TxtChequeReceipt
@@ -288,7 +288,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtChequeReceipt.Location = new System.Drawing.Point(214, 192);
             this.TxtChequeReceipt.Name = "TxtChequeReceipt";
             this.TxtChequeReceipt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtChequeReceipt.Size = new System.Drawing.Size(165, 26);
+            this.TxtChequeReceipt.Size = new System.Drawing.Size(175, 26);
             this.TxtChequeReceipt.TabIndex = 26;
             // 
             // TxtCashReceipt
@@ -297,7 +297,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCashReceipt.Location = new System.Drawing.Point(214, 164);
             this.TxtCashReceipt.Name = "TxtCashReceipt";
             this.TxtCashReceipt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtCashReceipt.Size = new System.Drawing.Size(165, 26);
+            this.TxtCashReceipt.Size = new System.Drawing.Size(175, 26);
             this.TxtCashReceipt.TabIndex = 25;
             // 
             // TxtCreditSales
@@ -306,7 +306,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCreditSales.Location = new System.Drawing.Point(214, 136);
             this.TxtCreditSales.Name = "TxtCreditSales";
             this.TxtCreditSales.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtCreditSales.Size = new System.Drawing.Size(165, 26);
+            this.TxtCreditSales.Size = new System.Drawing.Size(175, 26);
             this.TxtCreditSales.TabIndex = 24;
             // 
             // TxtCashSales
@@ -315,7 +315,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtCashSales.Location = new System.Drawing.Point(214, 108);
             this.TxtCashSales.Name = "TxtCashSales";
             this.TxtCashSales.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtCashSales.Size = new System.Drawing.Size(165, 26);
+            this.TxtCashSales.Size = new System.Drawing.Size(175, 26);
             this.TxtCashSales.TabIndex = 23;
             // 
             // TxtOpeningCreditBalance
@@ -324,7 +324,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtOpeningCreditBalance.Location = new System.Drawing.Point(214, 80);
             this.TxtOpeningCreditBalance.Name = "TxtOpeningCreditBalance";
             this.TxtOpeningCreditBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtOpeningCreditBalance.Size = new System.Drawing.Size(165, 26);
+            this.TxtOpeningCreditBalance.Size = new System.Drawing.Size(175, 26);
             this.TxtOpeningCreditBalance.TabIndex = 22;
             // 
             // TxtOpeningCashBalance
@@ -333,7 +333,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtOpeningCashBalance.Location = new System.Drawing.Point(214, 52);
             this.TxtOpeningCashBalance.Name = "TxtOpeningCashBalance";
             this.TxtOpeningCashBalance.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtOpeningCashBalance.Size = new System.Drawing.Size(165, 26);
+            this.TxtOpeningCashBalance.Size = new System.Drawing.Size(175, 26);
             this.TxtOpeningCashBalance.TabIndex = 21;
             // 
             // label11
@@ -360,7 +360,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridSummaryList
             // 
-            this.DataGridSummaryList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridSummaryList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridSummaryList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -379,7 +379,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridSummaryList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridSummaryList.Location = new System.Drawing.Point(16, 178);
+            this.DataGridSummaryList.Location = new System.Drawing.Point(16, 174);
             this.DataGridSummaryList.Name = "DataGridSummaryList";
             this.DataGridSummaryList.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -400,7 +400,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(-1, -1);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(1103, 44);
+            this.textBox2.Size = new System.Drawing.Size(1115, 44);
             this.textBox2.TabIndex = 21;
             // 
             // label12
@@ -420,9 +420,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox3.BackColor = System.Drawing.Color.DodgerBlue;
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox3.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox3.Location = new System.Drawing.Point(-1, 129);
+            this.textBox3.Location = new System.Drawing.Point(-1, 123);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(1088, 26);
+            this.textBox3.Size = new System.Drawing.Size(1115, 26);
             this.textBox3.TabIndex = 23;
             this.textBox3.Text = "                                                                                 " +
     "                                Summary Report : 2078/079";
@@ -432,7 +432,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 602);
+            this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBox2);
