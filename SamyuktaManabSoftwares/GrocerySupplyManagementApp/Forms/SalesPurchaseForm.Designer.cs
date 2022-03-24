@@ -66,7 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(0, -1);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1103, 44);
+            this.textBox1.Size = new System.Drawing.Size(1115, 44);
             this.textBox1.TabIndex = 1;
             // 
             // label7
@@ -208,7 +208,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridPurchaseSalesTransaction
             // 
-            this.DataGridPurchaseSalesTransaction.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridPurchaseSalesTransaction.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.DataGridPurchaseSalesTransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridPurchaseSalesTransaction.Location = new System.Drawing.Point(18, 130);
             this.DataGridPurchaseSalesTransaction.Name = "DataGridPurchaseSalesTransaction";
@@ -234,7 +234,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1088, 597);
+            this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.DataGridPurchaseSalesTransaction);
             this.Controls.Add(this.groupBox3);

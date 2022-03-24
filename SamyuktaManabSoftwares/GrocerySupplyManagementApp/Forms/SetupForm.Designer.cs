@@ -285,7 +285,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox5.Location = new System.Drawing.Point(-1, -1);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(1103, 44);
+            this.textBox5.Size = new System.Drawing.Size(1115, 44);
             this.textBox5.TabIndex = 11;
             // 
             // label8
@@ -304,7 +304,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1088, 600);
+            this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.groupBox2);

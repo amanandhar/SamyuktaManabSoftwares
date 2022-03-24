@@ -124,7 +124,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["Description"].DisplayIndex = 1;
 
             DataGridStockList.Columns["Type"].HeaderText = "Type";
-            DataGridStockList.Columns["Type"].Width = 50;
+            DataGridStockList.Columns["Type"].Width = 55;
             DataGridStockList.Columns["Type"].DisplayIndex = 2;
 
             DataGridStockList.Columns["ItemCode"].HeaderText = "Item Code";
@@ -132,7 +132,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockList.Columns["ItemCode"].DisplayIndex = 3;
 
             DataGridStockList.Columns["ItemName"].HeaderText = "Item Name";
-            DataGridStockList.Columns["ItemName"].Width = 150;
+            DataGridStockList.Columns["ItemName"].Width = 180;
             DataGridStockList.Columns["ItemName"].DisplayIndex = 4;
 
             DataGridStockList.Columns["PurchaseQuantity"].HeaderText = "Purchase";
