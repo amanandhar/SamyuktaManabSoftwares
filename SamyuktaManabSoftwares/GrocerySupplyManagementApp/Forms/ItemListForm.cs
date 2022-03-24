@@ -77,7 +77,11 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Unit"].Visible = false;
             DataGridItemList.Columns["Threshold"].Visible = false;
             DataGridItemList.Columns["DiscountPercent"].Visible = false;
+            DataGridItemList.Columns["DiscountPercent1"].Visible = false;
+            DataGridItemList.Columns["DiscountPercent2"].Visible = false;
             DataGridItemList.Columns["DiscountThreshold"].Visible = false;
+            DataGridItemList.Columns["DiscountThreshold1"].Visible = false;
+            DataGridItemList.Columns["DiscountThreshold2"].Visible = false;
             DataGridItemList.Columns["AddedBy"].Visible = false;
             DataGridItemList.Columns["AddedDate"].Visible = false;
             DataGridItemList.Columns["UpdatedBy"].Visible = false;

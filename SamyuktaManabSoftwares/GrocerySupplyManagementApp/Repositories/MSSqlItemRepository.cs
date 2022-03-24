@@ -21,7 +21,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var items = new List<Item>();
             var query = @"SELECT " +
-                "[Id], [EndOfDay], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedDate], [UpdatedDate] " +
+                "[Id], [EndOfDay], [Code], [Name], [Unit], [Threshold], " +
+                "[DiscountPercent], [DiscountPercent1], [DiscountPercent2], " +
+                "[DiscountThreshold], [DiscountThreshold1], [DiscountThreshold2], " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "ORDER BY [Code] ";
 
@@ -45,9 +48,13 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Unit = reader["Unit"].ToString(),
                                     Threshold = Convert.ToDecimal(reader["Threshold"].ToString()),
                                     DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString()),
+                                    DiscountPercent1 = Convert.ToDecimal(reader["DiscountPercent1"].ToString()),
+                                    DiscountPercent2 = Convert.ToDecimal(reader["DiscountPercent2"].ToString()),
                                     DiscountThreshold = Convert.ToDecimal(reader["DiscountThreshold"].ToString()),
+                                    DiscountThreshold1 = Convert.ToDecimal(reader["DiscountThreshold1"].ToString()),
+                                    DiscountThreshold2 = Convert.ToDecimal(reader["DiscountThreshold2"].ToString()),
                                     AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString()),
-                                    UpdatedDate = reader.IsDBNull(9) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
+                                    UpdatedDate = reader.IsDBNull(13) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString())
                                 };
 
                                 items.Add(item);
@@ -69,7 +76,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "[Id], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedDate], [UpdatedDate] " +
+                "[Id], [Code], [Name], [Unit], [Threshold], " +
+                "[DiscountPercent], [DiscountPercent1], [DiscountPercent2], " +
+                "[DiscountThreshold], [DiscountThreshold1], [DiscountThreshold2], " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Code] = @Code ";
@@ -93,9 +103,13 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Unit = reader["Unit"].ToString();
                                 item.Threshold = Convert.ToDecimal(reader["Threshold"].ToString());
                                 item.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
+                                item.DiscountPercent1 = Convert.ToDecimal(reader["DiscountPercent1"].ToString());
+                                item.DiscountPercent2 = Convert.ToDecimal(reader["DiscountPercent2"].ToString());
                                 item.DiscountThreshold = Convert.ToDecimal(reader["DiscountThreshold"].ToString());
+                                item.DiscountThreshold1 = Convert.ToDecimal(reader["DiscountThreshold1"].ToString());
+                                item.DiscountThreshold2 = Convert.ToDecimal(reader["DiscountThreshold2"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                item.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                item.UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -114,7 +128,10 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var item = new Item();
             var query = @"SELECT " +
-                "[Id], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedDate], [UpdatedDate] " +
+                "[Id], [Code], [Name], [Unit], [Threshold], " +
+                "[DiscountPercent], [DiscountPercent1], [DiscountPercent2], " +
+                "[DiscountThreshold], [DiscountThreshold1], [DiscountThreshold2], " +
+                "[AddedDate], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_ITEM + " " +
                 "WHERE 1 = 1 " +
                 "AND [Id] = @Id " +
@@ -139,7 +156,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.Unit = reader["Unit"].ToString();
                                 item.Threshold = Convert.ToDecimal(reader["Threshold"].ToString());
                                 item.DiscountPercent = Convert.ToDecimal(reader["DiscountPercent"].ToString());
+                                item.DiscountPercent1 = Convert.ToDecimal(reader["DiscountPercent1"].ToString());
+                                item.DiscountPercent2 = Convert.ToDecimal(reader["DiscountPercent2"].ToString());
                                 item.DiscountThreshold = Convert.ToDecimal(reader["DiscountThreshold"].ToString());
+                                item.DiscountThreshold1 = Convert.ToDecimal(reader["DiscountThreshold1"].ToString());
+                                item.DiscountThreshold2 = Convert.ToDecimal(reader["DiscountThreshold2"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 item.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
@@ -195,11 +216,17 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_ITEM + " " +
                     "( " +
-                        "[EndOfDay], [Code], [Name], [Unit], [Threshold], [DiscountPercent], [DiscountThreshold], [AddedBy], [AddedDate] " +
+                        "[EndOfDay], [Code], [Name], [Unit], [Threshold], " +
+                        "[DiscountPercent], [DiscountPercent1], [DiscountPercent2], " +
+                        "[DiscountThreshold], [DiscountThreshold1], [DiscountThreshold2], " +
+                        "[AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@EndOfDay, @Code, @Name, @Unit, @Threshold, @DiscountPercent, @DiscountThreshold, @AddedBy, @AddedDate " +
+                        "@EndOfDay, @Code, @Name, @Unit, @Threshold, " +
+                        "@DiscountPercent, @DiscountPercent1, @DiscountPercent2, " +
+                        "@DiscountThreshold, @DiscountThreshold1, @DiscountThreshold2, " +
+                        "@AddedBy, @AddedDate " +
                     ") ";
             try
             {
@@ -214,7 +241,11 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Unit", ((object)item.Unit) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountPercent1", ((object)item.DiscountPercent1) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountPercent2", ((object)item.DiscountPercent2) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountThreshold1", ((object)item.DiscountThreshold1) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountThreshold2", ((object)item.DiscountThreshold2) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@AddedBy", ((object)item.AddedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@AddedDate", ((object)item.AddedDate) ?? DBNull.Value);
 
@@ -240,7 +271,11 @@ namespace GrocerySupplyManagementApp.Repositories
                 "[Unit] = @Unit, " +
                 "[Threshold] = @Threshold, " +
                 "[DiscountPercent] = @DiscountPercent, " +
+                "[DiscountPercent1] = @DiscountPercent1, " +
+                "[DiscountPercent2] = @DiscountPercent2, " +
                 "[DiscountThreshold] = @DiscountThreshold, " +
+                "[DiscountThreshold1] = @DiscountThreshold1, " +
+                "[DiscountThreshold2] = @DiscountThreshold2, " +
                 "[UpdatedBy] = @UpdatedBy, " +
                 "[UpdatedDate] = @UpdatedDate " +
                 "WHERE 1 = 1 " +
@@ -259,7 +294,11 @@ namespace GrocerySupplyManagementApp.Repositories
                         command.Parameters.AddWithValue("@Unit", item.Unit);
                         command.Parameters.AddWithValue("@Threshold", ((object)item.Threshold) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@DiscountPercent", ((object)item.DiscountPercent) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountPercent1", ((object)item.DiscountPercent1) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountPercent2", ((object)item.DiscountPercent2) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@DiscountThreshold", ((object)item.DiscountThreshold) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountThreshold1", ((object)item.DiscountThreshold1) ?? Constants.DEFAULT_DECIMAL_VALUE);
+                        command.Parameters.AddWithValue("@DiscountThreshold2", ((object)item.DiscountThreshold2) ?? Constants.DEFAULT_DECIMAL_VALUE);
                         command.Parameters.AddWithValue("@UpdatedBy", ((object)item.UpdatedBy) ?? DBNull.Value);
                         command.Parameters.AddWithValue("@UpdatedDate", ((object)item.UpdatedDate) ?? DBNull.Value);
 

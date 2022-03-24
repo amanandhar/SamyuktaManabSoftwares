@@ -49,7 +49,12 @@ namespace GrocerySupplyManagementApp.Forms
         private string _itemImageFolder;
 
         private decimal _itemDiscountPercent;
+        private decimal _itemDiscountPercent1;
+        private decimal _itemDiscountPercent2;
+
         private decimal _itemDiscountThreshold;
+        private decimal _itemDiscountThreshold1;
+        private decimal _itemDiscountThreshold2;
 
         #region Enum
         private enum Action
@@ -1187,7 +1192,12 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtBarcode.Text = pricedItem.Barcode;
 
                 _itemDiscountPercent = item.DiscountPercent;
+                _itemDiscountPercent1 = item.DiscountPercent1;
+                _itemDiscountPercent2 = item.DiscountPercent2;
+
                 _itemDiscountThreshold = item.DiscountThreshold;
+                _itemDiscountThreshold1 = item.DiscountThreshold1;
+                _itemDiscountThreshold2 = item.DiscountThreshold2;
 
                 var absoluteImagePath = Path.Combine(_baseImageFolder, _itemImageFolder, pricedItem.ImagePath);
                 if (File.Exists(absoluteImagePath))
@@ -1215,10 +1225,31 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void CalculateItemDiscount()
         {
-            if (!string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim())
-                && Convert.ToDecimal(RichItemQuantity.Text.Trim()) >= _itemDiscountThreshold)
+            var itemQuantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim())
+                ? Constants.DEFAULT_DECIMAL_VALUE
+                : Convert.ToDecimal(RichItemQuantity.Text.Trim());
+            var itemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text.Trim())
+                ? Constants.DEFAULT_DECIMAL_VALUE
+                : Convert.ToDecimal(TxtItemPrice.Text.Trim());
+
+            var itemDiscountPercent = Constants.DEFAULT_DECIMAL_VALUE;
+
+            if (_itemDiscountThreshold2 != Constants.DEFAULT_DECIMAL_VALUE && itemQuantity >= _itemDiscountThreshold2)
             {
-                TxtItemDiscount.Text = Math.Round((Convert.ToDecimal(TxtItemPrice.Text.Trim()) * _itemDiscountPercent) / 100, 2).ToString();
+                itemDiscountPercent = _itemDiscountPercent2;
+            }
+            else if (_itemDiscountThreshold1 != Constants.DEFAULT_DECIMAL_VALUE && itemQuantity >= _itemDiscountThreshold1)
+            {
+                itemDiscountPercent = _itemDiscountPercent1;
+            } 
+            else if (_itemDiscountThreshold != Constants.DEFAULT_DECIMAL_VALUE && itemQuantity >= _itemDiscountThreshold)
+            {
+                itemDiscountPercent = _itemDiscountPercent;
+            }
+
+            if (itemDiscountPercent != Constants.DEFAULT_DECIMAL_VALUE)
+            {
+                TxtItemDiscount.Text = Math.Round((itemPrice * itemDiscountPercent) / 100, 2).ToString();
             }
             else
             {

@@ -95,7 +95,19 @@ namespace GrocerySupplyManagementApp.Forms
                         Unit = ComboUnit.Text.Trim(),
                         Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                         DiscountPercent = Convert.ToDecimal(RichDiscountPercent.Text.Trim()),
+                        DiscountPercent1 = string.IsNullOrWhiteSpace(RichDiscountPercent1.Text.Trim()) 
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountPercent1.Text.Trim()),
+                        DiscountPercent2 = string.IsNullOrWhiteSpace(RichDiscountPercent2.Text.Trim())
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountPercent2.Text.Trim()),
                         DiscountThreshold = Convert.ToDecimal(RichDiscountThreshold.Text.Trim()),
+                        DiscountThreshold1 = string.IsNullOrWhiteSpace(RichDiscountThreshold1.Text.Trim())
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountThreshold1.Text.Trim()),
+                        DiscountThreshold2 = string.IsNullOrWhiteSpace(RichDiscountThreshold2.Text.Trim()) 
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountThreshold2.Text.Trim()),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     };
@@ -155,7 +167,19 @@ namespace GrocerySupplyManagementApp.Forms
                             Unit = ComboUnit.Text.Trim(),
                             Threshold = Convert.ToDecimal(RichThreshold.Text.Trim()),
                             DiscountPercent = Convert.ToDecimal(RichDiscountPercent.Text.Trim()),
+                            DiscountPercent1 = string.IsNullOrWhiteSpace(RichDiscountPercent1.Text.Trim())
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountPercent1.Text.Trim()),
+                            DiscountPercent2 = string.IsNullOrWhiteSpace(RichDiscountPercent2.Text.Trim())
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountPercent2.Text.Trim()),
                             DiscountThreshold = Convert.ToDecimal(RichDiscountThreshold.Text.Trim()),
+                            DiscountThreshold1 = string.IsNullOrWhiteSpace(RichDiscountThreshold1.Text.Trim())
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountThreshold1.Text.Trim()),
+                            DiscountThreshold2 = string.IsNullOrWhiteSpace(RichDiscountThreshold2.Text.Trim())
+                                                ? Constants.DEFAULT_DECIMAL_VALUE
+                                                : Convert.ToDecimal(RichDiscountThreshold2.Text.Trim()),
                             UpdatedBy = _username,
                             UpdatedDate = DateTime.Now
                         };
@@ -275,7 +299,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridItemList.Columns["Name"].HeaderText = "Name";
-            DataGridItemList.Columns["Name"].Width = 410;
+            DataGridItemList.Columns["Name"].Width = 250;
             DataGridItemList.Columns["Name"].DisplayIndex = 1;
 
             DataGridItemList.Columns["Unit"].HeaderText = "Unit";
@@ -284,18 +308,38 @@ namespace GrocerySupplyManagementApp.Forms
 
             DataGridItemList.Columns["Threshold"].HeaderText = "Threshold";
             DataGridItemList.Columns["Threshold"].Width = 80;
-            DataGridItemList.Columns["Threshold"].DisplayIndex = 4;
+            DataGridItemList.Columns["Threshold"].DisplayIndex = 3;
             DataGridItemList.Columns["Threshold"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridItemList.Columns["DiscountPercent"].HeaderText = "Dis. %";
-            DataGridItemList.Columns["DiscountPercent"].Width = 70;
-            DataGridItemList.Columns["DiscountPercent"].DisplayIndex = 5;
+            DataGridItemList.Columns["DiscountPercent"].Width = 50;
+            DataGridItemList.Columns["DiscountPercent"].DisplayIndex = 4;
             DataGridItemList.Columns["DiscountPercent"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
+            DataGridItemList.Columns["DiscountPercent1"].HeaderText = "Dis. % 1";
+            DataGridItemList.Columns["DiscountPercent1"].Width = 50;
+            DataGridItemList.Columns["DiscountPercent1"].DisplayIndex = 5;
+            DataGridItemList.Columns["DiscountPercent1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridItemList.Columns["DiscountPercent2"].HeaderText = "Dis. % 2";
+            DataGridItemList.Columns["DiscountPercent2"].Width = 50;
+            DataGridItemList.Columns["DiscountPercent2"].DisplayIndex = 6;
+            DataGridItemList.Columns["DiscountPercent2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
             DataGridItemList.Columns["DiscountThreshold"].HeaderText = "Dis. Threshold";
-            DataGridItemList.Columns["DiscountThreshold"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridItemList.Columns["DiscountThreshold"].DisplayIndex = 6;
+            DataGridItemList.Columns["DiscountThreshold"].Width = 70;
+            DataGridItemList.Columns["DiscountThreshold"].DisplayIndex = 7;
             DataGridItemList.Columns["DiscountThreshold"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridItemList.Columns["DiscountThreshold1"].HeaderText = "Dis. Threshold1";
+            DataGridItemList.Columns["DiscountThreshold1"].Width = 70;
+            DataGridItemList.Columns["DiscountThreshold1"].DisplayIndex = 8;
+            DataGridItemList.Columns["DiscountThreshold1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridItemList.Columns["DiscountThreshold2"].HeaderText = "Dis. Threshold2";
+            DataGridItemList.Columns["DiscountThreshold2"].Width = 70;
+            DataGridItemList.Columns["DiscountThreshold2"].DisplayIndex = 9;
+            DataGridItemList.Columns["DiscountThreshold2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridItemList.Rows)
             {
@@ -329,7 +373,11 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
                 RichDiscountPercent.Enabled = true;
+                RichDiscountPercent1.Enabled = true;
+                RichDiscountPercent2.Enabled = true;
                 RichDiscountThreshold.Enabled = true;
+                RichDiscountThreshold1.Enabled = true;
+                RichDiscountThreshold2.Enabled = true;
 
                 BtnAdd.Enabled = true;
                 BtnSave.Enabled = true;
@@ -341,7 +389,11 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboUnit.Enabled = true;
                 RichThreshold.Enabled = true;
                 RichDiscountPercent.Enabled = true;
+                RichDiscountPercent1.Enabled = true;
+                RichDiscountPercent2.Enabled = true;
                 RichDiscountThreshold.Enabled = true;
+                RichDiscountThreshold1.Enabled = true;
+                RichDiscountThreshold2.Enabled = true;
 
                 BtnUpdate.Enabled = true;
                 BtnSave.Enabled = true;
@@ -354,7 +406,11 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboUnit.Enabled = false;
                 RichThreshold.Enabled = false;
                 RichDiscountPercent.Enabled = false;
+                RichDiscountPercent1.Enabled = false;
+                RichDiscountPercent2.Enabled = false;
                 RichDiscountThreshold.Enabled = false;
+                RichDiscountThreshold1.Enabled = false;
+                RichDiscountThreshold2.Enabled = false;
 
                 BtnAdd.Enabled = true;
                 BtnSave.Enabled = false;
@@ -371,7 +427,11 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUnit.Text = string.Empty;
             RichThreshold.Clear();
             RichDiscountPercent.Clear();
+            RichDiscountPercent1.Clear();
+            RichDiscountPercent2.Clear();
             RichDiscountThreshold.Clear();
+            RichDiscountThreshold1.Clear();
+            RichDiscountThreshold2.Clear();
         }
 
         public void PopulateItem(long itemId)
@@ -385,7 +445,11 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboUnit.Text = item.Unit;
                 RichThreshold.Text = item.Threshold.ToString();
                 RichDiscountPercent.Text = item.DiscountPercent.ToString();
+                RichDiscountPercent1.Text = item.DiscountPercent1.ToString();
+                RichDiscountPercent2.Text = item.DiscountPercent2.ToString();
                 RichDiscountThreshold.Text = item.DiscountThreshold.ToString();
+                RichDiscountThreshold1.Text = item.DiscountThreshold1.ToString();
+                RichDiscountThreshold2.Text = item.DiscountThreshold2.ToString();
 
                 EnableFields(Action.Show);
             }
