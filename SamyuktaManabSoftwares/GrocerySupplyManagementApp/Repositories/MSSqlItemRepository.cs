@@ -162,7 +162,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 item.DiscountThreshold1 = Convert.ToDecimal(reader["DiscountThreshold1"].ToString());
                                 item.DiscountThreshold2 = Convert.ToDecimal(reader["DiscountThreshold2"].ToString());
                                 item.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                item.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                item.UpdatedDate = reader.IsDBNull(12) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
