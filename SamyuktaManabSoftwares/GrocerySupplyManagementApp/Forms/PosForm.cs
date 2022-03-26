@@ -784,7 +784,7 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["Unit"].DisplayIndex = 2;
                 DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                DataGridSoldItemList.Columns["Quantity"].HeaderText = "Quantity";
+                DataGridSoldItemList.Columns["Quantity"].HeaderText = "Qty";
                 DataGridSoldItemList.Columns["Quantity"].Width = 65;
                 DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -1464,5 +1464,6 @@ namespace GrocerySupplyManagementApp.Forms
         }
 
         #endregion
+
     }
 }

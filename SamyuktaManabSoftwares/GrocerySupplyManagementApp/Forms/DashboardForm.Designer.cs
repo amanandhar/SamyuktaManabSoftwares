@@ -126,7 +126,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnEOD.Dock = System.Windows.Forms.DockStyle.Top;
             this.BtnEOD.FlatAppearance.BorderSize = 0;
             this.BtnEOD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.BtnEOD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.BtnEOD.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.BtnEOD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnEOD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEOD.ForeColor = System.Drawing.Color.White;
