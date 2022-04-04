@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace GrocerySupplyManagementApp.Forms
@@ -22,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IUserTransactionService _userTransactionService;
         private readonly IUserService _userService;
 
+        List<DailyTransactionView> _dailyTransactions;
         private readonly string _username;
         private readonly Setting _setting;
         private readonly string _endOfDay;
@@ -142,6 +144,13 @@ namespace GrocerySupplyManagementApp.Forms
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
             }
+        }
+
+        private void BtnExportToExcel_Click(object sender, EventArgs e)
+        {
+            PicBoxLoading.Visible = true;
+            PicBoxLoading.Dock = DockStyle.Fill;
+            BackgroundWorker.RunWorkerAsync();
         }
         #endregion
 
@@ -323,6 +332,18 @@ namespace GrocerySupplyManagementApp.Forms
 
         #endregion
 
+        #region BackgroundWorker Event
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ExportToExcel();
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            PicBoxLoading.Visible = false;
+        }
+        #endregion
+
         #region Helper Methods
         private void LoadDailyTransactions()
         {
@@ -366,11 +387,11 @@ namespace GrocerySupplyManagementApp.Forms
 
             dailyTransactionFilter.Username = ComboUsername.Text.Trim();
 
-            List<DailyTransactionView> dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter)
+            _dailyTransactions = _userTransactionService.GetDailyTransactions(dailyTransactionFilter)
                 .OrderBy(x => x.AddedDate).ToList();
-            TxtTotal.Text = dailyTransactions.Sum(x => x.Amount).ToString();
+            TxtTotal.Text = _dailyTransactions.Sum(x => x.Amount).ToString();
 
-            var bindingList = new BindingList<DailyTransactionView>(dailyTransactions);
+            var bindingList = new BindingList<DailyTransactionView>(_dailyTransactions);
             var source = new BindingSource(bindingList, null);
             DataGridTransactionList.DataSource = source;
         }
@@ -464,6 +485,37 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUsername.SelectedText = _username;
         }
 
+        private void ExportToExcel()
+        {
+            Thread thread = new Thread((ThreadStart)(() =>
+            {
+                if(_dailyTransactions?.Count > 0)
+                {
+                    var dialogResult = SaveFileDialog.ShowDialog();
+                    var filename = SaveFileDialog.FileName;
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        var excelDailyTransactionFieldList = _dailyTransactions.Select(x => new MSExcelDailyTransactionField
+                        {
+                            Date = x.EndOfDay,
+                            Description = x.Action,
+                            MemberSupplierId = x.PartyId,
+                            InvoiceBillNumber = x.PartyNumber,
+                            Type = x.ActionType,
+                            Bank = x.BankName,
+                            Amount = x.Amount
+                        }).ToList();
+
+                        MSExcel.Export(excelDailyTransactionFieldList, "Daily Transaction", filename);
+                    }
+                }
+            }));
+
+            // Run your code from a thread that joins the STA Thread
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+        }
         #endregion
     }
 }

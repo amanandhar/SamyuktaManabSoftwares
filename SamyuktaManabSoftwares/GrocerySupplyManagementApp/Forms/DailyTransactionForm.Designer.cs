@@ -32,6 +32,7 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DailyTransactionForm));
             this.GroupFilter = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.ComboPurchase = new System.Windows.Forms.ComboBox();
@@ -51,18 +52,24 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboUsername = new System.Windows.Forms.ComboBox();
             this.TxtTotal = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtnRemove = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.DataGridTransactionList = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.PicBoxLoading = new System.Windows.Forms.PictureBox();
+            this.BtnExportToExcel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnRemove = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.GroupFilter.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridTransactionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // GroupFilter
             // 
+            this.GroupFilter.Controls.Add(this.BtnExportToExcel);
             this.GroupFilter.Controls.Add(this.label4);
             this.GroupFilter.Controls.Add(this.ComboPurchase);
             this.GroupFilter.Controls.Add(this.RadioPartyNo);
@@ -93,7 +100,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(662, 16);
+            this.label4.Location = new System.Drawing.Point(662, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 20);
             this.label4.TabIndex = 18;
@@ -277,7 +284,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.TxtTotal.Enabled = false;
             this.TxtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTotal.Location = new System.Drawing.Point(784, 42);
+            this.TxtTotal.Location = new System.Drawing.Point(784, 39);
             this.TxtTotal.Name = "TxtTotal";
             this.TxtTotal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtTotal.Size = new System.Drawing.Size(125, 26);
@@ -292,46 +299,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Size = new System.Drawing.Size(145, 100);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            // 
-            // BtnRemove
-            // 
-            this.BtnRemove.BackColor = System.Drawing.Color.Red;
-            this.BtnRemove.BackgroundColor = System.Drawing.Color.Red;
-            this.BtnRemove.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnRemove.BorderRadius = 35;
-            this.BtnRemove.BorderSize = 0;
-            this.BtnRemove.FlatAppearance.BorderSize = 0;
-            this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRemove.ForeColor = System.Drawing.Color.White;
-            this.BtnRemove.Location = new System.Drawing.Point(6, 52);
-            this.BtnRemove.Name = "BtnRemove";
-            this.BtnRemove.Size = new System.Drawing.Size(125, 35);
-            this.BtnRemove.TabIndex = 19;
-            this.BtnRemove.Text = "Remove";
-            this.BtnRemove.TextColor = System.Drawing.Color.White;
-            this.BtnRemove.UseVisualStyleBackColor = false;
-            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
-            // 
-            // BtnShow
-            // 
-            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnShow.BorderRadius = 35;
-            this.BtnShow.BorderSize = 0;
-            this.BtnShow.FlatAppearance.BorderSize = 0;
-            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnShow.ForeColor = System.Drawing.Color.White;
-            this.BtnShow.Location = new System.Drawing.Point(6, 15);
-            this.BtnShow.Name = "BtnShow";
-            this.BtnShow.Size = new System.Drawing.Size(125, 35);
-            this.BtnShow.TabIndex = 18;
-            this.BtnShow.Text = "Show";
-            this.BtnShow.TextColor = System.Drawing.Color.White;
-            this.BtnShow.UseVisualStyleBackColor = false;
-            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
             // 
             // DataGridTransactionList
             // 
@@ -390,12 +357,94 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.TabIndex = 7;
             this.label1.Text = "Daily Transaction Management";
             // 
+            // BackgroundWorker
+            // 
+            this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
+            this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
+            // 
+            // SaveFileDialog
+            // 
+            this.SaveFileDialog.DefaultExt = "xlsx";
+            this.SaveFileDialog.Filter = "xlsx files (*.xlsx)|*.xlsx";
+            // 
+            // PicBoxLoading
+            // 
+            this.PicBoxLoading.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxLoading.Image")));
+            this.PicBoxLoading.Location = new System.Drawing.Point(1017, 587);
+            this.PicBoxLoading.Name = "PicBoxLoading";
+            this.PicBoxLoading.Size = new System.Drawing.Size(37, 10);
+            this.PicBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PicBoxLoading.TabIndex = 54;
+            this.PicBoxLoading.TabStop = false;
+            this.PicBoxLoading.Visible = false;
+            // 
+            // BtnExportToExcel
+            // 
+            this.BtnExportToExcel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnExportToExcel.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnExportToExcel.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnExportToExcel.BorderRadius = 26;
+            this.BtnExportToExcel.BorderSize = 0;
+            this.BtnExportToExcel.FlatAppearance.BorderSize = 0;
+            this.BtnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnExportToExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnExportToExcel.ForeColor = System.Drawing.Color.White;
+            this.BtnExportToExcel.Location = new System.Drawing.Point(666, 68);
+            this.BtnExportToExcel.Name = "BtnExportToExcel";
+            this.BtnExportToExcel.Size = new System.Drawing.Size(242, 26);
+            this.BtnExportToExcel.TabIndex = 20;
+            this.BtnExportToExcel.Text = "Export To Excel";
+            this.BtnExportToExcel.TextColor = System.Drawing.Color.White;
+            this.BtnExportToExcel.UseVisualStyleBackColor = false;
+            this.BtnExportToExcel.Click += new System.EventHandler(this.BtnExportToExcel_Click);
+            // 
+            // BtnRemove
+            // 
+            this.BtnRemove.BackColor = System.Drawing.Color.Red;
+            this.BtnRemove.BackgroundColor = System.Drawing.Color.Red;
+            this.BtnRemove.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnRemove.BorderRadius = 35;
+            this.BtnRemove.BorderSize = 0;
+            this.BtnRemove.FlatAppearance.BorderSize = 0;
+            this.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRemove.ForeColor = System.Drawing.Color.White;
+            this.BtnRemove.Location = new System.Drawing.Point(6, 52);
+            this.BtnRemove.Name = "BtnRemove";
+            this.BtnRemove.Size = new System.Drawing.Size(125, 35);
+            this.BtnRemove.TabIndex = 19;
+            this.BtnRemove.Text = "Remove";
+            this.BtnRemove.TextColor = System.Drawing.Color.White;
+            this.BtnRemove.UseVisualStyleBackColor = false;
+            this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
+            // 
+            // BtnShow
+            // 
+            this.BtnShow.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnShow.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnShow.BorderRadius = 35;
+            this.BtnShow.BorderSize = 0;
+            this.BtnShow.FlatAppearance.BorderSize = 0;
+            this.BtnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShow.ForeColor = System.Drawing.Color.White;
+            this.BtnShow.Location = new System.Drawing.Point(6, 15);
+            this.BtnShow.Name = "BtnShow";
+            this.BtnShow.Size = new System.Drawing.Size(125, 35);
+            this.BtnShow.TabIndex = 18;
+            this.BtnShow.Text = "Show";
+            this.BtnShow.TextColor = System.Drawing.Color.White;
+            this.BtnShow.UseVisualStyleBackColor = false;
+            this.BtnShow.Click += new System.EventHandler(this.BtnShow_Click);
+            // 
             // DailyTransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1099, 597);
+            this.Controls.Add(this.PicBoxLoading);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.GroupFilter);
@@ -409,6 +458,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.GroupFilter.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridTransactionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,5 +489,9 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
+        private CustomControls.Button.CustomButton BtnExportToExcel;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker;
+        private System.Windows.Forms.SaveFileDialog SaveFileDialog;
+        private System.Windows.Forms.PictureBox PicBoxLoading;
     }
 }

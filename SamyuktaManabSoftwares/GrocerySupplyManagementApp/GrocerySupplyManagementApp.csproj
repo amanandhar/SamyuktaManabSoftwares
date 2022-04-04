@@ -173,6 +173,7 @@
     <Compile Include="DTOs\CapitalTransactionFilter.cs" />
     <Compile Include="DTOs\ComboBoxItem.cs" />
     <Compile Include="DTOs\DeliveryPersonTransactionFilter.cs" />
+    <Compile Include="DTOs\MSExcelDailyTransactionField.cs" />
     <Compile Include="DTOs\MSExcelField.cs" />
     <Compile Include="DTOs\MSExcelPricedItemField.cs" />
     <Compile Include="DTOs\ExpenseTransactionFilter.cs" />
