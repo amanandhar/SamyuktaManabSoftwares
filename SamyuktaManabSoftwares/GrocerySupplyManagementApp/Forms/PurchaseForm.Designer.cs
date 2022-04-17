@@ -37,6 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichBillNo = new System.Windows.Forms.RichTextBox();
             this.RichItemName = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ComboQuantityType = new System.Windows.Forms.ComboBox();
             this.ChkBoxVat = new System.Windows.Forms.CheckBox();
             this.RichVat = new System.Windows.Forms.RichTextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -97,7 +98,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(446, 63);
+            this.label6.Location = new System.Drawing.Point(380, 62);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 18);
             this.label6.TabIndex = 11;
@@ -127,6 +128,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ComboQuantityType);
             this.groupBox1.Controls.Add(this.ChkBoxVat);
             this.groupBox1.Controls.Add(this.RichVat);
             this.groupBox1.Controls.Add(this.label12);
@@ -157,6 +159,16 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Purchase Details";
+            // 
+            // ComboQuantityType
+            // 
+            this.ComboQuantityType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboQuantityType.FormattingEnabled = true;
+            this.ComboQuantityType.Location = new System.Drawing.Point(447, 59);
+            this.ComboQuantityType.Name = "ComboQuantityType";
+            this.ComboQuantityType.Size = new System.Drawing.Size(77, 28);
+            this.ComboQuantityType.TabIndex = 65;
+            this.ComboQuantityType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboQuantityType_KeyPress);
             // 
             // ChkBoxVat
             // 
@@ -200,11 +212,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichDiscount.BackColor = System.Drawing.Color.White;
             this.RichDiscount.Enabled = false;
             this.RichDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichDiscount.Location = new System.Drawing.Point(332, 58);
+            this.RichDiscount.Location = new System.Drawing.Point(305, 58);
             this.RichDiscount.Multiline = false;
             this.RichDiscount.Name = "RichDiscount";
             this.RichDiscount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichDiscount.Size = new System.Drawing.Size(90, 28);
+            this.RichDiscount.Size = new System.Drawing.Size(70, 28);
             this.RichDiscount.TabIndex = 9;
             this.RichDiscount.Text = "";
             this.RichDiscount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichDiscount_KeyDown);
@@ -216,7 +228,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(240, 62);
+            this.label11.Location = new System.Drawing.Point(236, 62);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(67, 18);
             this.label11.TabIndex = 27;
@@ -266,11 +278,11 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichQuantity.BackColor = System.Drawing.Color.White;
             this.RichQuantity.Enabled = false;
             this.RichQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichQuantity.Location = new System.Drawing.Point(512, 59);
+            this.RichQuantity.Location = new System.Drawing.Point(536, 59);
             this.RichQuantity.Multiline = false;
             this.RichQuantity.Name = "RichQuantity";
             this.RichQuantity.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RichQuantity.Size = new System.Drawing.Size(81, 28);
+            this.RichQuantity.Size = new System.Drawing.Size(57, 28);
             this.RichQuantity.TabIndex = 10;
             this.RichQuantity.Text = "";
             this.RichQuantity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichQuantity_KeyDown);
@@ -609,5 +621,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RichTextBox RichVat;
         private System.Windows.Forms.CheckBox ChkBoxVat;
+        private System.Windows.Forms.ComboBox ComboQuantityType;
     }
 }

@@ -19,6 +19,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IItemService _itemService;
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
+        private readonly IQuantitySettingService _quantitySettingService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -26,6 +27,7 @@ namespace GrocerySupplyManagementApp.Forms
         public SupplierForm _supplierForm;
         private readonly List<PurchasedItemView> _purchasedItemViewList = new List<PurchasedItemView>();
         private readonly bool _isReadOnly = false;
+        private long _selectedItemId = 0;
 
         #region enum
         private enum Action
@@ -41,7 +43,7 @@ namespace GrocerySupplyManagementApp.Forms
         public PurchaseForm(string username,
             ISettingService settingService, IItemService itemService,
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
-            SupplierForm supplierForm
+            IQuantitySettingService quantitySettingService, SupplierForm supplierForm
             )
         {
             InitializeComponent();
@@ -50,6 +52,7 @@ namespace GrocerySupplyManagementApp.Forms
             _itemService = itemService;
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
+            _quantitySettingService = quantitySettingService;
             _supplierForm = supplierForm;
 
             _username = username;
@@ -301,7 +304,13 @@ namespace GrocerySupplyManagementApp.Forms
                 }
             }
         }
+        #endregion
 
+        #region Combo Box Event
+        private void ComboQuantityType_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
         #endregion
 
         #region Checkbox Event
@@ -383,6 +392,29 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
+                var quantity = string.IsNullOrWhiteSpace(RichQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichQuantity.Text.Trim());
+                var purchasePrice = string.IsNullOrWhiteSpace(RichPurchasePrice.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichPurchasePrice.Text.Trim());
+                var calculatedQuantity = Constants.DEFAULT_DECIMAL_VALUE;
+                
+                if(ComboQuantityType.Text.Trim() == Constants.BOX)
+                {
+                    var quantitySetting = _quantitySettingService.GetQuantitySetting(_selectedItemId);
+                    calculatedQuantity = quantitySetting.Box * quantity;
+                }
+                else if(ComboQuantityType.Text.Trim() == Constants.PACKET)
+                {
+                    var quantitySetting = _quantitySettingService.GetQuantitySetting(_selectedItemId);
+                    calculatedQuantity = quantitySetting.Packet * quantity;
+                }
+                else
+                {
+                    calculatedQuantity = quantity;
+                }
+
                 var purchasedItemView = new PurchasedItemView
                 {
                     Id = _purchasedItemViewList.Count + 1,
@@ -391,9 +423,9 @@ namespace GrocerySupplyManagementApp.Forms
                     Code = RichItemCode.Text.Trim(),
                     Name = RichItemName.Text.Trim(),
                     Unit = RichUnit.Text.Trim(),
-                    Quantity = Convert.ToDecimal(RichQuantity.Text.Trim()),
-                    Price = Convert.ToDecimal(RichPurchasePrice.Text.Trim()),
-                    Total = (Convert.ToDecimal(RichQuantity.Text.Trim()) * Convert.ToDecimal(RichPurchasePrice.Text.Trim())),
+                    Quantity = calculatedQuantity,
+                    Price = purchasePrice,
+                    Total = calculatedQuantity * purchasePrice,
                     AddedDate = DateTime.Now
                 };
 
@@ -420,6 +452,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 RichTotalAmount.Enabled = true;
                 RichDiscount.Enabled = true;
+                ComboQuantityType.Enabled = true;
                 RichQuantity.Enabled = true;
 
                 ChkBoxVat.Enabled = true;
@@ -443,6 +476,7 @@ namespace GrocerySupplyManagementApp.Forms
                 RichTotalAmount.Enabled = false;
                 RichDiscount.Enabled = false;
                 RichVat.Enabled = false;
+                ComboQuantityType.Enabled = false;
                 RichQuantity.Enabled = false;
                 RichPurchasePrice.Enabled = false;
 
@@ -465,6 +499,7 @@ namespace GrocerySupplyManagementApp.Forms
             RichTotalAmount.Clear();
             RichDiscount.Clear();
             RichVat.Clear();
+            ComboQuantityType.SelectedItem = Constants.PIECES;
             RichQuantity.Clear();
             RichPurchasePrice.Clear();
         }
@@ -501,9 +536,25 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var item = _itemService.GetItem(itemCode);
+                _selectedItemId = item.Id;
                 RichItemCode.Text = item.Code;
                 RichItemName.Text = item.Name;
                 RichUnit.Text = item.Unit;
+
+                var quantitySetting = _quantitySettingService.GetQuantitySetting(itemCode);
+                ComboQuantityType.Items.Clear();
+                ComboQuantityType.Items.Add(Constants.PIECES);
+                ComboQuantityType.SelectedItem = Constants.PIECES;
+                
+                if(quantitySetting.Box > Constants.DEFAULT_DECIMAL_VALUE)
+                {
+                    ComboQuantityType.Items.Add(Constants.BOX);
+                }
+
+                if (quantitySetting.Packet > Constants.DEFAULT_DECIMAL_VALUE)
+                {
+                    ComboQuantityType.Items.Add(Constants.PACKET);
+                }
             }
             catch (Exception ex)
             {

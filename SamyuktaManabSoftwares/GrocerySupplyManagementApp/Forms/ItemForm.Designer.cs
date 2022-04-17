@@ -29,8 +29,8 @@ namespace GrocerySupplyManagementApp.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.RichDiscountThreshold2 = new System.Windows.Forms.RichTextBox();
             this.RichDiscountThreshold1 = new System.Windows.Forms.RichTextBox();
@@ -39,6 +39,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichDiscountThreshold = new System.Windows.Forms.RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.RichDiscountPercent = new System.Windows.Forms.RichTextBox();
+            this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.ComboCategory = new System.Windows.Forms.ComboBox();
@@ -51,15 +52,15 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemCode = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.DataGridItemList = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.BtnShow = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnUpdate = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnSearch = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.DataGridItemList = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.BtnSetQuantity = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridItemList)).BeginInit();
@@ -156,6 +157,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichDiscountPercent.Size = new System.Drawing.Size(60, 28);
             this.RichDiscountPercent.TabIndex = 6;
             this.RichDiscountPercent.Text = "";
+            // 
+            // BtnSearch
+            // 
+            this.BtnSearch.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearch.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSearch.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSearch.BorderRadius = 10;
+            this.BtnSearch.BorderSize = 0;
+            this.BtnSearch.FlatAppearance.BorderSize = 0;
+            this.BtnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSearch.ForeColor = System.Drawing.Color.White;
+            this.BtnSearch.Location = new System.Drawing.Point(825, 16);
+            this.BtnSearch.Name = "BtnSearch";
+            this.BtnSearch.Size = new System.Drawing.Size(70, 28);
+            this.BtnSearch.TabIndex = 7;
+            this.BtnSearch.Text = "Search";
+            this.BtnSearch.TextColor = System.Drawing.Color.White;
+            this.BtnSearch.UseVisualStyleBackColor = false;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // label3
             // 
@@ -276,6 +297,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtnSetQuantity);
             this.groupBox2.Controls.Add(this.BtnShow);
             this.groupBox2.Controls.Add(this.BtnUpdate);
             this.groupBox2.Controls.Add(this.BtnEdit);
@@ -283,59 +305,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnAdd);
             this.groupBox2.Location = new System.Drawing.Point(939, 49);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(150, 216);
+            this.groupBox2.Size = new System.Drawing.Size(150, 255);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            // 
-            // DataGridItemList
-            // 
-            this.DataGridItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.DataGridItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridItemList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridItemList.GridColor = System.Drawing.Color.DarkGray;
-            this.DataGridItemList.Location = new System.Drawing.Point(16, 150);
-            this.DataGridItemList.Name = "DataGridItemList";
-            this.DataGridItemList.ReadOnly = true;
-            this.DataGridItemList.Size = new System.Drawing.Size(910, 440);
-            this.DataGridItemList.TabIndex = 3;
-            this.DataGridItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridItemList_DataBindingComplete);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(-1, -1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1115, 44);
-            this.textBox1.TabIndex = 4;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Cyan;
-            this.label6.Location = new System.Drawing.Point(353, 6);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(412, 31);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "New Item Coding Management";
             // 
             // BtnShow
             // 
@@ -437,25 +409,75 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnAdd.UseVisualStyleBackColor = false;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
-            // BtnSearch
+            // DataGridItemList
             // 
-            this.BtnSearch.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearch.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnSearch.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnSearch.BorderRadius = 10;
-            this.BtnSearch.BorderSize = 0;
-            this.BtnSearch.FlatAppearance.BorderSize = 0;
-            this.BtnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSearch.ForeColor = System.Drawing.Color.White;
-            this.BtnSearch.Location = new System.Drawing.Point(825, 16);
-            this.BtnSearch.Name = "BtnSearch";
-            this.BtnSearch.Size = new System.Drawing.Size(70, 28);
-            this.BtnSearch.TabIndex = 7;
-            this.BtnSearch.Text = "Search";
-            this.BtnSearch.TextColor = System.Drawing.Color.White;
-            this.BtnSearch.UseVisualStyleBackColor = false;
-            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
+            this.DataGridItemList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridItemList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridItemList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DataGridItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridItemList.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DataGridItemList.GridColor = System.Drawing.Color.DarkGray;
+            this.DataGridItemList.Location = new System.Drawing.Point(16, 150);
+            this.DataGridItemList.Name = "DataGridItemList";
+            this.DataGridItemList.ReadOnly = true;
+            this.DataGridItemList.Size = new System.Drawing.Size(910, 440);
+            this.DataGridItemList.TabIndex = 3;
+            this.DataGridItemList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridItemList_DataBindingComplete);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(-1, -1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1115, 44);
+            this.textBox1.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Cyan;
+            this.label6.Location = new System.Drawing.Point(353, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(412, 31);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "New Item Coding Management";
+            // 
+            // BtnSetQuantity
+            // 
+            this.BtnSetQuantity.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSetQuantity.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnSetQuantity.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnSetQuantity.BorderRadius = 35;
+            this.BtnSetQuantity.BorderSize = 0;
+            this.BtnSetQuantity.FlatAppearance.BorderSize = 0;
+            this.BtnSetQuantity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSetQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSetQuantity.ForeColor = System.Drawing.Color.White;
+            this.BtnSetQuantity.Location = new System.Drawing.Point(15, 208);
+            this.BtnSetQuantity.Name = "BtnSetQuantity";
+            this.BtnSetQuantity.Size = new System.Drawing.Size(120, 35);
+            this.BtnSetQuantity.TabIndex = 25;
+            this.BtnSetQuantity.Text = "Set Quantity";
+            this.BtnSetQuantity.TextColor = System.Drawing.Color.White;
+            this.BtnSetQuantity.UseVisualStyleBackColor = false;
+            this.BtnSetQuantity.Click += new System.EventHandler(this.BtnSetQuantity_Click);
             // 
             // ItemForm
             // 
@@ -511,5 +533,6 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.RichTextBox RichDiscountThreshold1;
         private System.Windows.Forms.RichTextBox RichDiscountPercent2;
         private System.Windows.Forms.RichTextBox RichDiscountPercent1;
+        private CustomControls.Button.CustomButton BtnSetQuantity;
     }
 }

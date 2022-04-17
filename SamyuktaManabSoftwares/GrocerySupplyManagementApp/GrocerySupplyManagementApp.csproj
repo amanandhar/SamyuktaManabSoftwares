@@ -200,6 +200,7 @@
     <Compile Include="Entities\PricedItem.cs" />
     <Compile Include="Entities\PurchasedItem.cs" />
     <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\QuantitySetting.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\ShareMember.cs" />
     <Compile Include="Entities\StockAdjustment.cs" />
@@ -278,6 +279,12 @@
     </Compile>
     <Compile Include="Forms\PricedItemListToPrintForm.Designer.cs">
       <DependentUpon>PricedItemListToPrintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuantitySettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuantitySettingForm.Designer.cs">
+      <DependentUpon>QuantitySettingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SalesPurchaseForm.cs">
       <SubType>Form</SubType>
@@ -465,6 +472,7 @@
     <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMemberRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPurchasedItemRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IQuantitySettingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISettingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IShareMemberRepository.cs" />
@@ -497,6 +505,7 @@
     <Compile Include="Repositories\MSSqlPricedItemRepository.cs" />
     <Compile Include="Repositories\MSSqlSupplierRepository.cs" />
     <Compile Include="Repositories\MSSqlShareMemberRepository.cs" />
+    <Compile Include="Repositories\MSSqlQuantitySettingRepository.cs" />
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\BankTransactionService.cs" />
     <Compile Include="Services\CompanyInfoService.cs" />
@@ -519,6 +528,7 @@
     <Compile Include="Services\Interfaces\IItemService.cs" />
     <Compile Include="Services\Interfaces\IMemberService.cs" />
     <Compile Include="Services\Interfaces\IPurchasedItemService.cs" />
+    <Compile Include="Services\Interfaces\IQuantitySettingService.cs" />
     <Compile Include="Services\Interfaces\IReportService.cs" />
     <Compile Include="Services\Interfaces\ISettingService.cs" />
     <Compile Include="Services\Interfaces\IShareMemberService.cs" />
@@ -533,6 +543,7 @@
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\POSDetailService.cs" />
     <Compile Include="Services\PurchasedItemService.cs" />
+    <Compile Include="Services\QuantitySettingService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\SettingService.cs" />
     <Compile Include="Services\ShareMemberService.cs" />
@@ -613,6 +624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PricedItemListToPrintForm.resx">
       <DependentUpon>PricedItemListToPrintForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuantitySettingForm.resx">
+      <DependentUpon>QuantitySettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SalesPurchaseForm.resx">
       <DependentUpon>SalesPurchaseForm.cs</DependentUpon>

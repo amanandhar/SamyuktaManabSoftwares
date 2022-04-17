@@ -43,6 +43,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string TABLE_POS_DETAIL = "POSDetail";
         public const string TABLE_PRICED_ITEM = "PricedItem";
         public const string TABLE_PURCHASED_ITEM = "PurchasedItem";
+        public const string TABLE_QUANTITY_SETTING = "QuantitySetting";
         public const string TABLE_SETTING = "Setting";
         public const string TABLE_SHARE_MEMBER = "ShareMember";
         public const string TABLE_SOLD_ITEM = "SoldItem";
@@ -130,6 +131,7 @@ namespace GrocerySupplyManagementApp.Shared
         public const string BOTTLE = "Btl";
         public const string CAN = "Can";
         public const string DOZEN = "Dzn";
+        public const string BOX = "Box";
 
         //Item Category
         public const string CATEGORY_10 = "10";

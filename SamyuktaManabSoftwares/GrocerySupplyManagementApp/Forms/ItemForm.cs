@@ -18,11 +18,12 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly ISettingService _settingService;
         private readonly IItemService _itemService;
         private readonly IItemCategoryService _itemCategoryService;
+        private readonly IQuantitySettingService _quantitySettingService;
 
         private readonly string _username;
         private readonly Setting _setting;
         private readonly string _endOfDay;
-        private long selectedItemId = 0;
+        private long _selectedItemId = 0;
         private const char ITEM_CATEGORY_SEPARATOR = '.';
 
         #region Enum
@@ -39,13 +40,15 @@ namespace GrocerySupplyManagementApp.Forms
 
         #region Constructor
         public ItemForm(string username, ISettingService settingService,
-            IItemService itemService, IItemCategoryService itemCategoryService)
+            IItemService itemService, IItemCategoryService itemCategoryService,
+            IQuantitySettingService quantitySettingService)
         {
             InitializeComponent();
 
             _settingService = settingService;
             _itemService = itemService;
             _itemCategoryService = itemCategoryService;
+            _quantitySettingService = quantitySettingService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -158,7 +161,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 if (ValidateItemInfoOnUpdate())
                 {
-                    if (selectedItemId != 0)
+                    if (_selectedItemId != 0)
                     {
                         var item = new Item
                         {
@@ -184,7 +187,7 @@ namespace GrocerySupplyManagementApp.Forms
                             UpdatedDate = DateTime.Now
                         };
 
-                        _itemService.UpdateItem(selectedItemId, item);
+                        _itemService.UpdateItem(_selectedItemId, item);
                         DialogResult result = MessageBox.Show(item.Code + " has been updated successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (result == DialogResult.OK)
                         {
@@ -206,12 +209,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             try
             {
-                if (selectedItemId != 0 && !string.IsNullOrWhiteSpace(RichItemCode.Text.Trim()))
+                if (_selectedItemId != 0 && !string.IsNullOrWhiteSpace(RichItemCode.Text.Trim()))
                 {
                     DialogResult confirmation = MessageBox.Show(Constants.MESSAGE_BOX_DELETE_MESSAGE, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmation == DialogResult.Yes)
                     {
-                        _itemService.DeleteItem(selectedItemId);
+                        _itemService.DeleteItem(_selectedItemId);
                         _itemCategoryService.DeleteItemCategory(RichItemCode.Text.Trim());
                         DialogResult actionResult = MessageBox.Show("Item has been deleted successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (actionResult == DialogResult.OK)
@@ -228,6 +231,12 @@ namespace GrocerySupplyManagementApp.Forms
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
             }
+        }
+
+        private void BtnSetQuantity_Click(object sender, EventArgs e)
+        {
+            QuantitySettingForm quantitySettingForm = new QuantitySettingForm(_username, _selectedItemId, _quantitySettingService);
+            quantitySettingForm.ShowDialog();
         }
         #endregion
 
@@ -397,6 +406,7 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnUpdate.Enabled = true;
                 BtnSave.Enabled = true;
+                BtnSetQuantity.Enabled = true;
             }
             else
             {
@@ -416,6 +426,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
+                BtnSetQuantity.Enabled = false;
             }
         }
 
@@ -439,7 +450,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 var item = _itemService.GetItem(itemId);
-                selectedItemId = itemId;
+                _selectedItemId = itemId;
                 RichItemCode.Text = item.Code;
                 RichItemName.Text = item.Name;
                 ComboUnit.Text = item.Unit;

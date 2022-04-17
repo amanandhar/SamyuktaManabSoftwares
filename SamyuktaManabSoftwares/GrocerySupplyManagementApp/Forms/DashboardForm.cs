@@ -129,6 +129,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPOSDetailService _posDetailService;
         private readonly IIncomeExpenseService _incomeExpenseService;
         private readonly ICapitalService _capitalService;
+        private readonly IQuantitySettingService _quantitySettingService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -145,7 +146,8 @@ namespace GrocerySupplyManagementApp.Forms
             IReportService reportService, IUserService userService,
             IItemCategoryService itemCategoryService, IShareMemberService shareMemberService,
             IStockAdjustmentService stockAdjustmentService, IPOSDetailService posDetailService,
-            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService
+            IIncomeExpenseService incomeExpenseService, ICapitalService capitalService,
+            IQuantitySettingService quantitySettingService
             )
         {
             InitializeComponent();
@@ -173,6 +175,7 @@ namespace GrocerySupplyManagementApp.Forms
             _posDetailService = posDetailService;
             _incomeExpenseService = incomeExpenseService;
             _capitalService = capitalService;
+            _quantitySettingService = quantitySettingService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -314,7 +317,8 @@ namespace GrocerySupplyManagementApp.Forms
                 _settingService, _bankService,
                 _bankTransactionService, _itemService,
                 _supplierService, _purchasedItemService,
-                _userTransactionService, _capitalService));
+                _userTransactionService, _capitalService, 
+                _quantitySettingService));
             HideSubMenu();
             SelectButton(sender as Button);
         }
@@ -469,7 +473,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             ShowSystemStatus();
 
-            OpenChildForm(new ItemForm(_username, _settingService, _itemService, _itemCategoryService));
+            OpenChildForm(new ItemForm(_username, _settingService, 
+                _itemService, _itemCategoryService, 
+                _quantitySettingService));
             SelectButton(sender as Button, true);
         }
 

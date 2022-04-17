@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
         private readonly IPurchasedItemService _purchasedItemService;
         private readonly IUserTransactionService _userTransactionService;
         private readonly ICapitalService _capitalService;
+        private readonly IQuantitySettingService _quantitySettingService;
 
         private readonly string _username;
         private readonly Setting _setting;
@@ -53,7 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
             IBankService bankService, IBankTransactionService bankTransactionService,
             IItemService itemService, ISupplierService supplierService,
             IPurchasedItemService purchasedItemService, IUserTransactionService userTransactionService,
-            ICapitalService capitalService)
+            ICapitalService capitalService, IQuantitySettingService quantitySettingService)
         {
             InitializeComponent();
 
@@ -65,6 +66,7 @@ namespace GrocerySupplyManagementApp.Forms
             _purchasedItemService = purchasedItemService;
             _userTransactionService = userTransactionService;
             _capitalService = capitalService;
+            _quantitySettingService = quantitySettingService;
 
             _username = username;
             _setting = _settingService.GetSettings().ToList().OrderByDescending(x => x.Id).FirstOrDefault();
@@ -98,7 +100,8 @@ namespace GrocerySupplyManagementApp.Forms
         {
             PurchaseForm purchaseForm = new PurchaseForm(_username,
                 _settingService, _itemService,
-                _purchasedItemService, _userTransactionService, this);
+                _purchasedItemService, _userTransactionService, 
+                _quantitySettingService, this);
             purchaseForm.ShowDialog();
         }
 
