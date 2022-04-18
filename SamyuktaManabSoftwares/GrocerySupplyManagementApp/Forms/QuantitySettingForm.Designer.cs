@@ -31,12 +31,12 @@ namespace GrocerySupplyManagementApp.Forms
         {
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.RichBox = new System.Windows.Forms.RichTextBox();
             this.RichPacket = new System.Windows.Forms.RichTextBox();
             this.BtnUpdate = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnCancel = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.RichBag = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // label7
@@ -44,7 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label7.Location = new System.Drawing.Point(25, 29);
+            this.label7.Location = new System.Drawing.Point(25, 61);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(46, 18);
             this.label7.TabIndex = 33;
@@ -55,40 +55,18 @@ namespace GrocerySupplyManagementApp.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(25, 75);
+            this.label1.Location = new System.Drawing.Point(25, 101);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 18);
             this.label1.TabIndex = 34;
             this.label1.Text = "Packet :";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(220, 29);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 18);
-            this.label2.TabIndex = 35;
-            this.label2.Text = "pieces";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(221, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 18);
-            this.label3.TabIndex = 36;
-            this.label3.Text = "pieces";
-            // 
             // RichBox
             // 
             this.RichBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichBox.Location = new System.Drawing.Point(92, 25);
+            this.RichBox.Location = new System.Drawing.Point(92, 51);
             this.RichBox.Name = "RichBox";
-            this.RichBox.Size = new System.Drawing.Size(122, 28);
+            this.RichBox.Size = new System.Drawing.Size(100, 28);
             this.RichBox.TabIndex = 37;
             this.RichBox.Text = "";
             this.RichBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichBox_KeyPress);
@@ -96,9 +74,9 @@ namespace GrocerySupplyManagementApp.Forms
             // RichPacket
             // 
             this.RichPacket.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RichPacket.Location = new System.Drawing.Point(93, 71);
+            this.RichPacket.Location = new System.Drawing.Point(93, 92);
             this.RichPacket.Name = "RichPacket";
-            this.RichPacket.Size = new System.Drawing.Size(122, 28);
+            this.RichPacket.Size = new System.Drawing.Size(99, 28);
             this.RichPacket.TabIndex = 38;
             this.RichPacket.Text = "";
             this.RichPacket.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichPacket_KeyPress);
@@ -114,9 +92,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(160, 137);
+            this.BtnUpdate.Location = new System.Drawing.Point(120, 137);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(100, 35);
+            this.BtnUpdate.Size = new System.Drawing.Size(80, 35);
             this.BtnUpdate.TabIndex = 31;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.TextColor = System.Drawing.Color.White;
@@ -136,22 +114,43 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnCancel.ForeColor = System.Drawing.Color.White;
             this.BtnCancel.Location = new System.Drawing.Point(28, 137);
             this.BtnCancel.Name = "BtnCancel";
-            this.BtnCancel.Size = new System.Drawing.Size(100, 35);
+            this.BtnCancel.Size = new System.Drawing.Size(80, 35);
             this.BtnCancel.TabIndex = 30;
             this.BtnCancel.Text = "Cancel";
             this.BtnCancel.TextColor = System.Drawing.Color.White;
             this.BtnCancel.UseVisualStyleBackColor = false;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label4.Location = new System.Drawing.Point(25, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 18);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "Bag : ";
+            // 
+            // RichBag
+            // 
+            this.RichBag.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RichBag.Location = new System.Drawing.Point(92, 13);
+            this.RichBag.Name = "RichBag";
+            this.RichBag.Size = new System.Drawing.Size(100, 28);
+            this.RichBag.TabIndex = 40;
+            this.RichBag.Text = "";
+            this.RichBag.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichBag_KeyPress);
+            // 
             // QuantitySettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 184);
+            this.ClientSize = new System.Drawing.Size(231, 184);
+            this.Controls.Add(this.RichBag);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.RichPacket);
             this.Controls.Add(this.RichBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.BtnUpdate);
@@ -170,9 +169,9 @@ namespace GrocerySupplyManagementApp.Forms
         private CustomControls.Button.CustomButton BtnCancel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox RichBox;
         private System.Windows.Forms.RichTextBox RichPacket;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RichTextBox RichBag;
     }
 }

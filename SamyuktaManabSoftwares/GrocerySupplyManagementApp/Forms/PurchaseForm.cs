@@ -399,20 +399,30 @@ namespace GrocerySupplyManagementApp.Forms
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(RichPurchasePrice.Text.Trim());
                 var calculatedQuantity = Constants.DEFAULT_DECIMAL_VALUE;
-                
-                if(ComboQuantityType.Text.Trim() == Constants.BOX)
+                var calculatedPurchasePrice = Constants.DEFAULT_DECIMAL_VALUE;
+
+                if(ComboQuantityType.Text.Trim() == Constants.BAG)
+                {
+                    var quantitySetting = _quantitySettingService.GetQuantitySetting(_selectedItemId);
+                    calculatedQuantity = quantitySetting.Bag * quantity;
+                    calculatedPurchasePrice = Math.Round(purchasePrice / quantitySetting.Bag, 2);
+                }
+                else if(ComboQuantityType.Text.Trim() == Constants.BOX)
                 {
                     var quantitySetting = _quantitySettingService.GetQuantitySetting(_selectedItemId);
                     calculatedQuantity = quantitySetting.Box * quantity;
+                    calculatedPurchasePrice = Math.Round(purchasePrice / quantitySetting.Box, 2);
                 }
                 else if(ComboQuantityType.Text.Trim() == Constants.PACKET)
                 {
                     var quantitySetting = _quantitySettingService.GetQuantitySetting(_selectedItemId);
                     calculatedQuantity = quantitySetting.Packet * quantity;
+                    calculatedPurchasePrice = Math.Round(purchasePrice / quantitySetting.Packet, 2);
                 }
                 else
                 {
                     calculatedQuantity = quantity;
+                    calculatedPurchasePrice = purchasePrice;
                 }
 
                 var purchasedItemView = new PurchasedItemView
@@ -424,8 +434,8 @@ namespace GrocerySupplyManagementApp.Forms
                     Name = RichItemName.Text.Trim(),
                     Unit = RichUnit.Text.Trim(),
                     Quantity = calculatedQuantity,
-                    Price = purchasePrice,
-                    Total = calculatedQuantity * purchasePrice,
+                    Price = calculatedPurchasePrice,
+                    Total = calculatedQuantity * calculatedPurchasePrice,
                     AddedDate = DateTime.Now
                 };
 
@@ -545,8 +555,13 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboQuantityType.Items.Clear();
                 ComboQuantityType.Items.Add(Constants.PIECES);
                 ComboQuantityType.SelectedItem = Constants.PIECES;
-                
-                if(quantitySetting.Box > Constants.DEFAULT_DECIMAL_VALUE)
+
+                if (quantitySetting.Bag > Constants.DEFAULT_DECIMAL_VALUE)
+                {
+                    ComboQuantityType.Items.Add(Constants.BAG);
+                }
+
+                if (quantitySetting.Box > Constants.DEFAULT_DECIMAL_VALUE)
                 {
                     ComboQuantityType.Items.Add(Constants.BOX);
                 }

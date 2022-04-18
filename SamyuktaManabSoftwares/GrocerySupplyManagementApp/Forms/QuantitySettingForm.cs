@@ -45,20 +45,26 @@ namespace GrocerySupplyManagementApp.Forms
                 try
                 {
                     var quantitySetting = _quantitySettingService.GetQuantitySetting(_itemId);
-                    var boxValue = string.IsNullOrWhiteSpace(RichBox.Text.Trim())
+                    var bag = string.IsNullOrWhiteSpace(RichBag.Text.Trim())
+                        ? Constants.DEFAULT_DECIMAL_VALUE
+                        : Convert.ToDecimal(RichBag.Text.Trim());
+
+                    var box = string.IsNullOrWhiteSpace(RichBox.Text.Trim())
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : Convert.ToDecimal(RichBox.Text.Trim());
 
-                    var packetValue = string.IsNullOrWhiteSpace(RichPacket.Text.Trim())
+                    var packet = string.IsNullOrWhiteSpace(RichPacket.Text.Trim())
                         ? Constants.DEFAULT_DECIMAL_VALUE
                         : Convert.ToDecimal(RichPacket.Text.Trim());
+
                     if (quantitySetting.Id > 0)
                     {
                         var newQuantitySetting = new QuantitySetting()
                         {
                             ItemId = _itemId,
-                            Box = boxValue,
-                            Packet = packetValue,
+                            Bag = bag,
+                            Box = box,
+                            Packet = packet,
                             UpdatedBy = _username,
                             UpdatedDate = DateTime.Now
                         };
@@ -70,8 +76,9 @@ namespace GrocerySupplyManagementApp.Forms
                         var newQuantitySetting = new QuantitySetting()
                         {
                             ItemId = _itemId,
-                            Box = boxValue,
-                            Packet = packetValue,
+                            Bag = bag,
+                            Box = box,
+                            Packet = packet,
                             AddedBy = _username,
                             AddedDate = DateTime.Now
                         };
@@ -82,7 +89,7 @@ namespace GrocerySupplyManagementApp.Forms
                     DialogResult result = MessageBox.Show("Quantity setting has been set successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
-                        LoadQuantitySettings();
+                        this.Close();
                     }
                 }
                 catch (Exception ex)
@@ -94,7 +101,16 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
-        #region Key Press Event
+        #region Rich Box Event
+
+        private void RichBag_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void RichBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -117,6 +133,9 @@ namespace GrocerySupplyManagementApp.Forms
         {
             var quantitySetting = _quantitySettingService.GetQuantitySetting(_itemId);
 
+            RichBag.Text = quantitySetting?.Bag == null
+                ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
+                : quantitySetting?.Bag.ToString();
             RichBox.Text = quantitySetting?.Box == null 
                 ? Constants.DEFAULT_DECIMAL_VALUE.ToString() 
                 : quantitySetting?.Box.ToString();

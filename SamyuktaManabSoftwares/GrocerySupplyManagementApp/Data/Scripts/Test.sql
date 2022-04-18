@@ -10,6 +10,7 @@ GO
 CREATE TABLE [dbo].[QuantitySetting](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[ItemId] [bigint] NOT NULL,
+	[Bag] [decimal](18, 2) NOT NULL,
 	[Box] [decimal](18, 2) NOT NULL,
 	[Packet] [decimal](18, 2) NOT NULL,
 	[AddedBy] [nvarchar](50) NOT NULL,
@@ -18,5 +19,6 @@ CREATE TABLE [dbo].[QuantitySetting](
 	[UpdatedDate] [datetime] NULL
 ) ON [PRIMARY]
 GO
+
 
 

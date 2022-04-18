@@ -477,16 +477,17 @@ namespace GrocerySupplyManagementApp.Forms
             ComboUnit.ValueMember = "Id";
             ComboUnit.DisplayMember = "Value";
 
-            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.KILOGRAM, Value = Constants.KILOGRAM });
-            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.GRAM, Value = Constants.GRAM });
-            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.LITER, Value = Constants.LITER });
-            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.MILLI_LITER, Value = Constants.MILLI_LITER });
-            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.PIECES, Value = Constants.PIECES });
-            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.PACKET, Value = Constants.PACKET });
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.BAG, Value = Constants.BAG });
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.BOTTLE, Value = Constants.BOTTLE });
+            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.BOX, Value = Constants.BOX });
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.CAN, Value = Constants.CAN });
             ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.DOZEN, Value = Constants.DOZEN });
+            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.GRAM, Value = Constants.GRAM });
+            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.KILOGRAM, Value = Constants.KILOGRAM });
+            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.LITER, Value = Constants.LITER });
+            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.MILLI_LITER, Value = Constants.MILLI_LITER });
+            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.PACKET, Value = Constants.PACKET });
+            ComboUnit.Items.Add(new ComboBoxItem { Id = Constants.PIECES, Value = Constants.PIECES });
         }
 
         private void LoadItemCategoris()

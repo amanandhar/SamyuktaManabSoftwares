@@ -2,7 +2,6 @@
 using GrocerySupplyManagementApp.Repositories.Interfaces;
 using GrocerySupplyManagementApp.Shared;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace GrocerySupplyManagementApp.Repositories
@@ -21,7 +20,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var quantitySetting = new QuantitySetting();
             var query = @"SELECT " +
-                "[Id], [ItemId], [Box], [Packet], " +
+                "[Id], [ItemId], [Bag], [Box], [Packet], " +
                 "[AddedBy], [AddedDate], [UpdatedBy], [UpdatedDate] " +
                 "FROM " + Constants.TABLE_QUANTITY_SETTING + " " +
                 "WHERE 1 = 1 " +
@@ -40,12 +39,13 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 quantitySetting.Id = Convert.ToInt64(reader["Id"].ToString());
                                 quantitySetting.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
+                                quantitySetting.Bag = Convert.ToDecimal(reader["Bag"].ToString());
                                 quantitySetting.Box = Convert.ToDecimal(reader["Box"].ToString());
                                 quantitySetting.Packet = Convert.ToDecimal(reader["Packet"].ToString());
                                 quantitySetting.AddedBy = reader["AddedBy"].ToString();
                                 quantitySetting.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
                                 quantitySetting.UpdatedBy = reader["UpdatedBy"].ToString();
-                                quantitySetting.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                quantitySetting.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
@@ -64,12 +64,12 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             string query = @"INSERT INTO " + Constants.TABLE_QUANTITY_SETTING + " " +
                     "( " +
-                        "[ItemId], [Box], [Packet], " +
+                        "[ItemId], [Bag], [Box], [Packet], " +
                         "[AddedBy], [AddedDate] " +
                     ") " +
                     "VALUES " +
                     "( " +
-                        "@ItemId, @Box, @Packet, " +
+                        "@ItemId, @Bag, @Box, @Packet, " +
                         "@AddedBy, @AddedDate " +
                     ") ";
             try
@@ -80,6 +80,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@ItemId", quantitySetting.ItemId);
+                        command.Parameters.AddWithValue("@Bag", quantitySetting.Bag);
                         command.Parameters.AddWithValue("@Box", quantitySetting.Box);
                         command.Parameters.AddWithValue("@Packet", quantitySetting.Packet);
                         command.Parameters.AddWithValue("@AddedBy", quantitySetting.AddedBy);
@@ -103,6 +104,7 @@ namespace GrocerySupplyManagementApp.Repositories
             string query = @"UPDATE " + Constants.TABLE_QUANTITY_SETTING + " " +
                 "SET " +
                 "[ItemId] = @ItemId, " +
+                "[Bag] = @Bag, " +
                 "[Box] = @Box, " +
                 "[Packet] = @Packet, " +
                 "[UpdatedBy] = @UpdatedBy, " +
@@ -118,6 +120,7 @@ namespace GrocerySupplyManagementApp.Repositories
                     {
                         command.Parameters.AddWithValue("@Id", id);
                         command.Parameters.AddWithValue("@ItemId", quantitySetting.ItemId);
+                        command.Parameters.AddWithValue("@Bag", quantitySetting.Bag);
                         command.Parameters.AddWithValue("@Box", quantitySetting.Box);
                         command.Parameters.AddWithValue("@Packet", quantitySetting.Packet);
                         command.Parameters.AddWithValue("@UpdatedBy", quantitySetting.UpdatedBy);
@@ -135,6 +138,5 @@ namespace GrocerySupplyManagementApp.Repositories
 
             return quantitySetting;
         }
-
     }
 }
