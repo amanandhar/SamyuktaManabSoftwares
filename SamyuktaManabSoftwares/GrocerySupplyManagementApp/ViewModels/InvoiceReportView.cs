@@ -11,6 +11,7 @@
         public string ActionType { get; set; }
         public string EndOfDay { get; set; }
         public decimal SubTotal { get; set; }
+        public decimal DiscountPercent { get; set; }
         public decimal Discount { get; set; }
         public decimal DeliveryCharge { get; set; }
         public decimal TotalAmount { get; set; }

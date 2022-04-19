@@ -422,6 +422,12 @@ namespace GrocerySupplyManagementApp.Forms
 
                         _userTransactionService.SaveSalesDetail(soldItems, userTransaction, posDetail, _username);
 
+                        RadioBtnCash.Checked = false;
+                        RadioBtnCredit.Checked = true;
+                        ComboDeliveryPerson.Text = string.Empty;
+                        ChkBoxDiscountPercent.Checked = false;
+                        ChkBoxDeliveryChargePercent.Checked = false;
+
                         ClearAllMemberFields();
                         ClearAllItemFields();
                         ClearAllInvoiceFields();
@@ -430,9 +436,6 @@ namespace GrocerySupplyManagementApp.Forms
                         LoadItems(_soldItemViewList);
                         EnableFields();
                         EnableFields(Action.SaveAndPrint);
-                        RadioBtnCash.Checked = false;
-                        RadioBtnCredit.Checked = true;
-                        ComboDeliveryPerson.Text = string.Empty;
 
                         DialogResult result = MessageBox.Show(userTransaction.PartyNumber + " has been added successfully. \n Would you like to print the receipt?",
                             "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -672,31 +675,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void TxtDiscountPercent_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(TxtSubTotal.Text.Trim())
-                && decimal.TryParse(TxtSubTotal.Text.Trim(), out _)
-                && !string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim())
-                && decimal.TryParse(TxtDiscountPercent.Text.Trim(), out _)
-                && !string.IsNullOrWhiteSpace(TxtDiscount.Text.Trim())
-                && decimal.TryParse(TxtDiscount.Text.Trim(), out _))
-            {
-                var subTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim());
-                var discountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim());
-                var discount = Math.Round(subTotal * (discountPercent / 100), 2);
-                var discountTotal = subTotal + discount;
-                var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
-                var deliveryCharge = Math.Round((discountTotal * (deliveryChargePercent / 100)), 2);
-                var deliveryChargeTotal = discountTotal + deliveryCharge;
-                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE
-                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
-
-                TxtDiscount.Text = discount.ToString();
-                TxtDiscountTotal.Text = discountTotal.ToString();
-                TxtDeliveryCharge.Text = deliveryCharge.ToString();
-                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
-                TxtTotal.Text = deliveryChargeTotal.ToString();
-                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
-            }
+            CalculatePOSDetailByDiscountPercent();
         }
 
         private void TxtDiscount_KeyUp(object sender, KeyEventArgs e)
@@ -711,7 +690,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var subTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim());
                 var discount = Convert.ToDecimal(TxtDiscount.Text.Trim());
                 var discountPercent = Math.Round((discount * 100) / subTotal, 2);
-                var discountTotal = subTotal + discount;
+                var discountTotal = subTotal - discount;
                 var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
                 var deliveryCharge = Math.Round((discountTotal * (deliveryChargePercent / 100)), 2);
                 var deliveryChargeTotal = discountTotal + deliveryCharge;
@@ -721,6 +700,8 @@ namespace GrocerySupplyManagementApp.Forms
 
                 TxtDiscountPercent.Text = discountPercent.ToString();
                 TxtDiscountTotal.Text = discountTotal.ToString();
+                TxtDeliveryCharge.Text = deliveryCharge.ToString();
+                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
                 TxtTotal.Text = deliveryChargeTotal.ToString();
                 RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
             }
@@ -728,26 +709,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void TxtDeliveryChargePercent_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(TxtDiscountTotal.Text.Trim())
-                && decimal.TryParse(TxtDiscountTotal.Text.Trim(), out _)
-                && !string.IsNullOrWhiteSpace(TxtDeliveryChargePercent.Text.Trim())
-                && decimal.TryParse(TxtDeliveryChargePercent.Text.Trim(), out _)
-                && !string.IsNullOrWhiteSpace(TxtDeliveryCharge.Text.Trim())
-                && decimal.TryParse(TxtDeliveryCharge.Text.Trim(), out _))
-            {
-                var discountTotal = Convert.ToDecimal(TxtDiscountTotal.Text.Trim());
-                var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
-                var deliveryCharge = Math.Round(discountTotal * (deliveryChargePercent / 100), 2);
-                var deliveryChargeTotal = discountTotal + deliveryCharge;
-                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE
-                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
-
-                TxtDeliveryCharge.Text = deliveryCharge.ToString();
-                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
-                TxtTotal.Text = deliveryChargeTotal.ToString();
-                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
-            }
+            CalculatePOSDetailByDeliveryChargePercent();
         }
 
         private void TxtDeliveryCharge_KeyUp(object sender, KeyEventArgs e)
@@ -826,15 +788,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDiscount.ReadOnly = true;
                 TxtDiscountPercent.Text = _setting.Discount.ToString();
 
-                var subTotal = string.IsNullOrWhiteSpace(TxtSubTotal.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE
-                    : Convert.ToDecimal(TxtSubTotal.Text.Trim());
-
-                var discountPercent = string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE
-                    : Convert.ToDecimal(TxtDiscountPercent.Text.Trim());
-
-                TxtDiscount.Text = Math.Round(subTotal * (discountPercent / 100), 2).ToString();
+                CalculatePOSDetailByDiscountPercent();
             }
         }
 
@@ -852,15 +806,7 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtDeliveryCharge.ReadOnly = true;
                 TxtDeliveryChargePercent.Text = _setting.DeliveryCharge.ToString();
 
-                var discountTotal = string.IsNullOrWhiteSpace(TxtDiscountTotal.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE
-                    : Convert.ToDecimal(TxtDiscountTotal.Text.Trim());
-
-                var deliveryChargePercent = string.IsNullOrWhiteSpace(TxtDeliveryChargePercent.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE
-                    : Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
-
-                TxtDeliveryCharge.Text = Math.Round(discountTotal * (deliveryChargePercent / 100), 2).ToString();
+                CalculatePOSDetailByDeliveryChargePercent();
             }
         }
         #endregion
@@ -1221,55 +1167,7 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        public void PopulateMember(string memberId)
-        {
-            try
-            {
-                var member = _memberService.GetMember(memberId);
-                if (string.IsNullOrWhiteSpace(member?.MemberId))
-                {
-                    DialogResult result = MessageBox.Show("Invalid member id : " + memberId,
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (result == DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
-
-                RichMemberId.Text = member.MemberId;
-                TxtName.Text = member.Name;
-                TxtAddress.Text = member.Address;
-                TxtContactNo.Text = member.ContactNo.ToString();
-                TxtAccNo.Text = member.AccountNo;
-
-                List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(new UserTransactionFilter() { MemberId = memberId }).ToList();
-                TxtBalance.Text = _capitalService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = memberId }).ToString();
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
-            }
-        }
-
-        public void PopulatePricedItem(long pricedId)
-        {
-            try
-            {
-                RichItemQuantity.Clear();
-                TxtItemDiscount.Clear();
-
-                var pricedItem = _pricedItemService.GetPricedItem(pricedId);
-                CalculatePricedItem(pricedItem);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
-            }
-        }
-
-        public void CalculatePricedItem(PricedItem pricedItem)
+        private void CalculatePricedItem(PricedItem pricedItem)
         {
             try
             {
@@ -1367,6 +1265,59 @@ namespace GrocerySupplyManagementApp.Forms
             else
             {
                 TxtItemDiscount.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
+            }
+        }
+
+        private void CalculatePOSDetailByDiscountPercent()
+        {
+            if (!string.IsNullOrWhiteSpace(TxtSubTotal.Text.Trim())
+                && decimal.TryParse(TxtSubTotal.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim())
+                && decimal.TryParse(TxtDiscountPercent.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDiscount.Text.Trim())
+                && decimal.TryParse(TxtDiscount.Text.Trim(), out _))
+            {
+                var subTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim());
+                var discountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim());
+                var discount = Math.Round(subTotal * (discountPercent / 100), 2);
+                var discountTotal = subTotal - discount;
+                var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
+                var deliveryCharge = Math.Round((discountTotal * (deliveryChargePercent / 100)), 2);
+                var deliveryChargeTotal = discountTotal + deliveryCharge;
+                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
+
+                TxtDiscount.Text = discount.ToString();
+                TxtDiscountTotal.Text = discountTotal.ToString();
+                TxtDeliveryCharge.Text = deliveryCharge.ToString();
+                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
+                TxtTotal.Text = deliveryChargeTotal.ToString();
+                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
+            }
+        }
+
+        private void CalculatePOSDetailByDeliveryChargePercent()
+        {
+            if (!string.IsNullOrWhiteSpace(TxtDiscountTotal.Text.Trim())
+                && decimal.TryParse(TxtDiscountTotal.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDeliveryChargePercent.Text.Trim())
+                && decimal.TryParse(TxtDeliveryChargePercent.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDeliveryCharge.Text.Trim())
+                && decimal.TryParse(TxtDeliveryCharge.Text.Trim(), out _))
+            {
+                var discountTotal = Convert.ToDecimal(TxtDiscountTotal.Text.Trim());
+                var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
+                var deliveryCharge = Math.Round(discountTotal * (deliveryChargePercent / 100), 2);
+                var deliveryChargeTotal = discountTotal + deliveryCharge;
+                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
+
+                TxtDeliveryCharge.Text = deliveryCharge.ToString();
+                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
+                TxtTotal.Text = deliveryChargeTotal.ToString();
+                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
             }
         }
 
@@ -1503,6 +1454,55 @@ namespace GrocerySupplyManagementApp.Forms
             var invoiceReportForm = new InvoiceReportForm(companyInfoService, reportService, invoiceNo);
             invoiceReportForm.ShowDialog();
         }
+
+        public void PopulateMember(string memberId)
+        {
+            try
+            {
+                var member = _memberService.GetMember(memberId);
+                if (string.IsNullOrWhiteSpace(member?.MemberId))
+                {
+                    DialogResult result = MessageBox.Show("Invalid member id : " + memberId,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (result == DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+
+                RichMemberId.Text = member.MemberId;
+                TxtName.Text = member.Name;
+                TxtAddress.Text = member.Address;
+                TxtContactNo.Text = member.ContactNo.ToString();
+                TxtAccNo.Text = member.AccountNo;
+
+                List<UserTransaction> userTransactions = _userTransactionService.GetUserTransactions(new UserTransactionFilter() { MemberId = memberId }).ToList();
+                TxtBalance.Text = _capitalService.GetMemberTotalBalance(new UserTransactionFilter() { MemberId = memberId }).ToString();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
+        public void PopulatePricedItem(long pricedId)
+        {
+            try
+            {
+                RichItemQuantity.Clear();
+                TxtItemDiscount.Clear();
+
+                var pricedItem = _pricedItemService.GetPricedItem(pricedId);
+                CalculatePricedItem(pricedItem);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
         #endregion
 
         #region Validation

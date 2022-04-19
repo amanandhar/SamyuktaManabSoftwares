@@ -56,6 +56,10 @@
           <DataField>SubTotal</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DiscountPercent">
+          <DataField>DiscountPercent</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Discount">
           <DataField>Discount</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -231,7 +235,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Discount %:</Value>
+                    <Value>Discount:</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -242,7 +246,7 @@
             <Top>0.90173in</Top>
             <Left>4.64166in</Left>
             <Height>0.25in</Height>
-            <Width>1.19399in</Width>
+            <Width>0.63149in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -274,9 +278,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
             <Top>0.90173in</Top>
-            <Left>5.87732in</Left>
+            <Left>6.06482in</Left>
             <Height>0.25in</Height>
-            <Width>0.8395in</Width>
+            <Width>0.652in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1331,6 +1335,65 @@
               </Border>
             </Style>
           </Line>
+          <Textbox Name="Textbox36">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>%</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox36</rd:DefaultName>
+            <Top>0.90173in</Top>
+            <Left>5.83209in</Left>
+            <Height>0.25in</Height>
+            <Width>0.19106in</Width>
+            <ZIndex>23</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox49">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!DiscountPercent.Value, "Invoice")</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox49</rd:DefaultName>
+            <Top>0.90555in</Top>
+            <Left>5.31482in</Left>
+            <Height>0.25in</Height>
+            <Width>0.4895in</Width>
+            <ZIndex>24</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <Height>4.84618in</Height>
         <Style />

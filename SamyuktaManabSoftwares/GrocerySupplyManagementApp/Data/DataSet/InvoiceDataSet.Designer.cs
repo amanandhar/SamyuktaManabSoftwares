@@ -295,6 +295,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             private global::System.Data.DataColumn columnSubTotal;
             
+            private global::System.Data.DataColumn columnDiscountPercent;
+            
             private global::System.Data.DataColumn columnDiscount;
             
             private global::System.Data.DataColumn columnDeliveryCharge;
@@ -417,6 +419,14 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             public global::System.Data.DataColumn SubTotalColumn {
                 get {
                     return this.columnSubTotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DiscountPercentColumn {
+                get {
+                    return this.columnDiscountPercent;
                 }
             }
             
@@ -578,6 +588,7 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         string ActionType, 
                         string EndOfDay, 
                         string SubTotal, 
+                        string DiscountPercent, 
                         string Discount, 
                         string DeliveryCharge, 
                         string TotalAmount, 
@@ -602,6 +613,7 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         ActionType,
                         EndOfDay,
                         SubTotal,
+                        DiscountPercent,
                         Discount,
                         DeliveryCharge,
                         TotalAmount,
@@ -646,6 +658,7 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 this.columnActionType = base.Columns["ActionType"];
                 this.columnEndOfDay = base.Columns["EndOfDay"];
                 this.columnSubTotal = base.Columns["SubTotal"];
+                this.columnDiscountPercent = base.Columns["DiscountPercent"];
                 this.columnDiscount = base.Columns["Discount"];
                 this.columnDeliveryCharge = base.Columns["DeliveryCharge"];
                 this.columnTotalAmount = base.Columns["TotalAmount"];
@@ -681,6 +694,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 base.Columns.Add(this.columnEndOfDay);
                 this.columnSubTotal = new global::System.Data.DataColumn("SubTotal", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSubTotal);
+                this.columnDiscountPercent = new global::System.Data.DataColumn("DiscountPercent", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDiscountPercent);
                 this.columnDiscount = new global::System.Data.DataColumn("Discount", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDiscount);
                 this.columnDeliveryCharge = new global::System.Data.DataColumn("DeliveryCharge", typeof(string), null, global::System.Data.MappingType.Element);
@@ -974,6 +989,22 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 }
                 set {
                     this[this.tableInvoice.SubTotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DiscountPercent {
+                get {
+                    try {
+                        return ((string)(this[this.tableInvoice.DiscountPercentColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DiscountPercent\' in table \'Invoice\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoice.DiscountPercentColumn] = value;
                 }
             }
             
@@ -1295,6 +1326,18 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetSubTotalNull() {
                 this[this.tableInvoice.SubTotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDiscountPercentNull() {
+                return this.IsNull(this.tableInvoice.DiscountPercentColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDiscountPercentNull() {
+                this[this.tableInvoice.DiscountPercentColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

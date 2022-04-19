@@ -80,6 +80,7 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceDataTable.Columns.Add("ActionType");
             invoiceDataTable.Columns.Add("EndOfDay");
             invoiceDataTable.Columns.Add("SubTotal");
+            invoiceDataTable.Columns.Add("DiscountPercent");
             invoiceDataTable.Columns.Add("Discount");
             invoiceDataTable.Columns.Add("DeliveryCharge");
             invoiceDataTable.Columns.Add("TotalAmount");
@@ -107,6 +108,7 @@ namespace GrocerySupplyManagementApp.Forms
                 invoiceRow["ActionType"] = report.ActionType;
                 invoiceRow["EndOfDay"] = report.EndOfDay;
                 invoiceRow["SubTotal"] = report.SubTotal;
+                invoiceRow["DiscountPercent"] = report.DiscountPercent;
                 invoiceRow["Discount"] = report.Discount;
                 invoiceRow["DeliveryCharge"] = report.DeliveryCharge;
                 invoiceRow["TotalAmount"] = report.TotalAmount;
