@@ -646,6 +646,14 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void TxtDiscount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void TxtDeliveryChargePercent_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -664,19 +672,58 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void TxtDiscountPercent_KeyUp(object sender, KeyEventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim()))
+            if (!string.IsNullOrWhiteSpace(TxtSubTotal.Text.Trim())
+                && decimal.TryParse(TxtSubTotal.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim())
+                && decimal.TryParse(TxtDiscountPercent.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDiscount.Text.Trim())
+                && decimal.TryParse(TxtDiscount.Text.Trim(), out _))
             {
-                TxtDiscountPercent.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
-            }
+                var subTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim());
+                var discountPercent = Convert.ToDecimal(TxtDiscountPercent.Text.Trim());
+                var discount = Math.Round(subTotal * (discountPercent / 100), 2);
+                var discountTotal = subTotal + discount;
+                var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
+                var deliveryCharge = Math.Round((discountTotal * (deliveryChargePercent / 100)), 2);
+                var deliveryChargeTotal = discountTotal + deliveryCharge;
+                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
 
-            TxtDiscount.Text = Math.Round((Convert.ToDecimal(TxtSubTotal.Text.Trim()) * (Convert.ToDecimal(TxtDiscountPercent.Text.Trim()) / 100)), 2).ToString();
-            TxtDiscountTotal.Text = Math.Round(Convert.ToDecimal(TxtSubTotal.Text.Trim()) - (Convert.ToDecimal(TxtSubTotal.Text.Trim()) * (Convert.ToDecimal(TxtDiscountPercent.Text.Trim()) / 100)), 2).ToString();
-            TxtDeliveryCharge.Text = Math.Round((Convert.ToDecimal(TxtDiscountTotal.Text.Trim()) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()) / 100)), 2).ToString();
-            TxtDeliveryChargeTotal.Text = Math.Round(Convert.ToDecimal(TxtDiscountTotal.Text.Trim()) + (Convert.ToDecimal(TxtDiscountTotal.Text.Trim()) * (Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim()) / 100)), 2).ToString();
-            TxtTotal.Text = TxtDeliveryChargeTotal.Text.Trim();
-            RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text.Trim()) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
-                ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
-                : RichReceivedAmount.Text.Trim()), 2).ToString();
+                TxtDiscount.Text = discount.ToString();
+                TxtDiscountTotal.Text = discountTotal.ToString();
+                TxtDeliveryCharge.Text = deliveryCharge.ToString();
+                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
+                TxtTotal.Text = deliveryChargeTotal.ToString();
+                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
+            }
+        }
+
+        private void TxtDiscount_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TxtSubTotal.Text.Trim())
+                && decimal.TryParse(TxtSubTotal.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim())
+                && decimal.TryParse(TxtDiscountPercent.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtDiscount.Text.Trim())
+                && decimal.TryParse(TxtDiscount.Text.Trim(), out _))
+            {
+                var subTotal = Convert.ToDecimal(TxtSubTotal.Text.Trim());
+                var discount = Convert.ToDecimal(TxtDiscount.Text.Trim());
+                var discountPercent = Math.Round((discount * 100) / subTotal, 2);
+                var discountTotal = subTotal + discount;
+                var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
+                var deliveryCharge = Math.Round((discountTotal * (deliveryChargePercent / 100)), 2);
+                var deliveryChargeTotal = discountTotal + deliveryCharge;
+                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
+
+                TxtDiscountPercent.Text = discountPercent.ToString();
+                TxtDiscountTotal.Text = discountTotal.ToString();
+                TxtTotal.Text = deliveryChargeTotal.ToString();
+                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
+            }
         }
 
         private void TxtDeliveryChargePercent_KeyUp(object sender, KeyEventArgs e)
@@ -690,13 +737,16 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var discountTotal = Convert.ToDecimal(TxtDiscountTotal.Text.Trim());
                 var deliveryChargePercent = Convert.ToDecimal(TxtDeliveryChargePercent.Text.Trim());
+                var deliveryCharge = Math.Round(discountTotal * (deliveryChargePercent / 100), 2);
+                var deliveryChargeTotal = discountTotal + deliveryCharge;
+                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
 
-                TxtDeliveryCharge.Text = Math.Round(discountTotal * (deliveryChargePercent / 100), 2).ToString();
-                TxtDeliveryChargeTotal.Text = Math.Round(discountTotal + (discountTotal * (deliveryChargePercent / 100)), 2).ToString();
-                TxtTotal.Text = TxtDeliveryChargeTotal.Text.Trim();
-                RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text.Trim()) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
-                    : RichReceivedAmount.Text.Trim()), 2).ToString();
+                TxtDeliveryCharge.Text = deliveryCharge.ToString();
+                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
+                TxtTotal.Text = deliveryChargeTotal.ToString();
+                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
             }
         }
 
@@ -711,15 +761,19 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var discountTotal = Convert.ToDecimal(TxtDiscountTotal.Text.Trim());
                 var deliveryCharge = Convert.ToDecimal(TxtDeliveryCharge.Text.Trim());
+                var deliveryChargePercent = Math.Round(((deliveryCharge * 100) / discountTotal), 2);
+                var deliveryChargeTotal = discountTotal + deliveryCharge;
+                var receivedAmount = string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(RichReceivedAmount.Text.Trim());
 
-                TxtDeliveryChargePercent.Text = Math.Round(((deliveryCharge * 100) / discountTotal), 2).ToString();
-                TxtDeliveryChargeTotal.Text = Math.Round(discountTotal + deliveryCharge, 2).ToString();
-                TxtTotal.Text = TxtDeliveryChargeTotal.Text.Trim();
-                RichBalanceAmount.Text = Math.Round(Convert.ToDecimal(TxtDeliveryChargeTotal.Text.Trim()) - Convert.ToDecimal(string.IsNullOrWhiteSpace(RichReceivedAmount.Text.Trim())
-                    ? Constants.DEFAULT_DECIMAL_VALUE.ToString()
-                    : RichReceivedAmount.Text.Trim()), 2).ToString();
+                TxtDeliveryChargePercent.Text = deliveryChargePercent.ToString();
+                TxtDeliveryChargeTotal.Text = deliveryChargeTotal.ToString();
+                TxtTotal.Text = deliveryChargeTotal.ToString();
+                RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
             }
         }
+
         #endregion
 
         #region Combobox Event
@@ -763,12 +817,24 @@ namespace GrocerySupplyManagementApp.Forms
             if (ChkBoxDiscountPercent.Checked)
             {
                 TxtDiscountPercent.ReadOnly = false;
+                TxtDiscount.ReadOnly = false;
                 TxtDiscountPercent.Focus();
             }
             else
             {
                 TxtDiscountPercent.ReadOnly = true;
+                TxtDiscount.ReadOnly = true;
                 TxtDiscountPercent.Text = _setting.Discount.ToString();
+
+                var subTotal = string.IsNullOrWhiteSpace(TxtSubTotal.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtSubTotal.Text.Trim());
+
+                var discountPercent = string.IsNullOrWhiteSpace(TxtDiscountPercent.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtDiscountPercent.Text.Trim());
+
+                TxtDiscount.Text = Math.Round(subTotal * (discountPercent / 100), 2).ToString();
             }
         }
 
