@@ -479,7 +479,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridShareMemberList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridShareMemberList.Columns["Description"].HeaderText = "Description";
-            DataGridShareMemberList.Columns["Description"].Width = 200;
+            DataGridShareMemberList.Columns["Description"].Width = 230;
             DataGridShareMemberList.Columns["Description"].DisplayIndex = 1;
 
             DataGridShareMemberList.Columns["Type"].HeaderText = "Type";

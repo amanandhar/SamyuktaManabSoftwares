@@ -480,7 +480,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label15.BackColor = System.Drawing.Color.DodgerBlue;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.Aqua;
-            this.label15.Location = new System.Drawing.Point(369, 5);
+            this.label15.Location = new System.Drawing.Point(368, 5);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(378, 31);
             this.label15.TabIndex = 49;
@@ -510,7 +510,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label15);

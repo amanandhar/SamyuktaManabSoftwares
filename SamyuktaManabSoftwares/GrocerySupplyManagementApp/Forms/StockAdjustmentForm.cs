@@ -227,19 +227,19 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridStockAdjustmentList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridStockAdjustmentList.Columns["Action"].HeaderText = "Description";
-            DataGridStockAdjustmentList.Columns["Action"].Width = 100;
+            DataGridStockAdjustmentList.Columns["Action"].Width = 120;
             DataGridStockAdjustmentList.Columns["Action"].DisplayIndex = 1;
 
             DataGridStockAdjustmentList.Columns["Narration"].HeaderText = "Narration";
-            DataGridStockAdjustmentList.Columns["Narration"].Width = 200;
+            DataGridStockAdjustmentList.Columns["Narration"].Width = 230;
             DataGridStockAdjustmentList.Columns["Narration"].DisplayIndex = 2;
 
             DataGridStockAdjustmentList.Columns["ItemCode"].HeaderText = "Item Code";
-            DataGridStockAdjustmentList.Columns["ItemCode"].Width = 100;
+            DataGridStockAdjustmentList.Columns["ItemCode"].Width = 120;
             DataGridStockAdjustmentList.Columns["ItemCode"].DisplayIndex = 3;
 
             DataGridStockAdjustmentList.Columns["ItemName"].HeaderText = "Item Name";
-            DataGridStockAdjustmentList.Columns["ItemName"].Width = 200;
+            DataGridStockAdjustmentList.Columns["ItemName"].Width = 230;
             DataGridStockAdjustmentList.Columns["ItemName"].DisplayIndex = 4;
 
             DataGridStockAdjustmentList.Columns["Quantity"].HeaderText = "Quantity";

@@ -673,7 +673,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridMemberList.Columns["ActionType"].Width = 220;
             DataGridMemberList.Columns["ActionType"].DisplayIndex = 2;
 
-            DataGridMemberList.Columns["InvoiceNo"].HeaderText = "Invoice No";
+            DataGridMemberList.Columns["InvoiceNo"].HeaderText = "InvoiceNo";
             DataGridMemberList.Columns["InvoiceNo"].Width = 100;
             DataGridMemberList.Columns["InvoiceNo"].DisplayIndex = 3;
 

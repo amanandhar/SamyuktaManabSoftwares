@@ -77,15 +77,15 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridDeliveryPersonList.Columns["DeliveryChargePercent"].Visible = false;
 
             DataGridDeliveryPersonList.Columns["EndOfDay"].HeaderText = "Date";
-            DataGridDeliveryPersonList.Columns["EndOfDay"].Width = 100;
+            DataGridDeliveryPersonList.Columns["EndOfDay"].Width = 120;
             DataGridDeliveryPersonList.Columns["EndOfDay"].DisplayIndex = 0;
 
             DataGridDeliveryPersonList.Columns["DeliveryPersonId"].HeaderText = "Employee Id";
-            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].Width = 150;
+            DataGridDeliveryPersonList.Columns["DeliveryPersonId"].Width = 180;
             DataGridDeliveryPersonList.Columns["DeliveryPersonId"].DisplayIndex = 1;
 
             DataGridDeliveryPersonList.Columns["InvoiceNo"].HeaderText = "Invoice No";
-            DataGridDeliveryPersonList.Columns["InvoiceNo"].Width = 100;
+            DataGridDeliveryPersonList.Columns["InvoiceNo"].Width = 150;
             DataGridDeliveryPersonList.Columns["InvoiceNo"].DisplayIndex = 2;
 
             DataGridDeliveryPersonList.Columns["DeliveryCharge"].HeaderText = "Delivery Charge";

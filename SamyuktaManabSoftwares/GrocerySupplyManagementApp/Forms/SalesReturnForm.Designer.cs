@@ -407,7 +407,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DateGridSalesReturnList
             // 
-            this.DateGridSalesReturnList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DateGridSalesReturnList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.DateGridSalesReturnList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DateGridSalesReturnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DateGridSalesReturnList.Location = new System.Drawing.Point(15, 203);
@@ -432,7 +432,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label8.BackColor = System.Drawing.Color.DodgerBlue;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Cyan;
-            this.label8.Location = new System.Drawing.Point(387, 4);
+            this.label8.Location = new System.Drawing.Point(389, 4);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(358, 31);
             this.label8.TabIndex = 23;
@@ -442,7 +442,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox4);

@@ -205,7 +205,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridExpenseList
             // 
-            this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridExpenseList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -218,7 +218,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.DataGridExpenseList.Location = new System.Drawing.Point(5, 25);
             this.DataGridExpenseList.Name = "DataGridExpenseList";
             this.DataGridExpenseList.ReadOnly = true;
-            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 400);
+            this.DataGridExpenseList.Size = new System.Drawing.Size(510, 405);
             this.DataGridExpenseList.TabIndex = 1;
             this.DataGridExpenseList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridExpenseList_DataBindingComplete);
             // 
@@ -236,7 +236,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridIncomeList
             // 
-            this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.DataGridIncomeList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -257,7 +257,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridIncomeList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 400);
+            this.DataGridIncomeList.Size = new System.Drawing.Size(510, 405);
             this.DataGridIncomeList.TabIndex = 0;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeList_DataBindingComplete);
             // 
@@ -294,7 +294,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox1);

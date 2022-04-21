@@ -37,7 +37,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // PanelHeader
             // 
-            this.PanelHeader.BackColor = System.Drawing.Color.White;
+            this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PanelHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelHeader.Location = new System.Drawing.Point(12, 13);
             this.PanelHeader.Name = "PanelHeader";
@@ -47,7 +47,7 @@ namespace GrocerySupplyManagementApp.Forms
             // PanelBody
             // 
             this.PanelBody.AutoScroll = true;
-            this.PanelBody.BackColor = System.Drawing.Color.White;
+            this.PanelBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PanelBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelBody.Location = new System.Drawing.Point(12, 37);
             this.PanelBody.Name = "PanelBody";
@@ -98,6 +98,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(534, 311);
             this.Controls.Add(this.BtnUpdate);
             this.Controls.Add(this.BtnCancel);

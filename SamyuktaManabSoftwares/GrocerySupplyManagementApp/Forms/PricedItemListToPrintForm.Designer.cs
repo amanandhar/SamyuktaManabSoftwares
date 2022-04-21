@@ -44,7 +44,7 @@ namespace GrocerySupplyManagementApp.Forms
             // PanelBody
             // 
             this.PanelBody.AutoScroll = true;
-            this.PanelBody.BackColor = System.Drawing.Color.White;
+            this.PanelBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PanelBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelBody.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PanelBody.Location = new System.Drawing.Point(12, 69);
@@ -61,7 +61,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // PanelHeader
             // 
-            this.PanelHeader.BackColor = System.Drawing.Color.White;
+            this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PanelHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PanelHeader.Location = new System.Drawing.Point(12, 13);
@@ -87,7 +87,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // PanelFooter
             // 
-            this.PanelFooter.BackColor = System.Drawing.Color.White;
+            this.PanelFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PanelFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelFooter.Location = new System.Drawing.Point(12, 371);
             this.PanelFooter.Name = "PanelFooter";
@@ -139,6 +139,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.PanelFooter);
             this.Controls.Add(this.PicBoxLoading);

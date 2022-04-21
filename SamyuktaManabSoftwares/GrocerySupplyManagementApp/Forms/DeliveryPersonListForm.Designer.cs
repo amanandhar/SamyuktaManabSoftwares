@@ -35,7 +35,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // DataGridDeliveryPersonList
             // 
-            this.DataGridDeliveryPersonList.BackgroundColor = System.Drawing.Color.White;
+            this.DataGridDeliveryPersonList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.DataGridDeliveryPersonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridDeliveryPersonList.Location = new System.Drawing.Point(12, 11);
             this.DataGridDeliveryPersonList.Name = "DataGridDeliveryPersonList";
@@ -49,7 +49,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(534, 361);
             this.Controls.Add(this.DataGridDeliveryPersonList);
             this.Name = "DeliveryPersonListForm";

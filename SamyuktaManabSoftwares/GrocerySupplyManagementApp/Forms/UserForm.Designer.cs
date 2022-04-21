@@ -220,9 +220,10 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkReadOnly.AutoSize = true;
             this.ChkReadOnly.Enabled = false;
+            this.ChkReadOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkReadOnly.Location = new System.Drawing.Point(34, 21);
             this.ChkReadOnly.Name = "ChkReadOnly";
-            this.ChkReadOnly.Size = new System.Drawing.Size(91, 20);
+            this.ChkReadOnly.Size = new System.Drawing.Size(96, 22);
             this.ChkReadOnly.TabIndex = 5;
             this.ChkReadOnly.Text = "Read Only";
             this.ChkReadOnly.UseVisualStyleBackColor = true;
@@ -232,10 +233,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkEOD.AutoSize = true;
             this.ChkEOD.Enabled = false;
+            this.ChkEOD.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkEOD.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkEOD.Location = new System.Drawing.Point(34, 150);
             this.ChkEOD.Name = "ChkEOD";
-            this.ChkEOD.Size = new System.Drawing.Size(95, 20);
+            this.ChkEOD.Size = new System.Drawing.Size(103, 22);
             this.ChkEOD.TabIndex = 10;
             this.ChkEOD.Text = "End Of Day";
             this.ChkEOD.UseVisualStyleBackColor = true;
@@ -245,10 +247,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkBank.AutoSize = true;
             this.ChkBank.Enabled = false;
+            this.ChkBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkBank.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkBank.Location = new System.Drawing.Point(34, 47);
             this.ChkBank.Name = "ChkBank";
-            this.ChkBank.Size = new System.Drawing.Size(58, 20);
+            this.ChkBank.Size = new System.Drawing.Size(61, 22);
             this.ChkBank.TabIndex = 6;
             this.ChkBank.Text = "Bank";
             this.ChkBank.UseVisualStyleBackColor = true;
@@ -258,10 +261,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkEmployee.AutoSize = true;
             this.ChkEmployee.Enabled = false;
+            this.ChkEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkEmployee.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkEmployee.Location = new System.Drawing.Point(34, 124);
             this.ChkEmployee.Name = "ChkEmployee";
-            this.ChkEmployee.Size = new System.Drawing.Size(89, 20);
+            this.ChkEmployee.Size = new System.Drawing.Size(93, 22);
             this.ChkEmployee.TabIndex = 9;
             this.ChkEmployee.Text = "Employee";
             this.ChkEmployee.UseVisualStyleBackColor = true;
@@ -271,10 +275,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkMember.AutoSize = true;
             this.ChkMember.Enabled = false;
+            this.ChkMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkMember.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkMember.Location = new System.Drawing.Point(207, 47);
             this.ChkMember.Name = "ChkMember";
-            this.ChkMember.Size = new System.Drawing.Size(77, 20);
+            this.ChkMember.Size = new System.Drawing.Size(82, 22);
             this.ChkMember.TabIndex = 12;
             this.ChkMember.Text = "Member";
             this.ChkMember.UseVisualStyleBackColor = true;
@@ -284,10 +289,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkStockSummary.AutoSize = true;
             this.ChkStockSummary.Enabled = false;
+            this.ChkStockSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkStockSummary.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkStockSummary.Location = new System.Drawing.Point(207, 150);
             this.ChkStockSummary.Name = "ChkStockSummary";
-            this.ChkStockSummary.Size = new System.Drawing.Size(121, 20);
+            this.ChkStockSummary.Size = new System.Drawing.Size(134, 22);
             this.ChkStockSummary.TabIndex = 16;
             this.ChkStockSummary.Text = "Stock Summary";
             this.ChkStockSummary.UseVisualStyleBackColor = true;
@@ -297,10 +303,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkItemPricing.AutoSize = true;
             this.ChkItemPricing.Enabled = false;
+            this.ChkItemPricing.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkItemPricing.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkItemPricing.Location = new System.Drawing.Point(34, 176);
             this.ChkItemPricing.Name = "ChkItemPricing";
-            this.ChkItemPricing.Size = new System.Drawing.Size(96, 20);
+            this.ChkItemPricing.Size = new System.Drawing.Size(104, 22);
             this.ChkItemPricing.TabIndex = 11;
             this.ChkItemPricing.Text = "Item Pricing";
             this.ChkItemPricing.UseVisualStyleBackColor = true;
@@ -310,10 +317,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkDailyTransaction.AutoSize = true;
             this.ChkDailyTransaction.Enabled = false;
+            this.ChkDailyTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkDailyTransaction.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkDailyTransaction.Location = new System.Drawing.Point(34, 98);
             this.ChkDailyTransaction.Name = "ChkDailyTransaction";
-            this.ChkDailyTransaction.Size = new System.Drawing.Size(132, 20);
+            this.ChkDailyTransaction.Size = new System.Drawing.Size(141, 22);
             this.ChkDailyTransaction.TabIndex = 8;
             this.ChkDailyTransaction.Text = "Daily Transaction";
             this.ChkDailyTransaction.UseVisualStyleBackColor = true;
@@ -323,10 +331,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkSupplier.AutoSize = true;
             this.ChkSupplier.Enabled = false;
+            this.ChkSupplier.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkSupplier.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkSupplier.Location = new System.Drawing.Point(207, 176);
             this.ChkSupplier.Name = "ChkSupplier";
-            this.ChkSupplier.Size = new System.Drawing.Size(77, 20);
+            this.ChkSupplier.Size = new System.Drawing.Size(80, 22);
             this.ChkSupplier.TabIndex = 17;
             this.ChkSupplier.Text = "Supplier";
             this.ChkSupplier.UseVisualStyleBackColor = true;
@@ -336,10 +345,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkDailySummary.AutoSize = true;
             this.ChkDailySummary.Enabled = false;
+            this.ChkDailySummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkDailySummary.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkDailySummary.Location = new System.Drawing.Point(34, 73);
             this.ChkDailySummary.Name = "ChkDailySummary";
-            this.ChkDailySummary.Size = new System.Drawing.Size(118, 20);
+            this.ChkDailySummary.Size = new System.Drawing.Size(127, 22);
             this.ChkDailySummary.TabIndex = 7;
             this.ChkDailySummary.Text = "Daily Summary";
             this.ChkDailySummary.UseVisualStyleBackColor = true;
@@ -349,10 +359,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkPOS.AutoSize = true;
             this.ChkPOS.Enabled = false;
+            this.ChkPOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkPOS.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkPOS.Location = new System.Drawing.Point(207, 73);
             this.ChkPOS.Name = "ChkPOS";
-            this.ChkPOS.Size = new System.Drawing.Size(55, 20);
+            this.ChkPOS.Size = new System.Drawing.Size(59, 22);
             this.ChkPOS.TabIndex = 13;
             this.ChkPOS.Text = "POS";
             this.ChkPOS.UseVisualStyleBackColor = true;
@@ -362,10 +373,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkSettings.AutoSize = true;
             this.ChkSettings.Enabled = false;
+            this.ChkSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkSettings.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkSettings.Location = new System.Drawing.Point(207, 125);
             this.ChkSettings.Name = "ChkSettings";
-            this.ChkSettings.Size = new System.Drawing.Size(75, 20);
+            this.ChkSettings.Size = new System.Drawing.Size(80, 22);
             this.ChkSettings.TabIndex = 15;
             this.ChkSettings.Text = "Settings";
             this.ChkSettings.UseVisualStyleBackColor = true;
@@ -375,10 +387,11 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.ChkReports.AutoSize = true;
             this.ChkReports.Enabled = false;
+            this.ChkReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkReports.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.ChkReports.Location = new System.Drawing.Point(207, 99);
             this.ChkReports.Name = "ChkReports";
-            this.ChkReports.Size = new System.Drawing.Size(75, 20);
+            this.ChkReports.Size = new System.Drawing.Size(80, 22);
             this.ChkReports.TabIndex = 14;
             this.ChkReports.Text = "Reports";
             this.ChkReports.UseVisualStyleBackColor = true;
@@ -522,7 +535,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox1);

@@ -440,7 +440,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchSalaryDetails.ForeColor = System.Drawing.Color.White;
             this.BtnSearchSalaryDetails.Location = new System.Drawing.Point(140, 95);
             this.BtnSearchSalaryDetails.Name = "BtnSearchSalaryDetails";
-            this.BtnSearchSalaryDetails.Size = new System.Drawing.Size(260, 40);
+            this.BtnSearchSalaryDetails.Size = new System.Drawing.Size(260, 36);
             this.BtnSearchSalaryDetails.TabIndex = 19;
             this.BtnSearchSalaryDetails.Text = "Search Salary Details";
             this.BtnSearchSalaryDetails.TextColor = System.Drawing.Color.White;
@@ -832,7 +832,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDeleteImage.FlatAppearance.BorderSize = 0;
             this.BtnDeleteImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDeleteImage.ForeColor = System.Drawing.Color.White;
-            this.BtnDeleteImage.Location = new System.Drawing.Point(1020, 217);
+            this.BtnDeleteImage.Location = new System.Drawing.Point(1018, 217);
             this.BtnDeleteImage.Name = "BtnDeleteImage";
             this.BtnDeleteImage.Size = new System.Drawing.Size(55, 24);
             this.BtnDeleteImage.TabIndex = 23;
@@ -856,7 +856,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label23.BackColor = System.Drawing.Color.DodgerBlue;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Cyan;
-            this.label23.Location = new System.Drawing.Point(409, 6);
+            this.label23.Location = new System.Drawing.Point(410, 6);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(317, 31);
             this.label23.TabIndex = 46;
@@ -886,7 +886,7 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.label23);
