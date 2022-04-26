@@ -913,15 +913,25 @@ namespace GrocerySupplyManagementApp.Forms
                 var itemQuantity = string.IsNullOrWhiteSpace(RichItemQuantity.Text.Trim())
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(RichItemQuantity.Text.Trim());
+                var volume = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
 
-                if(_soldItemViewList.Any(soldItem => soldItem.ItemCode == itemCode))
+                if (_soldItemViewList.Any(soldItem => soldItem.ItemCode == itemCode))
                 {
                     var soldItem = _soldItemViewList.FirstOrDefault(_soldItem => _soldItem.ItemCode == itemCode);
                     if(soldItem != null)
                     {
                         soldItem.ItemDiscount = itemDiscount != Constants.DEFAULT_DECIMAL_VALUE ? itemDiscount : soldItem.ItemDiscount;
                         soldItem.Quantity += itemQuantity;
-                        soldItem.Total = Math.Round(soldItem.Quantity * (itemPrice - soldItem.ItemDiscount), 2);
+                        if(volume == Constants.DEFAULT_DECIMAL_VALUE)
+                        {
+                            soldItem.Total = Math.Round(soldItem.Quantity * (itemPrice - soldItem.ItemDiscount), 2);
+                        }
+                        else
+                        {
+                            soldItem.Total = Math.Round(soldItem.Quantity * volume * (itemPrice - soldItem.ItemDiscount), 2);
+                        }
                     }
                 }
                 else
@@ -936,7 +946,9 @@ namespace GrocerySupplyManagementApp.Forms
                         ItemPrice = itemPrice - itemDiscount,
                         ItemDiscount = itemDiscount,
                         Quantity = itemQuantity,
-                        Total = Math.Round(itemQuantity * (itemPrice - itemDiscount), 2),
+                        Total = volume == Constants.DEFAULT_DECIMAL_VALUE 
+                        ? Math.Round(itemQuantity * (itemPrice - itemDiscount), 2)
+                        : Math.Round(itemQuantity * volume * (itemPrice - itemDiscount), 2),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     });
@@ -1193,7 +1205,7 @@ namespace GrocerySupplyManagementApp.Forms
                     TxtItemStock.ForeColor = Color.Black;
                 }
 
-                RichItemCode.Text = item.Code;
+                RichItemCode.Text = string.IsNullOrWhiteSpace(pricedItem.SubCode) ? item.Code : item.Code + "." + pricedItem.SubCode;
                 TxtItemName.Text = item.Name;
 
                 var stockItem  = _stockService.GetStockItem(pricedItem, stockFilter);
@@ -1201,6 +1213,8 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtPricedUnit.Text = item.Unit;
                 TxtItemStock.Text = stock.ToString();
                 TxtBarcode.Text = pricedItem.Barcode;
+                TxtCustomizedQuantity.Text = pricedItem.CustomizedQuantity == null ? string.Empty : pricedItem.CustomizedQuantity.ToString();
+                TxtCustomizedUnit.Text = string.IsNullOrWhiteSpace(pricedItem.CustomizedUnit) ? string.Empty : pricedItem.CustomizedUnit;
 
                 _itemDiscountPercent = item.DiscountPercent;
                 _itemDiscountPercent1 = item.DiscountPercent1;

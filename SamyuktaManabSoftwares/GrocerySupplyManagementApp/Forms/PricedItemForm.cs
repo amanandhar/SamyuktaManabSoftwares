@@ -157,6 +157,11 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         EndOfDay = _endOfDay,
                         ItemId = _selectedItemId,
+                        SubCode = TxtSubCode.Text.Trim(),
+                        CustomizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                            ? Constants.DEFAULT_DECIMAL_VALUE
+                            : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim()),
+                        CustomizedUnit = ComboCustomizedUnit.Text.Trim(),
                         Barcode = TxtBarcode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
@@ -190,7 +195,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Edit);
-            TxtProfitPercent.Focus();
+            TxtSubCode.Focus();
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -234,6 +239,11 @@ namespace GrocerySupplyManagementApp.Forms
                     var pricedItem = new PricedItem
                     {
                         ItemId = _selectedItemId,
+                        SubCode = TxtSubCode.Text.Trim(),
+                        CustomizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                            ? Constants.DEFAULT_DECIMAL_VALUE
+                            : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim()),
+                        CustomizedUnit = ComboCustomizedUnit.Text.Trim(),
                         Barcode = TxtBarcode.Text.Trim(),
                         ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
                         Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
@@ -362,6 +372,34 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void TxtCustomizedQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtCustomizedQuantity_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TxtPerUnitValue.Text.Trim())
+                && decimal.TryParse(TxtPerUnitValue.Text.Trim(), out _)
+                && !string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                && decimal.TryParse(TxtCustomizedQuantity.Text.Trim(), out _))
+            {
+                var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
+                var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var profitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim());
+                var profitAmount = (totalAmount * (profitPercent / 100));
+                var salesPricePerUnit = totalAmount + profitAmount;
+                TxtProfitAmount.Text = profitAmount.ToString("0.00");
+                TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
+            }
+        }
+
         private void TxtProfitPercent_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != 8) && (e.KeyChar != 46))
@@ -415,6 +453,28 @@ namespace GrocerySupplyManagementApp.Forms
         }
         #endregion
 
+        #region Combo Box Event
+        private void ComboCustomizedUnit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void ComboCustomizedUnit_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ComboCustomizedUnit.Text.Trim()))
+            {
+                TxtCustomizedQuantity.Clear();
+                TxtCustomizedQuantity.Enabled = false;
+                ComboCustomizedUnit.Focus();
+            }
+            else
+            {
+                TxtCustomizedQuantity.Enabled = true;
+                TxtCustomizedQuantity.Focus();
+            }
+        }
+        #endregion
+
         #region OpenFileDialog Event
         private void OpenItemImageDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -455,9 +515,13 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var profitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim());
                 var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
-                var profitAmount = (perUnitValue * (profitPercent / 100));
+                var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var profitAmount = (totalAmount * (profitPercent / 100));
+                var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitAmount.Text = profitAmount.ToString("0.00");
-                var salesPricePerUnit = perUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
             }
             else
@@ -476,9 +540,13 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var profitPercent = Convert.ToDecimal(TxtProfitPercent1.Text.Trim());
                 var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
-                var profitAmount = (perUnitValue * (profitPercent / 100));
+                var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var profitAmount = (totalAmount * (profitPercent / 100));
+                var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitAmount1.Text = profitAmount.ToString("0.00");
-                var salesPricePerUnit = perUnitValue + profitAmount;
                 TxtSalesPricePerUnit1.Text = salesPricePerUnit.ToString("0.00");
             }
             else
@@ -497,9 +565,13 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var profitAmount = Convert.ToDecimal(TxtProfitAmount.Text.Trim());
                 var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
-                var profitPercent = ((profitAmount / perUnitValue) * 100);
+                var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var profitPercent = ((totalAmount / perUnitValue) * 100);
+                var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitPercent.Text = profitPercent.ToString("0.0000");
-                var salesPricePerUnit = perUnitValue + profitAmount;
                 TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
             }
             else
@@ -518,9 +590,13 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 var profitAmount = Convert.ToDecimal(TxtProfitAmount1.Text.Trim());
                 var perUnitValue = Convert.ToDecimal(TxtPerUnitValue.Text.Trim());
-                var profitPercent = ((profitAmount / perUnitValue) * 100);
+                var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var profitPercent = ((totalAmount / perUnitValue) * 100);
+                var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitPercent1.Text = profitPercent.ToString("0.0000");
-                var salesPricePerUnit = perUnitValue + profitAmount;
                 TxtSalesPricePerUnit1.Text = salesPricePerUnit.ToString("0.00");
             }
             else
@@ -555,6 +631,9 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Add)
             {
+                TxtSubCode.Enabled = true;
+                ComboCustomizedUnit.Enabled = true;
+
                 TxtBarcode.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
@@ -573,6 +652,8 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Edit)
             {
                 TxtItemCode.Enabled = true;
+                TxtSubCode.Enabled = true;
+                ComboCustomizedUnit.Enabled = true;
 
                 TxtBarcode.Enabled = true;
                 TxtProfitPercent.Enabled = true;
@@ -600,6 +681,10 @@ namespace GrocerySupplyManagementApp.Forms
             else
             {
                 TxtItemCode.Enabled = false;
+                TxtSubCode.Enabled = false;
+                TxtCustomizedQuantity.Enabled = false;
+                ComboCustomizedUnit.Enabled = false;
+
                 TxtItemName.Enabled = false;
                 TxtItemUnit.Enabled = false;
                 TxtTotalStock.Enabled = false;

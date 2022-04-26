@@ -35,11 +35,13 @@ namespace GrocerySupplyManagementApp.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.RichItemQuantity = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.TxtCustomizedUnit = new System.Windows.Forms.TextBox();
+            this.TxtCustomizedQuantity = new System.Windows.Forms.TextBox();
             this.TxtBarcode = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtItemDiscount = new System.Windows.Forms.TextBox();
             this.BtnSearchItem = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnPrint = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.TxtPricedUnit = new System.Windows.Forms.TextBox();
             this.TxtItemStock = new System.Windows.Forms.TextBox();
             this.TxtItemPrice = new System.Windows.Forms.TextBox();
@@ -52,6 +54,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label12 = new System.Windows.Forms.Label();
             this.TxtProfitAmount = new System.Windows.Forms.TextBox();
             this.RichItemCode = new System.Windows.Forms.RichTextBox();
+            this.BtnPrint = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.label11 = new System.Windows.Forms.Label();
             this.ComboDeliveryPerson = new System.Windows.Forms.ComboBox();
             this.RichReceivedAmount = new System.Windows.Forms.RichTextBox();
@@ -135,7 +138,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemQuantity.Location = new System.Drawing.Point(99, 140);
             this.RichItemQuantity.Name = "RichItemQuantity";
             this.RichItemQuantity.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.RichItemQuantity.Size = new System.Drawing.Size(166, 28);
+            this.RichItemQuantity.Size = new System.Drawing.Size(89, 28);
             this.RichItemQuantity.TabIndex = 22;
             this.RichItemQuantity.Text = "";
             this.RichItemQuantity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichItemQuantity_KeyDown);
@@ -145,11 +148,13 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.groupBox4.Controls.Add(this.label25);
+            this.groupBox4.Controls.Add(this.TxtCustomizedUnit);
+            this.groupBox4.Controls.Add(this.TxtCustomizedQuantity);
             this.groupBox4.Controls.Add(this.TxtBarcode);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.TxtItemDiscount);
             this.groupBox4.Controls.Add(this.BtnSearchItem);
-            this.groupBox4.Controls.Add(this.BtnPrint);
             this.groupBox4.Controls.Add(this.TxtPricedUnit);
             this.groupBox4.Controls.Add(this.TxtItemStock);
             this.groupBox4.Controls.Add(this.TxtItemPrice);
@@ -171,6 +176,41 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.TabIndex = 22;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Item Details";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label25.Location = new System.Drawing.Point(204, 144);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(58, 18);
+            this.label25.TabIndex = 67;
+            this.label25.Text = "Volume";
+            // 
+            // TxtCustomizedUnit
+            // 
+            this.TxtCustomizedUnit.BackColor = System.Drawing.Color.White;
+            this.TxtCustomizedUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCustomizedUnit.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.TxtCustomizedUnit.Location = new System.Drawing.Point(341, 140);
+            this.TxtCustomizedUnit.Name = "TxtCustomizedUnit";
+            this.TxtCustomizedUnit.ReadOnly = true;
+            this.TxtCustomizedUnit.Size = new System.Drawing.Size(73, 26);
+            this.TxtCustomizedUnit.TabIndex = 66;
+            this.TxtCustomizedUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TxtCustomizedQuantity
+            // 
+            this.TxtCustomizedQuantity.BackColor = System.Drawing.Color.White;
+            this.TxtCustomizedQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCustomizedQuantity.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.TxtCustomizedQuantity.Location = new System.Drawing.Point(265, 140);
+            this.TxtCustomizedQuantity.Name = "TxtCustomizedQuantity";
+            this.TxtCustomizedQuantity.ReadOnly = true;
+            this.TxtCustomizedQuantity.Size = new System.Drawing.Size(73, 26);
+            this.TxtCustomizedQuantity.TabIndex = 65;
+            this.TxtCustomizedQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TxtBarcode
             // 
@@ -227,26 +267,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSearchItem.TextColor = System.Drawing.Color.White;
             this.BtnSearchItem.UseVisualStyleBackColor = false;
             this.BtnSearchItem.Click += new System.EventHandler(this.BtnSearchItem_Click);
-            // 
-            // BtnPrint
-            // 
-            this.BtnPrint.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnPrint.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnPrint.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.BtnPrint.BorderRadius = 10;
-            this.BtnPrint.BorderSize = 0;
-            this.BtnPrint.FlatAppearance.BorderSize = 0;
-            this.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPrint.ForeColor = System.Drawing.Color.White;
-            this.BtnPrint.Location = new System.Drawing.Point(341, 139);
-            this.BtnPrint.Name = "BtnPrint";
-            this.BtnPrint.Size = new System.Drawing.Size(73, 28);
-            this.BtnPrint.TabIndex = 63;
-            this.BtnPrint.Text = "Print";
-            this.BtnPrint.TextColor = System.Drawing.Color.White;
-            this.BtnPrint.UseVisualStyleBackColor = false;
-            this.BtnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
             // 
             // TxtPricedUnit
             // 
@@ -386,6 +406,26 @@ namespace GrocerySupplyManagementApp.Forms
             this.RichItemCode.Text = "";
             this.RichItemCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichItemCode_KeyDown);
             this.RichItemCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RichItemCode_KeyPress);
+            // 
+            // BtnPrint
+            // 
+            this.BtnPrint.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnPrint.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnPrint.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.BtnPrint.BorderRadius = 10;
+            this.BtnPrint.BorderSize = 0;
+            this.BtnPrint.FlatAppearance.BorderSize = 0;
+            this.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnPrint.ForeColor = System.Drawing.Color.White;
+            this.BtnPrint.Location = new System.Drawing.Point(96, 29);
+            this.BtnPrint.Name = "BtnPrint";
+            this.BtnPrint.Size = new System.Drawing.Size(73, 28);
+            this.BtnPrint.TabIndex = 63;
+            this.BtnPrint.Text = "Print";
+            this.BtnPrint.TextColor = System.Drawing.Color.White;
+            this.BtnPrint.UseVisualStyleBackColor = false;
+            this.BtnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
             // 
             // label11
             // 
@@ -912,6 +952,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.TxtInvoiceNo);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.BtnPrint);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.RadioBtnCredit);
             this.groupBox2.Controls.Add(this.RadioBtnCash);
@@ -1429,5 +1470,8 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.TextBox TxtBarcode;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox TxtChangeMoney;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox TxtCustomizedUnit;
+        private System.Windows.Forms.TextBox TxtCustomizedQuantity;
     }
 }
