@@ -47,7 +47,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
                                 pricedItem.SubCode = reader["SubCode"].ToString();
                                 pricedItem.CustomizedQuantity = reader.IsDBNull(3) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["CustomizedQuantity"].ToString());
-                                pricedItem.CustomizedUnit = reader["ItemId"].ToString();
+                                pricedItem.CustomizedUnit = reader["CustomizedUnit"].ToString();
                                 pricedItem.Barcode = reader.IsDBNull(5) ? null : reader["Barcode"].ToString();
                                 pricedItem.ProfitPercent = reader.IsDBNull(6) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["ProfitPercent"].ToString());
                                 pricedItem.Profit = reader.IsDBNull(7) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(reader["Profit"].ToString());

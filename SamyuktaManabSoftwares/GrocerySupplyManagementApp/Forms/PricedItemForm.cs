@@ -391,7 +391,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
-                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue * customizedQuantity);
                 var profitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim());
                 var profitAmount = (totalAmount * (profitPercent / 100));
                 var salesPricePerUnit = totalAmount + profitAmount;
@@ -518,7 +518,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
-                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue * customizedQuantity);
                 var profitAmount = (totalAmount * (profitPercent / 100));
                 var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitAmount.Text = profitAmount.ToString("0.00");
@@ -543,7 +543,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
-                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue * customizedQuantity);
                 var profitAmount = (totalAmount * (profitPercent / 100));
                 var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitAmount1.Text = profitAmount.ToString("0.00");
@@ -568,8 +568,8 @@ namespace GrocerySupplyManagementApp.Forms
                 var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
-                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
-                var profitPercent = ((totalAmount / perUnitValue) * 100);
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue * customizedQuantity);
+                var profitPercent = ((profitAmount / totalAmount) * 100);
                 var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitPercent.Text = profitPercent.ToString("0.0000");
                 TxtSalesPricePerUnit.Text = salesPricePerUnit.ToString("0.00");
@@ -593,8 +593,8 @@ namespace GrocerySupplyManagementApp.Forms
                 var customizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
-                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue / customizedQuantity);
-                var profitPercent = ((totalAmount / perUnitValue) * 100);
+                var totalAmount = customizedQuantity == Constants.DEFAULT_DECIMAL_VALUE ? perUnitValue : (perUnitValue * customizedQuantity);
+                var profitPercent = ((profitAmount / totalAmount) * 100);
                 var salesPricePerUnit = totalAmount + profitAmount;
                 TxtProfitPercent1.Text = profitPercent.ToString("0.0000");
                 TxtSalesPricePerUnit1.Text = salesPricePerUnit.ToString("0.00");
@@ -715,10 +715,14 @@ namespace GrocerySupplyManagementApp.Forms
         private void ClearAllFields()
         {
             TxtItemCode.Clear();
+            TxtSubCode.Clear();
             TxtItemName.Clear();
             TxtItemUnit.Clear();
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
+            
+            ComboCustomizedUnit.Text = String.Empty;
+            TxtCustomizedQuantity.Clear();
 
             TxtBarcode.Clear();
             TxtProfitPercent.Clear();
@@ -744,6 +748,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var item = _itemService.GetItem(_selectedItemId);
 
                 TxtItemCode.Text = item.Code;
+                TxtSubCode.Text = pricedItem.SubCode;
                 TxtItemName.Text = item.Name;
                 TxtItemUnit.Text = item.Unit;
                 StockFilter stockFilter = new StockFilter
@@ -756,6 +761,8 @@ namespace GrocerySupplyManagementApp.Forms
                 var stockItem = _stockService.GetStockItem(pricedItem, stockFilter);
 
                 TxtPerUnitValue.Text = stockItem.PerUnitValue.ToString();
+                ComboCustomizedUnit.Text = pricedItem.CustomizedUnit;
+                TxtCustomizedQuantity.Text = pricedItem.CustomizedQuantity.ToString();
 
                 TxtBarcode.Text = string.IsNullOrWhiteSpace(pricedItem.Barcode) ? string.Empty : pricedItem.Barcode;
                 TxtProfitPercent.Text = pricedItem.ProfitPercent == Constants.DEFAULT_DECIMAL_VALUE ? string.Empty : pricedItem.ProfitPercent.ToString();
