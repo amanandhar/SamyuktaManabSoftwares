@@ -42,6 +42,8 @@ namespace GrocerySupplyManagementApp.Forms
             Edit,
             Update,
             Delete,
+            Customize,
+            Done,
             Load,
             PopulatePricedItem,
             PopulateUnpricedItem,
@@ -114,81 +116,7 @@ namespace GrocerySupplyManagementApp.Forms
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (ValidatePricedItemInfo(Action.Save))
-                {
-                    string relativeImagePath = null;
-                    string destinationFilePath = null;
-                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
-                    {
-                        if (!Directory.Exists(_baseImageFolder))
-                        {
-                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            if (errorResult == DialogResult.OK)
-                            {
-                                return;
-                            }
-
-                            return;
-                        }
-                        else
-                        {
-                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _itemImageFolder)))
-                            {
-                                UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
-                            }
-
-                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + ".jpg";
-                            destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
-                            if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
-                            {
-                                File.Copy(_uploadedImagePath, destinationFilePath, true);
-                            }
-                            else
-                            {
-                                File.Copy(PicBoxItemImage.ImageLocation, destinationFilePath, true);
-                            }
-                        }
-                    }
-
-                    var pricedItem = new PricedItem
-                    {
-                        EndOfDay = _endOfDay,
-                        ItemId = _selectedItemId,
-                        SubCode = TxtSubCode.Text.Trim(),
-                        CustomizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
-                            ? Constants.DEFAULT_DECIMAL_VALUE
-                            : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim()),
-                        CustomizedUnit = ComboCustomizedUnit.Text.Trim(),
-                        Barcode = TxtBarcode.Text.Trim(),
-                        ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
-                        Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
-                        SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
-                        Barcode1 = TxtBarcode1.Text.Trim(),
-                        ProfitPercent1 = string.IsNullOrWhiteSpace(TxtProfitPercent1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtProfitPercent1.Text.Trim()),
-                        Profit1 = string.IsNullOrWhiteSpace(TxtProfitAmount1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtProfitAmount1.Text.Trim()),
-                        SalesPricePerUnit1 = string.IsNullOrWhiteSpace(TxtSalesPricePerUnit1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtSalesPricePerUnit1.Text.Trim()),
-                        ImagePath = relativeImagePath,
-                        AddedBy = _username,
-                        AddedDate = DateTime.Now
-                    };
-
-                    _pricedItemService.AddPricedItem(pricedItem);
-                    DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (result == DialogResult.OK)
-                    {
-                        ClearAllFields();
-                        EnableFields();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                UtilityService.ShowExceptionMessageBox();
-            }
+            AddPricedItem();
         }
 
         private void BtnEdit_Click(object sender, EventArgs e)
@@ -305,6 +233,18 @@ namespace GrocerySupplyManagementApp.Forms
                 logger.Error(ex);
                 UtilityService.ShowExceptionMessageBox();
             }
+        }
+
+        private void BtnCustomize_Click(object sender, EventArgs e)
+        {
+            EnableFields();
+            EnableFields(Action.Customize);
+            TxtSubCode.Focus();
+        }
+
+        private void BtnDone_Click(object sender, EventArgs e)
+        {
+            AddPricedItem();
         }
 
         private void BtnAddImage_Click(object sender, EventArgs e)
@@ -506,6 +446,85 @@ namespace GrocerySupplyManagementApp.Forms
         #endregion
 
         #region Helper Methods
+        private void AddPricedItem()
+        {
+            try
+            {
+                if (ValidatePricedItemInfo(Action.Save))
+                {
+                    string relativeImagePath = null;
+                    string destinationFilePath = null;
+                    if (!string.IsNullOrWhiteSpace(_uploadedImagePath) || !string.IsNullOrWhiteSpace(PicBoxItemImage.ImageLocation))
+                    {
+                        if (!Directory.Exists(_baseImageFolder))
+                        {
+                            DialogResult errorResult = MessageBox.Show("Base image folder is set correctly. Please check.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (errorResult == DialogResult.OK)
+                            {
+                                return;
+                            }
+
+                            return;
+                        }
+                        else
+                        {
+                            if (!Directory.Exists(Path.Combine(_baseImageFolder, _itemImageFolder)))
+                            {
+                                UtilityService.CreateFolder(_baseImageFolder, _itemImageFolder);
+                            }
+
+                            relativeImagePath = TxtItemCode.Text.Trim() + "-" + TxtItemName.Text.Trim() + ".jpg";
+                            destinationFilePath = Path.Combine(_baseImageFolder, _itemImageFolder, relativeImagePath);
+                            if (!string.IsNullOrWhiteSpace(_uploadedImagePath))
+                            {
+                                File.Copy(_uploadedImagePath, destinationFilePath, true);
+                            }
+                            else
+                            {
+                                File.Copy(PicBoxItemImage.ImageLocation, destinationFilePath, true);
+                            }
+                        }
+                    }
+
+                    var pricedItem = new PricedItem
+                    {
+                        EndOfDay = _endOfDay,
+                        ItemId = _selectedItemId,
+                        SubCode = TxtSubCode.Text.Trim(),
+                        CustomizedQuantity = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                            ? Constants.DEFAULT_DECIMAL_VALUE
+                            : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim()),
+                        CustomizedUnit = ComboCustomizedUnit.Text.Trim(),
+                        Barcode = TxtBarcode.Text.Trim(),
+                        ProfitPercent = Convert.ToDecimal(TxtProfitPercent.Text.Trim()),
+                        Profit = Convert.ToDecimal(TxtProfitAmount.Text.Trim()),
+                        SalesPricePerUnit = Convert.ToDecimal(TxtSalesPricePerUnit.Text.Trim()),
+                        Barcode1 = TxtBarcode1.Text.Trim(),
+                        ProfitPercent1 = string.IsNullOrWhiteSpace(TxtProfitPercent1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtProfitPercent1.Text.Trim()),
+                        Profit1 = string.IsNullOrWhiteSpace(TxtProfitAmount1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtProfitAmount1.Text.Trim()),
+                        SalesPricePerUnit1 = string.IsNullOrWhiteSpace(TxtSalesPricePerUnit1.Text) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtSalesPricePerUnit1.Text.Trim()),
+                        ImagePath = relativeImagePath,
+                        AddedBy = _username,
+                        AddedDate = DateTime.Now
+                    };
+
+                    _pricedItemService.AddPricedItem(pricedItem);
+                    DialogResult result = MessageBox.Show(TxtItemCode.Text + " has been added successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        ClearAllFields();
+                        EnableFields();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                UtilityService.ShowExceptionMessageBox();
+            }
+        }
+
         private void CalculateProfitAmount()
         {
             if (!string.IsNullOrWhiteSpace(TxtProfitPercent.Text.Trim())
@@ -623,6 +642,7 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAdd.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
+                BtnCustomize.Enabled = true;
             }
             else if (action == Action.PopulateUnpricedItem)
             {
@@ -631,9 +651,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Add)
             {
-                TxtSubCode.Enabled = true;
-                ComboCustomizedUnit.Enabled = true;
-
                 TxtBarcode.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
@@ -678,6 +695,33 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
+            else if (action == Action.Customize)
+            {
+                TxtSubCode.Enabled = true;
+                ComboCustomizedUnit.Enabled = true;
+
+                TxtBarcode.Enabled = true;
+                TxtProfitPercent.Enabled = true;
+                TxtProfitAmount.Enabled = true;
+
+                TxtBarcode1.Enabled = true;
+                TxtProfitPercent1.Enabled = true;
+                TxtProfitAmount1.Enabled = true;
+
+                BtnBarcodeClear.Enabled = true;
+                BtnBarcode1Clear.Enabled = true;
+                BtnDone.Enabled = true;
+                BtnAddImage.Enabled = true;
+                BtnDeleteImage.Enabled = true;
+            }
+            else if (action == Action.Done)
+            {
+                TxtItemCode.Enabled = true;
+
+                BtnAdd.Enabled = true;
+                BtnEdit.Enabled = true;
+                BtnDelete.Enabled = true;
+            }
             else
             {
                 TxtItemCode.Enabled = false;
@@ -707,6 +751,8 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
                 BtnDelete.Enabled = false;
+                BtnCustomize.Enabled = false;
+                BtnDone.Enabled = false;
                 BtnAddImage.Enabled = false;
                 BtnDeleteImage.Enabled = false;
             }
