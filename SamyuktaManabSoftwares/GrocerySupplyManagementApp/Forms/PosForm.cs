@@ -1277,12 +1277,18 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemName.Text = item.Name;
 
                 var stockItem  = _stockService.GetStockItem(pricedItem, stockFilter);
-                TxtItemPrice.Text = Math.Round(stockItem.SalesPrice, 2).ToString();
+                TxtItemPrice.Text = (pricedItem.CustomizedQuantity == null || pricedItem.CustomizedQuantity == Constants.DEFAULT_DECIMAL_VALUE)
+                    ? Math.Round(stockItem.SalesPrice, 2).ToString()
+                    : Math.Round(stockItem.SalesPrice * Convert.ToDecimal(pricedItem.CustomizedQuantity), 2).ToString();
                 TxtPricedUnit.Text = item.Unit;
                 TxtItemStock.Text = stock.ToString();
                 TxtBarcode.Text = pricedItem.Barcode;
-                TxtCustomizedQuantity.Text = pricedItem.CustomizedQuantity == null ? string.Empty : pricedItem.CustomizedQuantity.ToString();
-                TxtCustomizedUnit.Text = string.IsNullOrWhiteSpace(pricedItem.CustomizedUnit) ? string.Empty : pricedItem.CustomizedUnit;
+                TxtCustomizedQuantity.Text = (pricedItem.CustomizedQuantity == null || pricedItem.CustomizedQuantity == Constants.DEFAULT_DECIMAL_VALUE) 
+                    ? string.Empty 
+                    : pricedItem.CustomizedQuantity.ToString();
+                TxtCustomizedUnit.Text = string.IsNullOrWhiteSpace(pricedItem.CustomizedUnit) 
+                    ? string.Empty 
+                    : pricedItem.CustomizedUnit;
 
                 _itemDiscountPercent = item.DiscountPercent;
                 _itemDiscountPercent1 = item.DiscountPercent1;

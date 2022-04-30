@@ -87,6 +87,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.label10 = new System.Windows.Forms.Label();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.TxtCustomizedSalesPrice = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxItemImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -204,7 +206,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtSubCode.Enabled = false;
             this.TxtSubCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtSubCode.Location = new System.Drawing.Point(30, 150);
-            this.TxtSubCode.MaxLength = 3;
+            this.TxtSubCode.MaxLength = 2;
             this.TxtSubCode.Name = "TxtSubCode";
             this.TxtSubCode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.TxtSubCode.Size = new System.Drawing.Size(326, 29);
@@ -327,7 +329,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtPerUnitValue.Location = new System.Drawing.Point(20, 149);
             this.TxtPerUnitValue.Name = "TxtPerUnitValue";
             this.TxtPerUnitValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.TxtPerUnitValue.Size = new System.Drawing.Size(465, 29);
+            this.TxtPerUnitValue.Size = new System.Drawing.Size(223, 29);
             this.TxtPerUnitValue.TabIndex = 7;
             this.TxtPerUnitValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -582,6 +584,8 @@ namespace GrocerySupplyManagementApp.Forms
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label16);
+            this.groupBox5.Controls.Add(this.TxtCustomizedSalesPrice);
             this.groupBox5.Controls.Add(this.ComboCustomizedUnit);
             this.groupBox5.Controls.Add(this.label15);
             this.groupBox5.Controls.Add(this.TxtCustomizedQuantity);
@@ -899,6 +903,30 @@ namespace GrocerySupplyManagementApp.Forms
             this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
             this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
             // 
+            // TxtCustomizedSalesPrice
+            // 
+            this.TxtCustomizedSalesPrice.BackColor = System.Drawing.SystemColors.Window;
+            this.TxtCustomizedSalesPrice.Enabled = false;
+            this.TxtCustomizedSalesPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCustomizedSalesPrice.Location = new System.Drawing.Point(262, 149);
+            this.TxtCustomizedSalesPrice.Name = "TxtCustomizedSalesPrice";
+            this.TxtCustomizedSalesPrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TxtCustomizedSalesPrice.Size = new System.Drawing.Size(223, 29);
+            this.TxtCustomizedSalesPrice.TabIndex = 69;
+            this.TxtCustomizedSalesPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label16.Location = new System.Drawing.Point(265, 125);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(189, 20);
+            this.label16.TabIndex = 70;
+            this.label16.Text = "Customized Sales Price";
+            // 
             // PricedItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -987,5 +1015,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox TxtSubCode;
         private CustomControls.Button.CustomButton BtnDone;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox TxtCustomizedSalesPrice;
     }
 }
