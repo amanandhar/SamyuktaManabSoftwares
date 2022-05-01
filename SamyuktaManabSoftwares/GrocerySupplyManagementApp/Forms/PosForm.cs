@@ -854,6 +854,7 @@ namespace GrocerySupplyManagementApp.Forms
             try
             {
                 DataGridSoldItemList.Columns["Id"].Visible = false;
+                DataGridSoldItemList.Columns["ItemSubCode"].Visible = false;
                 DataGridSoldItemList.Columns["Profit"].Visible = false;
                 DataGridSoldItemList.Columns["AdjustedType"].Visible = false;
                 DataGridSoldItemList.Columns["AdjustedAmount"].Visible = false;
@@ -864,42 +865,38 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].Width = 80;
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
-                DataGridSoldItemList.Columns["ItemSubCode"].HeaderText = "Sub";
-                DataGridSoldItemList.Columns["ItemSubCode"].Width = 63;
-                DataGridSoldItemList.Columns["ItemSubCode"].DisplayIndex = 1;
-
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 250;
-                DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 2;
+                DataGridSoldItemList.Columns["ItemName"].Width = 300;
+                DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
                 DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
                 DataGridSoldItemList.Columns["Unit"].Width = 63;
-                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 3;
+                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 2;
                 DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Qty";
                 DataGridSoldItemList.Columns["Quantity"].Width = 63;
-                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 4;
+                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Volume"].HeaderText = "Vol";
                 DataGridSoldItemList.Columns["Volume"].Width = 63;
-                DataGridSoldItemList.Columns["Volume"].DisplayIndex = 5;
+                DataGridSoldItemList.Columns["Volume"].DisplayIndex = 4;
                 DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
-                DataGridSoldItemList.Columns["ItemPrice"].Width = 80;
-                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 6;
+                DataGridSoldItemList.Columns["ItemPrice"].Width = 89;
+                DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
                 DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["ItemDiscount"].HeaderText = "Discount";
                 DataGridSoldItemList.Columns["ItemDiscount"].Width = 80;
-                DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 7;
+                DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 6;
                 DataGridSoldItemList.Columns["ItemDiscount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["Total"].HeaderText = "Total";
                 DataGridSoldItemList.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                DataGridSoldItemList.Columns["Total"].DisplayIndex = 8;
+                DataGridSoldItemList.Columns["Total"].DisplayIndex = 7;
                 DataGridSoldItemList.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 foreach (DataGridViewRow row in DataGridSoldItemList.Rows)
@@ -968,14 +965,7 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         soldItem.ItemDiscount = itemDiscount != Constants.DEFAULT_DECIMAL_VALUE ? itemDiscount : soldItem.ItemDiscount;
                         soldItem.Quantity += itemQuantity;
-                        if(volume == Constants.DEFAULT_DECIMAL_VALUE)
-                        {
-                            soldItem.Total = Math.Round(soldItem.Quantity * (itemPrice - soldItem.ItemDiscount), 2);
-                        }
-                        else
-                        {
-                            soldItem.Total = Math.Round(soldItem.Quantity * volume * (itemPrice - soldItem.ItemDiscount), 2);
-                        }
+                        soldItem.Total = Math.Round(soldItem.Quantity * (itemPrice - soldItem.ItemDiscount), 2);
                     }
                 }
                 else
@@ -992,9 +982,7 @@ namespace GrocerySupplyManagementApp.Forms
                         ItemDiscount = itemDiscount,
                         Quantity = itemQuantity,
                         Volume = volume,
-                        Total = volume == Constants.DEFAULT_DECIMAL_VALUE 
-                        ? Math.Round(itemQuantity * (itemPrice - itemDiscount), 2)
-                        : Math.Round(itemQuantity * volume * (itemPrice - itemDiscount), 2),
+                        Total = Math.Round(itemQuantity * (itemPrice - itemDiscount), 2),
                         AddedBy = _username,
                         AddedDate = DateTime.Now
                     });

@@ -239,12 +239,16 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Customize);
+            LoadCustomizedUnit();
             TxtSubCode.Focus();
         }
 
         private void BtnDone_Click(object sender, EventArgs e)
         {
-            AddPricedItem();
+            if(ValidateCustomizedItem())
+            {
+                AddPricedItem();
+            }
         }
 
         private void BtnAddImage_Click(object sender, EventArgs e)
@@ -638,8 +642,6 @@ namespace GrocerySupplyManagementApp.Forms
                 TxtItemCode.Enabled = true;
 
                 BtnAdd.Enabled = true;
-                BtnEdit.Enabled = true;
-                BtnDelete.Enabled = true;
             }
             else if (action == Action.PopulatePricedItem)
             {
@@ -772,7 +774,7 @@ namespace GrocerySupplyManagementApp.Forms
             TxtItemUnit.Clear();
             TxtTotalStock.Clear();
             TxtPerUnitValue.Clear();
-            
+            TxtCustomizedSalesPrice.Clear();
             ComboCustomizedUnit.Text = String.Empty;
             TxtCustomizedQuantity.Clear();
 
@@ -924,6 +926,42 @@ namespace GrocerySupplyManagementApp.Forms
             thread.Start();
             thread.Join();
         }
+
+        private void LoadCustomizedUnit()
+        {
+            ComboCustomizedUnit.Items.Clear();
+            ComboCustomizedUnit.ValueMember = "Id";
+            ComboCustomizedUnit.DisplayMember = "Value";
+
+            if (TxtItemUnit.Text.Trim() == Constants.PIECES)
+            {
+                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.PIECES, Value = Constants.PIECES });
+                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.PACKET, Value = Constants.PACKET });
+
+                ComboCustomizedUnit.SelectedItem = Constants.PIECES;
+                TxtCustomizedQuantity.Enabled = true;
+            }
+            else if (TxtItemUnit.Text.Trim() == Constants.KILOGRAM)
+            {
+                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.KILOGRAM, Value = Constants.KILOGRAM });
+                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.GRAM, Value = Constants.GRAM });
+
+                ComboCustomizedUnit.SelectedText = Constants.KILOGRAM;
+                TxtCustomizedQuantity.Enabled = true;
+            }
+            else if (TxtItemUnit.Text.Trim() == Constants.LITER)
+            {
+                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.LITER, Value = Constants.LITER });
+                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.BOX, Value = Constants.BOX });
+
+                ComboCustomizedUnit.SelectedItem = Constants.LITER;
+                TxtCustomizedQuantity.Enabled = true;
+            }
+            else
+            {
+                ComboCustomizedUnit.Enabled = false;
+            }
+        }
         #endregion
 
         #region Validation
@@ -976,6 +1014,50 @@ namespace GrocerySupplyManagementApp.Forms
                 isValidated = true;
             }
 
+            return isValidated;
+        }
+
+        private bool ValidateCustomizedItem()
+        {
+            var isValidated = false;
+
+            var itemCode = TxtItemCode.Text.Trim();
+            var itemSubCode = TxtSubCode.Text.Trim();
+            var customizedUnit = ComboCustomizedUnit.Text.Trim();
+            var customizedQuantity = TxtCustomizedQuantity.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(itemCode)
+                || string.IsNullOrWhiteSpace(itemSubCode)
+                || string.IsNullOrWhiteSpace(customizedUnit)
+                || string.IsNullOrWhiteSpace(customizedQuantity))
+            {
+                MessageBox.Show("Please enter following fields: " +
+                    "\n * Item Code " +
+                    "\n * Item Sub Code " +
+                    "\n * Customized Unit " +
+                    "\n * Customized Quantity", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (decimal.TryParse(customizedQuantity, out _) && Convert.ToDecimal(customizedQuantity) == Constants.DEFAULT_DECIMAL_VALUE)
+            {
+                MessageBox.Show("Customized quantity cannot be zero", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (customizedQuantity.IndexOf('.') != -1 && (customizedQuantity.Length - customizedQuantity.LastIndexOf('.') > 4))
+            {
+                MessageBox.Show("Please enter 3 decimal only in customized quantity", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                var pricedItem = _pricedItemService.GetPricedItem(itemCode, itemSubCode);
+                if (pricedItem.Id != 0)
+                {
+                    MessageBox.Show("Item with " + itemCode + " and " + itemSubCode + " already exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    isValidated = true;
+                }
+            }
+            
             return isValidated;
         }
         #endregion

@@ -135,17 +135,9 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ISNULL(pi.[ItemId], '') = i.[Id] " +
-                "WHERE 1 = 1 ";
-
-            if (!string.IsNullOrWhiteSpace(itemCode))
-            {
-                query += "AND ISNULL(i.[Code], '') = @Code ";
-            }
-
-            if (!string.IsNullOrWhiteSpace(itemSubCode))
-            {
-                query += "AND ISNULL(pi.[SubCode], '') = @SubCode ";
-            }
+                "WHERE 1 = 1 " + 
+                "AND ISNULL(i.[Code], '') = @Code " +
+                "AND ISNULL(pi.[SubCode], '') = @SubCode ";
 
             var pricedItem = new PricedItem();
             try
