@@ -381,7 +381,7 @@ namespace GrocerySupplyManagementApp.Forms
                                 ItemId = _itemService.GetItem(x.ItemCode).Id,
                                 Profit = x.Profit,
                                 Unit = x.Unit,
-                                Quantity = x.Quantity,
+                                Quantity = CalculateItemQuantity(x.Unit, x.CustomizedUnit, x.Quantity, x.Volume),
                                 Price = x.ItemPrice,
                                 Discount = x.ItemDiscount,
                                 AddedBy = x.AddedBy,
@@ -856,6 +856,8 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["Id"].Visible = false;
                 DataGridSoldItemList.Columns["ItemSubCode"].Visible = false;
                 DataGridSoldItemList.Columns["Profit"].Visible = false;
+                DataGridSoldItemList.Columns["Unit"].Visible = false;
+                DataGridSoldItemList.Columns["CustomizedUnit"].Visible = false;
                 DataGridSoldItemList.Columns["AdjustedType"].Visible = false;
                 DataGridSoldItemList.Columns["AdjustedAmount"].Visible = false;
                 DataGridSoldItemList.Columns["AddedBy"].Visible = false;
@@ -869,10 +871,10 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemName"].Width = 300;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
-                DataGridSoldItemList.Columns["Unit"].HeaderText = "Unit";
-                DataGridSoldItemList.Columns["Unit"].Width = 63;
-                DataGridSoldItemList.Columns["Unit"].DisplayIndex = 2;
-                DataGridSoldItemList.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                DataGridSoldItemList.Columns["DisplayUnit"].HeaderText = "Unit";
+                DataGridSoldItemList.Columns["DisplayUnit"].Width = 63;
+                DataGridSoldItemList.Columns["DisplayUnit"].DisplayIndex = 2;
+                DataGridSoldItemList.Columns["DisplayUnit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Qty";
                 DataGridSoldItemList.Columns["Quantity"].Width = 63;
@@ -942,6 +944,7 @@ namespace GrocerySupplyManagementApp.Forms
                 var itemSubCode = codes.Length == 3 ? codes[2] : string.Empty;
                 var itemName = TxtItemName.Text.Trim();
                 var itemUnit = TxtPricedUnit.Text.Trim();
+                var itemCustomizedUnit = TxtCustomizedUnit.Text.Trim();
                 var itemPrice = string.IsNullOrWhiteSpace(TxtItemPrice.Text.Trim())
                     ? Constants.DEFAULT_DECIMAL_VALUE
                     : Convert.ToDecimal(TxtItemPrice.Text.Trim());
@@ -978,6 +981,8 @@ namespace GrocerySupplyManagementApp.Forms
                         ItemName = itemName,
                         Profit = profitAmount,
                         Unit = itemUnit,
+                        CustomizedUnit = itemCustomizedUnit,
+                        DisplayUnit = string.IsNullOrWhiteSpace(itemCustomizedUnit) ? itemUnit : itemCustomizedUnit,
                         ItemPrice = itemPrice - itemDiscount,
                         ItemDiscount = itemDiscount,
                         Quantity = itemQuantity,
@@ -1215,6 +1220,27 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private decimal CalculateItemQuantity(string unit, string customizedUnit, decimal quantity, decimal volume)
+        {
+            if(!string.IsNullOrWhiteSpace(customizedUnit))
+            {
+                if(unit == Constants.PIECES && customizedUnit == Constants.PACKET)
+                {
+                    return Math.Round(quantity * volume, 3);
+                }
+                else if(unit == Constants.LITER && customizedUnit == Constants.BOX)
+                {
+                    return Math.Round(quantity * volume, 3);
+                }
+                else if(unit == Constants.KILOGRAM && customizedUnit == Constants.GRAM)
+                {
+                    return Math.Round(quantity * volume, 3);
+                }
+            }
+
+            return quantity;
+        }
+
         private void CalculatePricedItem(PricedItem pricedItem)
         {
             try
@@ -1226,18 +1252,11 @@ namespace GrocerySupplyManagementApp.Forms
                 };
 
                 var stockFromCart = Constants.DEFAULT_DECIMAL_VALUE;
-                if(string.IsNullOrWhiteSpace(pricedItem.SubCode))
-                {
-                    stockFromCart = _soldItemViewList
-                        .Where(itemFromCart => itemFromCart.ItemCode == item.Code).Sum(x => x.Quantity);
-                }
-                else
-                {
-                    stockFromCart = _soldItemViewList
-                        .Where(itemFromCart => itemFromCart.ItemCode == item.Code && itemFromCart.ItemSubCode == pricedItem.SubCode)
-                        .Sum(x => x.Quantity);
-                }
 
+                stockFromCart = _soldItemViewList
+                    .Where(itemFromCart => itemFromCart.ItemCode == item.Code)
+                    .Sum(x => Math.Round(x.Quantity * (x.Volume == Constants.DEFAULT_DECIMAL_VALUE ? 1 : x.Volume), 3));
+                
                 var stock = _stockService.GetTotalStock(stockFilter) - stockFromCart;
                 if (stock < item.Threshold)
                 {
