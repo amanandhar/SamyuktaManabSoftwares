@@ -649,8 +649,6 @@ namespace GrocerySupplyManagementApp.Forms
             this.ComboCustomizedUnit.Enabled = false;
             this.ComboCustomizedUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.ComboCustomizedUnit.FormattingEnabled = true;
-            this.ComboCustomizedUnit.Items.AddRange(new object[] {
-            "Pkt"});
             this.ComboCustomizedUnit.Location = new System.Drawing.Point(24, 228);
             this.ComboCustomizedUnit.Name = "ComboCustomizedUnit";
             this.ComboCustomizedUnit.Size = new System.Drawing.Size(220, 32);

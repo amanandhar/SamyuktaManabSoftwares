@@ -545,8 +545,18 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 e.Handled = e.SuppressKeyPress = true;
 
+                var volume = string.IsNullOrWhiteSpace(TxtCustomizedQuantity.Text.Trim())
+                    ? Constants.DEFAULT_DECIMAL_VALUE
+                    : Convert.ToDecimal(TxtCustomizedQuantity.Text.Trim());
                 var quantity = Convert.ToDecimal(RichItemQuantity.Text);
-                var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text.Trim()) ? Constants.DEFAULT_DECIMAL_VALUE : Convert.ToDecimal(TxtItemStock.Text.Trim());
+                var stock = string.IsNullOrWhiteSpace(TxtItemStock.Text.Trim()) 
+                    ? Constants.DEFAULT_DECIMAL_VALUE 
+                    : Convert.ToDecimal(TxtItemStock.Text.Trim());
+
+                if(volume > Constants.DEFAULT_DECIMAL_VALUE)
+                {
+                    quantity *= volume;
+                }
 
                 if (quantity > stock)
                 {

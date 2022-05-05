@@ -82,7 +82,8 @@ namespace GrocerySupplyManagementApp.Repositories
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "INNER JOIN " + Constants.TABLE_ITEM + " i " +
                 "ON ISNULL(pi.[ItemId], '') = i.[Id] " +
-                "WHERE 1 = 1 ";
+                "WHERE 1 = 1 " +
+                "AND ISNULL(pi.[SubCode], '') = '' ";
 
             if (!string.IsNullOrWhiteSpace(itemCode))
             {

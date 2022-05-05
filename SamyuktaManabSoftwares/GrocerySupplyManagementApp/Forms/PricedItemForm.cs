@@ -123,6 +123,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Edit);
+            LoadCustomizedUnit();
             TxtSubCode.Focus();
         }
 
