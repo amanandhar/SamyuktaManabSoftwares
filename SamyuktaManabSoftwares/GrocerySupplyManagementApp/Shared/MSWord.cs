@@ -96,7 +96,10 @@ namespace GrocerySupplyManagementApp.Shared
                         var range = wordTable.Cell(row, column).Range;
                         if(generateBarcode)
                         {
-                            var image = barcodeWriter.Write(data[counter].Code);
+                            var barcode = string.IsNullOrWhiteSpace(data[counter].SubCode) 
+                                ? data[counter].Code 
+                                : data[counter].Code + "." + data[counter].SubCode;
+                            var image = barcodeWriter.Write(barcode);
                             Clipboard.SetImage(image);
                             Thread.Sleep(100);
 
