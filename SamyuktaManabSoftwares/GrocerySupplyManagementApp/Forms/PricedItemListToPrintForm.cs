@@ -23,6 +23,7 @@ namespace GrocerySupplyManagementApp.Forms
         private Label[] _pricedItemNameLabels;
         private Label[] _pricedItemCodeLabels;
         private Label[] _pricedItemSubCodeLabels;
+        private Label[] _pricedItemCustomizedQuantityLabels;
         private TextBox[] _pricedItemCountTextboxes;
         private TextBox _TxtHeaderPrintCount;
         private TextBox _TxtFooterTotalPrintCount;
@@ -89,6 +90,7 @@ namespace GrocerySupplyManagementApp.Forms
             _pricedItemNameLabels = new Label[_pricedItemListCount];
             _pricedItemCodeLabels = new Label[_pricedItemListCount];
             _pricedItemSubCodeLabels = new Label[_pricedItemListCount];
+            _pricedItemCustomizedQuantityLabels = new Label[_pricedItemListCount];
             _pricedItemCountTextboxes = new TextBox[_pricedItemListCount];
         }
 
@@ -199,6 +201,13 @@ namespace GrocerySupplyManagementApp.Forms
                     Size = new Size(40, 25)
                 };
 
+                _pricedItemCustomizedQuantityLabels[counter] = new Label
+                {
+                    Name = counter.ToString(),
+                    Text = pricedItem.CustomizedQuantity.ToString(),
+                    Visible = false
+                };
+
                 _pricedItemCountTextboxes[counter] = new TextBox()
                 {
                     Name = pricedItem.Code,
@@ -220,6 +229,7 @@ namespace GrocerySupplyManagementApp.Forms
                 PanelBody.Controls.Add(_pricedItemNameLabels[i]);
                 PanelBody.Controls.Add(_pricedItemCodeLabels[i]);
                 PanelBody.Controls.Add(_pricedItemSubCodeLabels[i]);
+                PanelBody.Controls.Add(_pricedItemCustomizedQuantityLabels[i]);
                 PanelBody.Controls.Add(_pricedItemCountTextboxes[i]);
             }
         }
@@ -253,13 +263,16 @@ namespace GrocerySupplyManagementApp.Forms
                         {
                             var itemCode = _pricedItemCountTextboxes[i].Name;
                             var itemSubCode = _pricedItemSubCodeLabels[i].Text;
+                            var itemCustomizedQuantity = Convert.ToDecimal(_pricedItemCustomizedQuantityLabels[i].Text);
                             var counter = Convert.ToInt32(_pricedItemCountTextboxes[i].Text);
                             var stockItem = _stockService.GetStockItem(_pricedItemService.GetPricedItem(itemCode), new StockFilter() { ItemCode = itemCode });
                             var data = new MSWordField
                             {
                                 Code = itemCode,
                                 SubCode = itemSubCode,
-                                Price = stockItem.SalesPrice
+                                Price = itemCustomizedQuantity == Constants.DEFAULT_DECIMAL_VALUE
+                                ? stockItem.SalesPrice
+                                : Math.Round(stockItem.SalesPrice * itemCustomizedQuantity, 2)
                             };
 
                             for (int x = 0; x < counter; x++)

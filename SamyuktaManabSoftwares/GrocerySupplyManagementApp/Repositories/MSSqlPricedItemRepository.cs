@@ -250,7 +250,7 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var pricedItemViewList = new List<PricedItemView>();
             var query = @"SELECT " +
-                "DISTINCT pi.[Id], i.[Code], pi.[SubCode], i.[Name], SUM(ISNULL(ut.[Quantity], 0.00)) AS [Stock] " +
+                "DISTINCT pi.[Id], i.[Code], pi.[SubCode], i.[Name], pi.[CustomizedQuantity], SUM(ISNULL(ut.[Quantity], 0.00)) AS [Stock] " +
                 "FROM " + Constants.TABLE_ITEM + " i " +
                 "INNER JOIN " + Constants.TABLE_PRICED_ITEM + " pi " +
                 "ON i.[Id] = pi.[ItemId] " +
@@ -265,7 +265,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 "SELECT [ItemId], -[Quantity] FROM " + Constants.TABLE_STOCK_ADJUSTMENT + " WHERE ISNULL([Action], '') = '" + Constants.DEDUCT + "' " +
                 ") ut " +
                 "ON i.[Id] = ut.[ItemId] " +
-                "GROUP BY pi.[Id], i.[Code], pi.[SubCode], i.[Name]" +
+                "GROUP BY pi.[Id], i.[Code], pi.[SubCode], i.[Name], pi.[CustomizedQuantity] " +
                 "ORDER BY i.[Code], pi.[SubCode] ";
 
             try
@@ -285,6 +285,7 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Code = reader["Code"].ToString(),
                                     SubCode = reader["SubCode"].ToString(),
                                     Name = reader["Name"].ToString(),
+                                    CustomizedQuantity = Convert.ToDecimal(reader["CustomizedQuantity"].ToString()),
                                     Stock = Convert.ToDecimal(reader["Stock"].ToString())
                                 };
 
