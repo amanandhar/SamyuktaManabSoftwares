@@ -107,10 +107,11 @@ namespace GrocerySupplyManagementApp.Forms
             unpricedItemListForm.ShowDialog();
         }
 
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void BtnCustomize_Click(object sender, EventArgs e)
         {
             EnableFields();
-            EnableFields(Action.Add);
+            EnableFields(Action.Customize);
+            TxtCustomizedQuantity.Text = "1.000";
             TxtProfitPercent.Focus();
         }
 
@@ -236,10 +237,10 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
-        private void BtnCustomize_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             EnableFields();
-            EnableFields(Action.Customize);
+            EnableFields(Action.Add);
             LoadCustomizedUnit();
             TxtSubCode.Focus();
         }
@@ -642,23 +643,23 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtItemCode.Enabled = true;
 
-                BtnAdd.Enabled = true;
+                BtnCustomize.Enabled = true;
             }
             else if (action == Action.PopulatePricedItem)
             {
                 TxtItemCode.Enabled = true;
 
-                BtnAdd.Enabled = true;
+                BtnCustomize.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
-                BtnCustomize.Enabled = true;
+                BtnAdd.Enabled = true;
             }
             else if (action == Action.PopulateUnpricedItem)
             {
-                BtnAdd.Enabled = true;
+                BtnCustomize.Enabled = true;
                 BtnDelete.Enabled = true;
             }
-            else if (action == Action.Add)
+            else if (action == Action.Customize)
             {
                 TxtBarcode.Enabled = true;
                 TxtProfitPercent.Enabled = true;
@@ -700,11 +701,11 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtItemCode.Enabled = true;
 
-                BtnAdd.Enabled = true;
+                BtnCustomize.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
-            else if (action == Action.Customize)
+            else if (action == Action.Add)
             {
                 TxtSubCode.Enabled = true;
                 ComboCustomizedUnit.Enabled = true;
@@ -727,7 +728,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 TxtItemCode.Enabled = true;
 
-                BtnAdd.Enabled = true;
+                BtnCustomize.Enabled = true;
                 BtnEdit.Enabled = true;
                 BtnDelete.Enabled = true;
             }
@@ -755,12 +756,12 @@ namespace GrocerySupplyManagementApp.Forms
 
                 BtnBarcodeClear.Enabled = false;
                 BtnBarcode1Clear.Enabled = false;
-                BtnAdd.Enabled = false;
+                BtnCustomize.Enabled = false;
                 BtnSave.Enabled = false;
                 BtnEdit.Enabled = false;
                 BtnUpdate.Enabled = false;
                 BtnDelete.Enabled = false;
-                BtnCustomize.Enabled = false;
+                BtnAdd.Enabled = false;
                 BtnDone.Enabled = false;
                 BtnAddImage.Enabled = false;
                 BtnDeleteImage.Enabled = false;

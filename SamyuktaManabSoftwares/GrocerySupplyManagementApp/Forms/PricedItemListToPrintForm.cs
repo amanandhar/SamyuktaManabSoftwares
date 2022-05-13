@@ -265,7 +265,10 @@ namespace GrocerySupplyManagementApp.Forms
                             var itemSubCode = _pricedItemSubCodeLabels[i].Text;
                             var itemCustomizedQuantity = Convert.ToDecimal(_pricedItemCustomizedQuantityLabels[i].Text);
                             var counter = Convert.ToInt32(_pricedItemCountTextboxes[i].Text);
-                            var stockItem = _stockService.GetStockItem(_pricedItemService.GetPricedItem(itemCode), new StockFilter() { ItemCode = itemCode });
+                            var pricedItem = string.IsNullOrWhiteSpace(itemCode)
+                                ? _pricedItemService.GetPricedItem(itemCode)
+                                : _pricedItemService.GetPricedItem(itemCode, itemSubCode);
+                            var stockItem = _stockService.GetStockItem(pricedItem, new StockFilter() { ItemCode = itemCode });
                             var data = new MSWordField
                             {
                                 Code = itemCode,

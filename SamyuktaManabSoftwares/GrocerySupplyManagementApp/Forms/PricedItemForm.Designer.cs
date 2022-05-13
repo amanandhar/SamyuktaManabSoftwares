@@ -54,14 +54,14 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtSalesPricePerUnit = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnDone = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnCustomize = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnDeleteImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnAddImage = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnDelete = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnUpdate = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnEdit = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.BtnSave = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
-            this.BtnAdd = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
+            this.BtnCustomize = new GrocerySupplyManagementApp.CustomControls.Button.CustomButton();
             this.OpenItemImageDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -383,14 +383,14 @@ namespace GrocerySupplyManagementApp.Forms
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.BtnDone);
-            this.groupBox3.Controls.Add(this.BtnCustomize);
+            this.groupBox3.Controls.Add(this.BtnAdd);
             this.groupBox3.Controls.Add(this.BtnDeleteImage);
             this.groupBox3.Controls.Add(this.BtnAddImage);
             this.groupBox3.Controls.Add(this.BtnDelete);
             this.groupBox3.Controls.Add(this.BtnUpdate);
             this.groupBox3.Controls.Add(this.BtnEdit);
             this.groupBox3.Controls.Add(this.BtnSave);
-            this.groupBox3.Controls.Add(this.BtnAdd);
+            this.groupBox3.Controls.Add(this.BtnCustomize);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.Red;
             this.groupBox3.Location = new System.Drawing.Point(932, 55);
@@ -420,25 +420,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnDone.UseVisualStyleBackColor = false;
             this.BtnDone.Click += new System.EventHandler(this.BtnDone_Click);
             // 
-            // BtnCustomize
+            // BtnAdd
             // 
-            this.BtnCustomize.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnCustomize.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnCustomize.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnCustomize.BorderRadius = 35;
-            this.BtnCustomize.BorderSize = 0;
-            this.BtnCustomize.FlatAppearance.BorderSize = 0;
-            this.BtnCustomize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnCustomize.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCustomize.ForeColor = System.Drawing.Color.White;
-            this.BtnCustomize.Location = new System.Drawing.Point(20, 202);
-            this.BtnCustomize.Name = "BtnCustomize";
-            this.BtnCustomize.Size = new System.Drawing.Size(120, 35);
-            this.BtnCustomize.TabIndex = 22;
-            this.BtnCustomize.Text = "Customize";
-            this.BtnCustomize.TextColor = System.Drawing.Color.White;
-            this.BtnCustomize.UseVisualStyleBackColor = false;
-            this.BtnCustomize.Click += new System.EventHandler(this.BtnCustomize_Click);
+            this.BtnAdd.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAdd.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnAdd.BorderRadius = 35;
+            this.BtnAdd.BorderSize = 0;
+            this.BtnAdd.FlatAppearance.BorderSize = 0;
+            this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAdd.ForeColor = System.Drawing.Color.White;
+            this.BtnAdd.Location = new System.Drawing.Point(20, 202);
+            this.BtnAdd.Name = "BtnAdd";
+            this.BtnAdd.Size = new System.Drawing.Size(120, 35);
+            this.BtnAdd.TabIndex = 22;
+            this.BtnAdd.Text = "Add";
+            this.BtnAdd.TextColor = System.Drawing.Color.White;
+            this.BtnAdd.UseVisualStyleBackColor = false;
+            this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // BtnDeleteImage
             // 
@@ -558,25 +558,25 @@ namespace GrocerySupplyManagementApp.Forms
             this.BtnSave.UseVisualStyleBackColor = false;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
-            // BtnAdd
+            // BtnCustomize
             // 
-            this.BtnAdd.BackColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAdd.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.BtnAdd.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.BtnAdd.BorderRadius = 35;
-            this.BtnAdd.BorderSize = 0;
-            this.BtnAdd.FlatAppearance.BorderSize = 0;
-            this.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAdd.ForeColor = System.Drawing.Color.White;
-            this.BtnAdd.Location = new System.Drawing.Point(20, 17);
-            this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(120, 35);
-            this.BtnAdd.TabIndex = 15;
-            this.BtnAdd.Text = "Add";
-            this.BtnAdd.TextColor = System.Drawing.Color.White;
-            this.BtnAdd.UseVisualStyleBackColor = false;
-            this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            this.BtnCustomize.BackColor = System.Drawing.Color.DodgerBlue;
+            this.BtnCustomize.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.BtnCustomize.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BtnCustomize.BorderRadius = 35;
+            this.BtnCustomize.BorderSize = 0;
+            this.BtnCustomize.FlatAppearance.BorderSize = 0;
+            this.BtnCustomize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCustomize.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCustomize.ForeColor = System.Drawing.Color.White;
+            this.BtnCustomize.Location = new System.Drawing.Point(20, 17);
+            this.BtnCustomize.Name = "BtnCustomize";
+            this.BtnCustomize.Size = new System.Drawing.Size(120, 35);
+            this.BtnCustomize.TabIndex = 15;
+            this.BtnCustomize.Text = "Customize";
+            this.BtnCustomize.TextColor = System.Drawing.Color.White;
+            this.BtnCustomize.UseVisualStyleBackColor = false;
+            this.BtnCustomize.Click += new System.EventHandler(this.BtnCustomize_Click);
             // 
             // OpenItemImageDialog
             // 
@@ -977,7 +977,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.GroupBox groupBox5;
         private CustomControls.Button.CustomButton BtnSearchPricedItem;
         private CustomControls.Button.CustomButton BtnSearchUnpricedItem;
-        private CustomControls.Button.CustomButton BtnAdd;
+        private CustomControls.Button.CustomButton BtnCustomize;
         private CustomControls.Button.CustomButton BtnSave;
         private CustomControls.Button.CustomButton BtnEdit;
         private CustomControls.Button.CustomButton BtnUpdate;
@@ -992,7 +992,7 @@ namespace GrocerySupplyManagementApp.Forms
         private System.Windows.Forms.PictureBox PicBoxLoading;
         private CustomControls.Button.CustomButton BtnExportToWord;
         private CustomControls.Button.CustomButton BtnExportToWordWithBarcode;
-        private CustomControls.Button.CustomButton BtnCustomize;
+        private CustomControls.Button.CustomButton BtnAdd;
         private System.Windows.Forms.TextBox TxtBarcode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TxtBarcode1;
