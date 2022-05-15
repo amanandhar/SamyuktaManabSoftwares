@@ -318,6 +318,57 @@ namespace GrocerySupplyManagementApp.Forms
             }
         }
 
+        private void TxtSubCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != 8) && (e.KeyChar != 46))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtSubCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TxtSubCode.Text.Trim()))
+            {
+                ComboCustomizedUnit.Enabled = true;
+                TxtCustomizedQuantity.Enabled = true;
+
+                TxtBarcode.Enabled = true;
+                TxtProfitPercent.Enabled = true;
+                TxtProfitAmount.Enabled = true;
+
+                TxtBarcode1.Enabled = true;
+                TxtProfitPercent1.Enabled = true;
+                TxtProfitAmount1.Enabled = true;
+            }
+            else
+            {
+                ComboCustomizedUnit.Enabled = false;
+                TxtCustomizedQuantity.Enabled = false;
+
+                TxtBarcode.Enabled = false;
+                TxtProfitPercent.Enabled = false;
+                TxtProfitAmount.Enabled = false;
+
+                TxtBarcode1.Enabled = false;
+                TxtProfitPercent1.Enabled = false;
+                TxtProfitAmount1.Enabled = false;
+
+                ComboCustomizedUnit.Text = String.Empty;
+                TxtCustomizedQuantity.Clear();
+
+                TxtBarcode.Clear();
+                TxtProfitPercent.Clear();
+                TxtProfitAmount.Clear();
+                TxtSalesPricePerUnit.Clear();
+
+                TxtBarcode1.Clear();
+                TxtProfitPercent1.Clear();
+                TxtProfitAmount1.Clear();
+                TxtSalesPricePerUnit1.Clear();
+            }
+        }
+
         private void TxtCustomizedQuantity_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -678,7 +729,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else if (action == Action.Edit)
             {
-                TxtItemCode.Enabled = true;
                 TxtSubCode.Enabled = true;
                 ComboCustomizedUnit.Enabled = true;
 
@@ -708,15 +758,6 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Add)
             {
                 TxtSubCode.Enabled = true;
-                ComboCustomizedUnit.Enabled = true;
-
-                TxtBarcode.Enabled = true;
-                TxtProfitPercent.Enabled = true;
-                TxtProfitAmount.Enabled = true;
-
-                TxtBarcode1.Enabled = true;
-                TxtProfitPercent1.Enabled = true;
-                TxtProfitAmount1.Enabled = true;
 
                 BtnBarcodeClear.Enabled = true;
                 BtnBarcode1Clear.Enabled = true;
@@ -940,7 +981,6 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.PIECES, Value = Constants.PIECES });
                 ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.PACKET, Value = Constants.PACKET });
 
-                ComboCustomizedUnit.SelectedItem = Constants.PIECES;
                 TxtCustomizedQuantity.Enabled = true;
             }
             else if (TxtItemUnit.Text.Trim() == Constants.KILOGRAM)
@@ -948,7 +988,6 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.KILOGRAM, Value = Constants.KILOGRAM });
                 ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.GRAM, Value = Constants.GRAM });
 
-                ComboCustomizedUnit.SelectedText = Constants.KILOGRAM;
                 TxtCustomizedQuantity.Enabled = true;
             }
             else if (TxtItemUnit.Text.Trim() == Constants.LITER)
@@ -956,7 +995,6 @@ namespace GrocerySupplyManagementApp.Forms
                 ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.LITER, Value = Constants.LITER });
                 ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.BOX, Value = Constants.BOX });
 
-                ComboCustomizedUnit.SelectedItem = Constants.LITER;
                 TxtCustomizedQuantity.Enabled = true;
             }
             else

@@ -212,6 +212,8 @@ namespace GrocerySupplyManagementApp.Forms
             this.TxtSubCode.Size = new System.Drawing.Size(326, 29);
             this.TxtSubCode.TabIndex = 69;
             this.TxtSubCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TxtSubCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSubCode_KeyPress);
+            this.TxtSubCode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtSubCode_KeyUp);
             // 
             // label13
             // 
