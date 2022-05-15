@@ -124,8 +124,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Edit);
-            LoadCustomizedUnit();
-            TxtSubCode.Focus();
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -241,7 +239,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Add);
-            LoadCustomizedUnit();
             TxtSubCode.Focus();
         }
 
@@ -330,7 +327,6 @@ namespace GrocerySupplyManagementApp.Forms
         {
             if (!string.IsNullOrWhiteSpace(TxtSubCode.Text.Trim()))
             {
-                ComboCustomizedUnit.Enabled = true;
                 TxtCustomizedQuantity.Enabled = true;
 
                 TxtBarcode.Enabled = true;
@@ -343,7 +339,6 @@ namespace GrocerySupplyManagementApp.Forms
             }
             else
             {
-                ComboCustomizedUnit.Enabled = false;
                 TxtCustomizedQuantity.Enabled = false;
 
                 TxtBarcode.Enabled = false;
@@ -576,6 +571,8 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         ClearAllFields();
                         EnableFields();
+                        EnableFields(Action.Save);
+                        TxtItemCode.Focus();
                     }
                 }
             }
@@ -727,11 +724,12 @@ namespace GrocerySupplyManagementApp.Forms
                 BtnAddImage.Enabled = true;
                 BtnDeleteImage.Enabled = true;
             }
+            else if (action == Action.Save)
+            {
+                TxtItemCode.Enabled = true;
+            }
             else if (action == Action.Edit)
             {
-                TxtSubCode.Enabled = true;
-                ComboCustomizedUnit.Enabled = true;
-
                 TxtBarcode.Enabled = true;
                 TxtProfitPercent.Enabled = true;
                 TxtProfitAmount.Enabled = true;
@@ -758,6 +756,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Add)
             {
                 TxtSubCode.Enabled = true;
+                ComboCustomizedUnit.Text = TxtItemUnit.Text;
 
                 BtnBarcodeClear.Enabled = true;
                 BtnBarcode1Clear.Enabled = true;
@@ -970,38 +969,6 @@ namespace GrocerySupplyManagementApp.Forms
             thread.Join();
         }
 
-        private void LoadCustomizedUnit()
-        {
-            ComboCustomizedUnit.Items.Clear();
-            ComboCustomizedUnit.ValueMember = "Id";
-            ComboCustomizedUnit.DisplayMember = "Value";
-
-            if (TxtItemUnit.Text.Trim() == Constants.PIECES)
-            {
-                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.PIECES, Value = Constants.PIECES });
-                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.PACKET, Value = Constants.PACKET });
-
-                TxtCustomizedQuantity.Enabled = true;
-            }
-            else if (TxtItemUnit.Text.Trim() == Constants.KILOGRAM)
-            {
-                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.KILOGRAM, Value = Constants.KILOGRAM });
-                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.GRAM, Value = Constants.GRAM });
-
-                TxtCustomizedQuantity.Enabled = true;
-            }
-            else if (TxtItemUnit.Text.Trim() == Constants.LITER)
-            {
-                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.LITER, Value = Constants.LITER });
-                ComboCustomizedUnit.Items.Add(new ComboBoxItem { Id = Constants.BOX, Value = Constants.BOX });
-
-                TxtCustomizedQuantity.Enabled = true;
-            }
-            else
-            {
-                ComboCustomizedUnit.Enabled = false;
-            }
-        }
         #endregion
 
         #region Validation
@@ -1029,25 +996,6 @@ namespace GrocerySupplyManagementApp.Forms
             else if (profitAmount.IndexOf('.') != -1 && (profitAmount.Length - profitAmount.LastIndexOf('.') > 3))
             {
                 MessageBox.Show("Please enter 2 decimal only in profit amount", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else if (action == Action.Update)
-            {
-                var pricedItem = _pricedItemService.GetPricedItem(itemCode);
-                if (pricedItem.Id != 0)
-                {
-                    if (_selectedId != pricedItem.Id)
-                    {
-                        MessageBox.Show("Item code: " + itemCode + " has been changed.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        isValidated = true;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Item with " + itemCode + " does not exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
             }
             else
             {

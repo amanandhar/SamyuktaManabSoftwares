@@ -76,7 +76,7 @@ namespace GrocerySupplyManagementApp.Repositories
         public PricedItem GetPricedItem(string itemCode)
         {
             var query = @"SELECT " +
-                "pi.[Id], pi.[ItemId], " +
+                "pi.[Id], pi.[ItemId], pi.[CustomizedQuantity], " +
                 "pi.[ProfitPercent], pi.[Profit], pi.[SalesPricePerUnit], " +
                 "pi.[ImagePath], pi.[AddedDate], pi.[UpdatedDate] " +
                 "FROM " + Constants.TABLE_PRICED_ITEM + " pi " +
@@ -106,12 +106,13 @@ namespace GrocerySupplyManagementApp.Repositories
                             {
                                 pricedItem.Id = Convert.ToInt64(reader["Id"].ToString());
                                 pricedItem.ItemId = Convert.ToInt64(reader["ItemId"].ToString());
+                                pricedItem.CustomizedQuantity = Convert.ToDecimal(reader["CustomizedQuantity"].ToString());
                                 pricedItem.ProfitPercent = Convert.ToDecimal(reader["ProfitPercent"].ToString());
                                 pricedItem.Profit = Convert.ToDecimal(reader["Profit"].ToString());
                                 pricedItem.SalesPricePerUnit = Convert.ToDecimal(reader["SalesPricePerUnit"].ToString());
                                 pricedItem.ImagePath = reader["ImagePath"].ToString();
                                 pricedItem.AddedDate = Convert.ToDateTime(reader["AddedDate"].ToString());
-                                pricedItem.UpdatedDate = reader.IsDBNull(7) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
+                                pricedItem.UpdatedDate = reader.IsDBNull(8) ? (DateTime?)null : Convert.ToDateTime(reader["UpdatedDate"].ToString());
                             }
                         }
                     }
