@@ -382,6 +382,8 @@ namespace GrocerySupplyManagementApp.Forms
                                 Profit = x.Profit,
                                 Unit = x.Unit,
                                 Quantity = CalculateItemQuantity(x.Unit, x.CustomizedUnit, x.Quantity, x.Volume),
+                                CustomizedUnit = x.CustomizedUnit,
+                                CustomizedQuantity = x.Volume,
                                 Price = x.ItemPrice,
                                 Discount = x.ItemDiscount,
                                 AddedBy = x.AddedBy,
@@ -886,15 +888,15 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["Volume"].DisplayIndex = 2;
                 DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                DataGridSoldItemList.Columns["Quantity"].HeaderText = "Qty";
-                DataGridSoldItemList.Columns["Quantity"].Width = 63;
-                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 3;
-                DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
                 DataGridSoldItemList.Columns["DisplayUnit"].HeaderText = "Unit";
                 DataGridSoldItemList.Columns["DisplayUnit"].Width = 63;
-                DataGridSoldItemList.Columns["DisplayUnit"].DisplayIndex = 4;
+                DataGridSoldItemList.Columns["DisplayUnit"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["DisplayUnit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                DataGridSoldItemList.Columns["Quantity"].HeaderText = "Qty";
+                DataGridSoldItemList.Columns["Quantity"].Width = 63;
+                DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 4;
+                DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
                 DataGridSoldItemList.Columns["ItemPrice"].Width = 89;

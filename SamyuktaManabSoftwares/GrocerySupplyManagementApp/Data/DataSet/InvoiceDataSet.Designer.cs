@@ -323,6 +323,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             private global::System.Data.DataColumn columnAccountNo;
             
+            private global::System.Data.DataColumn columnCustomizedQuantity;
+            
             private global::System.Data.DataColumn columnItemDiscount;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -536,6 +538,14 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CustomizedQuantityColumn {
+                get {
+                    return this.columnCustomizedQuantity;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn ItemDiscountColumn {
                 get {
                     return this.columnItemDiscount;
@@ -602,6 +612,7 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         string ItemNo, 
                         string AmountInWords, 
                         string AccountNo, 
+                        string CustomizedQuantity, 
                         string ItemDiscount) {
                 InvoiceRow rowInvoiceRow = ((InvoiceRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
@@ -627,6 +638,7 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                         ItemNo,
                         AmountInWords,
                         AccountNo,
+                        CustomizedQuantity,
                         ItemDiscount};
                 rowInvoiceRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInvoiceRow);
@@ -672,6 +684,7 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 this.columnItemNo = base.Columns["ItemNo"];
                 this.columnAmountInWords = base.Columns["AmountInWords"];
                 this.columnAccountNo = base.Columns["AccountNo"];
+                this.columnCustomizedQuantity = base.Columns["CustomizedQuantity"];
                 this.columnItemDiscount = base.Columns["ItemDiscount"];
             }
             
@@ -722,6 +735,8 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
                 base.Columns.Add(this.columnAmountInWords);
                 this.columnAccountNo = new global::System.Data.DataColumn("AccountNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAccountNo);
+                this.columnCustomizedQuantity = new global::System.Data.DataColumn("CustomizedQuantity", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCustomizedQuantity);
                 this.columnItemDiscount = new global::System.Data.DataColumn("ItemDiscount", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnItemDiscount);
             }
@@ -1218,6 +1233,22 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CustomizedQuantity {
+                get {
+                    try {
+                        return ((string)(this[this.tableInvoice.CustomizedQuantityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CustomizedQuantity\' in table \'Invoice\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoice.CustomizedQuantityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string ItemDiscount {
                 get {
                     try {
@@ -1494,6 +1525,18 @@ namespace GrocerySupplyManagementApp.Data.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetAccountNoNull() {
                 this[this.tableInvoice.AccountNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCustomizedQuantityNull() {
+                return this.IsNull(this.tableInvoice.CustomizedQuantityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCustomizedQuantityNull() {
+                this[this.tableInvoice.CustomizedQuantityColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

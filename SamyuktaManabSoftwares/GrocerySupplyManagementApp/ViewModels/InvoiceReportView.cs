@@ -20,6 +20,7 @@
         public string ItemName { get; set; }
         public string Unit { get; set; }
         public decimal Quantity { get; set; }
+        public decimal CustomizedQuantity { get; set; }
         public decimal Price { get; set; }
         public decimal ItemDiscount { get; set; }
         public decimal Amount { get; set; }
