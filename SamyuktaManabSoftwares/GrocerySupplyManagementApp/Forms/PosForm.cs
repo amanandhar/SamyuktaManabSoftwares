@@ -1248,9 +1248,19 @@ namespace GrocerySupplyManagementApp.Forms
                 {
                     return Math.Round(quantity * volume, 3);
                 }
+                else
+                {
+                    return Math.Round(quantity * volume, 3);
+                }
             }
-
-            return quantity;
+            else if(volume != Constants.DEFAULT_DECIMAL_VALUE)
+            {
+                return Math.Round(quantity * volume, 3);
+            }
+            else
+            {
+                return quantity;
+            }    
         }
 
         private void CalculatePricedItem(PricedItem pricedItem)
