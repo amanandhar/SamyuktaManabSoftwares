@@ -602,6 +602,7 @@ namespace GrocerySupplyManagementApp.Forms
             {
                 e.Handled = e.SuppressKeyPress = true;
                 var itemCode = RichItemCode.Text.Trim();
+                // Without SubCode
                 if (itemCode.Length == 8 && itemCode.Contains("."))
                 {
                     try
@@ -625,7 +626,8 @@ namespace GrocerySupplyManagementApp.Forms
                         UtilityService.ShowExceptionMessageBox();
                     }
                 }
-                else if (itemCode.Length == 11 && itemCode.Contains("."))
+                // With SubCode
+                else if ((itemCode.Length == 10 || itemCode.Length == 11) && itemCode.Contains("."))
                 {
                     try
                     {
@@ -654,6 +656,7 @@ namespace GrocerySupplyManagementApp.Forms
                         UtilityService.ShowExceptionMessageBox();
                     }
                 }
+                // Barcode
                 else if (itemCode.Length > 8)
                 {
                     try

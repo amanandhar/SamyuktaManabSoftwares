@@ -26,7 +26,13 @@ namespace GrocerySupplyManagementApp.Repositories
                 "pd.[SubTotal], pd.[DiscountPercent], pd.[Discount], pd.[DeliveryCharge], (pd.[SubTotal] - pd.[Discount] + pd.[DeliveryCharge]) AS [TotalAmount], " +
                 "ut.[ReceivedAmount], ut.[DueReceivedAmount], " +
                 "i.[Name] AS [ItemName], si.[Unit], " +
-                "si.[Quantity], si.[CustomizedQuantity], si.[Price], si.[Discount] AS [ItemDiscount], CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) AS [Amount] " +
+                "si.[Quantity], si.[CustomizedQuantity], si.[Price], si.[Discount] AS [ItemDiscount], " +
+                "CASE " +
+                "WHEN si.[CustomizedQuantity] = 0.000 " +
+                "THEN CAST((si.[Quantity] * si.[Price]) AS DECIMAL(18, 2)) " +
+                "ELSE CAST((si.[Quantity] * si.[Price])/si.[CustomizedQuantity] AS DECIMAL(18, 2)) " +
+                "END " +
+                "AS [Amount] " + 
                 "FROM " + Constants.TABLE_MEMBER + " m " +
                 "INNER JOIN " + Constants.TABLE_USER_TRANSACTION + " ut " +
                 "ON m.[MemberId] = ut.[PartyId] " +

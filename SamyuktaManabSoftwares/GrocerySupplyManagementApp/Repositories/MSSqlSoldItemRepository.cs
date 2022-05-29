@@ -109,7 +109,9 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Unit = reader["Unit"].ToString(),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
                                     CustomizedUnit = reader["CustomizedUnit"].ToString(),
-                                    DisplayUnit = reader["CustomizedUnit"].ToString(),
+                                    DisplayUnit = string.IsNullOrWhiteSpace(reader["CustomizedUnit"].ToString()) 
+                                        ? reader["Unit"].ToString()
+                                        : reader["CustomizedUnit"].ToString(),
                                     Volume = Convert.ToDecimal(reader["CustomizedQuantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     ItemDiscount = Convert.ToDecimal(reader["Discount"].ToString()),

@@ -756,6 +756,7 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Add)
             {
                 TxtSubCode.Enabled = true;
+                TxtSubCode.Text = "1";
                 ComboCustomizedUnit.Text = TxtItemUnit.Text;
 
                 BtnBarcodeClear.Enabled = true;
