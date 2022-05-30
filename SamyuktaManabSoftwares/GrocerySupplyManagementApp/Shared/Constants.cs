@@ -65,6 +65,7 @@ namespace GrocerySupplyManagementApp.Shared
 
         // Expense 
         public const string ASSET = "Asset";
+        public const string COMMISSION = "Commission";
         public const string ELECTRICITY = "Electricity";
         public const string FUEL_TRANSPORTATION = "Fuel & Transportation";
         public const string GUEST_HOSPITALITY = "Guest & Hospitality";

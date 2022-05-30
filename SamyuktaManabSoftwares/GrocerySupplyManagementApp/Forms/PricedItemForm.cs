@@ -111,6 +111,7 @@ namespace GrocerySupplyManagementApp.Forms
         {
             EnableFields();
             EnableFields(Action.Customize);
+            TxtSubCode.Text = "1";
             TxtCustomizedQuantity.Text = "1.000";
             TxtProfitPercent.Focus();
         }
@@ -756,7 +757,6 @@ namespace GrocerySupplyManagementApp.Forms
             else if (action == Action.Add)
             {
                 TxtSubCode.Enabled = true;
-                TxtSubCode.Text = "1";
                 ComboCustomizedUnit.Text = TxtItemUnit.Text;
 
                 BtnBarcodeClear.Enabled = true;

@@ -50,6 +50,7 @@ namespace GrocerySupplyManagementApp.Repositories
             try
             {
                 var totalAsset = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.ASSET });
+                var totalCommission = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.COMMISSION });
                 var totalElectricity = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.ELECTRICITY });
                 var totalFuelAndTransportation = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.FUEL_TRANSPORTATION });
                 var totalGuestHospitality = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.GUEST_HOSPITALITY });
@@ -64,7 +65,7 @@ namespace GrocerySupplyManagementApp.Repositories
                 var totalStockAdjustment = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.STOCK_ADJUSTMENT });
                 var totalTelephoneInternet = GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.TELEPHONE_INTERNET });
 
-                totalExpense = totalAsset + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
+                totalExpense = totalAsset + totalCommission + totalElectricity + totalFuelAndTransportation + totalGuestHospitality
                     + totalLoanInterest + totalMiscellaneous + totalOfficeRent + totalRepairMaintenance + totalSalesDiscount
                     + totalSalesReturn + totalStaffAllowance + totalStaffSalary + totalStockAdjustment + totalTelephoneInternet;
             }

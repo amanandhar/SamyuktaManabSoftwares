@@ -77,7 +77,12 @@ namespace GrocerySupplyManagementApp.Repositories
                 "a.[Id], b.[Code], b.[Name], a.[Profit], " +
                 "b.[Unit], a.[Quantity], a.[CustomizedUnit], a.[CustomizedQuantity], " +
                 "a.[Price], a.[Discount], " +
-                "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
+                "CASE " +
+                "WHEN a.CustomizedQuantity = 0.000 " +
+                "THEN CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) " +
+                "ELSE CAST((a.[Quantity] * a.[Price])/a.[CustomizedQuantity] AS DECIMAL(18, 2)) " +
+                "END " +
+                "AS Total, " +
                 "a.[AdjustedType], a.[AdjustedAmount], " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
