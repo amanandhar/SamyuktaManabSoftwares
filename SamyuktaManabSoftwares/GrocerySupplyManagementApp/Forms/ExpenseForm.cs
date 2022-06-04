@@ -299,7 +299,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Description"].DisplayIndex = 1;
 
             DataGridExpenseList.Columns["Narration"].HeaderText = "Narration";
-            DataGridExpenseList.Columns["Narration"].Width = 200;
+            DataGridExpenseList.Columns["Narration"].Width = 450;
             DataGridExpenseList.Columns["Narration"].DisplayIndex = 2;
 
             DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";

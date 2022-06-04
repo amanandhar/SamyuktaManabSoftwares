@@ -525,6 +525,15 @@ namespace GrocerySupplyManagementApp.Forms
                 RichBalanceAmount.Text = Math.Round(deliveryChargeTotal - receivedAmount, 2).ToString();
                 TxtChangeMoney.Text = Constants.DEFAULT_DECIMAL_VALUE.ToString();
             }
+
+            if(Convert.ToDecimal(RichBalanceAmount.Text) == Constants.DEFAULT_DECIMAL_VALUE)
+            {
+                RichBalanceAmount.ForeColor = Color.FromArgb(0, 192, 0);
+            }
+            else
+            {
+                RichBalanceAmount.ForeColor = Color.Red;
+            }
         }
 
         private void RichItemQuantity_KeyPress(object sender, KeyPressEventArgs e)
@@ -883,31 +892,31 @@ namespace GrocerySupplyManagementApp.Forms
                 DataGridSoldItemList.Columns["ItemCode"].DisplayIndex = 0;
 
                 DataGridSoldItemList.Columns["ItemName"].HeaderText = "Name";
-                DataGridSoldItemList.Columns["ItemName"].Width = 300;
+                DataGridSoldItemList.Columns["ItemName"].Width = 305;
                 DataGridSoldItemList.Columns["ItemName"].DisplayIndex = 1;
 
-                DataGridSoldItemList.Columns["Volume"].HeaderText = "Vol";
-                DataGridSoldItemList.Columns["Volume"].Width = 63;
+                DataGridSoldItemList.Columns["Volume"].HeaderText = "Volume";
+                DataGridSoldItemList.Columns["Volume"].Width = 62;
                 DataGridSoldItemList.Columns["Volume"].DisplayIndex = 2;
                 DataGridSoldItemList.Columns["Volume"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["DisplayUnit"].HeaderText = "Unit";
-                DataGridSoldItemList.Columns["DisplayUnit"].Width = 63;
+                DataGridSoldItemList.Columns["DisplayUnit"].Width = 60;
                 DataGridSoldItemList.Columns["DisplayUnit"].DisplayIndex = 3;
                 DataGridSoldItemList.Columns["DisplayUnit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["Quantity"].HeaderText = "Qty";
-                DataGridSoldItemList.Columns["Quantity"].Width = 63;
+                DataGridSoldItemList.Columns["Quantity"].Width = 55;
                 DataGridSoldItemList.Columns["Quantity"].DisplayIndex = 4;
                 DataGridSoldItemList.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 DataGridSoldItemList.Columns["ItemPrice"].HeaderText = "Price";
-                DataGridSoldItemList.Columns["ItemPrice"].Width = 89;
+                DataGridSoldItemList.Columns["ItemPrice"].Width = 83;
                 DataGridSoldItemList.Columns["ItemPrice"].DisplayIndex = 5;
                 DataGridSoldItemList.Columns["ItemPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                 DataGridSoldItemList.Columns["ItemDiscount"].HeaderText = "Discount";
-                DataGridSoldItemList.Columns["ItemDiscount"].Width = 80;
+                DataGridSoldItemList.Columns["ItemDiscount"].Width = 72;
                 DataGridSoldItemList.Columns["ItemDiscount"].DisplayIndex = 6;
                 DataGridSoldItemList.Columns["ItemDiscount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 

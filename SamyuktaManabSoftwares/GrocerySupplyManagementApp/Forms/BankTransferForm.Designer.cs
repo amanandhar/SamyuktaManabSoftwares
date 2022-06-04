@@ -238,7 +238,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.label6.BackColor = System.Drawing.Color.DodgerBlue;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Aqua;
-            this.label6.Location = new System.Drawing.Point(279, 4);
+            this.label6.Location = new System.Drawing.Point(276, 4);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(148, 25);
             this.label6.TabIndex = 9;

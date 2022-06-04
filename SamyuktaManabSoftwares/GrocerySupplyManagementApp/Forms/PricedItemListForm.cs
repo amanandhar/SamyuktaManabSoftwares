@@ -90,11 +90,12 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridPricedItemList.Columns["Code"].DisplayIndex = 0;
 
             DataGridPricedItemList.Columns["SubCode"].HeaderText = "Sub";
-            DataGridPricedItemList.Columns["SubCode"].Width = 60;
+            DataGridPricedItemList.Columns["SubCode"].Width = 40;
             DataGridPricedItemList.Columns["SubCode"].DisplayIndex = 1;
+            DataGridPricedItemList.Columns["SubCode"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             DataGridPricedItemList.Columns["Name"].HeaderText = "Name";
-            DataGridPricedItemList.Columns["Name"].Width = 200;
+            DataGridPricedItemList.Columns["Name"].Width = 250;
             DataGridPricedItemList.Columns["Name"].DisplayIndex = 2;
 
             DataGridPricedItemList.Columns["Stock"].HeaderText = "Stock";

@@ -316,7 +316,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnShow);
             this.groupBox2.Location = new System.Drawing.Point(941, 44);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(145, 100);
+            this.groupBox2.Size = new System.Drawing.Size(145, 103);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
