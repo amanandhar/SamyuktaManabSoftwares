@@ -22,6 +22,8 @@ namespace GrocerySupplyManagementApp.Forms
         private Label[] _counterLabels;
         private Label[] _pricedItemNameLabels;
         private Label[] _pricedItemCodeLabels;
+        private Label[] _pricedItemSubCodeLabels;
+        private Label[] _pricedItemCustomizedQuantityLabels;
         private TextBox[] _pricedItemCountTextboxes;
         private TextBox _TxtHeaderPrintCount;
         private TextBox _TxtFooterTotalPrintCount;
@@ -87,6 +89,8 @@ namespace GrocerySupplyManagementApp.Forms
             _counterLabels = new Label[_pricedItemListCount];
             _pricedItemNameLabels = new Label[_pricedItemListCount];
             _pricedItemCodeLabels = new Label[_pricedItemListCount];
+            _pricedItemSubCodeLabels = new Label[_pricedItemListCount];
+            _pricedItemCustomizedQuantityLabels = new Label[_pricedItemListCount];
             _pricedItemCountTextboxes = new TextBox[_pricedItemListCount];
         }
 
@@ -97,36 +101,45 @@ namespace GrocerySupplyManagementApp.Forms
                 Name = "LblHeaderCounter",
                 Text = "S.No",
                 Location = new Point(5, 5),
-                Size = new Size(75, 20),
+                Size = new Size(50, 20),
                 Font = new Font(Label.DefaultFont, FontStyle.Bold)
             });
             PanelHeader.Controls.Add(new Label()
             {
                 Name = "LblHeaderItemName",
                 Text = "Item Name",
-                Location = new Point(80, 5),
-                Size = new Size(200, 20),
+                Location = new Point(60, 5),
+                Size = new Size(220, 20),
                 Font = new Font(Label.DefaultFont, FontStyle.Bold)
             });
             PanelHeader.Controls.Add(new Label()
             {
                 Name = "LblHeaderItemCode",
                 Text = "Item Code",
-                Location = new Point(300, 5),
-                Size = new Size(100, 20),
+                Location = new Point(285, 5),
+                Size = new Size(70, 20),
                 Font = new Font(Label.DefaultFont, FontStyle.Bold)
             });
-
+            
             TextBox TxtHeaderItemCode = new TextBox
             {
                 Name = "TxtItemCode",
-                Location = new Point(300, 25),
-                Size = new Size(75, 20),
+                Location = new Point(285, 25),
+                Size = new Size(70, 20),
                 Font = new Font(Label.DefaultFont, FontStyle.Bold)
             };
 
             TxtHeaderItemCode.KeyUp += new KeyEventHandler(TxtHeaderItemCode_KeyUp);
             PanelHeader.Controls.Add(TxtHeaderItemCode);
+
+            PanelHeader.Controls.Add(new Label()
+            {
+                Name = "LblHeaderItemSubCode",
+                Text = "Sub Code",
+                Location = new Point(360, 5),
+                Size = new Size(40, 20),
+                Font = new Font(Label.DefaultFont, FontStyle.Bold)
+            });
 
             PanelHeader.Controls.Add(new Label()
             {
@@ -161,23 +174,38 @@ namespace GrocerySupplyManagementApp.Forms
                     Name = counter.ToString(),
                     Text = (counter + 1).ToString(),
                     Location = new Point(5, 5 + (30 * counter)),
-                    Size = new Size(75, 25),
+                    Size = new Size(50, 25),
                 };
 
                 _pricedItemNameLabels[counter] = new Label
                 {
                     Name = counter.ToString(),
                     Text = pricedItem.Name,
-                    Location = new Point(80, 5 + (30 * counter)),
-                    Size = new Size(200, 25)
+                    Location = new Point(60, 5 + (30 * counter)),
+                    Size = new Size(220, 25)
                 };
 
                 _pricedItemCodeLabels[counter] = new Label
                 {
                     Name = counter.ToString(),
                     Text = pricedItem.Code,
-                    Location = new Point(300, 5 + (30 * counter)),
-                    Size = new Size(100, 25)
+                    Location = new Point(285, 5 + (30 * counter)),
+                    Size = new Size(70, 25)
+                };
+
+                _pricedItemSubCodeLabels[counter] = new Label
+                {
+                    Name = counter.ToString(),
+                    Text = pricedItem.SubCode,
+                    Location = new Point(360, 5 + (30 * counter)),
+                    Size = new Size(40, 25)
+                };
+
+                _pricedItemCustomizedQuantityLabels[counter] = new Label
+                {
+                    Name = counter.ToString(),
+                    Text = pricedItem.CustomizedQuantity.ToString(),
+                    Visible = false
                 };
 
                 _pricedItemCountTextboxes[counter] = new TextBox()
@@ -200,6 +228,8 @@ namespace GrocerySupplyManagementApp.Forms
                 PanelBody.Controls.Add(_counterLabels[i]);
                 PanelBody.Controls.Add(_pricedItemNameLabels[i]);
                 PanelBody.Controls.Add(_pricedItemCodeLabels[i]);
+                PanelBody.Controls.Add(_pricedItemSubCodeLabels[i]);
+                PanelBody.Controls.Add(_pricedItemCustomizedQuantityLabels[i]);
                 PanelBody.Controls.Add(_pricedItemCountTextboxes[i]);
             }
         }
@@ -232,12 +262,20 @@ namespace GrocerySupplyManagementApp.Forms
                         if (int.TryParse(_pricedItemCountTextboxes[i].Text, out _))
                         {
                             var itemCode = _pricedItemCountTextboxes[i].Name;
+                            var itemSubCode = _pricedItemSubCodeLabels[i].Text;
+                            var itemCustomizedQuantity = Convert.ToDecimal(_pricedItemCustomizedQuantityLabels[i].Text);
                             var counter = Convert.ToInt32(_pricedItemCountTextboxes[i].Text);
-                            var stockItem = _stockService.GetStockItem(_pricedItemService.GetPricedItem(itemCode), new StockFilter() { ItemCode = itemCode });
+                            var pricedItem = string.IsNullOrWhiteSpace(itemCode)
+                                ? _pricedItemService.GetPricedItem(itemCode)
+                                : _pricedItemService.GetPricedItem(itemCode, itemSubCode);
+                            var stockItem = _stockService.GetStockItem(pricedItem, new StockFilter() { ItemCode = itemCode });
                             var data = new MSWordField
                             {
                                 Code = itemCode,
-                                Price = stockItem.SalesPrice
+                                SubCode = itemSubCode,
+                                Price = itemCustomizedQuantity == Constants.DEFAULT_DECIMAL_VALUE
+                                ? stockItem.SalesPrice
+                                : Math.Round(stockItem.SalesPrice * itemCustomizedQuantity, 2)
                             };
 
                             for (int x = 0; x < counter; x++)

@@ -820,11 +820,11 @@ namespace GrocerySupplyManagementApp.Repositories
                         // Add rows into the sold item table
                         string insertSoldItem = @"INSERT INTO " + Constants.TABLE_SOLD_ITEM + " " +
                             "( " +
-                                "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Quantity], [Price], [Discount], [AddedBy], [AddedDate]  " +
+                                "[EndOfDay], [MemberId], [InvoiceNo], [ItemId], [Profit], [Unit], [Quantity], [CustomizedUnit], [CustomizedQuantity], [Price], [Discount], [AddedBy], [AddedDate]  " +
                             ") " +
                             "VALUES " +
                             "( " +
-                                "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Quantity, @Price, @Discount, @AddedBy, @AddedDate " +
+                                "@EndOfDay, @MemberId, @InvoiceNo, @ItemId, @Profit, @Unit, @Quantity, @CustomizedUnit, @CustomizedQuantity, @Price, @Discount, @AddedBy, @AddedDate " +
                             ") ";
 
                         foreach (var soldItem in soldItems)
@@ -838,6 +838,8 @@ namespace GrocerySupplyManagementApp.Repositories
                                 command.Parameters.AddWithValue("@Profit", soldItem.Profit);
                                 command.Parameters.AddWithValue("@Unit", soldItem.Unit);
                                 command.Parameters.AddWithValue("@Quantity", soldItem.Quantity);
+                                command.Parameters.AddWithValue("@CustomizedUnit", soldItem.CustomizedUnit);
+                                command.Parameters.AddWithValue("@CustomizedQuantity", soldItem.CustomizedQuantity);
                                 command.Parameters.AddWithValue("@Price", soldItem.Price);
                                 command.Parameters.AddWithValue("@Discount", soldItem.Discount);
                                 command.Parameters.AddWithValue("@AddedBy", soldItem.AddedBy);

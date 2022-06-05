@@ -299,7 +299,7 @@ namespace GrocerySupplyManagementApp.Forms
             DataGridExpenseList.Columns["Description"].DisplayIndex = 1;
 
             DataGridExpenseList.Columns["Narration"].HeaderText = "Narration";
-            DataGridExpenseList.Columns["Narration"].Width = 200;
+            DataGridExpenseList.Columns["Narration"].Width = 450;
             DataGridExpenseList.Columns["Narration"].DisplayIndex = 2;
 
             DataGridExpenseList.Columns["ActionType"].HeaderText = "Type";
@@ -377,6 +377,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboExpense.DisplayMember = "Value";
 
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.ASSET, Value = Constants.ASSET });
+            ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.COMMISSION, Value = Constants.COMMISSION });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.ELECTRICITY, Value = Constants.ELECTRICITY });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.FUEL_TRANSPORTATION, Value = Constants.FUEL_TRANSPORTATION });
             ComboExpense.Items.Add(new ComboBoxItem { Id = Constants.GUEST_HOSPITALITY, Value = Constants.GUEST_HOSPITALITY });
@@ -397,6 +398,7 @@ namespace GrocerySupplyManagementApp.Forms
             ComboFilteredBy.DisplayMember = "Value";
 
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.ASSET, Value = Constants.ASSET });
+            ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.COMMISSION, Value = Constants.COMMISSION });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.ELECTRICITY, Value = Constants.ELECTRICITY });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.FUEL_TRANSPORTATION, Value = Constants.FUEL_TRANSPORTATION });
             ComboFilteredBy.Items.Add(new ComboBoxItem { Id = Constants.GUEST_HOSPITALITY, Value = Constants.GUEST_HOSPITALITY });

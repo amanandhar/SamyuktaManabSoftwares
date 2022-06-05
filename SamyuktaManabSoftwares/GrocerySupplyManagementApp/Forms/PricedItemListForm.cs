@@ -83,18 +83,24 @@ namespace GrocerySupplyManagementApp.Forms
         private void DataGridPricedItemList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridPricedItemList.Columns["Id"].Visible = false;
+            DataGridPricedItemList.Columns["CustomizedQuantity"].Visible = false;
 
             DataGridPricedItemList.Columns["Code"].HeaderText = "Code";
             DataGridPricedItemList.Columns["Code"].Width = 80;
             DataGridPricedItemList.Columns["Code"].DisplayIndex = 0;
 
+            DataGridPricedItemList.Columns["SubCode"].HeaderText = "Sub";
+            DataGridPricedItemList.Columns["SubCode"].Width = 40;
+            DataGridPricedItemList.Columns["SubCode"].DisplayIndex = 1;
+            DataGridPricedItemList.Columns["SubCode"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             DataGridPricedItemList.Columns["Name"].HeaderText = "Name";
-            DataGridPricedItemList.Columns["Name"].Width = 280;
-            DataGridPricedItemList.Columns["Name"].DisplayIndex = 1;
+            DataGridPricedItemList.Columns["Name"].Width = 250;
+            DataGridPricedItemList.Columns["Name"].DisplayIndex = 2;
 
             DataGridPricedItemList.Columns["Stock"].HeaderText = "Stock";
             DataGridPricedItemList.Columns["Stock"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DataGridPricedItemList.Columns["Stock"].DisplayIndex = 2;
+            DataGridPricedItemList.Columns["Stock"].DisplayIndex = 3;
             DataGridPricedItemList.Columns["Stock"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             foreach (DataGridViewRow row in DataGridPricedItemList.Rows)

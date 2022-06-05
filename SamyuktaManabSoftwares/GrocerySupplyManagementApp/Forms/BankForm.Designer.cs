@@ -277,7 +277,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox2.Controls.Add(this.BtnAddBank);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Red;
-            this.groupBox2.Location = new System.Drawing.Point(949, 251);
+            this.groupBox2.Location = new System.Drawing.Point(949, 249);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(140, 215);
             this.groupBox2.TabIndex = 2;
@@ -412,7 +412,7 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox4.Controls.Add(this.BtnSaveTransaction);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Red;
-            this.groupBox4.Location = new System.Drawing.Point(949, 140);
+            this.groupBox4.Location = new System.Drawing.Point(949, 134);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(140, 105);
             this.groupBox4.TabIndex = 13;
@@ -480,7 +480,7 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridBankList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridBankList.Location = new System.Drawing.Point(14, 140);
+            this.DataGridBankList.Location = new System.Drawing.Point(14, 141);
             this.DataGridBankList.Name = "DataGridBankList";
             this.DataGridBankList.ReadOnly = true;
             this.DataGridBankList.Size = new System.Drawing.Size(923, 405);

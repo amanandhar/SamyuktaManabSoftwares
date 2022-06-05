@@ -75,9 +75,9 @@ namespace GrocerySupplyManagementApp.Forms
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.Red;
-            this.groupBox3.Location = new System.Drawing.Point(18, 45);
+            this.groupBox3.Location = new System.Drawing.Point(15, 45);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(490, 125);
+            this.groupBox3.Size = new System.Drawing.Size(493, 125);
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Filtered Income";
@@ -340,10 +340,10 @@ namespace GrocerySupplyManagementApp.Forms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridIncomeList.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridIncomeList.Location = new System.Drawing.Point(18, 176);
+            this.DataGridIncomeList.Location = new System.Drawing.Point(15, 176);
             this.DataGridIncomeList.Name = "DataGridIncomeList";
             this.DataGridIncomeList.ReadOnly = true;
-            this.DataGridIncomeList.Size = new System.Drawing.Size(1070, 420);
+            this.DataGridIncomeList.Size = new System.Drawing.Size(1073, 420);
             this.DataGridIncomeList.TabIndex = 32;
             this.DataGridIncomeList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DataGridIncomeView_DataBindingComplete);
             // 

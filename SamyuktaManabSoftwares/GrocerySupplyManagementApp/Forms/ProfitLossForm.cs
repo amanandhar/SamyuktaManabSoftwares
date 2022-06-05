@@ -103,6 +103,7 @@ namespace GrocerySupplyManagementApp.Forms
                     var expenseFields = new List<MSExcelField>();
                     var expenses = GetExpense();
                     expenseFields.Add(new MSExcelField() { Order = 1, Field = Constants.ASSET, Value = expenses.Where(x => x.Name == Constants.ASSET).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
+                    expenseFields.Add(new MSExcelField() { Order = 1, Field = Constants.COMMISSION, Value = expenses.Where(x => x.Name == Constants.COMMISSION).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     expenseFields.Add(new MSExcelField() { Order = 2, Field = Constants.DELIVERY_CHARGE, Value = expenses.Where(x => x.Name == Constants.DELIVERY_CHARGE).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     expenseFields.Add(new MSExcelField() { Order = 3, Field = Constants.ELECTRICITY, Value = expenses.Where(x => x.Name == Constants.ELECTRICITY).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
                     expenseFields.Add(new MSExcelField() { Order = 4, Field = Constants.FUEL_TRANSPORTATION, Value = expenses.Where(x => x.Name == Constants.FUEL_TRANSPORTATION).Select(x => x.Amount).FirstOrDefault().ToString(), IsColumn = false });
@@ -247,6 +248,11 @@ namespace GrocerySupplyManagementApp.Forms
                     {
                         Name = Constants.ASSET,
                         Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.ASSET })
+                    },
+                    new IncomeExpenseView
+                    {
+                        Name = Constants.COMMISSION,
+                        Amount = _incomeExpenseService.GetTotalExpense(new ExpenseTransactionFilter() { DateTo = endOfDay, ExpenseType = Constants.COMMISSION })
                     },
                     new IncomeExpenseView
                     {

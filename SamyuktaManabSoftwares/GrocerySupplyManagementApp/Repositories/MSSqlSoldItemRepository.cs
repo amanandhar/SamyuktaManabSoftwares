@@ -74,8 +74,15 @@ namespace GrocerySupplyManagementApp.Repositories
         {
             var soldItemViewList = new List<SoldItemView>();
             var query = @"SELECT " +
-                "a.[Id], b.[Code], b.[Name], a.[Profit], b.[Unit], a.[Quantity], a.[Price], a.[Discount], " +
-                "CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) AS Total, " +
+                "a.[Id], b.[Code], b.[Name], a.[Profit], " +
+                "b.[Unit], a.[Quantity], a.[CustomizedUnit], a.[CustomizedQuantity], " +
+                "a.[Price], a.[Discount], " +
+                "CASE " +
+                "WHEN a.CustomizedQuantity = 0.000 " +
+                "THEN CAST((a.[Quantity] * a.[Price]) AS DECIMAL(18,2)) " +
+                "ELSE CAST((a.[Quantity] * a.[Price])/a.[CustomizedQuantity] AS DECIMAL(18, 2)) " +
+                "END " +
+                "AS Total, " +
                 "a.[AdjustedType], a.[AdjustedAmount], " +
                 "a.[AddedDate] " +
                 "FROM " + Constants.TABLE_SOLD_ITEM + " a " +
@@ -106,6 +113,11 @@ namespace GrocerySupplyManagementApp.Repositories
                                     Profit = Convert.ToDecimal(reader["Profit"].ToString()),
                                     Unit = reader["Unit"].ToString(),
                                     Quantity = Convert.ToDecimal(reader["Quantity"].ToString()),
+                                    CustomizedUnit = reader["CustomizedUnit"].ToString(),
+                                    DisplayUnit = string.IsNullOrWhiteSpace(reader["CustomizedUnit"].ToString()) 
+                                        ? reader["Unit"].ToString()
+                                        : reader["CustomizedUnit"].ToString(),
+                                    Volume = Convert.ToDecimal(reader["CustomizedQuantity"].ToString()),
                                     ItemPrice = Convert.ToDecimal(reader["Price"].ToString()),
                                     ItemDiscount = Convert.ToDecimal(reader["Discount"].ToString()),
                                     Total = Convert.ToDecimal(reader["Total"].ToString()),

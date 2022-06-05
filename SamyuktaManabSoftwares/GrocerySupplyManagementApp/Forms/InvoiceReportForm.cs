@@ -90,6 +90,7 @@ namespace GrocerySupplyManagementApp.Forms
             invoiceDataTable.Columns.Add("ItemName");
             invoiceDataTable.Columns.Add("Unit");
             invoiceDataTable.Columns.Add("Quantity");
+            invoiceDataTable.Columns.Add("CustomizedQuantity");
             invoiceDataTable.Columns.Add("Price");
             invoiceDataTable.Columns.Add("ItemDiscount");
             invoiceDataTable.Columns.Add("Amount");
@@ -117,7 +118,8 @@ namespace GrocerySupplyManagementApp.Forms
                 invoiceRow["AmountInWords"] = UtilityService.ConvertAmount(report.TotalAmount);
                 invoiceRow["ItemName"] = report.ItemName;
                 invoiceRow["Unit"] = report.Unit;
-                invoiceRow["Quantity"] = report.Quantity;
+                invoiceRow["Quantity"] = report.Quantity.ToString("0.###");
+                invoiceRow["CustomizedQuantity"] = report.CustomizedQuantity.ToString("0.###");
                 invoiceRow["Price"] = report.Price;
                 invoiceRow["ItemDiscount"] = report.ItemDiscount;
                 invoiceRow["Amount"] = report.Amount;
